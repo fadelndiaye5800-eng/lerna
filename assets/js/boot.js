@@ -1,6 +1,6 @@
 /* LERNA — boot.js : chargé en tout premier dans <head>, avant l'affichage.
    Applique sans clignotement : le thème (clair par défaut, sombre seulement si la personne le choisit),
-   la version du test A/B (A = blanc chaud, B = crème plus présent), la taille du texte et « moins d'animations ».
+   la version du test A/B (A = crème uni, B = marron uni), la taille du texte et « moins d'animations ».
    Même logique que Lerna.prefs dans core.js. */
 (function () {
   var root = document.documentElement;
@@ -18,7 +18,7 @@
   var theme = p.theme;
   if (theme === 'auto') {
     try { theme = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } catch (e) { theme = 'light'; }
-  } else if (theme !== 'dark') theme = 'light';
+  } else if (theme !== 'dark' && theme !== 'light') theme = v === 'b' ? 'dark' : 'light';  /* par défaut : A crème uni, B marron uni */
   root.setAttribute('data-theme', theme);
   root.setAttribute('data-variant', v);
   root.setAttribute('data-text', p.textSize === 'large' ? 'large' : 'normal');
@@ -31,5 +31,5 @@
     if (!skip) root.setAttribute('data-splash', '');
   } catch (e) {}
   var m = document.querySelector('meta[name="theme-color"]');
-  if (m && !m.hasAttribute('data-fixed')) m.setAttribute('content', theme === 'dark' ? '#22170F' : (v === 'b' ? '#FFF9F1' : '#FFFFFF'));
+  if (m && !m.hasAttribute('data-fixed')) m.setAttribute('content', theme === 'dark' ? '#2A1607' : '#FBF6EC');
 })();

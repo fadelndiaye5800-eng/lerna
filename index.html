@@ -6,7 +6,7 @@
 <title>LERNA — Ton orientation, enfin claire</title>
 <meta name="lerna-title" content="home.docTitle">
 <meta name="description" content="LERNA apprend à te connaître — ton profil, ton budget, tes ambitions — et te guide vers l'école, la filière et le chemin qui te correspondent vraiment, où que tu sois dans le monde.">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#FBF6EC">
 <meta property="og:title" content="LERNA — Ton orientation, enfin claire">
 <meta property="og:description" content="Dis-moi qui tu es. Je te dis où tu vas. 25 questions, une IA, des écoles réelles avec leurs vrais coûts.">
 <meta property="og:image" content="/assets/icons/og.png">
@@ -30,52 +30,44 @@
   } catch (e) {}
 </script>
 <style>
-  /* ---------- Hero (blanc → crème, cercles marron très légers) ---------- */
+  /* ---------- Hero : une seule couleur unie (crème en A, marron en B), aucun décor ---------- */
   .hero {
-    position: relative; overflow: hidden;
-    background: radial-gradient(ellipse at 50% 35%, var(--hero-glow) 0%, transparent 60%), var(--panel-grad);
+    position: relative;
+    background: var(--bg);
     min-height: calc(100vh - var(--nav-h));
     min-height: calc(100svh - var(--nav-h));
     display: flex; align-items: center; justify-content: center;
     text-align: center;
     padding: 64px 20px 72px;
   }
-  .hero-circle { position: absolute; top: 50%; left: 50%; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); }
-  .hero-circle.c1 { width: 600px; height: 600px; border: 70px solid rgba(61, 31, 0, 0.035); }
-  .hero-circle.c2 { width: 920px; height: 920px; border: 50px solid rgba(61, 31, 0, 0.025); }
-  .hero-inner { position: relative; z-index: 1; max-width: 860px; }
-  .hero-badge { background: var(--orange); color: #fff; margin-bottom: 26px; padding: 5px 14px 5px 5px; }
-  .hero-badge .seal { width: 22px; height: 22px; }
-  .hero-hello { color: var(--orange); font-weight: 800; font-size: 1.05rem; margin: -8px 0 10px; min-height: 1.4em; }
+  .hero-inner { max-width: 760px; }
+  .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 28px; font-size: .74rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--cream-darker); border-radius: 99px; padding: 7px 14px; }
+  .hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); }
+  .hero-hello { color: var(--muted); font-weight: 600; font-size: 1rem; margin: -10px 0 12px; min-height: 1.4em; }
   .hero h1 {
     color: var(--brown);
-    font-size: clamp(2.6rem, 8vw, 5.2rem);
-    line-height: 1.08;
-    letter-spacing: -0.03em;
+    font-size: clamp(2.5rem, 7.5vw, 4.8rem);
+    line-height: 1.06;
+    letter-spacing: -0.035em;
   }
-  .hero-sub {
-    color: var(--on-panel-muted);
-    font-size: clamp(1rem, 2.5vw, 1.2rem);
-    max-width: 500px; margin: 24px auto 34px;
-  }
-  .hero .btn-primary { padding: 18px 44px; font-size: 1.05rem; }
+  .hero-sub { max-width: 540px; margin: 30px auto 36px; padding: 20px 0; border-top: 1px solid var(--on-panel-line); border-bottom: 1px solid var(--on-panel-line); }
+  .hero-sub strong { display: block; color: var(--brown); font-size: clamp(1.05rem, 2.6vw, 1.22rem); font-weight: 700; margin-bottom: 6px; }
+  .hero-sub span { display: block; color: var(--muted); font-size: clamp(.95rem, 2.3vw, 1.06rem); line-height: 1.6; }
+  .hero .btn-primary { padding: 18px 44px; font-size: 1.05rem; box-shadow: none; }
   .hero-note { color: var(--muted); font-size: 0.78rem; margin-top: 16px; letter-spacing: .02em; }
   .hero-again { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; color: var(--brown); font-weight: 600; font-size: .9rem; text-decoration: none; border-bottom: 1px solid var(--cream-darker); padding-bottom: 2px; }
   .hero-again:hover { color: var(--orange); border-color: var(--orange); }
-  .hero-book { width: 70px; height: 70px; margin: 34px auto 0; opacity: 0.35; }
   @media (max-width: 480px) {
-    .hero { padding: 48px 18px 60px; }
-    .hero-circle.c1 { width: 420px; height: 420px; border-width: 50px; }
-    .hero-circle.c2 { width: 680px; height: 680px; border-width: 38px; }
+    .hero { padding: 44px 18px 56px; }
     .hero .btn-primary { width: 100%; padding: 17px 24px; }
   }
 
-  /* ---------- Bande de statistiques (fond #3D1F00) ---------- */
-  .stats { background: var(--panel-grad); padding: 38px 0; }
+  /* ---------- Bande de statistiques (même fond uni, filets fins) ---------- */
+  .stats { background: var(--bg); padding: 38px 0; border-top: 1px solid var(--on-panel-line); border-bottom: 1px solid var(--on-panel-line); }
   .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
   .stat { text-align: center; padding: 10px 16px; border-left: 1px solid var(--on-panel-line); }
   .stat:first-child { border-left: none; }
-  .stat-num { font-family: var(--font-head); font-weight: 800; font-size: 2.4rem; color: var(--orange); line-height: 1.1; }
+  .stat-num { font-family: var(--font-head); font-weight: 800; font-size: 2.4rem; color: var(--brown); line-height: 1.1; }
   .stat-lbl { color: var(--on-panel-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px; font-weight: 600; }
   @media (max-width: 768px) {
     .stats-grid { grid-template-columns: 1fr; }
@@ -102,7 +94,7 @@
   .step p { color: var(--muted); }
 
   /* ---------- Témoignages ---------- */
-  .testi { background: var(--cream-dark); padding: 88px 0; }
+  .testi { background: var(--bg); border-top: 1px solid var(--on-panel-line); padding: 88px 0; }
   .t-card { display: flex; flex-direction: column; gap: 18px; }
   .t-quote { font-size: 1rem; line-height: 1.7; color: var(--brown); }
   .t-quote::before { content: '“'; font-family: var(--font-head); font-size: 3rem; color: var(--orange); line-height: 0; vertical-align: -0.45em; margin-right: 4px; }
@@ -116,7 +108,7 @@
   .t-who .flg { width: 26px; height: 26px; }
 
   /* ---------- CTA finale ---------- */
-  .final { background: var(--panel-grad); text-align: center; padding: 88px 0; }
+  .final { background: var(--bg); border-top: 1px solid var(--on-panel-line); text-align: center; padding: 88px 0; }
   .final h2 { color: var(--on-panel); font-size: clamp(2rem, 5vw, 3.2rem); }
   .final h2 .orange { color: var(--orange); }
   .final p { color: var(--on-panel-muted); margin: 14px auto 30px; max-width: 480px; }
@@ -128,22 +120,16 @@
 <main>
   <!-- HERO -->
   <section class="hero" aria-labelledby="hero-title">
-    <div class="hero-circle c2" aria-hidden="true"></div>
-    <div class="hero-circle c1" aria-hidden="true"></div>
     <div class="hero-inner">
-      <span class="badge hero-badge fade-up" style="--i:0"><span id="heroSeal"></span><span data-i18n="home.badge">Powered by IA</span></span>
+      <span class="hero-eyebrow fade-up" style="--i:0"><span class="dot" aria-hidden="true"></span><span data-i18n="home.badge">Ton conseiller d'orientation IA</span></span>
       <p class="hero-hello fade-up" style="--i:1" id="heroHello"></p>
       <h1 id="hero-title" class="fade-up" style="--i:1" data-i18n-html="home.title">Dis-moi qui tu es.<br>Je te dis où tu <span class="vas">vas</span>.</h1>
-      <p class="hero-sub fade-up" style="--i:2" data-i18n="home.sub">LERNA apprend à te connaître — ton profil, ton budget, tes ambitions — et te guide vers l'école, la filière et le chemin qui te correspondent vraiment, où que tu sois dans le monde.</p>
+      <p class="hero-sub fade-up" style="--i:2" data-i18n-html="home.sub"><strong>LERNA apprend à te connaître.</strong><span>Ton profil, ton budget, tes ambitions : il te montre l'école, la filière et les bourses qui te correspondent, en Afrique comme partout dans le monde.</span></p>
       <div class="fade-up" style="--i:3">
         <a href="questionnaire.html" class="btn btn-primary" data-i18n="home.cta">Commencer mon orientation →</a>
         <p class="hero-note" data-i18n="home.note">Gratuit · 5 minutes · Résultat immédiat</p>
         <a href="resultats.html" class="hero-again hidden" id="heroAgain"><span data-i18n="home.again">Revoir mes résultats</span> →</a>
       </div>
-      <div class="fade-up" style="--i:4"><svg class="hero-book" viewBox="0 0 64 64" aria-hidden="true">
-        <path d="M32 14C25 9 15 8 6 10v38c9-2 19-1 26 4V14z" fill="#3D1F00" stroke="#FAF3E0" stroke-width="2" stroke-linejoin="round"/>
-        <path d="M32 14c7-5 17-6 26-4v38c-9-2-19-1-26 4V14z" fill="#E8640C" stroke="#FAF3E0" stroke-width="2" stroke-linejoin="round"/>
-      </svg></div>
     </div>
   </section>
 
@@ -223,9 +209,9 @@
 Lerna.addStrings({
   fr: {
     'home.docTitle': 'LERNA — Ton orientation, enfin claire',
-    'home.badge': 'Powered by IA',
+    'home.badge': "Ton conseiller d'orientation IA",
     'home.title': 'Dis-moi qui tu es.<br>Je te dis où tu <span class="vas">vas</span>.',
-    'home.sub': "LERNA apprend à te connaître — ton profil, ton budget, tes ambitions — et te guide vers l'école, la filière et le chemin qui te correspondent vraiment, où que tu sois dans le monde.",
+    'home.sub': "<strong>LERNA apprend à te connaître.</strong><span>Ton profil, ton budget, tes ambitions : il te montre l'école, la filière et les bourses qui te correspondent, en Afrique comme partout dans le monde.</span>",
     'home.cta': 'Commencer mon orientation →',
     'home.note': 'Gratuit · 5 minutes · Résultat immédiat',
     'home.again': 'Revoir mes résultats',
@@ -245,9 +231,9 @@ Lerna.addStrings({
   },
   en: {
     'home.docTitle': 'LERNA — Your path, finally clear',
-    'home.badge': 'Powered by AI',
+    'home.badge': 'Your AI study advisor',
     'home.title': "Tell me who you are.<br>I'll tell you where you're <span class=\"vas\">going</span>.",
-    'home.sub': 'LERNA gets to know you — your profile, your budget, your ambitions — and guides you to the school, programme and path that truly fit you, wherever you are in the world.',
+    'home.sub': '<strong>LERNA gets to know you.</strong><span>Your profile, your budget, your ambitions: it shows you the school, programme and scholarships that fit you, in Africa and anywhere in the world.</span>',
     'home.cta': 'Start my orientation →',
     'home.note': 'Free · 5 minutes · Instant result',
     'home.again': 'See my results again',
@@ -268,7 +254,6 @@ Lerna.addStrings({
 });
 
 Lerna.ready(function () {
-  document.getElementById('heroSeal').innerHTML = Lerna.seal();
   /* Salutation selon l'heure (avec le pseudo une fois inscrit) et « 0 » dans la devise de la personne */
   function renderHello() {
     document.getElementById('heroHello').textContent = Lerna.greeting();

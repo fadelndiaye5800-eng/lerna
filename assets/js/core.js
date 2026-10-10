@@ -67,7 +67,7 @@
   /* Préférences de la personne (Paramètres) — appliquées dès boot.js    */
   /* ------------------------------------------------------------------ */
   var PREF_DEFAULTS = {
-    theme: 'default',          // default (= clair) | auto (comme le téléphone) | light | dark
+    theme: 'default',          // default (= version A crème, version B marron) | auto (comme le téléphone) | light | dark
     textSize: 'normal',        // normal | large
     reduceMotion: false,
     sounds: true, vibrations: true,
@@ -105,7 +105,9 @@
       var t = Prefs.get('theme');
       if (t === 'dark') return 'dark';
       if (t === 'auto') { try { return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; } catch (e) { return 'light'; } }
-      return 'light';
+      if (t === 'light') return 'light';
+      /* Par défaut : version A = crème uni, version B = marron uni (test A/B) */
+      return Lerna.ab && Lerna.ab.variant('couleurs') === 'b' ? 'dark' : 'light';
     },
     apply: function () {
       var root = doc.documentElement, th = Prefs.theme(), v = Lerna.ab ? Lerna.ab.variant('couleurs') : 'a';
@@ -114,7 +116,7 @@
       root.setAttribute('data-text', Prefs.get('textSize') === 'large' ? 'large' : 'normal');
       root.toggleAttribute('data-calm', !!Prefs.get('reduceMotion'));
       var m = doc.querySelector('meta[name="theme-color"]');
-      if (m && !m.hasAttribute('data-fixed')) m.setAttribute('content', th === 'dark' ? '#22170F' : (v === 'b' ? '#FFF9F1' : '#FFFFFF'));
+      if (m && !m.hasAttribute('data-fixed')) m.setAttribute('content', th === 'dark' ? '#2A1607' : '#FBF6EC');
     }
   };
 
@@ -463,14 +465,12 @@
   Lerna.RIBBON_D = RIBBON_D;
   Lerna.mark = function (cls, label, opts) {
     opts = opts || {};
-    var id = 'lr' + (++markN);
-    /* viewBox carré : le ruban (443 × 579) est centré, pour tenir dans les emplacements carrés */
+        /* viewBox carré : le ruban (443 × 579) est centré, pour tenir dans les emplacements carrés */
     var vb = opts.tight ? '0 0 444 579' : '-68 0 579 579';
+    /* Logo plat et sobre : une seule couleur (variable CSS --mark), sans dégradé ni ombre */
     return '<svg class="mark ' + (cls || '') + '" viewBox="' + vb + '" ' + (label ? 'role="img" aria-label="' + Lerna.esc(label) + '"' : 'aria-hidden="true"') + ' focusable="false">' +
-      '<defs><linearGradient id="' + id + 'g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD524"/><stop offset=".45" stop-color="#FFA90F"/><stop offset="1" stop-color="#F26B0C"/></linearGradient>' +
-      '<linearGradient id="' + id + 's" x1="0" y1="0" x2="1" y2="0"><stop offset=".68" stop-color="#C2410C" stop-opacity="0"/><stop offset=".86" stop-color="#E2560B" stop-opacity=".55"/><stop offset="1" stop-color="#C2410C" stop-opacity=".25"/></linearGradient></defs>' +
-      (opts.draw ? '<path class="mark-line" d="' + RIBBON_D + '" pathLength="1" fill="none" stroke="#F28A0E" stroke-width="7" stroke-linejoin="round"/>' : '') +
-      '<g class="mark-fill"><path d="' + RIBBON_D + '" fill="url(#' + id + 'g)" fill-rule="evenodd"/><path d="' + RIBBON_D + '" fill="url(#' + id + 's)" fill-rule="evenodd"/></g></svg>';
+      (opts.draw ? '<path class="mark-line" d="' + RIBBON_D + '" pathLength="1" fill="none" stroke="var(--mark, #E8640C)" stroke-width="9" stroke-linejoin="round"/>' : '') +
+      '<g class="mark-fill"><path d="' + RIBBON_D + '" fill="var(--mark, #E8640C)" fill-rule="evenodd"/></g></svg>';
   };
   Lerna.seal = function (cls, label) { return Lerna.mark('seal ' + (cls || ''), label); };
   /* « LERNA réfléchit » : le ruban respire doucement (remplace les roues qui tournent) */
@@ -1207,17 +1207,15 @@
       '</div></footer>';
   }
 
-  /* Écran d'ouverture : le ruban se dessine, se remplit, un reflet passe, puis tout s'efface (≈ 1,5 s, sans son) */
+  /* Écran d'ouverture (comme Duolingo) : fond uni, petit ruban centré qui se dessine puis rebondit, « LERNA » en bas (≈ 1,5 s, sans son) */
   function splash() {
     var root = doc.documentElement;
     if (!root.hasAttribute('data-splash') || doc.getElementById('lerna-splash')) return;
     try { sessionStorage.setItem('lerna_splash', '1'); } catch (e) {}
     var calm = root.hasAttribute('data-calm') || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
-    var maskSvg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-68 0 579 579"><path fill-rule="evenodd" d="' + RIBBON_D + '"/></svg>';
     var el = doc.createElement('div');
     el.id = 'lerna-splash'; el.setAttribute('aria-hidden', 'true');
-    el.innerHTML = '<div class="sp-mark" style="--rib:url(&quot;data:image/svg+xml,' + encodeURIComponent(maskSvg) + '&quot;)">' + Lerna.mark('', '', { draw: true }) + '<span class="sp-shine"></span></div>' +
-      '<div class="sp-word">LER<span class="n">N</span>A</div>';
+    el.innerHTML = '<div class="sp-mark">' + Lerna.mark('', '', { draw: true }) + '</div><div class="sp-word">LERNA</div>';
     doc.body.appendChild(el);
     if (calm) root.setAttribute('data-calm', '');
     setTimeout(function () {
@@ -1830,8 +1828,8 @@
     var t = Lerna.t;
     Lerna.modal('<div class="modal-head"><h3>' + t('me.title') + '</h3><button class="modal-close" data-close aria-label="' + t('common.close') + '">' + Lerna.icon('x') + '</button></div>' +
       '<p class="muted small" style="margin-bottom:14px">' + t('me.sub') + '</p>' +
-      '<div class="me-avs" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">' + [['h', 'me.h'], ['f', 'me.f'], ['x', 'me.x']].map(function (a) {
-        return '<button type="button" class="opt' + (g === a[0] ? ' selected' : '') + '" data-meav="' + a[0] + '" style="flex-direction:column;align-items:center;padding:10px 4px;gap:4px;font-size:.8rem;text-align:center">' + Lerna.sticker('av-' + a[0], 'stk-sm') + t(a[1]) + '</button>';
+      '<p style="font-weight:700;margin-bottom:8px">' + t('me.q') + '</p><div class="me-avs" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">' + [['h', 'me.h'], ['f', 'me.f'], ['x', 'me.x']].map(function (a) {
+        return '<button type="button" class="opt' + (g === a[0] ? ' selected' : '') + '" data-meav="' + a[0] + '" style="justify-content:center;padding:12px 4px;font-size:.88rem;text-align:center">' + t(a[1]) + '</button>';
       }).join('') + '</div>' +
       '<div class="field" style="margin-top:14px"><label for="meBirth">' + t('me.birth') + '</label><input class="input" type="date" id="meBirth" value="' + Lerna.esc(me.naissance || '') + '" max="' + new Date().toISOString().slice(0, 10) + '"></div>' +
       '<button type="button" class="btn btn-primary btn-block" id="meSave" style="margin-top:6px">' + t('me.save') + '</button>', function (m, close) {
@@ -1848,8 +1846,8 @@
     });
   }
   Lerna.addStrings({
-    fr: { 'me.title': 'Deux infos pour mieux t’orienter', 'me.sub': 'Ton avatar accorde les messages et te montre les bourses réservées aux femmes quand elles te concernent. Ta date de naissance sert aux offres avec une limite d’âge. Modifiable dans Paramètres.', 'me.h': 'Étudiant', 'me.f': 'Étudiante', 'me.x': 'Je préfère ne pas dire', 'me.birth': 'Date de naissance', 'me.save': 'Enregistrer', 'me.thanks': 'Merci ! LERNA s’adapte à toi.' },
-    en: { 'me.title': 'Two details to guide you better', 'me.sub': 'Your avatar adapts messages and shows you scholarships reserved for women when they apply. Your date of birth is for offers with an age limit. Editable in Settings.', 'me.h': 'Male student', 'me.f': 'Female student', 'me.x': 'Prefer not to say', 'me.birth': 'Date of birth', 'me.save': 'Save', 'me.thanks': 'Thanks! LERNA adapts to you.' }
+    fr: { 'me.q': 'Tu es', 'me.title': 'Deux infos pour mieux t’orienter', 'me.sub': 'Ta réponse accorde les messages et te montre les bourses réservées aux femmes quand elles te concernent. Ta date de naissance sert aux offres avec une limite d’âge. Modifiable dans Paramètres.', 'me.h': 'Étudiant', 'me.f': 'Étudiante', 'me.x': 'Autre', 'me.birth': 'Date de naissance', 'me.save': 'Enregistrer', 'me.thanks': 'Merci ! LERNA s’adapte à toi.' },
+    en: { 'me.q': 'You are', 'me.title': 'Two details to guide you better', 'me.sub': 'Your answer adapts messages and shows you scholarships reserved for women when they apply. Your date of birth is for offers with an age limit. Editable in Settings.', 'me.h': 'Male student', 'me.f': 'Female student', 'me.x': 'Other', 'me.birth': 'Date of birth', 'me.save': 'Save', 'me.thanks': 'Thanks! LERNA adapts to you.' }
   });
 
   Auth.ready.then(function () {

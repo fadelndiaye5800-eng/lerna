@@ -7,7 +7,7 @@
 <meta name="lerna-title" content="au.docTitle">
 <meta name="description" content="Crée ton compte LERNA ou connecte-toi pour retrouver tes résultats, tes écoles favorites et ton assistant IA.">
 <meta name="robots" content="noindex">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#FBF6EC">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
@@ -43,10 +43,9 @@
   .btn-apple { width: 100%; background: #000; color: #fff; font-weight: 600; margin-bottom: 10px; border: 2px solid #000; }
   .btn-apple:hover { background: #222; }
   .btn-apple svg { width: 18px; height: 18px; fill: currentColor; }
-  .avatars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .avatars button { border: 2px solid var(--cream-darker); border-radius: 16px; background: var(--white); padding: 10px 6px 8px; display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: .8rem; font-weight: 600; color: var(--brown); line-height: 1.2; text-align: center; }
-  .avatars button .stk { width: 54px; height: 54px; }
-  .avatars button.on { border-color: var(--orange); background: var(--orange-soft); box-shadow: 0 6px 16px rgba(232, 100, 12, .18); }
+  .avatars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .avatars button { border: 1.5px solid var(--cream-darker); border-radius: 12px; background: var(--white); padding: 12px 6px; font-size: .9rem; font-weight: 600; color: var(--brown); cursor: pointer; transition: border-color .15s, background .15s; }
+  .avatars button.on { border-color: var(--orange); background: var(--orange-soft); color: var(--brown); }
   .form-err { background: rgba(184, 74, 6, 0.08); color: var(--orange-deep); border-radius: 12px; padding: 12px 14px; font-size: .88rem; font-weight: 600; display: none; }
   .form-err.show { display: block; }
   .panel-msg { text-align: center; }
@@ -78,8 +77,8 @@ Lerna.addStrings({
     'au.pays': 'Pays', 'au.paysPh': 'Choisis ton pays', 'au.niveau': "Niveau d'études actuel", 'au.niveauPh': 'Choisis ton niveau',
     'au.n1': 'Collège', 'au.n2': 'Lycée', 'au.n3': 'Terminale', 'au.n4': 'Licence / Bachelor en cours', 'au.n5': 'Master en cours', 'au.n6': 'Doctorat', 'au.n7': 'Je travaille', 'au.n8': 'En pause',
     'au.create': 'Créer mon compte →', 'au.login': 'Se connecter →', 'au.or': 'ou', 'au.google': 'Continuer avec Google', 'au.apple': 'Continuer avec Apple',
-    'au.avatar': 'Ton avatar', 'au.avH': 'Étudiant', 'au.avF': 'Étudiante', 'au.avX': 'Je préfère ne pas dire', 'au.avHelp': 'LERNA accorde ses messages et te montre aussi les bourses réservées aux femmes quand elles te concernent. Modifiable à tout moment.',
-    'au.naissance': 'Date de naissance', 'au.naissanceHelp': 'Beaucoup de bourses et de programmes ont une limite d’âge : LERNA ne te montre que ceux qui te concernent.', 'au.eAvatar': 'Choisis ton avatar.',
+    'au.avatar': 'Tu es', 'au.avH': 'Étudiant', 'au.avF': 'Étudiante', 'au.avX': 'Autre', 'au.avHelp': 'LERNA accorde ses messages et te montre aussi les bourses réservées aux femmes quand elles te concernent. Modifiable à tout moment.',
+    'au.naissance': 'Date de naissance', 'au.naissanceHelp': 'Beaucoup de bourses et de programmes ont une limite d’âge : LERNA ne te montre que ceux qui te concernent.', 'au.eAvatar': 'Choisis une réponse : étudiant, étudiante ou autre.',
     'au.forgot': 'Mot de passe oublié ?', 'au.show': 'Afficher le mot de passe', 'au.hide': 'Masquer le mot de passe',
     'au.s0': '8 caractères minimum', 'au.s1': 'Faible', 'au.s2': 'Moyen', 'au.s3': 'Bon', 'au.s4': 'Fort',
     'au.eRequired': 'Remplis tous les champs.', 'au.eEmail': 'Adresse email invalide.', 'au.eShort': 'Le mot de passe doit faire au moins 8 caractères.',
@@ -107,8 +106,8 @@ Lerna.addStrings({
     'au.pays': 'Country', 'au.paysPh': 'Choose your country', 'au.niveau': 'Current level of study', 'au.niveauPh': 'Choose your level',
     'au.n1': 'Middle school', 'au.n2': 'High school', 'au.n3': 'Final year of high school', 'au.n4': "Bachelor's in progress", 'au.n5': "Master's in progress", 'au.n6': 'PhD', 'au.n7': 'Working', 'au.n8': 'Taking a break',
     'au.create': 'Create my account →', 'au.login': 'Log in →', 'au.or': 'or', 'au.google': 'Continue with Google', 'au.apple': 'Continue with Apple',
-    'au.avatar': 'Your avatar', 'au.avH': 'Male student', 'au.avF': 'Female student', 'au.avX': 'Prefer not to say', 'au.avHelp': 'LERNA adapts its messages and also shows you scholarships reserved for women when they apply to you. Change it any time.',
-    'au.naissance': 'Date of birth', 'au.naissanceHelp': 'Many scholarships and programmes have an age limit: LERNA only shows you the ones that apply.', 'au.eAvatar': 'Choose your avatar.',
+    'au.avatar': 'You are', 'au.avH': 'Male student', 'au.avF': 'Female student', 'au.avX': 'Other', 'au.avHelp': 'LERNA adapts its messages and also shows you scholarships reserved for women when they apply to you. Change it any time.',
+    'au.naissance': 'Date of birth', 'au.naissanceHelp': 'Many scholarships and programmes have an age limit: LERNA only shows you the ones that apply.', 'au.eAvatar': 'Choose an answer: male student, female student or other.',
     'au.forgot': 'Forgot your password?', 'au.show': 'Show password', 'au.hide': 'Hide password',
     'au.s0': 'At least 8 characters', 'au.s1': 'Weak', 'au.s2': 'Fair', 'au.s3': 'Good', 'au.s4': 'Strong',
     'au.eRequired': 'Fill in every field.', 'au.eEmail': 'Invalid email address.', 'au.eShort': 'Password must be at least 8 characters.',
@@ -134,7 +133,7 @@ Lerna.addStrings({
   var redirect = Lerna.param('redirect') || 'espace.html';
   if (!/^[a-z0-9_\-]+\.html([?#][^\s]*)?$/i.test(redirect)) redirect = 'espace.html';   // pas de redirection externe
   var verifyEmail = '';
-  var genre = '', genreTouched = false;   // avatar choisi (pré-sélectionné d'après le prénom)
+  var genre = '', genreTouched = false;   // réponse à « Tu es » (pré-sélectionnée d'après le prénom)
   var eyeOn = '<svg class="ic" viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>';
   var eyeOff = '<svg class="ic" viewBox="0 0 24 24"><path d="M9.9 4.2A10 10 0 0 1 12 4c6.5 0 10 8 10 8a17 17 0 0 1-2.2 3.2M6.6 6.6A17 17 0 0 0 2 12s3.5 8 10 8a9.7 9.7 0 0 0 5.4-1.6M2 2l20 20M14.1 14.1a3 3 0 1 1-4.2-4.2"/></svg>';
 
@@ -184,7 +183,7 @@ Lerna.addStrings({
           '<div class="field"><label for="nom">' + t('au.nom') + '</label><input class="input" id="nom" autocomplete="family-name" maxlength="60" required></div></div>' +
           '<div class="field"><label for="pseudo">' + t('au.pseudo') + ' <span class="muted small">' + t('au.optional') + '</span></label><input class="input" id="pseudo" autocomplete="nickname" maxlength="24" placeholder="' + esc(t('au.pseudoPh')) + '"><span class="small muted">' + t('au.pseudoHelp') + '</span></div>' +
           '<div class="field"><label>' + t('au.avatar') + '</label><div class="avatars" role="radiogroup">' + [['h', 'au.avH'], ['f', 'au.avF'], ['x', 'au.avX']].map(function (a) {
-            return '<button type="button" role="radio" aria-checked="' + (genre === a[0]) + '" data-av="' + a[0] + '" class="' + (genre === a[0] ? 'on' : '') + '">' + Lerna.sticker('av-' + a[0]) + t(a[1]) + '</button>';
+            return '<button type="button" role="radio" aria-checked="' + (genre === a[0]) + '" data-av="' + a[0] + '" class="' + (genre === a[0] ? 'on' : '') + '">' + t(a[1]) + '</button>';
           }).join('') + '</div><span class="small muted">' + t('au.avHelp') + '</span></div>' +
           '<div class="field"><label for="naissance">' + t('au.naissance') + '</label><input class="input" id="naissance" type="date" autocomplete="bday" min="1940-01-01" max="' + new Date(Date.now() - 10 * 365.25 * 864e5).toISOString().slice(0, 10) + '" required><span class="small muted">' + t('au.naissanceHelp') + '</span></div>' +
           '<div class="field"><label for="email">' + t('au.email') + '</label><input class="input" id="email" type="email" autocomplete="email" inputmode="email" maxlength="120" required></div>' +

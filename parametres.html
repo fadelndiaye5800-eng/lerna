@@ -6,7 +6,7 @@
 <title>Paramètres — LERNA</title>
 <meta name="lerna-title" content="st.docTitle">
 <meta name="description" content="Compte, apparence, langue, notifications, confidentialité et abonnement.">
-<meta name="theme-color" content="#FFFFFF">
+<meta name="theme-color" content="#FBF6EC">
 <meta name="robots" content="noindex">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
@@ -20,8 +20,7 @@
   .st-wrap { padding: 28px 0 70px; display: grid; gap: 26px; }
   @media (min-width: 960px) { .st-wrap { grid-template-columns: 230px minmax(0, 1fr); align-items: start; } }
   .avs { display: flex; gap: 8px; flex-wrap: wrap; }
-  .av { border: 2px solid var(--cream-darker); border-radius: 14px; padding: 6px 10px 6px 6px; display: inline-flex; align-items: center; gap: 6px; background: var(--white); font-weight: 600; font-size: .82rem; color: var(--brown); }
-  .av .stk { width: 34px; height: 34px; }
+  .av { border: 1.5px solid var(--cream-darker); border-radius: 12px; padding: 9px 14px; background: var(--white); font-weight: 600; font-size: .86rem; color: var(--brown); cursor: pointer; }
   .av.on { border-color: var(--orange); background: var(--orange-soft); }
   .av.guess { border-style: dashed; }
   .st-nav { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; position: sticky; top: var(--nav-h); z-index: 30; background: var(--bg); padding: 10px 0; margin: 0 -4px; }
@@ -88,19 +87,19 @@ Lerna.addStrings({
     'st.sCompte': 'Compte', 'st.sApparence': 'Apparence', 'st.sLangue': 'Langue', 'st.sNotif': 'Notifications', 'st.sSons': 'Sons et vibrations',
     'st.sOrientation': 'Mon orientation', 'st.sAccueil': 'Mon accueil', 'st.sPrivacy': 'Confidentialité', 'st.sKnow': 'Ce que LERNA sait de toi',
     'st.kSub': 'LERNA apprend à te connaître sans te poser de questions en plus, pour mieux t’orienter. Tout est ici, et tu peux tout corriger.',
-    'st.kAvatar': 'Ton avatar', 'st.kAvatarSub': 'Sert à accorder les messages et à te montrer les bourses réservées aux femmes quand elles te concernent.', 'st.kGuess': 'Deviné d’après ton prénom : touche pour confirmer ou changer.',
+    'st.kAvatar': 'Tu es', 'st.kAvatarSub': 'Sert à accorder les messages et à te montrer les bourses réservées aux femmes quand elles te concernent.', 'st.kGuess': 'Deviné d’après ton prénom : touche pour confirmer ou changer.',
     'st.kBirth': 'Date de naissance', 'st.kBirthSub': 'Pour les bourses et programmes avec une limite d’âge.', 'st.kAge': '{n} ans',
     'st.kCountry': 'Pays', 'st.kCountrySub': 'Deviné par ton adresse internet ou ton fuseau horaire, ou choisi par toi.', 'st.kLang': 'Langue de ton téléphone', 'st.kDevice': 'Appareil',
     'st.kLevel': 'Niveau d’études', 'st.kDoms': 'Domaines qui t’intéressent (questionnaire)', 'st.kSeen': 'Ce que tu regardes le plus dans LERNA', 'st.kNone': 'Pas encore assez d’infos',
     'st.kNever': 'LERNA ne cherche jamais à connaître ta religion, ton origine, ta santé ni les revenus de ta famille.', 'st.kForget': 'Oublier ce que tu regardes', 'st.kForgot': 'C’est oublié.',
-    'st.avH': 'Étudiant', 'st.avF': 'Étudiante', 'st.avX': 'Je préfère ne pas dire', 'st.sAbo': 'Abonnement et parrainage', 'st.sAide': 'Aide',
+    'st.avH': 'Étudiant', 'st.avF': 'Étudiante', 'st.avX': 'Autre', 'st.sAbo': 'Abonnement et parrainage', 'st.sAide': 'Aide',
     'st.guest': 'Tu n’es pas connecté', 'st.guestSub': 'Crée un compte gratuit pour garder ton parcours, tes dossiers et tes réglages sur tous tes appareils.',
     'st.signup': 'Créer mon compte', 'st.login': 'Se connecter',
     'st.pseudo': 'Pseudo', 'st.pseudoSub': 'LERNA l’utilise pour te saluer (« Bonsoir Fadel »).', 'st.prenom': 'Prénom', 'st.nom': 'Nom', 'st.save': 'Enregistrer', 'st.saved': 'Enregistré',
     'st.pw': 'Mot de passe', 'st.pwSub': 'On t’envoie un lien pour le changer.', 'st.pwBtn': 'Changer', 'st.pwSent': 'Lien envoyé à {email}',
     'st.logout': 'Se déconnecter', 'st.delete': 'Supprimer mon compte', 'st.deleteSub': 'Définitif : ton compte et tes données sur nos serveurs sont effacés.',
     'st.delTitle': 'Supprimer ton compte ?', 'st.delText': 'Ton compte, ton profil, tes recommandations, tes favoris et tes dossiers seront supprimés définitivement. Cette action est irréversible.', 'st.delConfirm': 'Oui, supprimer', 'st.deleted': 'Ton compte a été supprimé.',
-    'st.theme': 'Thème', 'st.themeSub': 'Clair, sombre, ou comme ton téléphone.', 'st.light': 'Clair', 'st.dark': 'Sombre', 'st.auto': 'Automatique',
+    'st.theme': 'Thème', 'st.themeSub': 'Crème, marron, ou comme ton téléphone.', 'st.light': 'Crème', 'st.dark': 'Marron', 'st.auto': 'Automatique',
     'st.themeDefault': 'Tu vois la version {v} de LERNA. Choisis un thème pour la remplacer.',
     'st.text': 'Taille du texte', 'st.textSub': 'Pour lire plus confortablement.', 'st.normal': 'Normal', 'st.large': 'Grand',
     'st.motion': 'Réduire les animations', 'st.motionSub': 'Moins de mouvements à l’écran.',
@@ -136,19 +135,19 @@ Lerna.addStrings({
     'st.sCompte': 'Account', 'st.sApparence': 'Appearance', 'st.sLangue': 'Language', 'st.sNotif': 'Notifications', 'st.sSons': 'Sounds and vibrations',
     'st.sOrientation': 'My orientation', 'st.sAccueil': 'My home page', 'st.sPrivacy': 'Privacy', 'st.sKnow': 'What LERNA knows about you',
     'st.kSub': 'LERNA gets to know you without asking extra questions, to guide you better. Everything is here, and you can correct it all.',
-    'st.kAvatar': 'Your avatar', 'st.kAvatarSub': 'Used to adapt messages and to show you scholarships reserved for women when they apply to you.', 'st.kGuess': 'Guessed from your first name: tap to confirm or change.',
+    'st.kAvatar': 'You are', 'st.kAvatarSub': 'Used to adapt messages and to show you scholarships reserved for women when they apply to you.', 'st.kGuess': 'Guessed from your first name: tap to confirm or change.',
     'st.kBirth': 'Date of birth', 'st.kBirthSub': 'For scholarships and programmes with an age limit.', 'st.kAge': '{n} years old',
     'st.kCountry': 'Country', 'st.kCountrySub': 'Guessed from your internet address or time zone, or chosen by you.', 'st.kLang': 'Your phone’s language', 'st.kDevice': 'Device',
     'st.kLevel': 'Study level', 'st.kDoms': 'Fields you are interested in (questionnaire)', 'st.kSeen': 'What you look at most in LERNA', 'st.kNone': 'Not enough info yet',
     'st.kNever': 'LERNA never tries to learn your religion, origin, health or family income.', 'st.kForget': 'Forget what you look at', 'st.kForgot': 'Forgotten.',
-    'st.avH': 'Male student', 'st.avF': 'Female student', 'st.avX': 'Prefer not to say', 'st.sAbo': 'Subscription and referrals', 'st.sAide': 'Help',
+    'st.avH': 'Male student', 'st.avF': 'Female student', 'st.avX': 'Other', 'st.sAbo': 'Subscription and referrals', 'st.sAide': 'Help',
     'st.guest': 'You are not logged in', 'st.guestSub': 'Create a free account to keep your journey, applications and settings on all your devices.',
     'st.signup': 'Create my account', 'st.login': 'Log in',
     'st.pseudo': 'Nickname', 'st.pseudoSub': 'LERNA uses it to greet you (“Good evening, Sam”).', 'st.prenom': 'First name', 'st.nom': 'Last name', 'st.save': 'Save', 'st.saved': 'Saved',
     'st.pw': 'Password', 'st.pwSub': 'We send you a link to change it.', 'st.pwBtn': 'Change', 'st.pwSent': 'Link sent to {email}',
     'st.logout': 'Log out', 'st.delete': 'Delete my account', 'st.deleteSub': 'Permanent: your account and data on our servers are erased.',
     'st.delTitle': 'Delete your account?', 'st.delText': 'Your account, profile, recommendations, favourites and applications will be permanently deleted. This cannot be undone.', 'st.delConfirm': 'Yes, delete', 'st.deleted': 'Your account has been deleted.',
-    'st.theme': 'Theme', 'st.themeSub': 'Light, dark, or like your phone.', 'st.light': 'Light', 'st.dark': 'Dark', 'st.auto': 'Automatic',
+    'st.theme': 'Theme', 'st.themeSub': 'Cream, brown, or like your phone.', 'st.light': 'Cream', 'st.dark': 'Brown', 'st.auto': 'Automatic',
     'st.themeDefault': 'You are seeing version {v} of LERNA. Pick a theme to replace it.',
     'st.text': 'Text size', 'st.textSub': 'For more comfortable reading.', 'st.normal': 'Normal', 'st.large': 'Large',
     'st.motion': 'Reduce animations', 'st.motionSub': 'Less movement on screen.',
@@ -285,7 +284,7 @@ Lerna.addStrings({
     h += sec('savoir', 'st.sKnow', 'thinking',
       '<p class="small muted" style="padding:14px 18px 0">' + t('st.kSub') + '</p>' +
       item(t('st.kAvatar'), t(me.genreDevine ? 'st.kGuess' : 'st.kAvatarSub'), '<div class="avs">' + [['h', 'st.avH'], ['f', 'st.avF'], ['x', 'st.avX']].map(function (a) {
-        return '<button type="button" class="av' + (me.genre === a[0] ? ' on' : '') + (me.genre === a[0] && me.genreDevine ? ' guess' : '') + '" data-av="' + a[0] + '" title="' + esc(t(a[1])) + '" aria-pressed="' + (me.genre === a[0]) + '">' + Lerna.sticker('av-' + a[0]) + '<span>' + t(a[1]) + '</span></button>';
+        return '<button type="button" class="av' + (me.genre === a[0] ? ' on' : '') + (me.genre === a[0] && me.genreDevine ? ' guess' : '') + '" data-av="' + a[0] + '" title="' + esc(t(a[1])) + '" aria-pressed="' + (me.genre === a[0]) + '">' + t(a[1]) + '</button>';
       }).join('') + '</div>', true) +
       item(t('st.kBirth'), (me.age ? t('st.kAge', { n: me.age }) + ' · ' : '') + t('st.kBirthSub'), '<input class="input" type="date" id="kBirth" style="max-width:190px" value="' + esc(me.naissance || '') + '" max="' + new Date().toISOString().slice(0, 10) + '">') +
       item(t('st.kCountry'), t('st.kCountrySub'), '<strong>' + esc(me.pays ? window.LERNA_COUNTRY_NAME(me.pays) : '—') + '</strong>') +

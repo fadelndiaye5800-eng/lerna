@@ -7,8 +7,8 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#FFF4E6",
-  "theme_color": "#FFFFFF",
+  "background_color": "#FBF6EC",
+  "theme_color": "#FBF6EC",
   "categories": [
     "education",
     "productivity"
