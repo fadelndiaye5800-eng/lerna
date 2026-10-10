@@ -23,8 +23,8 @@
   --cream-darker: #E8D5B9;      /* bordures plus marquées */
   --brown: #3D1F00;             /* texte principal */
   --muted: #80613F;             /* texte secondaire */
-  --panel: #FFEBDA;             /* blocs mis en avant (pêche clair) */
-  --panel-grad: linear-gradient(135deg, #FFF7EC 0%, #FFE4CC 100%);
+  --panel: #FFF8EE;             /* blocs mis en avant (crème clair) */
+  --panel-grad: linear-gradient(180deg, #FFFFFF 0%, #FFF8EE 100%);
   --on-panel: #3D1F00;          /* texte sur ces blocs */
   --on-panel-muted: #85613C;
   --on-panel-line: rgba(61, 31, 0, 0.12);
@@ -63,13 +63,13 @@
   --spring: cubic-bezier(.34, 1.56, .64, 1);
   color-scheme: light;
 }
-/* Version B du test A/B : la même app, avec le crème plus présent (fond crème, blocs pêche plus marqués) */
+/* Version B du test A/B : la même app, avec le crème plus présent (fond crème, blocs crème plus marqués) */
 :root[data-variant="b"] {
   --bg: #FFF9F1;
   --cream: #FFF1DE;
   --cream-dark: #F7E6CE;
-  --panel: #FFE2C6;
-  --panel-grad: linear-gradient(135deg, #FFF0DC 0%, #FFD7B3 100%);
+  --panel: #FFF3E3;
+  --panel-grad: linear-gradient(180deg, #FFFBF5 0%, #FFF1DE 100%);
   --nav-bg: rgba(255, 249, 241, 0.94);
   --footer-bg: #FFF1DE;
 }
@@ -409,13 +409,14 @@ p { line-height: 1.65; }
   font-family: var(--font-title);
   font-weight: 900;
   font-size: 1.55rem;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.04em;      /* lettres bien séparées : le N ne colle plus au R et au A */
   color: var(--brown);
   text-decoration: none;
   line-height: 1;
   white-space: nowrap;
 }
-.logo .n { color: var(--orange); }
+.logo .n { color: var(--orange); margin: 0 0.06em 0 0.05em; }
+.logo-txt { display: inline-block; }
 .logo.on-dark { color: var(--c-cream); }
 .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
 .nav-links a {
@@ -731,7 +732,7 @@ section[id], [id].blk { scroll-margin-top: calc(var(--nav-h, 64px) + 14px); }
 [data-calm] .mark-think { animation: none; opacity: .9; }
 
 /* ---------- Écran d'ouverture (une fois par session) ---------- */
-:root { --splash-bg: linear-gradient(160deg, #FFFFFF 0%, #FFF4E6 55%, #FFE6CF 100%); }
+:root { --splash-bg: linear-gradient(180deg, #FFFFFF 0%, #FFF8EE 100%); }
 :root[data-theme="dark"] { --splash-bg: radial-gradient(circle at 50% 42%, #3A2617 0%, #22170F 70%); }
 html[data-splash]::before { content: ''; position: fixed; inset: 0; z-index: 9998; background: var(--splash-bg); animation: splashSafe .3s 3.2s forwards; }
 html[data-splash] body { overflow: hidden; }
