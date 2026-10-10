@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Questionnaire — LERNA</title>
+<meta name="lerna-title" content="qz.docTitle">
+<meta name="description" content="25 questions en images pour que LERNA te connaisse vraiment et te guide vers les écoles qui te correspondent.">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:title" content="LERNA — Ton orientation, enfin claire">
+<meta property="og:description" content="Quelques questions. Un avenir plus clair.">
+<meta property="og:image" content="/assets/icons/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<style>
+  body { --qbar-h: 46px; }
+  /* Barre de progression fixe sous la navbar */
+  .qbar {
+    position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 80;
+    height: var(--qbar-h);
+    background: var(--bg);
+    display: flex; align-items: center;
+  }
+  .qbar-inner { width: 100%; max-width: 760px; margin: 0 auto; padding: 0 20px; display: flex; align-items: center; gap: 14px; }
+  .qbar-track { flex: 1; height: 6px; background: var(--cream-dark); border-radius: 99px; overflow: hidden; }
+  .qbar-fill { height: 100%; width: 0; background: var(--orange); border-radius: 99px; transition: width .5s cubic-bezier(.4, 0, .2, 1); }
+  .qbar-count { font-size: .82rem; font-weight: 700; color: var(--muted); min-width: 44px; text-align: right; font-variant-numeric: tabular-nums; }
+  .qbar-count b { color: var(--orange); }
+
+  .qwrap { max-width: 760px; margin: 0 auto; padding: calc(var(--qbar-h) + 18px) 20px calc(120px + var(--safe-b)); min-height: calc(100dvh - var(--nav-h)); }
+
+  /* Écran de démarrage : collage de stickers autour du sceau LERNA */
+  .splash { text-align: center; padding: 18px 0 40px; }
+  .splash-art { position: relative; width: 260px; height: 220px; margin: 0 auto 22px; }
+  .splash-art .seal { position: absolute; left: 50%; top: 50%; width: 92px; height: 92px; transform: translate(-50%, -50%); filter: drop-shadow(0 12px 22px rgba(61, 31, 0, .28)); }
+  .splash-art .stk { position: absolute; width: 74px; height: 74px; animation: stkPop .6s var(--ease) both, stkFloat 4.5s ease-in-out infinite; }
+  .splash-art .s1 { left: 0; top: 18px; --r: -10deg; animation-delay: .1s, .7s; }
+  .splash-art .s2 { right: 4px; top: 0; --r: 8deg; animation-delay: .2s, 1.4s; }
+  .splash-art .s3 { left: 22px; bottom: 0; --r: 6deg; animation-delay: .3s, 2s; }
+  .splash-art .s4 { right: 16px; bottom: 10px; --r: -6deg; animation-delay: .4s, 1s; }
+  .splash h1 { font-size: clamp(2.1rem, 6vw, 3.4rem); }
+  .splash h1 .orange { color: var(--orange); }
+  .splash p.lead { color: var(--muted); max-width: 520px; margin: 16px auto 22px; font-size: 1.05rem; }
+  .splash-badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 30px; }
+  .splash-badges .tag { padding: 6px 14px 6px 8px; font-size: .84rem; background: var(--white); border: 1.5px solid var(--cream-dark); gap: 6px; }
+  .resume-box { margin: 0 auto 18px; max-width: 460px; text-align: left; }
+  .splash .btn-primary { min-width: 240px; }
+
+  /* Carte question */
+  .q-head { margin-bottom: 20px; }
+  .q-block { display: inline-flex; align-items: center; gap: 8px; color: var(--muted); font-size: .82rem; font-weight: 600; margin-bottom: 6px; }
+  .q-block::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+  .q-num { display: block; color: var(--orange); font-size: .8rem; font-weight: 700; letter-spacing: .04em; margin-bottom: 8px; }
+  .q-title { font-size: clamp(1.55rem, 4.6vw, 2.3rem); line-height: 1.15; }
+  .q-sub { color: var(--muted); margin-top: 8px; font-size: .98rem; }
+  .q-hint { display: inline-flex; align-items: center; gap: 6px; margin-top: 10px; font-size: .8rem; font-weight: 700; color: var(--orange-deep); background: rgba(232, 100, 12, .08); padding: 4px 10px; border-radius: 99px; }
+  .q-anim { animation: fadeUp .45s var(--ease) both; }
+
+  /* Options : tuiles d'images ou lignes avec sticker */
+  .opts { display: grid; gap: 10px; }
+  .opts.tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .opts.tiles3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  .opts.rows { grid-template-columns: 1fr; }
+  @media (min-width: 560px) {
+    .opts.tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+    .opts.tiles3 { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+  }
+  .opt {
+    position: relative;
+    display: flex; align-items: center; gap: 14px;
+    width: 100%; text-align: left;
+    background: var(--white);
+    border: 2px solid var(--cream-dark);
+    border-radius: 18px;
+    padding: 12px 14px;
+    transition: border-color .18s, background .18s, box-shadow .18s, transform .12s;
+    min-height: 64px;
+    -webkit-user-select: none; user-select: none;
+  }
+  .opt:hover { border-color: var(--cream-darker); }
+  .opt:active { transform: scale(.97); }
+  .opt.selected { border-color: var(--orange); background: rgba(232, 100, 12, 0.06); box-shadow: 0 6px 20px rgba(232, 100, 12, 0.16); }
+  .opt .stk { width: 54px; height: 54px; transition: transform .25s var(--ease); }
+  .opt.selected .stk { transform: scale(1.08) rotate(-4deg); }
+  .opt-body { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .opt-title { font-weight: 700; font-size: 1rem; color: var(--brown); line-height: 1.28; }
+  .opt-desc { font-size: .84rem; color: var(--muted); line-height: 1.42; }
+  .opt-tick {
+    position: absolute; top: 8px; right: 8px;
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--orange); color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    transform: scale(0); transition: transform .2s var(--ease);
+  }
+  .opt-tick svg { width: 14px; height: 14px; stroke: currentColor; stroke-width: 3.4; fill: none; }
+  .opt.selected .opt-tick { transform: scale(1); }
+  .opts.rows .opt { padding-right: 42px; }
+  .opts.rows .opt-tick { top: 50%; margin-top: -12px; right: 12px; }
+  /* Tuiles */
+  .opts.tiles .opt, .opts.tiles3 .opt { flex-direction: column; justify-content: flex-start; text-align: center; gap: 8px; padding: 14px 10px 12px; }
+  .opts.tiles .opt-body, .opts.tiles3 .opt-body { align-items: center; }
+  .opts.tiles .stk { width: 66px; height: 66px; }
+  .opts.tiles .opt-title { font-size: .92rem; }
+  .opts.tiles .opt-desc { font-size: .76rem; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .opts.tiles3 .opt { padding: 12px 6px 10px; gap: 6px; border-radius: 16px; }
+  .opts.tiles3 .stk { width: 52px; height: 52px; }
+  .opts.tiles3 .opt-title { font-size: .84rem; }
+  .opts.tiles3 .opt-desc { font-size: .72rem; }
+  .opts.tiles3 .opt-tick { top: 6px; right: 6px; width: 20px; height: 20px; }
+  .opt.is-other { border-style: dashed; }
+  .opt.is-other.selected { border-style: solid; }
+
+  /* « Autre » : champ libre */
+  .other-box { margin-top: 12px; background: var(--white); border: 2px solid var(--orange); border-radius: 16px; padding: 12px 14px; display: flex; gap: 12px; align-items: center; animation: fadeUp .3s var(--ease) both; }
+  .other-box .stk { width: 40px; height: 40px; }
+  .other-box .input { border: none; padding: 8px 0; box-shadow: none !important; }
+  .other-box label { display: block; font-size: .78rem; font-weight: 700; color: var(--orange-deep); }
+  .other-box > div { flex: 1; min-width: 0; }
+
+  /* Niveau de langue (sans question supplémentaire) */
+  .lvl-panel { margin-top: 16px; background: var(--cream-dark); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px; animation: fadeUp .3s var(--ease) both; }
+  .lvl-title { font-weight: 700; font-size: .92rem; display: flex; align-items: center; gap: 8px; }
+  .lvl-row { background: var(--white); border-radius: 14px; padding: 10px 12px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; border: 2px solid transparent; }
+  .lvl-row.need { border-color: rgba(232, 100, 12, .45); }
+  .lvl-row .stk { width: 34px; height: 34px; }
+  .lvl-name { font-weight: 700; flex: 1; min-width: 90px; }
+  .seg { display: flex; gap: 6px; }
+  .seg button { display: inline-flex; align-items: center; gap: 6px; padding: 7px 12px 7px 7px; border-radius: 99px; border: 1.5px solid var(--cream-darker); background: var(--white); font-size: .82rem; font-weight: 700; color: var(--brown); white-space: nowrap; transition: all .15s; }
+  .seg button .stk { width: 22px; height: 22px; }
+  .seg button.on { background: var(--orange); border-color: var(--orange); color: #fff; }
+  @media (max-width: 480px) {
+    .seg { width: 100%; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .seg button { flex-direction: column; justify-content: center; gap: 2px; padding: 7px 4px; border-radius: 14px; font-size: .76rem; white-space: normal; text-align: center; line-height: 1.2; }
+  }
+  /* « Tu es au Sénégal ? » — confirmation du pays deviné */
+  .cty-confirm { display: flex; align-items: center; gap: 14px; background: var(--cream); border: 2px solid var(--orange); border-radius: 18px; padding: 14px 16px; margin-bottom: 16px; animation: fadeUp .35s var(--ease) both; }
+  .cty-confirm .flg { width: 52px; height: 52px; }
+  .cty-confirm-q { font-weight: 800; font-size: 1.05rem; }
+  .cty-confirm-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+  .cty-confirm-btns .btn { min-height: 40px; padding: 8px 18px; font-size: .9rem; }
+  .splash-hello { display: block; color: var(--orange); font-weight: 800; font-size: 1rem; margin-bottom: 8px; }
+
+  /* Pays : recherche + drapeaux */
+  .cty-search { position: relative; margin-bottom: 14px; }
+  .cty-search .input { padding-left: 48px; }
+  .cty-search .ic { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: var(--muted); }
+  .cty-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+  @media (min-width: 560px) { .cty-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .cty-grid .opt { flex-direction: column; text-align: center; gap: 4px; padding: 10px 6px; min-height: 0; }
+  .cty-grid .opt .flg { width: 50px; height: 50px; }
+  .cty-grid .opt-title { font-size: .8rem; line-height: 1.25; }
+  .cty-grid .opt-desc { font-size: .68rem; color: var(--orange-deep); font-weight: 700; }
+  .cty-list { display: flex; flex-direction: column; gap: 6px; }
+  .cty-list .opt { min-height: 54px; padding: 8px 40px 8px 12px; }
+  .cty-list .opt .flg { width: 38px; height: 38px; }
+  .cty-list .opt-tick { top: 50%; margin-top: -12px; right: 12px; }
+  .cty-empty { color: var(--muted); text-align: center; padding: 20px 0; }
+
+  /* Question ouverte finale */
+  .final-art { display: flex; justify-content: center; margin: -4px 0 10px; }
+  .final-art .stk { width: 104px; height: 104px; animation: stkPop .6s var(--ease) both, stkFloat 5s ease-in-out .6s infinite; }
+  .q-text { min-height: 150px; }
+  .q-count { text-align: right; font-size: .78rem; color: var(--muted); margin-top: 6px; }
+  .note-box { margin-top: 18px; display: flex; flex-direction: column; gap: 8px; }
+  .note-box label { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+  .note-box .stk { width: 38px; height: 38px; }
+  .note-box .textarea { min-height: 96px; }
+
+  /* Navigation basse fixe */
+  .qnav {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 85;
+    background: var(--bg);
+    border-top: 1px solid var(--cream-dark);
+    padding: 12px 0 calc(12px + var(--safe-b));
+  }
+  .qnav-inner { max-width: 760px; margin: 0 auto; padding: 0 20px; display: flex; gap: 12px; }
+  .qnav .btn-back { background: transparent; border: 2px solid var(--cream-darker); color: var(--brown); font-weight: 600; padding: 14px 22px; }
+  .qnav .btn-back:hover { border-color: var(--brown); }
+  .qnav .btn-next { flex: 1; padding: 15px 20px; }
+  .qnav .btn-next.dim { opacity: .5; box-shadow: none; transform: none; }
+  .q-error { color: var(--orange-deep); font-weight: 600; font-size: .9rem; margin-top: 14px; min-height: 1.4em; }
+  @media (max-width: 480px) {
+    .qwrap { padding-left: 14px; padding-right: 14px; }
+    .opts.rows .opt { padding: 10px 40px 10px 12px; gap: 12px; }
+    .opts.rows .stk { width: 48px; height: 48px; }
+    .opt-desc { font-size: .8rem; }
+    .qnav .btn-back { padding: 14px 16px; }
+  }
+  @media (max-width: 360px) {
+    .opts.tiles3 .opt-title { font-size: .78rem; }
+    .opts.tiles3 .stk { width: 46px; height: 46px; }
+  }
+</style>
+</head>
+<body data-page="questionnaire" data-bottomnav="off">
+<div id="lerna-nav"></div>
+
+<div class="qbar hidden" id="qbar" aria-hidden="true">
+  <div class="qbar-inner">
+    <div class="qbar-track"><div class="qbar-fill" id="qbarFill"></div></div>
+    <div class="qbar-count" id="qbarCount"><b>1</b>/25</div>
+  </div>
+</div>
+
+<main class="qwrap" id="qwrap">
+  <!-- Écran de démarrage -->
+  <section class="splash" id="splash">
+    <div class="splash-art" id="splashArt" aria-hidden="true"></div>
+    <span class="splash-hello fade-up" style="--i:1" id="splashHello"></span>
+    <h1 class="fade-up" style="--i:1" id="splashTitle" data-i18n-html="qz.splashTitle">Quelques questions.<br>Un avenir <span class="orange">plus clair</span>.</h1>
+    <p class="lead fade-up" style="--i:2" id="splashSub" data-i18n="qz.splashSub">LERNA apprend à te connaître pour te guider vers les meilleures écoles, filières et opportunités qui correspondent vraiment à qui tu es.</p>
+    <div class="splash-badges fade-up" style="--i:3" id="splashBadges"></div>
+    <div class="fade-up" style="--i:4">
+      <div class="resume-box hidden" id="resumeBox">
+        <div class="notice">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M3 12a9 9 0 0 1 15-6.7L21 8M21 3v5h-5M21 12a9 9 0 0 1-15 6.7L3 16M3 21v-5h5"/></svg>
+          <div><strong id="resumeTxt"></strong><br><button type="button" class="btn-link" id="restartBtn" data-i18n="qz.restart">Recommencer à zéro</button></div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary btn-lg" id="startBtn" data-i18n="qz.start">Commencer →</button>
+    </div>
+  </section>
+
+  <!-- Question courante -->
+  <section id="qcard" class="hidden" aria-live="polite"></section>
+</main>
+
+<nav class="qnav hidden" id="qnav" aria-label="Navigation du questionnaire">
+  <div class="qnav-inner">
+    <button type="button" class="btn btn-back" id="backBtn" data-i18n="qz.back">← Retour</button>
+    <button type="button" class="btn btn-primary btn-next" id="nextBtn" data-i18n="qz.next">Continuer →</button>
+  </div>
+</nav>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/questions.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'qz.docTitle': 'Questionnaire — LERNA',
+    'qz.splashTitle': 'Quelques questions.<br>Un avenir <span class="orange">plus clair</span>.',
+    'qz.splashSub': 'LERNA apprend à te connaître pour te guider vers les meilleures écoles, filières et opportunités qui correspondent vraiment à qui tu es.',
+    'qz.b1': '5 minutes', 'qz.b2': 'Partout dans le monde', 'qz.b3': 'Résultat immédiat', 'qz.b4': '100% gratuit',
+    'qz.start': 'Commencer →', 'qz.resume': 'Reprendre à la question {n}/{total} →', 'qz.resumeTxt': 'Tu t\'étais arrêté à la question {n} sur {total}.',
+    'qz.restart': 'Recommencer à zéro',
+    'qz.back': '← Retour', 'qz.next': 'Continuer →', 'qz.skip': 'Passer →', 'qz.finish': 'Voir mon orientation →', 'qz.finishUpd': 'Mettre à jour mon orientation →',
+    'qz.qnum': 'Question {n} sur {total}',
+    'qz.errSingle': 'Choisis une réponse pour continuer.',
+    'qz.errMulti': 'Choisis au moins une réponse pour continuer.',
+    'qz.errSelect': 'Choisis ton pays pour continuer.',
+    'qz.errOther': 'Écris ta réponse dans « Autre » pour continuer.',
+    'qz.errLevel': 'Indique ton niveau pour chaque langue cochée.',
+    'qz.max2': 'Deux choix maximum — retire-en un pour en choisir un autre.',
+    'qz.hintMulti': 'Plusieurs réponses possibles', 'qz.hintMax2': '2 choix maximum', 'qz.hintLevels': 'Plusieurs langues possibles',
+    'qz.other': 'Autre', 'qz.otherLabel': 'Ta réponse',
+    'qz.lvlTitle': 'Ton niveau dans chaque langue',
+    'qz.ctyGuess': 'Ton pays ?', 'qz.ctyNone': 'Aucun pays trouvé. Essaie un autre nom.',
+    'qz.ctyConfirm': 'Tu es {in} ?', 'qz.ctyYes': 'Oui, c\'est ça', 'qz.ctyNo': 'Non, autre pays',
+    'qz.chars': '{n} caractères',
+    'qz.updTitle': 'Ton profil a <span class="orange">bougé</span> ?',
+    'qz.updSub': '5 questions, une minute : LERNA garde des recommandations justes, même quand ta situation change.',
+    'qz.updStart': 'Mettre à jour →'
+  },
+  en: {
+    'qz.docTitle': 'Questionnaire — LERNA',
+    'qz.splashTitle': 'A few questions.<br>A <span class="orange">clearer</span> future.',
+    'qz.splashSub': 'LERNA gets to know you so it can guide you to the schools, programmes and opportunities that truly match who you are.',
+    'qz.b1': '5 minutes', 'qz.b2': 'Anywhere in the world', 'qz.b3': 'Instant result', 'qz.b4': '100% free',
+    'qz.start': 'Start →', 'qz.resume': 'Resume at question {n}/{total} →', 'qz.resumeTxt': 'You stopped at question {n} of {total}.',
+    'qz.restart': 'Start over',
+    'qz.back': '← Back', 'qz.next': 'Continue →', 'qz.skip': 'Skip →', 'qz.finish': 'See my orientation →', 'qz.finishUpd': 'Update my orientation →',
+    'qz.qnum': 'Question {n} of {total}',
+    'qz.errSingle': 'Pick an answer to continue.',
+    'qz.errMulti': 'Pick at least one answer to continue.',
+    'qz.errSelect': 'Choose your country to continue.',
+    'qz.errOther': 'Write your answer in "Other" to continue.',
+    'qz.errLevel': 'Tell us your level for each language you ticked.',
+    'qz.max2': 'Two choices maximum — remove one to pick another.',
+    'qz.hintMulti': 'Several answers possible', 'qz.hintMax2': '2 choices maximum', 'qz.hintLevels': 'Several languages possible',
+    'qz.other': 'Other', 'qz.otherLabel': 'Your answer',
+    'qz.lvlTitle': 'Your level in each language',
+    'qz.ctyGuess': 'Your country?', 'qz.ctyNone': 'No country found. Try another name.',
+    'qz.ctyConfirm': 'Are you in {in}?', 'qz.ctyYes': "Yes, that's right", 'qz.ctyNo': 'No, another country',
+    'qz.chars': '{n} characters',
+    'qz.updTitle': 'Has your profile <span class="orange">changed</span>?',
+    'qz.updSub': '5 questions, one minute: LERNA keeps your recommendations accurate, even when your situation changes.',
+    'qz.updStart': 'Update →'
+  }
+});
+
+(function () {
+  var ALLQ = window.LERNA_QUESTIONS, BLOCKS = window.LERNA_BLOCKS;
+  var profile = Lerna.store.get('lerna_profile', null);
+  var UPDATE = Lerna.param('update') === '1' && profile && profile.answers;
+  var Q = UPDATE ? window.LERNA_UPDATE_SET.map(window.LERNA_QUESTION).filter(Boolean) : ALLQ;
+  var N = Q.length;
+  var state = UPDATE ? { answers: JSON.parse(JSON.stringify(profile.answers)), index: 0 } : (Lerna.store.get('lerna_progress', null) || { answers: {}, index: 0 });
+  var answers = normalize(state.answers || {});
+  var index = Math.min(state.index || 0, N - 1);
+  var started = false, advanceTimer = null, ctyQuery = '', ctyDeclined = false;
+  /* Questions adaptées au pays (bac, destinations, budget en FCFA / euros) : pays répondu, sinon pays deviné */
+  function localize() { if (window.LERNA_LOCALIZE_QUESTIONS) window.LERNA_LOCALIZE_QUESTIONS(answers.q4 || Lerna.country()); }
+  var $ = function (id) { return document.getElementById(id); };
+  var L = Lerna.L, t = Lerna.t, esc = Lerna.esc;
+  var tickSvg = '<svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+  /* Réponses d'une ancienne version : on les remet au bon format */
+  function normalize(a) {
+    ALLQ.forEach(function (q) {
+      var v = a[q.id];
+      if (v === undefined || v === null) return;
+      if (q.type === 'multi') {
+        if (!Array.isArray(v)) v = [v];
+        a[q.id] = v.filter(function (id) { return id === 'autre' || q.options.some(function (o) { return o.id === id; }); });
+        if (q.max) a[q.id] = a[q.id].slice(0, q.max);
+      } else if (q.type === 'single' && Array.isArray(v)) a[q.id] = v[0];
+    });
+    return a;
+  }
+  function save() { if (!UPDATE) Lerna.store.set('lerna_progress', { answers: answers, index: index, t: Date.now() }); }
+  function otherText(q) { return String(answers[q.id + '_autre'] || '').trim(); }
+  function sel(q) { var v = answers[q.id]; return q.type === 'multi' ? (Array.isArray(v) ? v : []) : v; }
+  function problem(q) {
+    var v = sel(q);
+    if (q.type === 'text') return '';
+    if (q.type === 'country') return v ? '' : 'qz.errSelect';
+    if (q.type === 'single') { if (!v) return 'qz.errSingle'; return v === 'autre' && !otherText(q) ? 'qz.errOther' : ''; }
+    if (!v.length) return 'qz.errMulti';
+    if (v.indexOf('autre') !== -1 && !otherText(q)) return 'qz.errOther';
+    if (q.levels) {
+      var lv = answers[q.id + '_lvl'] || {};
+      if (v.some(function (id) { return id !== 'autre' && !lv[id]; })) return 'qz.errLevel';
+    }
+    return '';
+  }
+
+  /* ---------- Écran de démarrage ---------- */
+  function renderSplash() {
+    $('splashHello').textContent = Lerna.greeting();
+    $('splashArt').innerHTML = Lerna.seal() + Lerna.sticker('cap', 's1') + Lerna.sticker('rocket', 's2') + Lerna.sticker('compass', 's3') + Lerna.sticker('earth-africa', 's4');
+    $('splashBadges').innerHTML = [['hourglass', 'qz.b1'], ['globe-net', 'qz.b2'], ['zap', 'qz.b3'], ['gift', 'qz.b4']].map(function (b) {
+      return '<span class="tag">' + Lerna.sticker(b[0], 'stk-xs') + t(b[1]) + '</span>';
+    }).join('');
+    if (UPDATE) {
+      $('splashTitle').innerHTML = t('qz.updTitle');
+      $('splashSub').textContent = t('qz.updSub');
+      $('startBtn').textContent = t('qz.updStart');
+      $('resumeBox').classList.add('hidden');
+      return;
+    }
+    var progressed = Object.keys(answers).length > 0 && index > 0;
+    $('resumeBox').classList.toggle('hidden', !progressed);
+    if (progressed) {
+      $('resumeTxt').textContent = t('qz.resumeTxt', { n: index + 1, total: N });
+      $('startBtn').textContent = t('qz.resume', { n: index + 1, total: N });
+    } else {
+      $('startBtn').textContent = t('qz.start');
+    }
+  }
+
+  /* ---------- Options en images ---------- */
+  function optHTML(q, o, isSel, isOther) {
+    var multi = q.type === 'multi';
+    var desc = o.native && L(o.label) !== o.native ? o.native : (o.desc ? L(o.desc) : '');
+    return '<button type="button" class="opt' + (isSel ? ' selected' : '') + (isOther ? ' is-other' : '') + '" role="' + (multi ? 'checkbox' : 'radio') + '" aria-checked="' + isSel + '" data-id="' + o.id + '">' +
+      '<span class="opt-tick" aria-hidden="true">' + tickSvg + '</span>' +
+      Lerna.sticker(o.img) +
+      '<span class="opt-body"><span class="opt-title">' + esc(L(o.label)) + '</span>' +
+      (desc ? '<span class="opt-desc"' + (o.native ? ' lang="' + o.id + '"' : '') + '>' + esc(desc) + '</span>' : '') + '</span></button>';
+  }
+  function otherOpt() { return { id: 'autre', img: 'autre', label: { fr: t('qz.other'), en: t('qz.other') } }; }
+  function otherBox(q) {
+    return '<div class="other-box" id="otherBox">' + Lerna.sticker('autre') +
+      '<div><label for="otherInput">' + t('qz.otherLabel') + '</label>' +
+      '<input class="input" id="otherInput" type="text" maxlength="200" autocomplete="off" placeholder="' + esc(L(q.other.ph)) + '" value="' + esc(answers[q.id + '_autre'] || '') + '"></div></div>';
+  }
+  function levelsHTML(q) {
+    var v = sel(q).filter(function (id) { return id !== 'autre'; });
+    if (!v.length) return '';
+    var lv = answers[q.id + '_lvl'] || {}, LV = window.LERNA_LANG_LEVELS;
+    return '<div class="lvl-panel" id="lvlPanel"><p class="lvl-title">' + Lerna.sticker('speaking', 'stk-xs') + t('qz.lvlTitle') + '</p>' +
+      v.map(function (id) {
+        var o = q.options.filter(function (x) { return x.id === id; })[0]; if (!o) return '';
+        var seg = window.LERNA_LANG_LEVEL_ORDER.map(function (k) {
+          return '<button type="button" data-lvlang="' + id + '" data-lvl="' + k + '" class="' + (lv[id] === k ? 'on' : '') + '" aria-pressed="' + (lv[id] === k) + '" title="' + esc(L(LV[k].desc)) + '">' +
+            Lerna.sticker(window.LERNA_LANG_LEVEL_IMG[k]) + esc(L(LV[k].label)) + '</button>';
+        }).join('');
+        return '<div class="lvl-row' + (lv[id] ? '' : ' need') + '">' + Lerna.sticker(o.img) + '<span class="lvl-name">' + esc(L(o.label)) + '</span><div class="seg" role="group" aria-label="' + esc(L(o.label)) + '">' + seg + '</div></div>';
+      }).join('') + '</div>';
+  }
+
+  /* ---------- Pays : drapeaux + recherche ---------- */
+  function fold(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
+  function ctyTile(code, name, isSel, note) {
+    return '<button type="button" class="opt' + (isSel ? ' selected' : '') + '" role="radio" aria-checked="' + isSel + '" data-cty="' + code + '">' +
+      '<span class="opt-tick" aria-hidden="true">' + tickSvg + '</span>' + Lerna.flag(code) +
+      '<span class="opt-body"><span class="opt-title">' + esc(name) + '</span>' + (note ? '<span class="opt-desc">' + esc(note) + '</span>' : '') + '</span></button>';
+  }
+  function countryHTML(q) {
+    var v = answers[q.id], C = window.LERNA_COUNTRIES(Lerna.lang), all = C.priority.concat(C.rest);
+    var name = function (c) { return window.LERNA_COUNTRY_NAME(c, Lerna.lang); };
+    if (ctyQuery) {
+      var f = fold(ctyQuery);
+      var hits = all.filter(function (x) { return fold(x.name).indexOf(f) !== -1 || x.code.toLowerCase() === f; }).slice(0, 40);
+      return hits.length ? '<div class="cty-list">' + hits.map(function (x) { return ctyTile(x.code, x.name, x.code === v); }).join('') + '</div>' : '<p class="cty-empty">' + t('qz.ctyNone') + '</p>';
+    }
+    /* Pays deviné par l'adresse internet (ou le fuseau horaire) : on demande juste de confirmer */
+    var guess = Lerna.geoCountry(), codes = [], h = '';
+    if (guess && !v && !ctyDeclined) {
+      h += '<div class="cty-confirm" id="ctyConfirm">' + Lerna.flag(guess) + '<div><div class="cty-confirm-q">' + esc(t('qz.ctyConfirm', { 'in': inCountry(guess) })) + '</div>' +
+        '<div class="cty-confirm-btns"><button type="button" class="btn btn-primary" data-cty="' + guess + '">' + t('qz.ctyYes') + '</button>' +
+        '<button type="button" class="btn btn-ghost" id="ctyNo">' + t('qz.ctyNo') + '</button></div></div></div>';
+    }
+    if (v) codes.push(v);
+    if (guess && codes.indexOf(guess) === -1) codes.push(guess);
+    C.priority.forEach(function (x) { if (codes.length < 12 && codes.indexOf(x.code) === -1) codes.push(x.code); });
+    return h + '<div class="cty-grid">' + codes.map(function (c) { return ctyTile(c, name(c), c === v, c === guess && c !== v ? t('qz.ctyGuess') : ''); }).join('') + '</div>';
+  }
+
+  /* « au Sénégal », « en France », « aux États-Unis » */
+  var AUX = 'US AE NL PH KM MV SC'.split(' ');
+  var AU_M = 'SN CA MA CM BF BJ TG NE ML GA CG CD TD KE NG GH LR BR MX JP PT LU QA KW LB RW BI BW ZW MW MZ LS CV DK VN PK BD NP KH LA KZ GB SD SS YE CL PE VE GT HN NI PY UY'.split(' ');
+  var THE_EN = 'US GB AE NL PH CF GM'.split(' ');
+  function inCountry(code) {
+    var n = window.LERNA_COUNTRY_NAME(code, Lerna.lang);
+    if (Lerna.lang === 'en') return (THE_EN.indexOf(code) !== -1 ? 'the ' : '') + n;
+    if (AUX.indexOf(code) !== -1) return 'aux ' + n;
+    if (AU_M.indexOf(code) !== -1) return 'au ' + n;
+    return 'en ' + n;
+  }
+
+  /* ---------- Rendu d'une question ---------- */
+  function renderQuestion(dir) {
+    var q = Q[index];
+    var multi = q.type === 'multi';
+    var hint = q.levels ? 'qz.hintLevels' : multi ? (q.max ? 'qz.hintMax2' : 'qz.hintMulti') : '';
+    var h = '<div class="q-anim">';
+    if (q.type === 'text' && q.img) h += '<div class="final-art">' + Lerna.sticker(q.img) + '</div>';
+    h += '<div class="q-head">' +
+        '<div class="q-block">' + esc(L(BLOCKS[q.block])) + '</div>' +
+        '<span class="q-num">' + t('qz.qnum', { n: index + 1, total: N }) + '</span>' +
+        '<h2 class="q-title" id="qtitle">' + esc(L(q.title)) + '</h2>' +
+        (q.sub ? '<p class="q-sub">' + esc(L(q.sub)) + '</p>' : '') +
+        (hint ? '<span class="q-hint">' + Lerna.icon('check', 'ic-sm') + t(hint) + '</span>' : '') +
+      '</div>';
+    if (q.type === 'single' || multi) {
+      var v = sel(q);
+      var opts = q.options.slice();
+      if (q.other) opts.push(otherOpt());
+      h += '<div class="opts ' + (q.layout || 'rows') + '" id="opts" role="' + (multi ? 'group' : 'radiogroup') + '" aria-labelledby="qtitle">' +
+        opts.map(function (o) {
+          var isSel = multi ? v.indexOf(o.id) !== -1 : v === o.id;
+          return optHTML(q, o, isSel, o.id === 'autre');
+        }).join('') + '</div>';
+      h += '<div id="lvlHost">' + (q.levels ? levelsHTML(q) : '') + '</div>';
+      var showOther = q.other && (multi ? v.indexOf('autre') !== -1 : v === 'autre');
+      h += '<div id="otherHost">' + (showOther ? otherBox(q) : '') + '</div>';
+    } else if (q.type === 'country') {
+      h += '<div class="cty-search">' + Lerna.icon('search') + '<label class="sr-only" for="ctySearch">' + esc(L(q.placeholder)) + '</label>' +
+        '<input class="input" id="ctySearch" type="text" inputmode="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="' + esc(L(q.placeholder)) + '" value="' + esc(ctyQuery) + '"></div>' +
+        '<div id="ctyHost" role="radiogroup" aria-labelledby="qtitle">' + countryHTML(q) + '</div>';
+    } else if (q.type === 'text') {
+      var tv = answers[q.id] || '';
+      h += '<label class="sr-only" for="qtext">' + esc(L(q.title)) + '</label>' +
+        '<textarea class="textarea q-text" id="qtext" maxlength="2000" placeholder="' + esc(L(q.placeholder)) + '">' + esc(tv) + '</textarea>' +
+        '<div class="q-count" id="qcount">' + t('qz.chars', { n: tv.length }) + '</div>';
+      if (q.note) {
+        h += '<div class="note-box"><label for="qnote">' + Lerna.sticker(q.note.img) + esc(L(q.note.label)) + '</label>' +
+          '<textarea class="textarea" id="qnote" maxlength="1000" placeholder="' + esc(L(q.note.placeholder)) + '">' + esc(answers.note || '') + '</textarea></div>';
+      }
+    }
+    h += '<p class="q-error" id="qerror" role="alert"></p></div>';
+    $('qcard').innerHTML = h;
+    var pct = Math.round((index / N) * 100);
+    $('qbarFill').style.width = Math.max(pct, 2) + '%';
+    $('qbarCount').innerHTML = '<b>' + (index + 1) + '</b>/' + N;
+    $('backBtn').style.display = index === 0 ? 'none' : '';
+    updateNext();
+    window.scrollTo({ top: 0, behavior: dir ? 'smooth' : 'auto' });
+    bindQuestion(q);
+  }
+
+  function updateNext() {
+    var q = Q[index], btn = $('nextBtn');
+    if (index === N - 1) btn.textContent = t(UPDATE ? 'qz.finishUpd' : 'qz.finish');
+    else if (q.type === 'text' && !(answers[q.id] || '').trim()) btn.textContent = t('qz.skip');
+    else btn.textContent = t('qz.next');
+    var ok = !problem(q);
+    btn.classList.toggle('dim', !ok);
+  }
+  function refreshOpts(q) {
+    var v = sel(q), multi = q.type === 'multi';
+    Lerna.qsa('#opts .opt').forEach(function (x) {
+      var id = x.getAttribute('data-id'), s = multi ? v.indexOf(id) !== -1 : v === id;
+      x.classList.toggle('selected', s); x.setAttribute('aria-checked', String(s));
+    });
+    if (q.levels) $('lvlHost').innerHTML = levelsHTML(q);
+    var showOther = q.other && (multi ? v.indexOf('autre') !== -1 : v === 'autre');
+    var host = $('otherHost');
+    if (showOther && !host.firstChild) {
+      host.innerHTML = otherBox(q);
+      bindOther(q);
+      setTimeout(function () { var i = $('otherInput'); if (i) { i.focus(); i.scrollIntoView({ block: 'center', behavior: 'smooth' }); } }, 60);
+    } else if (!showOther) host.innerHTML = '';
+  }
+  function bindOther(q) {
+    var i = $('otherInput'); if (!i) return;
+    i.addEventListener('input', function () { answers[q.id + '_autre'] = i.value; $('qerror').textContent = ''; save(); updateNext(); });
+    i.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); next(); } });
+  }
+
+  function bindQuestion(q) {
+    var card = $('qcard');
+    if (q.type === 'single' || q.type === 'multi') {
+      $('opts').addEventListener('click', function (e) {
+        var b = e.target.closest('.opt'); if (!b) return;
+        var id = b.getAttribute('data-id');
+        $('qerror').textContent = '';
+        if (q.type === 'single') {
+          answers[q.id] = id;
+          if (id !== 'autre') delete answers[q.id + '_autre'];
+          Lerna.sound.play('select');
+          save(); refreshOpts(q); updateNext();
+          clearTimeout(advanceTimer);
+          if (id !== 'autre') advanceTimer = setTimeout(function () { if (Q[index] === q) next(); }, 420);
+        } else {
+          var arr = sel(q).slice(), i = arr.indexOf(id);
+          if (i !== -1) arr.splice(i, 1);
+          else {
+            if (q.exclusive && id === q.exclusive) arr = [];
+            else if (q.exclusive) arr = arr.filter(function (x) { return x !== q.exclusive; });
+            if (q.max && arr.length >= q.max) { Lerna.sound.play('error'); $('qerror').textContent = t('qz.max2'); return; }
+            arr.push(id);
+          }
+          answers[q.id] = arr;
+          if (q.levels) {
+            var lv = answers[q.id + '_lvl'] || {};
+            Object.keys(lv).forEach(function (k) { if (arr.indexOf(k) === -1) delete lv[k]; });
+            answers[q.id + '_lvl'] = lv;
+          }
+          Lerna.sound.play(i === -1 ? 'select' : 'click');
+          save(); refreshOpts(q); updateNext();
+        }
+      });
+      if (q.levels) {
+        $('lvlHost').addEventListener('click', function (e) {
+          var b = e.target.closest('[data-lvl]'); if (!b) return;
+          e.preventDefault(); e.stopPropagation();
+          var lv = answers[q.id + '_lvl'] || {};
+          lv[b.getAttribute('data-lvlang')] = b.getAttribute('data-lvl');
+          answers[q.id + '_lvl'] = lv;
+          $('qerror').textContent = '';
+          Lerna.sound.play('select');
+          save(); $('lvlHost').innerHTML = levelsHTML(q); updateNext();
+        });
+      }
+      bindOther(q);
+    } else if (q.type === 'country') {
+      var s = $('ctySearch');
+      s.addEventListener('input', Lerna.debounce(function () { ctyQuery = s.value.trim(); $('ctyHost').innerHTML = countryHTML(q); }, 120));
+      $('ctyHost').addEventListener('click', function (e) {
+        if (e.target.closest('#ctyNo')) { ctyDeclined = true; $('ctyHost').innerHTML = countryHTML(q); s.focus(); Lerna.sound.play('click'); return; }
+        var b = e.target.closest('[data-cty]'); if (!b) return;
+        answers[q.id] = b.getAttribute('data-cty');
+        localize();
+        $('qerror').textContent = '';
+        Lerna.qsa('#ctyHost .opt').forEach(function (x) { var on = x === b; x.classList.toggle('selected', on); x.setAttribute('aria-checked', String(on)); });
+        Lerna.sound.play('select');
+        save(); updateNext();
+        clearTimeout(advanceTimer);
+        advanceTimer = setTimeout(function () { if (Q[index] === q) { ctyQuery = ''; next(); } }, 420);
+      });
+    } else if (q.type === 'text') {
+      var ta = $('qtext');
+      ta.addEventListener('input', function () {
+        answers[q.id] = ta.value; $('qcount').textContent = t('qz.chars', { n: ta.value.length });
+        save(); updateNext();
+      });
+      var nt = $('qnote');
+      if (nt) nt.addEventListener('input', function () { answers.note = nt.value; save(); });
+    }
+  }
+
+  function next() {
+    var q = Q[index];
+    clearTimeout(advanceTimer);
+    var pb = problem(q);
+    if (pb) {
+      $('qerror').textContent = t(pb);
+      Lerna.sound.play('error');
+      if (pb === 'qz.errLevel') Lerna.qsa('.lvl-row.need').forEach(function (r) { r.animate && r.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(6px)' }, { transform: 'translateX(0)' }], { duration: 260 }); });
+      if (pb === 'qz.errOther' && $('otherInput')) $('otherInput').focus();
+      return;
+    }
+    if (index === N - 1) return finish();
+    index++; ctyQuery = ''; save(); renderQuestion(1);
+  }
+  function back() {
+    clearTimeout(advanceTimer);
+    if (index === 0) return;
+    index--; ctyQuery = ''; save(); renderQuestion(-1);
+  }
+  function finish() {
+    Lerna.sound.play('success');
+    var now = new Date().toISOString();
+    if (UPDATE) {
+      profile.answers = answers; profile.updated = now; profile.lang = Lerna.lang;
+      Lerna.store.set('lerna_profile', profile);
+      Lerna.track('profile_update');
+    } else {
+      Lerna.store.set('lerna_profile', { answers: answers, completed: now, lang: Lerna.lang });
+      Lerna.store.del('lerna_progress');
+      Lerna.track('questionnaire_done');
+    }
+    $('nextBtn').classList.add('is-disabled');
+    setTimeout(function () { location.href = 'loading.html'; }, 350);
+  }
+  function start() {
+    if (!started && !UPDATE && index === 0 && !Object.keys(answers).length) Lerna.analytics.capture('questionnaire_start');
+    started = true;
+    $('splash').classList.add('hidden');
+    $('qcard').classList.remove('hidden');
+    $('qbar').classList.remove('hidden');
+    $('qnav').classList.remove('hidden');
+    Lerna.sound.play('click');
+    renderQuestion(0);
+  }
+
+  Lerna.ready(function () {
+    localize();
+    /* Le pays vu par Vercel arrive : on réadapte les questions (si la personne n'a pas encore répondu) */
+    Lerna.on('lerna:country', function () { localize(); if (started && !answers.q4) renderQuestion(0); });
+    renderSplash();
+    $('startBtn').addEventListener('click', start);
+    $('restartBtn').addEventListener('click', function () {
+      answers = {}; index = 0; Lerna.store.del('lerna_progress'); renderSplash(); start();
+    });
+    $('nextBtn').addEventListener('click', next);
+    $('backBtn').addEventListener('click', back);
+    document.addEventListener('keydown', function (e) {
+      if (!started) return;
+      var tag = e.target.tagName;
+      if (e.key === 'Enter' && tag !== 'TEXTAREA' && tag !== 'BUTTON' && tag !== 'SELECT' && tag !== 'INPUT') { e.preventDefault(); next(); }
+    });
+    Lerna.onLang(function () { if (started) renderQuestion(0); else renderSplash(); });
+    if (Lerna.param('start') === '1' || UPDATE && Lerna.param('go') === '1') start();
+  });
+})();
+</script>
+</body>
+</html>

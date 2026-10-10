@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Aujourd'hui — LERNA</title>
+<meta name="lerna-title" content="td.docTitle">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="LERNA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<script>
+  /* Accueil personnel : seulement pour qui a déjà fait le questionnaire */
+  try { if (!localStorage.getItem('lerna_profile')) location.replace('index.html'); } catch (e) {}
+</script>
+<style>
+  .td { padding: 22px 0 64px; }
+  .td .container { max-width: 760px; }
+  .td-stack { display: flex; flex-direction: column; gap: 16px; }
+
+  /* En-tête */
+  .hello { display: flex; align-items: center; gap: 14px; }
+  .hello .stk { width: 58px; height: 58px; animation: wave 2.2s ease-in-out 1; transform-origin: 70% 80%; }
+  @keyframes wave { 0%, 100% { transform: rotate(0); } 15%, 45% { transform: rotate(14deg); } 30%, 60% { transform: rotate(-8deg); } }
+  .hello h1 { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+  .hello p { color: var(--muted); font-size: .92rem; margin-top: 2px; }
+  .hello .hello-sub { color: var(--orange-deep); font-weight: 700; }
+  .chips-top { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+  .pill { display: inline-flex; align-items: center; gap: 6px; background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 99px; padding: 5px 12px 5px 6px; font-weight: 700; font-size: .86rem; text-decoration: none; }
+  .pill .stk { width: 24px; height: 24px; }
+
+  /* Bloc générique */
+  .blk { background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 22px; padding: 20px; scroll-margin-top: calc(var(--nav-h) + 12px); }
+  .blk-h { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .blk-h .stk { width: 46px; height: 46px; }
+  .blk-h h2 { font-size: 1.25rem; line-height: 1.2; }
+  .blk-h p { color: var(--muted); font-size: .84rem; margin-top: 2px; }
+  .blk-h .grow { flex: 1; min-width: 0; }
+  @media (max-width: 480px) { .blk { padding: 16px 14px; border-radius: 20px; } }
+
+  /* Parcours (série de jours) + niveau */
+  .journey { background: var(--panel-grad); color: var(--on-panel); border: none; position: relative; overflow: hidden; }
+  .journey h2, .journey .big { color: var(--on-panel); }
+  .journey .blk-h p { color: var(--on-panel-muted); }
+  .journey .big { font-family: var(--font-head); font-weight: 800; font-size: 2.6rem; line-height: 1; }
+  .journey .big small { font-family: var(--font-body); font-size: .95rem; font-weight: 600; color: var(--on-panel-muted); margin-left: 6px; }
+  .week { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; margin: 16px 0 6px; }
+  .wd { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: .7rem; font-weight: 700; color: var(--on-panel-muted); text-transform: uppercase; }
+  .wd i { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--on-panel-line); display: flex; align-items: center; justify-content: center; font-style: normal; }
+  .wd.on i { background: var(--orange); border-color: var(--orange); }
+  .wd.on i .stk { width: 22px; height: 22px; }
+  .wd.today { color: var(--on-panel); }
+  .wd.today i { box-shadow: 0 0 0 3px rgba(232, 100, 12, .35); }
+  .level { display: flex; align-items: center; gap: 12px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--on-panel-line); }
+  .level .stk { width: 44px; height: 44px; }
+  .level .grow { flex: 1; min-width: 0; }
+  .level-top { display: flex; justify-content: space-between; gap: 8px; font-size: .86rem; font-weight: 700; margin-bottom: 6px; }
+  .level-top span:last-child { color: var(--on-panel-muted); font-weight: 600; }
+  .journey .bar { background: var(--on-panel-line); }
+  .start-dots { display: flex; gap: 8px; margin-top: 12px; }
+  .start-dots i { width: 40px; height: 8px; border-radius: 99px; background: var(--on-panel-line); }
+  .start-dots i.on { background: var(--orange); }
+
+  /* Missions */
+  .mission { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 16px; border: 1.5px solid var(--cream-dark); text-decoration: none; transition: border-color .15s, background .15s; }
+  .mission + .mission { margin-top: 8px; }
+  .mission .stk { width: 44px; height: 44px; }
+  .mission .grow { flex: 1; min-width: 0; font-weight: 600; line-height: 1.35; }
+  .mission .go { color: var(--orange); display: flex; }
+  .mission .ck { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--cream-darker); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .mission.done { background: rgba(232, 100, 12, .06); border-color: rgba(232, 100, 12, .35); }
+  .mission.done .grow { text-decoration: line-through; color: var(--muted); }
+  .mission.done .ck { background: var(--orange); border-color: var(--orange); color: #fff; }
+  .mission.done .ck .ic { width: 16px; height: 16px; stroke-width: 3; }
+  .mission.done .go { display: none; }
+  .m-prog { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: .84rem; font-weight: 700; color: var(--muted); }
+  .m-prog .bar { flex: 1; }
+
+  /* Bourse du jour */
+  .opp-day h3 { font-size: 1.15rem; margin: 2px 0 6px; }
+  .opp-day .org { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+  .opp-day .facts { display: flex; flex-direction: column; gap: 6px; margin: 10px 0 14px; font-size: .9rem; }
+  .opp-day .facts span { display: flex; gap: 8px; align-items: flex-start; }
+  .opp-day .facts .ic { width: 17px; height: 17px; color: var(--orange); margin-top: 2px; }
+
+  /* Mot + quiz */
+  .duo { display: grid; gap: 16px; }
+  @media (min-width: 720px) { .duo { grid-template-columns: 1fr 1fr; } }
+  .word-term { font-family: var(--font-head); font-weight: 800; font-size: 1.45rem; color: var(--brown); margin-bottom: 6px; }
+  .word-def { color: var(--brown); line-height: 1.6; }
+  .quiz-q { font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
+  .quiz-a { display: flex; flex-direction: column; gap: 8px; }
+  .quiz-a button { text-align: left; padding: 12px 14px; border-radius: 14px; border: 1.5px solid var(--cream-darker); background: var(--white); font-weight: 600; transition: all .15s; }
+  .quiz-a button:hover { border-color: var(--brown); }
+  .quiz-a button.good { background: rgba(232, 100, 12, .12); border-color: var(--orange); color: var(--orange-deep); }
+  .quiz-a button.bad { background: var(--cream-dark); border-color: var(--cream-darker); color: var(--muted); text-decoration: line-through; }
+  .quiz-a button[disabled] { cursor: default; }
+  .quiz-why { margin-top: 12px; font-size: .9rem; background: var(--cream); border-radius: 12px; padding: 10px 12px; }
+
+  /* Écoles */
+  .sch { display: flex; align-items: center; gap: 12px; padding: 10px 4px; text-decoration: none; border-bottom: 1px solid var(--cream-dark); }
+  .sch:last-child { border-bottom: none; }
+  .sch .flg { width: 36px; height: 36px; }
+  .sch .grow { flex: 1; min-width: 0; }
+  .sch h4 { font-size: .98rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .sch .sub { font-size: .8rem; color: var(--muted); }
+  .score { font-family: var(--font-head); font-weight: 800; color: var(--orange); font-size: 1.1rem; }
+  .sch.lock .lk { width: 36px; height: 36px; border-radius: 12px; background: var(--cream-dark); display: flex; align-items: center; justify-content: center; }
+  .dl { display: flex; align-items: center; gap: 10px; padding: 8px 0; font-size: .9rem; }
+  .dl .grow { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  /* Invitation, mise à jour, alertes */
+  .inv-prog { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; font-weight: 700; }
+  .soft { background: var(--cream-dark); border-color: var(--cream-dark); }
+  .ask-form { display: flex; gap: 8px; }
+  .ask-form .input { flex: 1; min-width: 0; }
+  .ask-form .btn { padding-left: 18px; padding-right: 18px; }
+</style>
+</head>
+<body data-page="today">
+<div id="lerna-nav"></div>
+
+<main class="td">
+  <div class="container td-stack" id="root"></div>
+</main>
+
+<div id="lerna-footer"></div>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/questions.js"></script>
+<script src="assets/js/data-schools.js"></script>
+<script src="assets/js/data-opps.js"></script>
+<script src="assets/js/guides.js"></script>
+<script src="assets/js/daily.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'td.docTitle': "Aujourd'hui — LERNA",
+    'td.hello': 'Bonjour {name}', 'td.helloAnon': 'Bonjour',
+    'td.journey': 'Ton parcours', 'td.days': 'jour(s) d’affilée',
+    'td.journeySub': 'Reviens chaque jour : ton parcours grandit, ton orientation avance.',
+    'td.journeyStart': 'Ton parcours démarre à ta 3e visite', 'td.journeyStartSub': 'Visite {n} sur 3 — reviens demain pour continuer.',
+    'td.level': 'Niveau {level}', 'td.points': '{n} points', 'td.next': '{n} pts avant {level}', 'td.max': 'Niveau maximum atteint',
+    'td.missions': 'Ta mission du jour', 'td.missionsSub': '{n} petites étapes pour avancer aujourd’hui.', 'td.missionsSub1': 'Une petite étape pour avancer aujourd’hui.',
+    'td.go': 'Y aller →', 'td.mDone': '{n}/{t} faites', 'td.allDone': 'Mission du jour accomplie', 'td.allDoneText': '+25 points. Reviens demain pour une nouvelle mission.',
+    'td.dossier': 'Mon dossier', 'td.dossierSub': 'Ta candidature avance un peu chaque jour.', 'td.dossierNext': 'Prochaine étape', 'td.dossierGo': 'Continuer →',
+    'td.dossierStart': 'Prépare ta candidature pour {s} : étapes, documents, lettre, entretien.', 'td.dossierStartBtn': 'Commencer mon dossier', 'td.dossierAll': 'Tous mes dossiers',
+    'td.bourse': 'La bourse du jour', 'td.bourseSub': 'Une nouvelle chaque jour, choisie pour ton profil.',
+    'td.bourseNone': 'Aucune bourse ouverte pour le moment. Regarde les prochaines sessions dans Opportunités.', 'td.rolling': 'Candidature en continu',
+    'td.see': 'Voir l’offre →', 'td.save': 'Sauvegarder', 'td.saved': 'Sauvegardée', 'td.allOpps': 'Toutes les bourses',
+    'td.word': 'Le mot du jour', 'td.wordSub': 'Comprendre les études, un mot à la fois.', 'td.understood': 'J’ai compris', 'td.understoodDone': 'Compris ✓',
+    'td.quiz': 'Le quiz du jour', 'td.quizSub': 'Une question, 10 secondes.', 'td.right': 'Bonne réponse ! +10 points', 'td.wrong': 'Pas tout à fait.',
+    'td.schools': 'Tes écoles', 'td.schoolsSub': 'Tes meilleures correspondances et tes prochaines dates limites.',
+    'td.locked': 'École n°{n} — à débloquer', 'td.seeAll': 'Voir mes résultats →', 'td.deadlines': 'Prochaines échéances', 'td.noDeadline': 'Aucune date limite dans les 60 prochains jours. Sauvegarde des bourses pour être prévenu.',
+    'td.invite': 'Débloque tes autres écoles', 'td.inviteSub': '3 amis inscrits = tes écoles n°3 et n°4 débloquées.', 'td.inviteSubFree': '3 amis inscrits = tes écoles n°3, 4 et 5 débloquées.',
+    'td.inviteCount': '{n}/3 amis inscrits', 'td.inviteSignup': 'Créer mon compte gratuit pour inviter', 'td.inviteDone': 'Merci ! Tes écoles sont débloquées.',
+    'td.update': 'Ton profil a {n} jours', 'td.updateSub': 'Ta situation change : mets-le à jour en 5 questions pour garder des recommandations justes.', 'td.updateBtn': 'Mettre à jour (1 min) →',
+    'td.notify': 'Ne rate plus une bourse', 'td.notifySub': 'Veux-tu être prévenu quand une bourse correspond à ton profil ou qu’une date limite approche ? Une alerte par jour au maximum, jamais la nuit.',
+    'td.notifyYes': 'Oui, préviens-moi', 'td.notifyLater': 'Plus tard', 'td.notifyIos': 'Sur iPhone, les alertes marchent une fois LERNA ajouté à ton écran d’accueil.',
+    'td.install': 'Installe LERNA sur ton téléphone', 'td.installSub': 'Une icône sur ton écran d’accueil, ouverture instantanée, même avec peu de réseau.', 'td.installBtn': 'Installer',
+    'td.ask': 'Pose ta question à LERNA', 'td.askSub': 'L’assistant connaît ton profil.', 'td.askPh': 'Ex : quelle différence entre licence et BTS ?', 'td.askBtn': 'Envoyer',
+    'td.redo': 'Refaire le questionnaire complet',
+    'td.unlock': 'Débloquer avec Premium', 'td.savedToast': 'Bourse sauvegardée — on te rappellera la date limite', 'td.unsavedToast': 'Bourse retirée de ta liste'
+  },
+  en: {
+    'td.docTitle': 'Today — LERNA',
+    'td.hello': 'Hello {name}', 'td.helloAnon': 'Hello',
+    'td.journey': 'Your journey', 'td.days': 'day(s) in a row',
+    'td.journeySub': 'Come back every day: your journey grows, your orientation moves forward.',
+    'td.journeyStart': 'Your journey starts on your 3rd visit', 'td.journeyStartSub': 'Visit {n} of 3 — come back tomorrow to continue.',
+    'td.level': 'Level {level}', 'td.points': '{n} points', 'td.next': '{n} pts to {level}', 'td.max': 'Top level reached',
+    'td.missions': "Today's mission", 'td.missionsSub': '{n} small steps to move forward today.', 'td.missionsSub1': 'One small step to move forward today.',
+    'td.go': 'Go →', 'td.mDone': '{n}/{t} done', 'td.allDone': "Today's mission complete", 'td.allDoneText': '+25 points. Come back tomorrow for a new mission.',
+    'td.dossier': 'My application', 'td.dossierSub': 'Your application moves forward a little every day.', 'td.dossierNext': 'Next step', 'td.dossierGo': 'Continue →',
+    'td.dossierStart': 'Prepare your application for {s}: steps, documents, letter, interview.', 'td.dossierStartBtn': 'Start my application', 'td.dossierAll': 'All my applications',
+    'td.bourse': 'Scholarship of the day', 'td.bourseSub': 'A new one every day, picked for your profile.',
+    'td.bourseNone': 'No open scholarship right now. Check upcoming sessions in Opportunities.', 'td.rolling': 'Rolling applications',
+    'td.see': 'View offer →', 'td.save': 'Save', 'td.saved': 'Saved', 'td.allOpps': 'All scholarships',
+    'td.word': 'Word of the day', 'td.wordSub': 'Understanding studies, one word at a time.', 'td.understood': 'Got it', 'td.understoodDone': 'Done ✓',
+    'td.quiz': 'Quiz of the day', 'td.quizSub': 'One question, 10 seconds.', 'td.right': 'Correct! +10 points', 'td.wrong': 'Not quite.',
+    'td.schools': 'Your schools', 'td.schoolsSub': 'Your best matches and your next deadlines.',
+    'td.locked': 'School #{n} — locked', 'td.seeAll': 'See my results →', 'td.deadlines': 'Upcoming deadlines', 'td.noDeadline': 'No deadline in the next 60 days. Save scholarships to get reminded.',
+    'td.invite': 'Unlock your other schools', 'td.inviteSub': '3 friends signed up = your schools #3 and #4 unlocked.', 'td.inviteSubFree': '3 friends signed up = your schools #3, #4 and #5 unlocked.',
+    'td.inviteCount': '{n}/3 friends signed up', 'td.inviteSignup': 'Create my free account to invite', 'td.inviteDone': 'Thank you! Your schools are unlocked.',
+    'td.update': 'Your profile is {n} days old', 'td.updateSub': 'Your situation changes: update it in 5 questions to keep accurate recommendations.', 'td.updateBtn': 'Update (1 min) →',
+    'td.notify': 'Never miss a scholarship', 'td.notifySub': 'Do you want to be alerted when a scholarship matches your profile or a deadline gets close? At most one alert a day, never at night.',
+    'td.notifyYes': 'Yes, alert me', 'td.notifyLater': 'Later', 'td.notifyIos': 'On iPhone, alerts work once LERNA is added to your home screen.',
+    'td.install': 'Install LERNA on your phone', 'td.installSub': 'An icon on your home screen, instant opening, even with a weak connection.', 'td.installBtn': 'Install',
+    'td.ask': 'Ask LERNA a question', 'td.askSub': 'The assistant knows your profile.', 'td.askPh': 'E.g. what is the difference between a bachelor’s and a BTS?', 'td.askBtn': 'Send',
+    'td.redo': 'Retake the full questionnaire',
+    'td.unlock': 'Unlock with Premium', 'td.savedToast': 'Scholarship saved — we will remind you of the deadline', 'td.unsavedToast': 'Scholarship removed from your list'
+  }
+});
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var t = Lerna.t, esc = Lerna.esc, L = Lerna.L, D = Lerna.daily, store = Lerna.store;
+  var profile = store.get('lerna_profile', null);
+  if (!profile) return;
+  var answers = profile.answers || {};
+
+  function results() { return store.get('lerna_results', null); }
+  function topSchool() {
+    var r = results(); if (!r || !r.recos) return null;
+    for (var i = 0; i < r.recos.length; i++) {
+      if (Lerna.recoAccess(i) !== 'open') continue;
+      var s = (r.recos[i].id && window.LERNA_SCHOOL(r.recos[i].id)) || window.LERNA_FIND_SCHOOL(r.recos[i].nom);
+      if (s) return s;
+    }
+    return null;
+  }
+  function ctx() {
+    return { top: topSchool(), results: results(), logged: Lerna.isLogged(), premium: Lerna.isPremium(), unlocked: Lerna.referral.unlocked(), favs: Lerna.favs.list().length,
+      goal: +Lerna.prefs.get('missionsGoal') || 3, dossier: dossierToday() };
+  }
+  /* Étape de dossier du jour : choisie une fois par jour, pour que la mission ne change pas après l'avoir faite */
+  function dossierToday() {
+    if (!window.LERNA_DOSSIER_NEXT) return null;
+    var k = store.get('lerna_dossier_day', null);
+    if (k && k.d === Lerna.today()) {
+      var sc = window.LERNA_SCHOOL(k.school), dd = Lerna.dossiers.get(k.school);
+      if (sc && dd) {
+        var g = dd.guide && window.LERNA_GUIDES[dd.guide] ? window.LERNA_GUIDES[dd.guide] : window.LERNA_GUIDE_FOR(sc, Lerna.country(), answers);
+        var st = g && g.steps.filter(function (x) { return x.id === k.step; })[0];
+        if (st) return { school: sc, step: st };
+      }
+    }
+    var n = window.LERNA_DOSSIER_NEXT(Lerna.country(), answers);
+    if (n) store.set('lerna_dossier_day', { d: Lerna.today(), school: n.school.id, step: n.step.id });
+    return n;
+  }
+  function missionDone(m) {
+    if (m.id === 'explore') { var top = topSchool(), l = D.log().ev.school_view || []; return l.some(function (x) { return !top || x !== top.id; }); }
+    if (m.id === 'account') return Lerna.isLogged();
+    return D.did(m.ev, m.needId || undefined);
+  }
+
+  /* ---------- En-tête ---------- */
+  function header() {
+    var u = Lerna.auth.user, s = D.streak(), lv = D.level();
+    var date = new Date().toLocaleDateString(Lerna.lang === 'en' ? 'en-GB' : 'fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+    /* Salutation selon l'heure, avec le pseudo une fois inscrit (« Tu ne dors pas encore, Fadel ? ») */
+    var slot = Lerna.slot(), sub = Lerna.greetingSub();
+    var img = { night: 'moon', late: 'moon', early: 'sunrise', morning: 'sun', noon: 'sun', afternoon: 'wave', evening: 'wave' }[slot] || 'wave';
+    return '<section class="hello">' + Lerna.sticker(img) + '<div><h1>' + esc(Lerna.greeting(u ? Lerna.displayName(u) : '')) + '</h1><p>' + esc(date.charAt(0).toUpperCase() + date.slice(1)) + '</p>' +
+      (sub ? '<p class="hello-sub">' + esc(sub) + '</p>' : '') + '</div></section>' +
+      '<div class="chips-top">' +
+        (s.started ? '<a class="pill" href="#parcours">' + Lerna.sticker('fire') + s.days + '</a>' : '') +
+        '<a class="pill" href="#parcours">' + Lerna.sticker(lv.cur.img) + esc(L(lv.cur.label)) + '</a>' +
+        '<a class="pill" href="#missions">' + Lerna.sticker('target') + t('td.mDone', { n: missionsDoneCount(), t: MISS.length }) + '</a>' +
+      '</div>';
+  }
+
+  /* ---------- Parcours + niveau ---------- */
+  function journey() {
+    var s = D.streak(), lv = D.level(), v = D.visits();
+    var h = '<section class="blk journey" id="parcours"><div class="blk-h">' + Lerna.sticker('fire') + '<div class="grow">';
+    if (s.started) {
+      h += '<h2 class="big">' + s.days + '<small>' + t('td.days') + '</small></h2><p>' + t('td.journeySub') + '</p></div></div>';
+      var days = {}; v.days.forEach(function (d) { days[d] = 1; });
+      var now = new Date(), dow = (now.getDay() + 6) % 7, monday = Lerna.addDays(Lerna.today(), -dow);
+      var names = Lerna.lang === 'en' ? ['M', 'T', 'W', 'T', 'F', 'S', 'S'] : ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+      h += '<div class="week" aria-hidden="true">' + names.map(function (n, i) {
+        var key = Lerna.addDays(monday, i), on = !!days[key];
+        return '<div class="wd' + (on ? ' on' : '') + (key === Lerna.today() ? ' today' : '') + '"><i>' + (on ? Lerna.sticker('fire') : '') + '</i>' + n + '</div>';
+      }).join('') + '</div>';
+    } else {
+      h += '<h2>' + t('td.journeyStart') + '</h2><p>' + t('td.journeyStartSub', { n: Math.min(3, v.days.length) }) + '</p>' +
+        '<div class="start-dots">' + [0, 1, 2].map(function (i) { return '<i class="' + (i < v.days.length ? 'on' : '') + '"></i>'; }).join('') + '</div></div></div>';
+    }
+    h += '<div class="level">' + Lerna.sticker(lv.cur.img) + '<div class="grow"><div class="level-top"><span>' + t('td.level', { level: L(lv.cur.label) }) + '</span><span>' +
+      (lv.next ? t('td.next', { n: lv.next.min - lv.xp, level: L(lv.next.label) }) : t('td.max')) + '</span></div>' +
+      '<div class="bar"><span style="width:' + lv.pct + '%"></span></div></div></div></section>';
+    return h;
+  }
+
+  /* ---------- Missions ---------- */
+  var MISS = null;
+  function missionsDoneCount() { if (!MISS) MISS = window.LERNA_DAILY.missions(ctx()); return MISS.filter(missionDone).length; }
+  function missions() {
+    MISS = window.LERNA_DAILY.missions(ctx());
+    var done = MISS.filter(missionDone).length;
+    return '<section class="blk" id="missions"><div class="blk-h">' + Lerna.sticker('target') + '<div class="grow"><h2>' + t('td.missions') + '</h2><p>' + (MISS.length === 1 ? t('td.missionsSub1') : t('td.missionsSub', { n: MISS.length })) + '</p></div></div>' +
+      MISS.map(function (m) {
+        var ok = missionDone(m);
+        return '<a class="mission' + (ok ? ' done' : '') + '" href="' + esc(m.href) + '" data-mission="' + m.id + '">' + Lerna.sticker(m.img) +
+          '<span class="grow">' + esc(L(m.title).replace('{school}', m.school || '')) + '</span><span class="go" aria-hidden="true">' + Lerna.icon('arrowR', 'ic-sm') + '</span>' +
+          '<span class="ck" aria-hidden="true">' + (ok ? Lerna.icon('check') : '') + '</span></a>';
+      }).join('') +
+      '<div class="m-prog"><div class="bar"><span style="width:' + Math.round(done * 100 / Math.max(1, MISS.length)) + '%"></span></div><span>' + t('td.mDone', { n: done, t: MISS.length }) + '</span></div></section>';
+  }
+  function checkBonus() {
+    if (!MISS) return;
+    var done = MISS.filter(missionDone).length;
+    if (done === MISS.length && !D.did('mission_bonus')) {
+      Lerna.track('mission_bonus');
+      setTimeout(function () { Lerna.celebrate({ img: 'trophy', title: t('td.allDone'), text: t('td.allDoneText') }); }, 400);
+    }
+  }
+
+  /* ---------- Bourse du jour ---------- */
+  function bourse() {
+    var o = window.LERNA_DAILY.bourse(answers);
+    var h = '<section class="blk opp-day" id="bourse"><div class="blk-h">' + Lerna.sticker('medal') + '<div class="grow"><h2>' + t('td.bourse') + '</h2><p>' + t('td.bourseSub') + '</p></div></div>';
+    if (!o) return h + '<p class="muted">' + t('td.bourseNone') + '</p></section>';
+    var dla = window.LERNA_OPP_DEADLINE(o), dl = dla ? Lerna.daysUntil(dla) : null;
+    var lvTxt = window.LERNA_OPP_LEVELS(o).map(function (k) { return L(window.LERNA_LEVELS[k]); }).join(', ');
+    if (o.masked) {
+      h += '<h3>' + esc(window.LERNA_OPP_TITLE(o)) + '</h3><div class="facts">' +
+        (lvTxt ? '<span>' + Lerna.icon('cap') + esc(lvTxt) + '</span>' : '') +
+        (dla ? '<span>' + Lerna.icon('calendar') + Lerna.fmtDate(dla) + (dl !== null && dl <= 30 ? ' · J-' + dl : '') + '</span>' : '') + '</div>' +
+        '<a class="btn btn-brown btn-sm" href="premium.html">' + Lerna.icon('lock', 'ic-sm') + t('td.unlock') + '</a></section>';
+      return h;
+    }
+    var saved = Lerna.oppFavs.has(o.id);
+    h += '<div class="org">' + esc(o.organisation) + '</div><h3>' + esc(o.titre) + '</h3><div class="facts">' +
+      '<span>' + Lerna.icon('dollar') + esc(L(o.montant)) + '</span>' +
+      (o.eligibles ? '<span>' + Lerna.icon('globe') + esc(L(o.eligibles)) + '</span>' : '') +
+      '<span>' + Lerna.icon('calendar') + (dla ? Lerna.fmtDate(dla) + (dl !== null && dl <= 30 ? ' · J-' + dl : '') : esc(t('td.rolling'))) + '</span></div>' +
+      '<div class="row">' + (o.lien ? '<a class="btn btn-primary btn-sm" href="' + esc(o.lien) + '" target="_blank" rel="noopener" data-oppopen="' + o.id + '">' + t('td.see') + '</a>' : '') +
+      '<button type="button" class="btn btn-ghost btn-sm save-opp' + (saved ? ' on' : '') + '" data-save="' + o.id + '">' + Lerna.icon('bookmark', 'ic-sm') + '<span>' + t(saved ? 'td.saved' : 'td.save') + '</span></button>' +
+      '<a class="btn-link" href="opportunites.html?tab=bourses">' + t('td.allOpps') + ' →</a></div></section>';
+    return h;
+  }
+
+  /* ---------- Mot + quiz ---------- */
+  function wordQuiz() {
+    var w = window.LERNA_DAILY.word(), q = window.LERNA_DAILY.quiz();
+    var read = D.did('word_read'), qs = store.get('lerna_quiz_day', null), answered = qs && qs.d === Lerna.today() ? qs : null;
+    var h = '<div class="duo"><section class="blk" id="mot"><div class="blk-h">' + Lerna.sticker('bulb') + '<div class="grow"><h2>' + t('td.word') + '</h2><p>' + t('td.wordSub') + '</p></div></div>' +
+      '<p class="word-term">' + esc(L(w.term)) + '</p><p class="word-def">' + esc(L(w.def)) + '</p>' +
+      '<button type="button" class="btn ' + (read ? 'btn-ghost is-disabled' : 'btn-brown') + ' btn-sm" style="margin-top:14px" id="wordOk">' + t(read ? 'td.understoodDone' : 'td.understood') + '</button></section>';
+    h += '<section class="blk" id="quiz"><div class="blk-h">' + Lerna.sticker('puzzle') + '<div class="grow"><h2>' + t('td.quiz') + '</h2><p>' + t('td.quizSub') + '</p></div></div>' +
+      '<p class="quiz-q">' + esc(L(q.q)) + '</p><div class="quiz-a">' + q.a.map(function (a, i) {
+        var cls = answered ? (i === q.ok ? 'good' : (i === answered.pick ? 'bad' : '')) : '';
+        return '<button type="button" data-qa="' + i + '" class="' + cls + '"' + (answered ? ' disabled' : '') + '>' + esc(L(a)) + '</button>';
+      }).join('') + '</div>' +
+      (answered ? '<p class="quiz-why"><strong>' + t(answered.pick === q.ok ? 'td.right' : 'td.wrong') + '</strong> ' + esc(L(q.why)) + '</p>' : '') + '</section></div>';
+    return h;
+  }
+
+  /* ---------- Écoles + échéances ---------- */
+  function schools() {
+    var r = results(), h = '<section class="blk" id="ecoles"><div class="blk-h">' + Lerna.sticker('cap') + '<div class="grow"><h2>' + t('td.schools') + '</h2><p>' + t('td.schoolsSub') + '</p></div></div>';
+    if (r && r.recos) {
+      h += r.recos.slice(0, 5).map(function (x, i) {
+        if (Lerna.recoAccess(i) !== 'open') return '<a class="sch lock" href="resultats.html#reco-' + (i + 1) + '"><span class="lk">' + Lerna.icon('lock', 'ic-sm') + '</span><div class="grow"><h4>' + t('td.locked', { n: i + 1 }) + '</h4></div></a>';
+        var s = (x.id && window.LERNA_SCHOOL(x.id)) || window.LERNA_FIND_SCHOOL(x.nom);
+        return '<a class="sch" href="' + (s ? 'ecole.html?id=' + s.id : 'explorer.html?q=' + encodeURIComponent(x.nom)) + '">' + (s ? Lerna.flag(s.pays) : Lerna.sticker('cap', 'flg')) +
+          '<div class="grow"><h4>' + esc(x.nom) + '</h4><div class="sub">' + esc([x.ville, x.pays].filter(Boolean).join(', ')) + '</div></div><span class="score">' + (parseInt(x.score, 10) || 0) + '%</span></a>';
+      }).join('');
+      h += '<a class="btn-link" href="resultats.html" style="display:inline-block;margin-top:10px">' + t('td.seeAll') + '</a>';
+    }
+    // Échéances : offres sauvegardées + candidatures + rappels
+    var items = [], saved = Lerna.oppFavs.list();
+    (window.LERNA_OPPS || []).forEach(function (o) {
+      var dla = window.LERNA_OPP_DEADLINE(o);
+      if (!dla || saved.indexOf(o.id) === -1) return;
+      var d = Lerna.daysUntil(dla); if (d !== null && d >= 0 && d <= 60) items.push({ title: window.LERNA_OPP_TITLE(o), d: d, date: dla });
+    });
+    store.get('lerna_tracker', []).forEach(function (x) { if (x.date) { var d = Lerna.daysUntil(x.date); if (d !== null && d >= 0 && d <= 60) items.push({ title: x.name, d: d, date: x.date }); } });
+    store.get('lerna_reminders', []).forEach(function (x) { var d = Lerna.daysUntil(x.date); if (d !== null && d >= 0 && d <= 60) items.push({ title: x.title, d: d, date: x.date }); });
+    (window.LERNA_DOSSIER_DATES ? window.LERNA_DOSSIER_DATES(Lerna.country(), answers) : []).forEach(function (x) { var d = Lerna.daysUntil(x.date); if (d !== null && d >= 0 && d <= 60) items.push({ title: x.title, d: d, date: x.date }); });
+    items.sort(function (a, b) { return a.d - b.d; });
+    h += '<h3 style="font-size:1rem;margin:18px 0 6px">' + t('td.deadlines') + '</h3>' +
+      (items.length ? items.slice(0, 4).map(function (x) {
+        return '<div class="dl">' + Lerna.icon('calendar', 'ic-sm') + '<span class="grow">' + esc(x.title) + '</span><span class="badge ' + (x.d <= 7 ? 'badge-urgent' : 'badge-cream') + '">J-' + x.d + '</span></div>';
+      }).join('') : '<p class="small muted">' + t('td.noDeadline') + '</p>');
+    return h + '</section>';
+  }
+
+  /* ---------- Invitation ---------- */
+  function invite() {
+    var R = Lerna.referral, r = results();
+    if (!r || !r.recos || r.recos.length < 3 || Lerna.isPaidPremium()) return '';
+    if (R.unlocked()) return '';
+    var conf = Math.min(R.confirmed(), R.needed);
+    var dots = ''; for (var k = 0; k < R.needed; k++) dots += '<span class="ref-dot' + (k < conf ? ' on' : '') + '">' + (k < conf ? Lerna.sticker('check') : '') + '</span>';
+    return '<section class="blk soft" id="invite"><div class="blk-h">' + Lerna.sticker('envelope') + '<div class="grow"><h2>' + t('td.invite') + '</h2><p>' + t(Lerna.config.premiumEnabled ? 'td.inviteSub' : 'td.inviteSubFree') + '</p></div></div>' +
+      '<div class="inv-prog"><div class="ref-dots">' + dots + '</div><span>' + t('td.inviteCount', { n: conf }) + '</span></div>' +
+      (Lerna.isLogged()
+        ? '<div class="share-row"><a class="btn btn-wa btn-sm" href="' + esc(Lerna.referral.waHref()) + '" target="_blank" rel="noopener" data-share="whatsapp">' + Lerna.icon('chat', 'ic-sm') + t('ref.whatsapp') + '</a>' +
+          (navigator.share ? '<button type="button" class="btn btn-white btn-sm" data-share="native">' + Lerna.icon('share', 'ic-sm') + t('ref.share') + '</button>' : '') +
+          '<button type="button" class="btn btn-white btn-sm" data-share="copy">' + Lerna.icon('copy', 'ic-sm') + t('ref.copy') + '</button></div>'
+        : '<a class="btn btn-brown btn-block" href="auth.html?mode=signup&redirect=aujourdhui.html">' + t('td.inviteSignup') + '</a>') +
+      '</section>';
+  }
+
+  /* ---------- Mise à jour mensuelle, alertes, installation, assistant ---------- */
+  function extras() {
+    var h = '';
+    var since = new Date(profile.updated || profile.completed || Date.now());
+    var age = Math.floor((Date.now() - since.getTime()) / 864e5);
+    if (age >= 30) {
+      h += '<section class="blk soft"><div class="blk-h">' + Lerna.sticker('calendar-spiral') + '<div class="grow"><h2>' + t('td.update', { n: age }) + '</h2><p>' + t('td.updateSub') + '</p></div></div>' +
+        '<a class="btn btn-primary btn-sm" href="questionnaire.html?update=1&go=1">' + t('td.updateBtn') + '</a></section>';
+    }
+    if (Lerna.notify.canAsk()) {
+      var ios = Lerna.notify.needsInstall();
+      h += '<section class="blk" id="alertes"><div class="blk-h">' + Lerna.sticker('bell') + '<div class="grow"><h2>' + t('td.notify') + '</h2><p>' + t('td.notifySub') + '</p></div></div>' +
+        (ios ? '<p class="small muted" style="margin-bottom:12px">' + t('td.notifyIos') + '</p>' : '') +
+        '<div class="row"><button type="button" class="btn btn-primary btn-sm" id="notifyYes">' + t('td.notifyYes') + '</button><button type="button" class="btn btn-ghost btn-sm" id="notifyLater">' + t('td.notifyLater') + '</button></div></section>';
+    } else if (Lerna.install.available() && D.visits().days.length >= 2) {
+      h += '<section class="blk"><div class="blk-h">' + Lerna.sticker('mobile') + '<div class="grow"><h2>' + t('td.install') + '</h2><p>' + t('td.installSub') + '</p></div></div>' +
+        '<button type="button" class="btn btn-brown btn-sm" id="installBtn">' + t('td.installBtn') + '</button></section>';
+    }
+    h += '<section class="blk"><div class="blk-h">' + Lerna.sticker('speech') + '<div class="grow"><h2>' + t('td.ask') + '</h2><p>' + t('td.askSub') + '</p></div></div>' +
+      '<form class="ask-form" id="askForm"><label class="sr-only" for="askIn">' + t('td.ask') + '</label><input class="input" id="askIn" maxlength="300" placeholder="' + esc(t('td.askPh')) + '" autocomplete="off"><button class="btn btn-primary" type="submit">' + t('td.askBtn') + '</button></form></section>';
+    h += '<p class="center small"><a class="btn-link" href="questionnaire.html?start=1" id="redo">' + t('td.redo') + '</a></p>';
+    return h;
+  }
+
+  /* ---------- Mon dossier ---------- */
+  function dossierBlk() {
+    var n = window.LERNA_DOSSIER_NEXT ? window.LERNA_DOSSIER_NEXT(Lerna.country(), answers) : null;
+    var h = '<section class="blk" id="dossier"><div class="blk-h">' + Lerna.sticker('folder') + '<div class="grow"><h2>' + t('td.dossier') + '</h2><p>' + t('td.dossierSub') + '</p></div></div>';
+    if (n) {
+      var pct = Math.round(n.done * 100 / Math.max(1, n.total));
+      return h + '<p class="small muted">' + esc(n.school.nom) + '</p><p style="margin:4px 0 10px"><strong>' + t('td.dossierNext') + ' :</strong> ' + esc(L(n.step.title)) + '</p>' +
+        '<div class="m-prog"><div class="bar"><span style="width:' + pct + '%"></span></div><span>' + n.done + '/' + n.total + '</span></div>' +
+        '<div class="row" style="margin-top:12px"><a class="btn btn-primary btn-sm" href="dossier.html?ecole=' + n.school.id + '#etapes">' + t('td.dossierGo') + '</a><a class="btn-link" href="dossier.html">' + t('td.dossierAll') + '</a></div></section>';
+    }
+    var top = topSchool();
+    if (!top || Lerna.dossiers.ids().length) return Lerna.dossiers.ids().length ? h + '<a class="btn btn-ghost btn-sm" href="dossier.html">' + t('td.dossierAll') + '</a></section>' : '';
+    return h + '<p>' + esc(t('td.dossierStart', { s: top.nom })) + '</p><a class="btn btn-primary btn-sm" style="margin-top:12px" href="dossier.html?ecole=' + top.id + '">' + t('td.dossierStartBtn') + '</a></section>';
+  }
+
+  /* Blocs que la personne a masqués dans Paramètres → Mon accueil */
+  function render() {
+    MISS = null;
+    var hidden = Lerna.prefs.get('homeHidden') || [];
+    var show = function (k, fn) { return hidden.indexOf(k) === -1 ? fn() : ''; };
+    $('root').innerHTML = header() + show('parcours', journey) + missions() + show('dossier', dossierBlk) + show('bourse', bourse) + show('mot', wordQuiz) + show('ecoles', schools) + show('invite', invite) + extras();
+    checkBonus();
+  }
+
+  Lerna.ready(function () {
+    if (!window.LERNA_DAILY) return;
+    render();
+    var rr = Lerna.debounce(render, 120);
+    Lerna.auth.ready.then(function () {
+      render();
+      Lerna.referral.refresh().then(rr);
+      window.LERNA_OPPS_UNLOCK().then(function (ok) { if (ok) rr(); });
+    });
+    Lerna.onLang(render);
+    Lerna.on('lerna:referral', rr);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) rr(); });
+    document.addEventListener('click', function (e) {
+      var el;
+      if ((el = e.target.closest('[data-share]'))) { Lerna.referral.share(el.getAttribute('data-share'), el.tagName === 'A'); setTimeout(rr, 300); return; }
+      if ((el = e.target.closest('[data-qa]'))) {
+        var q = window.LERNA_DAILY.quiz(), pick = +el.getAttribute('data-qa'), good = pick === q.ok;
+        store.set('lerna_quiz_day', { d: Lerna.today(), pick: pick });
+        Lerna.track('quiz_answer'); if (good) Lerna.track('quiz_correct');
+        Lerna.sound.play(good ? 'success' : 'error');
+        render();
+        var qq = $('quiz'); if (qq) qq.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        return;
+      }
+      if (e.target.closest('#wordOk')) { if (!D.did('word_read')) { Lerna.track('word_read'); Lerna.sound.play('select'); render(); } return; }
+      if ((el = e.target.closest('[data-save]'))) {
+        var on = Lerna.oppFavs.toggle(el.getAttribute('data-save'));
+        if (on === null) return;
+        Lerna.pop(el);
+        Lerna.toast(t(on ? 'td.savedToast' : 'td.unsavedToast'));
+        render(); return;
+      }
+      if ((el = e.target.closest('[data-oppopen]'))) { Lerna.track('opp_open', el.getAttribute('data-oppopen')); setTimeout(render, 400); return; }
+      if (e.target.closest('#notifyYes')) { Lerna.notify.ask().then(render); return; }
+      if (e.target.closest('#notifyLater')) { Lerna.notify.later(); render(); return; }
+      if (e.target.closest('#installBtn')) { Lerna.install.prompt().then(render); return; }
+      if (e.target.closest('#redo')) { store.del('lerna_progress'); return; }
+      var m = e.target.closest('[data-mission]');
+      if (m && m.getAttribute('href').charAt(0) === '#') {
+        e.preventDefault();
+        var target = document.querySelector(m.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+    document.addEventListener('submit', function (e) {
+      if (e.target.id !== 'askForm') return;
+      e.preventDefault();
+      var q = $('askIn').value.trim(); if (!q) return;
+      store.sset('lerna_ask', q);
+      Lerna.go(Lerna.isLogged() ? 'espace.html#ia' : 'auth.html?mode=signup&redirect=' + encodeURIComponent('espace.html#ia'));
+    });
+  });
+})();
+</script>
+</body>
+</html>

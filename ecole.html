@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fiche école — LERNA</title>
+<meta name="description" content="Fiche détaillée : filières, admission, coûts réels, vie étudiante, points forts et points faibles.">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:title" content="Fiche école — LERNA">
+<meta property="og:image" content="/assets/icons/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<style>
+  .back { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 600; font-size: .9rem; text-decoration: none; margin: 22px 0 14px; }
+  .back:hover { color: var(--orange); }
+  .banner {
+    height: 170px; border-radius: 22px;
+    background: linear-gradient(135deg, var(--cream-dark) 0%, rgba(232, 100, 12, 0.45) 100%);
+    position: relative; overflow: hidden;
+  }
+  .banner .flg { position: absolute; right: 18px; top: 14px; width: 54px; height: 54px; }
+  .id-row { display: flex; gap: 18px; align-items: flex-end; margin-top: -46px; padding: 0 22px; position: relative; }
+  .s-logo { width: 92px; height: 92px; border-radius: 22px; background: var(--panel); color: var(--on-panel); border: 4px solid var(--bg); display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 800; font-size: 1.5rem; flex-shrink: 0; text-align: center; line-height: 1; padding: 6px; }
+  .s-title { padding: 18px 0 6px; }
+  .s-title h1 { font-size: clamp(1.8rem, 5vw, 2.7rem); }
+  .s-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .s-meta .tag { background: var(--white); border: 1.5px solid var(--cream-dark); }
+  .tabs-wrap { position: sticky; top: var(--nav-h); z-index: 40; background: var(--bg); margin-top: 24px; }
+  .panel { padding: 28px 0 40px; }
+  .panel h3 { margin-bottom: 12px; }
+  .two { display: grid; gap: 18px; }
+  @media (min-width: 768px) { .two { grid-template-columns: 1fr 1fr; } }
+  .desc { font-size: 1.04rem; line-height: 1.75; }
+  .rank { display: flex; gap: 12px; align-items: flex-start; }
+  .rank .ic { color: var(--orange); margin-top: 3px; }
+
+  .fil { display: grid; gap: 14px; }
+  .fil-item { padding: 20px 22px; }
+  .fil-item h4 { font-size: 1.1rem; margin-bottom: 10px; }
+  .fil-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px 18px; }
+  .kv { font-size: .88rem; }
+  .kv span { display: block; color: var(--muted); font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 2px; }
+
+  .steps { list-style: none; counter-reset: st; display: flex; flex-direction: column; gap: 14px; }
+  .steps li { counter-increment: st; display: flex; gap: 14px; align-items: flex-start; }
+  .steps li::before { content: counter(st); width: 32px; height: 32px; border-radius: 50%; background: var(--orange); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: .9rem; }
+  .steps li span { padding-top: 5px; }
+
+  .costs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  @media (min-width: 768px) { .costs { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .cost { background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 16px; }
+  .cost .lbl { font-size: .78rem; color: var(--muted); font-weight: 600; line-height: 1.35; }
+  .cost .val { font-family: var(--font-head); font-weight: 800; font-size: 1.35rem; color: var(--brown); margin-top: 6px; }
+  .cost.total { grid-column: 1 / -1; background: var(--panel-grad); border-color: var(--cream-darker); }
+  .cost.total .lbl { color: var(--on-panel-muted); }
+  .cost.total .val { color: var(--orange); font-size: 1.7rem; }
+
+  .life { display: grid; gap: 12px; }
+  @media (min-width: 768px) { .life { grid-template-columns: 1fr 1fr; } }
+  .life-item { display: flex; gap: 14px; align-items: flex-start; padding: 18px; }
+  .life-item .ico { width: 42px; height: 42px; border-radius: 12px; background: var(--cream-dark); color: var(--orange); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .life-item h4 { margin-bottom: 4px; }
+  .pending { color: var(--muted); font-style: italic; font-size: .9rem; }
+
+  .rate-grid { display: grid; gap: 12px; }
+  .rate-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .star-input { display: inline-flex; gap: 2px; }
+  .star-input button { font-size: 1.6rem; color: var(--cream-darker); line-height: 1; padding: 2px; }
+  .star-input button.on { color: var(--orange); }
+  .my-review { margin-top: 14px; }
+
+  .fab {
+    position: fixed; right: 24px; bottom: 24px; z-index: 70;
+    box-shadow: var(--shadow-orange);
+  }
+  .fab .ic { width: 22px; height: 22px; }
+  .fab.on .ic { fill: currentColor; }
+  .fab.on { background: var(--panel); color: var(--on-panel); box-shadow: 0 8px 24px rgba(122,64,10,.25); }
+  body.has-bottom-nav .fab { bottom: calc(24px + var(--safe-b)); }
+  @media (max-width: 768px) {
+    body.has-bottom-nav .fab { bottom: calc(var(--bottom-h) + var(--safe-b) + 14px); right: 14px; }
+    .fab { width: 56px; height: 56px; min-height: 56px; padding: 0; border-radius: 50%; }
+    .fab .fab-lbl { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    .banner { height: 130px; border-radius: 0; margin: 0 -20px; }
+    .id-row { padding: 0 4px; }
+    .s-logo { width: 78px; height: 78px; font-size: 1.25rem; }
+  }
+  main { padding-bottom: 90px; }
+  .how .steps li span { line-height: 1.5; }
+  .how-cta { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 18px; padding: 14px; border-radius: 16px; background: var(--cream); border: 1.5px solid var(--cream-dark); }
+  .how-cta .grow { flex: 1; min-width: 180px; }
+</style>
+</head>
+<body data-page="ecole">
+<div id="lerna-nav"></div>
+
+<main>
+  <div class="container container-md" id="root"></div>
+</main>
+
+<div id="lerna-footer"></div>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/questions.js"></script>
+<script src="assets/js/data-schools.js"></script>
+<script src="assets/js/data-opps.js"></script>
+<script src="assets/js/guides.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'ec.back': '← Toutes les écoles',
+    'ec.notFound': 'École introuvable', 'ec.notFoundSub': 'Cette fiche n’existe pas ou plus.', 'ec.toExplorer': 'Explorer les écoles →',
+    'ec.tPres': 'Présentation', 'ec.tFil': 'Filières', 'ec.tAdm': 'Admission', 'ec.tCost': 'Coûts', 'ec.tLife': 'Vie étudiante', 'ec.tRev': 'Avis',
+    'ec.founded': 'Fondée en {y}', 'ec.about': 'À propos', 'ec.ranking': 'Classements et reconnaissance',
+    'ec.strengths': 'Points forts', 'ec.weaknesses': 'Points faibles', 'ec.honest': 'LERNA ne ment jamais pour plaire : voici aussi ce qui peut coincer.',
+    'ec.duration': 'Durée', 'ec.outcomes': 'Débouchés', 'ec.level': 'Niveau requis', 'ec.language': "Langue d'enseignement",
+    'ec.filNote': "Sélection de filières représentatives. La liste complète est sur le site officiel.",
+    'ec.conditions': "Conditions d'accès", 'ec.documents': 'Documents requis', 'ec.deadlines': 'Dates limites', 'ec.process': 'Processus étape par étape',
+    'ec.official': 'Site officiel de l’établissement',
+    'ec.cLocal': 'Frais annuels — étudiants locaux', 'ec.cIntl': 'Frais annuels — étudiants étrangers', 'ec.cReg': "Frais d'inscription (une fois)",
+    'ec.cHousing': 'Logement / mois', 'ec.cLiving': 'Vie courante / mois', 'ec.cTotal': 'Total estimé par an pour toi (scolarité + logement + vie)',
+    'ec.cOnline': 'Tu étudies depuis chez toi : pas de logement à prévoir',
+    'ec.scholarships': 'Bourses liées', 'ec.scholarshipsNone': 'Aucune bourse spécifique dans notre base pour l’instant. Regarde le site officiel et la page Opportunités.',
+    'ec.seeOpps': 'Voir toutes les bourses →',
+    'ec.howEyebrow': 'Comment candidater ici', 'ec.howTitle': 'Les étapes, dans l’ordre', 'ec.officialPage': 'Page officielle',
+    'ec.howVerified': 'Dates officielles vérifiées le {d} ({s}).', 'ec.directLinks': 'Liens directs',
+    'ec.linksNote': 'Les liens marqués 🔎 lancent une recherche sur le site officiel de l’école.',
+    'ec.dossierTitle': 'Prépare ta candidature avec LERNA', 'ec.dossierOpen': 'Ton dossier pour cette école', 'ec.dossierSub': 'Étapes, documents, lettre, entretien, visa : on avance ensemble, un peu chaque jour.',
+    'ec.dossierStart': 'Commencer mon dossier', 'ec.dossierGo': 'Continuer mon dossier →',
+    'ec.lAssos': 'Associations et clubs', 'ec.lHousing': 'Logement étudiant', 'ec.lFood': 'Restauration', 'ec.lTransport': 'Transport', 'ec.lSport': 'Sport et culture',
+    'ec.pending': 'Vérification en cours',
+    'ec.rCourses': 'Qualité des cours', 'ec.rCampus': 'Vie de campus', 'ec.rValue': 'Rapport qualité-prix', 'ec.rJobs': 'Insertion professionnelle',
+    'ec.noReviews': 'Pas encore d’avis vérifiés', 'ec.noReviewsSub': 'Les avis sont publiés après vérification. Tu as étudié ici ? Sois le premier à partager ton expérience.',
+    'ec.leave': 'Laisser un avis', 'ec.comment': 'Ton expérience', 'ec.commentPh': 'Ce qui t’a plu, ce qui pourrait être mieux, conseils pour les futurs étudiants…',
+    'ec.send': 'Envoyer mon avis', 'ec.loginToReview': 'Connecte-toi pour laisser un avis.', 'ec.login': 'Se connecter →',
+    'ec.thanks': 'Merci ! Ton avis sera publié après vérification.', 'ec.yourReview': 'Ton avis (en attente de vérification)',
+    'ec.google': 'Voir les avis Google de cette école', 'ec.googleSub': 'Les avis Google s’ouvrent sur Google Maps.', 'ec.verified': 'Étudiant vérifié',
+    'ec.revCount': '{n} avis vérifié(s)',
+    'ec.needStars': 'Donne une note à chaque catégorie.',
+    'ec.fav': 'Ajouter à mes favoris', 'ec.faved': 'Dans mes favoris'
+  },
+  en: {
+    'ec.back': '← All schools',
+    'ec.notFound': 'School not found', 'ec.notFoundSub': 'This profile does not exist (any more).', 'ec.toExplorer': 'Explore schools →',
+    'ec.tPres': 'Overview', 'ec.tFil': 'Programmes', 'ec.tAdm': 'Admission', 'ec.tCost': 'Costs', 'ec.tLife': 'Student life', 'ec.tRev': 'Reviews',
+    'ec.founded': 'Founded in {y}', 'ec.about': 'About', 'ec.ranking': 'Rankings and recognition',
+    'ec.strengths': 'Strengths', 'ec.weaknesses': 'Weak points', 'ec.honest': 'LERNA never lies to please: here is what can be difficult too.',
+    'ec.duration': 'Length', 'ec.outcomes': 'Careers', 'ec.level': 'Entry level', 'ec.language': 'Language of instruction',
+    'ec.filNote': 'A selection of representative programmes. The full list is on the official website.',
+    'ec.conditions': 'Entry requirements', 'ec.documents': 'Required documents', 'ec.deadlines': 'Deadlines', 'ec.process': 'Step-by-step process',
+    'ec.official': 'Official website',
+    'ec.cLocal': 'Yearly fees — local students', 'ec.cIntl': 'Yearly fees — international students', 'ec.cReg': 'Registration fee (one-off)',
+    'ec.cHousing': 'Housing / month', 'ec.cLiving': 'Living costs / month', 'ec.cTotal': 'Estimated yearly total for you (tuition + housing + living)',
+    'ec.cOnline': 'You study from home: no housing to budget for',
+    'ec.scholarships': 'Related scholarships', 'ec.scholarshipsNone': 'No specific scholarship in our database yet. Check the official website and the Opportunities page.',
+    'ec.seeOpps': 'See all scholarships →',
+    'ec.howEyebrow': 'How to apply here', 'ec.howTitle': 'The steps, in order', 'ec.officialPage': 'Official page',
+    'ec.howVerified': 'Official dates checked on {d} ({s}).', 'ec.directLinks': 'Direct links',
+    'ec.linksNote': 'Links marked 🔎 run a search on the school’s official website.',
+    'ec.dossierTitle': 'Prepare your application with LERNA', 'ec.dossierOpen': 'Your application for this school', 'ec.dossierSub': 'Steps, documents, letter, interview, visa: we move forward together, a bit every day.',
+    'ec.dossierStart': 'Start my application', 'ec.dossierGo': 'Continue my application →',
+    'ec.lAssos': 'Clubs and societies', 'ec.lHousing': 'Student housing', 'ec.lFood': 'Food', 'ec.lTransport': 'Transport', 'ec.lSport': 'Sport and culture',
+    'ec.pending': 'Being verified',
+    'ec.rCourses': 'Teaching quality', 'ec.rCampus': 'Campus life', 'ec.rValue': 'Value for money', 'ec.rJobs': 'Career outcomes',
+    'ec.noReviews': 'No verified reviews yet', 'ec.noReviewsSub': 'Reviews are published after verification. Did you study here? Be the first to share your experience.',
+    'ec.leave': 'Leave a review', 'ec.comment': 'Your experience', 'ec.commentPh': 'What you liked, what could be better, tips for future students…',
+    'ec.send': 'Send my review', 'ec.loginToReview': 'Log in to leave a review.', 'ec.login': 'Log in →',
+    'ec.thanks': 'Thank you! Your review will be published after verification.', 'ec.yourReview': 'Your review (awaiting verification)',
+    'ec.google': 'See this school’s Google reviews', 'ec.googleSub': 'Google reviews open in Google Maps.', 'ec.verified': 'Verified student',
+    'ec.revCount': '{n} verified review(s)',
+    'ec.needStars': 'Rate each category.',
+    'ec.fav': 'Add to my favourites', 'ec.faved': 'In my favourites'
+  }
+});
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var t = Lerna.t, esc = Lerna.esc, L = Lerna.L;
+  var id = Lerna.param('id');
+  var s = id && window.LERNA_SCHOOL(id);
+  var tab = (location.hash || '').replace('#', '') || 'pres';
+  var profile = Lerna.store.get('lerna_profile', null);
+  var userCountry = profile && profile.answers ? profile.answers.q4 : null;
+  var CATS = [['cours', 'ec.rCourses'], ['campus', 'ec.rCampus'], ['prix', 'ec.rValue'], ['insertion', 'ec.rJobs']];
+  var draft = { cours: 0, campus: 0, prix: 0, insertion: 0 };
+
+  var txt = function (v) { return v ? esc(L(v)) : '<span class="pending">' + t('ec.pending') + '</span>'; };
+  var yrs = function (n) { return n === 1 ? t('common.year') : t('common.years', { n: n }); };
+
+  function panelPres() {
+    return '<div class="stack">' +
+      '<div class="card"><h3>' + t('ec.about') + '</h3><p class="desc">' + esc(L(s.desc)) + '</p></div>' +
+      (s.classement ? '<div class="card rank">' + Lerna.icon('award', 'ic-lg') + '<div><h4>' + t('ec.ranking') + '</h4><p class="muted" style="margin-top:4px">' + esc(L(s.classement)) + '</p></div></div>' : '') +
+      '<div class="two">' +
+        '<div class="card"><h3>' + t('ec.strengths') + '</h3><ul class="list-check">' + s.forts.map(function (x) { return '<li>' + esc(L(x)) + '</li>'; }).join('') + '</ul></div>' +
+        '<div class="card"><h3>' + t('ec.weaknesses') + '</h3><p class="small muted" style="margin-bottom:12px">' + t('ec.honest') + '</p><ul class="list-cross">' + s.faibles.map(function (x) { return '<li>' + esc(L(x)) + '</li>'; }).join('') + '</ul></div>' +
+      '</div></div>';
+  }
+  function panelFil() {
+    return '<div class="fil">' + s.filieres.map(function (f) {
+      return '<div class="card fil-item"><h4>' + esc(f.nom) + '</h4><div class="fil-grid">' +
+        '<div class="kv"><span>' + t('ec.duration') + '</span>' + yrs(f.duree) + '</div>' +
+        '<div class="kv"><span>' + t('ec.level') + '</span>' + esc(L(f.niveau)) + '</div>' +
+        '<div class="kv"><span>' + t('ec.language') + '</span>' + esc(f.langue) + '</div>' +
+        '<div class="kv" style="grid-column:1/-1"><span>' + t('ec.outcomes') + '</span>' + esc(L(f.debouches)) + '</div>' +
+      '</div></div>';
+    }).join('') + '<p class="small muted">' + t('ec.filNote') + '</p></div>';
+  }
+  function panelAdm() {
+    var a = window.LERNA_ADMISSION[s.adm];
+    return '<div class="stack">' +
+      '<div class="card"><h3>' + t('ec.conditions') + '</h3><p>' + esc(L(a.conditions)) + '</p></div>' +
+      '<div class="two">' +
+        '<div class="card"><h3>' + t('ec.documents') + '</h3><ul class="list-check">' + a.documents.map(function (d) { return '<li>' + esc(L(d)) + '</li>'; }).join('') + '</ul></div>' +
+        '<div class="card"><h3>' + t('ec.deadlines') + '</h3><p>' + esc(L(a.dates)) + '</p></div>' +
+      '</div>' +
+      howTo() +
+      '</div>';
+  }
+  /* « Comment candidater ici » : le guide du bon système (Parcoursup, Études en France, CAQ…), les liens officiels directs et « Mon dossier » */
+  function howTo() {
+    var g = window.LERNA_GUIDE_FOR(s, Lerna.country(), (Lerna.store.get('lerna_profile', null) || {}).answers);
+    var links = window.LERNA_SCHOOL_LINKSET(s, Lerna.lang), has = !!Lerna.dossiers.get(s.id);
+    var h = '<div class="card how"><span class="eyebrow">' + t('ec.howEyebrow') + '</span><h3>' + t('ec.howTitle') + '</h3>';
+    if (g) {
+      h += '<p class="muted small" style="margin-top:4px"><strong>' + esc(L(g.label)) + '</strong> — ' + esc(L(g.who)) + '</p>' +
+        '<ol class="steps" style="margin-top:14px">' + g.steps.map(function (x) {
+          return '<li><span><strong>' + esc(L(x.title)) + '</strong>' + (L(x.desc) ? '<br><span class="muted small">' + esc(L(x.desc)) + '</span>' : '') +
+            (x.link ? '<br><a class="orange small bold" href="' + esc(x.link) + '" target="_blank" rel="noopener">' + t('ec.officialPage') + ' ↗</a>' : '') + '</span></li>';
+        }).join('') + '</ol>';
+      if (g.verifie) h += '<p class="small muted">' + t('ec.howVerified', { d: Lerna.fmtDate(g.verifie), s: g.source || '' }) + '</p>';
+    }
+    h += '<p class="label" style="margin-top:16px">' + t('ec.directLinks') + '</p><div class="row" style="margin-top:8px">' + links.map(function (l) {
+      return '<a class="btn btn-ghost btn-sm" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + (l.direct ? '' : '🔎 ') + esc(L(l.label)) + ' ↗</a>';
+    }).join('') + '</div><p class="small muted" style="margin-top:8px">' + t('ec.linksNote') + '</p>' +
+      '<div class="how-cta">' + Lerna.sticker('folder', 'stk-sm') + '<div class="grow"><strong>' + t(has ? 'ec.dossierOpen' : 'ec.dossierTitle') + '</strong><p class="small muted">' + t('ec.dossierSub') + '</p></div>' +
+      '<a class="btn btn-primary btn-sm" href="dossier.html?ecole=' + s.id + '" data-dossier="' + s.id + '">' + t(has ? 'ec.dossierGo' : 'ec.dossierStart') + '</a></div></div>';
+    return h;
+  }
+  function panelCost() {
+    var online = s.type === 'online';
+    var fee = window.LERNA_FEE_FOR(s, userCountry);
+    var minY = fee + s.inscription + 12 * (s.logement[0] + s.vie[0]);
+    var maxY = fee + s.inscription + 12 * (s.logement[1] + s.vie[1]);
+    var rng = function (r) { return r[0] === r[1] ? Lerna.money(r[0]) : Lerna.money(r[0]) + ' – ' + Lerna.money(r[1]); };
+    var opps = window.LERNA_OPPS.filter(function (o) { return o.type === 'bourse' && window.LERNA_OPP_VISIBLE(o, false) && (o.pays === s.pays || (o.organisation && o.organisation.indexOf(s.nom.split(' ')[0]) !== -1)); });
+    return '<div class="stack">' +
+      '<div class="costs">' +
+        '<div class="cost"><div class="lbl">' + t('ec.cLocal') + '</div><div class="val">' + (s.frais_local === 0 ? t('common.free') : Lerna.money(s.frais_local)) + '</div></div>' +
+        '<div class="cost"><div class="lbl">' + t('ec.cIntl') + '</div><div class="val">' + (s.frais_etranger === 0 ? t('common.free') : Lerna.money(s.frais_etranger)) + '</div></div>' +
+        '<div class="cost"><div class="lbl">' + t('ec.cReg') + '</div><div class="val">' + Lerna.money(s.inscription) + '</div></div>' +
+        (online
+          ? '<div class="cost" style="grid-column:span 2"><div class="lbl">' + t('ec.cHousing') + '</div><div class="val" style="font-size:1rem;font-family:var(--font-body);font-weight:600">' + t('ec.cOnline') + '</div></div>'
+          : '<div class="cost"><div class="lbl">' + t('ec.cHousing') + '</div><div class="val">' + rng(s.logement) + '</div></div>' +
+            '<div class="cost"><div class="lbl">' + t('ec.cLiving') + '</div><div class="val">' + rng(s.vie) + '</div></div>') +
+        '<div class="cost total"><div class="lbl">' + t('ec.cTotal') + '</div><div class="val">' + (minY === maxY ? Lerna.money(minY) : Lerna.money(minY) + ' – ' + Lerna.money(maxY)) + '</div></div>' +
+      '</div>' +
+      '<p class="small muted">' + Lerna.moneyNote() + '</p>' +
+      '<div class="card"><h3>' + t('ec.scholarships') + '</h3>' +
+        (opps.length ? '<ul class="list-arrow">' + opps.map(function (o) {
+          if (o.masked) return '<li><span><a href="opportunites.html?tab=bourses" class="orange"><strong>' + esc(window.LERNA_OPP_TITLE(o)) + '</strong></a></span></li>';
+          return '<li><span><strong>' + esc(o.titre) + '</strong> — ' + esc(L(o.montant)) + (o.lien ? ' · <a href="' + esc(o.lien) + '" target="_blank" rel="noopener" class="orange">' + esc(o.lien.replace(/^https?:\/\/(www\.)?/, '')) + '</a>' : '') + '</span></li>';
+        }).join('') + '</ul>'
+          : '<p class="muted">' + t('ec.scholarshipsNone') + '</p>') +
+        '<a class="btn-link" style="display:inline-block;margin-top:14px" href="opportunites.html?tab=bourses">' + t('ec.seeOpps') + '</a></div>' +
+      '</div>';
+  }
+  function panelLife() {
+    var v = s.etu || {};
+    var items = [['users', 'ec.lAssos', v.assos], ['bed', 'ec.lHousing', v.logement], ['utensils', 'ec.lFood', v.resto], ['bus', 'ec.lTransport', v.transport], ['activity', 'ec.lSport', v.sport]];
+    return '<div class="life">' + items.map(function (x) {
+      return '<div class="card life-item"><span class="ico">' + Lerna.icon(x[0]) + '</span><div><h4>' + t(x[1]) + '</h4><p class="small">' + txt(x[2]) + '</p></div></div>';
+    }).join('') + '</div>';
+  }
+  function myReview() {
+    var all = Lerna.store.get('lerna_reviews', {});
+    return all[s.id] || null;
+  }
+  function stars(n) { var h = ''; for (var i = 1; i <= 5; i++) h += i <= n ? '★' : '<span class="off">★</span>'; return '<span class="stars">' + h + '</span>'; }
+  var verified = null; // avis vérifiés (table "avis", valide = true)
+  function loadReviews() {
+    var A = Lerna.auth;
+    if (A.mode !== 'supabase' || !A.sb || !s) return;
+    A.sb.from('avis').select('note_cours,note_campus,note_prix,note_insertion,commentaire,date_publication').eq('ecole_id', s.id).eq('valide', true)
+      .order('date_publication', { ascending: false }).limit(30)
+      .then(function (r) { if (!r.error) { verified = r.data || []; if (tab === 'avis') renderPanel(); } }, function () {});
+  }
+  function avg(k) { if (!verified || !verified.length) return 0; return Math.round(verified.reduce(function (a, x) { return a + (x[k] || 0); }, 0) / verified.length); }
+  function panelRev() {
+    var mine = myReview(), has = verified && verified.length;
+    var g = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(s.nom + ' ' + s.ville);
+    var h = '<div class="stack"><div class="card">' + (has ? '<p class="bold" style="margin-bottom:10px">' + t('ec.revCount', { n: verified.length }) + '</p>' : '') + '<div class="rate-grid">' + CATS.map(function (c) {
+      return '<div class="rate-row"><span class="bold">' + t(c[1]) + '</span>' + stars(has ? avg('note_' + c[0]) : 0) + '</div>';
+    }).join('') + '</div></div>';
+    if (has) {
+      h += verified.filter(function (x) { return x.commentaire; }).map(function (x) {
+        var m = Math.round(((x.note_cours || 0) + (x.note_campus || 0) + (x.note_prix || 0) + (x.note_insertion || 0)) / 4);
+        return '<div class="card"><div class="row" style="justify-content:space-between"><strong>' + t('ec.verified') + '</strong>' + stars(m) + '</div><p style="margin-top:8px">' + esc(x.commentaire) + '</p><p class="xsmall muted" style="margin-top:6px">' + Lerna.fmtDate(String(x.date_publication).slice(0, 10)) + '</p></div>';
+      }).join('');
+    } else {
+      h += '<div class="empty">' + Lerna.icon('chat') + '<h4>' + t('ec.noReviews') + '</h4><p>' + t('ec.noReviewsSub') + '</p></div>';
+    }
+    h += '<div class="card row" style="justify-content:space-between"><span class="small muted">' + t('ec.googleSub') + '</span><a class="btn btn-white btn-sm" href="' + g + '" target="_blank" rel="noopener">' + Lerna.googleIcon + t('ec.google') + '</a></div>';
+    if (mine) {
+      h += '<div class="card my-review"><h4>' + t('ec.yourReview') + '</h4><div class="rate-grid" style="margin:12px 0">' + CATS.map(function (c) { return '<div class="rate-row"><span>' + t(c[1]) + '</span>' + stars(mine[c[0]]) + '</div>'; }).join('') + '</div><p>' + esc(mine.commentaire) + '</p></div>';
+    } else if (!Lerna.isLogged()) {
+      h += '<div class="card row" style="justify-content:space-between"><span>' + t('ec.loginToReview') + '</span><a class="btn btn-brown btn-sm" href="auth.html?mode=login&redirect=' + encodeURIComponent('ecole.html?id=' + s.id) + '">' + t('ec.login') + '</a></div>';
+    } else {
+      h += '<form class="card" id="revForm" novalidate><h3>' + t('ec.leave') + '</h3><div class="rate-grid" style="margin:8px 0 18px">' + CATS.map(function (c) {
+        var b = ''; for (var i = 1; i <= 5; i++) b += '<button type="button" data-cat="' + c[0] + '" data-v="' + i + '" class="' + (draft[c[0]] >= i ? 'on' : '') + '" aria-label="' + i + '/5">★</button>';
+        return '<div class="rate-row"><span class="bold">' + t(c[1]) + '</span><span class="star-input" role="group" aria-label="' + esc(t(c[1])) + '">' + b + '</span></div>';
+      }).join('') + '</div>' +
+        '<div class="field"><label for="revTxt">' + t('ec.comment') + '</label><textarea class="textarea" id="revTxt" maxlength="1500" placeholder="' + esc(t('ec.commentPh')) + '"></textarea></div>' +
+        '<p class="field-error" id="revErr" style="margin-top:8px"></p>' +
+        '<button type="submit" class="btn btn-primary" style="margin-top:8px">' + t('ec.send') + '</button></form>';
+    }
+    return h + '</div>';
+  }
+
+  var TABS = [['pres', 'ec.tPres', panelPres], ['fil', 'ec.tFil', panelFil], ['adm', 'ec.tAdm', panelAdm], ['cout', 'ec.tCost', panelCost], ['vie', 'ec.tLife', panelLife], ['avis', 'ec.tRev', panelRev]];
+
+  function renderPanel() {
+    var def = TABS.filter(function (x) { return x[0] === tab; })[0] || TABS[0];
+    tab = def[0];
+    Lerna.qsa('.tab').forEach(function (b) { var on = b.getAttribute('data-tab') === tab; b.classList.toggle('active', on); b.setAttribute('aria-selected', String(on)); });
+    var p = $('panel');
+    p.innerHTML = def[2]();
+    p.classList.remove('active'); void p.offsetWidth; p.classList.add('active');
+  }
+
+  function render() {
+    var root = $('root');
+    if (!s) {
+      root.innerHTML = '<a class="back" href="explorer.html">' + t('ec.back') + '</a><div class="empty">' + Lerna.icon('school') + '<h4>' + t('ec.notFound') + '</h4><p>' + t('ec.notFoundSub') + '</p><a class="btn btn-primary" style="margin-top:16px" href="explorer.html">' + t('ec.toExplorer') + '</a></div>';
+      return;
+    }
+    document.title = s.nom + ' — LERNA';
+    var typeBadge = s.type === 'public' ? '<span class="badge badge-olive">' + t('common.public') + '</span>' : s.type === 'private' ? '<span class="badge badge-soft">' + t('common.private') + '</span>' : '<span class="badge badge-cream">' + t('common.online') + '</span>';
+    var fav = Lerna.favs.has(s.id);
+    root.innerHTML =
+      '<a class="back" href="explorer.html">' + t('ec.back') + '</a>' +
+      '<div class="banner" aria-hidden="true">' + Lerna.flag(s.pays) + '</div>' +
+      '<div class="id-row"><div class="s-logo" aria-hidden="true">' + esc(window.LERNA_SIGLE(s)) + '</div></div>' +
+      '<div class="s-title"><h1>' + esc(s.nom) + '</h1>' +
+        '<div class="s-meta">' + typeBadge +
+          '<span class="tag">' + Lerna.icon('pin', 'ic-sm') + esc(s.ville + (s.type === 'online' ? '' : ', ' + window.LERNA_COUNTRY_NAME(s.pays))) + '</span>' +
+          '<span class="tag">' + Lerna.icon('calendar', 'ic-sm') + t('ec.founded', { y: s.fondee }) + '</span>' +
+          '<a class="tag" href="' + esc(s.site) + '" target="_blank" rel="noopener" style="text-decoration:none">' + Lerna.icon('globe', 'ic-sm') + esc(s.site.replace(/^https?:\/\/(www\.)?/, '')) + '</a>' +
+        '</div></div>' +
+      '<div class="tabs-wrap"><div class="tabs" role="tablist">' + TABS.map(function (x) {
+        return '<button type="button" class="tab" role="tab" data-tab="' + x[0] + '" aria-controls="panel">' + t(x[1]) + '</button>';
+      }).join('') + '</div></div>' +
+      '<section class="panel tab-panel active" id="panel" role="tabpanel"></section>' +
+      '<button type="button" class="btn btn-primary fab' + (fav ? ' on' : '') + '" id="fab" aria-pressed="' + fav + '">' + Lerna.icon('star') + '<span class="fab-lbl">' + t(fav ? 'ec.faved' : 'ec.fav') + '</span></button>';
+    renderPanel();
+  }
+
+  Lerna.ready(function () {
+    render();
+    if (s) Lerna.track('school_view', s.id);
+    document.addEventListener('click', function (e) {
+      var tb = e.target.closest('.tab');
+      if (tb) { tab = tb.getAttribute('data-tab'); history.replaceState(null, '', '#' + tab); renderPanel(); Lerna.sound.play('click'); return; }
+      if (e.target.closest('#fab')) {
+        var on = Lerna.favs.toggle(s.id);
+        if (on === null) return;
+        var f = $('fab'); if (on) Lerna.pop(f); f.classList.toggle('on', on); f.setAttribute('aria-pressed', String(on)); f.querySelector('.fab-lbl').textContent = t(on ? 'ec.faved' : 'ec.fav');
+        return;
+      }
+      var st = e.target.closest('[data-cat]');
+      if (st) {
+        draft[st.getAttribute('data-cat')] = parseInt(st.getAttribute('data-v'), 10);
+        Lerna.qsa('[data-cat="' + st.getAttribute('data-cat') + '"]').forEach(function (b) { b.classList.toggle('on', parseInt(b.getAttribute('data-v'), 10) <= draft[st.getAttribute('data-cat')]); });
+      }
+    });
+    document.addEventListener('submit', function (e) {
+      if (e.target.id !== 'revForm') return;
+      e.preventDefault();
+      var txtv = $('revTxt').value.trim();
+      if (CATS.some(function (c) { return !draft[c[0]]; })) { $('revErr').textContent = t('ec.needStars'); Lerna.sound.play('error'); return; }
+      var rev = { cours: draft.cours, campus: draft.campus, prix: draft.prix, insertion: draft.insertion, commentaire: txtv.slice(0, 1500), date: new Date().toISOString() };
+      var all = Lerna.store.get('lerna_reviews', {}); all[s.id] = rev; Lerna.store.set('lerna_reviews', all);
+      var A = Lerna.auth;
+      if (A.mode === 'supabase' && A.user) {
+        A.sb.from('avis').insert({ user_id: A.user.id, ecole_id: s.id, note_cours: rev.cours, note_campus: rev.campus, note_prix: rev.prix, note_insertion: rev.insertion, commentaire: rev.commentaire }).then(function () {}, function () {});
+      }
+      Lerna.toast(t('ec.thanks'), 3500); Lerna.sound.play('success');
+      renderPanel();
+    });
+    Lerna.onLang(render);
+    Lerna.auth.ready.then(function () {
+      loadReviews();
+      if (tab === 'avis') renderPanel();
+      window.LERNA_OPPS_UNLOCK().then(function (ok) { if (ok && tab === 'cout') renderPanel(); });
+    });
+    window.addEventListener('hashchange', function () {
+      var h = (location.hash || '').replace('#', '');
+      if (s && h && h !== tab) { tab = h; renderPanel(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

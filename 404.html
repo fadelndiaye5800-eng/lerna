@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Page introuvable — LERNA</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="/assets/icons/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="/assets/js/boot.js"></script>
+<link rel="stylesheet" href="/assets/css/lerna.css">
+</head>
+<body data-page="404">
+<div id="lerna-nav"></div>
+<main class="container container-sm" style="min-height:70vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:60px 20px">
+  <p class="eyebrow">404</p>
+  <h1 data-i18n="nf.title">Ce chemin n'existe pas.</h1>
+  <p class="muted" style="margin:14px 0 26px" data-i18n="nf.sub">Mais le tien, on peut le trouver ensemble.</p>
+  <a class="btn btn-primary" href="/questionnaire.html" data-i18n="nf.cta">Commencer mon orientation →</a>
+  <a class="btn-link" style="margin-top:16px" href="/index.html" data-i18n="nf.home">Retour à l'accueil</a>
+</main>
+<div id="lerna-footer"></div>
+<script src="/assets/js/core.js"></script>
+<script>
+Lerna.addStrings({
+  fr: { 'nf.title': "Ce chemin n'existe pas.", 'nf.sub': 'Mais le tien, on peut le trouver ensemble.', 'nf.cta': 'Commencer mon orientation →', 'nf.home': "Retour à l'accueil" },
+  en: { 'nf.title': "This path doesn't exist.", 'nf.sub': 'But yours — we can find it together.', 'nf.cta': 'Start my orientation →', 'nf.home': 'Back to home' }
+});
+</script>
+</body>
+</html>

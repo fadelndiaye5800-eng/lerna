@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Administration — LERNA</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<style>
+  .ad-wrap { padding-top: 26px; padding-bottom: 70px; }
+  .ad-head .badge { white-space: normal; }
+  .ad-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; flex-wrap: wrap; }
+  .ad-head h1 { font-size: clamp(1.6rem, 4.4vw, 2.2rem); }
+  .kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 18px 0; }
+  @media (min-width: 760px) { .kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .kpi { background: var(--surface); border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 14px; }
+  .kpi b { display: block; font-size: 1.6rem; font-weight: 800; color: var(--orange); }
+  .kpi span { font-size: .8rem; color: var(--muted); font-weight: 600; }
+  .tabs-wrap { position: sticky; top: var(--nav-h); z-index: 40; background: var(--bg); margin-bottom: 14px; }
+  .tbl { width: 100%; border-collapse: collapse; font-size: .86rem; }
+  .tbl th { text-align: left; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); padding: 8px; border-bottom: 1.5px solid var(--cream-dark); }
+  .tbl td { padding: 10px 8px; border-bottom: 1px solid var(--cream-dark); vertical-align: top; }
+  .tbl tr.stale td { background: var(--orange-soft); }
+  .tbl tr.off td { opacity: .55; }
+  .tbl-wrap { overflow-x: auto; background: var(--surface); border: 1.5px solid var(--cream-dark); border-radius: 16px; }
+  .acts { display: flex; gap: 6px; flex-wrap: wrap; }
+  .acts .btn { min-height: 34px; padding: 6px 12px; font-size: .78rem; }
+  .pill-s { display: inline-block; padding: 2px 9px; border-radius: 99px; font-size: .72rem; font-weight: 700; background: var(--cream-dark); }
+  .pill-s.open, .pill-s.rolling { background: var(--olive-bg); color: var(--olive); }
+  .pill-s.urgent { background: var(--orange); color: #fff; }
+  .pill-s.closed, .pill-s.stale, .pill-s.unverified, .pill-s.upcoming { background: var(--orange-soft); color: var(--orange-deep); }
+  .msg-card { background: var(--surface); border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 14px 16px; }
+  .msg-card + .msg-card { margin-top: 10px; }
+  .msg-card .top { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; font-size: .82rem; color: var(--muted); }
+  .msg-card p { white-space: pre-wrap; margin: 8px 0 10px; font-size: .92rem; }
+  .msg-card.nouveau { border-color: var(--orange); }
+  .ab-card { display: grid; gap: 12px; }
+  .ab-bar { display: flex; height: 12px; border-radius: 99px; overflow: hidden; background: var(--cream-dark); }
+  .ab-bar span:first-child { background: #3D1F00; } .ab-bar span:last-child { background: var(--orange); }
+  :root[data-theme="dark"] .ab-bar span:first-child { background: #F7EDDC; }
+  .json { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8rem; min-height: 320px; }
+  .gate { text-align: center; padding: 60px 10px; }
+</style>
+</head>
+<body data-page="admin" data-bottomnav="off">
+<div id="lerna-nav"></div>
+<main class="container ad-wrap" id="root"></main>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/questions.js"></script>
+<script src="assets/js/data-schools.js"></script>
+<script src="assets/js/data-opps.js"></script>
+<script>
+/* Page réservée à l'équipe (rôle « admin » dans la table users). Toutes les écritures passent par
+   Supabase avec la session de l'admin : les règles RLS (is_admin()) refusent tout autre compte. */
+(function () {
+  var esc = Lerna.esc, L = Lerna.L, A = Lerna.auth, today = new Date().toISOString().slice(0, 10);
+  var $ = function (id) { return document.getElementById(id); };
+  var tab = (location.hash || '#offres').slice(1), data = { opps: [], reps: [], msgs: [], ab: null, abHist: [], fx: null, users: null, abCounts: null };
+  var TABS = [['offres', 'Offres'], ['signalements', 'Signalements'], ['messages', 'Messages'], ['ab', 'Tests A/B'], ['fx', 'Taux de change']];
+  var live = function () { return A.mode === 'supabase' && A.sb; };
+  function toast(m) { Lerna.toast(m, 2200); }
+  function days(iso) { var d = Lerna.daysUntil(iso); return d === null ? null : -d; }
+  function oppStatus(row) {
+    var o = Object.assign({}, row.data || {}, { id: row.slug, deadline: row.date_limite || (row.data && row.data.deadline), verifie: row.verifie || (row.data && row.data.verifie) });
+    return window.LERNA_OPP_STATUS(o);
+  }
+
+  /* ---------- Chargement ---------- */
+  function load() {
+    if (!live()) {
+      data.opps = window.LERNA_OPPS.map(function (o) { return { slug: o.id, type: o.type, titre: o.masked ? '(Premium, fiche dans Supabase)' : o.titre, organisation: o.organisation || '', date_limite: o.deadline || null, verifie: o.verifie, is_premium: !!o.premium, active: true, data: o }; });
+      return Promise.resolve();
+    }
+    var sb = A.sb;
+    return Promise.all([
+      sb.from('opportunites').select('id,slug,type,titre,organisation,date_limite,verifie,ouverture,is_premium,active,data').order('date_limite', { ascending: true, nullsFirst: false }),
+      sb.from('signalements').select('*').order('created_at', { ascending: false }).limit(200),
+      sb.from('messages_contact').select('*').order('created_at', { ascending: false }).limit(200),
+      sb.from('app_config').select('key,value,updated_at'),
+      sb.from('users').select('id', { count: 'exact', head: true }),
+      sb.from('users').select('ab').limit(10000)
+    ]).then(function (r) {
+      data.opps = r[0].data || []; data.reps = r[1].data || []; data.msgs = r[2].data || [];
+      (r[3].data || []).forEach(function (x) { if (x.key === 'ab') data.ab = x.value; if (x.key === 'fx') data.fx = x.value; if (x.key === 'ab_history') data.abHist = x.value || []; });
+      data.users = r[4].count;
+      var c = {}; (r[5].data || []).forEach(function (u) { var v = u.ab && u.ab.couleurs; if (v) c[v] = (c[v] || 0) + 1; }); data.abCounts = c;
+    });
+  }
+
+  /* ---------- Rendu ---------- */
+  function render() {
+    var u = A.user;
+    if (live() && (!u || u.role !== 'admin')) {
+      $('root').innerHTML = '<div class="gate">' + Lerna.sticker('lock', 'stk-lg') + '<h1 style="font-size:1.6rem;margin-top:10px">Accès réservé à l’équipe LERNA</h1><p class="muted" style="margin:8px 0 18px">Connecte-toi avec un compte administrateur.</p><a class="btn btn-primary" href="auth.html?redirect=admin.html">Se connecter</a></div>';
+      return;
+    }
+    var stale = data.opps.filter(function (o) { return o.active && oppStatus(o) === 'stale'; }).length;
+    var newReps = data.reps.filter(function (x) { return x.statut === 'nouveau'; }).length;
+    var newMsgs = data.msgs.filter(function (x) { return x.statut === 'nouveau'; }).length;
+    var h = '<div class="ad-head"><div><span class="eyebrow">Administration</span><h1>Tableau de bord LERNA</h1></div>' +
+      (live() ? '<span class="small muted">Connecté : ' + esc(u.email) + '</span>' : '<span class="badge badge-soft">Mode aperçu — Supabase pas encore branché</span>') + '</div>' +
+      '<div class="kpis"><div class="kpi"><b>' + (data.users === null ? '—' : data.users) + '</b><span>Comptes</span></div>' +
+      '<div class="kpi"><b>' + stale + '</b><span>Offres à revérifier (+30 j)</span></div>' +
+      '<div class="kpi"><b>' + newReps + '</b><span>Signalements nouveaux</span></div>' +
+      '<div class="kpi"><b>' + newMsgs + '</b><span>Messages nouveaux</span></div></div>' +
+      '<div class="tabs-wrap"><div class="tabs" role="tablist">' + TABS.map(function (x) { return '<button type="button" class="tab' + (x[0] === tab ? ' active' : '') + '" data-tab="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div></div>' +
+      '<div id="panel">' + ({ offres: pOffres, signalements: pReps, messages: pMsgs, ab: pAb, fx: pFx }[tab] || pOffres)() + '</div>';
+    $('root').innerHTML = h;
+  }
+  function pOffres() {
+    var h = '<div class="row" style="justify-content:space-between;margin-bottom:12px"><p class="small muted" style="max-width:640px">Règles automatiques : date passée → clôturée ; ni date ni « à tout moment » → jamais affichée ; vérifiée il y a plus de 30 jours → masquée jusqu’à « Revérifiée aujourd’hui ».</p>' +
+      (live() ? '<button type="button" class="btn btn-primary btn-sm" data-act="new">+ Nouvelle offre</button>' : '') + '</div>';
+    h += '<div class="tbl-wrap"><table class="tbl"><thead><tr><th>Offre</th><th>Type</th><th>Date limite</th><th>Vérifiée</th><th>Statut</th><th></th></tr></thead><tbody>' + data.opps.map(function (o) {
+      var st = oppStatus(o), dv = o.verifie ? days(o.verifie) : null;
+      return '<tr class="' + (st === 'stale' ? 'stale' : '') + (o.active === false ? ' off' : '') + '"><td><strong>' + esc(o.titre || o.slug) + '</strong><div class="small muted">' + esc(o.organisation || '') + ' · ' + esc(o.slug) + (o.is_premium ? ' · Premium' : '') + '</div></td>' +
+        '<td>' + esc(o.type) + '</td><td>' + (o.date_limite ? Lerna.fmtDate(o.date_limite) : '<span class="muted">—</span>') + '</td>' +
+        '<td>' + (o.verifie ? Lerna.fmtDate(o.verifie) + '<div class="small muted">il y a ' + dv + ' j</div>' : '—') + '</td>' +
+        '<td><span class="pill-s ' + st + '">' + st + '</span>' + (o.active === false ? ' <span class="pill-s">désactivée</span>' : '') + '</td>' +
+        '<td>' + (live() ? '<div class="acts"><button type="button" class="btn btn-primary" data-act="verify" data-id="' + o.id + '">Revérifiée aujourd’hui</button>' +
+          '<button type="button" class="btn btn-ghost" data-act="edit" data-id="' + o.id + '">Modifier</button>' +
+          '<button type="button" class="btn btn-ghost" data-act="toggle" data-id="' + o.id + '">' + (o.active === false ? 'Activer' : 'Désactiver') + '</button></div>' : '') + '</td></tr>';
+    }).join('') + '</tbody></table></div>';
+    if (!live()) h += '<p class="small muted" style="margin-top:10px">En ligne, cette liste vient de la table « opportunites » ; les modifications sont immédiates pour tout le monde.</p>';
+    return h;
+  }
+  function pReps() {
+    if (!live()) return '<p class="muted">Disponible une fois Supabase branché.</p>';
+    if (!data.reps.length) return '<div class="empty"><h4>Aucun signalement</h4></div>';
+    var R = { expiree: 'Clôturée / expirée', lien_casse: 'Lien cassé', info_fausse: 'Info fausse', autre: 'Autre' };
+    return data.reps.map(function (r) {
+      var o = data.opps.filter(function (x) { return x.slug === r.opp_id; })[0];
+      return '<div class="msg-card ' + r.statut + '"><div class="top"><span><strong>' + esc(o ? o.titre : r.opp_id) + '</strong> · ' + esc(R[r.raison] || r.raison) + '</span><span>' + Lerna.fmtDate(r.created_at) + ' · ' + esc(r.statut) + '</span></div>' +
+        (r.message ? '<p>' + esc(r.message) + '</p>' : '<p class="muted">(pas de détail)</p>') +
+        '<div class="acts">' + (o && o.data && o.data.lien ? '<a class="btn btn-ghost" href="' + esc(o.data.lien) + '" target="_blank" rel="noopener">Page officielle ↗</a>' : '') +
+        (o ? '<button type="button" class="btn btn-ghost" data-act="toggle" data-id="' + o.id + '">' + (o.active === false ? 'Réactiver l’offre' : 'Désactiver l’offre') + '</button>' : '') +
+        '<button type="button" class="btn btn-primary" data-rep="' + r.id + '" data-v="traite">Traité</button><button type="button" class="btn btn-ghost" data-rep="' + r.id + '" data-v="rejete">Rejeté</button></div></div>';
+    }).join('');
+  }
+  function pMsgs() {
+    if (!live()) return '<p class="muted">Disponible une fois Supabase branché.</p>';
+    if (!data.msgs.length) return '<div class="empty"><h4>Aucun message</h4></div>';
+    var S = { probleme: 'Problème', ajout: 'Proposer un ajout', retrait: 'Proposer un retrait', question: 'Question', partenariat: 'Partenariat', donnees: 'Données personnelles' };
+    return data.msgs.map(function (m) {
+      return '<div class="msg-card ' + m.statut + '"><div class="top"><span><strong>' + esc(S[m.sujet] || m.sujet) + '</strong> · ' + esc(m.nom || '') + ' &lt;' + esc(m.email) + '&gt;</span><span>' + Lerna.fmtDate(m.created_at) + ' · ' + esc(m.statut) + (m.transfere ? ' · transféré par email' : '') + '</span></div>' +
+        '<p>' + esc(m.message) + '</p><div class="acts"><a class="btn btn-primary" href="mailto:' + esc(m.email) + '?subject=' + encodeURIComponent('Re: ' + (S[m.sujet] || 'LERNA')) + '" data-msg="' + m.id + '" data-v="repondu">Répondre par email</a>' +
+        '<button type="button" class="btn btn-ghost" data-msg="' + m.id + '" data-v="lu">Lu</button><button type="button" class="btn btn-ghost" data-msg="' + m.id + '" data-v="archive">Archiver</button></div></div>';
+    }).join('');
+  }
+  function pAb() {
+    var tests = Lerna.ab.tests, ab = data.ab || {}, c = data.abCounts || {};
+    var h = '<p class="small muted" style="max-width:700px;margin-bottom:14px">Règle : laisser tourner au moins <strong>2 semaines</strong> et environ <strong>300 personnes par version</strong> avant de décider. Les résultats (questionnaire terminé, compte créé, retour à J1 et J7, invitations, visites Premium) se lisent dans PostHog, filtrés par la propriété <code>ab_couleurs</code>.</p>';
+    Object.keys(tests).forEach(function (k) {
+      var cur = ab[k] || 'test', a = c.a || 0, b = c.b || 0, tot = a + b;
+      var hist = (data.abHist || []).filter(function (x) { return x.test === k; }).slice(-1)[0];
+      h += '<section class="card ab-card"><div class="row" style="justify-content:space-between"><h3>Test « ' + esc(k) + ' »</h3><span class="badge ' + (cur === 'test' ? 'badge-orange' : 'badge-cream') + '">' + (cur === 'test' ? 'En cours' : 'Terminé : version ' + cur.toUpperCase() + ' pour tous') + '</span></div>' +
+        '<p class="small">' + esc(L(tests[k].label)) + '</p>' +
+        (live() ? '<div><div class="row small" style="justify-content:space-between"><span>A : ' + a + ' comptes</span><span>B : ' + b + ' comptes</span></div><div class="ab-bar" style="margin-top:6px"><span style="width:' + (tot ? a * 100 / tot : 50) + '%"></span><span style="width:' + (tot ? b * 100 / tot : 50) + '%"></span></div>' +
+          '<p class="small muted" style="margin-top:6px">Comptes créés seulement ; les visiteurs sans compte sont dans PostHog.' + (hist ? ' Dernier changement : ' + Lerna.fmtDate(hist.at) + ' (' + esc(hist.value) + ').' : '') + '</p></div>' : '') +
+        (live() ? '<div class="acts"><button type="button" class="btn btn-primary" data-ab="' + k + '" data-v="a">Arrêter : A gagne</button><button type="button" class="btn btn-primary" data-ab="' + k + '" data-v="b">Arrêter : B gagne</button>' +
+          '<button type="button" class="btn btn-ghost" data-ab="' + k + '" data-v="test">' + (cur === 'test' ? 'Test en cours' : 'Relancer le test') + '</button></div>' : '<p class="small muted">Les boutons apparaissent une fois Supabase branché.</p>') +
+        (Lerna.config.posthogHost ? '<a class="btn-link" href="' + esc(Lerna.config.posthogHost.replace('.i.posthog.com', '.posthog.com')) + '" target="_blank" rel="noopener">Ouvrir PostHog ↗</a>' : '') + '</section>';
+    });
+    h += '<p class="small muted" style="margin-top:14px">Lancer le test suivant : ajoute-le dans <code>AB_TESTS</code> (assets/js/core.js), publie, puis il apparaît ici automatiquement.</p>';
+    return h;
+  }
+  function pFx() {
+    var fx = Object.assign({}, Lerna.fx(), data.fx || {});
+    return '<section class="card" style="max-width:560px"><h3>Taux indicatifs (pour 1 dollar)</h3><p class="small muted" style="margin:6px 0 14px">Les frais sont saisis en dollars ; l’app les convertit en FCFA ou en euros avec ces taux. Le FCFA suit l’euro (1 € = 655,957 FCFA).</p>' +
+      '<div class="stack"><div class="field"><label for="fxEur">1 $ = … €</label><input class="input" id="fxEur" type="number" step="0.0001" value="' + fx.EUR + '"></div>' +
+      '<div class="field"><label for="fxXof">1 $ = … FCFA</label><input class="input" id="fxXof" type="number" step="0.1" value="' + fx.XOF + '"></div>' +
+      '<div class="field"><label for="fxDate">Date du taux</label><input class="input" id="fxDate" type="date" value="' + esc(fx.date) + '"></div>' +
+      (live() ? '<button type="button" class="btn btn-primary" data-act="fx">Enregistrer</button>' : '<p class="small muted">Enregistrement disponible une fois Supabase branché.</p>') + '</div></section>';
+  }
+
+  /* ---------- Actions ---------- */
+  function reload() { return load().then(render); }
+  function find(id) { return data.opps.filter(function (o) { return String(o.id) === String(id); })[0]; }
+  function editModal(o) {
+    var isNew = !o;
+    var base = o ? Object.assign({}, o.data || {}) : { id: '', type: 'bourse', titre: '', organisation: '', pays: '', domaines: [], niveaux: [], deadline: '', lien: '', source: '', verifie: today, premium: false };
+    Lerna.modal('<div class="modal-head"><h3>' + (isNew ? 'Nouvelle offre' : 'Modifier « ' + esc(o.titre || o.slug) + ' »') + '</h3><button class="modal-close" data-close aria-label="Fermer">' + Lerna.icon('x') + '</button></div>' +
+      '<p class="small muted">Fiche complète (format des offres de data-opps.js). Champs utiles : id, type (bourse, stage, emploi, investisseur), titre, organisation, pays, domaines, niveaux, montant {fr,en}, eligibles {fr,en}, ouverture, deadline ou rolling: true, lien, source, verifie, premium.</p>' +
+      (isNew ? '<div class="ai-draft" style="display:flex;gap:8px;flex-wrap:wrap;margin:10px 0"><input class="input" id="aiUrl" type="url" placeholder="Lien officiel de l’offre (https://…)" style="flex:1;min-width:220px"><button type="button" class="btn btn-brown btn-sm" id="aiGo">' + Lerna.icon('sparkle', 'ic-sm') + ' Préparer avec l’IA</button></div><div id="aiNote" class="small"></div>' : '') +
+      '<textarea class="textarea json" id="jsonEd" spellcheck="false">' + esc(JSON.stringify(base, null, 2)) + '</textarea><p class="field-error" id="jsonErr"></p>' +
+      '<button type="button" class="btn btn-primary btn-block" id="jsonSave">Enregistrer</button>', function (m, close) {
+      var aiGo = m.querySelector('#aiGo');
+      if (aiGo) aiGo.addEventListener('click', function () {
+        var url = m.querySelector('#aiUrl').value.trim(), note = m.querySelector('#aiNote');
+        if (!/^https:\/\//.test(url)) { note.textContent = 'Colle un lien qui commence par https://'; return; }
+        note.innerHTML = Lerna.thinking('inline') + ' L’IA lit la page officielle…';
+        Lerna.ai('admin_offre', { url: url }).then(function (r) {
+          if (r.state !== 'ok' || !r.draft) {
+            note.textContent = r.state === 'offline' ? 'L’aide IA marchera dès que la clé ANTHROPIC_API_KEY sera ajoutée sur Vercel.' : r.state === 'limit' ? 'Limite du jour atteinte.' : 'La page n’a pas pu être lue (' + (r.error || 'erreur') + '). Remplis la fiche à la main.';
+            return;
+          }
+          var x = r.draft, T2 = function (fr, en) { return fr || en ? { fr: fr || en, en: en || fr } : undefined; };
+          var slug = (x.organisation || 'offre').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 30) + '-' + today.slice(0, 4);
+          var d = { id: slug, type: x.type, titre: x.titre, organisation: x.organisation, pays: x.pays, domaines: x.domaines || [], domaine: (x.domaines || [])[0], niveaux: x.niveaux || [], niveau: (x.niveaux || [])[0],
+            montant: T2(x.montant_fr, x.montant_en), eligibles: T2(x.eligibles_fr, x.eligibles_en), duree: T2(x.duree_fr, x.duree_en),
+            ouverture: x.ouverture || undefined, deadline: x.deadline || undefined, rolling: x.rolling ? true : undefined,
+            lien: x.lien, source: x.source, verifie: today, premium: false };
+          if (x.deadline && (x.note_fr || x.note_en)) d.deadlineNote = T2(x.note_fr, x.note_en);
+          if (!x.deadline && x.rolling && (x.note_fr || x.note_en)) d.rollingNote = T2(x.note_fr, x.note_en);
+          if (x.type === 'investisseur') { if (x.equity === true || x.equity === false) d.equity = x.equity; if (x.genre) d.genre = x.genre; if (x.stade) d.stade = x.stade; }
+          m.querySelector('#jsonEd').value = JSON.stringify(JSON.parse(JSON.stringify(d)), null, 2);
+          note.innerHTML = '<div class="notice" style="margin:6px 0">' + Lerna.icon('alert') + '<div><strong>Brouillon à relire avant d’enregistrer.</strong> Preuve trouvée : « ' + esc(x.preuve || 'aucune') + ' »' +
+            ((x.doutes || []).length ? '<br>Points à vérifier : ' + esc(x.doutes.join(' ; ')) : '') + '</div></div>';
+        });
+      });
+      m.querySelector('#jsonSave').addEventListener('click', function () {
+        var d; try { d = JSON.parse(m.querySelector('#jsonEd').value); } catch (e) { m.querySelector('#jsonErr').textContent = 'JSON invalide : ' + e.message; return; }
+        if (!/^[a-z0-9-]{3,60}$/.test(d.id || '')) { m.querySelector('#jsonErr').textContent = 'id obligatoire (minuscules, chiffres, tirets).'; return; }
+        if (['bourse', 'stage', 'emploi', 'investisseur'].indexOf(d.type) === -1) { m.querySelector('#jsonErr').textContent = 'type invalide.'; return; }
+        if (!d.deadline && !d.rolling) { m.querySelector('#jsonErr').textContent = 'Il faut une date limite (deadline) ou rolling: true — sinon l’offre ne sera jamais affichée.'; return; }
+        var row = { slug: d.id, type: d.type, titre: d.titre || null, organisation: d.organisation || null, pays: d.pays || null, domaine: (d.domaines && d.domaines[0]) || d.domaine || null,
+          date_limite: d.deadline || null, ouverture: d.ouverture || null, lien: d.lien || null, is_premium: !!d.premium, verifie: d.verifie || today, data: d, active: true };
+        var q = isNew ? A.sb.from('opportunites').insert(row) : A.sb.from('opportunites').update(row).eq('id', o.id);
+        q.then(function (r) { if (r.error) { m.querySelector('#jsonErr').textContent = r.error.message; return; } close(); toast('Offre enregistrée'); reload(); });
+      });
+    });
+  }
+  function setAb(test, v) {
+    var ab = Object.assign({}, data.ab || {}); ab[test] = v;
+    var hist = (data.abHist || []).concat([{ test: test, value: v, at: new Date().toISOString(), by: A.user.email }]).slice(-50);
+    Promise.all([
+      A.sb.from('app_config').upsert({ key: 'ab', value: ab, updated_at: new Date().toISOString(), updated_by: A.user.id }),
+      A.sb.from('app_config').upsert({ key: 'ab_history', value: hist, updated_at: new Date().toISOString(), updated_by: A.user.id })
+    ]).then(function (r) {
+      if (r[0].error) return toast('Erreur : ' + r[0].error.message);
+      try { sessionStorage.removeItem('lerna_cfg'); } catch (e) {}
+      toast(v === 'test' ? 'Test relancé' : 'Version ' + v.toUpperCase() + ' donnée à tout le monde'); reload();
+    });
+  }
+
+  Lerna.ready(function () {
+    $('root').innerHTML = '<p class="muted" style="padding:40px 0">Chargement…</p>';
+    A.ready.then(function () { return load(); }).then(render, function () { render(); });
+    document.addEventListener('click', function (e) {
+      var b;
+      if ((b = e.target.closest('[data-tab]'))) { tab = b.getAttribute('data-tab'); history.replaceState(null, '', '#' + tab); render(); return; }
+      if (!live()) return;
+      if ((b = e.target.closest('[data-act]'))) {
+        var act = b.getAttribute('data-act'), o = find(b.getAttribute('data-id'));
+        if (act === 'new') return editModal(null);
+        if (act === 'edit' && o) return editModal(o);
+        if (act === 'verify' && o) {
+          var d = Object.assign({}, o.data || {}, { verifie: today });
+          A.sb.from('opportunites').update({ verifie: today, data: d }).eq('id', o.id).then(function (r) { toast(r.error ? 'Erreur : ' + r.error.message : 'Marquée vérifiée aujourd’hui'); reload(); });
+          return;
+        }
+        if (act === 'toggle' && o) { A.sb.from('opportunites').update({ active: o.active === false }).eq('id', o.id).then(function () { reload(); }); return; }
+        if (act === 'fx') {
+          var fx = { EUR: +$('fxEur').value, XOF: +$('fxXof').value, date: $('fxDate').value };
+          if (!(fx.EUR > 0 && fx.XOF > 0 && /^\d{4}-\d{2}-\d{2}$/.test(fx.date))) return toast('Valeurs invalides');
+          A.sb.from('app_config').upsert({ key: 'fx', value: fx, updated_at: new Date().toISOString(), updated_by: A.user.id }).then(function (r) { toast(r.error ? 'Erreur : ' + r.error.message : 'Taux enregistrés'); reload(); });
+          return;
+        }
+      }
+      if ((b = e.target.closest('[data-rep]'))) { A.sb.from('signalements').update({ statut: b.getAttribute('data-v') }).eq('id', b.getAttribute('data-rep')).then(reload); return; }
+      if ((b = e.target.closest('[data-msg]'))) { A.sb.from('messages_contact').update({ statut: b.getAttribute('data-v') }).eq('id', b.getAttribute('data-msg')).then(reload); return; }
+      if ((b = e.target.closest('[data-ab]'))) {
+        var v = b.getAttribute('data-v'), k = b.getAttribute('data-ab');
+        if (v !== 'test' && !confirm('Arrêter le test « ' + k + ' » et donner la version ' + v.toUpperCase() + ' à tout le monde ?')) return;
+        setAb(k, v);
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

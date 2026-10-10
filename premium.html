@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LERNA Premium</title>
+<meta name="lerna-title" content="pr.docTitle">
+<meta name="description" content="LERNA Premium : recommandations illimitées, accès complet aux stages et bourses, assistant IA illimité. 4.99$/mois ou 39.99$/an.">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:title" content="LERNA Premium — Sois prêt avant les autres">
+<meta property="og:description" content="Pas parce que tu es plus important. Mais parce que tu es plus préparé.">
+<meta property="og:image" content="/assets/icons/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<style>
+  .pr-head { background: var(--panel-grad); text-align: center; padding: 64px 0 120px; }
+  .pr-head .badge { background: var(--orange); color: #fff; }
+  .pr-head h1 { color: var(--on-panel); font-size: clamp(2.3rem, 7vw, 4rem); margin-top: 20px; }
+  .pr-head p { color: var(--on-panel-muted); font-size: clamp(1rem, 2.6vw, 1.2rem); max-width: 560px; margin: 16px auto 0; }
+
+  .price-wrap { margin-top: -84px; position: relative; z-index: 2; }
+  .price-card { max-width: 480px; margin: 0 auto; text-align: center; padding: 34px 28px; box-shadow: var(--shadow-card); }
+  .billing { display: inline-flex; background: var(--cream-dark); border-radius: 99px; padding: 4px; margin-bottom: 24px; }
+  .billing button { padding: 10px 18px; border-radius: 99px; font-weight: 700; font-size: .9rem; color: var(--muted); display: inline-flex; align-items: center; gap: 8px; }
+  .billing button.active { background: var(--surface); color: var(--brown); box-shadow: 0 2px 8px rgba(61, 31, 0, .1); }
+  .billing .save { background: var(--orange); color: #fff; border-radius: 99px; padding: 2px 8px; font-size: .7rem; letter-spacing: .04em; }
+  .price { font-family: var(--font-head); font-weight: 800; font-size: 3.6rem; color: var(--brown); line-height: 1; }
+  .price small { font-family: var(--font-body); font-size: 1rem; color: var(--muted); font-weight: 600; }
+  .price-sub { color: var(--muted); font-size: .9rem; margin-top: 8px; min-height: 1.4em; }
+  .price-card .btn-primary { width: 100%; margin-top: 24px; }
+  .price-note { color: var(--muted); font-size: .8rem; margin-top: 14px; }
+  .already { display: none; }
+  .already.show { display: block; }
+
+  .msg { text-align: center; max-width: 640px; margin: 0 auto; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.25rem, 3vw, 1.6rem); line-height: 1.45; color: var(--brown); }
+  .msg strong { color: var(--orange); font-weight: 900; }
+
+  .cmp { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 20px; overflow: hidden; }
+  .cmp th, .cmp td { padding: 14px 16px; text-align: left; font-size: .92rem; border-bottom: 1px solid var(--cream-dark); }
+  .cmp tr:last-child td { border-bottom: none; }
+  .cmp th { background: var(--cream-dark); font-size: .74rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+  .cmp th.c, .cmp td.c { text-align: center; width: 92px; }
+  .cmp th.prem { background: var(--panel); color: var(--on-panel); }
+  .cmp td.prem { background: rgba(232, 100, 12, 0.05); }
+  .yes { color: var(--orange); font-weight: 900; font-size: 1.1rem; }
+  .no { color: var(--cream-darker); font-weight: 900; font-size: 1.1rem; }
+  @media (max-width: 480px) { .cmp th, .cmp td { padding: 12px 10px; font-size: .86rem; } .cmp th.c, .cmp td.c { width: 64px; } }
+
+  .guarantee { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .guarantee .ic-wrap { width: 64px; height: 64px; border-radius: 18px; background: var(--panel); color: var(--orange); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .guarantee p { font-size: 1.05rem; flex: 1; min-width: 220px; }
+
+  .faq details { background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 0 20px; margin-bottom: 10px; }
+  .faq summary { cursor: pointer; padding: 18px 0; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 14px; align-items: center; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; color: var(--orange); font-size: 1.4rem; font-weight: 700; transition: transform .2s; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { padding: 0 0 18px; color: var(--muted); }
+  .final-cta { text-align: center; padding: 20px 0 80px; }
+</style>
+</head>
+<body data-page="premium">
+<div id="lerna-nav"></div>
+
+<main>
+  <section class="pr-head">
+    <div class="container container-sm fade-up">
+      <span class="badge" data-i18n="pr.badge">LERNA Premium</span>
+      <h1 data-i18n="pr.title">Sois prêt avant les autres.</h1>
+      <p data-i18n="pr.sub">Pas parce que tu es plus important. Mais parce que tu es plus préparé.</p>
+    </div>
+  </section>
+
+  <section class="container price-wrap">
+    <div class="card price-card fade-up" style="--i:1">
+      <div id="buyBox">
+        <div class="billing" role="group" aria-label="Facturation">
+          <button type="button" class="active" data-plan="monthly" data-i18n="pr.monthly">Mensuel</button>
+          <button type="button" data-plan="yearly"><span data-i18n="pr.yearly">Annuel</span> <span class="save" data-i18n="pr.save">−33%</span></button>
+        </div>
+        <div class="price" id="price"></div>
+        <p class="price-sub" id="priceSub"></p>
+        <button type="button" class="btn btn-primary btn-lg" id="buyBtn" data-i18n="pr.cta">Commencer Premium →</button>
+        <p class="price-note" data-i18n="pr.note">Annulable à tout moment · Paiement sécurisé · Sans engagement</p>
+      </div>
+      <div class="already" id="already">
+        <span class="badge badge-orange" data-i18n="pr.isPremium">Tu es Premium</span>
+        <p style="margin:16px 0 20px" id="alreadyTxt"></p>
+        <a class="btn btn-brown" id="manageBtn" href="espace.html" data-i18n="pr.manage">Gérer mon abonnement →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container-md">
+      <p class="msg reveal" data-i18n-html="pr.message">Le Premium ne te rend pas plus important que les autres utilisateurs de LERNA. Il te rend simplement <strong>plus préparé</strong>. Tu reçois les opportunités en premier, tu as accès à plus d'informations, et tu prends de meilleures décisions.</p>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container container-md">
+      <div class="section-head center reveal">
+        <span class="eyebrow" data-i18n="pr.cmpEyebrow">Comparaison</span>
+        <h2 data-i18n="pr.cmpTitle">Gratuit ou Premium ?</h2>
+      </div>
+      <div class="reveal" style="overflow-x:auto">
+        <table class="cmp" id="cmp"></table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container-md">
+      <div class="card guarantee reveal">
+        <span class="ic-wrap"><svg class="ic ic-lg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
+        <p data-i18n="pr.guarantee">Si LERNA ne t'aide pas à trouver ton orientation en 30 jours, on te rembourse intégralement. Sans condition.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="container container-sm faq">
+      <div class="section-head center reveal"><h2 data-i18n="pr.faqTitle">Questions fréquentes</h2></div>
+      <div id="faq"></div>
+    </div>
+  </section>
+
+  <section class="final-cta">
+    <div class="container container-sm reveal">
+      <p class="msg" style="margin-bottom:24px" data-i18n-html="pr.message2">Pas parce que tu es plus important. Mais parce que tu es <strong>plus préparé</strong>.</p>
+      <a href="#buyBox" class="btn btn-primary" data-i18n="pr.cta">Commencer Premium →</a>
+    </div>
+  </section>
+</main>
+
+<div id="lerna-footer"></div>
+
+<script src="assets/js/core.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'pr.docTitle': 'LERNA Premium', 'pr.badge': 'LERNA Premium',
+    'pr.title': 'Sois prêt avant les autres.',
+    'pr.sub': 'Pas parce que tu es plus important. Mais parce que tu es plus préparé.',
+    'pr.monthly': 'Mensuel', 'pr.yearly': 'Annuel', 'pr.save': '−33%',
+    'pr.pMonthly': '4.99$', 'pr.pMonthlyUnit': '/ mois', 'pr.pYearly': '39.99$', 'pr.pYearlyUnit': '/ an',
+    'pr.subMonthly': 'Facturé chaque mois. Tu arrêtes quand tu veux.',
+    'pr.subYearly': 'Soit 3.33$/mois — tu économises 19.89$ par an.',
+    'pr.cta': 'Commencer Premium →',
+    'pr.note': 'Annulable à tout moment · Paiement sécurisé · Sans engagement',
+    'pr.isPremium': 'Tu es Premium', 'pr.until': 'Ton accès est actif jusqu’au {d}.', 'pr.active': 'Ton accès Premium est actif.',
+    'pr.manage': 'Gérer mon abonnement →',
+    'pr.message': "Le Premium ne te rend pas plus important que les autres utilisateurs de LERNA. Il te rend simplement <strong>plus préparé</strong>. Tu reçois les opportunités en premier, tu as accès à plus d'informations, et tu prends de meilleures décisions.",
+    'pr.message2': 'Pas parce que tu es plus important. Mais parce que tu es <strong>plus préparé</strong>.',
+    'pr.cmpEyebrow': 'Comparaison', 'pr.cmpTitle': 'Gratuit ou Premium ?',
+    'pr.colFeature': 'Fonctionnalité', 'pr.colFree': 'Gratuit', 'pr.colPremium': 'Premium',
+    'pr.f1': 'Questionnaire complet 25 questions', 'pr.f2': "2 écoles recommandées (4 en invitant 3 amis)", 'pr.f3': 'Informations générales écoles',
+    'pr.f4': 'Accès aux opportunités (aperçu limité)', 'pr.f5': 'Recommandations illimitées', 'pr.f6': 'Tes 5 écoles recommandées, tout de suite',
+    'pr.f7': 'Comparaison détaillée entre 2 écoles', 'pr.f8': 'Accès COMPLET stages et bourses', 'pr.f9': 'Notifications en PREMIER (avant les autres)',
+    'pr.f10': 'Alertes entreprises cherchant des alternants', 'pr.f11': 'Informations investisseurs (projets étudiants)',
+    'pr.f12': 'Assistant IA illimité (sans limite de messages)', 'pr.f13': 'Rappels et alertes personnalisés', 'pr.f14': 'Suivi de mes candidatures',
+    'pr.f15': 'Export PDF de mon profil et recommandations',
+    'pr.guarantee': "Si LERNA ne t'aide pas à trouver ton orientation en 30 jours, on te rembourse intégralement. Sans condition.",
+    'pr.faqTitle': 'Questions fréquentes',
+    'pr.q1': 'Comment je paie ?', 'pr.a1': 'Le paiement passe par Lemon Squeezy, une plateforme sécurisée : carte Visa, Mastercard ou PayPal. LERNA ne voit et ne stocke jamais tes coordonnées bancaires.',
+    'pr.q2': 'Je peux arrêter quand je veux ?', 'pr.a2': 'Oui. Tu annules en un clic depuis ton espace. Ton accès reste actif jusqu’à la fin de la période déjà payée.',
+    'pr.q3': 'Pourquoi l’annuel coûte moins cher ?', 'pr.a3': '39.99$ par an au lieu de 59.88$ en payant chaque mois : tu économises 33 %. Si tu candidates dans moins de 3 mois, le mensuel peut suffire.',
+    'pr.q4': 'Et si ça ne m’aide pas ?', 'pr.a4': 'Si LERNA ne t’aide pas à trouver ton orientation en 30 jours, écris à support@lerna.app : on te rembourse intégralement, sans condition.',
+    'pr.needLogin': 'Crée ton compte (ou connecte-toi) pour relier Premium à ton profil.',
+    'pr.soon': 'Le paiement en ligne s’ouvre très bientôt. Ton compte gratuit te donne déjà accès à l’essentiel.',
+    'pr.thanks': 'Merci ! Ton paiement est confirmé, ton accès Premium s’active dans quelques instants.',
+    'pr.allOpen': 'Pendant la phase de lancement, toutes les fonctions sont ouvertes gratuitement.'
+  },
+  en: {
+    'pr.docTitle': 'LERNA Premium', 'pr.badge': 'LERNA Premium',
+    'pr.title': 'Be ready before the others.',
+    'pr.sub': "Not because you're more important. Because you're better prepared.",
+    'pr.monthly': 'Monthly', 'pr.yearly': 'Yearly', 'pr.save': '−33%',
+    'pr.pMonthly': '$4.99', 'pr.pMonthlyUnit': '/ month', 'pr.pYearly': '$39.99', 'pr.pYearlyUnit': '/ year',
+    'pr.subMonthly': 'Billed monthly. Stop whenever you want.',
+    'pr.subYearly': 'That’s $3.33/month — you save $19.89 a year.',
+    'pr.cta': 'Start Premium →',
+    'pr.note': 'Cancel anytime · Secure payment · No commitment',
+    'pr.isPremium': "You're Premium", 'pr.until': 'Your access is active until {d}.', 'pr.active': 'Your Premium access is active.',
+    'pr.manage': 'Manage my subscription →',
+    'pr.message': "Premium doesn't make you more important than other LERNA users. It simply makes you <strong>better prepared</strong>. You get opportunities first, you have access to more information, and you make better decisions.",
+    'pr.message2': "Not because you're more important. Because you're <strong>better prepared</strong>.",
+    'pr.cmpEyebrow': 'Comparison', 'pr.cmpTitle': 'Free or Premium?',
+    'pr.colFeature': 'Feature', 'pr.colFree': 'Free', 'pr.colPremium': 'Premium',
+    'pr.f1': 'Full 25-question questionnaire', 'pr.f2': '2 recommended schools (4 by inviting 3 friends)', 'pr.f3': 'General school information',
+    'pr.f4': 'Access to opportunities (limited preview)', 'pr.f5': 'Unlimited recommendations', 'pr.f6': 'All 5 recommended schools, right away',
+    'pr.f7': 'Detailed comparison of 2 schools', 'pr.f8': 'FULL access to internships and scholarships', 'pr.f9': 'Notifications FIRST (before others)',
+    'pr.f10': 'Alerts from companies looking for work-study students', 'pr.f11': 'Investor information (student projects)',
+    'pr.f12': 'Unlimited AI assistant (no message limit)', 'pr.f13': 'Personalised reminders and alerts', 'pr.f14': 'Application tracking',
+    'pr.f15': 'PDF export of my profile and recommendations',
+    'pr.guarantee': "If LERNA doesn't help you find your path within 30 days, we refund you in full. No conditions.",
+    'pr.faqTitle': 'Frequently asked questions',
+    'pr.q1': 'How do I pay?', 'pr.a1': 'Payment goes through Lemon Squeezy, a secure platform: Visa, Mastercard or PayPal. LERNA never sees or stores your card details.',
+    'pr.q2': 'Can I stop whenever I want?', 'pr.a2': 'Yes. Cancel in one click from your space. Your access stays active until the end of the period already paid.',
+    'pr.q3': 'Why is yearly cheaper?', 'pr.a3': '$39.99 a year instead of $59.88 paying monthly: you save 33%. If you apply within 3 months, monthly may be enough.',
+    'pr.q4': "What if it doesn't help?", 'pr.a4': "If LERNA doesn't help you find your path within 30 days, write to support@lerna.app: we refund you in full, no conditions.",
+    'pr.needLogin': 'Create your account (or log in) to link Premium to your profile.',
+    'pr.soon': 'Online payment opens very soon. Your free account already gives you the essentials.',
+    'pr.thanks': 'Thank you! Your payment is confirmed; Premium activates in a few moments.',
+    'pr.allOpen': 'During the launch phase, every feature is open for free.'
+  }
+});
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var t = Lerna.t;
+  var plan = 'monthly';
+  var ROWS = [[1, 1, 1], [2, 1, 1], [3, 1, 1], [4, 1, 1], [5, 0, 1], [6, 0, 1], [7, 0, 1], [8, 0, 1], [9, 0, 1], [10, 0, 1], [11, 0, 1], [12, 0, 1], [13, 0, 1], [14, 0, 1], [15, 0, 1]];
+
+  function renderPrice() {
+    Lerna.qsa('[data-plan]').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-plan') === plan); });
+    $('price').innerHTML = (plan === 'monthly' ? t('pr.pMonthly') + ' <small>' + t('pr.pMonthlyUnit') + '</small>' : t('pr.pYearly') + ' <small>' + t('pr.pYearlyUnit') + '</small>');
+    $('priceSub').textContent = t(plan === 'monthly' ? 'pr.subMonthly' : 'pr.subYearly');
+  }
+  function renderTable() {
+    var yes = '<span class="yes" aria-label="✓">✓</span>', no = '<span class="no" aria-label="✗">✗</span>';
+    $('cmp').innerHTML = '<thead><tr><th scope="col">' + t('pr.colFeature') + '</th><th scope="col" class="c">' + t('pr.colFree') + '</th><th scope="col" class="c prem">' + t('pr.colPremium') + '</th></tr></thead><tbody>' +
+      ROWS.map(function (r) { return '<tr><td>' + t('pr.f' + r[0]) + '</td><td class="c">' + (r[1] ? yes : no) + '</td><td class="c prem">' + (r[2] ? yes : no) + '</td></tr>'; }).join('') + '</tbody>';
+  }
+  function renderFaq() {
+    $('faq').innerHTML = [1, 2, 3, 4].map(function (i) { return '<details class="reveal"><summary>' + t('pr.q' + i) + '</summary><p>' + t('pr.a' + i) + '</p></details>'; }).join('');
+    Lerna.initReveal();
+  }
+  function renderStatus() {
+    var u = Lerna.auth.user;
+    var isP = u && u.is_premium && Lerna.isPremium();
+    $('buyBox').style.display = isP ? 'none' : '';
+    $('already').classList.toggle('show', !!isP);
+    if (isP) {
+      $('alreadyTxt').textContent = u.premium_expiry ? t('pr.until', { d: Lerna.fmtDate(u.premium_expiry) }) : t('pr.active');
+      if (u.portal_url) { $('manageBtn').href = u.portal_url; $('manageBtn').target = '_blank'; $('manageBtn').rel = 'noopener'; }
+    }
+    if (!Lerna.config.premiumEnabled) Lerna.toast(t('pr.allOpen'), 4000);
+  }
+  function buy() {
+    var u = Lerna.auth.user;
+    if (!u) { Lerna.toast(t('pr.needLogin'), 3000); setTimeout(function () { Lerna.go('auth.html?mode=signup&redirect=premium.html'); }, 1200); return; }
+    var base = plan === 'monthly' ? Lerna.config.checkoutMonthly : Lerna.config.checkoutYearly;
+    if (!base) { Lerna.toast(t('pr.soon'), 4000); return; }
+    // Le webhook Lemon Squeezy (api/webhook.js) relie le paiement au compte grâce à user_id.
+    var url = base + (base.indexOf('?') === -1 ? '?' : '&') +
+      'checkout[email]=' + encodeURIComponent(u.email || '') +
+      '&checkout[custom][user_id]=' + encodeURIComponent(u.id);
+    Lerna.sound.play('click');
+    location.href = url;
+  }
+
+  Lerna.ready(function () {
+  Lerna.analytics.capture('premium_view', { src: Lerna.param('src') || document.referrer.split('/').pop().split('?')[0] || 'direct' });
+    renderPrice(); renderTable(); renderFaq();
+    Lerna.qsa('[data-plan]').forEach(function (b) { b.addEventListener('click', function () { plan = b.getAttribute('data-plan'); renderPrice(); Lerna.sound.play('click'); }); });
+    $('buyBtn').addEventListener('click', buy);
+    Lerna.auth.ready.then(function () {
+      renderStatus();
+      if (Lerna.param('payment') === 'success') {
+        Lerna.toast(t('pr.thanks'), 5000); Lerna.sound.play('success');
+        // Le statut Premium est écrit par le webhook côté serveur : on recharge le profil après quelques secondes
+        if (Lerna.auth.mode === 'supabase' && Lerna.auth.user) setTimeout(function () {
+          Lerna.auth.sb.auth.getUser().then(function (r) { if (r.data && r.data.user) return Lerna.auth._load(r.data.user); }).then(function () { Lerna.renderChrome(); renderStatus(); });
+        }, 4000);
+      }
+    });
+    Lerna.onLang(function () { renderPrice(); renderTable(); renderFaq(); });
+  });
+})();
+</script>
+</body>
+</html>

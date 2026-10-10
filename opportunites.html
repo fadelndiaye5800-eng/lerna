@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Opportunités — LERNA</title>
+<meta name="lerna-title" content="op.docTitle">
+<meta name="description" content="Bourses, stages et emplois pour étudiants et jeunes diplômés, avec leurs vraies dates limites et montants.">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:title" content="Opportunités — LERNA">
+<meta property="og:description" content="Bourses, stages et emplois, avec dates limites et montants.">
+<meta property="og:image" content="/assets/icons/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<style>
+  .op-head { padding: 44px 0 6px; }
+  .op-head h1 { font-size: clamp(2rem, 5vw, 3rem); }
+  .op-head p { color: var(--muted); margin-top: 8px; max-width: 620px; }
+  .tabs-wrap { position: sticky; top: var(--nav-h); z-index: 40; background: var(--bg); margin-top: 18px; }
+  .tab .count { background: var(--cream-dark); color: var(--muted); border-radius: 99px; font-size: .72rem; padding: 2px 8px; }
+  .tab.active .count { background: rgba(232, 100, 12, 0.12); color: var(--orange-deep); }
+  .filters { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 16px 0 8px; -webkit-overflow-scrolling: touch; align-items: center; }
+  .filters::-webkit-scrollbar { display: none; }
+  .fsel {
+    flex-shrink: 0; border: 1.5px solid var(--cream-darker); background-color: var(--white);
+    border-radius: 99px; padding: 10px 36px 10px 16px; font-size: .88rem; font-weight: 600; color: var(--brown);
+    -webkit-appearance: none; appearance: none; cursor: pointer; max-width: 210px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%233D1F00' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat; background-position: right 12px center;
+  }
+  .fsel.on { border-color: var(--orange); background-color: var(--orange-soft); color: var(--brown); }
+  .reset { flex-shrink: 0; color: var(--orange); font-weight: 700; font-size: .88rem; padding: 10px 6px; white-space: nowrap; }
+  .meta-line { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; color: var(--muted); font-size: .86rem; margin: 10px 0 18px; }
+  .toggle { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-weight: 600; color: var(--brown); }
+  .toggle input { width: 18px; height: 18px; accent-color: var(--orange); }
+
+  .olist { display: grid; gap: 16px; }
+  @media (min-width: 900px) { .olist { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .ocard { display: flex; flex-direction: column; gap: 12px; padding: 24px; }
+  .ocard .top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .ocard .org { font-size: .84rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; }
+  .ocard h3 { font-size: 1.18rem; }
+  .ocard .badges { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+  .ocard .facts { display: flex; flex-direction: column; gap: 7px; }
+  .fact { display: flex; gap: 8px; align-items: flex-start; font-size: .9rem; }
+  .fact .ic { width: 17px; height: 17px; color: var(--orange); margin-top: 2px; }
+  .ocard .foot { margin-top: auto; padding-top: 6px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; justify-content: space-between; }
+  .ocard.closed { opacity: .72; }
+  .ocard.locked .ghost-line { display: block; height: 14px; border-radius: 8px; background: linear-gradient(90deg, var(--cream-darker), var(--cream-dark)); filter: blur(3px); }
+  .ocard.locked .ghost-title { height: 22px; width: 82%; margin-top: 8px; }
+  .ocard.locked .ghost-org { width: 46%; }
+  .ocard .hidden-note { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; font-weight: 700; color: var(--orange-deep); }
+  .save-opp { display: inline-flex; align-items: center; gap: 6px; }
+  .save-opp.on { background: rgba(232, 100, 12, 0.1); border-color: var(--orange); color: var(--orange-deep); }
+  .save-opp.on .ic { fill: var(--orange); stroke: var(--orange); }
+  .dl-urgent { color: var(--orange-deep); font-weight: 700; }
+  .verified { font-size: .8rem; color: var(--muted); text-align: center; margin: 30px auto 60px; max-width: 560px; }
+  .prem-banner { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; background: var(--panel-grad); color: var(--on-panel); border-radius: 20px; padding: 22px 24px; margin-bottom: 18px; }
+  .prem-banner h3 { color: var(--on-panel); font-size: 1.15rem; }
+  .prem-banner p { color: var(--on-panel-muted); font-size: .9rem; margin-top: 4px; }
+  .prem-banner > div { flex: 1; min-width: 200px; }
+  .fact-note { font-size: .82rem; color: var(--muted); background: var(--cream); border-radius: 10px; padding: 8px 10px; line-height: 1.45; }
+  .ocard .src { display: flex; justify-content: flex-end; }
+  .ocard .src .ic { width: 14px; height: 14px; color: var(--olive); }
+  .report-link { background: none; border: none; padding: 4px 2px; color: var(--muted); font-size: .76rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; opacity: .8; }
+  .report-link:hover { color: var(--orange-deep); }
+  .fit-btn { color: var(--orange-deep, #C2410C); font-weight: 700; font-size: .86rem; display: inline-flex; align-items: center; gap: 6px; padding: 6px 2px; }
+  .fit-box { background: var(--cream); border-radius: 14px; padding: 14px 16px; font-size: .9rem; line-height: 1.55; white-space: pre-line; color: var(--brown); }
+  .fit-box .fit-h { display: flex; align-items: center; gap: 8px; font-weight: 800; margin-bottom: 6px; white-space: normal; }
+  .fit-box .fit-h .seal { width: 22px; height: 22px; }
+  .eq { display: inline-flex; align-items: center; gap: 6px; font-size: .78rem; font-weight: 700; border-radius: 99px; padding: 4px 10px; }
+  .eq.no { background: rgba(47, 133, 90, .12); color: #23704A; }
+  .eq.yes { background: var(--orange-soft); color: var(--orange-deep, #C2410C); }
+  .eq.st { background: var(--cream-dark); color: var(--brown); }
+  [data-theme="dark"] .eq.no { color: #7FD6A6; }
+  .guide { border-radius: 22px; background: var(--panel-grad); color: var(--on-panel); padding: 22px 22px 18px; margin-bottom: 18px; }
+  .guide > summary { list-style: none; cursor: pointer; display: flex; gap: 14px; align-items: center; }
+  .guide > summary::-webkit-details-marker { display: none; }
+  .guide > summary .seal { width: 42px; height: 42px; }
+  .guide > summary h3 { color: var(--on-panel); font-size: 1.15rem; }
+  .guide > summary p { color: var(--on-panel-muted); font-size: .88rem; margin-top: 2px; }
+  .guide > summary .chev { margin-left: auto; transition: transform .25s; color: var(--orange); }
+  .guide[open] > summary .chev { transform: rotate(180deg); }
+  .g-grid { display: grid; gap: 14px; margin-top: 18px; }
+  @media (min-width: 860px) { .g-grid { grid-template-columns: 1fr 1fr; } }
+  .g-card { background: var(--surface, #fff); color: var(--brown); border-radius: 16px; padding: 16px 18px; font-size: .9rem; line-height: 1.55; }
+  .g-card h4 { font-size: .98rem; margin-bottom: 8px; color: var(--brown); }
+  .g-card ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .g-card.warn { border: 1.5px solid rgba(232, 100, 12, .45); }
+  .proj { margin-top: 16px; background: var(--surface, #fff); color: var(--brown); border-radius: 16px; padding: 18px; }
+  .proj h4 { font-size: 1.05rem; }
+  .proj .muted { font-size: .86rem; }
+  .proj label { display: block; font-weight: 700; font-size: .86rem; margin: 12px 0 6px; }
+  .proj .seg { display: flex; flex-wrap: wrap; gap: 8px; }
+  .proj .seg button { border: 1.5px solid var(--cream-darker); border-radius: 99px; padding: 8px 14px; font-weight: 600; font-size: .86rem; background: var(--white); color: var(--brown); }
+  .proj .seg button.on { border-color: var(--orange); background: var(--orange-soft); }
+  .proj .res { margin-top: 14px; }
+  .proj .res li { margin-left: 18px; }
+</style>
+</head>
+<body data-page="opportunites">
+<div id="lerna-nav"></div>
+
+<main>
+  <section class="op-head">
+    <div class="container">
+      <span class="eyebrow" data-i18n="op.eyebrow">Mes opportunités</span>
+      <h1 data-i18n="op.title">Bourses, stages et emplois</h1>
+      <p data-i18n="op.sub">Bourses, stages, emplois et financements, sélectionnés pour ton profil, avec leurs dates limites.</p>
+      <div class="tabs-wrap"><div class="tabs" role="tablist" id="tabs"></div></div>
+      <div class="filters" id="filters" role="group" aria-label="Filtres"></div>
+    </div>
+  </section>
+  <section class="container">
+    <div class="meta-line"><span id="count" aria-live="polite"></span><label class="toggle"><input type="checkbox" id="showClosed"> <span data-i18n="op.showClosed">Voir aussi les offres passées</span></label></div>
+    <div id="guide"></div>
+    <div id="premBanner"></div>
+    <div class="olist" id="list"></div>
+    <p class="verified" id="verified"></p>
+  </section>
+</main>
+
+<div id="lerna-footer"></div>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/questions.js"></script>
+<script src="assets/js/data-schools.js"></script>
+<script src="assets/js/data-opps.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'op.docTitle': 'Opportunités — LERNA',
+    'op.eyebrow': 'Mes opportunités', 'op.title': 'Bourses, stages et emplois',
+    'op.sub': 'Bourses, stages, emplois et financements, sélectionnés pour ton profil, avec leurs dates limites.',
+    'op.tStage': 'Stages', 'op.tBourse': 'Bourses', 'op.tEmploi': 'Emplois', 'op.tInvest': 'Investisseurs',
+    'op.fDomain': 'Domaine', 'op.fCountry': 'Pays cible', 'op.fLevel': 'Niveau requis', 'op.fSort': 'Date limite', 'op.fAccess': 'Type',
+    'op.sortSoon': 'La plus proche', 'op.sortLate': 'La plus lointaine', 'op.free': 'Gratuit', 'op.premium': 'Premium',
+    'op.reset': 'Réinitialiser', 'op.showClosed': 'Voir aussi les offres passées',
+    'op.count': '{n} offre(s) ouverte(s)', 'op.countAll': '{n} offre(s)',
+    'op.c1.stage': '1 stage disponible', 'op.cn.stage': '{n} stages disponibles', 'op.c1.bourse': '1 bourse disponible', 'op.cn.bourse': '{n} bourses disponibles',
+    'op.c1.emploi': '1 emploi disponible', 'op.cn.emploi': '{n} emplois disponibles', 'op.c1.investisseur': '1 financement disponible', 'op.cn.investisseur': '{n} financements disponibles', 'op.c0': 'Aucune offre disponible pour l’instant',
+    'op.new': 'Nouveau', 'op.badgePremium': 'Premium', 'op.closed': 'Clôturée', 'op.urgent': 'J-{d}', 'op.today': 'Dernier jour',
+    'op.deadline': 'Date limite : {d}', 'op.deadlinePassed': 'Clôturée le {d}', 'op.rolling': 'Candidature en continu',
+    'op.amount': 'Montant', 'op.eligible': 'Conditions', 'op.level': 'Niveau', 'op.duration': 'Durée',
+    'op.see': "Voir l'offre →", 'op.apply': 'Postuler →', 'op.contact': 'Voir le programme →', 'op.closedBtn': 'Clôturée',
+    'op.unlock': 'Débloquer avec Premium', 'op.searchTitle': "Recherche de l'offre sur le web",
+    'op.none': 'Aucune offre ouverte avec ces filtres.', 'op.noneSub': 'Retire un filtre ou affiche les offres clôturées pour voir les prochaines sessions.',
+    'op.verified': 'Mis à jour le {d}. Avant de postuler, relis les conditions sur le site de l’organisme.',
+    'op.premTitle': 'Accès complet avec Premium',
+    'op.premText': "Tu vois un aperçu limité. Premium débloque toutes les offres, et tu reçois les nouvelles en premier.",
+    'op.premInvTitle': 'Informations investisseurs — Premium',
+    'op.premInvText': "Certains programmes sont réservés à Premium : montants, conditions et contacts complets.",
+    'op.premBtn': 'Voir Premium →',
+    'op.remote': 'À distance', 'op.intl': 'International', 'op.africa': 'Afrique',
+    'op.hidden': 'Nom et organisme visibles avec Premium', 'op.save': 'Sauvegarder', 'op.saved': 'Sauvegardée',
+    'op.savedToast': 'Offre sauvegardée — on te rappellera la date limite', 'op.unsavedToast': 'Offre retirée de ta liste',
+    'op.reportTitle': 'Offre expirée, lien cassé ou information fausse ? Dis-le à l’équipe.', 'op.report': 'Signaler',
+    'op.levels': 'Niveaux',
+    'op.fit': 'Est-ce pour moi ?', 'op.fitTitle': 'L’avis de LERNA', 'op.fitClose': 'Fermer',
+    'op.fitOffline': 'L’analyse par l’IA arrive dès la mise en ligne de LERNA. En attendant, vérifie ces 4 points sur la page officielle : ton âge, ta nationalité, ton niveau d’études et la langue demandée.',
+    'op.fitLimit': 'Tu as utilisé tes analyses gratuites du jour. Elles reviennent demain, ou sans limite avec Premium.',
+    'op.fitError': 'L’analyse n’a pas pu se faire. Réessaie dans un instant.',
+    'op.eqNo': 'Sans prise de parts', 'op.eqYes': 'Prend des parts', 'op.stage': 'Pour : {s}',
+    'op.st.idee': 'une idée', 'op.st.produit': 'un premier produit', 'op.st.clients': 'des premiers clients',
+    'op.g.title': 'Comprendre les financements', 'op.g.sub': 'Avant de contacter un investisseur, 2 minutes pour savoir ce que tu donnes et ce que tu reçois.',
+    'op.g.typesH': 'Les 4 façons d’être financé',
+    'op.g.t1': '<strong>Subvention ou prix</strong> — de l’argent que tu ne rembourses pas, et tu ne donnes aucune part de ton entreprise. Le plus sélectif, mais le meilleur pour commencer.',
+    'op.g.t2': '<strong>Incubateur ou accélérateur</strong> — quelques mois d’accompagnement (mentors, formation, réseau), parfois avec de l’argent. Certains prennent des parts en échange.',
+    'op.g.t3': '<strong>Business angel</strong> — une personne qui investit son propre argent dans ton projet, en échange de parts. Elle apporte souvent aussi ses conseils et ses contacts.',
+    'op.g.t4': '<strong>Fonds d’investissement</strong> — une société qui investit de grosses sommes, en général quand tu as déjà des clients et que ton entreprise grandit.',
+    'op.g.eqH': 'Que veut dire « prendre des parts » ?',
+    'op.g.eq': 'Ton entreprise est un gâteau. Si un investisseur met 100 000 $ pour 10 %, il possède 10 % du gâteau pour toujours : il touchera 10 % de la valeur si l’entreprise est vendue, et il aura son mot à dire sur certaines décisions. Ça veut aussi dire que ton entreprise vaut 1 000 000 $ à ses yeux. Tu gardes 90 %, mais chaque part donnée ne revient pas.',
+    'op.g.stH': 'Ce qui est fait pour toi dépend de ton stade',
+    'op.g.s1': '<strong>Idée</strong> : prix, bourses pour jeunes et incubateurs.', 'op.g.s2': '<strong>Premier produit</strong> : accélérateurs et concours.', 'op.g.s3': '<strong>Premiers clients</strong> : accélérateurs, business angels, puis fonds.',
+    'op.g.prepH': 'Ce que tous te demanderont',
+    'op.g.prep': 'Ton projet en une phrase · le problème et pour qui · ce qui existe déjà (ton produit, tes premiers utilisateurs) · tes chiffres même petits · ton équipe · combien il te faut et pour quoi faire.',
+    'op.g.warnH': 'Attention aux arnaques',
+    'op.g.warn': 'Un vrai financeur ne te demande jamais de payer pour recevoir de l’argent. Si un programme a des frais, ils doivent être écrits sur son site officiel. Ne donne jamais tes codes bancaires ni de « frais de dossier » envoyés par message.',
+    'op.p.btn': 'Mon projet est-il prêt ?', 'op.p.title': 'Mon projet est-il prêt ?', 'op.p.sub': '5 questions rapides, puis LERNA te dit quel financement viser maintenant.',
+    'op.p.q1': 'Ton projet en une phrase', 'op.p.q1ph': 'Ex. : une appli qui livre les repas des étudiants à Dakar',
+    'op.p.q2': 'Où en es-tu ?', 'op.p.idee': 'J’ai une idée', 'op.p.produit': 'J’ai un premier produit', 'op.p.clients': 'J’ai des clients qui paient',
+    'op.p.q3': 'Combien êtes-vous dans l’équipe ?', 'op.p.q4': 'Tes premiers résultats (utilisateurs, ventes…)', 'op.p.q4ph': 'Ex. : 40 utilisateurs, 12 commandes ce mois',
+    'op.p.q5': 'De combien as-tu besoin, et pour quoi ?', 'op.p.q5ph': 'Ex. : 3 000 $ pour un premier stock et un site',
+    'op.p.go': 'Voir mon niveau →', 'op.p.need': 'Écris au moins ton projet et choisis ton stade.',
+    'op.p.local': 'Ce qui te correspond maintenant', 'op.p.match': 'Programmes ouverts pour ce stade :',
+    'op.p.lIdee': 'Au stade de l’idée, vise d’abord l’argent sans prise de parts (prix, bourses pour jeunes) et un incubateur pour transformer ton idée en premier produit. Garde tes parts pour plus tard : elles valent plus quand le projet avance.',
+    'op.p.lProduit': 'Avec un premier produit, les accélérateurs et les concours sont faits pour toi. Prépare une démo de 2 minutes et montre qui l’utilise déjà.',
+    'op.p.lClients': 'Avec des clients qui paient, tu peux viser les accélérateurs qui investissent et les business angels. Prépare tes chiffres mois par mois : ventes, clients, coûts.',
+    'op.p.aiNote': 'L’avis détaillé de l’IA s’ajoutera ici dès la mise en ligne.'
+  },
+  en: {
+    'op.docTitle': 'Opportunities — LERNA',
+    'op.eyebrow': 'My opportunities', 'op.title': 'Scholarships, internships and jobs',
+    'op.sub': 'Scholarships, internships, jobs and funding, selected for your profile, with their deadlines.',
+    'op.tStage': 'Internships', 'op.tBourse': 'Scholarships', 'op.tEmploi': 'Jobs', 'op.tInvest': 'Investors',
+    'op.fDomain': 'Field', 'op.fCountry': 'Target country', 'op.fLevel': 'Required level', 'op.fSort': 'Deadline', 'op.fAccess': 'Access',
+    'op.sortSoon': 'Soonest first', 'op.sortLate': 'Latest first', 'op.free': 'Free', 'op.premium': 'Premium',
+    'op.reset': 'Reset', 'op.showClosed': 'Also show past offers',
+    'op.count': '{n} open offer(s)', 'op.countAll': '{n} offer(s)',
+    'op.c1.stage': '1 internship available', 'op.cn.stage': '{n} internships available', 'op.c1.bourse': '1 scholarship available', 'op.cn.bourse': '{n} scholarships available',
+    'op.c1.emploi': '1 job available', 'op.cn.emploi': '{n} jobs available', 'op.c1.investisseur': '1 funding programme available', 'op.cn.investisseur': '{n} funding programmes available', 'op.c0': 'No offer available right now',
+    'op.new': 'New', 'op.badgePremium': 'Premium', 'op.closed': 'Closed', 'op.urgent': '{d} days left', 'op.today': 'Last day',
+    'op.deadline': 'Deadline: {d}', 'op.deadlinePassed': 'Closed on {d}', 'op.rolling': 'Rolling applications',
+    'op.amount': 'Amount', 'op.eligible': 'Conditions', 'op.level': 'Level', 'op.duration': 'Length',
+    'op.see': 'View offer →', 'op.apply': 'Apply →', 'op.contact': 'View programme →', 'op.closedBtn': 'Closed',
+    'op.unlock': 'Unlock with Premium', 'op.searchTitle': 'Web search for this offer',
+    'op.none': 'No open offer with these filters.', 'op.noneSub': 'Remove a filter or show closed offers to see upcoming sessions.',
+    'op.verified': 'Updated on {d}. Before applying, read the conditions on the organisation’s website.',
+    'op.premTitle': 'Full access with Premium',
+    'op.premText': 'You are seeing a limited preview. Premium unlocks every offer, and you get new ones first.',
+    'op.premInvTitle': 'Investor information — Premium',
+    'op.premInvText': 'Some programmes are reserved for Premium: full amounts, conditions and contacts.',
+    'op.premBtn': 'See Premium →',
+    'op.remote': 'Remote', 'op.intl': 'International', 'op.africa': 'Africa',
+    'op.hidden': 'Name and organisation visible with Premium', 'op.save': 'Save', 'op.saved': 'Saved',
+    'op.savedToast': 'Offer saved — we will remind you of the deadline', 'op.unsavedToast': 'Offer removed from your list',
+    'op.reportTitle': 'Expired offer, broken link or wrong information? Tell the team.', 'op.report': 'Report',
+    'op.levels': 'Levels',
+    'op.fit': 'Is this for me?', 'op.fitTitle': 'LERNA’s view', 'op.fitClose': 'Close',
+    'op.fitOffline': 'AI analysis arrives as soon as LERNA goes live. Meanwhile, check these 4 points on the official page: your age, nationality, study level and required language.',
+    'op.fitLimit': 'You have used today’s free analyses. They come back tomorrow, or unlimited with Premium.',
+    'op.fitError': 'The analysis failed. Try again in a moment.',
+    'op.eqNo': 'No equity taken', 'op.eqYes': 'Takes equity', 'op.stage': 'For: {s}',
+    'op.st.idee': 'an idea', 'op.st.produit': 'a first product', 'op.st.clients': 'first customers',
+    'op.g.title': 'Understanding funding', 'op.g.sub': 'Before contacting an investor, 2 minutes to know what you give and what you get.',
+    'op.g.typesH': 'The 4 ways to get funded',
+    'op.g.t1': '<strong>Grant or prize</strong> — money you don’t pay back, and you give no share of your company. The most selective, but the best way to start.',
+    'op.g.t2': '<strong>Incubator or accelerator</strong> — a few months of support (mentors, training, network), sometimes with money. Some take equity in return.',
+    'op.g.t3': '<strong>Business angel</strong> — a person who invests their own money in your project in exchange for shares. They often bring advice and contacts too.',
+    'op.g.t4': '<strong>Investment fund</strong> — a firm that invests large amounts, usually once you have customers and your company is growing.',
+    'op.g.eqH': 'What does “taking equity” mean?',
+    'op.g.eq': 'Your company is a cake. If an investor puts in $100,000 for 10%, they own 10% of the cake for good: they get 10% of the value if the company is sold, and a say in some decisions. It also means they value your company at $1,000,000. You keep 90%, but every share you give away never comes back.',
+    'op.g.stH': 'What fits you depends on your stage',
+    'op.g.s1': '<strong>Idea</strong>: prizes, youth grants and incubators.', 'op.g.s2': '<strong>First product</strong>: accelerators and competitions.', 'op.g.s3': '<strong>First customers</strong>: accelerators, business angels, then funds.',
+    'op.g.prepH': 'What they will all ask you',
+    'op.g.prep': 'Your project in one sentence · the problem and who has it · what already exists (your product, first users) · your numbers, even small · your team · how much you need and what for.',
+    'op.g.warnH': 'Watch out for scams',
+    'op.g.warn': 'A real funder never asks you to pay to receive money. If a programme has fees, they must be written on its official website. Never send bank codes or “application fees” requested by message.',
+    'op.p.btn': 'Is my project ready?', 'op.p.title': 'Is my project ready?', 'op.p.sub': '5 quick questions, then LERNA tells you which funding to aim for now.',
+    'op.p.q1': 'Your project in one sentence', 'op.p.q1ph': 'E.g. an app delivering meals to students in Dakar',
+    'op.p.q2': 'Where are you?', 'op.p.idee': 'I have an idea', 'op.p.produit': 'I have a first product', 'op.p.clients': 'I have paying customers',
+    'op.p.q3': 'How many people in the team?', 'op.p.q4': 'Your first results (users, sales…)', 'op.p.q4ph': 'E.g. 40 users, 12 orders this month',
+    'op.p.q5': 'How much do you need, and what for?', 'op.p.q5ph': 'E.g. $3,000 for first stock and a website',
+    'op.p.go': 'See my level →', 'op.p.need': 'Write at least your project and choose your stage.',
+    'op.p.local': 'What fits you now', 'op.p.match': 'Open programmes for this stage:',
+    'op.p.lIdee': 'At the idea stage, aim first for equity-free money (prizes, youth grants) and an incubator to turn your idea into a first product. Keep your shares for later: they are worth more as the project grows.',
+    'op.p.lProduit': 'With a first product, accelerators and competitions are made for you. Prepare a 2-minute demo and show who already uses it.',
+    'op.p.lClients': 'With paying customers, you can aim for accelerators that invest and business angels. Prepare your monthly numbers: sales, customers, costs.',
+    'op.p.aiNote': 'The AI’s detailed advice will appear here once LERNA is live.'
+  }
+});
+
+(function () {
+  /* La liste peut être remplacée par celle de Supabase (gérée depuis /admin) : on la relit à chaque fois */
+  var STATUS = window.LERNA_OPP_STATUS, LEVELS = window.LERNA_LEVELS, VISIBLE = window.LERNA_OPP_VISIBLE;
+  var DOMS = window.LERNA_OPP_DOMS, LVLS = window.LERNA_OPP_LEVELS, DL = window.LERNA_OPP_DEADLINE;
+  function ops() { return window.LERNA_OPPS; }
+  var $ = function (id) { return document.getElementById(id); };
+  var t = Lerna.t, esc = Lerna.esc, L = Lerna.L;
+  var TABS = [['stage', 'op.tStage', 'briefcase'], ['bourse', 'op.tBourse', 'award'], ['emploi', 'op.tEmploi', 'users'], ['investisseur', 'op.tInvest', 'trend']];
+  var p = Lerna.param('tab');
+  var map = { stages: 'stage', bourses: 'bourse', emplois: 'emploi', investisseurs: 'investisseur' };
+  var st = { tab: map[p] || p || 'stage', dom: '', pays: '', niveau: '', sort: 'soon', access: '', closed: false };
+  if (!TABS.some(function (x) { return x[0] === st.tab; })) st.tab = 'stage';
+
+  function paysName(c) {
+    if (c === 'REMOTE') return t('op.remote');
+    if (c === 'INT') return t('op.intl');
+    if (c === 'AFR') return t('op.africa');
+    return window.LERNA_COUNTRY_NAME(c);
+  }
+  function sel(id, label, opts) {
+    var v = st[id];
+    return '<select class="fsel' + (v ? ' on' : '') + '" data-f="' + id + '" aria-label="' + esc(label) + '"><option value="">' + esc(label) + '</option>' +
+      opts.map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === v ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>';
+  }
+  function renderTabs() {
+    $('tabs').innerHTML = TABS.map(function (x) {
+      var n = ops().filter(function (o) { return o.type === x[0] && VISIBLE(o, false); }).length;
+      return '<button type="button" class="tab' + (x[0] === st.tab ? ' active' : '') + '" role="tab" aria-selected="' + (x[0] === st.tab) + '" data-tab="' + x[0] + '">' + Lerna.icon(x[2], 'ic-sm') + t(x[1]) + ' <span class="count">' + n + '</span></button>';
+    }).join('');
+  }
+  function renderFilters() {
+    var items = ops().filter(function (o) { return o.type === st.tab && VISIBLE(o, true); });
+    var doms = [], pays = [], lv = [];
+    items.forEach(function (o) {
+      DOMS(o).forEach(function (d) { if (doms.indexOf(d) === -1) doms.push(d); });
+      if (o.pays && pays.indexOf(o.pays) === -1) pays.push(o.pays);
+      LVLS(o).forEach(function (k) { if (lv.indexOf(k) === -1) lv.push(k); });
+    });
+    var domOpts = doms.map(function (d) { var x = window.LERNA_DOMAINS.filter(function (z) { return z.id === d; })[0]; return [d, x ? L(x.label) : d]; });
+    var paysOpts = pays.map(function (c) { return [c, paysName(c)]; }).sort(function (a, b) { return a[1].localeCompare(b[1], Lerna.lang); });
+    var order = ['tous', 'bac', 'bac2', 'licence', 'master', 'doctorat'];
+    var lvOpts = order.filter(function (k) { return lv.indexOf(k) !== -1; }).map(function (k) { return [k, L(LEVELS[k])]; });
+    $('filters').innerHTML =
+      sel('dom', t('op.fDomain'), domOpts) +
+      sel('pays', t('op.fCountry'), paysOpts) +
+      (lvOpts.length ? sel('niveau', t('op.fLevel'), lvOpts) : '') +
+      sel('sort', t('op.fSort'), [['soon', t('op.sortSoon')], ['late', t('op.sortLate')]]).replace('<option value="">' + esc(t('op.fSort')) + '</option>', '') +
+      (st.tab !== 'investisseur' ? sel('access', t('op.fAccess'), [['free', t('op.free')], ['premium', t('op.premium')]]) : '') +
+      '<button type="button" class="reset" id="reset">' + t('op.reset') + '</button>';
+  }
+
+  function deadlineLine(o, status) {
+    var dl = DL(o);
+    if (dl) {
+      if (status === 'closed') return t('op.deadlinePassed', { d: Lerna.fmtDate(dl) }) + (o.next ? ' — ' + esc(L(o.next)) : '');
+      return t('op.deadline', { d: Lerna.fmtDate(dl) });
+    }
+    return t('op.rolling');
+  }
+  function levelsTxt(o) { return LVLS(o).map(function (k) { return LEVELS[k] ? L(LEVELS[k]) : k; }).join(', '); }
+  function domTags(o) {
+    return DOMS(o).slice(0, 3).map(function (d) { var x = window.LERNA_DOMAINS.filter(function (z) { return z.id === d; })[0]; return x ? '<span class="tag">' + esc(L(x.label)) + '</span>' : ''; }).join(' ');
+  }
+  function linkFor(o) {
+    if (o.lien) return o.lien;
+    return 'https://www.google.com/search?q=' + encodeURIComponent(o.titre + ' ' + o.organisation);
+  }
+
+  /* « Est-ce pour moi ? » : l'IA compare le profil à l'offre (réponse gardée pendant la visite) */
+  var FIT = {};
+  function fitHTML(f) {
+    if (f === 'wait') return '<div class="fit-box">' + Lerna.thinking('inline') + '</div>';
+    return '<div class="fit-box"><div class="fit-h">' + Lerna.seal() + t('op.fitTitle') + '</div>' + esc(f) + '</div>';
+  }
+  function offerText(o) {
+    return [o.titre, o.organisation, 'Type : ' + o.type, 'Lieu : ' + paysName(o.pays), o.montant ? 'Montant : ' + L(o.montant) : '', o.duree ? 'Durée : ' + L(o.duree) : '',
+      o.eligibles ? 'Conditions : ' + L(o.eligibles) : '', LVLS(o).length ? 'Niveaux : ' + levelsTxt(o) : '', DL(o) ? 'Date limite : ' + DL(o) : 'Candidature en continu',
+      o.deadlineNote ? L(o.deadlineNote) : '', o.equity === true ? 'Prend des parts' : o.equity === false ? 'Sans prise de parts' : ''].filter(Boolean).join('\n');
+  }
+  function askFit(id) {
+    var o = ops().filter(function (x) { return x.id === id; })[0]; if (!o) return;
+    FIT[id] = 'wait'; paintFit(id);
+    Lerna.ai('offre', { offer: offerText(o), profile: Lerna.profileText() }).then(function (r) {
+      FIT[id] = r.state === 'ok' ? r.reply : r.state === 'limit' ? t('op.fitLimit') : r.state === 'offline' ? t('op.fitOffline') : t('op.fitError');
+      if (r.state === 'ok') { Lerna.sound.play('success'); Lerna.track('opp_fit', id); }
+      paintFit(id);
+    });
+  }
+  function paintFit(id) { var b = document.querySelector('[data-fitbox="' + id + '"]'); if (b) b.innerHTML = fitHTML(FIT[id]); }
+
+  /* Guide « Comprendre les financements » + « Mon projet est-il prêt ? » (onglet Investisseurs) */
+  var G = { open: false, proj: false, stade: '', res: null };
+  function guideHTML() {
+    var h = '<details class="guide"' + (G.open ? ' open' : '') + ' id="gDet"><summary>' + Lerna.seal() + '<div><h3>' + t('op.g.title') + '</h3><p>' + t('op.g.sub') + '</p></div>' + Lerna.icon('chevron', 'chev') + '</summary>' +
+      '<div class="g-grid">' +
+        '<div class="g-card"><h4>' + t('op.g.typesH') + '</h4><ul><li>' + t('op.g.t1') + '</li><li>' + t('op.g.t2') + '</li><li>' + t('op.g.t3') + '</li><li>' + t('op.g.t4') + '</li></ul></div>' +
+        '<div class="g-card"><h4>' + t('op.g.eqH') + '</h4><p>' + t('op.g.eq') + '</p><h4 style="margin-top:14px">' + t('op.g.stH') + '</h4><ul><li>' + t('op.g.s1') + '</li><li>' + t('op.g.s2') + '</li><li>' + t('op.g.s3') + '</li></ul></div>' +
+        '<div class="g-card"><h4>' + t('op.g.prepH') + '</h4><p>' + t('op.g.prep') + '</p></div>' +
+        '<div class="g-card warn"><h4>' + Lerna.icon('alert', 'ic-sm') + ' ' + t('op.g.warnH') + '</h4><p>' + t('op.g.warn') + '</p></div>' +
+      '</div>' +
+      (G.proj ? projHTML() : '<button type="button" class="btn btn-primary btn-sm" style="margin-top:16px" id="projOpen">' + Lerna.icon('sparkle', 'ic-sm') + t('op.p.btn') + '</button>') +
+      '</details>';
+    return h;
+  }
+  function projHTML() {
+    var v = G.vals || {};
+    var seg = ['idee', 'produit', 'clients'].map(function (k) { return '<button type="button" data-stade="' + k + '" class="' + (G.stade === k ? 'on' : '') + '">' + t('op.p.' + k) + '</button>'; }).join('');
+    return '<div class="proj" id="proj"><h4>' + t('op.p.title') + '</h4><p class="muted">' + t('op.p.sub') + '</p>' +
+      '<label for="pq1">' + t('op.p.q1') + '</label><input class="input" id="pq1" maxlength="200" placeholder="' + esc(t('op.p.q1ph')) + '" value="' + esc(v.q1 || '') + '">' +
+      '<label>' + t('op.p.q2') + '</label><div class="seg">' + seg + '</div>' +
+      '<label for="pq3">' + t('op.p.q3') + '</label><input class="input" id="pq3" type="number" min="1" max="50" inputmode="numeric" value="' + esc(v.q3 || '') + '">' +
+      '<label for="pq4">' + t('op.p.q4') + '</label><input class="input" id="pq4" maxlength="200" placeholder="' + esc(t('op.p.q4ph')) + '" value="' + esc(v.q4 || '') + '">' +
+      '<label for="pq5">' + t('op.p.q5') + '</label><input class="input" id="pq5" maxlength="200" placeholder="' + esc(t('op.p.q5ph')) + '" value="' + esc(v.q5 || '') + '">' +
+      '<button type="button" class="btn btn-primary btn-sm" style="margin-top:14px" id="projGo">' + t('op.p.go') + '</button>' +
+      '<div class="res" id="projRes">' + (G.res || '') + '</div></div>';
+  }
+  function projLocal(stade) {
+    var key = { idee: 'op.p.lIdee', produit: 'op.p.lProduit', clients: 'op.p.lClients' }[stade];
+    var list = ops().filter(function (o) { return o.type === 'investisseur' && !o.masked && o.stade === stade && VISIBLE(o, false); });
+    return '<div class="fit-box"><div class="fit-h">' + Lerna.seal() + t('op.p.local') + '</div>' + t(key) +
+      (list.length ? '<br><br><strong>' + t('op.p.match') + '</strong><ul>' + list.map(function (o) { return '<li>' + esc(o.titre) + (o.equity === false ? ' — ' + t('op.eqNo') : '') + '</li>'; }).join('') + '</ul>' : '') + '</div>';
+  }
+  function runProj() {
+    var v = { q1: $('pq1').value.trim(), q3: $('pq3').value.trim(), q4: $('pq4').value.trim(), q5: $('pq5').value.trim() };
+    G.vals = v;
+    if (!v.q1 || !G.stade) { Lerna.toast(t('op.p.need')); return; }
+    var local = projLocal(G.stade);
+    G.res = local + '<div id="projAi" style="margin-top:10px">' + Lerna.thinking('inline') + '</div>';
+    $('projRes').innerHTML = G.res;
+    var answers = ['Projet : ' + v.q1, 'Stade : ' + t('op.p.' + G.stade), v.q3 ? 'Équipe : ' + v.q3 + ' personne(s)' : '', v.q4 ? 'Premiers résultats : ' + v.q4 : '', v.q5 ? 'Besoin : ' + v.q5 : ''].filter(Boolean).join('\n');
+    Lerna.track('project_check', G.stade);
+    Lerna.ai('projet', { answers: answers, profile: Lerna.profileText() }).then(function (r) {
+      var extra = r.state === 'ok' ? '<div class="fit-box"><div class="fit-h">' + Lerna.seal() + t('op.fitTitle') + '</div>' + esc(r.reply) + '</div>'
+        : '<p class="muted" style="font-size:.84rem">' + t(r.state === 'limit' ? 'op.fitLimit' : r.state === 'offline' ? 'op.p.aiNote' : 'op.fitError') + '</p>';
+      G.res = local + '<div id="projAi" style="margin-top:10px">' + extra + '</div>';
+      var box = $('projRes'); if (box) box.innerHTML = G.res;
+      if (r.state === 'ok') Lerna.sound.play('success');
+    });
+  }
+
+  function card(o, i) {
+    var status = STATUS(o);
+    var locked = !!o.masked;
+    var days = DL(o) ? Lerna.daysUntil(DL(o)) : null;
+    var pubDays = o.publie ? -Lerna.daysUntil(o.publie) : 999;
+    var badges = '';
+    if (pubDays <= 7) badges += '<span class="badge badge-orange">' + t('op.new') + '</span>';
+    if (o.premium) badges += '<span class="badge badge-brown">' + t('op.badgePremium') + '</span>';
+    if (status === 'urgent') badges += '<span class="badge badge-urgent">' + (days <= 0 ? t('op.today') : t('op.urgent', { d: days })) + '</span>';
+    if (status === 'closed') badges += '<span class="badge badge-outline">' + t('op.closed') + '</span>';
+    var facts = '';
+    if (locked) {
+      /* Aperçu Premium : aucun titre, aucun organisme, aucun lien — rien à copier dans Google */
+      facts += '<div class="fact">' + Lerna.icon('pin') + '<span>' + esc(paysName(o.pays)) + '</span></div>';
+      if (o.duree) facts += '<div class="fact">' + Lerna.icon('clock') + '<span>' + esc(L(o.duree)) + '</span></div>';
+      if (LVLS(o).length) facts += '<div class="fact">' + Lerna.icon('cap') + '<span>' + esc(levelsTxt(o)) + '</span></div>';
+      if (DL(o)) facts += '<div class="fact">' + Lerna.icon('calendar') + '<span class="' + (status === 'urgent' ? 'dl-urgent' : '') + '">' + deadlineLine(o, status) + '</span></div>';
+      return '<article class="card card-hover ocard locked reveal' + (status === 'closed' ? ' closed' : '') + '" style="--i:' + (i % 4) + '">' +
+        '<div class="top"><div style="flex:1;min-width:0" aria-hidden="true"><span class="ghost-line ghost-org"></span><span class="ghost-line ghost-title"></span></div><div class="badges">' + badges + '</div></div>' +
+        '<div class="row">' + domTags(o) + '<span class="hidden-note">' + Lerna.icon('lock', 'ic-sm') + t('op.hidden') + '</span></div>' +
+        '<div class="facts">' + facts + '</div>' +
+        '<div class="foot"><a class="btn btn-brown btn-sm" href="premium.html">' + Lerna.icon('lock', 'ic-sm') + t('op.unlock') + '</a></div></article>';
+    }
+    var place = o.ville ? L(o.ville) + (o.pays && ['REMOTE', 'AFR', 'INT'].indexOf(o.pays) === -1 ? ', ' + paysName(o.pays) : '') : paysName(o.pays);
+    if (o.type === 'bourse' || o.type === 'investisseur') {
+      facts += '<div class="fact">' + Lerna.icon('dollar') + '<span><strong>' + t('op.amount') + ' :</strong> ' + esc(L(o.montant)) + '</span></div>';
+      if (o.eligibles) facts += '<div class="fact">' + Lerna.icon('globe') + '<span>' + (o.type === 'bourse' ? '<strong>' + t('op.eligible') + ' :</strong> ' : '') + esc(L(o.eligibles)) + '</span></div>';
+      if (LVLS(o).length && o.type === 'bourse') facts += '<div class="fact">' + Lerna.icon('cap') + '<span><strong>' + t(LVLS(o).length > 1 ? 'op.levels' : 'op.level') + ' :</strong> ' + esc(levelsTxt(o)) + '</span></div>';
+    } else {
+      facts += '<div class="fact">' + Lerna.icon('pin') + '<span>' + esc(place) + '</span></div>';
+      facts += '<div class="fact">' + Lerna.icon('clock') + '<span>' + esc(L(o.duree)) + (o.exp ? ' · ' + esc(L(o.exp)) : '') + '</span></div>';
+      if (LVLS(o).length) facts += '<div class="fact">' + Lerna.icon('cap') + '<span>' + esc(levelsTxt(o)) + '</span></div>';
+    }
+    facts += '<div class="fact">' + Lerna.icon('calendar') + '<span class="' + (status === 'urgent' ? 'dl-urgent' : '') + '">' + deadlineLine(o, status) + '</span></div>';
+    if (o.type === 'investisseur' && (o.equity === true || o.equity === false || o.stade)) {
+      facts += '<div class="row" style="gap:6px;flex-wrap:wrap">' + (o.equity === false ? '<span class="eq no">' + Lerna.icon('check', 'ic-sm') + t('op.eqNo') + '</span>' : o.equity === true ? '<span class="eq yes">' + Lerna.icon('trend', 'ic-sm') + t('op.eqYes') + '</span>' : '') +
+        (o.stade ? '<span class="eq st">' + t('op.stage', { s: t('op.st.' + o.stade) }) + '</span>' : '') + '</div>';
+    }
+    var note = DL(o) ? o.deadlineNote : o.rollingNote;
+    if (note && status !== 'closed') facts += '<p class="fact-note">' + esc(L(note)) + '</p>';
+    var btn;
+    if (status === 'closed') btn = '<span class="btn btn-ghost btn-sm is-disabled">' + t('op.closedBtn') + '</span>';
+    else {
+      var label = o.type === 'bourse' ? t('op.apply') : o.type === 'investisseur' ? t('op.contact') : t('op.see');
+      var saved = Lerna.oppFavs.has(o.id);
+      btn = '<a class="btn btn-primary btn-sm" href="' + esc(linkFor(o)) + '" target="_blank" rel="noopener"' + (o.lien ? '' : ' title="' + esc(t('op.searchTitle')) + '"') + ' data-opp="' + o.id + '">' + label + '</a>' +
+        '<button type="button" class="btn btn-ghost btn-sm save-opp' + (saved ? ' on' : '') + '" data-save="' + o.id + '" aria-pressed="' + saved + '">' + Lerna.icon('bookmark', 'ic-sm') + '<span>' + t(saved ? 'op.saved' : 'op.save') + '</span></button>';
+    }
+    return '<article class="card card-hover ocard reveal' + (status === 'closed' ? ' closed' : '') + '" style="--i:' + (i % 4) + '">' +
+      '<div class="top"><div><div class="org">' + esc(o.organisation) + '</div><h3 style="margin-top:4px">' + esc(o.titre) + '</h3></div><div class="badges">' + badges + '</div></div>' +
+      (DOMS(o).length ? '<div class="row" style="gap:6px">' + domTags(o) + '</div>' : '') +
+      '<div class="facts">' + facts + '</div>' +
+      '<div class="foot">' + btn + '</div>' +
+      (status !== 'closed' ? '<div class="fit" data-fitbox="' + o.id + '">' + (FIT[o.id] ? fitHTML(FIT[o.id]) : '<button type="button" class="fit-btn" data-fit="' + o.id + '">' + Lerna.icon('sparkle', 'ic-sm') + t('op.fit') + '</button>') + '</div>' : '') +
+      '<div class="src"><button type="button" class="report-link" data-report="' + o.id + '" title="' + esc(t('op.reportTitle')) + '">' + Lerna.icon('flagReport', 'ic-sm') + t('op.report') + '</button></div></article>';
+  }
+
+  var ME = {};
+  function render() {
+    ME = Lerna.me.get();
+    var items = ops().filter(function (o) {
+      if (o.type !== st.tab) return false;
+      if (!VISIBLE(o, true)) return false;          // jamais : non vérifiée, trop ancienne, pas encore ouverte
+      if (st.dom && DOMS(o).indexOf(st.dom) === -1) return false;
+      if (st.pays && o.pays !== st.pays) return false;
+      if (st.niveau && LVLS(o).indexOf(st.niveau) === -1) return false;
+      if (st.access === 'free' && o.premium) return false;
+      if (st.access === 'premium' && !o.premium) return false;
+      if (o.pourQui === 'f' && ME.genre === 'h' && !ME.genreDevine) return false;   // offres réservées aux femmes
+      var age = ME.age; if (age && ((o.ageMin && age < o.ageMin) || (o.ageMax && age > o.ageMax))) return false;   // hors limite d'âge
+      return true;
+    });
+    var open = items.filter(function (o) { return STATUS(o) !== 'closed'; });
+    var shown = st.closed ? items : open;
+    var rank = { urgent: 0, open: 1, rolling: 2, closed: 3 };
+    shown.sort(function (a, b) {
+      var sa = STATUS(a), sb = STATUS(b);
+      if (sa !== sb && (sa === 'closed' || sb === 'closed')) return rank[sa] - rank[sb];
+      var da = DL(a) && sa !== 'closed' ? new Date(DL(a)).getTime() : Infinity;
+      var db = DL(b) && sb !== 'closed' ? new Date(DL(b)).getTime() : Infinity;
+      if (da !== db) return st.sort === 'late' ? (db === Infinity ? -1 : da === Infinity ? 1 : db - da) : da - db;
+      return rank[sa] - rank[sb];
+    });
+    $('count').textContent = st.closed ? t('op.countAll', { n: shown.length }) : (open.length ? t((open.length === 1 ? 'op.c1.' : 'op.cn.') + st.tab, { n: open.length }) : t('op.c0'));
+    $('guide').innerHTML = st.tab === 'investisseur' ? guideHTML() : '';
+    var lockedCount = shown.filter(function (o) { return o.masked; }).length;
+    $('premBanner').innerHTML = lockedCount
+      ? '<div class="prem-banner">' + Lerna.icon('gem', 'ic-lg') + '<div><h3>' + t(st.tab === 'investisseur' ? 'op.premInvTitle' : 'op.premTitle') + '</h3><p>' + t(st.tab === 'investisseur' ? 'op.premInvText' : 'op.premText') + '</p></div><a class="btn btn-primary btn-sm" href="premium.html">' + t('op.premBtn') + '</a></div>'
+      : '';
+    $('list').innerHTML = shown.length ? shown.map(card).join('') :
+      '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('star') + '<h4>' + t('op.none') + '</h4><p>' + t('op.noneSub') + '</p></div>';
+    $('verified').textContent = t('op.verified', { d: Lerna.fmtDate(window.LERNA_OPPS_VERIFIED) });
+    Lerna.initReveal();
+  }
+
+  function full() { renderTabs(); renderFilters(); render(); }
+
+  Lerna.ready(function () {
+    full();
+    $('tabs').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-tab]'); if (!b) return;
+      st.tab = b.getAttribute('data-tab'); st.dom = st.pays = st.niveau = st.access = '';
+      history.replaceState(null, '', '?tab=' + ({ stage: 'stages', bourse: 'bourses', emploi: 'emplois', investisseur: 'investisseurs' })[st.tab]);
+      Lerna.sound.play('click'); full();
+    });
+    $('filters').addEventListener('change', function (e) {
+      var s = e.target.closest('[data-f]'); if (!s) return;
+      st[s.getAttribute('data-f')] = s.value; if (s.getAttribute('data-f') !== 'sort') s.classList.toggle('on', !!s.value);
+      render();
+    });
+    $('filters').addEventListener('click', function (e) {
+      if (!e.target.closest('#reset')) return;
+      st.dom = st.pays = st.niveau = st.access = ''; st.sort = 'soon'; renderFilters(); render();
+    });
+    $('showClosed').addEventListener('change', function (e) { st.closed = e.target.checked; render(); });
+    $('guide').addEventListener('toggle', function (e) { if (e.target.id === 'gDet') G.open = e.target.open; }, true);
+    $('guide').addEventListener('click', function (e) {
+      if (e.target.closest('#projOpen')) { G.proj = true; G.open = true; $('guide').innerHTML = guideHTML(); var f = $('pq1'); if (f) f.focus(); return; }
+      var sb = e.target.closest('[data-stade]');
+      if (sb) { G.stade = sb.getAttribute('data-stade'); Array.prototype.forEach.call(document.querySelectorAll('[data-stade]'), function (x) { x.classList.toggle('on', x === sb); }); Lerna.sound.play('select'); return; }
+      if (e.target.closest('#projGo')) runProj();
+    });
+    $('list').addEventListener('click', function (e) {
+      var fb = e.target.closest('[data-fit]');
+      if (fb) { askFit(fb.getAttribute('data-fit')); return; }
+      var a = e.target.closest('[data-opp]');
+      if (a) {
+        var oo = ops().filter(function (x) { return x.id === a.getAttribute('data-opp'); })[0];
+        if (oo) { Lerna.me.signal('type', oo.type); DOMS(oo).forEach(function (d) { Lerna.me.signal('dom', d); }); }
+        Lerna.sound.play('opportunity'); Lerna.track('opp_open', a.getAttribute('data-opp')); return;
+      }
+      var r = e.target.closest('[data-report]');
+      if (r) return Lerna.reportOpp(r.getAttribute('data-report'));
+      var b = e.target.closest('[data-save]');
+      if (b) {
+        var on = Lerna.oppFavs.toggle(b.getAttribute('data-save'));
+        if (on === null) return;
+        if (on) Lerna.pop(b);
+        b.classList.toggle('on', on); b.setAttribute('aria-pressed', String(on));
+        b.querySelector('span').textContent = t(on ? 'op.saved' : 'op.save');
+        Lerna.toast(t(on ? 'op.savedToast' : 'op.unsavedToast'));
+      }
+    });
+    Lerna.onLang(full);
+    Lerna.track('opps_visit');
+    Lerna.auth.ready.then(function () { render(); window.LERNA_OPPS_UNLOCK().then(function (ok) { if (ok) full(); }); });
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Contact — LERNA</title>
+<meta name="lerna-title" content="ct.docTitle">
+<meta name="description" content="Une question, un problème, une école ou une bourse à ajouter ? Écris à l’équipe LERNA.">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<style>
+  .ct-wrap { padding: 30px 0 70px; display: grid; gap: 22px; }
+  @media (min-width: 920px) { .ct-wrap { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); align-items: start; } }
+  .ct-head h1 { font-size: clamp(1.9rem, 5.4vw, 2.6rem); }
+  .ct-head p { color: var(--muted); margin-top: 8px; max-width: 560px; }
+  .subjects { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  @media (min-width: 640px) { .subjects { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .subj { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; padding: 12px; border: 2px solid var(--cream-dark); border-radius: 16px; background: var(--surface); text-align: left; font-weight: 700; font-size: .88rem; line-height: 1.3; transition: border-color .15s, background .15s; }
+  .subj .stk { width: 34px; height: 34px; }
+  .subj.on { border-color: var(--orange); background: var(--orange-soft); }
+  .hint { font-size: .84rem; color: var(--muted); background: var(--cream); border-radius: 12px; padding: 10px 12px; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .side-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+  .side-card p { font-size: .9rem; color: var(--muted); }
+  .side-card + .side-card { margin-top: 14px; }
+  .mail-line { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; text-decoration: none; color: var(--orange-deep); word-break: break-all; }
+  .socials { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .sent { text-align: center; padding: 30px 10px; }
+  .sent .stk { width: 96px; height: 96px; margin: 0 auto 10px; animation: stkPop .6s var(--ease) both; }
+</style>
+</head>
+<body data-page="contact">
+<div id="lerna-nav"></div>
+<main class="container container-md">
+  <div class="ct-head" style="padding-top:30px">
+    <span class="eyebrow" data-i18n="ct.eyebrow">Aide et contact</span>
+    <h1 data-i18n="ct.title">Écris-nous</h1>
+    <p data-i18n="ct.sub">Un problème, une question, une école ou une bourse à ajouter ou à retirer : l’équipe lit chaque message et te répond par email.</p>
+  </div>
+  <div class="ct-wrap">
+    <section class="card" id="formCard"></section>
+    <aside id="side"></aside>
+  </div>
+</main>
+<div id="lerna-footer"></div>
+
+<script src="assets/js/core.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'ct.docTitle': 'Contact — LERNA', 'ct.eyebrow': 'Aide et contact', 'ct.title': 'Écris-nous',
+    'ct.sub': 'Un problème, une question, une école ou une bourse à ajouter ou à retirer : l’équipe lit chaque message et te répond par email.',
+    'ct.subject': 'C’est à propos de…',
+    'ct.probleme': 'Un problème', 'ct.ajout': 'Proposer un ajout', 'ct.retrait': 'Proposer un retrait', 'ct.question': 'Une question', 'ct.partenariat': 'Un partenariat', 'ct.donnees': 'Mes données personnelles',
+    'ct.hProbleme': 'Dis-nous sur quelle page, ce que tu as fait, et ce qui s’est passé. Le modèle de ton téléphone aide aussi.',
+    'ct.hAjout': 'Une école, une bourse, un stage ? Donne le nom et le lien officiel : on vérifie avant d’ajouter.',
+    'ct.hRetrait': 'Une offre clôturée, une info fausse ? Dis-nous laquelle et pourquoi : on revérifie sur le site officiel.',
+    'ct.hQuestion': 'Pose ta question sur LERNA. Pour l’orientation elle-même, l’assistant de « Mon espace » répond tout de suite.',
+    'ct.hPartenariat': 'École, association, entreprise : présente-toi et ton idée en quelques lignes.',
+    'ct.hDonnees': 'Tu peux déjà télécharger ou effacer tes données toi-même dans Paramètres → Confidentialité. Pour toute autre demande, écris ici.',
+    'ct.name': 'Ton nom (facultatif)', 'ct.email': 'Ton email (pour te répondre)', 'ct.message': 'Ton message', 'ct.messagePh': 'Écris ton message ici…',
+    'ct.send': 'Envoyer', 'ct.sending': 'Envoi…',
+    'ct.eSubject': 'Choisis un sujet.', 'ct.eEmail': 'Écris une adresse email valide pour qu’on puisse te répondre.', 'ct.eMessage': 'Ton message est un peu court (10 caractères minimum).',
+    'ct.eLimit': 'Tu as déjà envoyé plusieurs messages aujourd’hui. Réessaie demain.', 'ct.eGeneric': 'L’envoi n’a pas marché. Réessaie dans un instant.',
+    'ct.sentTitle': 'Message envoyé', 'ct.sentText': 'Merci ! On te répond par email à {email}.', 'ct.again': 'Écrire un autre message',
+    'ct.preview': 'Mode aperçu : l’envoi sera actif une fois l’application en ligne. Ton message n’est pas perdu, il reste écrit ici.',
+    'ct.sideTitle': 'Avant d’écrire', 'ct.side1': 'Pour ton orientation, l’assistant de « Mon espace » répond tout de suite.', 'ct.side2': 'Une offre semble expirée ? Le bouton « Signaler une offre expirée » est sur chaque offre.',
+    'ct.side3': 'Réglages, données, notifications : tout est dans Paramètres.', 'ct.settings': 'Ouvrir les Paramètres', 'ct.opps': 'Voir les offres',
+    'ct.mailTitle': 'Par email', 'ct.mailText': 'Tu peux aussi nous écrire directement :', 'ct.followTitle': 'Suivre LERNA'
+  },
+  en: {
+    'ct.docTitle': 'Contact — LERNA', 'ct.eyebrow': 'Help and contact', 'ct.title': 'Write to us',
+    'ct.sub': 'A problem, a question, a school or scholarship to add or remove: the team reads every message and answers by email.',
+    'ct.subject': 'It’s about…',
+    'ct.probleme': 'A problem', 'ct.ajout': 'Suggest an addition', 'ct.retrait': 'Suggest a removal', 'ct.question': 'A question', 'ct.partenariat': 'A partnership', 'ct.donnees': 'My personal data',
+    'ct.hProbleme': 'Tell us which page, what you did and what happened. Your phone model helps too.',
+    'ct.hAjout': 'A school, a scholarship, an internship? Give the name and the official link: we check before adding.',
+    'ct.hRetrait': 'A closed offer, wrong information? Tell us which one and why: we re-check on the official website.',
+    'ct.hQuestion': 'Ask your question about LERNA. For orientation itself, the assistant in “My space” answers straight away.',
+    'ct.hPartenariat': 'School, association, company: introduce yourself and your idea in a few lines.',
+    'ct.hDonnees': 'You can already download or erase your data yourself in Settings → Privacy. For any other request, write here.',
+    'ct.name': 'Your name (optional)', 'ct.email': 'Your email (so we can answer)', 'ct.message': 'Your message', 'ct.messagePh': 'Write your message here…',
+    'ct.send': 'Send', 'ct.sending': 'Sending…',
+    'ct.eSubject': 'Pick a subject.', 'ct.eEmail': 'Enter a valid email address so we can answer.', 'ct.eMessage': 'Your message is a bit short (10 characters minimum).',
+    'ct.eLimit': 'You have already sent several messages today. Try again tomorrow.', 'ct.eGeneric': 'Sending failed. Try again in a moment.',
+    'ct.sentTitle': 'Message sent', 'ct.sentText': 'Thank you! We will answer by email at {email}.', 'ct.again': 'Write another message',
+    'ct.preview': 'Preview mode: sending will work once the app is online. Your message is not lost, it stays written here.',
+    'ct.sideTitle': 'Before you write', 'ct.side1': 'For your orientation, the assistant in “My space” answers straight away.', 'ct.side2': 'An offer looks expired? The “Report an expired offer” button is on every offer.',
+    'ct.side3': 'Settings, data, notifications: everything is in Settings.', 'ct.settings': 'Open Settings', 'ct.opps': 'See offers',
+    'ct.mailTitle': 'By email', 'ct.mailText': 'You can also write to us directly:', 'ct.followTitle': 'Follow LERNA'
+  }
+});
+
+(function () {
+  var t = Lerna.t, esc = Lerna.esc, store = Lerna.store;
+  var $ = function (id) { return document.getElementById(id); };
+  var SUBJ = [['probleme', 'wrench', 'ct.hProbleme'], ['ajout', 'pushpin', 'ct.hAjout'], ['retrait', 'flag-report', 'ct.hRetrait'], ['question', 'thinking', 'ct.hQuestion'], ['partenariat', 'handshake', 'ct.hPartenariat'], ['donnees', 'shield', 'ct.hDonnees']];
+  var draft = store.get('lerna_contact_draft', null) || {};
+  var p = Lerna.param('sujet');
+  var st = { sujet: SUBJ.some(function (x) { return x[0] === p; }) ? p : (draft.sujet || ''), sent: null };
+  var EMAIL_RE = /^[^\s@]{1,64}@[^\s@]{1,190}\.[a-z]{2,24}$/i;
+  /* Réseaux sociaux : codés, mais affichés seulement quand l'équipe les active (SHOW_SOCIALS) */
+  var SOCIAL_NAMES = { instagram: 'Instagram', tiktok: 'TikTok', linkedin: 'LinkedIn', x: 'X', youtube: 'YouTube' };
+
+  function form() {
+    if (st.sent) {
+      return '<div class="sent">' + Lerna.sticker('mailbox') + '<h2>' + t('ct.sentTitle') + '</h2><p class="muted" style="margin:8px 0 18px">' + esc(t('ct.sentText', { email: st.sent })) + '</p>' +
+        '<button type="button" class="btn btn-ghost" id="again">' + t('ct.again') + '</button></div>';
+    }
+    var u = Lerna.auth.user, cur = SUBJ.filter(function (x) { return x[0] === st.sujet; })[0];
+    return '<form id="ctForm" novalidate>' +
+      '<p class="label" id="subjLbl">' + t('ct.subject') + '</p><div class="subjects" role="radiogroup" aria-labelledby="subjLbl" style="margin:10px 0 14px">' + SUBJ.map(function (x) {
+        return '<button type="button" class="subj' + (st.sujet === x[0] ? ' on' : '') + '" role="radio" aria-checked="' + (st.sujet === x[0]) + '" data-subj="' + x[0] + '">' + Lerna.sticker(x[1]) + t('ct.' + x[0]) + '</button>';
+      }).join('') + '</div>' +
+      (cur ? '<p class="hint">' + t(cur[2]) + (cur[0] === 'donnees' ? ' <a class="orange bold" href="parametres.html#confidentialite">' + t('ct.settings') + ' →</a>' : '') + '</p>' : '') +
+      '<div class="stack" style="margin-top:14px">' +
+        '<div class="field"><label for="cName">' + t('ct.name') + '</label><input class="input" id="cName" maxlength="80" autocomplete="name" value="' + esc(draft.nom || (u ? [u.prenom, u.nom].filter(Boolean).join(' ') : '')) + '"></div>' +
+        '<div class="field"><label for="cEmail">' + t('ct.email') + '</label><input class="input" id="cEmail" type="email" inputmode="email" autocomplete="email" maxlength="160" required value="' + esc(draft.email || (u ? u.email : '')) + '"></div>' +
+        '<div class="field"><label for="cMsg">' + t('ct.message') + '</label><textarea class="textarea" id="cMsg" maxlength="3000" required placeholder="' + esc(t('ct.messagePh')) + '">' + esc(draft.message || '') + '</textarea></div>' +
+        '<div class="hp" aria-hidden="true"><label for="cWeb">Website</label><input id="cWeb" tabindex="-1" autocomplete="off"></div>' +
+        '<p class="field-error" id="cErr" role="alert"></p>' +
+        '<button type="submit" class="btn btn-primary btn-block" id="cSend">' + Lerna.icon('send', 'ic-sm') + t('ct.send') + '</button>' +
+      '</div></form>';
+  }
+  function side() {
+    var c = Lerna.config, h = '';
+    h += '<div class="card side-card"><h3>' + t('ct.sideTitle') + '</h3><ul class="list-arrow" style="font-size:.9rem">' +
+      '<li>' + t('ct.side1') + '</li><li>' + t('ct.side2') + '</li><li>' + t('ct.side3') + '</li></ul>' +
+      '<div class="row" style="margin-top:12px"><a class="btn btn-ghost btn-sm" href="parametres.html">' + t('ct.settings') + '</a><a class="btn btn-ghost btn-sm" href="opportunites.html">' + t('ct.opps') + '</a></div></div>';
+    /* Adresse publique : seulement quand le domaine est acheté (variable CONTACT_PUBLIC_EMAIL) */
+    if (c.contactEmail && EMAIL_RE.test(c.contactEmail)) {
+      h += '<div class="card side-card"><h3>' + t('ct.mailTitle') + '</h3><p>' + t('ct.mailText') + '</p><a class="mail-line" style="margin-top:8px" href="mailto:' + esc(c.contactEmail) + '">' + Lerna.icon('mail', 'ic-sm') + esc(c.contactEmail) + '</a></div>';
+    }
+    if (c.showSocials && c.socials && Object.keys(c.socials).length) {
+      h += '<div class="card side-card"><h3>' + t('ct.followTitle') + '</h3><div class="socials">' + Object.keys(c.socials).map(function (k) {
+        return '<a class="btn btn-ghost btn-sm" href="' + esc(c.socials[k]) + '" target="_blank" rel="noopener">' + esc(SOCIAL_NAMES[k] || k) + ' ↗</a>';
+      }).join('') + '</div></div>';
+    }
+    return h;
+  }
+  function render() { $('formCard').innerHTML = form(); $('side').innerHTML = side(); }
+  function keepDraft() {
+    if (!$('cMsg')) return;
+    store.set('lerna_contact_draft', { sujet: st.sujet, nom: $('cName').value, email: $('cEmail').value, message: $('cMsg').value });
+  }
+
+  Lerna.ready(function () {
+    render();
+    Lerna.auth.ready.then(render);
+    Lerna.onLang(render);
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-subj]');
+      if (b) { keepDraft(); st.sujet = b.getAttribute('data-subj'); draft = store.get('lerna_contact_draft', null) || {}; Lerna.sound.play('select'); render(); return; }
+      if (e.target.closest('#again')) { st.sent = null; draft = {}; render(); }
+    });
+    document.addEventListener('input', Lerna.debounce(function (e) { if (e.target.closest('#ctForm')) keepDraft(); }, 300));
+    document.addEventListener('submit', function (e) {
+      if (e.target.id !== 'ctForm') return;
+      e.preventDefault();
+      var err = $('cErr'), email = $('cEmail').value.trim(), msg = $('cMsg').value.trim();
+      err.textContent = '';
+      if (!st.sujet) { err.textContent = t('ct.eSubject'); Lerna.sound.play('error'); return; }
+      if (!EMAIL_RE.test(email)) { err.textContent = t('ct.eEmail'); Lerna.sound.play('error'); $('cEmail').focus(); return; }
+      if (msg.length < 10) { err.textContent = t('ct.eMessage'); Lerna.sound.play('error'); $('cMsg').focus(); return; }
+      if (!Lerna.config.live) { err.textContent = t('ct.preview'); keepDraft(); return; }
+      var btn = $('cSend'); btn.setAttribute('aria-busy', 'true'); btn.textContent = t('ct.sending');
+      Lerna.api('/api/message', { kind: 'contact', sujet: st.sujet, nom: $('cName').value.trim(), email: email, message: msg, website: $('cWeb').value, page: document.referrer ? document.referrer.replace(location.origin, '').slice(0, 200) : '', lang: Lerna.lang }, { timeout: 20000 })
+        .then(function (r) {
+          if (r.ok) {
+            st.sent = email; store.del('lerna_contact_draft'); draft = {};
+            Lerna.sound.play('success'); Lerna.analytics.capture('contact_sent', { sujet: st.sujet }); render();
+          } else {
+            err.textContent = r.status === 429 ? t('ct.eLimit') : r.data && r.data.error === 'bad_email' ? t('ct.eEmail') : t('ct.eGeneric');
+            btn.removeAttribute('aria-busy'); btn.innerHTML = Lerna.icon('send', 'ic-sm') + t('ct.send'); Lerna.sound.play('error');
+          }
+        });
+    });
+  });
+})();
+</script>
+</body>
+</html>

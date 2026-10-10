@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mon espace — LERNA</title>
+<meta name="lerna-title" content="sp.docTitle">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<style>
+  .sp { padding: 30px 0 70px; }
+  .gate { min-height: 50vh; display: flex; align-items: center; justify-content: center; }
+  .prof { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
+  .prof .avatar { width: 72px; height: 72px; font-size: 1.6rem; }
+  .prof-info { flex: 1; min-width: 180px; }
+  .prof-info h1 { font-size: clamp(1.5rem, 4.4vw, 2.1rem); }
+  .prof-info p { color: var(--muted); font-size: .92rem; margin-top: 4px; }
+  .complete { margin-top: 18px; }
+  .complete-top { display: flex; justify-content: space-between; font-size: .85rem; font-weight: 600; margin-bottom: 6px; }
+  .complete-top strong { color: var(--orange); }
+  .tabs-wrap { position: sticky; top: var(--nav-h); z-index: 40; background: var(--bg); margin: 22px 0 6px; }
+  .blk { margin-top: 22px; }
+  .blk-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 14px; flex-wrap: wrap; }
+  .blk-head h2 { font-size: clamp(1.25rem, 3.4vw, 1.6rem); display: flex; align-items: center; gap: 10px; }
+  .blk-head h2 .ic { color: var(--orange); }
+  .list { display: flex; flex-direction: column; gap: 10px; }
+  .row-item { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 16px; }
+  .row-item .grow { flex: 1; min-width: 0; }
+  .row-item h4 { font-size: 1rem; overflow: hidden; text-overflow: ellipsis; }
+  .row-item .sub { font-size: .82rem; color: var(--muted); margin-top: 2px; }
+  .score-pill { font-family: var(--font-head); font-weight: 800; color: var(--orange); font-size: 1.15rem; flex-shrink: 0; }
+  .icon-btn { width: 40px; height: 40px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; color: var(--brown); flex-shrink: 0; }
+  .icon-btn:hover { background: var(--cream-dark); }
+  .flag { font-size: 1.5rem; flex-shrink: 0; }
+  .row-item .flag-img { width: 34px; height: 34px; }
+  .gridx { display: grid; gap: 16px; }
+  @media (min-width: 900px) { .gridx { grid-template-columns: 1fr 1fr; } }
+  .mini-cal { display: flex; flex-direction: column; gap: 8px; font-size: .92rem; }
+  .mini-cal li { list-style: none; display: flex; gap: 10px; }
+  .mini-cal li::before { content: '●'; color: var(--orange); font-size: .7rem; margin-top: 4px; }
+  .news li { list-style: none; padding: 10px 0; border-bottom: 1px solid var(--cream-dark); font-size: .92rem; }
+  .news li:last-child { border-bottom: none; }
+  .res-links a { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--cream-dark); text-decoration: none; font-weight: 600; }
+  .res-links a:last-child { border-bottom: none; }
+  .res-links a:hover { color: var(--orange-deep); }
+
+  /* Chat */
+  .chat { display: flex; flex-direction: column; height: min(68vh, 620px); background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 20px; overflow: hidden; }
+  .chat-msgs { flex: 1; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 12px; -webkit-overflow-scrolling: touch; }
+  .msg { max-width: 86%; padding: 12px 16px; border-radius: 18px; font-size: .94rem; line-height: 1.55; white-space: pre-wrap; word-wrap: break-word; }
+  .msg.bot { background: var(--cream); border: 1px solid var(--cream-dark); align-self: flex-start; border-bottom-left-radius: 6px; }
+  .msg.me { background: var(--orange); color: #fff; align-self: flex-end; border-bottom-right-radius: 6px; }
+  .msg.typing { color: var(--muted); font-style: italic; display: flex; align-items: center; gap: 8px; }
+  .chat-sugg { display: flex; gap: 8px; overflow-x: auto; padding: 10px 14px; border-top: 1px solid var(--cream-dark); scrollbar-width: none; }
+  .chat-sugg::-webkit-scrollbar { display: none; }
+  .chat-sugg button { flex-shrink: 0; font-size: .82rem; font-weight: 600; padding: 8px 12px; border-radius: 99px; background: var(--cream); border: 1.5px solid var(--cream-dark); white-space: nowrap; }
+  .chat-sugg button:hover { border-color: var(--orange); }
+  .chat-form { display: flex; gap: 8px; padding: 12px; border-top: 1px solid var(--cream-dark); background: var(--cream); }
+  .chat-form .input { padding: 12px 16px; border-radius: 99px; }
+  .chat-form .btn { padding: 0; width: 48px; height: 48px; min-height: 48px; border-radius: 50%; flex-shrink: 0; }
+  .chat-quota { font-size: .8rem; color: var(--muted); margin-top: 8px; text-align: right; }
+
+  .cmp-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .cmp-table th, .cmp-table td { padding: 11px 10px; border-bottom: 1px solid var(--cream-dark); text-align: left; vertical-align: top; }
+  .cmp-table th { color: var(--muted); font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; width: 30%; }
+  .cmp-table td { width: 35%; }
+  .cmp-table .win { color: var(--orange-deep); font-weight: 700; }
+  .prem-lock { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; background: var(--cream-dark); border-radius: 16px; padding: 16px 18px; }
+  .prem-lock .grow { flex: 1; min-width: 180px; font-size: .92rem; }
+  .status-sel { border: 1.5px solid var(--cream-darker); border-radius: 99px; padding: 6px 10px; font-size: .8rem; font-weight: 600; background: var(--white); color: var(--brown); }
+  .form-inline { display: grid; gap: 10px; grid-template-columns: 1fr; margin-top: 12px; }
+  @media (min-width: 640px) {
+    .form-inline { grid-template-columns: 2fr 1fr 1fr auto; align-items: end; }
+    .form-inline.cmp-form { grid-template-columns: 1fr 1fr auto; }
+    .form-inline.rem-form { grid-template-columns: 2fr 1fr auto; }
+  }
+  .cmp-table { table-layout: fixed; word-break: break-word; }
+  @media (max-width: 560px) {
+    .cmp-table { font-size: .8rem; }
+    .cmp-table th, .cmp-table td { padding: 9px 6px; }
+    .cmp-table th { width: 28%; font-size: .66rem; letter-spacing: .02em; }
+  }
+  .acc-row { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 16px 0; border-bottom: 1px solid var(--cream-dark); flex-wrap: wrap; }
+  .acc-row:last-child { border-bottom: none; }
+  .danger { color: var(--orange-deep); border-color: rgba(184, 74, 6, .35); }
+  .danger:hover { background: var(--orange-deep); color: var(--bg); border-color: var(--orange-deep); }
+</style>
+</head>
+<body data-page="espace">
+<div id="lerna-nav"></div>
+
+<main class="sp">
+  <div class="container container-md" id="root">
+    <div class="gate"><span class="thinking big" data-mark></span></div>
+  </div>
+</main>
+
+<div id="lerna-footer"></div>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/questions.js"></script>
+<script src="assets/js/data-schools.js"></script>
+<script src="assets/js/data-opps.js"></script>
+<script src="assets/js/guides.js"></script>
+<script src="assets/js/engine.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'sp.docTitle': 'Mon espace — LERNA',
+    'sp.hello': 'Bonjour {name}', 'sp.premium': 'Premium', 'sp.free': 'Compte gratuit',
+    'sp.complete': 'Profil complété', 'sp.edit': 'Modifier mon profil',
+    'sp.tHome': "Vue d'ensemble", 'sp.tIA': 'Assistant IA', 'sp.tSchools': 'Mes écoles', 'sp.tTrack': 'Candidatures', 'sp.tAccount': 'Compte',
+    'sp.recos': 'Mes recommandations', 'sp.seeResults': 'Voir mes résultats complets →', 'sp.compare': 'Comparer deux écoles',
+    'sp.locked': 'École n°{n} — à débloquer', 'sp.lockedSub': 'Invite 3 amis ou passe en Premium', 'sp.lockedSubPrem': 'Réservée à Premium',
+    'sp.savedOpps': 'Mes offres sauvegardées', 'sp.noSavedOpps': 'Sauvegarde une bourse ou un stage depuis Opportunités : on te rappellera la date limite.',
+    'sp.noRecos': 'Pas encore de recommandations', 'sp.noRecosSub': 'Réponds aux 25 questions pour que LERNA trouve tes écoles.', 'sp.start': 'Commencer mon orientation →',
+    'sp.opps': 'Mes opportunités correspondantes', 'sp.oppsAll': 'Toutes les opportunités →', 'sp.noOpps': 'Aucune opportunité ouverte ne correspond pour l’instant à tes secteurs.',
+    'sp.deadline': 'Date limite : {d}', 'sp.rolling': 'Candidature en continu', 'sp.urgent': 'J-{d}',
+    'sp.reminders': 'Mes rappels et alertes', 'sp.noReminders': 'Aucune date limite dans les 45 prochains jours.',
+    'sp.dash': 'Tableau de bord étudiant', 'sp.news': 'À savoir en ce moment', 'sp.calendar': 'Calendrier académique — {country}', 'sp.calendarGeneric': 'Calendrier académique',
+    'sp.support': 'Soutien et bien-être',
+    'sp.supportText': 'Choisir son avenir peut être lourd. Si tu te sens dépassé·e, parler à quelqu’un aide vraiment.',
+    'sp.r1': 'Trouver une ligne d’écoute gratuite dans ton pays', 'sp.r2': 'Santé mentale — Organisation mondiale de la Santé',
+    'sp.verify': 'Vérifie toujours auprès des sources officielles.',
+    'sp.n1': 'Études en France : la campagne de candidature ouvre généralement à l’automne pour la rentrée de septembre suivante.',
+    'sp.n2': 'Canada : depuis 2024, la plupart des nouveaux permis d’études demandent une attestation de la province (le CAQ au Québec).',
+    'sp.n3': 'Allemagne : prévois un compte bloqué d’environ 12 000 $ par an pour obtenir le visa étudiant.',
+    'sp.n4': 'Bourses : beaucoup de dates limites tombent entre novembre et mars pour une rentrée en septembre. Prépare tes documents maintenant.',
+    'sp.cal.af': ['Bac : juin – juillet', 'Orientation des bacheliers : juillet – septembre', 'Rentrée universitaire : octobre – décembre (variable selon les universités)'],
+    'sp.cal.ma': ['Bac : juin', 'Pré-inscriptions : juillet', 'Rentrée : septembre – octobre'],
+    'sp.cal.fr': ['Parcoursup : vœux de janvier à mars', 'Réponses : juin – juillet', 'Rentrée : septembre'],
+    'sp.cal.ca': ['Candidatures : novembre – février', 'Réponses : mars – mai', 'Rentrée : septembre (parfois janvier)'],
+    'sp.cal.us': ['Early Action : 1er novembre', 'Regular Action : début janvier', 'Rentrée : fin août – septembre'],
+    'sp.cal.en': ['WASSCE / examens nationaux : mai – juin', 'Admissions : juillet – octobre', 'Rentrée : septembre – janvier (variable)'],
+    'sp.cal.def': ['La plupart des rentrées ont lieu en septembre – octobre', 'Les candidatures internationales ferment souvent 6 à 9 mois avant'],
+    'sp.iaTitle': 'Mon assistant IA personnel', 'sp.iaSub': 'Pose toutes tes questions sur les études, les filières, les bourses. LERNA connaît ton profil.',
+    'sp.iaHello': 'Salut {name} ! Je suis LERNA. Pose-moi n’importe quelle question sur tes études, ton orientation ou les bourses.',
+    'sp.iaPh': 'Écris ta question…', 'sp.send': 'Envoyer',
+    'sp.s1': 'Quelle est la différence entre une licence et un BTS ?', 'sp.s2': 'Comment candidater à une bourse ?', 'sp.s3': 'Explique-moi ce qu’est une UE.', 'sp.s4': 'Quelle école est mieux entre {a} et {b} pour moi ?',
+    'sp.quota': '{n} message(s) restant(s) aujourd’hui', 'sp.quotaPremium': 'Messages illimités', 'sp.quotaOut': 'Tu as utilisé tes 5 messages du jour. Ils reviennent demain — ou passe en Premium pour un assistant illimité.',
+    'sp.iaTyping': 'LERNA réfléchit…', 'sp.iaOffline': 'L’assistant IA répondra à cette question dès que l’application sera déployée. En attendant, essaie une des questions suggérées.',
+    'sp.iaError': 'Je n’arrive pas à répondre pour le moment. Réessaie dans un instant.',
+    'sp.a1': 'Le BTS dure 2 ans et prépare directement à un métier : beaucoup de pratique, des stages, et une entrée rapide sur le marché du travail. Tu peux ensuite poursuivre en licence professionnelle.\n\nLa licence dure 3 ans, elle est plus générale et plus théorique, et elle mène naturellement au master.\n\nEn bref : si tu veux travailler vite et apprendre en faisant, le BTS est souvent plus adapté. Si tu vises un master ou un métier qui demande un bac+5, choisis la licence.',
+    'sp.a2': '1. Repère les bourses auxquelles tu es éligible (pays, niveau, domaine) — l’onglet Bourses des Opportunités est fait pour ça.\n2. Note les dates limites et commence au moins 2 mois avant.\n3. Rassemble les documents : relevés de notes, diplôme, passeport, preuve de langue, lettres de recommandation.\n4. Écris une lettre de motivation propre à chaque bourse : ton projet, pourquoi ce programme, ce que tu apporteras.\n5. Envoie tôt, garde une copie de tout, et relance poliment si tu n’as pas de nouvelles.',
+    'sp.a3': 'Une UE (Unité d’Enseignement) est un bloc de cours qui vont ensemble — par exemple « Mathématiques pour l’économie » peut regrouper un cours magistral et des TD.\n\nChaque UE rapporte des crédits ECTS : une année de licence vaut 60 crédits, une licence complète 180. Tu valides une UE quand ta moyenne y atteint 10/20 ; dans beaucoup d’universités, les UE d’un même semestre peuvent se compenser entre elles.',
+    'sp.a4none': 'Ajoute au moins deux écoles à tes favoris (ou fais le questionnaire) pour que je puisse les comparer pour toi.',
+    'sp.a4': 'Pour ton profil, {a} obtient {sa}/100 et {b} {sb}/100.\n\n{a} : frais ≈ {fa}/an pour toi, {da}. Point à surveiller : {wa}.\n{b} : frais ≈ {fb}/an pour toi, {db}. Point à surveiller : {wb}.\n\nMon conseil : {win} colle mieux à ton budget et à tes critères, mais regarde surtout la filière précise que tu vises dans chacune.',
+    'sp.favs': 'Mes écoles favorites', 'sp.noFavs': 'Aucune école en favori', 'sp.noFavsSub': 'Ajoute des écoles depuis Explorer ou tes résultats.', 'sp.explore': 'Explorer les écoles →',
+    'sp.cmpTitle': 'Comparer deux écoles côte à côte', 'sp.cmpPremium': 'La comparaison détaillée entre deux écoles fait partie de Premium.', 'sp.cmpNeed': 'Il faut au moins deux écoles (favoris ou recommandations).',
+    'sp.cmpA': 'École A', 'sp.cmpB': 'École B', 'sp.cmpGo': 'Comparer',
+    'sp.cFee': 'Frais pour toi / an', 'sp.cTotal': 'Total estimé / an', 'sp.cDur': 'Durée des études', 'sp.cLang': 'Langues', 'sp.cType': 'Type', 'sp.cCity': 'Ville', 'sp.cIntl': 'Reconnaissance', 'sp.cCampus': 'Vie de campus', 'sp.cWeak': 'Point faible', 'sp.cScore': 'Score pour ton profil',
+    'sp.lvl1': 'Locale', 'sp.lvl2': 'Régionale', 'sp.lvl3': 'Internationale', 'sp.camp1': 'Faible / à distance', 'sp.camp2': 'Moyenne', 'sp.camp3': 'Riche',
+    'sp.premiumBtn': 'Voir Premium →', 'sp.unlock': 'Débloquer',
+    'sp.trackTitle': 'Suivi de mes candidatures', 'sp.trackSub': 'Garde une trace de chaque dossier : école, bourse ou stage.', 'sp.trackPremium': 'Le suivi des candidatures fait partie de Premium.',
+    'sp.trackName': 'Candidature', 'sp.trackNamePh': 'Ex : Bourse Laval, Licence UCAD…', 'sp.trackDate': 'Date limite', 'sp.trackAdd': 'Ajouter',
+    'sp.st1': 'À préparer', 'sp.st2': 'Envoyée', 'sp.st3': 'Entretien', 'sp.st4': 'Acceptée', 'sp.st5': 'Refusée',
+    'sp.noTrack': 'Aucune candidature suivie pour l’instant.',
+    'sp.remTitle': 'Rappels personnalisés', 'sp.remPh': 'Ex : Envoyer ma lettre de motivation', 'sp.remPremium': 'Les rappels personnalisés font partie de Premium.',
+    'sp.accPlan': 'Mon abonnement', 'sp.accFree': 'Gratuit — 1 analyse IA par jour, 5 messages à l’assistant.', 'sp.accPrem': 'Premium actif{until}.', 'sp.accUntil': ' jusqu’au {d}',
+    'sp.manage': 'Gérer / annuler', 'sp.upgrade': 'Passer à Premium →',
+    'sp.accLang': 'Langue', 'sp.accSound': 'Sons de l’application', 'sp.accPw': 'Mot de passe', 'sp.accPwBtn': 'Recevoir un lien de changement', 'sp.accPwSent': 'Lien envoyé à {email}.',
+    'sp.accExport': 'Mes données', 'sp.accExportBtn': 'Télécharger mes données', 'sp.accLogout': 'Déconnexion', 'sp.accDelete': 'Supprimer mon compte',
+    'sp.delTitle': 'Supprimer ton compte ?', 'sp.delText': 'Ton profil, tes réponses, tes favoris et tes recommandations seront effacés définitivement. Cette action est irréversible.', 'sp.delConfirm': 'Oui, supprimer définitivement', 'sp.deleted': 'Ton compte a été supprimé.',
+    'sp.editTitle': 'Modifier mon profil', 'sp.bio': 'Présentation courte', 'sp.bioPh': 'En une phrase : qui tu es, ce que tu cherches (150 caractères max)',
+    'sp.niveau': "Niveau d'études", 'sp.pays': 'Pays', 'sp.prenom': 'Prénom', 'sp.nom': 'Nom',
+    'sp.pseudo': 'Pseudo (pour te saluer)', 'sp.pseudoPh': 'Ex : Fadel, FD, la boss…',
+    'sp.saved': 'Profil enregistré ✓', 'sp.on': 'Activés', 'sp.off': 'Coupés',
+    'sp.verifyMail': 'Pense à confirmer ton adresse email pour sécuriser ton compte.'
+  },
+  en: {
+    'sp.docTitle': 'My space — LERNA',
+    'sp.hello': 'Hello {name}', 'sp.premium': 'Premium', 'sp.free': 'Free account',
+    'sp.complete': 'Profile complete', 'sp.edit': 'Edit my profile',
+    'sp.tHome': 'Overview', 'sp.tIA': 'AI assistant', 'sp.tSchools': 'My schools', 'sp.tTrack': 'Applications', 'sp.tAccount': 'Account',
+    'sp.recos': 'My recommendations', 'sp.seeResults': 'See my full results →', 'sp.compare': 'Compare two schools',
+    'sp.locked': 'School #{n} — locked', 'sp.lockedSub': 'Invite 3 friends or go Premium', 'sp.lockedSubPrem': 'Premium only',
+    'sp.savedOpps': 'My saved offers', 'sp.noSavedOpps': 'Save a scholarship or internship from Opportunities: we will remind you of the deadline.',
+    'sp.noRecos': 'No recommendations yet', 'sp.noRecosSub': 'Answer the 25 questions so LERNA can find your schools.', 'sp.start': 'Start my orientation →',
+    'sp.opps': 'Opportunities that match me', 'sp.oppsAll': 'All opportunities →', 'sp.noOpps': 'No open opportunity matches your sectors right now.',
+    'sp.deadline': 'Deadline: {d}', 'sp.rolling': 'Rolling applications', 'sp.urgent': '{d} days left',
+    'sp.reminders': 'My reminders and alerts', 'sp.noReminders': 'No deadline in the next 45 days.',
+    'sp.dash': 'Student dashboard', 'sp.news': 'Good to know right now', 'sp.calendar': 'Academic calendar — {country}', 'sp.calendarGeneric': 'Academic calendar',
+    'sp.support': 'Support and wellbeing',
+    'sp.supportText': 'Choosing your future can feel heavy. If you feel overwhelmed, talking to someone really helps.',
+    'sp.r1': 'Find a free helpline in your country', 'sp.r2': 'Mental health — World Health Organization',
+    'sp.verify': 'Always check official sources.',
+    'sp.n1': 'Studying in France: the application campaign usually opens in autumn for the following September intake.',
+    'sp.n2': 'Canada: since 2024, most new study permits require a provincial attestation (the CAQ in Quebec).',
+    'sp.n3': 'Germany: plan a blocked account of about $12,000 a year to get the student visa.',
+    'sp.n4': 'Scholarships: many deadlines fall between November and March for a September start. Prepare your documents now.',
+    'sp.cal.af': ['Final exams: June – July', 'Orientation of graduates: July – September', 'University start: October – December (varies by university)'],
+    'sp.cal.ma': ['Final exams: June', 'Pre-registration: July', 'Start: September – October'],
+    'sp.cal.fr': ['Parcoursup: choices from January to March', 'Answers: June – July', 'Start: September'],
+    'sp.cal.ca': ['Applications: November – February', 'Answers: March – May', 'Start: September (sometimes January)'],
+    'sp.cal.us': ['Early Action: 1 November', 'Regular Action: early January', 'Start: late August – September'],
+    'sp.cal.en': ['WASSCE / national exams: May – June', 'Admissions: July – October', 'Start: September – January (varies)'],
+    'sp.cal.def': ['Most programmes start in September – October', 'International applications often close 6 to 9 months before'],
+    'sp.iaTitle': 'My personal AI assistant', 'sp.iaSub': 'Ask anything about studies, programmes and scholarships. LERNA knows your profile.',
+    'sp.iaHello': 'Hi {name}! I’m LERNA. Ask me anything about your studies, your orientation or scholarships.',
+    'sp.iaPh': 'Type your question…', 'sp.send': 'Send',
+    'sp.s1': 'What is the difference between a bachelor’s and a 2-year diploma?', 'sp.s2': 'How do I apply for a scholarship?', 'sp.s3': 'What is a course unit (UE)?', 'sp.s4': 'Which is better for me: {a} or {b}?',
+    'sp.quota': '{n} message(s) left today', 'sp.quotaPremium': 'Unlimited messages', 'sp.quotaOut': 'You have used your 5 messages for today. They come back tomorrow — or go Premium for an unlimited assistant.',
+    'sp.iaTyping': 'LERNA is thinking…', 'sp.iaOffline': 'The AI assistant will answer this once the app is deployed. Meanwhile, try one of the suggested questions.',
+    'sp.iaError': 'I can’t answer right now. Please try again in a moment.',
+    'sp.a1': 'A 2-year diploma (like the French BTS) prepares you directly for a job: lots of practice, internships and a quick start in the job market. You can then continue to a professional bachelor’s.\n\nA bachelor’s takes 3 years, is broader and more theoretical, and naturally leads to a master’s.\n\nIn short: if you want to work quickly and learn by doing, the 2-year diploma often fits better. If you’re aiming for a master’s or a job that requires 5 years of study, choose the bachelor’s.',
+    'sp.a2': '1. Find the scholarships you are eligible for (country, level, field) — the Scholarships tab in Opportunities is made for this.\n2. Note the deadlines and start at least 2 months ahead.\n3. Gather documents: transcripts, diploma, passport, language proof, recommendation letters.\n4. Write a motivation letter specific to each scholarship: your plan, why this programme, what you will bring.\n5. Apply early, keep a copy of everything, and follow up politely if you hear nothing.',
+    'sp.a3': 'A UE (course unit) is a block of courses that belong together — for example "Maths for economics" can combine lectures and tutorials.\n\nEach unit earns ECTS credits: one year of a bachelor’s is worth 60 credits, a full bachelor’s 180. You pass a unit when your average reaches 10/20; in many universities, units in the same semester can compensate each other.',
+    'sp.a4none': 'Add at least two schools to your favourites (or take the questionnaire) so I can compare them for you.',
+    'sp.a4': 'For your profile, {a} scores {sa}/100 and {b} {sb}/100.\n\n{a}: fees ≈ {fa}/year for you, {da}. Watch out for: {wa}.\n{b}: fees ≈ {fb}/year for you, {db}. Watch out for: {wb}.\n\nMy advice: {win} fits your budget and criteria better, but above all compare the specific programme you want at each.',
+    'sp.favs': 'My favourite schools', 'sp.noFavs': 'No favourite school yet', 'sp.noFavsSub': 'Add schools from Explore or from your results.', 'sp.explore': 'Explore schools →',
+    'sp.cmpTitle': 'Compare two schools side by side', 'sp.cmpPremium': 'The detailed comparison of two schools is part of Premium.', 'sp.cmpNeed': 'You need at least two schools (favourites or recommendations).',
+    'sp.cmpA': 'School A', 'sp.cmpB': 'School B', 'sp.cmpGo': 'Compare',
+    'sp.cFee': 'Fees for you / year', 'sp.cTotal': 'Estimated total / year', 'sp.cDur': 'Length of study', 'sp.cLang': 'Languages', 'sp.cType': 'Type', 'sp.cCity': 'City', 'sp.cIntl': 'Recognition', 'sp.cCampus': 'Campus life', 'sp.cWeak': 'Weak point', 'sp.cScore': 'Score for your profile',
+    'sp.lvl1': 'Local', 'sp.lvl2': 'Regional', 'sp.lvl3': 'International', 'sp.camp1': 'Limited / remote', 'sp.camp2': 'Moderate', 'sp.camp3': 'Rich',
+    'sp.premiumBtn': 'See Premium →', 'sp.unlock': 'Unlock',
+    'sp.trackTitle': 'My application tracker', 'sp.trackSub': 'Keep track of every application: school, scholarship or internship.', 'sp.trackPremium': 'Application tracking is part of Premium.',
+    'sp.trackName': 'Application', 'sp.trackNamePh': 'E.g. Laval scholarship, UCAD bachelor…', 'sp.trackDate': 'Deadline', 'sp.trackAdd': 'Add',
+    'sp.st1': 'To prepare', 'sp.st2': 'Sent', 'sp.st3': 'Interview', 'sp.st4': 'Accepted', 'sp.st5': 'Rejected',
+    'sp.noTrack': 'No application tracked yet.',
+    'sp.remTitle': 'Personal reminders', 'sp.remPh': 'E.g. Send my motivation letter', 'sp.remPremium': 'Personal reminders are part of Premium.',
+    'sp.accPlan': 'My subscription', 'sp.accFree': 'Free — 1 AI analysis per day, 5 assistant messages.', 'sp.accPrem': 'Premium active{until}.', 'sp.accUntil': ' until {d}',
+    'sp.manage': 'Manage / cancel', 'sp.upgrade': 'Go Premium →',
+    'sp.accLang': 'Language', 'sp.accSound': 'App sounds', 'sp.accPw': 'Password', 'sp.accPwBtn': 'Get a change link', 'sp.accPwSent': 'Link sent to {email}.',
+    'sp.accExport': 'My data', 'sp.accExportBtn': 'Download my data', 'sp.accLogout': 'Log out', 'sp.accDelete': 'Delete my account',
+    'sp.delTitle': 'Delete your account?', 'sp.delText': 'Your profile, answers, favourites and recommendations will be permanently erased. This cannot be undone.', 'sp.delConfirm': 'Yes, delete permanently', 'sp.deleted': 'Your account has been deleted.',
+    'sp.editTitle': 'Edit my profile', 'sp.bio': 'Short introduction', 'sp.bioPh': 'In one sentence: who you are, what you are looking for (150 characters max)',
+    'sp.niveau': 'Level of study', 'sp.pays': 'Country', 'sp.prenom': 'First name', 'sp.nom': 'Last name',
+    'sp.pseudo': 'Nickname (for greetings)', 'sp.pseudoPh': 'E.g. Sam, Ade, the boss…',
+    'sp.saved': 'Profile saved ✓', 'sp.on': 'On', 'sp.off': 'Off',
+    'sp.verifyMail': 'Remember to confirm your email address to secure your account.'
+  }
+});
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var t = Lerna.t, esc = Lerna.esc, L = Lerna.L, store = Lerna.store;
+  var tab = (location.hash || '').replace('#', '') || 'home';
+  var FREE_MSG = 5;
+  var profile = store.get('lerna_profile', null);
+  var answers = profile && profile.answers ? profile.answers : null;
+  var user;
+
+  function country() { return (user && user.pays) || (answers && answers.q4) || ''; }
+  function results() { return store.get('lerna_results', null); }
+  function schoolPool() {
+    var ids = Lerna.favs.list().slice();
+    var r = results();
+    if (r && r.recos) r.recos.forEach(function (x, i) {
+      if (Lerna.recoAccess(i) !== 'open') return;
+      var s = (x.id && window.LERNA_SCHOOL(x.id)) || window.LERNA_FIND_SCHOOL(x.nom);
+      if (s && ids.indexOf(s.id) === -1) ids.push(s.id);
+    });
+    return ids.map(window.LERNA_SCHOOL).filter(Boolean);
+  }
+  function completion() {
+    var checks = [user.prenom, user.nom, user.pays, user.niveau, user.bio, answers, Lerna.favs.list().length];
+    return Math.round(100 * checks.filter(Boolean).length / checks.length);
+  }
+  function chatCount() { var c = store.get('lerna_chat_count', null); return c && c.d === Lerna.today() ? c.n : 0; }
+  function bumpChat() { store.set('lerna_chat_count', { d: Lerna.today(), n: chatCount() + 1 }); }
+  function fee(s) { return window.LERNA_FEE_FOR(s, country()); }
+  function stars(n) { return n; }
+
+  /* ---------- Vue d'ensemble ---------- */
+  function matchingOpps() {
+    var sectors = answers && Array.isArray(answers.q15) ? answers.q15 : [];
+    var DL = window.LERNA_OPP_DEADLINE;
+    return window.LERNA_OPPS.filter(function (o) {
+      if (!window.LERNA_OPP_VISIBLE(o, false) || o.type === 'investisseur') return false;
+      return !sectors.length || window.LERNA_OPP_DOMS(o).some(function (d) { return sectors.indexOf(d) !== -1; });
+    }).sort(function (a, b) {
+      var da = DL(a) ? new Date(DL(a)) : Infinity, db = DL(b) ? new Date(DL(b)) : Infinity;
+      return da - db;
+    });
+  }
+  function oppRow(o) {
+    var st = window.LERNA_OPP_STATUS(o), dl = window.LERNA_OPP_DEADLINE(o), d = dl ? Lerna.daysUntil(dl) : null;
+    var locked = !!o.masked;
+    return '<a class="row-item" style="text-decoration:none" href="opportunites.html?tab=' + ({ stage: 'stages', bourse: 'bourses', emploi: 'emplois', investisseur: 'investisseurs' })[o.type] + '"><span class="icon-btn" aria-hidden="true">' + Lerna.icon(o.type === 'bourse' ? 'award' : o.type === 'stage' ? 'briefcase' : 'users') + '</span>' +
+      '<div class="grow"><h4>' + esc(window.LERNA_OPP_TITLE(o)) + '</h4><div class="sub">' + (locked ? '' : esc(o.organisation) + ' · ') + (dl ? t('sp.deadline', { d: Lerna.fmtDate(dl) }) : t('sp.rolling')) + '</div></div>' +
+      (st === 'urgent' ? '<span class="badge badge-urgent">' + t('sp.urgent', { d: Math.max(0, d) }) + '</span>' : '') +
+      (locked ? '<span class="badge badge-brown">Premium</span>' : '') +
+      '</a>';
+  }
+  function reminders() {
+    var items = [];
+    var saved = Lerna.oppFavs.list();
+    window.LERNA_OPPS.forEach(function (o) {
+      var dl = window.LERNA_OPP_DEADLINE(o);
+      if (!dl || !window.LERNA_OPP_VISIBLE(o, false)) return;
+      var d = Lerna.daysUntil(dl), mine = saved.indexOf(o.id) !== -1;
+      if (d !== null && d >= 0 && d <= (mine ? 90 : 45)) items.push({ title: window.LERNA_OPP_TITLE(o), date: dl, d: d, kind: mine ? 'saved' : 'opp' });
+    });
+    store.get('lerna_tracker', []).forEach(function (x) { if (x.date) { var d = Lerna.daysUntil(x.date); if (d !== null && d >= 0 && d <= 45 && x.status !== 'st4' && x.status !== 'st5') items.push({ title: x.name, date: x.date, d: d, kind: 'track' }); } });
+    (window.LERNA_DOSSIER_DATES ? window.LERNA_DOSSIER_DATES(country(), answers) : []).forEach(function (x) { var d = Lerna.daysUntil(x.date); if (d !== null && d >= 0 && d <= 60) items.push({ title: x.title, date: x.date, d: d, kind: 'track' }); });
+    store.get('lerna_reminders', []).forEach(function (x) { var d = Lerna.daysUntil(x.date); if (d !== null && d >= 0) items.push({ title: x.title, date: x.date, d: d, kind: 'own' }); });
+    return items.sort(function (a, b) { return a.d - b.d; });
+  }
+  function calKey() {
+    var c = country();
+    if (['FR', 'BE', 'CH'].indexOf(c) !== -1) return 'fr';
+    if (c === 'CA') return 'ca';
+    if (c === 'US') return 'us';
+    if (['MA', 'DZ', 'TN'].indexOf(c) !== -1) return 'ma';
+    if (['NG', 'GH', 'KE', 'LR', 'SL', 'GM', 'UG', 'TZ', 'ZA'].indexOf(c) !== -1) return 'en';
+    if (c && window.LERNA_CONTINENT(c) === 'afrique') return 'af';
+    return 'def';
+  }
+  function panelHome() {
+    var r = results(), h = '';
+    // Bloc 2 — recommandations
+    h += '<section class="blk"><div class="blk-head"><h2>' + Lerna.icon('target') + t('sp.recos') + '</h2>' + (r ? '<a class="btn-link" href="resultats.html">' + t('sp.seeResults') + '</a>' : '') + '</div>';
+    if (r && r.recos && r.recos.length) {
+      h += '<div class="list">' + r.recos.map(function (x, i) {
+        var acc = Lerna.recoAccess(i);
+        if (acc !== 'open') return '<a class="row-item" style="text-decoration:none" href="resultats.html#reco-' + (i + 1) + '"><span class="icon-btn" aria-hidden="true">' + Lerna.icon('lock') + '</span><div class="grow"><h4>' + t('sp.locked', { n: i + 1 }) + '</h4><div class="sub">' + t(acc === 'premium' ? 'sp.lockedSubPrem' : 'sp.lockedSub') + '</div></div></a>';
+        var s = (x.id && window.LERNA_SCHOOL(x.id)) || window.LERNA_FIND_SCHOOL(x.nom);
+        return '<a class="row-item" style="text-decoration:none" href="' + (s ? 'ecole.html?id=' + s.id : 'explorer.html?q=' + encodeURIComponent(x.nom)) + '">' + (s ? Lerna.flag(s.pays, 'flag-img') : Lerna.sticker('cap', 'flag-img')) +
+          '<div class="grow"><h4>' + esc(x.nom) + '</h4><div class="sub">' + esc([x.ville, x.pays].filter(Boolean).join(', ')) + ' · ' + esc(x.frais) + '</div></div><span class="score-pill">' + (parseInt(x.score, 10) || 0) + '%</span></a>';
+      }).join('') + '</div><button type="button" class="btn btn-ghost btn-sm" style="margin-top:12px" data-goto="ecoles">' + Lerna.icon('columns', 'ic-sm') + t('sp.compare') + '</button>';
+    } else {
+      h += '<div class="empty">' + Lerna.icon('compass') + '<h4>' + t('sp.noRecos') + '</h4><p>' + t('sp.noRecosSub') + '</p><a class="btn btn-primary btn-sm" style="margin-top:14px" href="questionnaire.html">' + t('sp.start') + '</a></div>';
+    }
+    h += '</section>';
+    // Bloc 6 — rappels
+    var rem = reminders();
+    h += '<section class="blk"><div class="blk-head"><h2>' + Lerna.icon('bell') + t('sp.reminders') + '</h2></div>' +
+      (rem.length ? '<div class="list">' + rem.slice(0, 6).map(function (x) {
+        return '<div class="row-item"><span class="icon-btn" aria-hidden="true">' + Lerna.icon(x.kind === 'own' ? 'bell' : 'calendar') + '</span><div class="grow"><h4>' + esc(x.title) + '</h4><div class="sub">' + Lerna.fmtDate(x.date) + '</div></div>' +
+          (x.d <= 7 ? '<span class="badge badge-urgent">' + t('sp.urgent', { d: x.d }) + '</span>' : '<span class="badge badge-cream">' + t('sp.urgent', { d: x.d }) + '</span>') + '</div>';
+      }).join('') + '</div>' : '<p class="muted">' + t('sp.noReminders') + '</p>') + '</section>';
+    // Offres sauvegardées
+    var savedIds = Lerna.oppFavs.list(), savedOpps = window.LERNA_OPPS.filter(function (o) { return savedIds.indexOf(o.id) !== -1; });
+    h += '<section class="blk"><div class="blk-head"><h2>' + Lerna.icon('bookmark') + t('sp.savedOpps') + '</h2></div>' +
+      (savedOpps.length ? '<div class="list">' + savedOpps.map(oppRow).join('') + '</div>' : '<p class="muted">' + t('sp.noSavedOpps') + '</p>') + '</section>';
+    // Bloc 3 — opportunités
+    var opps = matchingOpps().slice(0, 5);
+    h += '<section class="blk"><div class="blk-head"><h2>' + Lerna.icon('star') + t('sp.opps') + '</h2><a class="btn-link" href="opportunites.html">' + t('sp.oppsAll') + '</a></div>' +
+      (opps.length ? '<div class="list">' + opps.map(oppRow).join('') + '</div>' : '<p class="muted">' + t('sp.noOpps') + '</p>') + '</section>';
+    // Bloc 4 — tableau de bord
+    var ck = calKey(), cal = t('sp.cal.' + ck);
+    h += '<section class="blk"><div class="blk-head"><h2>' + Lerna.icon('layers') + t('sp.dash') + '</h2></div><div class="gridx">' +
+      '<div class="card"><h3>' + t('sp.news') + '</h3><ul class="news" style="margin-top:8px">' + [1, 2, 3, 4].map(function (i) { return '<li>' + t('sp.n' + i) + '</li>'; }).join('') + '</ul><p class="xsmall muted" style="margin-top:8px">' + t('sp.verify') + '</p></div>' +
+      '<div class="stack">' +
+        '<div class="card"><h3>' + (country() && ck !== 'def' ? t('sp.calendar', { country: window.LERNA_COUNTRY_NAME(country()) }) : t('sp.calendarGeneric')) + '</h3><ul class="mini-cal" style="margin-top:12px">' + (Array.isArray(cal) ? cal : []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' +
+        '<div class="card"><h3>' + t('sp.support') + '</h3><p class="small muted" style="margin:6px 0 8px">' + t('sp.supportText') + '</p><div class="res-links">' +
+          '<a href="https://findahelpline.com" target="_blank" rel="noopener">' + t('sp.r1') + Lerna.icon('external', 'ic-sm') + '</a>' +
+          '<a href="https://www.who.int/' + (Lerna.lang === 'fr' ? 'fr/' : '') + 'health-topics/mental-health" target="_blank" rel="noopener">' + t('sp.r2') + Lerna.icon('external', 'ic-sm') + '</a>' +
+        '</div></div>' +
+      '</div></div></section>';
+    return h;
+  }
+
+  /* ---------- Assistant IA ---------- */
+  function chatHistory() { return store.get('lerna_chat', []); }
+  function saveChat(h) { store.set('lerna_chat', h.slice(-40)); }
+  function suggestions() {
+    var pool = schoolPool();
+    var s = [t('sp.s1'), t('sp.s2'), t('sp.s3')];
+    if (pool.length >= 2) s.push(t('sp.s4', { a: pool[0].nom.split(/[—(]/)[0].trim(), b: pool[1].nom.split(/[—(]/)[0].trim() }));
+    return s;
+  }
+  function quotaLine() {
+    if (Lerna.isPremium()) return t('sp.quotaPremium');
+    return t('sp.quota', { n: Math.max(0, FREE_MSG - chatCount()) });
+  }
+  function panelIA() {
+    var hist = chatHistory();
+    if (!hist.length) hist = [{ role: 'assistant', content: t('sp.iaHello', { name: user.prenom || '' }) }];
+    return '<section class="blk"><div class="blk-head"><div><h2>' + Lerna.icon('chat') + t('sp.iaTitle') + '</h2><p class="small muted" style="margin-top:4px">' + t('sp.iaSub') + '</p></div></div>' +
+      '<div class="chat"><div class="chat-msgs" id="msgs" aria-live="polite">' + hist.map(function (m) { return '<div class="msg ' + (m.role === 'user' ? 'me' : 'bot') + '">' + esc(m.content) + '</div>'; }).join('') + '</div>' +
+      '<div class="chat-sugg" id="sugg">' + suggestions().map(function (s) { return '<button type="button" data-ask="' + esc(s) + '">' + esc(s) + '</button>'; }).join('') + '</div>' +
+      '<form class="chat-form" id="chatForm"><label class="sr-only" for="chatIn">' + t('sp.iaPh') + '</label><input class="input" id="chatIn" maxlength="800" autocomplete="off" placeholder="' + esc(t('sp.iaPh')) + '">' +
+      '<button class="btn btn-primary" type="submit" aria-label="' + esc(t('sp.send')) + '">' + Lerna.icon('send') + '</button></form></div>' +
+      '<p class="chat-quota" id="quota">' + quotaLine() + '</p></section>';
+  }
+  function localAnswer(q) {
+    var n = q.toLowerCase();
+    if (q === t('sp.s1') || /bts|licence|bachelor|diploma/.test(n) && /diff/.test(n)) return t('sp.a1');
+    if (q === t('sp.s2') || /bourse|scholarship/.test(n)) return t('sp.a2');
+    if (q === t('sp.s3') || /\bue\b|unité d|course unit/.test(n)) return t('sp.a3');
+    var pool = schoolPool();
+    if (/mieux entre|better for me|compare/.test(n)) {
+      if (pool.length < 2 || !answers) return t('sp.a4none');
+      var A = pool[0], B = pool[1], sa = window.LernaEngine.compat(A.id, answers, Lerna.lang), sb = window.LernaEngine.compat(B.id, answers, Lerna.lang);
+      var dur = function (s) { return t('common.years', { n: s.duree[0] }) + (s.duree[1] !== s.duree[0] ? '–' + s.duree[1] : ''); };
+      return t('sp.a4', { a: A.nom, b: B.nom, sa: sa, sb: sb, fa: Lerna.money(fee(A)), fb: Lerna.money(fee(B)), da: dur(A), db: dur(B), wa: L(A.faibles[0]).toLowerCase(), wb: L(B.faibles[0]).toLowerCase(), win: sa >= sb ? A.nom : B.nom });
+    }
+    return null;
+  }
+  function addMsg(role, content, cls) {
+    var box = $('msgs'); if (!box) return null;
+    var d = document.createElement('div'); d.className = 'msg ' + (role === 'user' ? 'me' : 'bot') + (cls ? ' ' + cls : ''); d.textContent = content;
+    box.appendChild(d); box.scrollTop = box.scrollHeight; return d;
+  }
+  function profileSummary() {
+    if (!answers) return '';
+    var out = [];
+    window.LERNA_QUESTIONS.forEach(function (q) {
+      var val = window.LERNA_ANSWER_TEXT(q, answers, 'fr');
+      if (val) out.push(window.LERNA_PROMPT_LABELS[q.id] + ' : ' + String(val).slice(0, 300));
+    });
+    if (answers.note) out.push(window.LERNA_PROMPT_LABELS.note + ' : ' + String(answers.note).slice(0, 300));
+    var r = results();
+    if (r && r.recos) out.push('Écoles recommandées (visibles) : ' + r.recos.filter(function (x, i) { return Lerna.recoAccess(i) === 'open'; }).map(function (x) { return x.nom; }).join(' ; '));
+    return out.join('\n');
+  }
+  function ask(q) {
+    q = String(q || '').trim(); if (!q) return;
+    if (!Lerna.isPremium() && chatCount() >= FREE_MSG) { addMsg('assistant', t('sp.quotaOut')); Lerna.sound.play('error'); return; }
+    var hist = chatHistory(); hist.push({ role: 'user', content: q }); saveChat(hist);
+    addMsg('user', q); $('chatIn').value = '';
+    Lerna.track('chat_msg');
+    var typing = addMsg('assistant', t('sp.iaTyping'), 'typing');
+    if (typing) typing.innerHTML = Lerna.thinking('inline') + '<span>' + Lerna.esc(t('sp.iaTyping')) + '</span>';
+    var finish = function (text) {
+      if (typing) typing.remove();
+      addMsg('assistant', text);
+      var h2 = chatHistory(); h2.push({ role: 'assistant', content: text }); saveChat(h2);
+      $('quota').textContent = quotaLine();
+      Lerna.sound.play('select');
+    };
+    if (!Lerna.config.live) {
+      bumpChat();
+      setTimeout(function () { finish(localAnswer(q) || t('sp.iaOffline')); }, 700);
+      return;
+    }
+    var msgs = chatHistory().slice(-12).map(function (m) { return { role: m.role, content: m.content }; });
+    var cur = Lerna.currency(), fx = Lerna.fx();
+    var curTxt = cur === 'XOF' ? 'FCFA, 1 USD ≈ ' + fx.XOF + ' FCFA' : cur === 'EUR' ? 'euros, 1 USD ≈ ' + fx.EUR + ' €' : '';
+    Lerna.api('/api/chat', { messages: msgs, lang: Lerna.lang, profile: profileSummary(), currency: curTxt }, { timeout: 45000 }).then(function (res) {
+      if (res.ok && res.data && res.data.reply) { bumpChat(); finish(res.data.reply); }
+      else if (res.status === 429) { if (typing) typing.remove(); addMsg('assistant', t('sp.quotaOut')); store.set('lerna_chat_count', { d: Lerna.today(), n: FREE_MSG }); $('quota').textContent = quotaLine(); }
+      else finish(localAnswer(q) || t('sp.iaError'));
+    });
+  }
+
+  /* ---------- Mes écoles (favoris + comparateur) ---------- */
+  function panelSchools() {
+    var favs = Lerna.favs.list().map(window.LERNA_SCHOOL).filter(Boolean);
+    var h = '<section class="blk"><div class="blk-head"><h2>' + Lerna.icon('heart') + t('sp.favs') + '</h2><a class="btn-link" href="explorer.html">' + t('sp.explore') + '</a></div>';
+    h += favs.length ? '<div class="list">' + favs.map(function (s) {
+      return '<div class="row-item">' + Lerna.flag(s.pays, 'flag-img') + '<a class="grow" style="text-decoration:none" href="ecole.html?id=' + s.id + '"><h4>' + esc(s.nom) + '</h4><div class="sub">' + esc(s.ville) + ' · ' + (fee(s) === 0 ? t('common.free') : Lerna.money(fee(s))) + ' ' + t('common.perYear') + '</div></a>' +
+        '<button type="button" class="icon-btn" data-unfav="' + s.id + '" aria-label="' + esc(t('common.favRemoved')) + '">' + Lerna.icon('trash', 'ic-sm') + '</button></div>';
+    }).join('') + '</div>' : '<div class="empty">' + Lerna.icon('heart') + '<h4>' + t('sp.noFavs') + '</h4><p>' + t('sp.noFavsSub') + '</p></div>';
+    h += '</section>';
+    // Comparateur
+    var pool = schoolPool();
+    h += '<section class="blk"><div class="blk-head"><h2>' + Lerna.icon('columns') + t('sp.cmpTitle') + '</h2></div>';
+    if (!Lerna.isPremium()) {
+      h += '<div class="prem-lock">' + Lerna.icon('lock', 'ic-lg') + '<div class="grow">' + t('sp.cmpPremium') + '</div><a class="btn btn-brown btn-sm" href="premium.html">' + t('sp.unlock') + '</a></div>';
+    } else if (pool.length < 2) {
+      h += '<p class="muted">' + t('sp.cmpNeed') + '</p>';
+    } else {
+      var opts = function (sel) { return pool.map(function (s) { return '<option value="' + s.id + '"' + (s.id === sel ? ' selected' : '') + '>' + esc(s.nom) + '</option>'; }).join(''); };
+      h += '<div class="card"><div class="form-inline cmp-form">' +
+        '<div class="field"><label for="cmpA">' + t('sp.cmpA') + '</label><select class="select" id="cmpA">' + opts(pool[0].id) + '</select></div>' +
+        '<div class="field"><label for="cmpB">' + t('sp.cmpB') + '</label><select class="select" id="cmpB">' + opts(pool[1].id) + '</select></div>' +
+        '<button type="button" class="btn btn-primary" id="cmpGo">' + t('sp.cmpGo') + '</button></div><div id="cmpOut" style="margin-top:18px;overflow-x:auto"></div></div>';
+    }
+    return h + '</section>';
+  }
+  function compareTable(a, b) {
+    var A = window.LERNA_SCHOOL(a), B = window.LERNA_SCHOOL(b);
+    if (!A || !B) return '';
+    var tot = function (s) { return fee(s) + s.inscription + 12 * (s.logement[0] + s.vie[0]); };
+    var sa = answers ? window.LernaEngine.compat(A.id, answers, Lerna.lang) : null, sb = answers ? window.LernaEngine.compat(B.id, answers, Lerna.lang) : null;
+    var typ = function (s) { return t(s.type === 'public' ? 'common.public' : s.type === 'private' ? 'common.private' : 'common.online'); };
+    var langs = function (s) { return s.langues.map(function (l) { return ({ fr: 'FR', en: 'EN', de: 'DE', ar: 'AR' })[l] || l.toUpperCase(); }).join(' · '); };
+    var row = function (label, va, vb, better) {
+      return '<tr><th scope="row">' + label + '</th><td class="' + (better === 'a' ? 'win' : '') + '">' + va + '</td><td class="' + (better === 'b' ? 'win' : '') + '">' + vb + '</td></tr>';
+    };
+    var lower = function (x, y) { return x < y ? 'a' : y < x ? 'b' : ''; };
+    var higher = function (x, y) { return x > y ? 'a' : y > x ? 'b' : ''; };
+    return '<table class="cmp-table"><thead><tr><th></th><th>' + esc(A.nom) + '</th><th>' + esc(B.nom) + '</th></tr></thead><tbody>' +
+      (sa !== null ? row(t('sp.cScore'), sa + '/100', sb + '/100', higher(sa, sb)) : '') +
+      row(t('sp.cFee'), Lerna.money(fee(A)), Lerna.money(fee(B)), lower(fee(A), fee(B))) +
+      row(t('sp.cTotal'), '≈ ' + Lerna.money(tot(A)), '≈ ' + Lerna.money(tot(B)), lower(tot(A), tot(B))) +
+      row(t('sp.cDur'), A.duree[0] + '–' + A.duree[1], B.duree[0] + '–' + B.duree[1], '') +
+      row(t('sp.cLang'), langs(A), langs(B), '') +
+      row(t('sp.cType'), typ(A), typ(B), '') +
+      row(t('sp.cCity'), esc(A.ville), esc(B.ville), '') +
+      row(t('sp.cIntl'), t('sp.lvl' + A.intl), t('sp.lvl' + B.intl), higher(A.intl, B.intl)) +
+      row(t('sp.cCampus'), t('sp.camp' + A.campus), t('sp.camp' + B.campus), higher(A.campus, B.campus)) +
+      row(t('sp.cWeak'), esc(L(A.faibles[0])), esc(L(B.faibles[0])), '') +
+      '</tbody></table>';
+  }
+
+  /* ---------- Candidatures + rappels (Premium) ---------- */
+  function panelTrack() {
+    var prem = Lerna.isPremium();
+    var tr = store.get('lerna_tracker', []), rem = store.get('lerna_reminders', []);
+    var stOpts = function (sel) { return [1, 2, 3, 4, 5].map(function (i) { return '<option value="st' + i + '"' + (sel === 'st' + i ? ' selected' : '') + '>' + t('sp.st' + i) + '</option>'; }).join(''); };
+    var h = '<section class="blk"><div class="blk-head"><div><h2>' + Lerna.icon('file') + t('sp.trackTitle') + '</h2><p class="small muted" style="margin-top:4px">' + t('sp.trackSub') + '</p></div></div>';
+    if (!prem) h += '<div class="prem-lock">' + Lerna.icon('lock', 'ic-lg') + '<div class="grow">' + t('sp.trackPremium') + '</div><a class="btn btn-brown btn-sm" href="premium.html">' + t('sp.unlock') + '</a></div>';
+    else {
+      h += tr.length ? '<div class="list">' + tr.map(function (x, i) {
+        return '<div class="row-item"><div class="grow"><h4>' + esc(x.name) + '</h4><div class="sub">' + (x.date ? Lerna.fmtDate(x.date) : '—') + '</div></div>' +
+          '<select class="status-sel" data-track-status="' + i + '" aria-label="Statut">' + stOpts(x.status) + '</select>' +
+          '<button type="button" class="icon-btn" data-track-del="' + i + '" aria-label="Supprimer">' + Lerna.icon('trash', 'ic-sm') + '</button></div>';
+      }).join('') + '</div>' : '<p class="muted">' + t('sp.noTrack') + '</p>';
+      h += '<form class="form-inline" id="trackForm"><div class="field"><label for="trName">' + t('sp.trackName') + '</label><input class="input" id="trName" maxlength="120" placeholder="' + esc(t('sp.trackNamePh')) + '" required></div>' +
+        '<div class="field"><label for="trDate">' + t('sp.trackDate') + '</label><input class="input" id="trDate" type="date"></div>' +
+        '<div class="field"><label for="trStatus">Statut</label><select class="select" id="trStatus">' + stOpts('st1') + '</select></div>' +
+        '<button class="btn btn-primary" type="submit">' + Lerna.icon('plus', 'ic-sm') + t('sp.trackAdd') + '</button></form>';
+    }
+    h += '</section><section class="blk"><div class="blk-head"><h2>' + Lerna.icon('bell') + t('sp.remTitle') + '</h2></div>';
+    if (!prem) h += '<div class="prem-lock">' + Lerna.icon('lock', 'ic-lg') + '<div class="grow">' + t('sp.remPremium') + '</div><a class="btn btn-brown btn-sm" href="premium.html">' + t('sp.unlock') + '</a></div>';
+    else {
+      h += rem.length ? '<div class="list">' + rem.map(function (x, i) {
+        return '<div class="row-item"><span class="icon-btn" aria-hidden="true">' + Lerna.icon('bell') + '</span><div class="grow"><h4>' + esc(x.title) + '</h4><div class="sub">' + Lerna.fmtDate(x.date) + '</div></div><button type="button" class="icon-btn" data-rem-del="' + i + '" aria-label="Supprimer">' + Lerna.icon('trash', 'ic-sm') + '</button></div>';
+      }).join('') + '</div>' : '';
+      h += '<form class="form-inline" id="remForm" style="grid-template-columns:2fr 1fr auto"><div class="field"><label class="sr-only" for="remTitle">' + t('sp.remTitle') + '</label><input class="input" id="remTitle" maxlength="120" placeholder="' + esc(t('sp.remPh')) + '" required></div>' +
+        '<div class="field"><label class="sr-only" for="remDate">Date</label><input class="input" id="remDate" type="date" required></div><button class="btn btn-primary" type="submit">' + Lerna.icon('plus', 'ic-sm') + t('sp.trackAdd') + '</button></form>';
+    }
+    return h + '</section>';
+  }
+
+  /* ---------- Compte ---------- */
+  function panelAccount() {
+    var prem = Lerna.isPremium() && user.is_premium;
+    var until = user.premium_expiry ? t('sp.accUntil', { d: Lerna.fmtDate(user.premium_expiry) }) : '';
+    return '<section class="blk"><div class="card">' +
+      '<div class="acc-row"><div><h4>' + t('sp.accPlan') + '</h4><p class="small muted">' + (prem ? t('sp.accPrem', { until: until }) : t('sp.accFree')) + '</p></div>' +
+        (prem ? (user.portal_url ? '<a class="btn btn-ghost btn-sm" href="' + esc(user.portal_url) + '" target="_blank" rel="noopener">' + t('sp.manage') + '</a>' : '') : '<a class="btn btn-primary btn-sm" href="premium.html">' + t('sp.upgrade') + '</a>') + '</div>' +
+      '<div class="acc-row"><h4>' + t('sp.accLang') + '</h4><div class="lang-switch"><button type="button" data-lang="fr" class="' + (Lerna.lang === 'fr' ? 'active' : '') + '">FR</button><button type="button" data-lang="en" class="' + (Lerna.lang === 'en' ? 'active' : '') + '">EN</button></div></div>' +
+      '<div class="acc-row"><h4>' + t('sp.accSound') + '</h4><button type="button" class="chip" id="soundBtn">' + Lerna.icon(Lerna.sound.enabled ? 'volume' : 'volumeX', 'ic-sm') + ' ' + t(Lerna.sound.enabled ? 'sp.on' : 'sp.off') + '</button></div>' +
+      (Lerna.auth.mode === 'supabase' ? '<div class="acc-row"><h4>' + t('sp.accPw') + '</h4><button type="button" class="btn btn-ghost btn-sm" id="pwBtn">' + t('sp.accPwBtn') + '</button></div>' : '') +
+      '<div class="acc-row"><h4>' + t('sp.accExport') + '</h4><button type="button" class="btn btn-ghost btn-sm" id="exportBtn">' + Lerna.icon('download', 'ic-sm') + t('sp.accExportBtn') + '</button></div>' +
+      '<div class="acc-row"><h4>' + t('sp.accLogout') + '</h4><button type="button" class="btn btn-ghost btn-sm" data-logout>' + Lerna.icon('logout', 'ic-sm') + t('sp.accLogout') + '</button></div>' +
+      '<div class="acc-row"><h4>' + t('sp.accDelete') + '</h4><button type="button" class="btn btn-ghost btn-sm danger" id="delBtn">' + Lerna.icon('trash', 'ic-sm') + t('sp.accDelete') + '</button></div>' +
+      '</div>' + (Lerna.auth.mode === 'demo' ? '<div class="notice" style="margin-top:16px">' + Lerna.icon('info') + '<div class="small">' + t('common.demoNotice') + '</div></div>' : '') + '</section>';
+  }
+
+  var TABS = [['home', 'sp.tHome', panelHome], ['ia', 'sp.tIA', panelIA], ['ecoles', 'sp.tSchools', panelSchools], ['suivi', 'sp.tTrack', panelTrack], ['compte', 'sp.tAccount', panelAccount]];
+
+  function renderPanel() {
+    var def = TABS.filter(function (x) { return x[0] === tab; })[0] || TABS[0]; tab = def[0];
+    Lerna.qsa('.tab').forEach(function (b) { var on = b.getAttribute('data-tab') === tab; b.classList.toggle('active', on); b.setAttribute('aria-selected', String(on)); });
+    var p = $('panel'); p.innerHTML = def[2](); p.classList.remove('active'); void p.offsetWidth; p.classList.add('active');
+    if (tab === 'ia') { var m = $('msgs'); if (m) m.scrollTop = m.scrollHeight; }
+    if (tab === 'ecoles' && $('cmpGo')) $('cmpOut').innerHTML = compareTable($('cmpA').value, $('cmpB').value);
+  }
+  function render() {
+    var c = completion();
+    var where = [user.pays ? window.LERNA_COUNTRY_NAME(user.pays) : '', user.niveau].filter(Boolean).join(' · ');
+    $('root').innerHTML =
+      '<section class="card"><div class="prof"><span class="avatar">' + esc(Lerna.initials(user)) + '</span><div class="prof-info">' +
+        '<h1>' + esc(Lerna.greeting(Lerna.displayName(user) || user.email.split('@')[0])) + '</h1>' +
+        '<p>' + esc(where || user.email) + ' · <span class="badge ' + (Lerna.isPremium() && user.is_premium ? 'badge-orange' : 'badge-cream') + '" style="vertical-align:middle">' + t(Lerna.isPremium() && user.is_premium ? 'sp.premium' : 'sp.free') + '</span></p></div>' +
+        '<button type="button" class="btn btn-ghost btn-sm" id="editBtn">' + Lerna.icon('edit', 'ic-sm') + t('sp.edit') + '</button></div>' +
+        '<div class="complete"><div class="complete-top"><span>' + t('sp.complete') + '</span><strong>' + c + '%</strong></div><div class="bar"><span style="width:' + c + '%"></span></div></div>' +
+        (Lerna.auth.mode === 'supabase' && user.verified === false ? '<div class="notice" style="margin-top:14px">' + Lerna.icon('mail') + '<div class="small">' + t('sp.verifyMail') + '</div></div>' : '') +
+      '</section>' +
+      '<div class="tabs-wrap"><div class="tabs" role="tablist">' + TABS.map(function (x) { return '<button type="button" class="tab" role="tab" data-tab="' + x[0] + '">' + t(x[1]) + '</button>'; }).join('') + '</div></div>' +
+      '<div class="tab-panel active" id="panel" role="tabpanel"></div>';
+    renderPanel();
+  }
+
+  function editProfile() {
+    Lerna.modal('<div class="modal-head"><h3>' + t('sp.editTitle') + '</h3><button class="modal-close" data-close aria-label="' + t('common.close') + '">' + Lerna.icon('x') + '</button></div>' +
+      '<form id="editForm" class="stack">' +
+        '<div class="field"><label for="ePrenom">' + t('sp.prenom') + '</label><input class="input" id="ePrenom" maxlength="60" value="' + esc(user.prenom) + '"></div>' +
+        '<div class="field"><label for="eNom">' + t('sp.nom') + '</label><input class="input" id="eNom" maxlength="60" value="' + esc(user.nom) + '"></div>' +
+        '<div class="field"><label for="ePseudo">' + t('sp.pseudo') + '</label><input class="input" id="ePseudo" maxlength="24" autocomplete="nickname" value="' + esc(user.pseudo || '') + '" placeholder="' + esc(t('sp.pseudoPh')) + '"></div>' +
+        '<div class="field"><label for="ePays">' + t('sp.pays') + '</label><select class="select" id="ePays"><option value="">—</option>' + window.LERNA_COUNTRY_OPTIONS(Lerna.lang, user.pays) + '</select></div>' +
+        '<div class="field"><label for="eNiveau">' + t('sp.niveau') + '</label><input class="input" id="eNiveau" maxlength="60" value="' + esc(user.niveau) + '"></div>' +
+        '<div class="field"><label for="eBio">' + t('sp.bio') + '</label><textarea class="textarea" id="eBio" maxlength="150" style="min-height:90px" placeholder="' + esc(t('sp.bioPh')) + '">' + esc(user.bio || '') + '</textarea></div>' +
+        '<button type="submit" class="btn btn-primary btn-block">' + t('common.save') + '</button></form>', function (m, close) {
+      m.querySelector('#editForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var v = function (id) { return m.querySelector(id).value.trim(); };
+        Lerna.auth.updateProfile({ prenom: v('#ePrenom'), nom: v('#eNom'), pseudo: v('#ePseudo').slice(0, 24), pays: v('#ePays'), niveau: v('#eNiveau'), bio: v('#eBio').slice(0, 150) })
+          .then(function () { user = Lerna.auth.user; close(); render(); Lerna.toast(t('sp.saved')); Lerna.sound.play('success'); })
+          .catch(function () { Lerna.toast(t('common.error')); });
+      });
+    });
+  }
+  function exportData() { Lerna.account.exportData(); }
+  function wipeLocal() { Lerna.account.wipeLocal(); }
+  function deleteAccount() {
+    Lerna.modal('<div class="modal-head"><h3>' + t('sp.delTitle') + '</h3><button class="modal-close" data-close aria-label="' + t('common.close') + '">' + Lerna.icon('x') + '</button></div><p>' + t('sp.delText') + '</p>' +
+      '<div class="row" style="margin-top:22px"><button type="button" class="btn btn-ghost" data-close>' + t('common.cancel') + '</button><button type="button" class="btn btn-brown" id="delYes">' + t('sp.delConfirm') + '</button></div>', function (m) {
+      m.querySelector('#delYes').addEventListener('click', function () {
+        var p;
+        if (Lerna.auth.mode === 'supabase') p = Lerna.api('/api/account', { action: 'delete' }).then(function (r) { if (!r.ok) throw new Error('delete'); return Lerna.auth.signOut(); });
+        else {
+          var acc = store.get('lerna_demo_accounts', {}); delete acc[user.email]; store.set('lerna_demo_accounts', acc);
+          p = Lerna.auth.signOut();
+        }
+        p.then(function () { wipeLocal(); Lerna.toast(t('sp.deleted')); setTimeout(function () { location.href = 'index.html'; }, 900); })
+          .catch(function () { Lerna.toast(t('common.error')); });
+      });
+    });
+  }
+  /* Synchronisation : un compte fraîchement créé récupère les résultats faits avant inscription */
+  function syncToCloud() {
+    var A = Lerna.auth; if (A.mode !== 'supabase' || !A.user) return;
+    Lerna.favs.pull().then(function () { if (tab === 'ecoles') renderPanel(); });
+    window.LERNA_OPPS_UNLOCK().then(function (ok) { if (ok && tab === 'home') renderPanel(); });
+  }
+
+  Lerna.ready(function () {
+    Lerna.requireAuth('espace.html').then(function (ok) {
+      if (!ok) return;
+      user = Lerna.auth.user;
+      render();
+      syncToCloud();
+      var pending = Lerna.store.sget('lerna_ask', null);
+      if (pending && tab === 'ia') { Lerna.store.sset('lerna_ask', null); setTimeout(function () { ask(pending); }, 300); }
+    });
+    document.addEventListener('click', function (e) {
+      var el;
+      if ((el = e.target.closest('.tab'))) { tab = el.getAttribute('data-tab'); history.replaceState(null, '', '#' + tab); renderPanel(); Lerna.sound.play('click'); return; }
+      if ((el = e.target.closest('[data-goto]'))) { tab = el.getAttribute('data-goto'); history.replaceState(null, '', '#' + tab); renderPanel(); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
+      if (e.target.closest('#editBtn')) return editProfile();
+      if ((el = e.target.closest('[data-ask]'))) return ask(el.getAttribute('data-ask'));
+      if ((el = e.target.closest('[data-unfav]'))) { Lerna.favs.toggle(el.getAttribute('data-unfav')); renderPanel(); return; }
+      if (e.target.closest('#cmpGo')) { $('cmpOut').innerHTML = compareTable($('cmpA').value, $('cmpB').value); Lerna.sound.play('click'); Lerna.track('compare'); return; }
+      if ((el = e.target.closest('[data-track-del]'))) { var tr = store.get('lerna_tracker', []); tr.splice(+el.getAttribute('data-track-del'), 1); store.set('lerna_tracker', tr); renderPanel(); return; }
+      if ((el = e.target.closest('[data-rem-del]'))) { var rm = store.get('lerna_reminders', []); rm.splice(+el.getAttribute('data-rem-del'), 1); store.set('lerna_reminders', rm); renderPanel(); return; }
+      if (e.target.closest('#soundBtn')) { Lerna.sound.toggle(); renderPanel(); return; }
+      if (e.target.closest('#exportBtn')) return exportData();
+      if (e.target.closest('#delBtn')) return deleteAccount();
+      if (e.target.closest('#pwBtn')) { Lerna.auth.resetPassword(user.email).then(function () { Lerna.toast(t('sp.accPwSent', { email: user.email }), 4000); }, function () { Lerna.toast(t('common.error')); }); }
+    });
+    document.addEventListener('change', function (e) {
+      var s = e.target.closest('[data-track-status]');
+      if (s) { var tr = store.get('lerna_tracker', []); tr[+s.getAttribute('data-track-status')].status = s.value; store.set('lerna_tracker', tr); if (s.value === 'st4') Lerna.sound.play('success'); }
+    });
+    document.addEventListener('submit', function (e) {
+      if (e.target.id === 'chatForm') { e.preventDefault(); ask($('chatIn').value); }
+      if (e.target.id === 'trackForm') {
+        e.preventDefault(); var n = $('trName').value.trim(); if (!n) return;
+        var tr = store.get('lerna_tracker', []); tr.push({ name: n.slice(0, 120), date: $('trDate').value, status: $('trStatus').value }); store.set('lerna_tracker', tr); renderPanel();
+        Lerna.track('tracker_add');
+      }
+      if (e.target.id === 'remForm') {
+        e.preventDefault(); var ti = $('remTitle').value.trim(), d = $('remDate').value; if (!ti || !d) return;
+        var rm = store.get('lerna_reminders', []); rm.push({ title: ti.slice(0, 120), date: d }); rm.sort(function (a, b) { return a.date < b.date ? -1 : 1; }); store.set('lerna_reminders', rm); renderPanel();
+      }
+    });
+    Lerna.onLang(function () { if (user) render(); });
+    window.addEventListener('hashchange', function () {
+      var h = (location.hash || '').replace('#', '');
+      if (user && h && h !== tab) { tab = h; renderPanel(); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

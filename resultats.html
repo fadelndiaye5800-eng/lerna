@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ton orientation — LERNA</title>
+<meta name="lerna-title" content="rs.docTitle">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFFFFF">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<style>
+  .rs { padding: 44px 0 72px; }
+  .rs-head { margin-bottom: 26px; }
+  .rs-head h1 { font-size: clamp(1.9rem, 5vw, 2.8rem); margin-top: 14px; }
+  .rs-date { color: var(--muted); font-size: .85rem; margin-top: 8px; }
+  .resume { font-size: 1.05rem; line-height: 1.7; }
+  .recos { display: flex; flex-direction: column; gap: 22px; margin-top: 26px; }
+  .reco { padding: 30px; }
+  .reco h2 { font-size: clamp(1.45rem, 4vw, 2rem); margin: 14px 0 12px; }
+  .reco .meta-row .tag { background: var(--cream); border: 1.5px solid var(--cream-dark); font-weight: 600; }
+  .compat { margin: 22px 0; }
+  .compat-top { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; margin-bottom: 8px; font-weight: 600; font-size: .9rem; }
+  .compat-top strong { color: var(--orange); font-size: 1.15rem; font-family: var(--font-head); font-weight: 800; }
+  .why-title { font-weight: 700; margin-bottom: 12px; }
+  .reco-cols { display: grid; gap: 22px; }
+  @media (min-width: 768px) { .reco-cols { grid-template-columns: 1.4fr 1fr; } }
+  .attn { margin-top: 20px; background: var(--cream); border-radius: 14px; padding: 14px 16px; display: flex; gap: 10px; font-size: .92rem; }
+  .attn .ic { color: var(--orange-deep); margin-top: 2px; }
+  .reco-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+  .fav-btn { display: inline-flex; align-items: center; gap: 8px; }
+  .fav-btn.on { background: rgba(232, 100, 12, 0.1); border-color: var(--orange); color: var(--orange-deep); }
+  .fav-btn.on .ic { fill: var(--orange); stroke: var(--orange); }
+
+  /* Recommandations verrouillées */
+  .locked { position: relative; overflow: hidden; }
+  .locked .ghost { position: absolute; inset: 0; padding: 30px; filter: blur(7px); opacity: .45; pointer-events: none; user-select: none; }
+  .lock-ov { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; text-align: center; padding: 8px 0; background: radial-gradient(ellipse at center, color-mix(in srgb, var(--bg) 92%, transparent) 40%, color-mix(in srgb, var(--bg) 70%, transparent) 100%); margin: -6px; border-radius: 16px; }
+  .lock-ov > .stk { width: 78px; height: 78px; margin-bottom: 8px; }
+  .invite-box .bold .stk { display: inline-block; vertical-align: -5px; width: 26px; height: 26px; }
+  .lock-ov h3 { margin-bottom: 8px; font-size: clamp(1.25rem, 4vw, 1.5rem); }
+  .lock-ov > p { color: var(--muted); max-width: 400px; margin-bottom: 16px; }
+  .unlock-or { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 380px; color: var(--muted); font-size: .85rem; margin: 16px 0; }
+  .unlock-or::before, .unlock-or::after { content: ''; flex: 1; height: 1px; background: var(--cream-darker); }
+  .invite-box { width: 100%; max-width: 420px; background: var(--cream); border: 1.5px solid var(--cream-dark); border-radius: 18px; padding: 18px 16px; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .invite-box .bold { font-size: 1.02rem; }
+  .invite-prog { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; font-weight: 700; font-size: .9rem; }
+  .invite-box .share-row { width: 100%; }
+  .invite-box .xsmall { line-height: 1.5; }
+  .mini-lock { display: flex; align-items: center; gap: 14px; padding: 16px 18px; flex-wrap: wrap; }
+  .mini-lock .grow { min-width: 180px; }
+  @media (max-width: 480px) { .mini-lock .btn { width: 100%; } }
+  .mini-lock .lk { width: 44px; height: 44px; border-radius: 14px; background: var(--cream-dark); display: flex; align-items: center; justify-content: center; color: var(--brown); flex-shrink: 0; }
+  .mini-lock .grow { flex: 1; min-width: 0; }
+  .mini-lock .ghost-name { display: block; height: 14px; width: 70%; border-radius: 8px; background: var(--cream-darker); filter: blur(3px); margin-top: 6px; }
+  .conseil .seal { width: 34px; height: 34px; float: left; margin: 2px 12px 4px 0; }
+
+  .conseil { margin-top: 28px; font-style: italic; font-size: 1.05rem; line-height: 1.7; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+  .actions .btn-cream { background: transparent; border: 2px solid var(--cream-darker); color: var(--brown); font-weight: 600; }
+  .actions .btn-cream:hover { border-color: var(--brown); }
+  @media (max-width: 560px) { .actions .btn { width: 100%; } .reco { padding: 24px 18px; } }
+
+  .save-card { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
+  .save-card .ic-wrap { width: 48px; height: 48px; border-radius: 14px; background: var(--cream-dark); color: var(--orange); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .save-card > div { flex: 1; min-width: 200px; }
+
+  .housing { margin-top: 40px; }
+  .housing h2 { font-size: clamp(1.4rem, 3.6vw, 1.9rem); margin-bottom: 6px; }
+  .h-city { margin-top: 18px; }
+  .h-city h4 { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .h-links { display: flex; flex-wrap: wrap; gap: 8px; }
+  .h-links a { display: inline-flex; align-items: center; gap: 6px; background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 99px; padding: 8px 14px; font-size: .86rem; font-weight: 600; text-decoration: none; }
+  .h-links a:hover { border-color: var(--orange); color: var(--orange-deep); }
+  .h-links .ic { width: 14px; height: 14px; }
+</style>
+</head>
+<body data-page="resultats">
+<div id="lerna-nav"></div>
+
+<main class="rs">
+  <div class="container container-sm" id="root"></div>
+</main>
+
+<div id="lerna-footer"></div>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/questions.js"></script>
+<script src="assets/js/data-schools.js"></script>
+<script src="assets/js/engine.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'rs.docTitle': 'Ton orientation — LERNA',
+    'rs.badge': 'Ton orientation LERNA',
+    'rs.title': 'Voilà ce que LERNA a compris de toi',
+    'rs.date': 'Analyse du {date}',
+    'rs.fallback': 'Notre IA est temporairement surchargée. Ces recommandations sont basées sur ton profil général — relance pour des résultats plus précis.',
+    'rs.retry': 'Relancer l’analyse',
+    'rs.local': 'Aperçu : ces recommandations sont calculées par le moteur LERNA à partir de tes réponses. L’analyse par l’IA s’active dès que l’application est déployée.',
+    'rs.recoN': 'Recommandation n°{n}',
+    'rs.type': 'Type : {t}',
+    'rs.compat': 'Compatibilité avec ton profil',
+    'rs.why': 'Pourquoi LERNA te recommande ça :',
+    'rs.strengths': 'Points forts',
+    'rs.attention': 'Point à considérer',
+    'rs.seeSchool': 'Voir la fiche →',
+    'rs.search': 'Chercher cette école →',
+    'rs.fav': 'Sauvegarder', 'rs.faved': 'Sauvegardée',
+    'rs.lockTitle': 'Tes écoles {list} t’attendent',
+    'rs.lockSub': 'Elles correspondent aussi à ton profil. Deux façons de les voir :',
+    'rs.lockSubFree': 'Elles correspondent aussi à ton profil. Invite 3 amis pour les débloquer gratuitement.',
+    'rs.lockBtn': 'Tout débloquer avec Premium — 4,99 $/mois',
+    'rs.or': 'ou',
+    'rs.inviteTitle': 'Invite 3 amis — c’est gratuit',
+    'rs.inviteCount': '{n}/3 amis inscrits', 'rs.invitePending': '{n} invitation(s) en attente de confirmation',
+    'rs.inviteRule': 'Un ami compte quand il crée son compte avec ton lien, confirme son email et termine son questionnaire.',
+    'rs.inviteSignup': 'Créer mon compte gratuit pour inviter',
+    'rs.inviteDemo': 'Aperçu : le compteur d’amis s’active dès que l’application est en ligne.',
+    'rs.and': 'et', 'rs.num': 'n°{n}',
+    'rs.prem5': 'École n°5 — réservée à Premium', 'rs.prem5Sub': 'Ta 5e école, toutes les opportunités et l’assistant IA illimité.', 'rs.prem5Btn': 'Voir Premium →',
+    'rs.lockedSmall': 'École n°{n}',
+    'rs.restart': '← Recommencer',
+    'rs.explore': 'Explorer toutes les écoles →',
+    'rs.pdf': 'Exporter en PDF',
+    'rs.pdfPremium': "L'export PDF fait partie de Premium.",
+    'rs.saveTitle': 'Garde tes résultats',
+    'rs.saveText': 'Crée un compte gratuit pour sauvegarder cette analyse, retrouver tes écoles partout et obtenir ton lien d’invitation.',
+    'rs.saveBtn': 'Créer mon compte →',
+    'rs.oppTitle': 'Et maintenant ?',
+    'rs.oppText': 'Des bourses, stages et emplois correspondent peut-être à ton profil.',
+    'rs.oppBtn': 'Voir les opportunités →',
+    'rs.housingTitle': 'Où te loger',
+    'rs.housingSub': 'Plateformes de logement étudiant pour les villes recommandées. Compare toujours plusieurs annonces avant de payer.',
+    'rs.housingAfrica': 'Dans cette ville, les résidences universitaires et les annonces locales restent la meilleure piste : regarde l’onglet « Vie étudiante » de la fiche.',
+    'rs.empty': 'Tu n’as pas encore de résultats',
+    'rs.emptySub': 'Réponds aux 25 questions pour recevoir ton orientation personnalisée.',
+    'rs.emptyBtn': 'Commencer mon orientation →',
+    'rs.otherLang': 'Cette analyse a été rédigée en français par l’IA.'
+  },
+  en: {
+    'rs.docTitle': 'Your orientation — LERNA',
+    'rs.badge': 'Your LERNA orientation',
+    'rs.title': 'Here is what LERNA understood about you',
+    'rs.date': 'Analysis from {date}',
+    'rs.fallback': 'Our AI is temporarily overloaded. These recommendations are based on your general profile — run it again for more precise results.',
+    'rs.retry': 'Run the analysis again',
+    'rs.local': 'Preview: these recommendations are calculated by the LERNA engine from your answers. AI analysis turns on as soon as the app is deployed.',
+    'rs.recoN': 'Recommendation #{n}',
+    'rs.type': 'Type: {t}',
+    'rs.compat': 'Match with your profile',
+    'rs.why': 'Why LERNA recommends it:',
+    'rs.strengths': 'Strengths',
+    'rs.attention': 'Something to consider',
+    'rs.seeSchool': 'View profile →',
+    'rs.search': 'Search this school →',
+    'rs.fav': 'Save', 'rs.faved': 'Saved',
+    'rs.lockTitle': 'Your schools {list} are waiting',
+    'rs.lockSub': 'They match your profile too. Two ways to see them:',
+    'rs.lockSubFree': 'They match your profile too. Invite 3 friends to unlock them for free.',
+    'rs.lockBtn': 'Unlock everything with Premium — $4.99/month',
+    'rs.or': 'or',
+    'rs.inviteTitle': 'Invite 3 friends — it’s free',
+    'rs.inviteCount': '{n}/3 friends signed up', 'rs.invitePending': '{n} invitation(s) waiting for confirmation',
+    'rs.inviteRule': 'A friend counts once they create an account with your link, confirm their email and finish their questionnaire.',
+    'rs.inviteSignup': 'Create my free account to invite',
+    'rs.inviteDemo': 'Preview: the friend counter turns on once the app is live.',
+    'rs.and': 'and', 'rs.num': '#{n}',
+    'rs.prem5': 'School #5 — Premium only', 'rs.prem5Sub': 'Your 5th school, every opportunity and the unlimited AI assistant.', 'rs.prem5Btn': 'See Premium →',
+    'rs.lockedSmall': 'School #{n}',
+    'rs.restart': '← Start again',
+    'rs.explore': 'Explore all schools →',
+    'rs.pdf': 'Export as PDF',
+    'rs.pdfPremium': 'PDF export is part of Premium.',
+    'rs.saveTitle': 'Keep your results',
+    'rs.saveText': 'Create a free account to save this analysis, find your schools anywhere and get your invite link.',
+    'rs.saveBtn': 'Create my account →',
+    'rs.oppTitle': 'What next?',
+    'rs.oppText': 'Scholarships, internships and jobs may match your profile.',
+    'rs.oppBtn': 'See opportunities →',
+    'rs.housingTitle': 'Where to live',
+    'rs.housingSub': 'Student housing platforms for the recommended cities. Always compare several listings before paying.',
+    'rs.housingAfrica': 'In this city, university residences and local listings are still the best option: check the "Student life" tab of the school profile.',
+    'rs.empty': 'You have no results yet',
+    'rs.emptySub': 'Answer the 25 questions to get your personalised orientation.',
+    'rs.emptyBtn': 'Start my orientation →',
+    'rs.otherLang': 'This analysis was written in English by the AI.'
+  }
+});
+
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = Lerna.esc, t = Lerna.t;
+  var HOUSING = [
+    { n: 'Student.com', u: 'https://www.student.com', r: ['europe', 'amerique-nord', 'autre'] },
+    { n: 'Amber Student', u: 'https://amberstudent.com', r: ['europe', 'amerique-nord', 'autre'] },
+    { n: 'University Living', u: 'https://www.universityliving.com', r: ['europe', 'amerique-nord', 'autre'] },
+    { n: 'Uhomes', u: 'https://en.uhomes.com', r: ['europe', 'amerique-nord', 'autre'] },
+    { n: 'Spotahome', u: 'https://www.spotahome.com', r: ['europe'] },
+    { n: 'HousingAnywhere', u: 'https://housinganywhere.com', r: ['europe', 'autre'] },
+    { n: 'Flatio', u: 'https://www.flatio.com', r: ['europe', 'amerique-nord', 'autre'] },
+    { n: 'Uniplaces', u: 'https://www.uniplaces.com', r: ['europe'] }
+  ];
+
+  /* Frais de l'IA (en dollars) affichés dans la devise de la personne quand le montant chiffré est connu */
+  function feeLocal(r) {
+    if (typeof r.frais_usd !== 'number' || Lerna.currency() === 'USD') return r.frais;
+    return r.frais_usd === 0 ? t('common.free') : '≈ ' + Lerna.money(r.frais_usd) + (Lerna.lang === 'en' ? ' / year' : ' / an');
+  }
+  function recoCard(r, i) {
+    var school = (r.id && window.LERNA_SCHOOL(r.id)) || window.LERNA_FIND_SCHOOL(r.nom);
+    var fav = school && Lerna.favs.has(school.id);
+    var score = Math.max(0, Math.min(100, parseInt(r.score, 10) || 0));
+    var list = function (arr, cls) { return '<ul class="' + cls + '">' + (arr || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; };
+    return '<article class="card reco reveal" id="reco-' + (i + 1) + '" style="--i:' + Math.min(i, 3) + '">' +
+      '<span class="badge badge-orange">' + t('rs.recoN', { n: i + 1 }) + '</span>' +
+      '<h2>' + esc(r.nom) + '</h2>' +
+      '<div class="meta-row">' +
+        '<span class="tag">' + Lerna.icon('pin', 'ic-sm') + esc([r.ville, r.pays].filter(Boolean).join(', ')) + '</span>' +
+        '<span class="tag">' + esc(t('rs.type', { t: r.type || '—' })) + '</span>' +
+        '<span class="tag"' + (feeLocal(r) !== r.frais ? ' title="' + esc(r.frais) + '"' : '') + '>' + Lerna.icon('dollar', 'ic-sm') + esc(feeLocal(r)) + '</span>' +
+      '</div>' +
+      '<div class="compat"><div class="compat-top"><span>' + t('rs.compat') + '</span><strong>' + score + '%</strong></div>' +
+        '<div class="bar"><span data-w="' + score + '"></span></div></div>' +
+      '<div class="reco-cols">' +
+        '<div><p class="why-title">' + t('rs.why') + '</p>' + list(r.pourquoi, 'list-arrow') + '</div>' +
+        (r.points_forts && r.points_forts.length ? '<div><p class="why-title">' + t('rs.strengths') + '</p>' + list(r.points_forts, 'list-check') + '</div>' : '') +
+      '</div>' +
+      (r.point_attention ? '<div class="attn">' + Lerna.icon('alert') + '<div><strong>' + t('rs.attention') + ' — </strong>' + esc(r.point_attention) + '</div></div>' : '') +
+      '<div class="reco-actions no-print">' +
+        (school
+          ? '<a class="btn btn-brown btn-sm" href="ecole.html?id=' + encodeURIComponent(school.id) + '">' + t('rs.seeSchool') + '</a>' +
+            '<button type="button" class="btn btn-ghost btn-sm fav-btn' + (fav ? ' on' : '') + '" data-fav="' + school.id + '">' + Lerna.icon('heart', 'ic-sm') + '<span>' + t(fav ? 'rs.faved' : 'rs.fav') + '</span></button>'
+          : '<a class="btn btn-brown btn-sm" href="explorer.html?q=' + encodeURIComponent(r.nom) + '">' + t('rs.search') + '</a>') +
+      '</div>' +
+    '</article>';
+  }
+
+  function ghost(n) {
+    return '<span class="badge badge-orange">' + t('rs.recoN', { n: n }) + '</span><h2 style="margin:14px 0 12px">██████ ████████</h2>' +
+      '<div class="meta-row"><span class="tag">██████, ████</span><span class="tag">██████</span><span class="tag">████ $</span></div>' +
+      '<div class="compat"><div class="bar"><span style="width:80%"></span></div></div>' +
+      '<ul class="list-arrow"><li>████████ ██████ ████████████ ██████</li><li>██████ ████████ ██ ████████</li><li>███████████ ████ ████████</li></ul>';
+  }
+  function numList(idx) {
+    var n = idx.map(function (i) { return t('rs.num', { n: i + 1 }); });
+    return n.length < 2 ? n.join('') : n.slice(0, -1).join(', ') + ' ' + t('rs.and') + ' ' + n[n.length - 1];
+  }
+  /* Panneau de déblocage : Premium d'abord (quand il est lancé), puis invitation de 3 amis */
+  function invitePanel(idx) {
+    var R = Lerna.referral, conf = Math.min(R.confirmed(), R.needed), st = R.cached() || {};
+    var dots = ''; for (var k = 0; k < R.needed; k++) dots += '<span class="ref-dot' + (k < conf ? ' on' : '') + '">' + (k < conf ? Lerna.sticker('check') : '') + '</span>';
+    var share = Lerna.isLogged()
+      ? '<div class="share-row"><a class="btn btn-wa btn-sm" href="' + esc(Lerna.referral.waHref()) + '" target="_blank" rel="noopener" data-share="whatsapp">' + Lerna.icon('chat', 'ic-sm') + t('ref.whatsapp') + '</a>' +
+        (navigator.share ? '<button type="button" class="btn btn-ghost btn-sm" data-share="native">' + Lerna.icon('share', 'ic-sm') + t('ref.share') + '</button>' : '') +
+        '<button type="button" class="btn btn-ghost btn-sm" data-share="copy">' + Lerna.icon('copy', 'ic-sm') + t('ref.copy') + '</button></div>'
+      : '<a class="btn btn-brown btn-block" href="auth.html?mode=signup&redirect=resultats.html">' + t('rs.inviteSignup') + '</a>';
+    return '<div class="lock-ov">' + Lerna.sticker('lock') +
+      '<h3>' + t('rs.lockTitle', { list: numList(idx) }) + '</h3>' +
+      '<p>' + t(Lerna.config.premiumEnabled ? 'rs.lockSub' : 'rs.lockSubFree') + '</p>' +
+      (Lerna.config.premiumEnabled ? '<a class="btn btn-primary" href="premium.html">' + Lerna.icon('gem', 'ic-sm') + t('rs.lockBtn') + '</a><div class="unlock-or">' + t('rs.or') + '</div>' : '') +
+      '<div class="invite-box"><p class="bold">' + Lerna.sticker('envelope', 'stk-xs') + ' ' + t('rs.inviteTitle') + '</p>' +
+        '<div class="invite-prog"><div class="ref-dots">' + dots + '</div><span>' + t('rs.inviteCount', { n: conf }) + '</span></div>' +
+        (st.pending ? '<p class="xsmall muted">' + t('rs.invitePending', { n: st.pending }) + '</p>' : '') +
+        share +
+        '<p class="xsmall muted">' + t('rs.inviteRule') + '</p>' +
+        (Lerna.auth.mode === 'demo' && Lerna.isLogged() ? '<p class="xsmall muted">' + t('rs.inviteDemo') + '</p>' : '') +
+      '</div></div>';
+  }
+  function lockedCards(recos) {
+    var refIdx = [], out = '';
+    recos.forEach(function (r, i) { if (Lerna.recoAccess(i) === 'ref') refIdx.push(i); });
+    recos.forEach(function (r, i) {
+      var acc = Lerna.recoAccess(i);
+      if (acc === 'open') return;
+      if (acc === 'ref' && i === refIdx[0]) {
+        out += '<article class="card reco locked reveal" id="reco-' + (i + 1) + '" aria-label="' + esc(t('rs.lockTitle', { list: numList(refIdx) })) + '"><div class="ghost" aria-hidden="true">' + ghost(i + 1) + '</div>' + invitePanel(refIdx) + '</article>';
+      } else if (acc === 'ref') {
+        out += '<div class="card mini-lock reveal" id="reco-' + (i + 1) + '"><span class="lk">' + Lerna.icon('lock') + '</span><div class="grow"><strong>' + t('rs.lockedSmall', { n: i + 1 }) + '</strong><span class="ghost-name" aria-hidden="true"></span></div></div>';
+      } else {
+        out += '<div class="card mini-lock reveal" id="reco-' + (i + 1) + '"><span class="lk">' + Lerna.icon('gem') + '</span><div class="grow"><strong>' + t('rs.prem5') + '</strong><p class="small muted">' + t('rs.prem5Sub') + '</p></div><a class="btn btn-brown btn-sm" href="premium.html">' + t('rs.prem5Btn') + '</a></div>';
+      }
+    });
+    return out;
+  }
+
+  function housing(recos) {
+    var cities = [];
+    recos.forEach(function (r, i) {
+      if (Lerna.recoAccess(i) !== 'open') return;
+      var s = (r.id && window.LERNA_SCHOOL(r.id)) || window.LERNA_FIND_SCHOOL(r.nom);
+      if (s && s.type === 'online') return;
+      var region = s ? window.LERNA_CONTINENT(s.pays) : null;
+      var city = s ? s.ville : r.ville;
+      if (!city || cities.some(function (c) { return c.city === city; })) return;
+      cities.push({ city: city, country: s ? window.LERNA_COUNTRY_NAME(s.pays) : r.pays, region: region });
+    });
+    if (!cities.length) return '';
+    return '<section class="housing reveal no-print"><h2>' + t('rs.housingTitle') + '</h2><p class="muted">' + t('rs.housingSub') + '</p>' +
+      cities.map(function (c) {
+        var plats = HOUSING.filter(function (h) { return !c.region || h.r.indexOf(c.region) !== -1; });
+        var inner = c.region === 'afrique'
+          ? '<p class="small muted">' + t('rs.housingAfrica') + '</p>'
+          : '<div class="h-links">' + plats.map(function (h) { return '<a href="' + h.u + '" target="_blank" rel="noopener">' + esc(h.n) + Lerna.icon('external') + '</a>'; }).join('') + '</div>';
+        return '<div class="h-city"><h4>' + Lerna.icon('bed') + esc(c.city + (c.country ? ', ' + c.country : '')) + '</h4>' + inner + '</div>';
+      }).join('') + '</section>';
+  }
+
+  function render() {
+    var res = Lerna.store.get('lerna_results', null);
+    var root = $('root');
+    if (!res || !res.recos || !res.recos.length) {
+      root.innerHTML = '<div class="empty" style="margin-top:20px">' + Lerna.icon('compass') + '<h4>' + t('rs.empty') + '</h4><p>' + t('rs.emptySub') + '</p><a class="btn btn-primary" style="margin-top:18px" href="questionnaire.html">' + t('rs.emptyBtn') + '</a></div>';
+      return;
+    }
+    // Résultats calculés localement : on peut les régénérer dans la langue choisie
+    if ((res.source === 'local' || res.source === 'fallback') && res.lang !== Lerna.lang) {
+      var prof = Lerna.store.get('lerna_profile', null);
+      if (prof && prof.answers) {
+        var again = window.LernaEngine.match(prof.answers, Lerna.lang, res.recos.length);
+        res.resume = again.resume; res.recos = again.recos; res.conseil = again.conseil; res.lang = Lerna.lang;
+        Lerna.store.set('lerna_results', res);
+      }
+    }
+    var h = '<header class="rs-head reveal"><span class="badge badge-orange">' + t('rs.badge') + '</span>' +
+      '<h1>' + t('rs.title') + '</h1>' +
+      '<p class="rs-date">' + t('rs.date', { date: Lerna.fmtDate(res.date) }) + '</p></header>';
+    if (res.source === 'fallback') h += '<div class="notice reveal" style="margin-bottom:18px">' + Lerna.icon('info') + '<div>' + t('rs.fallback') + ' <a class="btn-link" href="loading.html">' + t('rs.retry') + '</a></div></div>';
+    if (res.source === 'local') h += '<div class="notice reveal" style="margin-bottom:18px">' + Lerna.icon('info') + '<div>' + t('rs.local') + '</div></div>';
+    if (res.source === 'ai' && res.lang && res.lang !== Lerna.lang) h += '<p class="small muted" style="margin-bottom:12px">' + t('rs.otherLang') + '</p>';
+    h += '<div class="card-note resume reveal">' + esc(res.resume) + '</div>';
+    h += '<div class="recos">' + res.recos.map(function (r, i) {
+      return Lerna.recoAccess(i) === 'open' ? recoCard(r, i) : '';
+    }).join('') + lockedCards(res.recos) + '</div>';
+    if (res.conseil) h += '<div class="card-note brown conseil reveal">' + Lerna.seal() + esc(res.conseil) + '</div>';
+    if (!Lerna.isLogged()) {
+      h += '<div class="card save-card reveal no-print"><span class="ic-wrap">' + Lerna.icon('heart', 'ic-lg') + '</span><div><h3>' + t('rs.saveTitle') + '</h3><p class="small muted" style="margin-top:4px">' + t('rs.saveText') + '</p></div>' +
+        '<a class="btn btn-primary btn-sm" href="auth.html?mode=signup&redirect=resultats.html">' + t('rs.saveBtn') + '</a></div>';
+    }
+    h += housing(res.recos);
+    h += '<div class="card save-card reveal no-print" style="margin-top:28px"><span class="ic-wrap">' + Lerna.icon('award', 'ic-lg') + '</span><div><h3>' + t('rs.oppTitle') + '</h3><p class="small muted" style="margin-top:4px">' + t('rs.oppText') + '</p></div><a class="btn btn-brown btn-sm" href="opportunites.html">' + t('rs.oppBtn') + '</a></div>';
+    h += '<div class="actions no-print">' +
+      '<a class="btn btn-cream" href="questionnaire.html" id="restartLink">' + t('rs.restart') + '</a>' +
+      '<a class="btn btn-primary" href="explorer.html">' + t('rs.explore') + '</a>' +
+      '<button type="button" class="btn btn-ghost" id="pdfBtn">' + Lerna.icon('download') + t('rs.pdf') + '</button>' +
+      '</div>';
+    root.innerHTML = h;
+    Lerna.initReveal();
+    requestAnimationFrame(function () {
+      setTimeout(function () { Lerna.qsa('.bar span[data-w]').forEach(function (b) { b.style.width = b.getAttribute('data-w') + '%'; }); }, 250);
+    });
+  }
+
+  function stateKey() { return Lerna.isLogged() + '|' + Lerna.isPremium() + '|' + Lerna.config.premiumEnabled + '|' + Lerna.referral.confirmed() + '|' + ((Lerna.referral.cached() || {}).pending || 0); }
+  Lerna.ready(function () {
+    var lastState = stateKey();
+    render();
+    var rerender = function () { var st = stateKey(); if (st !== lastState) { lastState = st; render(); } };
+    Lerna.auth.ready.then(function () { rerender(); Lerna.referral.refresh().then(rerender); });
+    Lerna.on('lerna:referral', rerender);
+    if (Lerna.store.raw('lerna_results')) {
+      Lerna.track('results_view');
+      /* Demande d'avis seulement une fois les résultats lus (bas de page atteint), jamais par-dessus la lecture */
+      var askWhenRead = function () {
+        var end = document.querySelector('.actions');
+        if (!end || !('IntersectionObserver' in window)) return;
+        var io = new IntersectionObserver(function (en) { if (en[0].isIntersecting) { io.disconnect(); setTimeout(function () { Lerna.askRating('results'); }, 1500); } }, { threshold: 0.6 });
+        io.observe(end);
+      };
+      setTimeout(askWhenRead, 1200);
+    }
+    if (location.hash) setTimeout(function () { var el = document.querySelector(location.hash); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 500);
+    Lerna.onLang(render);
+    setTimeout(function () { Lerna.sound.play('results'); }, 400);
+    document.addEventListener('click', function (e) {
+      var f = e.target.closest('[data-fav]');
+      if (f) {
+        var on = Lerna.favs.toggle(f.getAttribute('data-fav'));
+        if (on === null) return;
+        if (on) Lerna.pop(f);
+        f.classList.toggle('on', on);
+        f.querySelector('span').textContent = t(on ? 'rs.faved' : 'rs.fav');
+        return;
+      }
+      if (e.target.closest('#restartLink')) { Lerna.store.del('lerna_progress'); return; }
+      var sh = e.target.closest('[data-share]');
+      if (sh) { var v = sh.getAttribute('data-share'); if (v !== 'whatsapp') e.preventDefault(); Lerna.referral.share(v, sh.tagName === 'A'); return; }
+      if (e.target.closest('#pdfBtn')) {
+        if (Lerna.isPremium()) window.print();
+        else { Lerna.toast(t('rs.pdfPremium')); setTimeout(function () { location.href = 'premium.html'; }, 1400); }
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

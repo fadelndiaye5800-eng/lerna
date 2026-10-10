@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LERNA analyse ton profil…</title>
+<meta name="lerna-title" content="ld.docTitle">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#FFF7EC">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<style>
+  body { background: var(--panel-grad); background-attachment: fixed; color: var(--brown); }
+  .ld {
+    min-height: 100vh; min-height: 100dvh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 40px 22px calc(40px + var(--safe-b));
+  }
+  /* Le ruban LERNA « réfléchit » : il se dessine, se remplit, brille, puis recommence */
+  .ldmark { width: 132px; height: 132px; margin: 0 auto 38px; filter: drop-shadow(0 18px 30px rgba(242, 107, 12, .22)); }
+  .ldmark .mark { width: 100%; height: 100%; }
+  .ldmark .mark-line { stroke-dasharray: 1; stroke-dashoffset: 1; animation: ldDraw 3.2s cubic-bezier(.65, 0, .35, 1) infinite; }
+  .ldmark .mark-fill { opacity: 0; animation: ldFill 3.2s ease infinite; transform-origin: 50% 50%; }
+  @keyframes ldDraw { 0% { stroke-dashoffset: 1; opacity: 1; } 38% { stroke-dashoffset: 0; opacity: 1; } 55% { opacity: 0; } 100% { stroke-dashoffset: 0; opacity: 0; } }
+  @keyframes ldFill { 0%, 30% { opacity: 0; transform: scale(.96); } 48% { opacity: 1; transform: scale(1.03); } 58%, 84% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(.98); } }
+  @media (prefers-reduced-motion: reduce) { .ldmark .mark-line { display: none; } .ldmark .mark-fill { animation: none; opacity: 1; } }
+  [data-calm] .ldmark .mark-line { display: none; } [data-calm] .ldmark .mark-fill { animation: none; opacity: 1; }
+  .ld h1 { color: var(--brown); font-size: clamp(1.8rem, 5.5vw, 2.6rem); }
+  .ld-sub { color: var(--on-panel-muted); margin-top: 14px; min-height: 3.2em; max-width: 440px; transition: opacity .4s; font-size: 1.02rem; }
+  .ld-sub.out { opacity: 0; }
+  .ld-bar { width: min(340px, 82vw); height: 6px; border-radius: 99px; background: var(--on-panel-line); overflow: hidden; margin-top: 30px; }
+  .ld-bar span { display: block; height: 100%; width: 0; background: var(--orange); border-radius: 99px; }
+  .ld-pct { margin-top: 10px; font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .limit { display: none; max-width: 480px; }
+  .limit.show { display: block; animation: fadeUp .5s var(--ease) both; }
+  .limit .ic-big { width: 64px; height: 64px; border-radius: 50%; background: rgba(232, 100, 12, 0.15); color: var(--orange); display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; }
+  .limit h2 { color: var(--brown); font-size: clamp(1.6rem, 5vw, 2.2rem); }
+  .limit p { color: var(--on-panel-muted); margin: 14px 0 26px; }
+  .limit .stack-btns { display: flex; flex-direction: column; gap: 12px; align-items: stretch; }
+  .limit .btn-ghost-dark { background: transparent; border: 2px solid var(--cream-darker); color: var(--brown); font-weight: 600; }
+  .limit .btn-ghost-dark:hover { border-color: var(--brown); }
+</style>
+</head>
+<body data-page="loading" data-bottomnav="off" class="no-nav">
+
+<main class="ld">
+  <div id="analysing">
+    <div class="ldmark" id="ldMark" aria-hidden="true"></div>
+    <h1 data-i18n="ld.title">LERNA analyse ton profil…</h1>
+    <p class="ld-sub" id="ldSub" aria-live="polite"></p>
+    <div class="ld-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="ldBarWrap"><span id="ldBar"></span></div>
+    <div class="ld-pct" id="ldPct">0%</div>
+  </div>
+
+  <div class="limit" id="limit" role="alert">
+    <div class="ic-big"><svg class="ic ic-lg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+    <h2 data-i18n="ld.limitTitle">Ton analyse IA du jour est déjà utilisée</h2>
+    <p data-i18n="ld.limitText">La version gratuite comprend une analyse complète par jour. Elle se recharge demain. En attendant, tu peux voir une première orientation calculée sans IA, ou revoir tes résultats précédents.</p>
+    <div class="stack-btns">
+      <button type="button" class="btn btn-primary" id="limitLocal" data-i18n="ld.limitLocal">Voir une première orientation →</button>
+      <a href="resultats.html" class="btn btn-ghost-dark hidden" id="limitPrev" data-i18n="ld.limitPrev">Revoir mes derniers résultats</a>
+      <a href="premium.html" class="btn btn-ghost-dark" data-i18n="ld.limitPremium">Analyses illimitées avec Premium</a>
+    </div>
+  </div>
+</main>
+
+<script src="assets/js/core.js"></script>
+<script>document.getElementById('ldMark').innerHTML = Lerna.mark('', '', { draw: true });</script>
+<script src="assets/js/questions.js"></script>
+<script src="assets/js/data-schools.js"></script>
+<script src="assets/js/engine.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'ld.docTitle': 'LERNA analyse ton profil…',
+    'ld.title': 'LERNA analyse ton profil…',
+    'ld.m1': 'Comparaison avec des milliers d’établissements…',
+    'ld.m2': 'Identification de tes points forts…',
+    'ld.m3': 'Calcul de tes meilleures correspondances…',
+    'ld.m4': 'Préparation de tes recommandations personnalisées…',
+    'ld.m5': 'Dernières vérifications…',
+    'ld.limitTitle': 'Ton analyse IA du jour est déjà utilisée',
+    'ld.limitText': 'La version gratuite comprend une analyse complète par jour. Elle se recharge demain. En attendant, tu peux voir une première orientation calculée sans IA, ou revoir tes résultats précédents.',
+    'ld.limitLocal': 'Voir une première orientation →',
+    'ld.limitPrev': 'Revoir mes derniers résultats',
+    'ld.limitPremium': 'Analyses illimitées avec Premium'
+  },
+  en: {
+    'ld.docTitle': 'LERNA is analysing your profile…',
+    'ld.title': 'LERNA is analysing your profile…',
+    'ld.m1': 'Comparing with thousands of institutions…',
+    'ld.m2': 'Identifying your strengths…',
+    'ld.m3': 'Calculating your best matches…',
+    'ld.m4': 'Preparing your personalised recommendations…',
+    'ld.m5': 'Final checks…',
+    'ld.limitTitle': "You've already used today's AI analysis",
+    'ld.limitText': 'The free plan includes one full analysis per day. It resets tomorrow. Meanwhile, you can see a first orientation calculated without AI, or review your previous results.',
+    'ld.limitLocal': 'See a first orientation →',
+    'ld.limitPrev': 'Review my latest results',
+    'ld.limitPremium': 'Unlimited analyses with Premium'
+  }
+});
+
+(function () {
+  var MIN_MS = 5000;
+  var profile = Lerna.store.get('lerna_profile', null);
+  if (!profile || !profile.answers) { location.replace('questionnaire.html'); return; }
+  var answers = profile.answers;
+  var $ = function (id) { return document.getElementById(id); };
+
+  /* Réponses en clair (FR) pour le prompt — inclut « Autre » et les niveaux de langue */
+  function labelled() {
+    var out = {};
+    window.LERNA_QUESTIONS.forEach(function (q) {
+      var txt = window.LERNA_ANSWER_TEXT(q, answers, 'fr', q.type === 'single');
+      if (txt) out[q.id] = String(txt).slice(0, 2000);
+    });
+    if (answers.note && String(answers.note).trim()) out.note = String(answers.note).slice(0, 1000);
+    return out;
+  }
+
+  /* Messages rotatifs toutes les 2,2 s */
+  var msgs = ['ld.m1', 'ld.m2', 'ld.m3', 'ld.m4', 'ld.m5'], mi = 0;
+  function setMsg() { $('ldSub').textContent = Lerna.t(msgs[mi]); }
+  var msgTimer = setInterval(function () {
+    var el = $('ldSub'); el.classList.add('out');
+    setTimeout(function () { mi = Math.min(mi + 1, msgs.length - 1); setMsg(); el.classList.remove('out'); }, 400);
+    if (mi >= msgs.length - 1) clearInterval(msgTimer);
+  }, 2200);
+
+  /* Barre 0 → 100 % en 5 s (tient à 96 % si l'IA met plus longtemps) */
+  var t0 = performance.now(), done = false, pct = 0;
+  function frame(now) {
+    var target = Math.min(96, ((now - t0) / MIN_MS) * 100);
+    if (done) target = 100;
+    pct += (target - pct) * 0.18;
+    if (done && pct > 99.4) pct = 100;
+    $('ldBar').style.width = pct.toFixed(1) + '%';
+    $('ldPct').textContent = Math.round(pct) + '%';
+    $('ldBarWrap').setAttribute('aria-valuenow', String(Math.round(pct)));
+    if (pct < 100) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+
+  function store(result, source) {
+    var r = {
+      resume: result.resume, recos: (result.recos || []).slice(0, 5), conseil: result.conseil,
+      source: source, date: new Date().toISOString(), lang: Lerna.lang, id: result.id || null
+    };
+    Lerna.store.set('lerna_results', r);
+    var hist = Lerna.store.get('lerna_history', []);
+    hist.unshift(r);
+    Lerna.store.set('lerna_history', hist.slice(0, 10));
+  }
+  function go() { setTimeout(function () { location.replace('resultats.html'); }, 450); }
+  function local(count, source) {
+    var r = window.LernaEngine.match(answers, Lerna.lang, count);
+    store(r, source);
+  }
+
+  var minWait = new Promise(function (res) { setTimeout(res, MIN_MS); });
+
+  Lerna.auth.ready.then(function () {
+    setMsg();
+    var call = Lerna.config.live
+      ? Lerna.api('/api/analyze', { answers: labelled(), raw: answers, lang: Lerna.lang }, { timeout: 60000 })
+      : Promise.resolve({ ok: false, status: 404, data: null });
+
+    Promise.all([call, minWait]).then(function (arr) {
+      var res = arr[0];
+      if (res.ok && res.data && Array.isArray(res.data.recos) && res.data.recos.length) {
+        store(res.data, 'ai');
+      } else if (res.status === 429) {
+        done = true;
+        clearInterval(msgTimer);
+        setTimeout(function () {
+          $('analysing').classList.add('hidden');
+          $('limit').classList.add('show');
+          if (Lerna.store.raw('lerna_results')) $('limitPrev').classList.remove('hidden');
+          Lerna.sound.play('error');
+        }, 300);
+        $('limitLocal').addEventListener('click', function () { local(2, 'fallback'); location.href = 'resultats.html'; });
+        return;
+      } else if (!Lerna.config.live) {
+        local(5, 'local');      // API pas encore déployée (aperçu)
+      } else {
+        local(2, 'fallback');   // IA indisponible : 2 recommandations de secours (§14.5)
+      }
+      done = true;
+      go();
+    });
+  });
+  Lerna.onLang(setMsg);
+})();
+</script>
+</body>
+</html>

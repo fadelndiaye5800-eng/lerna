@@ -1,0 +1,11 @@
+{
+  "name": "lerna",
+  "version": "7.0.0",
+  "private": true,
+  "description": "LERNA — Ton orientation, enfin claire. Application web progressive (PWA) d'orientation par IA.",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "seed": "node scripts/generate-seed.cjs"
+  }
+}

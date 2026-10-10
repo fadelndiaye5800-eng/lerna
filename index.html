@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LERNA — Ton orientation, enfin claire</title>
+<meta name="lerna-title" content="home.docTitle">
+<meta name="description" content="LERNA apprend à te connaître — ton profil, ton budget, tes ambitions — et te guide vers l'école, la filière et le chemin qui te correspondent vraiment, où que tu sois dans le monde.">
+<meta name="theme-color" content="#FFFFFF">
+<meta property="og:title" content="LERNA — Ton orientation, enfin claire">
+<meta property="og:description" content="Dis-moi qui tu es. Je te dis où tu vas. 25 questions, une IA, des écoles réelles avec leurs vrais coûts.">
+<meta property="og:image" content="/assets/icons/og.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="LERNA">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<script>
+  /* Deux accueils : celui-ci pour découvrir LERNA, « Aujourd'hui » pour qui a déjà fait le questionnaire */
+  try {
+    var q = location.search || JSON.parse(sessionStorage.getItem('lerna_q_index.html') || '""') || '';
+    if (localStorage.getItem('lerna_profile') && !/[?&](decouvrir|ref)=/.test(q)) location.replace('aujourdhui.html');
+  } catch (e) {}
+</script>
+<style>
+  /* ---------- Hero (dégradé crème → pêche, seul endroit avec les cercles) ---------- */
+  .hero {
+    position: relative; overflow: hidden;
+    background: radial-gradient(ellipse at 50% 35%, var(--hero-glow) 0%, transparent 60%), var(--panel-grad);
+    min-height: calc(100vh - var(--nav-h));
+    min-height: calc(100svh - var(--nav-h));
+    display: flex; align-items: center; justify-content: center;
+    text-align: center;
+    padding: 64px 20px 72px;
+  }
+  .hero-circle { position: absolute; top: 50%; left: 50%; border-radius: 50%; pointer-events: none; transform: translate(-50%, -50%); }
+  .hero-circle.c1 { width: 600px; height: 600px; border: 70px solid rgba(232, 100, 12, 0.07); }
+  .hero-circle.c2 { width: 920px; height: 920px; border: 50px solid rgba(232, 100, 12, 0.045); }
+  .hero-inner { position: relative; z-index: 1; max-width: 860px; }
+  .hero-badge { background: var(--orange); color: #fff; margin-bottom: 26px; padding: 5px 14px 5px 5px; }
+  .hero-badge .seal { width: 22px; height: 22px; }
+  .hero-hello { color: var(--orange); font-weight: 800; font-size: 1.05rem; margin: -8px 0 10px; min-height: 1.4em; }
+  .hero h1 {
+    color: var(--brown);
+    font-size: clamp(2.6rem, 8vw, 5.2rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+  }
+  .hero-sub {
+    color: var(--on-panel-muted);
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    max-width: 500px; margin: 24px auto 34px;
+  }
+  .hero .btn-primary { padding: 18px 44px; font-size: 1.05rem; }
+  .hero-note { color: var(--muted); font-size: 0.78rem; margin-top: 16px; letter-spacing: .02em; }
+  .hero-again { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; color: var(--brown); font-weight: 600; font-size: .9rem; text-decoration: none; border-bottom: 1px solid var(--cream-darker); padding-bottom: 2px; }
+  .hero-again:hover { color: var(--orange); border-color: var(--orange); }
+  .hero-book { width: 70px; height: 70px; margin: 34px auto 0; opacity: 0.35; }
+  @media (max-width: 480px) {
+    .hero { padding: 48px 18px 60px; }
+    .hero-circle.c1 { width: 420px; height: 420px; border-width: 50px; }
+    .hero-circle.c2 { width: 680px; height: 680px; border-width: 38px; }
+    .hero .btn-primary { width: 100%; padding: 17px 24px; }
+  }
+
+  /* ---------- Bande de statistiques (fond #3D1F00) ---------- */
+  .stats { background: var(--panel-grad); padding: 38px 0; }
+  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); }
+  .stat { text-align: center; padding: 10px 16px; border-left: 1px solid var(--on-panel-line); }
+  .stat:first-child { border-left: none; }
+  .stat-num { font-family: var(--font-head); font-weight: 800; font-size: 2.4rem; color: var(--orange); line-height: 1.1; }
+  .stat-lbl { color: var(--on-panel-muted); font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px; font-weight: 600; }
+  @media (max-width: 768px) {
+    .stats-grid { grid-template-columns: 1fr; }
+    .stat { border-left: none; border-top: 1px solid var(--on-panel-line); padding: 16px; }
+    .stat:first-child { border-top: none; }
+  }
+
+  /* ---------- Accès rapide ---------- */
+  .quick { padding: 40px 0 0; }
+  .quick-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .quick-tile { display: flex; flex-direction: column; gap: 10px; text-decoration: none; padding: 20px; }
+  .quick-ico { width: 56px; height: 56px; }
+  .quick-tile h3 { font-size: 1.05rem; }
+  .quick-tile p { font-size: .85rem; color: var(--muted); line-height: 1.5; }
+  @media (max-width: 1024px) { .quick-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 400px) { .quick-tile { padding: 16px; } .quick-tile p { display: none; } }
+
+  /* ---------- Comment ça marche ---------- */
+  .how { padding: 88px 0; }
+  .step-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .step-num { font-family: var(--font-head); font-weight: 800; font-size: 4.2rem; line-height: 1; color: var(--cream-dark); }
+  .step .stk { width: 64px; height: 64px; }
+  .step h3 { margin-bottom: 10px; }
+  .step p { color: var(--muted); }
+
+  /* ---------- Témoignages ---------- */
+  .testi { background: var(--cream-dark); padding: 88px 0; }
+  .t-card { display: flex; flex-direction: column; gap: 18px; }
+  .t-quote { font-size: 1rem; line-height: 1.7; color: var(--brown); }
+  .t-quote::before { content: '“'; font-family: var(--font-head); font-size: 3rem; color: var(--orange); line-height: 0; vertical-align: -0.45em; margin-right: 4px; }
+  .t-who { display: flex; align-items: center; gap: 12px; margin-top: auto; }
+  .t-who .avatar { width: 48px; height: 48px; font-size: 1.05rem; }
+  .t-name { font-weight: 700; }
+  .t-school { display: inline-flex; align-items: center; gap: 6px; font-size: .82rem; color: var(--orange-deep); font-weight: 600; background: rgba(232,100,12,.08); padding: 6px 12px; border-radius: 99px; align-self: flex-start; }
+  .rv-summary { display: flex; align-items: center; gap: 12px; margin-top: 14px; flex-wrap: wrap; }
+  .rv-avg { font-family: var(--font-head); font-weight: 800; font-size: 2.2rem; color: var(--brown); line-height: 1; }
+  .rv-summary .stars { font-size: 1.2rem; }
+  .t-who .flg { width: 26px; height: 26px; }
+
+  /* ---------- CTA finale ---------- */
+  .final { background: var(--panel-grad); text-align: center; padding: 88px 0; }
+  .final h2 { color: var(--on-panel); font-size: clamp(2rem, 5vw, 3.2rem); }
+  .final h2 .orange { color: var(--orange); }
+  .final p { color: var(--on-panel-muted); margin: 14px auto 30px; max-width: 480px; }
+</style>
+</head>
+<body data-page="home">
+<div id="lerna-nav"></div>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-circle c2" aria-hidden="true"></div>
+    <div class="hero-circle c1" aria-hidden="true"></div>
+    <div class="hero-inner">
+      <span class="badge hero-badge fade-up" style="--i:0"><span id="heroSeal"></span><span data-i18n="home.badge">Powered by IA</span></span>
+      <p class="hero-hello fade-up" style="--i:1" id="heroHello"></p>
+      <h1 id="hero-title" class="fade-up" style="--i:1" data-i18n-html="home.title">Dis-moi qui tu es.<br>Je te dis où tu <span class="vas">vas</span>.</h1>
+      <p class="hero-sub fade-up" style="--i:2" data-i18n="home.sub">LERNA apprend à te connaître — ton profil, ton budget, tes ambitions — et te guide vers l'école, la filière et le chemin qui te correspondent vraiment, où que tu sois dans le monde.</p>
+      <div class="fade-up" style="--i:3">
+        <a href="questionnaire.html" class="btn btn-primary" data-i18n="home.cta">Commencer mon orientation →</a>
+        <p class="hero-note" data-i18n="home.note">Gratuit · 5 minutes · Résultat immédiat</p>
+        <a href="resultats.html" class="hero-again hidden" id="heroAgain"><span data-i18n="home.again">Revoir mes résultats</span> →</a>
+      </div>
+      <div class="fade-up" style="--i:4"><svg class="hero-book" viewBox="0 0 64 64" aria-hidden="true">
+        <path d="M32 14C25 9 15 8 6 10v38c9-2 19-1 26 4V14z" fill="#3D1F00" stroke="#FAF3E0" stroke-width="2" stroke-linejoin="round"/>
+        <path d="M32 14c7-5 17-6 26-4v38c-9-2-19-1-26 4V14z" fill="#E8640C" stroke="#FAF3E0" stroke-width="2" stroke-linejoin="round"/>
+      </svg></div>
+    </div>
+  </section>
+
+  <!-- STATISTIQUES -->
+  <section class="stats" aria-label="Chiffres clés">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat reveal" style="--i:0"><div class="stat-num">218M+</div><div class="stat-lbl" data-i18n="home.s1">Étudiants dans le monde</div></div>
+        <div class="stat reveal" style="--i:1"><div class="stat-num">5 min</div><div class="stat-lbl" data-i18n="home.s2">Pour ton orientation</div></div>
+        <div class="stat reveal" style="--i:2"><div class="stat-num">100%</div><div class="stat-lbl" data-i18n="home.s3">Personnalisé pour toi</div></div>
+        <div class="stat reveal" style="--i:3"><div class="stat-num" id="statFree">0 $</div><div class="stat-lbl" data-i18n="home.s4">Pour commencer</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACCÈS RAPIDE -->
+  <section class="quick" aria-label="Accès rapide">
+    <div class="container container-md">
+      <div class="quick-grid" id="quickGrid"></div>
+    </div>
+  </section>
+
+  <!-- COMMENT ÇA MARCHE -->
+  <section class="how">
+    <div class="container container-md">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="home.howEyebrow">Comment ça marche</span>
+        <h2 data-i18n="home.howTitle">Trois étapes. Une vie plus claire.</h2>
+      </div>
+      <div class="grid grid-3">
+        <article class="card card-hover step reveal" style="--i:0">
+          <div class="step-top"><div class="step-num">01</div><img class="stk" src="assets/stickers/clipboard.webp" alt="" aria-hidden="true" width="160" height="160"></div>
+          <h3 data-i18n="home.h1t">Tu réponds aux questions</h3>
+          <p data-i18n="home.h1d">Qui tu es, ce que tu veux, ton budget, tes matières fortes. LERNA t'écoute vraiment.</p>
+        </article>
+        <article class="card card-hover step reveal" style="--i:1">
+          <div class="step-top"><div class="step-num">02</div><img class="stk" src="assets/stickers/magnifier.webp" alt="" aria-hidden="true" width="160" height="160"></div>
+          <h3 data-i18n="home.h2t">L'IA analyse tout</h3>
+          <p data-i18n="home.h2d">Notre intelligence artificielle croise ton profil avec des milliers d'écoles partout dans le monde pour trouver ce qui te correspond vraiment.</p>
+        </article>
+        <article class="card card-hover step reveal" style="--i:2">
+          <div class="step-top"><div class="step-num">03</div><img class="stk" src="assets/stickers/target.webp" alt="" aria-hidden="true" width="160" height="160"></div>
+          <h3 data-i18n="home.h3t">Tu reçois ta feuille de route</h3>
+          <p data-i18n="home.h3d">Les meilleures écoles pour toi, expliquées. Avec les stages et bourses qui correspondent à ton profil.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVIS RÉELS — la section s'affiche seule à partir de 3 avis vérifiés (table avis_app) -->
+  <section class="testi hidden" id="reviews" aria-labelledby="reviewsTitle">
+    <div class="container container-md">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="home.tEyebrow">Ils utilisent LERNA</span>
+        <h2 id="reviewsTitle" data-i18n="home.tTitle">Ce qu'en disent les élèves.</h2>
+        <div class="rv-summary" id="rvSummary"></div>
+      </div>
+      <div class="grid grid-3" id="rvList"></div>
+      <div class="center" id="rvGoogle" style="margin-top:22px"></div>
+    </div>
+  </section>
+
+  <!-- CTA FINALE -->
+  <section class="final">
+    <div class="container container-sm reveal">
+      <h2 data-i18n-html="home.finalTitle">Ton avenir mérite de la <span class="orange">clarté</span>.</h2>
+      <p data-i18n="home.finalSub">25 questions, des écoles réelles, des coûts honnêtes, dans ta devise. Commence maintenant.</p>
+      <a href="questionnaire.html" class="btn btn-primary" data-i18n="home.finalCta">Trouver mon orientation →</a>
+    </div>
+  </section>
+</main>
+
+<div id="lerna-footer"></div>
+
+<script src="assets/js/core.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'home.docTitle': 'LERNA — Ton orientation, enfin claire',
+    'home.badge': 'Powered by IA',
+    'home.title': 'Dis-moi qui tu es.<br>Je te dis où tu <span class="vas">vas</span>.',
+    'home.sub': "LERNA apprend à te connaître — ton profil, ton budget, tes ambitions — et te guide vers l'école, la filière et le chemin qui te correspondent vraiment, où que tu sois dans le monde.",
+    'home.cta': 'Commencer mon orientation →',
+    'home.note': 'Gratuit · 5 minutes · Résultat immédiat',
+    'home.again': 'Revoir mes résultats',
+    'home.s1': 'Étudiants dans le monde', 'home.s2': 'Pour ton orientation', 'home.s3': 'Personnalisé pour toi', 'home.s4n': '0 $', 'home.s4': 'Pour commencer',
+    'home.q1t': 'Mon orientation', 'home.q1d': '25 questions, tes écoles idéales expliquées.',
+    'home.q2t': 'Explorer les écoles', 'home.q2d': 'Coûts réels, points forts et points faibles.',
+    'home.q3t': 'Opportunités', 'home.q3d': 'Bourses, stages et emplois avec leurs dates.',
+    'home.q4t': 'Mon espace', 'home.q4d': 'Favoris, rappels et ton assistant IA.',
+    'home.howEyebrow': 'Comment ça marche', 'home.howTitle': 'Trois étapes. Une vie plus claire.',
+    'home.h1t': 'Tu réponds aux questions', 'home.h1d': "Qui tu es, ce que tu veux, ton budget, tes matières fortes. LERNA t'écoute vraiment.",
+    'home.h2t': "L'IA analyse tout", 'home.h2d': "Notre intelligence artificielle croise ton profil avec des milliers d'écoles partout dans le monde pour trouver ce qui te correspond vraiment.",
+    'home.h3t': 'Tu reçois ta feuille de route', 'home.h3d': 'Les meilleures écoles pour toi, expliquées. Avec les stages et bourses qui correspondent à ton profil.',
+    'home.tEyebrow': 'Ils utilisent LERNA', 'home.tTitle': "Ce qu'en disent les élèves.", 'home.rvCount': '{n} avis vérifiés', 'home.rvGoogle': 'Voir nos avis Google',
+    'home.finalTitle': 'Ton avenir mérite de la <span class="orange">clarté</span>.',
+    'home.finalSub': '25 questions, des écoles réelles, des coûts honnêtes, dans ta devise. Commence maintenant.',
+    'home.finalCta': 'Trouver mon orientation →'
+  },
+  en: {
+    'home.docTitle': 'LERNA — Your path, finally clear',
+    'home.badge': 'Powered by AI',
+    'home.title': "Tell me who you are.<br>I'll tell you where you're <span class=\"vas\">going</span>.",
+    'home.sub': 'LERNA gets to know you — your profile, your budget, your ambitions — and guides you to the school, programme and path that truly fit you, wherever you are in the world.',
+    'home.cta': 'Start my orientation →',
+    'home.note': 'Free · 5 minutes · Instant result',
+    'home.again': 'See my results again',
+    'home.s1': 'Students worldwide', 'home.s2': 'For your orientation', 'home.s3': 'Personalised for you', 'home.s4n': '$0', 'home.s4': 'To get started',
+    'home.q1t': 'My orientation', 'home.q1d': '25 questions, your ideal schools explained.',
+    'home.q2t': 'Explore schools', 'home.q2d': 'Real costs, strengths and weaknesses.',
+    'home.q3t': 'Opportunities', 'home.q3d': 'Scholarships, internships and jobs with deadlines.',
+    'home.q4t': 'My space', 'home.q4d': 'Favourites, reminders and your AI assistant.',
+    'home.howEyebrow': 'How it works', 'home.howTitle': 'Three steps. A clearer life.',
+    'home.h1t': 'You answer the questions', 'home.h1d': 'Who you are, what you want, your budget, your strong subjects. LERNA really listens.',
+    'home.h2t': 'The AI analyses everything', 'home.h2d': 'Our artificial intelligence matches your profile against thousands of schools around the world to find what truly fits you.',
+    'home.h3t': 'You get your roadmap', 'home.h3d': 'The best schools for you, explained. With the internships and scholarships that match your profile.',
+    'home.tEyebrow': 'They use LERNA', 'home.tTitle': 'What students say.', 'home.rvCount': '{n} verified reviews', 'home.rvGoogle': 'See our Google reviews',
+    'home.finalTitle': 'Your future deserves <span class="orange">clarity</span>.',
+    'home.finalSub': '25 questions, real schools, honest costs in your currency. Start now.',
+    'home.finalCta': 'Find my orientation →'
+  }
+});
+
+Lerna.ready(function () {
+  document.getElementById('heroSeal').innerHTML = Lerna.seal();
+  /* Salutation selon l'heure (avec le pseudo une fois inscrit) et « 0 » dans la devise de la personne */
+  function renderHello() {
+    document.getElementById('heroHello').textContent = Lerna.greeting();
+    document.getElementById('statFree').textContent = Lerna.money(0);
+  }
+  renderHello();
+  Lerna.on('lerna:auth', renderHello);
+  Lerna.on('lerna:country', renderHello);
+  function renderQuick() {
+    var t = Lerna.t;
+    var tiles = [
+      ['questionnaire.html', 'compass', 'home.q1t', 'home.q1d'],
+      ['explorer.html', 'school', 'home.q2t', 'home.q2d'],
+      ['opportunites.html', 'medal', 'home.q3t', 'home.q3d'],
+      ['espace.html', 'backpack', 'home.q4t', 'home.q4d']
+    ];
+    document.getElementById('quickGrid').innerHTML = tiles.map(function (x, i) {
+      return '<a class="card card-hover quick-tile reveal" style="--i:' + i + '" href="' + x[0] + '">' + Lerna.sticker(x[1], 'quick-ico') + '<h3>' + t(x[2]) + '</h3><p>' + t(x[3]) + '</p></a>';
+    }).join('');
+    Lerna.initReveal();
+  }
+  /* Vrais avis uniquement : rien n'est affiché tant qu'il n'y a pas au moins 3 avis vérifiés */
+  var reviews = null;
+  function renderReviews() {
+    var t = Lerna.t, esc = Lerna.esc, g = Lerna.config.googleReviewUrl;
+    var sec = document.getElementById('reviews');
+    if (!reviews || reviews.count < 3 || !reviews.items.length) { sec.classList.add('hidden'); return; }
+    var stars = function (n) { var h = ''; for (var i = 1; i <= 5; i++) h += i <= Math.round(n) ? '★' : '<span class="off">★</span>'; return '<span class="stars" aria-label="' + n + '/5">' + h + '</span>'; };
+    document.getElementById('rvSummary').innerHTML = '<span class="rv-avg">' + String(reviews.average).replace('.', Lerna.lang === 'fr' ? ',' : '.') + '</span>' + stars(reviews.average) + '<span class="muted small">' + t('home.rvCount', { n: reviews.count }) + '</span>';
+    document.getElementById('rvList').innerHTML = reviews.items.slice(0, 6).map(function (r, i) {
+      return '<article class="card t-card reveal" style="--i:' + (i % 3) + '">' + stars(r.note) + '<p class="t-quote">' + esc(r.commentaire) + '</p>' +
+        '<div class="t-who"><span class="avatar">' + esc((r.prenom || '?').charAt(0).toUpperCase()) + '</span><div><div class="t-name">' + esc(r.prenom || '') + '</div>' +
+        (r.pays ? '<div class="small muted">' + Lerna.flag(r.pays) + ' ' + esc(window.LERNA_COUNTRY_NAME ? window.LERNA_COUNTRY_NAME(r.pays) : r.pays) + '</div>' : '') + '</div></div></article>';
+    }).join('');
+    document.getElementById('rvGoogle').innerHTML = g ? '<a class="btn btn-white" href="' + esc(g) + '" target="_blank" rel="noopener">' + Lerna.googleIcon + t('home.rvGoogle') + '</a>' : '';
+    sec.classList.remove('hidden');
+    Lerna.initReveal();
+  }
+  renderQuick();
+  Lerna.onLang(function () { renderQuick(); renderReviews(); renderHello(); });
+  if (Lerna.store.raw('lerna_results')) document.getElementById('heroAgain').classList.remove('hidden');
+  Lerna.auth.ready.then(function () {
+    if (!Lerna.config.live) return;
+    fetch('/api/review', { headers: { Accept: 'application/json' } }).then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) { if (d) { reviews = d; renderReviews(); } }).catch(function () {});
+  });
+});
+</script>
+</body>
+</html>

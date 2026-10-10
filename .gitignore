@@ -1,0 +1,12 @@
+# Secrets : JAMAIS dans Git. Les clés vivent uniquement dans Vercel → Settings → Environment Variables.
+.env
+.env.*
+!.env.example
+
+# Outils
+node_modules/
+.vercel/
+.DS_Store
+*.log
+__pycache__/
+*.pyc

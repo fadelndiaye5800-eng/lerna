@@ -1,0 +1,9 @@
+# Fichiers à NE PAS publier sur le site (ils restent dans GitHub)
+# - supabase/ : schéma, données de départ et fiches complètes des offres Premium
+# - scripts/  : outils de génération
+# - documentation et modèles
+supabase/
+scripts/
+README.md
+*.md
+.env.example
