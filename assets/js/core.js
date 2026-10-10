@@ -1857,6 +1857,12 @@
     setTimeout(askMe, 2500);
     Prefs.apply();          // la version gagnante décidée depuis /admin peut changer le thème par défaut
     A.init();
+    /* Vercel Web Analytics (visites et pages vues, sans cookie) : seulement en ligne, et si la personne n'a pas coupé les statistiques */
+    if (Lerna.config.live && Prefs.get('analytics') !== false && !doc.getElementById('vercel-insights')) {
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+      var vs = doc.createElement('script'); vs.id = 'vercel-insights'; vs.defer = true; vs.src = '/_vercel/insights/script.js';
+      doc.head.appendChild(vs);
+    }
     var v = Daily.visits();
     A.capture('app_open', { page: page(), days_since_first: v.first ? Math.floor((Date.now() - new Date(v.first).getTime()) / 864e5) : 0, visit_days: v.days.length });
     Lerna.detectCountry();
