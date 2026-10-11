@@ -122,9 +122,12 @@
 
     // Budget — variable n°1
     var bs = ph('q17s', a.q17, lang);
-    if (fee <= max) {
-      add(30, fee === 0 ? 'Pas de frais de scolarité : ça colle avec ton budget ' + bs + '.' : 'Ses frais (≈ ' + money(fee, 'fr') + ' par an pour toi) entrent dans ton budget ' + bs + '.',
-        fee === 0 ? 'No tuition fees: it fits your ' + bs + ' budget.' : 'Its fees (≈ ' + money(fee, 'en') + ' a year for you) fit your ' + bs + ' budget.');
+    /* Frais pas encore vérifiés sur le site officiel : on n'exclut pas l'école, on le dit franchement */
+    if (fee === null || fee === undefined) {
+      add(4, 'Ses frais ne sont pas encore vérifiés par LERNA : confirme-les sur le site officiel avant de décider.', 'Its fees are not yet verified by LERNA: confirm them on the official website before deciding.');
+    } else if (fee <= max) {
+      add(30, fee === 0 ? 'Pas de frais de scolarité : ça colle avec ton budget ' + bs + '.' : 'Ses frais (à partir de ≈ ' + money(fee, 'fr') + ' par an pour toi, selon la filière) entrent dans ton budget ' + bs + '.',
+        fee === 0 ? 'No tuition fees: it fits your ' + bs + ' budget.' : 'Its fees (from ≈ ' + money(fee, 'en') + ' a year for you, depending on the programme) fit your ' + bs + ' budget.');
       if (fee <= max * 0.5 && max !== Infinity) raw += 4;
     } else if (AID[s.id] && (has(a.q16, 'bourse') || has(a.q16, 'cherche') || has(a.q16, 'pret'))) {
       viaAid = true;
@@ -224,7 +227,8 @@
     }
     if (reasons.length < 3) reasons.push(L(s.forts[0], lang) + '.');
     var fee = m.fee;
-    var feeTxt = (fee === 0 ? (en ? 'No tuition' : 'Pas de frais de scolarité') : '≈ ' + money(fee, lang) + (en ? '/year' : '/an')) + (m.local ? '' : (en ? ' (international)' : ' (étranger)'));
+    var feeTxt = fee === null || fee === undefined ? (en ? 'Fees to be confirmed on the official website' : 'Frais à confirmer sur le site officiel')
+      : (fee === 0 ? (en ? 'No tuition' : 'Pas de frais de scolarité') : (en ? 'From ≈ ' : 'À partir de ≈ ') + money(fee, lang) + (en ? '/year' : '/an')) + (m.local ? '' : (en ? ' (international)' : ' (étranger)'));
     var pickF = s.faibles.filter(function (f) { return !m.local || !/étranger|international|visa|non-EU|hors UE/i.test(f.fr + ' ' + f.en); })[0] || s.faibles[0];
     var attention = L(pickF, lang);
     if (m.viaAid) attention = (en ? 'Funding depends on a competitive scholarship or aid. ' : "Le financement dépend d'une bourse ou d'une aide compétitive. ") + attention;

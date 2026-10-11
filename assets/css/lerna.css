@@ -400,16 +400,16 @@ p { line-height: 1.65; }
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
 }
 .logo {
-  font-family: var(--font-head);
-  font-weight: 800;
-  font-size: 1.32rem;
-  letter-spacing: 0.08em;      /* lettres bien séparées, une seule couleur : logo sobre */
+  font-family: var(--font-title);
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;      /* police d'origine, lettres régulièrement espacées */
   color: var(--brown);
   text-decoration: none;
   line-height: 1;
   white-space: nowrap;
 }
-.logo .n { color: inherit; }
+.logo .n { color: var(--orange); }
 .logo-txt { display: inline-block; }
 .logo.on-dark { color: var(--c-cream); }
 .nav-links { display: flex; align-items: center; gap: 6px; list-style: none; }
@@ -528,7 +528,7 @@ p { line-height: 1.65; }
   .nav-burger { display: inline-flex; }
   .nav-links, .nav-cta, .nav-login { display: none; }
   .nav-account.guest { display: inline-flex; }
-  .logo { justify-self: center; font-size: 1.2rem; }
+  .logo { justify-self: center; font-size: 1.36rem; }
   .nav-right { gap: 8px; }
   .nav-account { width: 36px; height: 36px; font-size: 0.85rem; }
   .lang-switch button { padding: 5px 8px; min-width: 30px; font-size: 0.7rem; }
@@ -538,7 +538,7 @@ p { line-height: 1.65; }
   .section { padding: 56px 0; }
 }
 @media (max-width: 360px) {
-  .logo { font-size: 1.12rem; }
+  .logo { font-size: 1.26rem; }
   .lang-switch button { padding: 5px 6px; min-width: 26px; }
 }
 

@@ -208,10 +208,15 @@ Lerna.addStrings({
     { n: 'Uniplaces', u: 'https://www.uniplaces.com', r: ['europe'] }
   ];
 
-  /* Frais de l'IA (en dollars) affichés dans la devise de la personne quand le montant chiffré est connu */
+  /* Frais : seulement ceux vérifiés dans la fiche LERNA de l'école (tarif le plus bas, selon la filière).
+     Le chiffre proposé par l'IA n'est jamais affiché tel quel : sans fiche vérifiée → « à confirmer ». */
   function feeLocal(r) {
-    if (typeof r.frais_usd !== 'number' || Lerna.currency() === 'USD') return r.frais;
-    return r.frais_usd === 0 ? t('common.free') : '≈ ' + Lerna.money(r.frais_usd) + (Lerna.lang === 'en' ? ' / year' : ' / an');
+    var en = Lerna.lang === 'en';
+    var school = (r.id && window.LERNA_SCHOOL(r.id)) || window.LERNA_FIND_SCHOOL(r.nom);
+    var f = school ? window.LERNA_FEE_FOR(school, Lerna.country()) : null;
+    if (f === null || f === undefined) return en ? 'Fees to confirm on the official website' : 'Frais à confirmer sur le site officiel';
+    if (f === 0) return t('common.free');
+    return (en ? 'From ≈ ' : 'À partir de ≈ ') + Lerna.money(f) + (en ? ' / year · by programme' : ' / an · selon la filière');
   }
   function recoCard(r, i) {
     var school = (r.id && window.LERNA_SCHOOL(r.id)) || window.LERNA_FIND_SCHOOL(r.nom);
@@ -224,7 +229,7 @@ Lerna.addStrings({
       '<div class="meta-row">' +
         '<span class="tag">' + Lerna.icon('pin', 'ic-sm') + esc([r.ville, r.pays].filter(Boolean).join(', ')) + '</span>' +
         '<span class="tag">' + esc(t('rs.type', { t: r.type || '—' })) + '</span>' +
-        '<span class="tag"' + (feeLocal(r) !== r.frais ? ' title="' + esc(r.frais) + '"' : '') + '>' + Lerna.icon('dollar', 'ic-sm') + esc(feeLocal(r)) + '</span>' +
+        '<span class="tag">' + Lerna.icon('dollar', 'ic-sm') + esc(feeLocal(r)) + '</span>' +
       '</div>' +
       '<div class="compat"><div class="compat-top"><span>' + t('rs.compat') + '</span><strong>' + score + '%</strong></div>' +
         '<div class="bar"><span data-w="' + score + '"></span></div></div>' +

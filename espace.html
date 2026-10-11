@@ -156,7 +156,7 @@ Lerna.addStrings({
     'sp.favs': 'Mes écoles favorites', 'sp.noFavs': 'Aucune école en favori', 'sp.noFavsSub': 'Ajoute des écoles depuis Explorer ou tes résultats.', 'sp.explore': 'Explorer les écoles →',
     'sp.cmpTitle': 'Comparer deux écoles côte à côte', 'sp.cmpPremium': 'La comparaison détaillée entre deux écoles fait partie de Premium.', 'sp.cmpNeed': 'Il faut au moins deux écoles (favoris ou recommandations).',
     'sp.cmpA': 'École A', 'sp.cmpB': 'École B', 'sp.cmpGo': 'Comparer',
-    'sp.cFee': 'Frais pour toi / an', 'sp.cTotal': 'Total estimé / an', 'sp.cDur': 'Durée des études', 'sp.cLang': 'Langues', 'sp.cType': 'Type', 'sp.cCity': 'Ville', 'sp.cIntl': 'Reconnaissance', 'sp.cCampus': 'Vie de campus', 'sp.cWeak': 'Point faible', 'sp.cScore': 'Score pour ton profil',
+    'sp.from': 'Dès', 'sp.feeTodo': 'À confirmer sur le site officiel', 'sp.cFee': 'Frais pour toi / an', 'sp.cTotal': 'Total estimé / an', 'sp.cDur': 'Durée des études', 'sp.cLang': 'Langues', 'sp.cType': 'Type', 'sp.cCity': 'Ville', 'sp.cIntl': 'Reconnaissance', 'sp.cCampus': 'Vie de campus', 'sp.cWeak': 'Point faible', 'sp.cScore': 'Score pour ton profil',
     'sp.lvl1': 'Locale', 'sp.lvl2': 'Régionale', 'sp.lvl3': 'Internationale', 'sp.camp1': 'Faible / à distance', 'sp.camp2': 'Moyenne', 'sp.camp3': 'Riche',
     'sp.premiumBtn': 'Voir Premium →', 'sp.unlock': 'Débloquer',
     'sp.trackTitle': 'Suivi de mes candidatures', 'sp.trackSub': 'Garde une trace de chaque dossier : école, bourse ou stage.', 'sp.trackPremium': 'Le suivi des candidatures fait partie de Premium.',
@@ -218,7 +218,7 @@ Lerna.addStrings({
     'sp.favs': 'My favourite schools', 'sp.noFavs': 'No favourite school yet', 'sp.noFavsSub': 'Add schools from Explore or from your results.', 'sp.explore': 'Explore schools →',
     'sp.cmpTitle': 'Compare two schools side by side', 'sp.cmpPremium': 'The detailed comparison of two schools is part of Premium.', 'sp.cmpNeed': 'You need at least two schools (favourites or recommendations).',
     'sp.cmpA': 'School A', 'sp.cmpB': 'School B', 'sp.cmpGo': 'Compare',
-    'sp.cFee': 'Fees for you / year', 'sp.cTotal': 'Estimated total / year', 'sp.cDur': 'Length of study', 'sp.cLang': 'Languages', 'sp.cType': 'Type', 'sp.cCity': 'City', 'sp.cIntl': 'Recognition', 'sp.cCampus': 'Campus life', 'sp.cWeak': 'Weak point', 'sp.cScore': 'Score for your profile',
+    'sp.from': 'From', 'sp.feeTodo': 'To confirm on the official website', 'sp.cFee': 'Fees for you / year', 'sp.cTotal': 'Estimated total / year', 'sp.cDur': 'Length of study', 'sp.cLang': 'Languages', 'sp.cType': 'Type', 'sp.cCity': 'City', 'sp.cIntl': 'Recognition', 'sp.cCampus': 'Campus life', 'sp.cWeak': 'Weak point', 'sp.cScore': 'Score for your profile',
     'sp.lvl1': 'Local', 'sp.lvl2': 'Regional', 'sp.lvl3': 'International', 'sp.camp1': 'Limited / remote', 'sp.camp2': 'Moderate', 'sp.camp3': 'Rich',
     'sp.premiumBtn': 'See Premium →', 'sp.unlock': 'Unlock',
     'sp.trackTitle': 'My application tracker', 'sp.trackSub': 'Keep track of every application: school, scholarship or internship.', 'sp.trackPremium': 'Application tracking is part of Premium.',
@@ -267,6 +267,8 @@ Lerna.addStrings({
   function chatCount() { var c = store.get('lerna_chat_count', null); return c && c.d === Lerna.today() ? c.n : 0; }
   function bumpChat() { store.set('lerna_chat_count', { d: Lerna.today(), n: chatCount() + 1 }); }
   function fee(s) { return window.LERNA_FEE_FOR(s, country()); }
+  /* Frais affichés : « dès X » (tarif le plus bas, selon la filière) ou « à confirmer » si pas encore vérifié */
+  function feeTxt(s) { var f = fee(s); return f === null ? t('sp.feeTodo') : f === 0 ? t('common.free') : t('sp.from') + ' ' + Lerna.money(f); }
   function stars(n) { return n; }
 
   /* ---------- Vue d'ensemble ---------- */
@@ -392,7 +394,7 @@ Lerna.addStrings({
       if (pool.length < 2 || !answers) return t('sp.a4none');
       var A = pool[0], B = pool[1], sa = window.LernaEngine.compat(A.id, answers, Lerna.lang), sb = window.LernaEngine.compat(B.id, answers, Lerna.lang);
       var dur = function (s) { return t('common.years', { n: s.duree[0] }) + (s.duree[1] !== s.duree[0] ? '–' + s.duree[1] : ''); };
-      return t('sp.a4', { a: A.nom, b: B.nom, sa: sa, sb: sb, fa: Lerna.money(fee(A)), fb: Lerna.money(fee(B)), da: dur(A), db: dur(B), wa: L(A.faibles[0]).toLowerCase(), wb: L(B.faibles[0]).toLowerCase(), win: sa >= sb ? A.nom : B.nom });
+      return t('sp.a4', { a: A.nom, b: B.nom, sa: sa, sb: sb, fa: feeTxt(A), fb: feeTxt(B), da: dur(A), db: dur(B), wa: L(A.faibles[0]).toLowerCase(), wb: L(B.faibles[0]).toLowerCase(), win: sa >= sb ? A.nom : B.nom });
     }
     return null;
   }
@@ -448,7 +450,7 @@ Lerna.addStrings({
     var favs = Lerna.favs.list().map(window.LERNA_SCHOOL).filter(Boolean);
     var h = '<section class="blk"><div class="blk-head"><h2>' + Lerna.icon('heart') + t('sp.favs') + '</h2><a class="btn-link" href="explorer.html">' + t('sp.explore') + '</a></div>';
     h += favs.length ? '<div class="list">' + favs.map(function (s) {
-      return '<div class="row-item">' + Lerna.flag(s.pays, 'flag-img') + '<a class="grow" style="text-decoration:none" href="ecole.html?id=' + s.id + '"><h4>' + esc(s.nom) + '</h4><div class="sub">' + esc(s.ville) + ' · ' + (fee(s) === 0 ? t('common.free') : Lerna.money(fee(s))) + ' ' + t('common.perYear') + '</div></a>' +
+      return '<div class="row-item">' + Lerna.flag(s.pays, 'flag-img') + '<a class="grow" style="text-decoration:none" href="ecole.html?id=' + s.id + '"><h4>' + esc(s.nom) + '</h4><div class="sub">' + esc(s.ville) + ' · ' + feeTxt(s) + (fee(s) ? ' ' + t('common.perYear') : '') + '</div></a>' +
         '<button type="button" class="icon-btn" data-unfav="' + s.id + '" aria-label="' + esc(t('common.favRemoved')) + '">' + Lerna.icon('trash', 'ic-sm') + '</button></div>';
     }).join('') + '</div>' : '<div class="empty">' + Lerna.icon('heart') + '<h4>' + t('sp.noFavs') + '</h4><p>' + t('sp.noFavsSub') + '</p></div>';
     h += '</section>';
@@ -471,19 +473,19 @@ Lerna.addStrings({
   function compareTable(a, b) {
     var A = window.LERNA_SCHOOL(a), B = window.LERNA_SCHOOL(b);
     if (!A || !B) return '';
-    var tot = function (s) { return fee(s) + s.inscription + 12 * (s.logement[0] + s.vie[0]); };
+    var tot = function (s) { return fee(s) === null ? null : fee(s) + (s.inscription || 0) + (s.type === 'online' ? 0 : 12 * (s.logement[0] + s.vie[0])); };
     var sa = answers ? window.LernaEngine.compat(A.id, answers, Lerna.lang) : null, sb = answers ? window.LernaEngine.compat(B.id, answers, Lerna.lang) : null;
     var typ = function (s) { return t(s.type === 'public' ? 'common.public' : s.type === 'private' ? 'common.private' : 'common.online'); };
     var langs = function (s) { return s.langues.map(function (l) { return ({ fr: 'FR', en: 'EN', de: 'DE', ar: 'AR' })[l] || l.toUpperCase(); }).join(' · '); };
     var row = function (label, va, vb, better) {
       return '<tr><th scope="row">' + label + '</th><td class="' + (better === 'a' ? 'win' : '') + '">' + va + '</td><td class="' + (better === 'b' ? 'win' : '') + '">' + vb + '</td></tr>';
     };
-    var lower = function (x, y) { return x < y ? 'a' : y < x ? 'b' : ''; };
+    var lower = function (x, y) { if (x === null || y === null) return ''; return x < y ? 'a' : y < x ? 'b' : ''; };
     var higher = function (x, y) { return x > y ? 'a' : y > x ? 'b' : ''; };
     return '<table class="cmp-table"><thead><tr><th></th><th>' + esc(A.nom) + '</th><th>' + esc(B.nom) + '</th></tr></thead><tbody>' +
       (sa !== null ? row(t('sp.cScore'), sa + '/100', sb + '/100', higher(sa, sb)) : '') +
-      row(t('sp.cFee'), Lerna.money(fee(A)), Lerna.money(fee(B)), lower(fee(A), fee(B))) +
-      row(t('sp.cTotal'), '≈ ' + Lerna.money(tot(A)), '≈ ' + Lerna.money(tot(B)), lower(tot(A), tot(B))) +
+      row(t('sp.cFee'), feeTxt(A), feeTxt(B), lower(fee(A), fee(B))) +
+      row(t('sp.cTotal'), tot(A) === null ? t('sp.feeTodo') : t('sp.from') + ' ≈ ' + Lerna.money(tot(A)), tot(B) === null ? t('sp.feeTodo') : t('sp.from') + ' ≈ ' + Lerna.money(tot(B)), lower(tot(A), tot(B))) +
       row(t('sp.cDur'), A.duree[0] + '–' + A.duree[1], B.duree[0] + '–' + B.duree[1], '') +
       row(t('sp.cLang'), langs(A), langs(B), '') +
       row(t('sp.cType'), typ(A), typ(B), '') +

@@ -61,6 +61,22 @@
   .cost.total { grid-column: 1 / -1; background: var(--panel-grad); border-color: var(--cream-darker); }
   .cost.total .lbl { color: var(--on-panel-muted); }
   .cost.total .val { color: var(--orange); font-size: 1.7rem; }
+  .fee-card h3 { margin-bottom: 6px; }
+  .fee-status { display: inline-flex; align-items: center; gap: 6px; font-size: .8rem; font-weight: 700; padding: 5px 11px; border-radius: 99px; margin-bottom: 14px; }
+  .fee-status.ok { background: var(--olive-bg); color: var(--olive); }
+  .fee-status.todo { background: var(--orange-soft); color: var(--orange-deep); }
+  .fee-rows { display: grid; gap: 10px; }
+  .fee-row { display: flex; justify-content: space-between; gap: 14px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--cream-dark); }
+  .fee-row:last-child { border-bottom: none; }
+  .fee-row .k { color: var(--muted); font-size: .88rem; font-weight: 600; }
+  .fee-row .v { text-align: right; font-weight: 800; color: var(--brown); }
+  .fee-row .v small { display: block; font-weight: 500; color: var(--muted); font-size: .76rem; }
+  .fee-note { font-size: .88rem; color: var(--muted); margin-top: 12px; line-height: 1.6; }
+  .fee-fil { margin-top: 16px; }
+  .fee-fil h4 { font-size: .95rem; margin-bottom: 4px; }
+  .fee-warn { display: flex; gap: 10px; align-items: flex-start; background: var(--cream); border-radius: 14px; padding: 14px 16px; font-size: .88rem; color: var(--brown); line-height: 1.55; }
+  .fee-warn .ic { width: 18px; height: 18px; color: var(--orange); flex-shrink: 0; margin-top: 2px; }
+  .kv .fee-v { font-weight: 700; }
 
   .life { display: grid; gap: 12px; }
   @media (min-width: 768px) { .life { grid-template-columns: 1fr 1fr; } }
@@ -124,6 +140,14 @@ Lerna.addStrings({
     'ec.filNote': "Sélection de filières représentatives. La liste complète est sur le site officiel.",
     'ec.conditions': "Conditions d'accès", 'ec.documents': 'Documents requis', 'ec.deadlines': 'Dates limites', 'ec.process': 'Processus étape par étape',
     'ec.official': 'Site officiel de l’établissement',
+    'ec.feeTitle': 'Frais de scolarité par an', 'ec.feeOk': 'Vérifié sur le site officiel · {y}', 'ec.feeTodo': 'Pas encore vérifié par LERNA',
+    'ec.feeTodoSub': "LERNA n'affiche que des montants vérifiés sur le site officiel de l'école. Pour cette école, la vérification n'est pas terminée : consulte la page officielle pour connaître le prix exact de ta filière.",
+    'ec.feeLocal': 'Étudiant du pays ({c})', 'ec.feeIntl': 'Étudiant étranger', 'ec.feeEU': 'Étudiant UE / EEE', 'ec.feeNonEU': 'Étudiant hors UE (Afrique…)',
+    'ec.feeUnknown': 'Non publié — demande à l’école', 'ec.feeByFil': 'Par filière (tarifs publiés)', 'ec.feeAsk': 'Prix à demander à l’école',
+    'ec.feeSource': 'Voir la page officielle des frais', 'ec.feeOfficial': 'Voir les frais sur le site officiel', 'ec.filFee': 'Frais par an',
+    'ec.cTotalFrom': 'Budget minimum estimé par an pour toi (scolarité la moins chère + logement + vie)', 'ec.from': 'À partir de',
+    'ec.livingNote': 'Logement et vie courante : estimations indicatives, elles varient selon ton mode de vie.',
+    'ec.feeWarn': "LERNA peut se tromper. Les frais changent selon la filière, l'année d'études et ton statut (local, étranger, boursier). Avant de décider ou de payer, confirme toujours le montant sur le site officiel ou auprès du service des admissions de l'école.",
     'ec.cLocal': 'Frais annuels — étudiants locaux', 'ec.cIntl': 'Frais annuels — étudiants étrangers', 'ec.cReg': "Frais d'inscription (une fois)",
     'ec.cHousing': 'Logement / mois', 'ec.cLiving': 'Vie courante / mois', 'ec.cTotal': 'Total estimé par an pour toi (scolarité + logement + vie)',
     'ec.cOnline': 'Tu étudies depuis chez toi : pas de logement à prévoir',
@@ -156,6 +180,14 @@ Lerna.addStrings({
     'ec.filNote': 'A selection of representative programmes. The full list is on the official website.',
     'ec.conditions': 'Entry requirements', 'ec.documents': 'Required documents', 'ec.deadlines': 'Deadlines', 'ec.process': 'Step-by-step process',
     'ec.official': 'Official website',
+    'ec.feeTitle': 'Tuition fees per year', 'ec.feeOk': 'Verified on the official website · {y}', 'ec.feeTodo': 'Not yet verified by LERNA',
+    'ec.feeTodoSub': 'LERNA only shows amounts verified on the school’s official website. For this school, verification is not finished: check the official page for the exact price of your programme.',
+    'ec.feeLocal': 'Home student ({c})', 'ec.feeIntl': 'International student', 'ec.feeEU': 'EU / EEA student', 'ec.feeNonEU': 'Non-EU student (Africa…)',
+    'ec.feeUnknown': 'Not published — ask the school', 'ec.feeByFil': 'By programme (published fees)', 'ec.feeAsk': 'Ask the school for the price',
+    'ec.feeSource': 'See the official fees page', 'ec.feeOfficial': 'See fees on the official website', 'ec.filFee': 'Fees per year',
+    'ec.cTotalFrom': 'Estimated minimum budget per year for you (cheapest tuition + housing + living)', 'ec.from': 'From',
+    'ec.livingNote': 'Housing and living costs: indicative estimates, they vary with your lifestyle.',
+    'ec.feeWarn': 'LERNA can be wrong. Fees change with the programme, the year of study and your status (home, international, scholarship). Before deciding or paying, always confirm the amount on the official website or with the school’s admissions office.',
     'ec.cLocal': 'Yearly fees — local students', 'ec.cIntl': 'Yearly fees — international students', 'ec.cReg': 'Registration fee (one-off)',
     'ec.cHousing': 'Housing / month', 'ec.cLiving': 'Living costs / month', 'ec.cTotal': 'Estimated yearly total for you (tuition + housing + living)',
     'ec.cOnline': 'You study from home: no housing to budget for',
@@ -209,6 +241,7 @@ Lerna.addStrings({
         '<div class="kv"><span>' + t('ec.duration') + '</span>' + yrs(f.duree) + '</div>' +
         '<div class="kv"><span>' + t('ec.level') + '</span>' + esc(L(f.niveau)) + '</div>' +
         '<div class="kv"><span>' + t('ec.language') + '</span>' + esc(f.langue) + '</div>' +
+        '<div class="kv"><span>' + t('ec.filFee') + '</span>' + filFee(f) + '</div>' +
         '<div class="kv" style="grid-column:1/-1"><span>' + t('ec.outcomes') + '</span>' + esc(L(f.debouches)) + '</div>' +
       '</div></div>';
     }).join('') + '<p class="small muted">' + t('ec.filNote') + '</p></div>';
@@ -244,26 +277,64 @@ Lerna.addStrings({
       '<a class="btn btn-primary btn-sm" href="dossier.html?ecole=' + s.id + '" data-dossier="' + s.id + '">' + t(has ? 'ec.dossierGo' : 'ec.dossierStart') + '</a></div></div>';
     return h;
   }
+  /* Frais d'une filière : tarif officiel publié, sinon on renvoie vers l'école (jamais de chiffre inventé) */
+  function filFee(f) {
+    var F = s.fees, lang = Lerna.lang;
+    if (!f.frais || !F) return '<span class="pending">' + t('ec.feeAsk') + '</span>';
+    var local = userCountry && userCountry === s.pays;
+    var r = (local ? f.frais.local : f.frais.etranger) || f.frais.local || f.frais.etranger;
+    return '<span class="fee-v">' + esc(window.LERNA_FEE_RANGE(r, F.devise, lang)) + '</span>' + (f.frais.detail ? ' <span class="small muted">· ' + esc(L(f.frais.detail)) + '</span>' : '');
+  }
+  function feeVal(r, cur) {
+    if (!r) return '<span class="pending">' + t('ec.feeUnknown') + '</span>';
+    var lang = Lerna.lang, u0 = window.LERNA_TO_USD(r[0], cur), u1 = window.LERNA_TO_USD(r[1], cur);
+    var approx = cur === Lerna.currency() || (cur === 'USD' && Lerna.currency() === 'USD') || (r[0] === 0 && r[1] === 0) ? '' :
+      '<small>≈ ' + (u0 === u1 ? Lerna.money(u0) : Lerna.money(u0) + ' – ' + Lerna.money(u1)) + '</small>';
+    return esc(window.LERNA_FEE_RANGE(r, cur, lang)) + approx;
+  }
   function panelCost() {
-    var online = s.type === 'online';
+    var online = s.type === 'online', F = s.fees, ok = !!s.frais_verifie, lang = Lerna.lang;
+    var eu = window.LERNA_FEE_EU(s);
     var fee = window.LERNA_FEE_FOR(s, userCountry);
-    var minY = fee + s.inscription + 12 * (s.logement[0] + s.vie[0]);
-    var maxY = fee + s.inscription + 12 * (s.logement[1] + s.vie[1]);
+    var reg = s.inscription || 0;
     var rng = function (r) { return r[0] === r[1] ? Lerna.money(r[0]) : Lerna.money(r[0]) + ' – ' + Lerna.money(r[1]); };
     var opps = window.LERNA_OPPS.filter(function (o) { return o.type === 'bourse' && window.LERNA_OPP_VISIBLE(o, false) && (o.pays === s.pays || (o.organisation && o.organisation.indexOf(s.nom.split(' ')[0]) !== -1)); });
-    return '<div class="stack">' +
-      '<div class="costs">' +
-        '<div class="cost"><div class="lbl">' + t('ec.cLocal') + '</div><div class="val">' + (s.frais_local === 0 ? t('common.free') : Lerna.money(s.frais_local)) + '</div></div>' +
-        '<div class="cost"><div class="lbl">' + t('ec.cIntl') + '</div><div class="val">' + (s.frais_etranger === 0 ? t('common.free') : Lerna.money(s.frais_etranger)) + '</div></div>' +
-        '<div class="cost"><div class="lbl">' + t('ec.cReg') + '</div><div class="val">' + Lerna.money(s.inscription) + '</div></div>' +
-        (online
-          ? '<div class="cost" style="grid-column:span 2"><div class="lbl">' + t('ec.cHousing') + '</div><div class="val" style="font-size:1rem;font-family:var(--font-body);font-weight:600">' + t('ec.cOnline') + '</div></div>'
-          : '<div class="cost"><div class="lbl">' + t('ec.cHousing') + '</div><div class="val">' + rng(s.logement) + '</div></div>' +
-            '<div class="cost"><div class="lbl">' + t('ec.cLiving') + '</div><div class="val">' + rng(s.vie) + '</div></div>') +
-        '<div class="cost total"><div class="lbl">' + t('ec.cTotal') + '</div><div class="val">' + (minY === maxY ? Lerna.money(minY) : Lerna.money(minY) + ' – ' + Lerna.money(maxY)) + '</div></div>' +
-      '</div>' +
-      '<p class="small muted">' + Lerna.moneyNote() + '</p>' +
-      '<div class="card"><h3>' + t('ec.scholarships') + '</h3>' +
+    var srcLink = ok && F.source ? F.source : s.site;
+    var h = '<div class="stack">';
+    /* 1. Frais de scolarité : vérifiés (fourchette + par filière) ou « à confirmer », sans chiffre */
+    h += '<div class="card fee-card"><h3>' + t('ec.feeTitle') + '</h3>' +
+      (ok ? '<span class="fee-status ok">' + Lerna.icon('check') + t('ec.feeOk', { y: esc(F.annee || '') }) + '</span>'
+          : '<span class="fee-status todo">' + Lerna.icon('info') + t('ec.feeTodo') + '</span>');
+    if (ok) {
+      h += '<div class="fee-rows">' +
+        '<div class="fee-row"><span class="k">' + t(eu ? 'ec.feeEU' : 'ec.feeLocal', { c: esc(window.LERNA_COUNTRY_NAME(s.pays, lang)) }) + '</span><span class="v">' + feeVal(F.local, F.devise) + '</span></div>' +
+        '<div class="fee-row"><span class="k">' + t(eu ? 'ec.feeNonEU' : 'ec.feeIntl') + '</span><span class="v">' + feeVal(F.etranger, F.devise) + '</span></div>' +
+        (F.inscription ? '<div class="fee-row"><span class="k">' + t('ec.cReg') + '</span><span class="v">' + feeVal([F.inscription, F.inscription], F.devise) + '</span></div>' : '') +
+      '</div>' + (F.note ? '<p class="fee-note">' + esc(L(F.note)) + '</p>' : '');
+      var withFee = s.filieres.filter(function (f) { return f.frais; });
+      if (withFee.length) h += '<div class="fee-fil"><h4>' + t('ec.feeByFil') + '</h4><div class="fee-rows">' + withFee.map(function (f) {
+        var local = userCountry && userCountry === s.pays;
+        var r = (local ? f.frais.local : f.frais.etranger) || f.frais.local || f.frais.etranger;
+        return '<div class="fee-row"><span class="k">' + esc(f.nom) + (f.frais.detail ? '<br><span class="small muted" style="font-weight:500">' + esc(L(f.frais.detail)) + '</span>' : '') + '</span><span class="v">' + feeVal(r, F.devise) + '</span></div>';
+      }).join('') + '</div></div>';
+    } else {
+      h += '<p class="fee-note" style="margin-top:0">' + t('ec.feeTodoSub') + '</p>';
+    }
+    h += '<a class="btn btn-ghost btn-sm" style="margin-top:14px" href="' + esc(srcLink) + '" target="_blank" rel="noopener">' + t(ok ? 'ec.feeSource' : 'ec.feeOfficial') + ' ↗</a></div>';
+    /* 2. Vie sur place : estimations indicatives */
+    h += '<div class="costs">' +
+      (online
+        ? '<div class="cost" style="grid-column:1/-1"><div class="lbl">' + t('ec.cHousing') + '</div><div class="val" style="font-size:1rem;font-family:var(--font-body);font-weight:600">' + t('ec.cOnline') + '</div></div>'
+        : '<div class="cost"><div class="lbl">' + t('ec.cHousing') + '</div><div class="val">' + rng(s.logement) + '</div></div>' +
+          '<div class="cost"><div class="lbl">' + t('ec.cLiving') + '</div><div class="val">' + rng(s.vie) + '</div></div>');
+    if (fee !== null) {
+      var minY = fee + reg + (online ? 0 : 12 * (s.logement[0] + s.vie[0]));
+      h += '<div class="cost total"><div class="lbl">' + t('ec.cTotalFrom') + '</div><div class="val">' + t('ec.from') + ' ' + Lerna.money(minY) + '</div></div>';
+    }
+    h += '</div><p class="small muted">' + t('ec.livingNote') + ' ' + Lerna.moneyNote() + '</p>';
+    /* 3. LERNA peut se tromper : toujours confirmer à la source */
+    h += '<div class="fee-warn">' + Lerna.icon('info') + '<span>' + t('ec.feeWarn') + '</span></div>';
+    h += '<div class="card"><h3>' + t('ec.scholarships') + '</h3>' +
         (opps.length ? '<ul class="list-arrow">' + opps.map(function (o) {
           if (o.masked) return '<li><span><a href="opportunites.html?tab=bourses" class="orange"><strong>' + esc(window.LERNA_OPP_TITLE(o)) + '</strong></a></span></li>';
           return '<li><span><strong>' + esc(o.titre) + '</strong> — ' + esc(L(o.montant)) + (o.lien ? ' · <a href="' + esc(o.lien) + '" target="_blank" rel="noopener" class="orange">' + esc(o.lien.replace(/^https?:\/\/(www\.)?/, '')) + '</a>' : '') + '</span></li>';
@@ -271,6 +342,7 @@ Lerna.addStrings({
           : '<p class="muted">' + t('ec.scholarshipsNone') + '</p>') +
         '<a class="btn-link" style="display:inline-block;margin-top:14px" href="opportunites.html?tab=bourses">' + t('ec.seeOpps') + '</a></div>' +
       '</div>';
+    return h;
   }
   function panelLife() {
     var v = s.etu || {};

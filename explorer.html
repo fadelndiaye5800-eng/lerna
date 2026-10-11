@@ -128,7 +128,7 @@ Lerna.addStrings({
     'ex.reset': 'Réinitialiser',
     'ex.count': '{n} établissement(s)', 'ex.none': 'Aucune école ne correspond à ces filtres.', 'ex.noneSub': 'Essaie d’élargir le budget ou de retirer un filtre.',
     'ex.sort': 'Trier', 'ex.sortFee': 'Frais croissants', 'ex.sortName': 'Nom A → Z', 'ex.sortIntl': 'Reconnaissance internationale',
-    'ex.forYou': '/ an pour toi', 'ex.intl': '/ an (étranger)', 'ex.see': 'Voir la fiche →', 'ex.fav': 'Ajouter aux favoris',
+    'ex.from': 'Dès', 'ex.feeTodo': 'Frais à confirmer sur le site officiel', 'ex.forYou': '/ an pour toi', 'ex.intl': '/ an (étranger)', 'ex.see': 'Voir la fiche →', 'ex.fav': 'Ajouter aux favoris',
     'ex.prev': 'Page précédente', 'ex.next': 'Page suivante'
   },
   en: {
@@ -143,7 +143,7 @@ Lerna.addStrings({
     'ex.reset': 'Reset',
     'ex.count': '{n} institution(s)', 'ex.none': 'No school matches these filters.', 'ex.noneSub': 'Try widening the budget or removing a filter.',
     'ex.sort': 'Sort', 'ex.sortFee': 'Lowest fees', 'ex.sortName': 'Name A → Z', 'ex.sortIntl': 'International recognition',
-    'ex.forYou': '/ year for you', 'ex.intl': '/ year (international)', 'ex.see': 'View profile →', 'ex.fav': 'Add to favourites',
+    'ex.from': 'From', 'ex.feeTodo': 'Fees to confirm on the official website', 'ex.forYou': '/ year for you', 'ex.intl': '/ year (international)', 'ex.see': 'View profile →', 'ex.fav': 'Add to favourites',
     'ex.prev': 'Previous page', 'ex.next': 'Next page'
   }
 });
@@ -193,7 +193,7 @@ Lerna.addStrings({
         if (q.split(/\s+/).some(function (w) { return hay.indexOf(w) === -1; })) return false;
       }
       if (st.pays && (s.pays !== st.pays || s.type === 'online')) return false;
-      if (st.budget) { var b = BUD[st.budget], f = fee(s); if (f < b[0] || f > b[1]) return false; }
+      if (st.budget) { var b = BUD[st.budget], f = fee(s); if (f === null || f < b[0] || f > b[1]) return false; }
       if (st.dom && s.domaines.indexOf(st.dom) === -1) return false;
       if (st.type && s.type !== st.type) return false;
       if (st.duree) { var d = parseInt(st.duree, 10); if (d === 6 ? s.duree[1] < 6 : (s.duree[0] > d || s.duree[1] < d)) return false; }
@@ -221,7 +221,7 @@ Lerna.addStrings({
         '<h3>' + esc(s.nom) + '</h3>' +
         '<div class="loc">' + Lerna.icon('pin') + esc(s.ville + (s.type === 'online' ? '' : ', ' + window.LERNA_COUNTRY_NAME(s.pays))) + '</div>' +
         '<div class="doms">' + doms + '</div>' +
-        '<div class="fee-row"><span class="fee">' + (f === 0 ? t('common.free') : Lerna.money(f)) + ' <small>' + (local ? t('ex.forYou') : t('ex.intl')) + '</small></span></div>' +
+        '<div class="fee-row"><span class="fee">' + (f === null ? '<small>' + t('ex.feeTodo') + '</small>' : (f === 0 ? t('common.free') : t('ex.from') + ' ' + Lerna.money(f)) + ' <small>' + (local ? t('ex.forYou') : t('ex.intl')) + '</small>') + '</span></div>' +
         '<a class="btn btn-brown btn-block" href="ecole.html?id=' + s.id + '">' + t('ex.see') + '</a>' +
       '</div></article>';
   }

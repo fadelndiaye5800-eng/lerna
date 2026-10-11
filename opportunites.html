@@ -61,13 +61,15 @@
   .save-opp.on { background: rgba(232, 100, 12, 0.1); border-color: var(--orange); color: var(--orange-deep); }
   .save-opp.on .ic { fill: var(--orange); stroke: var(--orange); }
   .dl-urgent { color: var(--orange-deep); font-weight: 700; }
+  .src-ok { display: inline-flex; align-items: center; gap: 5px; font-size: .74rem; color: var(--muted); margin-right: auto; }
+  .src-ok .ic { color: var(--olive); }
   .verified { font-size: .8rem; color: var(--muted); text-align: center; margin: 30px auto 60px; max-width: 560px; }
   .prem-banner { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; background: var(--panel-grad); color: var(--on-panel); border-radius: 20px; padding: 22px 24px; margin-bottom: 18px; }
   .prem-banner h3 { color: var(--on-panel); font-size: 1.15rem; }
   .prem-banner p { color: var(--on-panel-muted); font-size: .9rem; margin-top: 4px; }
   .prem-banner > div { flex: 1; min-width: 200px; }
   .fact-note { font-size: .82rem; color: var(--muted); background: var(--cream); border-radius: 10px; padding: 8px 10px; line-height: 1.45; }
-  .ocard .src { display: flex; justify-content: flex-end; }
+  .ocard .src { display: flex; justify-content: flex-end; align-items: center; gap: 10px; flex-wrap: wrap; }
   .ocard .src .ic { width: 14px; height: 14px; color: var(--olive); }
   .report-link { background: none; border: none; padding: 4px 2px; color: var(--muted); font-size: .76rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; opacity: .8; }
   .report-link:hover { color: var(--orange-deep); }
@@ -152,7 +154,8 @@ Lerna.addStrings({
     'op.see': "Voir l'offre →", 'op.apply': 'Postuler →', 'op.contact': 'Voir le programme →', 'op.closedBtn': 'Clôturée',
     'op.unlock': 'Débloquer avec Premium', 'op.searchTitle': "Recherche de l'offre sur le web",
     'op.none': 'Aucune offre ouverte avec ces filtres.', 'op.noneSub': 'Retire un filtre ou affiche les offres clôturées pour voir les prochaines sessions.',
-    'op.verified': 'Mis à jour le {d}. Avant de postuler, relis les conditions sur le site de l’organisme.',
+    'op.verified': 'Mis à jour le {d}. Chaque offre est vérifiée sur la page officielle de l’organisme. LERNA peut se tromper : avant de postuler, relis toujours les conditions sur le site officiel.',
+    'op.srcOk': 'Source officielle : {s} · vérifiée le {d}',
     'op.premTitle': 'Accès complet avec Premium',
     'op.premText': "Tu vois un aperçu limité. Premium débloque toutes les offres, et tu reçois les nouvelles en premier.",
     'op.premInvTitle': 'Informations investisseurs — Premium',
@@ -212,7 +215,8 @@ Lerna.addStrings({
     'op.see': 'View offer →', 'op.apply': 'Apply →', 'op.contact': 'View programme →', 'op.closedBtn': 'Closed',
     'op.unlock': 'Unlock with Premium', 'op.searchTitle': 'Web search for this offer',
     'op.none': 'No open offer with these filters.', 'op.noneSub': 'Remove a filter or show closed offers to see upcoming sessions.',
-    'op.verified': 'Updated on {d}. Before applying, read the conditions on the organisation’s website.',
+    'op.verified': 'Updated on {d}. Every offer is checked on the organisation’s official page. LERNA can be wrong: before applying, always reread the conditions on the official website.',
+    'op.srcOk': 'Official source: {s} · checked on {d}',
     'op.premTitle': 'Full access with Premium',
     'op.premText': 'You are seeing a limited preview. Premium unlocks every offer, and you get new ones first.',
     'op.premInvTitle': 'Investor information — Premium',
@@ -451,7 +455,7 @@ Lerna.addStrings({
       '<div class="facts">' + facts + '</div>' +
       '<div class="foot">' + btn + '</div>' +
       (status !== 'closed' ? '<div class="fit" data-fitbox="' + o.id + '">' + (FIT[o.id] ? fitHTML(FIT[o.id]) : '<button type="button" class="fit-btn" data-fit="' + o.id + '">' + Lerna.icon('sparkle', 'ic-sm') + t('op.fit') + '</button>') + '</div>' : '') +
-      '<div class="src"><button type="button" class="report-link" data-report="' + o.id + '" title="' + esc(t('op.reportTitle')) + '">' + Lerna.icon('flagReport', 'ic-sm') + t('op.report') + '</button></div></article>';
+      '<div class="src">' + (o.source && o.verifie ? '<span class="src-ok">' + Lerna.icon('check', 'ic-sm') + t('op.srcOk', { s: esc(o.source), d: Lerna.fmtDate(o.verifie) }) + '</span>' : '') + '<button type="button" class="report-link" data-report="' + o.id + '" title="' + esc(t('op.reportTitle')) + '">' + Lerna.icon('flagReport', 'ic-sm') + t('op.report') + '</button></div></article>';
   }
 
   var ME = {};
