@@ -604,12 +604,12 @@
       return Promise.resolve(Lerna.config);
     }
     var ctrl = window.AbortController ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 2500);
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 9000);   // le serveur Vercel peut mettre quelques secondes à se réveiller
     return fetch('/api/config', { signal: ctrl ? ctrl.signal : undefined, headers: { Accept: 'application/json' } })
       .then(function (r) { if (!r.ok) throw new Error('no config'); return r.json(); })
       .then(function (c) { c.live = true; Object.assign(Lerna.config, c); store.set('lerna_ab_ovr', c.ab || {}); })
       .catch(function () { Lerna.config.live = false; })
-      .then(function () { clearTimeout(timer); store.sset('lerna_cfg', { t: Date.now(), c: Lerna.config }); return Lerna.config; });
+      .then(function () { clearTimeout(timer); if (Lerna.config.live) store.sset('lerna_cfg', { t: Date.now(), c: Lerna.config }); return Lerna.config; });   // un échec n'est jamais gardé : la page suivante réessaie
   }
 
   /* ------------------------------------------------------------------ */
@@ -844,6 +844,11 @@
               auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' }
             });
             Auth.mode = 'supabase';
+            /* Fournisseurs réellement activés dans Supabase (Google, Apple…) : on n'affiche que ceux qui marchent */
+            fetch(cfg.supabaseUrl + '/auth/v1/settings', { headers: { apikey: cfg.supabaseAnonKey } })
+              .then(function (r) { return r.ok ? r.json() : null; })
+              .then(function (j) { if (j && j.external) { Lerna.config.providers = j.external; Lerna.emit('lerna:providers', j.external); } })
+              .catch(function () {});
             Auth.sb.auth.onAuthStateChange(function (event, session) {
               if (event === 'PASSWORD_RECOVERY') Lerna.emit('lerna:recovery');
               if (event === 'SIGNED_OUT') { Auth.user = null; store.del('lerna_user_cache'); renderChrome(); Lerna.emit('lerna:auth', null); }
@@ -894,7 +899,12 @@
     signIn: function (email, password) {
       if (Auth.mode === 'supabase') {
         return Auth.sb.auth.signInWithPassword({ email: email, password: password }).then(function (r) {
-          if (r.error) throw r.error;
+          if (r.error) {
+            /* Compte créé en « mode aperçu » (seulement sur cet appareil) : on le dit clairement au lieu de « mot de passe incorrect » */
+            var demo = store.get('lerna_demo_accounts', {});
+            if (/invalid login/i.test(r.error.message || '') && demo[String(email).trim().toLowerCase()]) throw { code: 'demo_account' };
+            throw r.error;
+          }
           return Auth._load(r.data.user).then(function () { renderChrome(); Lerna.emit('lerna:auth', Auth.user); return Auth.user; });
         });
       }

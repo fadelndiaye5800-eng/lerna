@@ -82,7 +82,7 @@ Lerna.addStrings({
     'au.forgot': 'Mot de passe oublié ?', 'au.show': 'Afficher le mot de passe', 'au.hide': 'Masquer le mot de passe',
     'au.s0': '8 caractères minimum', 'au.s1': 'Faible', 'au.s2': 'Moyen', 'au.s3': 'Bon', 'au.s4': 'Fort',
     'au.eRequired': 'Remplis tous les champs.', 'au.eEmail': 'Adresse email invalide.', 'au.eShort': 'Le mot de passe doit faire au moins 8 caractères.',
-    'au.eMatch': 'Les deux mots de passe ne correspondent pas.', 'au.eInvalid': 'Email ou mot de passe incorrect.', 'au.eExists': 'Un compte existe déjà avec cet email. Connecte-toi.',
+    'au.eMatch': 'Les deux mots de passe ne correspondent pas.', 'au.eInvalid': 'Email ou mot de passe incorrect.', 'au.eDemoAcc': 'Ce compte a été créé avant la mise en ligne, seulement sur cet appareil. Crée-le à nouveau avec « Créer un compte » : ce sera ton vrai compte.', 'au.eProvider': 'La connexion avec Google n’est pas encore activée. Utilise ton email et un mot de passe pour l’instant.', 'au.eExists': 'Un compte existe déjà avec cet email. Connecte-toi.',
     'au.eNotConfirmed': "Confirme d'abord ton email : regarde ta boîte de réception (et les spams).", 'au.eRate': 'Trop de tentatives. Réessaie dans quelques minutes.',
     'au.eDemo': 'Disponible une fois Supabase connecté (mode aperçu).', 'au.eGeneric': 'Une erreur est survenue. Réessaie.',
     'au.verifyTitle': 'Vérifie ta boîte mail', 'au.verifyText': 'On t’a envoyé un lien de confirmation à {email}. Clique dessus pour activer ton compte, puis connecte-toi.',
@@ -111,7 +111,7 @@ Lerna.addStrings({
     'au.forgot': 'Forgot your password?', 'au.show': 'Show password', 'au.hide': 'Hide password',
     'au.s0': 'At least 8 characters', 'au.s1': 'Weak', 'au.s2': 'Fair', 'au.s3': 'Good', 'au.s4': 'Strong',
     'au.eRequired': 'Fill in every field.', 'au.eEmail': 'Invalid email address.', 'au.eShort': 'Password must be at least 8 characters.',
-    'au.eMatch': 'The two passwords do not match.', 'au.eInvalid': 'Incorrect email or password.', 'au.eExists': 'An account already exists with this email. Log in.',
+    'au.eMatch': 'The two passwords do not match.', 'au.eInvalid': 'Incorrect email or password.', 'au.eDemoAcc': 'This account was created before launch, only on this device. Create it again with “Sign up”: it will be your real account.', 'au.eProvider': 'Google sign-in is not turned on yet. Use your email and a password for now.', 'au.eExists': 'An account already exists with this email. Log in.',
     'au.eNotConfirmed': 'Please confirm your email first: check your inbox (and spam).', 'au.eRate': 'Too many attempts. Try again in a few minutes.',
     'au.eDemo': 'Available once Supabase is connected (preview mode).', 'au.eGeneric': 'Something went wrong. Please try again.',
     'au.verifyTitle': 'Check your inbox', 'au.verifyText': 'We sent a confirmation link to {email}. Click it to activate your account, then log in.',
@@ -148,10 +148,15 @@ Lerna.addStrings({
   }
   var APPLE_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.14-2.76.83-3.48.83-.72 0-1.82-.81-3-.79-1.54.02-2.97.9-3.76 2.28-1.61 2.79-.41 6.91 1.15 9.17.77 1.1 1.68 2.34 2.87 2.3 1.15-.05 1.59-.75 2.98-.75 1.39 0 1.78.75 3 .72 1.24-.02 2.02-1.12 2.78-2.23.87-1.28 1.23-2.52 1.25-2.58-.03-.01-2.4-.92-2.43-3.69zM14.1 5.86c.64-.77 1.07-1.85.95-2.92-.92.04-2.03.61-2.69 1.38-.59.68-1.11 1.77-.97 2.82 1.03.08 2.07-.52 2.71-1.28z"/></svg>';
   /* Apple : visible quand la connexion Apple est configurée (APPLE_LOGIN_ENABLED=true), ou en aperçu avec ?apple=1 */
-  function appleOn() { return !!Lerna.config.appleLogin || Lerna.param('apple') === '1'; }
-  function google() {
+  /* Google et Apple n'apparaissent que lorsqu'ils sont activés dans Supabase (sinon le bouton mènerait à une erreur) */
+  function provOn(p) { var pr = Lerna.config.providers; return !!(pr && pr[p]); }
+  function appleOn() { return provOn('apple') || Lerna.param('apple') === '1'; }
+  function googleOn() { return provOn('google') || Lerna.param('google') === '1'; }
+  function google() { return '<div id="oauthBox">' + oauthInner() + '</div>'; }
+  function oauthInner() {
+    if (!appleOn() && !googleOn()) return '';
     return '<div class="divider-or">' + t('au.or') + '</div>' + (appleOn() ? '<button type="button" class="btn btn-apple" id="appleBtn">' + APPLE_SVG + t('au.apple') + '</button>' : '') +
-      '<button type="button" class="btn btn-google" id="googleBtn">' + Lerna.googleIcon + t('au.google') + '</button>';
+      (googleOn() ? '<button type="button" class="btn btn-google" id="googleBtn">' + Lerna.googleIcon + t('au.google') + '</button>' : '');
   }
   function demoNote() { return Lerna.auth.mode === 'demo' ? '<div class="notice" style="margin-top:18px">' + Lerna.icon('info') + '<div class="small">' + t('common.demoNotice') + '</div></div>' : ''; }
 
@@ -214,6 +219,8 @@ Lerna.addStrings({
     if (m.indexOf('not confirmed') !== -1) return t('au.eNotConfirmed');
     if (m.indexOf('rate') !== -1 || m.indexOf('too many') !== -1) return t('au.eRate');
     if (m === 'demo') return t('au.eDemo');
+    if (m === 'demo_account') return t('au.eDemoAcc');
+    if (m.indexOf('provider is not enabled') !== -1 || m.indexOf('unsupported provider') !== -1) return t('au.eProvider');
     if (m.indexOf('password') !== -1 && m.indexOf('least') !== -1) return t('au.eShort');
     return t('au.eGeneric');
   }
@@ -240,6 +247,7 @@ Lerna.addStrings({
       if (Lerna.auth.mode !== 'demo') Lerna.qsa('#card .notice').forEach(function (n) { if (n.textContent.indexOf('Supabase') !== -1) n.remove(); });
     });
     Lerna.on('lerna:recovery', function () { mode = 'recovery'; render(); });
+    Lerna.on('lerna:providers', function () { var b = $('oauthBox'); if (b) b.innerHTML = oauthInner(); });
     Lerna.onLang(render);
 
     document.addEventListener('click', function (e) {
