@@ -5,7 +5,8 @@
    ========================================================================== */
 import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 
-export const env = (k, d = '') => (process.env[k] || d).trim();
+/* Nom exact, sinon le même en minuscules (une traduction automatique peut changer la casse) */
+export const env = (k, d = '') => (process.env[k] || process.env[k.toLowerCase()] || d).trim();
 
 export const MODEL = 'claude-sonnet-4-6';
 
