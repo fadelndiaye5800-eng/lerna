@@ -82,9 +82,10 @@ export async function getUser(request) {
     if (!u || !u.id) return null;
     let premium = false;
     if (supabaseReady()) {
-      const row = await sbFetch('/rest/v1/users?id=eq.' + encodeURIComponent(u.id) + '&select=is_premium,premium_expiry');
+      const row = await sbFetch('/rest/v1/users?id=eq.' + encodeURIComponent(u.id) + '&select=is_premium,premium_expiry,role');
       const r = Array.isArray(row.data) ? row.data[0] : null;
       premium = !!(r && r.is_premium && (!r.premium_expiry || new Date(r.premium_expiry) > new Date()));
+      if (r && r.role === 'admin') premium = true; // le propriétaire a tout Premium
     }
     const paid = premium;
     if (premiumOpen()) premium = true; // phase de lancement : tout est ouvert

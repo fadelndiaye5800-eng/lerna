@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>LERNA Premium</title>
 <meta name="lerna-title" content="pr.docTitle">
-<meta name="description" content="LERNA Premium : recommandations illimitées, accès complet aux stages et bourses, assistant IA illimité. 4.99$/mois ou 39.99$/an.">
+<meta name="description" content="LERNA Premium : recommandations illimitées, accès complet aux stages et bourses, assistant IA illimité. 4.99$/mois ou 39.99$/an, aussi par Wave et Orange Money.">
 <meta name="theme-color" content="#FBF6EC">
-<meta property="og:title" content="LERNA Premium — Sois prêt avant les autres">
-<meta property="og:description" content="Pas parce que tu es plus important. Mais parce que tu es plus préparé.">
+<meta property="og:title" content="LERNA Premium">
+<meta property="og:description" content="Toutes tes écoles recommandées, l’accès complet aux bourses et stages, et un assistant IA sans limite.">
 <meta property="og:image" content="/assets/icons/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.json">
@@ -53,9 +53,26 @@
   .no { color: var(--cream-darker); font-weight: 900; font-size: 1.1rem; }
   @media (max-width: 480px) { .cmp th, .cmp td { padding: 12px 10px; font-size: .86rem; } .cmp th.c, .cmp td.c { width: 64px; } }
 
-  .guarantee { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; }
-  .guarantee .ic-wrap { width: 64px; height: 64px; border-radius: 18px; background: var(--panel); color: var(--orange); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .guarantee p { font-size: 1.05rem; flex: 1; min-width: 220px; }
+  .pay-alt { width: 100%; margin-top: 10px; }
+  .fcfa-line { color: var(--muted); font-size: .9rem; margin-top: 6px; }
+  .fcfa-line strong { color: var(--brown); }
+  .pay-status { margin-top: 18px; text-align: left; }
+  /* Fenêtre « Wave / Orange Money » */
+  .mm-step { display: flex; gap: 12px; align-items: flex-start; margin: 16px 0 0; }
+  .mm-step > b { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--orange); color: #fff; font-size: .82rem; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .mm-step > div { flex: 1; min-width: 0; }
+  .mm-step h4 { font-size: .98rem; margin: 2px 0 8px; }
+  .mm-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .mm-plans button, .mm-ways button { border: 1.5px solid var(--cream-dark); background: var(--surface); border-radius: 14px; padding: 10px 12px; text-align: left; font-weight: 700; color: var(--brown); }
+  .mm-plans button span { display: block; font-size: .8rem; font-weight: 600; color: var(--muted); margin-top: 2px; }
+  .mm-plans button.on, .mm-ways button.on { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-soft); }
+  .mm-ways { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .mm-ways button { text-align: center; }
+  .mm-num { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--cream-dark); border-radius: 14px; padding: 12px 14px; }
+  .mm-num strong { font-size: 1.35rem; letter-spacing: .03em; color: var(--brown); white-space: nowrap; }
+  .mm-amount { font-weight: 800; color: var(--orange); }
+  .mm-form .field { margin-top: 10px; }
+  .mm-err { color: var(--danger, #B3261E); font-size: .85rem; min-height: 1.2em; margin-top: 8px; }
 
   .faq details { background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 0 20px; margin-bottom: 10px; }
   .faq summary { cursor: pointer; padding: 18px 0; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 14px; align-items: center; }
@@ -74,7 +91,7 @@
     <div class="container container-sm fade-up">
       <span class="badge" data-i18n="pr.badge">LERNA Premium</span>
       <h1 data-i18n="pr.title">Sois prêt avant les autres.</h1>
-      <p data-i18n="pr.sub">Pas parce que tu es plus important. Mais parce que tu es plus préparé.</p>
+      <p data-i18n="pr.sub">Tous les outils de LERNA pour préparer ton orientation.</p>
     </div>
   </section>
 
@@ -87,8 +104,11 @@
         </div>
         <div class="price" id="price"></div>
         <p class="price-sub" id="priceSub"></p>
+        <p class="fcfa-line" id="fcfaLine" hidden></p>
+        <button type="button" class="btn btn-primary btn-lg" id="momoBtn" hidden data-i18n="pr.momoCta">Payer avec Wave ou Orange Money</button>
         <button type="button" class="btn btn-primary btn-lg" id="buyBtn" data-i18n="pr.cta">Commencer Premium →</button>
-        <p class="price-note" data-i18n="pr.note">Annulable à tout moment · Paiement sécurisé · Sans engagement</p>
+        <p class="price-note" data-i18n="pr.note">Paiement sécurisé · Sans engagement</p>
+        <div class="pay-status" id="payStatus"></div>
       </div>
       <div class="already" id="already">
         <span class="badge badge-orange" data-i18n="pr.isPremium">Tu es Premium</span>
@@ -100,7 +120,7 @@
 
   <section class="section">
     <div class="container container-md">
-      <p class="msg reveal" data-i18n-html="pr.message">Le Premium ne te rend pas plus important que les autres utilisateurs de LERNA. Il te rend simplement <strong>plus préparé</strong>. Tu reçois les opportunités en premier, tu as accès à plus d'informations, et tu prends de meilleures décisions.</p>
+      <p class="msg reveal" data-i18n-html="pr.message">Premium t’ouvre <strong>toutes tes écoles recommandées</strong>, la comparaison détaillée, l’accès complet aux bourses et aux stages, et un assistant IA sans limite.</p>
     </div>
   </section>
 
@@ -117,15 +137,6 @@
   </section>
 
   <section class="section">
-    <div class="container container-md">
-      <div class="card guarantee reveal">
-        <span class="ic-wrap"><svg class="ic ic-lg" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span>
-        <p data-i18n="pr.guarantee">Si LERNA ne t'aide pas à trouver ton orientation en 30 jours, on te rembourse intégralement. Sans condition.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" style="padding-top:0">
     <div class="container container-sm faq">
       <div class="section-head center reveal"><h2 data-i18n="pr.faqTitle">Questions fréquentes</h2></div>
       <div id="faq"></div>
@@ -134,7 +145,7 @@
 
   <section class="final-cta">
     <div class="container container-sm reveal">
-      <p class="msg" style="margin-bottom:24px" data-i18n-html="pr.message2">Pas parce que tu es plus important. Mais parce que tu es <strong>plus préparé</strong>.</p>
+      <p class="msg" style="margin-bottom:24px" data-i18n-html="pr.message2">Prends une <strong>longueur d’avance</strong> sur ton orientation.</p>
       <a href="#buyBox" class="btn btn-primary" data-i18n="pr.cta">Commencer Premium →</a>
     </div>
   </section>
@@ -148,17 +159,18 @@ Lerna.addStrings({
   fr: {
     'pr.docTitle': 'LERNA Premium', 'pr.badge': 'LERNA Premium',
     'pr.title': 'Sois prêt avant les autres.',
-    'pr.sub': 'Pas parce que tu es plus important. Mais parce que tu es plus préparé.',
+    'pr.sub': 'Tous les outils de LERNA pour préparer ton orientation.',
     'pr.monthly': 'Mensuel', 'pr.yearly': 'Annuel', 'pr.save': '−33%',
     'pr.pMonthly': '4.99$', 'pr.pMonthlyUnit': '/ mois', 'pr.pYearly': '39.99$', 'pr.pYearlyUnit': '/ an',
     'pr.subMonthly': 'Facturé chaque mois. Tu arrêtes quand tu veux.',
+    'pr.subMonthlyOnce': 'Un mois d’accès complet, sans prélèvement automatique.',
     'pr.subYearly': 'Soit 3.33$/mois — tu économises 19.89$ par an.',
     'pr.cta': 'Commencer Premium →',
-    'pr.note': 'Annulable à tout moment · Paiement sécurisé · Sans engagement',
+    'pr.note': 'Paiement sécurisé · Sans engagement',
     'pr.isPremium': 'Tu es Premium', 'pr.until': 'Ton accès est actif jusqu’au {d}.', 'pr.active': 'Ton accès Premium est actif.',
     'pr.manage': 'Gérer mon abonnement →',
-    'pr.message': "Le Premium ne te rend pas plus important que les autres utilisateurs de LERNA. Il te rend simplement <strong>plus préparé</strong>. Tu reçois les opportunités en premier, tu as accès à plus d'informations, et tu prends de meilleures décisions.",
-    'pr.message2': 'Pas parce que tu es plus important. Mais parce que tu es <strong>plus préparé</strong>.',
+    'pr.message': 'Premium t’ouvre <strong>toutes tes écoles recommandées</strong>, la comparaison détaillée, l’accès complet aux bourses et aux stages, et un assistant IA sans limite.',
+    'pr.message2': 'Prends une <strong>longueur d’avance</strong> sur ton orientation.',
     'pr.cmpEyebrow': 'Comparaison', 'pr.cmpTitle': 'Gratuit ou Premium ?',
     'pr.colFeature': 'Fonctionnalité', 'pr.colFree': 'Gratuit', 'pr.colPremium': 'Premium',
     'pr.f1': 'Questionnaire complet 25 questions', 'pr.f2': "2 écoles recommandées (4 en invitant 3 amis)", 'pr.f3': 'Informations générales écoles',
@@ -167,12 +179,34 @@ Lerna.addStrings({
     'pr.f10': 'Alertes entreprises cherchant des alternants', 'pr.f11': 'Informations investisseurs (projets étudiants)',
     'pr.f12': 'Assistant IA illimité (sans limite de messages)', 'pr.f13': 'Rappels et alertes personnalisés', 'pr.f14': 'Suivi de mes candidatures',
     'pr.f15': 'Export PDF de mon profil et recommandations',
-    'pr.guarantee': "Si LERNA ne t'aide pas à trouver ton orientation en 30 jours, on te rembourse intégralement. Sans condition.",
     'pr.faqTitle': 'Questions fréquentes',
-    'pr.q1': 'Comment je paie ?', 'pr.a1': 'Le paiement passe par Lemon Squeezy, une plateforme sécurisée : carte Visa, Mastercard ou PayPal. LERNA ne voit et ne stocke jamais tes coordonnées bancaires.',
-    'pr.q2': 'Je peux arrêter quand je veux ?', 'pr.a2': 'Oui. Tu annules en un clic depuis ton espace. Ton accès reste actif jusqu’à la fin de la période déjà payée.',
-    'pr.q3': 'Pourquoi l’annuel coûte moins cher ?', 'pr.a3': '39.99$ par an au lieu de 59.88$ en payant chaque mois : tu économises 33 %. Si tu candidates dans moins de 3 mois, le mensuel peut suffire.',
-    'pr.q4': 'Et si ça ne m’aide pas ?', 'pr.a4': 'Si LERNA ne t’aide pas à trouver ton orientation en 30 jours, écris à support@lerna.app : on te rembourse intégralement, sans condition.',
+    'pr.q1': 'Comment je paie ?',
+    'pr.a1Momo': 'Avec Wave ou Orange Money, en FCFA : tu envoies le montant au numéro LERNA, puis tu indiques ton paiement ici. LERNA ne voit jamais ton code secret.',
+    'pr.a1Card': 'Par carte bancaire (Visa, Mastercard) sur une page de paiement sécurisée : LERNA ne voit et ne stocke jamais tes coordonnées bancaires.',
+    'pr.a1Both': 'Avec Wave ou Orange Money en FCFA, ou par carte bancaire (Visa, Mastercard) sur une page de paiement sécurisée. LERNA ne voit jamais ton code secret ni tes coordonnées bancaires.',
+    'pr.a1Soon': 'Le paiement en ligne s’ouvre très bientôt.',
+    'pr.q2': 'Je peux arrêter quand je veux ?', 'pr.a2': 'Oui. Avec Wave ou Orange Money, rien n’est prélevé automatiquement : tu paies 1 mois ou 1 an, et c’est tout. Par carte, tu annules en un clic depuis ton espace ; ton accès reste actif jusqu’à la fin de la période payée.',
+    'pr.q3': 'Pourquoi l’annuel coûte moins cher ?', 'pr.a3': 'Un an coûte le prix de 8 mois : tu économises 33 %. Si tu candidates dans moins de 3 mois, le mensuel peut suffire.',
+    'pr.q4': 'Quand mon Premium s’active-t-il avec Wave ou Orange Money ?', 'pr.a4': 'Dès que ton paiement est vérifié. Tu vois l’état de ta demande sur cette page, et ton Premium apparaît tout seul une fois validé.',
+    'pr.momoCta': 'Payer avec Wave ou Orange Money', 'pr.cardCta': 'Payer par carte bancaire',
+    'pr.fcfa': 'ou <strong>{m}</strong> avec Wave ou Orange Money', 'pr.fcfaYear': 'ou <strong>{m}</strong> par an avec Wave ou Orange Money',
+    'mm.title': 'Payer avec Wave ou Orange Money',
+    'mm.s1': 'Choisis ta formule', 'mm.month': '1 mois', 'mm.year': '1 an',
+    'mm.s2': 'Envoie exactement {m} à ce numéro', 'mm.s2sub': 'Même numéro pour Wave et Orange Money. Fais l’envoi depuis ton application.',
+    'mm.copy': 'Copier', 'mm.copied': 'Numéro copié',
+    'mm.s3': 'Dis-nous que tu as payé', 'mm.way': 'Avec quoi as-tu payé ?',
+    'mm.phone': 'Le numéro qui a payé', 'mm.phonePh': 'Ex. 77 123 45 67',
+    'mm.ref': 'Référence de la transaction (facultatif)', 'mm.refPh': 'Elle est dans le message de confirmation',
+    'mm.send': 'J’ai payé, envoyer', 'mm.sending': 'Envoi…',
+    'mm.after': 'Ton Premium s’active dès que le paiement est vérifié.',
+    'mm.needWay': 'Choisis Wave ou Orange Money.', 'mm.needPhone': 'Écris le numéro qui a payé.',
+    'mm.ok': 'C’est envoyé ! Ton Premium s’active dès que le paiement est vérifié.',
+    'mm.errMany': 'Tu as déjà des paiements en cours de vérification. Patiente un peu avant d’en envoyer un autre.',
+    'mm.errOff': 'Le paiement par Wave ou Orange Money est fermé pour le moment.',
+    'mm.err': 'L’envoi n’a pas marché. Vérifie ta connexion et réessaie.',
+    'mm.pending': 'Paiement de {m} ({f}) envoyé le {d} : vérification en cours.',
+    'mm.refused': 'Ton paiement du {d} n’a pas pu être vérifié. Si tu as bien payé, écris-nous depuis la page Contact avec ta référence de transaction.',
+    'mm.wave': 'Wave', 'mm.om': 'Orange Money',
     'pr.needLogin': 'Crée ton compte (ou connecte-toi) pour relier Premium à ton profil.',
     'pr.soon': 'Le paiement en ligne s’ouvre très bientôt. Ton compte gratuit te donne déjà accès à l’essentiel.',
     'pr.thanks': 'Merci ! Ton paiement est confirmé, ton accès Premium s’active dans quelques instants.',
@@ -181,17 +215,18 @@ Lerna.addStrings({
   en: {
     'pr.docTitle': 'LERNA Premium', 'pr.badge': 'LERNA Premium',
     'pr.title': 'Be ready before the others.',
-    'pr.sub': "Not because you're more important. Because you're better prepared.",
+    'pr.sub': 'Every LERNA tool to prepare your path.',
     'pr.monthly': 'Monthly', 'pr.yearly': 'Yearly', 'pr.save': '−33%',
     'pr.pMonthly': '$4.99', 'pr.pMonthlyUnit': '/ month', 'pr.pYearly': '$39.99', 'pr.pYearlyUnit': '/ year',
     'pr.subMonthly': 'Billed monthly. Stop whenever you want.',
+    'pr.subMonthlyOnce': 'One month of full access, no automatic renewal.',
     'pr.subYearly': 'That’s $3.33/month — you save $19.89 a year.',
     'pr.cta': 'Start Premium →',
-    'pr.note': 'Cancel anytime · Secure payment · No commitment',
+    'pr.note': 'Secure payment · No commitment',
     'pr.isPremium': "You're Premium", 'pr.until': 'Your access is active until {d}.', 'pr.active': 'Your Premium access is active.',
     'pr.manage': 'Manage my subscription →',
-    'pr.message': "Premium doesn't make you more important than other LERNA users. It simply makes you <strong>better prepared</strong>. You get opportunities first, you have access to more information, and you make better decisions.",
-    'pr.message2': "Not because you're more important. Because you're <strong>better prepared</strong>.",
+    'pr.message': 'Premium unlocks <strong>all your recommended schools</strong>, detailed comparison, full access to scholarships and internships, and an unlimited AI assistant.',
+    'pr.message2': 'Get a <strong>head start</strong> on your path.',
     'pr.cmpEyebrow': 'Comparison', 'pr.cmpTitle': 'Free or Premium?',
     'pr.colFeature': 'Feature', 'pr.colFree': 'Free', 'pr.colPremium': 'Premium',
     'pr.f1': 'Full 25-question questionnaire', 'pr.f2': '2 recommended schools (4 by inviting 3 friends)', 'pr.f3': 'General school information',
@@ -200,12 +235,34 @@ Lerna.addStrings({
     'pr.f10': 'Alerts from companies looking for work-study students', 'pr.f11': 'Investor information (student projects)',
     'pr.f12': 'Unlimited AI assistant (no message limit)', 'pr.f13': 'Personalised reminders and alerts', 'pr.f14': 'Application tracking',
     'pr.f15': 'PDF export of my profile and recommendations',
-    'pr.guarantee': "If LERNA doesn't help you find your path within 30 days, we refund you in full. No conditions.",
     'pr.faqTitle': 'Frequently asked questions',
-    'pr.q1': 'How do I pay?', 'pr.a1': 'Payment goes through Lemon Squeezy, a secure platform: Visa, Mastercard or PayPal. LERNA never sees or stores your card details.',
-    'pr.q2': 'Can I stop whenever I want?', 'pr.a2': 'Yes. Cancel in one click from your space. Your access stays active until the end of the period already paid.',
-    'pr.q3': 'Why is yearly cheaper?', 'pr.a3': '$39.99 a year instead of $59.88 paying monthly: you save 33%. If you apply within 3 months, monthly may be enough.',
-    'pr.q4': "What if it doesn't help?", 'pr.a4': "If LERNA doesn't help you find your path within 30 days, write to support@lerna.app: we refund you in full, no conditions.",
+    'pr.q1': 'How do I pay?',
+    'pr.a1Momo': 'With Wave or Orange Money, in CFA francs: send the amount to the LERNA number, then confirm your payment here. LERNA never sees your PIN.',
+    'pr.a1Card': 'By card (Visa, Mastercard) on a secure payment page: LERNA never sees or stores your card details.',
+    'pr.a1Both': 'With Wave or Orange Money in CFA francs, or by card (Visa, Mastercard) on a secure payment page. LERNA never sees your PIN or your card details.',
+    'pr.a1Soon': 'Online payment opens very soon.',
+    'pr.q2': 'Can I stop whenever I want?', 'pr.a2': 'Yes. With Wave or Orange Money nothing is charged automatically: you pay for 1 month or 1 year, that’s all. By card, cancel in one click from your space; access stays active until the end of the paid period.',
+    'pr.q3': 'Why is yearly cheaper?', 'pr.a3': 'A year costs the price of 8 months: you save 33%. If you apply within 3 months, monthly may be enough.',
+    'pr.q4': 'When does Premium start with Wave or Orange Money?', 'pr.a4': 'As soon as your payment is checked. You can follow your request on this page, and Premium appears by itself once approved.',
+    'pr.momoCta': 'Pay with Wave or Orange Money', 'pr.cardCta': 'Pay by card',
+    'pr.fcfa': 'or <strong>{m}</strong> with Wave or Orange Money', 'pr.fcfaYear': 'or <strong>{m}</strong> a year with Wave or Orange Money',
+    'mm.title': 'Pay with Wave or Orange Money',
+    'mm.s1': 'Choose your plan', 'mm.month': '1 month', 'mm.year': '1 year',
+    'mm.s2': 'Send exactly {m} to this number', 'mm.s2sub': 'Same number for Wave and Orange Money. Send it from your app.',
+    'mm.copy': 'Copy', 'mm.copied': 'Number copied',
+    'mm.s3': 'Tell us you paid', 'mm.way': 'What did you pay with?',
+    'mm.phone': 'The number that paid', 'mm.phonePh': 'E.g. 77 123 45 67',
+    'mm.ref': 'Transaction reference (optional)', 'mm.refPh': 'It is in the confirmation message',
+    'mm.send': 'I paid, send', 'mm.sending': 'Sending…',
+    'mm.after': 'Premium starts as soon as the payment is checked.',
+    'mm.needWay': 'Choose Wave or Orange Money.', 'mm.needPhone': 'Enter the number that paid.',
+    'mm.ok': 'Sent! Premium starts as soon as the payment is checked.',
+    'mm.errMany': 'You already have payments being checked. Please wait before sending another one.',
+    'mm.errOff': 'Wave / Orange Money payment is closed for now.',
+    'mm.err': 'Sending failed. Check your connection and try again.',
+    'mm.pending': 'Payment of {m} ({f}) sent on {d}: being checked.',
+    'mm.refused': 'Your payment of {d} could not be verified. If you did pay, write to us from the Contact page with your transaction reference.',
+    'mm.wave': 'Wave', 'mm.om': 'Orange Money',
     'pr.needLogin': 'Create your account (or log in) to link Premium to your profile.',
     'pr.soon': 'Online payment opens very soon. Your free account already gives you the essentials.',
     'pr.thanks': 'Thank you! Your payment is confirmed; Premium activates in a few moments.',
@@ -219,10 +276,29 @@ Lerna.addStrings({
   var plan = 'monthly';
   var ROWS = [[1, 1, 1], [2, 1, 1], [3, 1, 1], [4, 1, 1], [5, 0, 1], [6, 0, 1], [7, 0, 1], [8, 0, 1], [9, 0, 1], [10, 0, 1], [11, 0, 1], [12, 0, 1], [13, 0, 1], [14, 0, 1], [15, 0, 1]];
 
+  var M = function () { return Lerna.config.momo || null; };                       // Wave / Orange Money (réglé depuis /admin)
+  var hasCard = function () { return !!(Lerna.config.checkoutMonthly && Lerna.config.checkoutYearly); };
+  var loc = function () { return Lerna.lang === 'en' ? 'en-US' : 'fr-FR'; };
+  var fcfa = function (n) { return Number(n).toLocaleString(loc()) + ' FCFA'; };
+  /* +221786655769 → 78 665 57 69 (numéro sénégalais) ; sinon tel quel */
+  function niceNum(n) {
+    var d = String(n || '').replace(/[^0-9+]/g, ''), l = d.replace(/^\+?221/, '');
+    return /^\d{9}$/.test(l) ? l.replace(/^(\d{2})(\d{3})(\d{2})(\d{2})$/, '$1 $2 $3 $4') : d;
+  }
+  function localNum(n) { var d = String(n || '').replace(/[^0-9+]/g, ''), l = d.replace(/^\+?221/, ''); return /^\d{9}$/.test(l) ? l : d; }
+
   function renderPrice() {
     Lerna.qsa('[data-plan]').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-plan') === plan); });
     $('price').innerHTML = (plan === 'monthly' ? t('pr.pMonthly') + ' <small>' + t('pr.pMonthlyUnit') + '</small>' : t('pr.pYearly') + ' <small>' + t('pr.pYearlyUnit') + '</small>');
-    $('priceSub').textContent = t(plan === 'monthly' ? 'pr.subMonthly' : 'pr.subYearly');
+    $('priceSub').textContent = t(plan === 'monthly' ? (hasCard() ? 'pr.subMonthly' : 'pr.subMonthlyOnce') : 'pr.subYearly');
+    var m = M();
+    $('fcfaLine').hidden = !m;
+    if (m) $('fcfaLine').innerHTML = t(plan === 'monthly' ? 'pr.fcfa' : 'pr.fcfaYear', { m: fcfa(plan === 'monthly' ? m.prixMois : m.prixAn) });
+    /* Boutons : Wave / Orange Money en premier ; la carte seulement quand le paiement par carte est branché */
+    $('momoBtn').hidden = !m;
+    $('buyBtn').hidden = !!m && !hasCard();
+    $('buyBtn').textContent = m ? t('pr.cardCta') : t('pr.cta');
+    $('buyBtn').className = 'btn btn-lg ' + (m ? 'btn-ghost pay-alt' : 'btn-primary');
   }
   function renderTable() {
     var yes = '<span class="yes" aria-label="✓">✓</span>', no = '<span class="no" aria-label="✗">✗</span>';
@@ -230,23 +306,46 @@ Lerna.addStrings({
       ROWS.map(function (r) { return '<tr><td>' + t('pr.f' + r[0]) + '</td><td class="c">' + (r[1] ? yes : no) + '</td><td class="c prem">' + (r[2] ? yes : no) + '</td></tr>'; }).join('') + '</tbody>';
   }
   function renderFaq() {
-    $('faq').innerHTML = [1, 2, 3, 4].map(function (i) { return '<details class="reveal"><summary>' + t('pr.q' + i) + '</summary><p>' + t('pr.a' + i) + '</p></details>'; }).join('');
+    var a1 = M() && hasCard() ? 'pr.a1Both' : M() ? 'pr.a1Momo' : hasCard() ? 'pr.a1Card' : 'pr.a1Soon';
+    var qs = [['pr.q1', a1], ['pr.q2', 'pr.a2'], ['pr.q3', 'pr.a3']];
+    if (M()) qs.push(['pr.q4', 'pr.a4']);
+    $('faq').innerHTML = qs.map(function (q) { return '<details class="reveal"><summary>' + t(q[0]) + '</summary><p>' + t(q[1]) + '</p></details>'; }).join('');
     Lerna.initReveal();
   }
   function renderStatus() {
     var u = Lerna.auth.user;
-    var isP = u && u.is_premium && Lerna.isPremium();
+    var isP = !!u && Lerna.isPremium() && (u.is_premium || u.role === 'admin');
     $('buyBox').style.display = isP ? 'none' : '';
-    $('already').classList.toggle('show', !!isP);
+    $('already').classList.toggle('show', isP);
     if (isP) {
-      $('alreadyTxt').textContent = u.premium_expiry ? t('pr.until', { d: Lerna.fmtDate(u.premium_expiry) }) : t('pr.active');
+      $('alreadyTxt').textContent = u.premium_expiry && u.role !== 'admin' ? t('pr.until', { d: Lerna.fmtDate(u.premium_expiry) }) : t('pr.active');
       if (u.portal_url) { $('manageBtn').href = u.portal_url; $('manageBtn').target = '_blank'; $('manageBtn').rel = 'noopener'; }
     }
     if (!Lerna.config.premiumEnabled) Lerna.toast(t('pr.allOpen'), 4000);
+    loadPayStatus();
+  }
+  /* Dernier paiement Wave / Orange Money de la personne (en attente ou refusé récemment) */
+  function loadPayStatus() {
+    var box = $('payStatus'), A = Lerna.auth;
+    box.innerHTML = '';
+    if (!M() || A.mode !== 'supabase' || !A.user) return;
+    A.sb.from('paiements_momo').select('montant,formule,statut,created_at').order('created_at', { ascending: false }).limit(1).then(function (r) {
+      var p = r.data && r.data[0];
+      if (!p) return;
+      var fresh = Date.now() - new Date(p.created_at).getTime() < 14 * 864e5;
+      if (p.statut === 'en_attente') box.innerHTML = '<div class="notice">' + Lerna.icon('clock') + '<div>' + Lerna.esc(t('mm.pending', { m: fcfa(p.montant), f: t(p.formule === 'an' ? 'mm.year' : 'mm.month'), d: Lerna.fmtDate(p.created_at) })) + '</div></div>';
+      else if (p.statut === 'refuse' && fresh) box.innerHTML = '<div class="notice">' + Lerna.icon('alert') + '<div>' + Lerna.esc(t('mm.refused', { d: Lerna.fmtDate(p.created_at) })) + '</div></div>';
+    });
+  }
+  function needAccount() {
+    if (Lerna.auth.user) return false;
+    Lerna.toast(t('pr.needLogin'), 3000);
+    setTimeout(function () { Lerna.go('auth.html?mode=signup&redirect=premium.html'); }, 1200);
+    return true;
   }
   function buy() {
+    if (needAccount()) return;
     var u = Lerna.auth.user;
-    if (!u) { Lerna.toast(t('pr.needLogin'), 3000); setTimeout(function () { Lerna.go('auth.html?mode=signup&redirect=premium.html'); }, 1200); return; }
     var base = plan === 'monthly' ? Lerna.config.checkoutMonthly : Lerna.config.checkoutYearly;
     if (!base) { Lerna.toast(t('pr.soon'), 4000); return; }
     // Le webhook Lemon Squeezy (api/webhook.js) relie le paiement au compte grâce à user_id.
@@ -257,13 +356,82 @@ Lerna.addStrings({
     location.href = url;
   }
 
+  /* ---------- Paiement Wave / Orange Money : envoi au numéro LERNA, puis déclaration vérifiée par l'équipe ---------- */
+  function momo() {
+    if (needAccount()) return;
+    var m = M(); if (!m) return;
+    if (Lerna.auth.mode !== 'supabase') { Lerna.toast(t('mm.errOff'), 3000); return; }
+    Lerna.sound.play('click');
+    var f = plan === 'yearly' ? 'an' : 'mois', way = '';
+    var esc = Lerna.esc;
+    Lerna.modal(
+      '<div class="modal-head"><h3>' + esc(t('mm.title')) + '</h3><button class="modal-close" data-close aria-label="Fermer">' + Lerna.icon('x') + '</button></div>' +
+      '<div class="mm-step"><b>1</b><div><h4>' + esc(t('mm.s1')) + '</h4><div class="mm-plans">' +
+        '<button type="button" data-f="mois">' + esc(t('mm.month')) + '<span>' + fcfa(m.prixMois) + '</span></button>' +
+        '<button type="button" data-f="an">' + esc(t('mm.year')) + '<span>' + fcfa(m.prixAn) + '</span></button></div></div></div>' +
+      '<div class="mm-step"><b>2</b><div><h4 id="mmSend"></h4><div class="mm-num"><strong>' + esc(niceNum(m.numero)) + '</strong>' +
+        '<button type="button" class="btn btn-ghost btn-sm" id="mmCopy">' + Lerna.icon('copy', 'ic-sm') + esc(t('mm.copy')) + '</button></div>' +
+        '<p class="small muted" style="margin-top:6px">' + esc(t('mm.s2sub')) + '</p></div></div>' +
+      '<form class="mm-step mm-form" id="mmForm" novalidate><b>3</b><div><h4>' + esc(t('mm.s3')) + '</h4>' +
+        '<p class="small" style="margin-bottom:6px">' + esc(t('mm.way')) + '</p><div class="mm-ways">' +
+          '<button type="button" data-w="wave">' + esc(t('mm.wave')) + '</button><button type="button" data-w="orange_money">' + esc(t('mm.om')) + '</button></div>' +
+        '<div class="field"><label for="mmPhone">' + esc(t('mm.phone')) + '</label><input class="input" id="mmPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="' + esc(t('mm.phonePh')) + '"></div>' +
+        '<div class="field"><label for="mmRef">' + esc(t('mm.ref')) + '</label><input class="input" id="mmRef" maxlength="60" autocomplete="off" placeholder="' + esc(t('mm.refPh')) + '"></div>' +
+        '<p class="mm-err" id="mmErr" role="alert"></p>' +
+        '<button type="submit" class="btn btn-primary btn-block" id="mmGo">' + esc(t('mm.send')) + '</button>' +
+        '<p class="small muted" style="margin-top:8px;text-align:center">' + esc(t('mm.after')) + '</p></div></form>',
+      function (box, close) {
+        function paint() {
+          Lerna.qsa('[data-f]', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-f') === f); });
+          Lerna.qsa('[data-w]', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-w') === way); });
+          box.querySelector('#mmSend').innerHTML = esc(t('mm.s2', { m: '§' })).replace('§', '<span class="mm-amount">' + fcfa(f === 'an' ? m.prixAn : m.prixMois) + '</span>');
+        }
+        paint();
+        box.addEventListener('click', function (e) {
+          var b = e.target.closest('[data-f],[data-w]');
+          if (!b) return;
+          if (b.hasAttribute('data-f')) f = b.getAttribute('data-f'); else way = b.getAttribute('data-w');
+          Lerna.sound.play('select'); paint();
+        });
+        box.querySelector('#mmCopy').addEventListener('click', function () {
+          var v = localNum(m.numero);
+          var ok = function () { Lerna.toast(t('mm.copied'), 1600); };
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(v).then(ok, function () { prompt('', v); });
+          else prompt('', v);
+        });
+        box.querySelector('#mmForm').addEventListener('submit', function (e) {
+          e.preventDefault();
+          var err = box.querySelector('#mmErr'), go = box.querySelector('#mmGo');
+          var phone = box.querySelector('#mmPhone').value.trim(), ref = box.querySelector('#mmRef').value.trim();
+          err.textContent = '';
+          if (!way) { err.textContent = t('mm.needWay'); return; }
+          if (phone.replace(/[^0-9]/g, '').length < 7) { err.textContent = t('mm.needPhone'); return; }
+          go.disabled = true; go.textContent = t('mm.sending');
+          Lerna.auth.sb.rpc('lerna_momo_demande', { p_formule: f, p_moyen: way, p_numero: phone, p_reference: ref }).then(function (r) {
+            go.disabled = false; go.textContent = t('mm.send');
+            if (r.error) {
+              var msg = r.error.message || '';
+              err.textContent = /too_many/.test(msg) ? t('mm.errMany') : /momo_off/.test(msg) ? t('mm.errOff') : t('mm.err');
+              return;
+            }
+            Lerna.analytics.capture('premium_momo_sent', { formule: f, moyen: way });
+            Lerna.sound.play('success');
+            close();
+            Lerna.toast(t('mm.ok'), 4500);
+            loadPayStatus();
+          }, function () { go.disabled = false; go.textContent = t('mm.send'); err.textContent = t('mm.err'); });
+        });
+      });
+  }
+
   Lerna.ready(function () {
   Lerna.analytics.capture('premium_view', { src: Lerna.param('src') || document.referrer.split('/').pop().split('?')[0] || 'direct' });
     renderPrice(); renderTable(); renderFaq();
     Lerna.qsa('[data-plan]').forEach(function (b) { b.addEventListener('click', function () { plan = b.getAttribute('data-plan'); renderPrice(); Lerna.sound.play('click'); }); });
     $('buyBtn').addEventListener('click', buy);
+    $('momoBtn').addEventListener('click', momo);
     Lerna.auth.ready.then(function () {
-      renderStatus();
+      renderPrice(); renderFaq(); renderStatus();
       if (Lerna.param('payment') === 'success') {
         Lerna.toast(t('pr.thanks'), 5000); Lerna.sound.play('success');
         // Le statut Premium est écrit par le webhook côté serveur : on recharge le profil après quelques secondes

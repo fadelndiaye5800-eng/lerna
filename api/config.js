@@ -2,7 +2,7 @@
    Seules des valeurs publiques sortent d'ici : l'URL Supabase et la clé "anon" (conçue pour être publique,
    la sécurité repose sur les règles RLS), les liens de paiement Lemon Squeezy, l'identifiant public OneSignal,
    la clé publique PostHog (mesures), le lien des avis Google, l'interrupteur Premium,
-   les réglages A/B et les taux de change décidés depuis /admin (table app_config),
+   les réglages A/B, les taux de change et le paiement Wave / Orange Money (numéro, prix) décidés depuis /admin (table app_config),
    et le pays deviné par l'adresse internet (en-tête Vercel x-vercel-ip-country).
    (Une seule fonction pour tout cela : le plan Vercel gratuit limite le nombre de fonctions à 12.)
    Aucune clé secrète (Anthropic, service_role, webhook, OneSignal REST, Resend) n'est jamais renvoyée. */
@@ -12,7 +12,7 @@ import { json, env, sbFetch, supabaseReady } from './_lib.js';
 async function appConfig() {
   if (!supabaseReady()) return {};
   try {
-    const r = await sbFetch('/rest/v1/app_config?select=key,value&key=in.(ab,fx)');
+    const r = await sbFetch('/rest/v1/app_config?select=key,value&key=in.(ab,fx,momo)');
     const out = {};
     if (r.ok && Array.isArray(r.data)) for (const row of r.data) out[row.key] = row.value;
     return out;
@@ -28,6 +28,15 @@ const cleanFx = (fx) => {
   const n = (x) => (typeof x === 'number' && x > 0 && x < 100000 ? x : undefined);
   const o = { EUR: n(fx.EUR), XOF: n(fx.XOF), date: typeof fx.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(fx.date) ? fx.date : undefined };
   return o.EUR && o.XOF ? o : null;
+};
+
+/* Paiement Wave / Orange Money : numéro qui reçoit et prix en FCFA (réglés depuis /admin, table app_config) */
+const cleanMomo = (m) => {
+  if (!m || typeof m !== 'object' || m.actif !== true) return null;
+  const numero = typeof m.numero === 'string' ? m.numero.replace(/[^0-9+]/g, '') : '';
+  const p = (x) => (Number.isInteger(x) && x > 0 && x < 10000000 ? x : null);
+  const prixMois = p(m.prix_mois), prixAn = p(m.prix_an);
+  return numero.length >= 7 && prixMois && prixAn ? { numero, prixMois, prixAn } : null;
 };
 
 export async function GET(request) {
@@ -56,6 +65,7 @@ export async function GET(request) {
     appleLogin: env('APPLE_LOGIN_ENABLED', 'false') === 'true',   // bouton « Continuer avec Apple » (après la configuration chez Apple)
     ab: cleanAb(cfg.ab),
     fx: cleanFx(cfg.fx),
+    momo: cleanMomo(cfg.momo),
     country: /^[A-Z]{2}$/.test(ipc) && ipc !== 'XX' ? ipc : null
   }, 200, { 'Cache-Control': 'private, max-age=120' });
 }

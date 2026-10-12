@@ -18,7 +18,17 @@
   .ad-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 14px; flex-wrap: wrap; }
   .ad-head h1 { font-size: clamp(1.6rem, 4.4vw, 2.2rem); }
   .kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin: 18px 0; }
-  @media (min-width: 760px) { .kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (min-width: 760px) { .kpis { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+  .kpi.hot { border-color: var(--orange); }
+  .pay-card .amt { font-size: 1.3rem; font-weight: 800; color: var(--brown); }
+  .pay-card .det { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font-size: .9rem; margin: 10px 0 12px; }
+  .pay-card .det span { color: var(--muted); }
+  .pay-card .det b { font-weight: 700; word-break: break-word; }
+  .pill-s.en_attente { background: var(--orange); color: #fff; }
+  .pill-s.valide { background: var(--olive-bg); color: var(--olive); }
+  .pill-s.refuse { background: var(--cream-dark); }
+  .momo-set { max-width: 560px; margin-bottom: 18px; }
+  .momo-set .two { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .kpi { background: var(--surface); border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 14px; }
   .kpi b { display: block; font-size: 1.6rem; font-weight: 800; color: var(--orange); }
   .kpi span { font-size: .8rem; color: var(--muted); font-weight: 600; }
@@ -62,8 +72,8 @@
 (function () {
   var esc = Lerna.esc, L = Lerna.L, A = Lerna.auth, today = new Date().toISOString().slice(0, 10);
   var $ = function (id) { return document.getElementById(id); };
-  var tab = (location.hash || '#offres').slice(1), data = { opps: [], reps: [], msgs: [], ab: null, abHist: [], fx: null, users: null, abCounts: null };
-  var TABS = [['offres', 'Offres'], ['signalements', 'Signalements'], ['messages', 'Messages'], ['ab', 'Tests A/B'], ['fx', 'Taux de change']];
+  var tab = (location.hash || '#paiements').slice(1), data = { opps: [], reps: [], msgs: [], ab: null, abHist: [], fx: null, momo: null, pays: [], users: null, abCounts: null };
+  var TABS = [['paiements', 'Paiements'], ['offres', 'Offres'], ['signalements', 'Signalements'], ['messages', 'Messages'], ['ab', 'Tests A/B'], ['fx', 'Taux de change']];
   var live = function () { return A.mode === 'supabase' && A.sb; };
   function toast(m) { Lerna.toast(m, 2200); }
   function days(iso) { var d = Lerna.daysUntil(iso); return d === null ? null : -d; }
@@ -85,10 +95,12 @@
       sb.from('messages_contact').select('*').order('created_at', { ascending: false }).limit(200),
       sb.from('app_config').select('key,value,updated_at'),
       sb.from('users').select('id', { count: 'exact', head: true }),
-      sb.from('users').select('ab').limit(10000)
+      sb.from('users').select('ab').limit(10000),
+      sb.from('paiements_momo').select('*').order('created_at', { ascending: false }).limit(300)
     ]).then(function (r) {
       data.opps = r[0].data || []; data.reps = r[1].data || []; data.msgs = r[2].data || [];
-      (r[3].data || []).forEach(function (x) { if (x.key === 'ab') data.ab = x.value; if (x.key === 'fx') data.fx = x.value; if (x.key === 'ab_history') data.abHist = x.value || []; });
+      (r[3].data || []).forEach(function (x) { if (x.key === 'ab') data.ab = x.value; if (x.key === 'fx') data.fx = x.value; if (x.key === 'momo') data.momo = x.value; if (x.key === 'ab_history') data.abHist = x.value || []; });
+      data.pays = r[6].data || [];
       data.users = r[4].count;
       var c = {}; (r[5].data || []).forEach(function (u) { var v = u.ab && u.ab.couleurs; if (v) c[v] = (c[v] || 0) + 1; }); data.abCounts = c;
     });
@@ -104,15 +116,48 @@
     var stale = data.opps.filter(function (o) { return o.active && oppStatus(o) === 'stale'; }).length;
     var newReps = data.reps.filter(function (x) { return x.statut === 'nouveau'; }).length;
     var newMsgs = data.msgs.filter(function (x) { return x.statut === 'nouveau'; }).length;
+    var newPays = data.pays.filter(function (x) { return x.statut === 'en_attente'; }).length;
     var h = '<div class="ad-head"><div><span class="eyebrow">Administration</span><h1>Tableau de bord LERNA</h1></div>' +
       (live() ? '<span class="small muted">Connecté : ' + esc(u.email) + '</span>' : '<span class="badge badge-soft">Mode aperçu — Supabase pas encore branché</span>') + '</div>' +
-      '<div class="kpis"><div class="kpi"><b>' + (data.users === null ? '—' : data.users) + '</b><span>Comptes</span></div>' +
+      '<div class="kpis"><div class="kpi' + (newPays ? ' hot' : '') + '"><b>' + newPays + '</b><span>Paiements à vérifier</span></div>' +
+      '<div class="kpi"><b>' + (data.users === null ? '—' : data.users) + '</b><span>Comptes</span></div>' +
       '<div class="kpi"><b>' + stale + '</b><span>Offres à revérifier (+30 j)</span></div>' +
       '<div class="kpi"><b>' + newReps + '</b><span>Signalements nouveaux</span></div>' +
       '<div class="kpi"><b>' + newMsgs + '</b><span>Messages nouveaux</span></div></div>' +
       '<div class="tabs-wrap"><div class="tabs" role="tablist">' + TABS.map(function (x) { return '<button type="button" class="tab' + (x[0] === tab ? ' active' : '') + '" data-tab="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div></div>' +
-      '<div id="panel">' + ({ offres: pOffres, signalements: pReps, messages: pMsgs, ab: pAb, fx: pFx }[tab] || pOffres)() + '</div>';
+      '<div id="panel">' + ({ paiements: pPays, offres: pOffres, signalements: pReps, messages: pMsgs, ab: pAb, fx: pFx }[tab] || pOffres)() + '</div>';
     $('root').innerHTML = h;
+  }
+  /* ---------- Paiements Wave / Orange Money ---------- */
+  var fcfa = function (n) { return Number(n || 0).toLocaleString('fr-FR') + ' FCFA'; };
+  var WAYS = { wave: 'Wave', orange_money: 'Orange Money' };
+  function dt(iso) { var d = new Date(iso); return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) + ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }); }
+  function pPays() {
+    if (!live()) return '<p class="muted">Disponible une fois Supabase branché.</p>';
+    var m = data.momo || { numero: '', prix_mois: 3000, prix_an: 24000, actif: false };
+    var h = '<section class="card momo-set"><h3>Réglages Wave / Orange Money</h3>' +
+      '<p class="small muted" style="margin:6px 0 12px">Le numéro et les prix affichés aux élèves sur la page Premium.</p>' +
+      '<div class="stack"><div class="field"><label for="mmNum">Numéro qui reçoit l’argent</label><input class="input" id="mmNum" type="tel" value="' + esc(m.numero || '') + '"></div>' +
+      '<div class="two"><div class="field"><label for="mmPm">Prix 1 mois (FCFA)</label><input class="input" id="mmPm" type="number" min="100" step="100" value="' + (m.prix_mois || '') + '"></div>' +
+      '<div class="field"><label for="mmPa">Prix 1 an (FCFA)</label><input class="input" id="mmPa" type="number" min="100" step="100" value="' + (m.prix_an || '') + '"></div></div>' +
+      '<label class="row small" style="gap:8px"><input type="checkbox" id="mmOn"' + (m.actif ? ' checked' : '') + '> Paiement Wave / Orange Money ouvert</label>' +
+      '<button type="button" class="btn btn-primary" data-act="momo">Enregistrer</button></div></section>';
+    h += '<p class="small muted" style="max-width:700px;margin-bottom:12px">Quand une demande arrive : ouvre Wave ou Orange Money sur ton téléphone, retrouve l’argent reçu (même <strong>montant</strong>, même <strong>numéro</strong>, même <strong>référence</strong>), puis touche <strong>Valider</strong>. Le Premium de l’élève s’active tout de suite (1 mois ou 1 an, ajouté à la suite de son Premium en cours). Si tu ne trouves pas l’argent, touche <strong>Refuser</strong>.</p>';
+    if (!data.pays.length) return h + '<div class="empty"><h4>Aucun paiement pour l’instant</h4></div>';
+    var list = data.pays.slice().sort(function (a, b) { return (a.statut === 'en_attente' ? 0 : 1) - (b.statut === 'en_attente' ? 0 : 1) || String(b.created_at).localeCompare(String(a.created_at)); });
+    var LBL = { en_attente: 'À vérifier', valide: 'Validé', refuse: 'Refusé' };
+    return h + list.map(function (p) {
+      var pend = p.statut === 'en_attente';
+      return '<div class="msg-card pay-card' + (pend ? ' nouveau' : '') + '"><div class="top"><span class="amt">' + fcfa(p.montant) + ' · ' + (p.formule === 'an' ? '1 an' : '1 mois') + '</span><span><span class="pill-s ' + p.statut + '">' + LBL[p.statut] + '</span></span></div>' +
+        '<div class="det"><span>Moyen</span><b>' + esc(WAYS[p.moyen] || p.moyen) + '</b>' +
+        '<span>Payé depuis</span><b><a href="tel:' + esc(p.numero_payeur) + '">' + esc(p.numero_payeur) + '</a></b>' +
+        '<span>Référence</span><b>' + (p.reference ? esc(p.reference) : '<span class="muted">—</span>') + '</b>' +
+        '<span>Compte</span><b>' + esc(p.email || '') + '</b>' +
+        '<span>Envoyé</span><b>' + dt(p.created_at) + '</b>' +
+        (p.traite_at ? '<span>Traité</span><b>' + dt(p.traite_at) + '</b>' : '') +
+        (p.premium_jusqu_au ? '<span>Premium jusqu’au</span><b>' + Lerna.fmtDate(p.premium_jusqu_au) + '</b>' : '') + '</div>' +
+        (pend ? '<div class="acts"><button type="button" class="btn btn-primary" data-pay="' + p.id + '" data-v="valide">Valider · activer Premium</button><button type="button" class="btn btn-ghost" data-pay="' + p.id + '" data-v="refuse">Refuser</button></div>' : '') + '</div>';
+    }).join('');
   }
   function pOffres() {
     var h = '<div class="row" style="justify-content:space-between;margin-bottom:12px"><p class="small muted" style="max-width:640px">Règles automatiques : date passée → clôturée ; ni date ni « à tout moment » → jamais affichée ; vérifiée il y a plus de 30 jours → masquée jusqu’à « Revérifiée aujourd’hui ».</p>' +
@@ -256,12 +301,34 @@
           return;
         }
         if (act === 'toggle' && o) { A.sb.from('opportunites').update({ active: o.active === false }).eq('id', o.id).then(function () { reload(); }); return; }
+        if (act === 'momo') {
+          var mm = { numero: $('mmNum').value.replace(/[^0-9+]/g, ''), prix_mois: parseInt($('mmPm').value, 10), prix_an: parseInt($('mmPa').value, 10), actif: $('mmOn').checked };
+          if (mm.numero.replace(/\D/g, '').length < 7 || !(mm.prix_mois > 0) || !(mm.prix_an > 0)) return toast('Numéro ou prix invalide');
+          A.sb.from('app_config').upsert({ key: 'momo', value: mm, updated_at: new Date().toISOString(), updated_by: A.user.id }).then(function (r) {
+            try { sessionStorage.removeItem('lerna_cfg'); } catch (e) {}
+            toast(r.error ? 'Erreur : ' + r.error.message : 'Réglages enregistrés'); reload();
+          });
+          return;
+        }
         if (act === 'fx') {
           var fx = { EUR: +$('fxEur').value, XOF: +$('fxXof').value, date: $('fxDate').value };
           if (!(fx.EUR > 0 && fx.XOF > 0 && /^\d{4}-\d{2}-\d{2}$/.test(fx.date))) return toast('Valeurs invalides');
           A.sb.from('app_config').upsert({ key: 'fx', value: fx, updated_at: new Date().toISOString(), updated_by: A.user.id }).then(function (r) { toast(r.error ? 'Erreur : ' + r.error.message : 'Taux enregistrés'); reload(); });
           return;
         }
+      }
+      if ((b = e.target.closest('[data-pay]'))) {
+        var dec = b.getAttribute('data-v'), pid = b.getAttribute('data-pay');
+        var pp = data.pays.filter(function (x) { return x.id === pid; })[0];
+        if (!pp) return;
+        var q = dec === 'valide' ? 'Tu as bien reçu ' + fcfa(pp.montant) + ' par ' + (WAYS[pp.moyen] || pp.moyen) + ' depuis le ' + pp.numero_payeur + ' ?\n\nLe Premium de ' + (pp.email || 'cet élève') + ' sera activé pour ' + (pp.formule === 'an' ? '1 an' : '1 mois') + '.' : 'Refuser ce paiement ? (À faire seulement si l’argent n’est pas arrivé.)';
+        if (!confirm(q)) return;
+        b.disabled = true;
+        A.sb.rpc('lerna_momo_traiter', { p_id: pid, p_decision: dec }).then(function (r) {
+          if (r.error) { b.disabled = false; return toast('Erreur : ' + r.error.message); }
+          toast(dec === 'valide' ? 'Premium activé' : 'Paiement refusé'); reload();
+        });
+        return;
       }
       if ((b = e.target.closest('[data-rep]'))) { A.sb.from('signalements').update({ statut: b.getAttribute('data-v') }).eq('id', b.getAttribute('data-rep')).then(reload); return; }
       if ((b = e.target.closest('[data-msg]'))) { A.sb.from('messages_contact').update({ statut: b.getAttribute('data-v') }).eq('id', b.getAttribute('data-msg')).then(reload); return; }

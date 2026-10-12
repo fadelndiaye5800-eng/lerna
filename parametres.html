@@ -207,6 +207,7 @@ Lerna.addStrings({
           '<div class="field"><label for="fPrenom">' + t('st.prenom') + '</label><input class="input" id="fPrenom" maxlength="60" autocomplete="given-name" value="' + esc(u.prenom || '') + '"></div>' +
           '<div class="field"><label for="fNom">' + t('st.nom') + '</label><input class="input" id="fNom" maxlength="60" autocomplete="family-name" value="' + esc(u.nom || '') + '"></div></div>' +
           '<div><button type="submit" class="btn btn-primary btn-sm">' + t('st.save') + '</button></div></form>' +
+        (u.role === 'admin' ? item('Tableau de bord propriétaire', '', '<a class="btn btn-primary btn-sm" href="admin.html">Ouvrir</a>') : '') +
         item(t('st.pw'), t('st.pwSub'), '<button type="button" class="btn btn-ghost btn-sm" id="pwBtn">' + t('st.pwBtn') + '</button>') +
         item(t('st.logout'), '', '<button type="button" class="btn btn-ghost btn-sm" data-logout>' + Lerna.icon('logout', 'ic-sm') + t('st.logout') + '</button>') +
         item(t('st.delete'), t('st.deleteSub'), '<button type="button" class="btn btn-ghost btn-sm danger" id="delBtn">' + t('st.delete') + '</button>'));

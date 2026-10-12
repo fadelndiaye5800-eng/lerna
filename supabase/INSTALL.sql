@@ -471,6 +471,94 @@ begin
   end if;
 end $$;
 
+-- ---------- Paiement Premium par Wave / Orange Money (vérifié à la main par le propriétaire) ----------
+-- L'élève envoie l'argent au numéro affiché, puis déclare son paiement (formule, moyen, numéro qui a payé, référence).
+-- Le propriétaire compare avec le message reçu sur son téléphone, puis valide depuis /admin.html → le Premium s'active tout de suite.
+-- Toutes les écritures passent par deux fonctions sécurisées : personne ne peut s'activer Premium tout seul.
+create table if not exists public.paiements_momo (
+  id               uuid primary key default gen_random_uuid(),
+  user_id          uuid not null references auth.users(id) on delete cascade,
+  email            text,
+  formule          text not null check (formule in ('mois', 'an')),
+  montant          integer not null check (montant > 0),
+  moyen            text not null check (moyen in ('wave', 'orange_money')),
+  numero_payeur    text not null check (char_length(numero_payeur) between 7 and 16),
+  reference        text check (char_length(reference) <= 60),
+  statut           text not null default 'en_attente' check (statut in ('en_attente', 'valide', 'refuse')),
+  created_at       timestamptz not null default now(),
+  traite_at        timestamptz,
+  traite_par       uuid references auth.users(id) on delete set null,
+  premium_jusqu_au timestamptz
+);
+create index if not exists paiements_momo_statut_idx on public.paiements_momo (statut, created_at desc);
+create index if not exists paiements_momo_user_idx on public.paiements_momo (user_id, created_at desc);
+alter table public.paiements_momo enable row level security;
+drop policy if exists momo_select_own on public.paiements_momo;
+create policy momo_select_own on public.paiements_momo for select using (auth.uid() = user_id);
+drop policy if exists momo_admin_read on public.paiements_momo;
+create policy momo_admin_read on public.paiements_momo for select using (public.is_admin());
+revoke insert, update, delete on public.paiements_momo from anon, authenticated;
+grant select on public.paiements_momo to authenticated;
+
+-- Réglages (numéro qui reçoit, prix en FCFA, marche/arrêt), modifiables depuis /admin.html
+insert into public.app_config (key, value) values
+  ('momo', '{"numero": "+221786655769", "prix_mois": 3000, "prix_an": 24000, "actif": true}'::jsonb)
+on conflict (key) do nothing;
+
+-- L'élève déclare son paiement (le montant vient des réglages, jamais du navigateur)
+create or replace function public.lerna_momo_demande(p_formule text, p_moyen text, p_numero text, p_reference text)
+returns json language plpgsql security definer set search_path = public as $$
+declare
+  uid uuid := auth.uid(); cfg jsonb; prix integer; n integer; em text; rid uuid;
+begin
+  if uid is null then raise exception 'not_authenticated'; end if;
+  select value into cfg from public.app_config where key = 'momo';
+  if cfg is null or coalesce((cfg->>'actif')::boolean, false) = false then raise exception 'momo_off'; end if;
+  if p_formule not in ('mois', 'an') then raise exception 'bad_formule'; end if;
+  if p_moyen not in ('wave', 'orange_money') then raise exception 'bad_moyen'; end if;
+  p_numero := regexp_replace(coalesce(p_numero, ''), '[^0-9+]', '', 'g');
+  if char_length(p_numero) < 7 or char_length(p_numero) > 16 then raise exception 'bad_numero'; end if;
+  p_reference := left(btrim(coalesce(p_reference, '')), 60);
+  select count(*) into n from public.paiements_momo where user_id = uid and statut = 'en_attente';
+  if n >= 3 then raise exception 'too_many'; end if;
+  select count(*) into n from public.paiements_momo where user_id = uid and created_at > now() - interval '1 day';
+  if n >= 6 then raise exception 'too_many'; end if;
+  prix := case when p_formule = 'mois' then (cfg->>'prix_mois')::integer else (cfg->>'prix_an')::integer end;
+  if prix is null or prix <= 0 then raise exception 'momo_off'; end if;
+  select email into em from auth.users where id = uid;
+  insert into public.paiements_momo (user_id, email, formule, montant, moyen, numero_payeur, reference)
+  values (uid, em, p_formule, prix, p_moyen, p_numero, nullif(p_reference, ''))
+  returning id into rid;
+  return json_build_object('id', rid, 'montant', prix);
+end $$;
+revoke all on function public.lerna_momo_demande(text, text, text, text) from public, anon;
+grant execute on function public.lerna_momo_demande(text, text, text, text) to authenticated;
+
+-- Le propriétaire valide (Premium ajouté : 1 mois ou 1 an, à la suite du Premium en cours) ou refuse
+create or replace function public.lerna_momo_traiter(p_id uuid, p_decision text)
+returns json language plpgsql security definer set search_path = public as $$
+declare
+  r public.paiements_momo; cur timestamptz; fin timestamptz;
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  select * into r from public.paiements_momo where id = p_id for update;
+  if not found then raise exception 'not_found'; end if;
+  if r.statut <> 'en_attente' then raise exception 'already_done'; end if;
+  if p_decision = 'refuse' then
+    update public.paiements_momo set statut = 'refuse', traite_at = now(), traite_par = auth.uid() where id = p_id;
+    return json_build_object('statut', 'refuse');
+  elsif p_decision <> 'valide' then
+    raise exception 'bad_decision';
+  end if;
+  select premium_expiry into cur from public.users where id = r.user_id;
+  fin := greatest(now(), coalesce(cur, now())) + case when r.formule = 'an' then interval '1 year' else interval '1 month' end;
+  update public.users set is_premium = true, premium_expiry = fin where id = r.user_id;
+  update public.paiements_momo set statut = 'valide', traite_at = now(), traite_par = auth.uid(), premium_jusqu_au = fin where id = p_id;
+  return json_build_object('statut', 'valide', 'jusqu_au', fin);
+end $$;
+revoke all on function public.lerna_momo_traiter(uuid, text) from public, anon;
+grant execute on function public.lerna_momo_traiter(uuid, text) to authenticated;
+
 -- Généré par scripts/generate-seed.cjs — ne pas modifier à la main
 -- Écoles
 insert into public.ecoles (slug, nom, pays, ville, type, domaines, frais_locaux_usd, frais_etrangers_usd, langue_enseignement, duree_min, duree_max, conditions_admission, description, points_forts, points_faibles, nombre_avis, site_officiel) values ('ucad', 'Université Cheikh Anta Diop (UCAD)', 'SN', 'Dakar', 'Publique', array['droit','sante','sciences','business','education','tech'], 50, 400, array['fr'], 3, 8, 'Baccalauréat (ou équivalent) avec une série cohérente avec la filière. Les bacheliers nationaux passent par la plateforme nationale d''orientation ; les étudiants étrangers déposent un dossier auprès du service des étudiants étrangers ou via une bourse d''État.', 'Université publique historique de Dakar, avec des facultés de médecine, droit, sciences, lettres et économie. Le coût est très bas pour les bacheliers sénégalais, mais les amphithéâtres sont souvent surchargés : il faut de l''autonomie pour réussir.', array['Frais quasi nuls pour les nationaux','Large choix de filières, de la licence au doctorat','Diplômes reconnus dans toute la zone CAMES'], array['Effectifs très élevés et grèves possibles qui décalent le calendrier','Logement universitaire très demandé, places limitées'], 0, 'https://www.ucad.sn') on conflict (slug) do update set nom = excluded.nom, frais_locaux_usd = excluded.frais_locaux_usd, frais_etrangers_usd = excluded.frais_etrangers_usd, description = excluded.description, points_forts = excluded.points_forts, points_faibles = excluded.points_faibles;

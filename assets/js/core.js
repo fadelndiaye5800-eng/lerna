@@ -969,6 +969,7 @@
   Lerna.isPremium = function () {
     if (!Lerna.config.premiumEnabled) return true;     // Premium pas encore lancé : tout est ouvert
     var u = Auth.user;
+    if (u && u.role === 'admin') return true;          // le propriétaire a tout Premium
     if (!u || !u.is_premium) return false;
     if (u.premium_expiry && new Date(u.premium_expiry) < new Date()) return false;
     return true;
