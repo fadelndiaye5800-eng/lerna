@@ -111,7 +111,7 @@ export async function POST(request) {
       const url = str(body.url, 500);
       const text = await pageText(url);
       if (text.length < 200) return fail(422, 'page_empty');
-      const out = await claude({ system: adminOfferSystem(), messages: [{ role: 'user', content: 'Lien officiel : ' + url + '\nDate du jour : ' + new Date().toISOString().slice(0, 10) + '\n\nTexte de la page :\n' + text }], maxTokens: 1500 });
+      const out = await claude({ mode: 'admin_offre', system: adminOfferSystem(), messages: [{ role: 'user', content: 'Lien officiel : ' + url + '\nDate du jour : ' + new Date().toISOString().slice(0, 10) + '\n\nTexte de la page :\n' + text }], maxTokens: 1500 });
       await hit(key);
       return json({ draft: { ...extractJson(out), lien: url, source: new URL(url).hostname.replace(/^www\./, '') } });
     } catch (e) {
@@ -152,7 +152,7 @@ export async function POST(request) {
       : mode === 'offre' ? offerSystem(lang)
       : mode === 'projet' ? projectSystem(lang)
       : coachSystem(mode, lang, str(body.context, 300));
-    const reply = await claude({ system: sys, messages: merged, maxTokens: mode === 'chat' ? 700 : mode === 'offre' || mode === 'projet' ? 600 : 800 });
+    const reply = await claude({ mode: String(mode || 'chat'), system: sys, messages: merged, maxTokens: mode === 'chat' ? 700 : mode === 'offre' || mode === 'projet' ? 600 : 800 });
     await hit(key);
     return json({ reply: reply.slice(0, 2500) });
   } catch (e) {

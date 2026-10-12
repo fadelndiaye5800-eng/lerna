@@ -13,7 +13,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -56,22 +56,36 @@
   .pay-alt { width: 100%; margin-top: 10px; }
   .fcfa-line { color: var(--muted); font-size: .9rem; margin-top: 6px; }
   .fcfa-line strong { color: var(--brown); }
-  .pay-status { margin-top: 18px; text-align: left; }
-  /* Fenêtre « Wave / Orange Money » */
-  .mm-step { display: flex; gap: 12px; align-items: flex-start; margin: 16px 0 0; }
-  .mm-step > b { flex-shrink: 0; width: 26px; height: 26px; border-radius: 50%; background: var(--orange); color: #fff; font-size: .82rem; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
-  .mm-step > div { flex: 1; min-width: 0; }
-  .mm-step h4 { font-size: .98rem; margin: 2px 0 8px; }
+  /* Fenêtre de paiement */
+  .pay-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 12px; }
+  .pay-chips span { display: inline-flex; align-items: center; gap: 6px; font-size: .76rem; font-weight: 700; color: var(--muted); background: var(--cream-dark); border-radius: 99px; padding: 4px 10px; }
+  .pay-chips i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .mm-step { margin: 18px 0 0; }
+  .mm-step h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 0 0 8px; }
   .mm-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .mm-plans button, .mm-ways button { border: 1.5px solid var(--cream-dark); background: var(--surface); border-radius: 14px; padding: 10px 12px; text-align: left; font-weight: 700; color: var(--brown); }
-  .mm-plans button span { display: block; font-size: .8rem; font-weight: 600; color: var(--muted); margin-top: 2px; }
-  .mm-plans button.on, .mm-ways button.on { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-soft); }
+  .mm-plans button { position: relative; border: 1.5px solid var(--cream-dark); background: var(--surface); border-radius: 16px; padding: 12px 14px; text-align: left; font-weight: 800; color: var(--brown); }
+  .mm-plans button span { display: block; font-size: .86rem; font-weight: 600; color: var(--muted); margin-top: 2px; }
+  .mm-plans button em { position: absolute; top: -9px; right: 10px; font-style: normal; font-size: .68rem; font-weight: 800; background: var(--orange); color: #fff; border-radius: 99px; padding: 2px 8px; }
   .mm-ways { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .mm-ways button { text-align: center; }
-  .mm-num { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--cream-dark); border-radius: 14px; padding: 12px 14px; }
-  .mm-num strong { font-size: 1.35rem; letter-spacing: .03em; color: var(--brown); white-space: nowrap; }
-  .mm-amount { font-weight: 800; color: var(--orange); }
-  .mm-form .field { margin-top: 10px; }
+  .mm-ways button { display: flex; align-items: center; gap: 10px; border: 1.5px solid var(--cream-dark); background: var(--surface); border-radius: 16px; padding: 12px; text-align: left; color: var(--brown); min-height: 64px; }
+  .mm-ways .pm { width: 36px; height: 36px; border-radius: 11px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #fff; }
+  .mm-ways .pm svg { width: 20px; height: 20px; }
+  .mm-ways strong { display: block; font-size: .92rem; line-height: 1.2; }
+  .mm-ways small { display: block; font-size: .74rem; color: var(--muted); font-weight: 600; }
+  .mm-plans button.on, .mm-ways button.on { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-soft); }
+  .mm-form .field { margin-top: 0; }
+  .mm-secure { display: flex; gap: 8px; align-items: flex-start; justify-content: center; font-size: .78rem; color: var(--muted); margin-top: 10px; text-align: left; }
+  .mm-secure .ic { width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px; }
+  .mm-terms { text-align: center; font-size: .74rem; color: var(--muted); margin-top: 6px; }
+  .mm-terms a { color: inherit; text-decoration: underline; }
+  .mm-wait { text-align: center; padding: 10px 0 6px; }
+  .mm-wait h3 { margin: 14px 0 6px; }
+  .mm-wait p { color: var(--muted); }
+  .mm-wait .big { font-size: 1.6rem; font-weight: 800; color: var(--brown); letter-spacing: .04em; margin: 10px 0; }
+  .mm-spin { width: 44px; height: 44px; border-radius: 50%; border: 4px solid var(--cream-dark); border-top-color: var(--orange); margin: 6px auto 0; animation: mmspin 1s linear infinite; }
+  @keyframes mmspin { to { transform: rotate(360deg); } }
+  .mm-done { width: 64px; height: 64px; border-radius: 50%; background: var(--orange); color: #fff; display: flex; align-items: center; justify-content: center; margin: 0 auto; }
+  .mm-done svg { width: 32px; height: 32px; stroke-width: 3; }
   .mm-err { color: var(--danger, #B3261E); font-size: .85rem; min-height: 1.2em; margin-top: 8px; }
 
   .faq details { background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 0 20px; margin-bottom: 10px; }
@@ -105,10 +119,10 @@
         <div class="price" id="price"></div>
         <p class="price-sub" id="priceSub"></p>
         <p class="fcfa-line" id="fcfaLine" hidden></p>
-        <button type="button" class="btn btn-primary btn-lg" id="momoBtn" hidden data-i18n="pr.momoCta">Payer avec Wave ou Orange Money</button>
+        <button type="button" class="btn btn-primary btn-lg" id="momoBtn" hidden data-i18n="pr.payCta">Passer à Premium</button>
+        <div class="pay-chips" id="payChips" hidden><span><i style="background:#1DC3F0"></i>Wave</span><span><i style="background:#FF7900"></i>Orange Money</span><span><i style="background:#7A3FA0"></i>Yas</span><span><i style="background:#8A5A33"></i><span data-i18n="mm.cardShort">Carte</span></span></div>
         <button type="button" class="btn btn-primary btn-lg" id="buyBtn" data-i18n="pr.cta">Commencer Premium →</button>
         <p class="price-note" data-i18n="pr.note">Paiement sécurisé · Sans engagement</p>
-        <div class="pay-status" id="payStatus"></div>
       </div>
       <div class="already" id="already">
         <span class="badge badge-orange" data-i18n="pr.isPremium">Tu es Premium</span>
@@ -161,10 +175,10 @@ Lerna.addStrings({
     'pr.title': 'Sois prêt avant les autres.',
     'pr.sub': 'Tous les outils de LERNA pour préparer ton orientation.',
     'pr.monthly': 'Mensuel', 'pr.yearly': 'Annuel', 'pr.save': '−33%',
-    'pr.pMonthly': '4.99$', 'pr.pMonthlyUnit': '/ mois', 'pr.pYearly': '39.99$', 'pr.pYearlyUnit': '/ an',
+    'pr.pMonthly': '4,99 $', 'pr.pMonthlyUnit': '/ mois', 'pr.pYearly': '39,99 $', 'pr.pYearlyUnit': '/ an',
     'pr.subMonthly': 'Facturé chaque mois. Tu arrêtes quand tu veux.',
     'pr.subMonthlyOnce': 'Un mois d’accès complet, sans prélèvement automatique.',
-    'pr.subYearly': 'Soit 3.33$/mois — tu économises 19.89$ par an.',
+    'pr.subYearly': 'Soit 3,33 $ par mois : tu économises 19,89 $ par an.',
     'pr.cta': 'Commencer Premium →',
     'pr.note': 'Paiement sécurisé · Sans engagement',
     'pr.isPremium': 'Tu es Premium', 'pr.until': 'Ton accès est actif jusqu’au {d}.', 'pr.active': 'Ton accès Premium est actif.',
@@ -181,32 +195,31 @@ Lerna.addStrings({
     'pr.f15': 'Export PDF de mon profil et recommandations',
     'pr.faqTitle': 'Questions fréquentes',
     'pr.q1': 'Comment je paie ?',
-    'pr.a1Momo': 'Avec Wave ou Orange Money, en FCFA : tu envoies le montant au numéro LERNA, puis tu indiques ton paiement ici. LERNA ne voit jamais ton code secret.',
+    'pr.a1Momo': 'En FCFA, avec Wave, Orange Money, Yas ou une carte bancaire (Visa, Mastercard). Tu confirmes le paiement dans ton application ; LERNA ne voit jamais ton code secret ni ta carte.',
     'pr.a1Card': 'Par carte bancaire (Visa, Mastercard) sur une page de paiement sécurisée : LERNA ne voit et ne stocke jamais tes coordonnées bancaires.',
-    'pr.a1Both': 'Avec Wave ou Orange Money en FCFA, ou par carte bancaire (Visa, Mastercard) sur une page de paiement sécurisée. LERNA ne voit jamais ton code secret ni tes coordonnées bancaires.',
+    'pr.a1Both': 'En FCFA, avec Wave, Orange Money, Yas ou une carte bancaire (Visa, Mastercard). Tu confirmes le paiement dans ton application ; LERNA ne voit jamais ton code secret ni ta carte.',
     'pr.a1Soon': 'Le paiement en ligne s’ouvre très bientôt.',
-    'pr.q2': 'Je peux arrêter quand je veux ?', 'pr.a2': 'Oui. Avec Wave ou Orange Money, rien n’est prélevé automatiquement : tu paies 1 mois ou 1 an, et c’est tout. Par carte, tu annules en un clic depuis ton espace ; ton accès reste actif jusqu’à la fin de la période payée.',
+    'pr.q2': 'Je peux arrêter quand je veux ?', 'pr.a2': 'Oui. Rien n’est prélevé automatiquement : tu paies 1 mois ou 1 an, et c’est tout. Ton accès reste actif jusqu’à la fin de la période payée.',
     'pr.q3': 'Pourquoi l’annuel coûte moins cher ?', 'pr.a3': 'Un an coûte le prix de 8 mois : tu économises 33 %. Si tu candidates dans moins de 3 mois, le mensuel peut suffire.',
-    'pr.q4': 'Quand mon Premium s’active-t-il avec Wave ou Orange Money ?', 'pr.a4': 'Dès que ton paiement est vérifié. Tu vois l’état de ta demande sur cette page, et ton Premium apparaît tout seul une fois validé.',
-    'pr.momoCta': 'Payer avec Wave ou Orange Money', 'pr.cardCta': 'Payer par carte bancaire',
-    'pr.fcfa': 'ou <strong>{m}</strong> avec Wave ou Orange Money', 'pr.fcfaYear': 'ou <strong>{m}</strong> par an avec Wave ou Orange Money',
-    'mm.title': 'Payer avec Wave ou Orange Money',
-    'mm.s1': 'Choisis ta formule', 'mm.month': '1 mois', 'mm.year': '1 an',
-    'mm.s2': 'Envoie exactement {m} à ce numéro', 'mm.s2sub': 'Même numéro pour Wave et Orange Money. Fais l’envoi depuis ton application.',
-    'mm.copy': 'Copier', 'mm.copied': 'Numéro copié',
-    'mm.s3': 'Dis-nous que tu as payé', 'mm.way': 'Avec quoi as-tu payé ?',
-    'mm.phone': 'Le numéro qui a payé', 'mm.phonePh': 'Ex. 77 123 45 67',
-    'mm.ref': 'Référence de la transaction (facultatif)', 'mm.refPh': 'Elle est dans le message de confirmation',
-    'mm.send': 'J’ai payé, envoyer', 'mm.sending': 'Envoi…',
-    'mm.after': 'Ton Premium s’active dès que le paiement est vérifié.',
-    'mm.needWay': 'Choisis Wave ou Orange Money.', 'mm.needPhone': 'Écris le numéro qui a payé.',
-    'mm.ok': 'C’est envoyé ! Ton Premium s’active dès que le paiement est vérifié.',
-    'mm.errMany': 'Tu as déjà des paiements en cours de vérification. Patiente un peu avant d’en envoyer un autre.',
-    'mm.errOff': 'Le paiement par Wave ou Orange Money est fermé pour le moment.',
-    'mm.err': 'L’envoi n’a pas marché. Vérifie ta connexion et réessaie.',
-    'mm.pending': 'Paiement de {m} ({f}) envoyé le {d} : vérification en cours.',
-    'mm.refused': 'Ton paiement du {d} n’a pas pu être vérifié. Si tu as bien payé, écris-nous depuis la page Contact avec ta référence de transaction.',
-    'mm.wave': 'Wave', 'mm.om': 'Orange Money',
+    'pr.q4': 'Quand mon Premium s’active-t-il ?', 'pr.a4': 'Tout de suite : dès que tu confirmes le paiement dans ton application, ton Premium s’ouvre automatiquement.',
+    'pr.payCta': 'Passer à Premium', 'pr.cardCta': 'Payer par carte bancaire',
+    'pr.fcfa': 'soit <strong>{m}</strong>, payable par Wave, Orange Money, Yas ou carte', 'pr.fcfaYear': 'soit <strong>{m}</strong> par an, payable par Wave, Orange Money, Yas ou carte',
+    'mm.title': 'Passer à Premium', 'mm.s1': 'Ta formule', 'mm.month': '1 mois', 'mm.year': '1 an', 'mm.save': '−33 %',
+    'mm.s2': 'Moyen de paiement', 'mm.s3': 'Ton numéro {w}', 'mm.phonePh': '77 123 45 67',
+    'mm.wave': 'Wave', 'mm.waveSub': 'Appli Wave', 'mm.om': 'Orange Money', 'mm.omSub': 'Appli OM ou Max it', 'mm.yas': 'Yas', 'mm.yasSub': 'Free Money', 'mm.card': 'Carte bancaire', 'mm.cardSub': 'Visa, Mastercard', 'mm.cardShort': 'Carte',
+    'mm.pay': 'Payer {m}', 'mm.sending': 'Un instant…',
+    'mm.secure': 'Paiement sécurisé. Tu confirmes dans ton application : LERNA ne voit jamais ton code secret ni ta carte.',
+    'mm.terms': 'En payant, tu acceptes les <a href="legal.html#conditions">conditions d’utilisation</a> et les <a href="legal.html#abonnement">conditions d’abonnement</a>.',
+    'mm.needWay': 'Choisis un moyen de paiement.', 'mm.needPhone': 'Écris ton numéro : 9 chiffres, par exemple 77 123 45 67.',
+    'mm.errMany': 'Trop de tentatives aujourd’hui. Réessaie demain ou écris-nous depuis la page Contact.',
+    'mm.errOff': 'Le paiement s’ouvre très bientôt.', 'mm.err': 'Le service de paiement ne répond pas. Réessaie dans un instant.',
+    'mm.opening': 'Ouverture de {w}…', 'mm.openHint': 'Confirme le paiement dans ton application, puis reviens ici.',
+    'mm.openBtn': 'Ouvrir {w}', 'mm.qrHint': 'Sur ordinateur : scanne le code avec ton application Orange Money ou Max it.', 'mm.qrBtn': 'Afficher le code à scanner',
+    'mm.ussd': 'Compose ce code sur le téléphone {n} et confirme le paiement :',
+    'mm.waiting': 'En attente de la confirmation…', 'mm.close': 'Fermer',
+    'mm.okTitle': 'Bienvenue dans Premium !', 'mm.okText': 'Ton paiement est confirmé. Toutes les fonctions Premium sont ouvertes.',
+    'mm.cancelTitle': 'Paiement non abouti', 'mm.cancelText': 'Rien n’a été débité. Tu peux réessayer quand tu veux.',
+    'mm.slow': 'La confirmation prend plus de temps que prévu. Si tu as payé, ton Premium s’activera tout seul dans quelques minutes.',
     'pr.needLogin': 'Crée ton compte (ou connecte-toi) pour relier Premium à ton profil.',
     'pr.soon': 'Le paiement en ligne s’ouvre très bientôt. Ton compte gratuit te donne déjà accès à l’essentiel.',
     'pr.thanks': 'Merci ! Ton paiement est confirmé, ton accès Premium s’active dans quelques instants.',
@@ -237,32 +250,31 @@ Lerna.addStrings({
     'pr.f15': 'PDF export of my profile and recommendations',
     'pr.faqTitle': 'Frequently asked questions',
     'pr.q1': 'How do I pay?',
-    'pr.a1Momo': 'With Wave or Orange Money, in CFA francs: send the amount to the LERNA number, then confirm your payment here. LERNA never sees your PIN.',
+    'pr.a1Momo': 'In CFA francs, with Wave, Orange Money, Yas or a bank card (Visa, Mastercard). You confirm in your app; LERNA never sees your PIN or your card.',
     'pr.a1Card': 'By card (Visa, Mastercard) on a secure payment page: LERNA never sees or stores your card details.',
-    'pr.a1Both': 'With Wave or Orange Money in CFA francs, or by card (Visa, Mastercard) on a secure payment page. LERNA never sees your PIN or your card details.',
+    'pr.a1Both': 'In CFA francs, with Wave, Orange Money, Yas or a bank card (Visa, Mastercard). You confirm in your app; LERNA never sees your PIN or your card.',
     'pr.a1Soon': 'Online payment opens very soon.',
-    'pr.q2': 'Can I stop whenever I want?', 'pr.a2': 'Yes. With Wave or Orange Money nothing is charged automatically: you pay for 1 month or 1 year, that’s all. By card, cancel in one click from your space; access stays active until the end of the paid period.',
+    'pr.q2': 'Can I stop whenever I want?', 'pr.a2': 'Yes. Nothing is charged automatically: you pay for 1 month or 1 year, that’s all. Access stays active until the end of the paid period.',
     'pr.q3': 'Why is yearly cheaper?', 'pr.a3': 'A year costs the price of 8 months: you save 33%. If you apply within 3 months, monthly may be enough.',
-    'pr.q4': 'When does Premium start with Wave or Orange Money?', 'pr.a4': 'As soon as your payment is checked. You can follow your request on this page, and Premium appears by itself once approved.',
-    'pr.momoCta': 'Pay with Wave or Orange Money', 'pr.cardCta': 'Pay by card',
-    'pr.fcfa': 'or <strong>{m}</strong> with Wave or Orange Money', 'pr.fcfaYear': 'or <strong>{m}</strong> a year with Wave or Orange Money',
-    'mm.title': 'Pay with Wave or Orange Money',
-    'mm.s1': 'Choose your plan', 'mm.month': '1 month', 'mm.year': '1 year',
-    'mm.s2': 'Send exactly {m} to this number', 'mm.s2sub': 'Same number for Wave and Orange Money. Send it from your app.',
-    'mm.copy': 'Copy', 'mm.copied': 'Number copied',
-    'mm.s3': 'Tell us you paid', 'mm.way': 'What did you pay with?',
-    'mm.phone': 'The number that paid', 'mm.phonePh': 'E.g. 77 123 45 67',
-    'mm.ref': 'Transaction reference (optional)', 'mm.refPh': 'It is in the confirmation message',
-    'mm.send': 'I paid, send', 'mm.sending': 'Sending…',
-    'mm.after': 'Premium starts as soon as the payment is checked.',
-    'mm.needWay': 'Choose Wave or Orange Money.', 'mm.needPhone': 'Enter the number that paid.',
-    'mm.ok': 'Sent! Premium starts as soon as the payment is checked.',
-    'mm.errMany': 'You already have payments being checked. Please wait before sending another one.',
-    'mm.errOff': 'Wave / Orange Money payment is closed for now.',
-    'mm.err': 'Sending failed. Check your connection and try again.',
-    'mm.pending': 'Payment of {m} ({f}) sent on {d}: being checked.',
-    'mm.refused': 'Your payment of {d} could not be verified. If you did pay, write to us from the Contact page with your transaction reference.',
-    'mm.wave': 'Wave', 'mm.om': 'Orange Money',
+    'pr.q4': 'When does Premium start?', 'pr.a4': 'Right away: as soon as you confirm the payment in your app, Premium opens automatically.',
+    'pr.payCta': 'Go Premium', 'pr.cardCta': 'Pay by card',
+    'pr.fcfa': 'that is <strong>{m}</strong>, payable by Wave, Orange Money, Yas or card', 'pr.fcfaYear': 'that is <strong>{m}</strong> a year, payable by Wave, Orange Money, Yas or card',
+    'mm.title': 'Go Premium', 'mm.s1': 'Your plan', 'mm.month': '1 month', 'mm.year': '1 year', 'mm.save': '−33%',
+    'mm.s2': 'Payment method', 'mm.s3': 'Your {w} number', 'mm.phonePh': '77 123 45 67',
+    'mm.wave': 'Wave', 'mm.waveSub': 'Wave app', 'mm.om': 'Orange Money', 'mm.omSub': 'OM or Max it app', 'mm.yas': 'Yas', 'mm.yasSub': 'Free Money', 'mm.card': 'Bank card', 'mm.cardSub': 'Visa, Mastercard', 'mm.cardShort': 'Card',
+    'mm.pay': 'Pay {m}', 'mm.sending': 'One moment…',
+    'mm.secure': 'Secure payment. You confirm in your app: LERNA never sees your PIN or your card.',
+    'mm.terms': 'By paying, you accept the <a href="legal.html#conditions">terms of use</a> and the <a href="legal.html#abonnement">subscription terms</a>.',
+    'mm.needWay': 'Choose a payment method.', 'mm.needPhone': 'Enter your number: 9 digits, e.g. 77 123 45 67.',
+    'mm.errMany': 'Too many attempts today. Try again tomorrow or write to us from the Contact page.',
+    'mm.errOff': 'Payment opens very soon.', 'mm.err': 'The payment service is not responding. Try again in a moment.',
+    'mm.opening': 'Opening {w}…', 'mm.openHint': 'Confirm the payment in your app, then come back here.',
+    'mm.openBtn': 'Open {w}', 'mm.qrHint': 'On a computer: scan the code with your Orange Money or Max it app.', 'mm.qrBtn': 'Show the code to scan',
+    'mm.ussd': 'Dial this code on phone {n} and confirm the payment:',
+    'mm.waiting': 'Waiting for confirmation…', 'mm.close': 'Close',
+    'mm.okTitle': 'Welcome to Premium!', 'mm.okText': 'Your payment is confirmed. Every Premium feature is now open.',
+    'mm.cancelTitle': 'Payment not completed', 'mm.cancelText': 'Nothing was charged. You can try again anytime.',
+    'mm.slow': 'Confirmation is taking longer than expected. If you paid, Premium will turn on by itself within a few minutes.',
     'pr.needLogin': 'Create your account (or log in) to link Premium to your profile.',
     'pr.soon': 'Online payment opens very soon. Your free account already gives you the essentials.',
     'pr.thanks': 'Thank you! Your payment is confirmed; Premium activates in a few moments.',
@@ -276,29 +288,37 @@ Lerna.addStrings({
   var plan = 'monthly';
   var ROWS = [[1, 1, 1], [2, 1, 1], [3, 1, 1], [4, 1, 1], [5, 0, 1], [6, 0, 1], [7, 0, 1], [8, 0, 1], [9, 0, 1], [10, 0, 1], [11, 0, 1], [12, 0, 1], [13, 0, 1], [14, 0, 1], [15, 0, 1]];
 
-  var M = function () { return Lerna.config.momo || null; };                       // Wave / Orange Money (réglé depuis /admin)
+  var M = function () { return Lerna.config.pay || null; };                          // paiement FCFA (Wave, Orange Money, Yas, carte)
   var hasCard = function () { return !!(Lerna.config.checkoutMonthly && Lerna.config.checkoutYearly); };
   var loc = function () { return Lerna.lang === 'en' ? 'en-US' : 'fr-FR'; };
   var fcfa = function (n) { return Number(n).toLocaleString(loc()) + ' FCFA'; };
-  /* +221786655769 → 78 665 57 69 (numéro sénégalais) ; sinon tel quel */
-  function niceNum(n) {
-    var d = String(n || '').replace(/[^0-9+]/g, ''), l = d.replace(/^\+?221/, '');
-    return /^\d{9}$/.test(l) ? l.replace(/^(\d{2})(\d{3})(\d{2})(\d{2})$/, '$1 $2 $3 $4') : d;
-  }
-  function localNum(n) { var d = String(n || '').replace(/[^0-9+]/g, ''), l = d.replace(/^\+?221/, ''); return /^\d{9}$/.test(l) ? l : d; }
+  var esc = Lerna.esc, store = Lerna.store;
+  var mobile = function () { return /android|iphone|ipad|ipod|mobile/i.test(navigator.userAgent); };
+  var IC = {
+    phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></svg>',
+    card: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="3"/><path d="M2 10h20M6 15h4"/></svg>',
+    lock: '<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>',
+    check: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>'
+  };
+  /* Les moyens de paiement, présentés comme dans une appli bancaire */
+  var WAYS = [
+    { id: 'wave', name: 'mm.wave', sub: 'mm.waveSub', color: '#1DC3F0', ic: 'phone' },
+    { id: 'orange_money', name: 'mm.om', sub: 'mm.omSub', color: '#FF7900', ic: 'phone' },
+    { id: 'free_money', name: 'mm.yas', sub: 'mm.yasSub', color: '#7A3FA0', ic: 'phone' },
+    { id: 'card', name: 'mm.card', sub: 'mm.cardSub', color: '#8A5A33', ic: 'card' }
+  ];
+  var wayName = function (id) { var w = WAYS.filter(function (x) { return x.id === id; })[0]; return w ? t(w.name) : ''; };
 
   function renderPrice() {
     Lerna.qsa('[data-plan]').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-plan') === plan); });
     $('price').innerHTML = (plan === 'monthly' ? t('pr.pMonthly') + ' <small>' + t('pr.pMonthlyUnit') + '</small>' : t('pr.pYearly') + ' <small>' + t('pr.pYearlyUnit') + '</small>');
-    $('priceSub').textContent = t(plan === 'monthly' ? (hasCard() ? 'pr.subMonthly' : 'pr.subMonthlyOnce') : 'pr.subYearly');
+    $('priceSub').textContent = t(plan === 'monthly' ? (hasCard() && !M() ? 'pr.subMonthly' : 'pr.subMonthlyOnce') : 'pr.subYearly');
     var m = M();
-    $('fcfaLine').hidden = !m;
+    $('fcfaLine').hidden = !m; $('payChips').hidden = !m;
     if (m) $('fcfaLine').innerHTML = t(plan === 'monthly' ? 'pr.fcfa' : 'pr.fcfaYear', { m: fcfa(plan === 'monthly' ? m.prixMois : m.prixAn) });
-    /* Boutons : Wave / Orange Money en premier ; la carte seulement quand le paiement par carte est branché */
+    /* Un seul bouton quand le paiement FCFA est branché ; sinon carte (Lemon Squeezy) ou « bientôt » */
     $('momoBtn').hidden = !m;
-    $('buyBtn').hidden = !!m && !hasCard();
-    $('buyBtn').textContent = m ? t('pr.cardCta') : t('pr.cta');
-    $('buyBtn').className = 'btn btn-lg ' + (m ? 'btn-ghost pay-alt' : 'btn-primary');
+    $('buyBtn').hidden = !!m;
   }
   function renderTable() {
     var yes = '<span class="yes" aria-label="✓">✓</span>', no = '<span class="no" aria-label="✗">✗</span>';
@@ -306,7 +326,7 @@ Lerna.addStrings({
       ROWS.map(function (r) { return '<tr><td>' + t('pr.f' + r[0]) + '</td><td class="c">' + (r[1] ? yes : no) + '</td><td class="c prem">' + (r[2] ? yes : no) + '</td></tr>'; }).join('') + '</tbody>';
   }
   function renderFaq() {
-    var a1 = M() && hasCard() ? 'pr.a1Both' : M() ? 'pr.a1Momo' : hasCard() ? 'pr.a1Card' : 'pr.a1Soon';
+    var a1 = M() ? 'pr.a1Momo' : hasCard() ? 'pr.a1Card' : 'pr.a1Soon';
     var qs = [['pr.q1', a1], ['pr.q2', 'pr.a2'], ['pr.q3', 'pr.a3']];
     if (M()) qs.push(['pr.q4', 'pr.a4']);
     $('faq').innerHTML = qs.map(function (q) { return '<details class="reveal"><summary>' + t(q[0]) + '</summary><p>' + t(q[1]) + '</p></details>'; }).join('');
@@ -322,20 +342,6 @@ Lerna.addStrings({
       if (u.portal_url) { $('manageBtn').href = u.portal_url; $('manageBtn').target = '_blank'; $('manageBtn').rel = 'noopener'; }
     }
     if (!Lerna.config.premiumEnabled) Lerna.toast(t('pr.allOpen'), 4000);
-    loadPayStatus();
-  }
-  /* Dernier paiement Wave / Orange Money de la personne (en attente ou refusé récemment) */
-  function loadPayStatus() {
-    var box = $('payStatus'), A = Lerna.auth;
-    box.innerHTML = '';
-    if (!M() || A.mode !== 'supabase' || !A.user) return;
-    A.sb.from('paiements_momo').select('montant,formule,statut,created_at').order('created_at', { ascending: false }).limit(1).then(function (r) {
-      var p = r.data && r.data[0];
-      if (!p) return;
-      var fresh = Date.now() - new Date(p.created_at).getTime() < 14 * 864e5;
-      if (p.statut === 'en_attente') box.innerHTML = '<div class="notice">' + Lerna.icon('clock') + '<div>' + Lerna.esc(t('mm.pending', { m: fcfa(p.montant), f: t(p.formule === 'an' ? 'mm.year' : 'mm.month'), d: Lerna.fmtDate(p.created_at) })) + '</div></div>';
-      else if (p.statut === 'refuse' && fresh) box.innerHTML = '<div class="notice">' + Lerna.icon('alert') + '<div>' + Lerna.esc(t('mm.refused', { d: Lerna.fmtDate(p.created_at) })) + '</div></div>';
-    });
   }
   function needAccount() {
     if (Lerna.auth.user) return false;
@@ -356,72 +362,127 @@ Lerna.addStrings({
     location.href = url;
   }
 
-  /* ---------- Paiement Wave / Orange Money : envoi au numéro LERNA, puis déclaration vérifiée par l'équipe ---------- */
+  /* Le profil est relu après un paiement validé : Premium s'affiche partout */
+  function refreshUser() {
+    var A = Lerna.auth;
+    if (A.mode !== 'supabase' || !A.sb) return Promise.resolve();
+    return A.sb.auth.getUser().then(function (r) { if (r.data && r.data.user) return A._load(r.data.user); }).then(function () { Lerna.renderChrome(); renderStatus(); });
+  }
+  /* Vérifie une facture auprès du serveur, toutes les 4 s, pendant 3 min au plus */
+  var pollTimer = null;
+  function poll(token, onState, max) {
+    var n = 0; max = max || 45;
+    clearTimeout(pollTimer);
+    (function tick() {
+      Lerna.api('/api/pay', { action: 'verify', token: token }, { timeout: 20000 }).then(function (r) {
+        var st = r.ok && r.data ? r.data.statut : 'en_attente';
+        if (st === 'valide' || st === 'refuse' || ++n >= max) { store.del('lerna_pay'); return onState(st === 'en_attente' ? 'lent' : st); }
+        pollTimer = setTimeout(tick, 4000);
+      });
+    })();
+  }
+  function successView(box) {
+    box.innerHTML = '<div class="mm-wait"><div class="mm-done">' + IC.check + '</div><h3>' + esc(t('mm.okTitle')) + '</h3><p>' + esc(t('mm.okText')) + '</p>' +
+      '<button type="button" class="btn btn-primary btn-block" style="margin-top:18px" data-close>' + esc(t('mm.close')) + '</button></div>';
+    Lerna.sound.play('success'); Lerna.analytics.capture('premium_paid', {});
+    refreshUser();
+  }
+  function waitModal(html, token) {
+    Lerna.modal('<div id="mmBox">' + html + '</div>', function (box, close) {
+      var inner = box.querySelector('#mmBox');
+      poll(token, function (st) {
+        if (st === 'valide') return successView(inner);
+        if (st === 'refuse') inner.innerHTML = '<div class="mm-wait"><h3>' + esc(t('mm.cancelTitle')) + '</h3><p>' + esc(t('mm.cancelText')) + '</p><button type="button" class="btn btn-ghost btn-block" style="margin-top:18px" data-close>' + esc(t('mm.close')) + '</button></div>';
+        else inner.querySelector('.mm-status').textContent = t('mm.slow');
+      });
+    });
+  }
+
+  /* ---------- Fenêtre de paiement : formule → moyen → numéro → confirmation dans l'appli ---------- */
   function momo() {
     if (needAccount()) return;
     var m = M(); if (!m) return;
-    if (Lerna.auth.mode !== 'supabase') { Lerna.toast(t('mm.errOff'), 3000); return; }
     Lerna.sound.play('click');
     var f = plan === 'yearly' ? 'an' : 'mois', way = '';
-    var esc = Lerna.esc;
-    Lerna.modal(
-      '<div class="modal-head"><h3>' + esc(t('mm.title')) + '</h3><button class="modal-close" data-close aria-label="Fermer">' + Lerna.icon('x') + '</button></div>' +
-      '<div class="mm-step"><b>1</b><div><h4>' + esc(t('mm.s1')) + '</h4><div class="mm-plans">' +
+    var close = Lerna.modal(
+      '<div class="modal-head"><h3>' + esc(t('mm.title')) + '</h3><button class="modal-close" data-close aria-label="' + esc(t('mm.close')) + '">' + Lerna.icon('x') + '</button></div>' +
+      '<form id="mmForm" novalidate>' +
+      '<div class="mm-step"><h4>' + esc(t('mm.s1')) + '</h4><div class="mm-plans">' +
         '<button type="button" data-f="mois">' + esc(t('mm.month')) + '<span>' + fcfa(m.prixMois) + '</span></button>' +
-        '<button type="button" data-f="an">' + esc(t('mm.year')) + '<span>' + fcfa(m.prixAn) + '</span></button></div></div></div>' +
-      '<div class="mm-step"><b>2</b><div><h4 id="mmSend"></h4><div class="mm-num"><strong>' + esc(niceNum(m.numero)) + '</strong>' +
-        '<button type="button" class="btn btn-ghost btn-sm" id="mmCopy">' + Lerna.icon('copy', 'ic-sm') + esc(t('mm.copy')) + '</button></div>' +
-        '<p class="small muted" style="margin-top:6px">' + esc(t('mm.s2sub')) + '</p></div></div>' +
-      '<form class="mm-step mm-form" id="mmForm" novalidate><b>3</b><div><h4>' + esc(t('mm.s3')) + '</h4>' +
-        '<p class="small" style="margin-bottom:6px">' + esc(t('mm.way')) + '</p><div class="mm-ways">' +
-          '<button type="button" data-w="wave">' + esc(t('mm.wave')) + '</button><button type="button" data-w="orange_money">' + esc(t('mm.om')) + '</button></div>' +
-        '<div class="field"><label for="mmPhone">' + esc(t('mm.phone')) + '</label><input class="input" id="mmPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="' + esc(t('mm.phonePh')) + '"></div>' +
-        '<div class="field"><label for="mmRef">' + esc(t('mm.ref')) + '</label><input class="input" id="mmRef" maxlength="60" autocomplete="off" placeholder="' + esc(t('mm.refPh')) + '"></div>' +
-        '<p class="mm-err" id="mmErr" role="alert"></p>' +
-        '<button type="submit" class="btn btn-primary btn-block" id="mmGo">' + esc(t('mm.send')) + '</button>' +
-        '<p class="small muted" style="margin-top:8px;text-align:center">' + esc(t('mm.after')) + '</p></div></form>',
-      function (box, close) {
+        '<button type="button" data-f="an">' + esc(t('mm.year')) + '<span>' + fcfa(m.prixAn) + '</span><em>' + esc(t('mm.save')) + '</em></button></div></div>' +
+      '<div class="mm-step"><h4>' + esc(t('mm.s2')) + '</h4><div class="mm-ways">' + WAYS.map(function (w) {
+        return '<button type="button" data-w="' + w.id + '"><span class="pm" style="background:' + w.color + '">' + IC[w.ic] + '</span><span><strong>' + esc(t(w.name)) + '</strong><small>' + esc(t(w.sub)) + '</small></span></button>';
+      }).join('') + '</div></div>' +
+      '<div class="mm-step mm-form" id="mmPhoneWrap" hidden><h4 id="mmPhoneLbl"></h4><div class="field"><input class="input" id="mmPhone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="16" placeholder="' + esc(t('mm.phonePh')) + '" aria-labelledby="mmPhoneLbl"></div></div>' +
+      '<p class="mm-err" id="mmErr" role="alert"></p>' +
+      '<button type="submit" class="btn btn-primary btn-block btn-lg" id="mmGo"></button>' +
+      '<p class="mm-secure">' + IC.lock + '<span>' + esc(t('mm.secure')) + '</span></p>' +
+      '<p class="mm-terms">' + t('mm.terms') + '</p></form>',
+      function (box) {
         function paint() {
           Lerna.qsa('[data-f]', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-f') === f); });
           Lerna.qsa('[data-w]', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-w') === way); });
-          box.querySelector('#mmSend').innerHTML = esc(t('mm.s2', { m: '§' })).replace('§', '<span class="mm-amount">' + fcfa(f === 'an' ? m.prixAn : m.prixMois) + '</span>');
+          box.querySelector('#mmPhoneWrap').hidden = !way || way === 'card';
+          if (way && way !== 'card') box.querySelector('#mmPhoneLbl').textContent = t('mm.s3', { w: wayName(way) });
+          box.querySelector('#mmGo').textContent = t('mm.pay', { m: fcfa(f === 'an' ? m.prixAn : m.prixMois) });
         }
         paint();
         box.addEventListener('click', function (e) {
           var b = e.target.closest('[data-f],[data-w]');
           if (!b) return;
-          if (b.hasAttribute('data-f')) f = b.getAttribute('data-f'); else way = b.getAttribute('data-w');
-          Lerna.sound.play('select'); paint();
-        });
-        box.querySelector('#mmCopy').addEventListener('click', function () {
-          var v = localNum(m.numero);
-          var ok = function () { Lerna.toast(t('mm.copied'), 1600); };
-          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(v).then(ok, function () { prompt('', v); });
-          else prompt('', v);
+          if (b.hasAttribute('data-f')) f = b.getAttribute('data-f');
+          else { way = b.getAttribute('data-w'); setTimeout(function () { var i = box.querySelector('#mmPhone'); if (way !== 'card' && i && !i.value) i.focus(); }, 60); }
+          Lerna.sound.play('select'); box.querySelector('#mmErr').textContent = ''; paint();
         });
         box.querySelector('#mmForm').addEventListener('submit', function (e) {
           e.preventDefault();
           var err = box.querySelector('#mmErr'), go = box.querySelector('#mmGo');
-          var phone = box.querySelector('#mmPhone').value.trim(), ref = box.querySelector('#mmRef').value.trim();
+          var phone = box.querySelector('#mmPhone').value.replace(/\D/g, '').replace(/^(00221|221)(?=7\d{8}$)/, '');
           err.textContent = '';
           if (!way) { err.textContent = t('mm.needWay'); return; }
-          if (phone.replace(/[^0-9]/g, '').length < 7) { err.textContent = t('mm.needPhone'); return; }
+          if (way !== 'card' && !/^7\d{8}$/.test(phone)) { err.textContent = t('mm.needPhone'); return; }
           go.disabled = true; go.textContent = t('mm.sending');
-          Lerna.auth.sb.rpc('lerna_momo_demande', { p_formule: f, p_moyen: way, p_numero: phone, p_reference: ref }).then(function (r) {
-            go.disabled = false; go.textContent = t('mm.send');
-            if (r.error) {
-              var msg = r.error.message || '';
-              err.textContent = /too_many/.test(msg) ? t('mm.errMany') : /momo_off/.test(msg) ? t('mm.errOff') : t('mm.err');
+          Lerna.api('/api/pay', { action: 'start', plan: f, method: way, phone: phone }, { timeout: 40000 }).then(function (r) {
+            go.disabled = false; paint();
+            var d = r.data || {};
+            if (!r.ok || !d.token) {
+              var code = d.error || '';
+              err.textContent = code === 'bad_phone' ? t('mm.needPhone') : code === 'too_many' ? t('mm.errMany') : /closed|not_configured/.test(code) ? t('mm.errOff') : t('mm.err');
               return;
             }
-            Lerna.analytics.capture('premium_momo_sent', { formule: f, moyen: way });
-            Lerna.sound.play('success');
+            Lerna.analytics.capture('premium_pay_start', { formule: f, moyen: way });
+            store.set('lerna_pay', { token: d.token, t: Date.now() });
             close();
-            Lerna.toast(t('mm.ok'), 4500);
-            loadPayStatus();
-          }, function () { go.disabled = false; go.textContent = t('mm.send'); err.textContent = t('mm.err'); });
+            var w = wayName(way);
+            if (d.ussd) {
+              waitModal('<div class="mm-wait"><div class="mm-spin"></div><h3>' + esc(t('mm.waiting')) + '</h3><p>' + esc(t('mm.ussd', { n: phone.replace(/^(\d{2})(\d{3})(\d{2})(\d{2})$/, '$1 $2 $3 $4') })) + '</p>' +
+                '<div class="big">' + esc(d.ussd) + '</div><p class="small mm-status"></p></div>', d.token);
+              return;
+            }
+            if (way === 'orange_money' && !mobile() && d.qr) {
+              waitModal('<div class="mm-wait"><div class="mm-spin"></div><h3>' + esc(t('mm.waiting')) + '</h3><p>' + esc(t('mm.qrHint')) + '</p>' +
+                '<a class="btn btn-primary btn-block" style="margin-top:14px" href="' + esc(d.qr) + '" target="_blank" rel="noopener">' + esc(t('mm.qrBtn')) + '</a><p class="small mm-status" style="margin-top:10px"></p></div>', d.token);
+              return;
+            }
+            /* Wave, Orange Money sur téléphone, carte : on ouvre l'appli / la page sécurisée.
+               Au retour sur LERNA, la page vérifie toute seule et active le Premium. */
+            waitModal('<div class="mm-wait"><div class="mm-spin"></div><h3>' + esc(t('mm.opening', { w: way === 'card' ? t('mm.card') : w })) + '</h3><p>' + esc(t('mm.openHint')) + '</p>' +
+              '<a class="btn btn-primary btn-block" style="margin-top:14px" href="' + esc(d.redirect) + '" rel="noopener">' + esc(t('mm.openBtn', { w: way === 'card' ? t('mm.card') : w })) + '</a>' +
+              (d.alt ? '<a class="btn btn-ghost btn-block" style="margin-top:8px" href="' + esc(d.alt) + '" rel="noopener">Orange Money</a>' : '') +
+              '<p class="small mm-status" style="margin-top:10px"></p></div>', d.token);
+            setTimeout(function () { location.href = d.redirect; }, 500);
+          });
         });
       });
+  }
+  /* Retour sur la page après l'appli de paiement : on vérifie la dernière facture */
+  function resumePayment() {
+    var p = store.get('lerna_pay', null);
+    var tok = Lerna.param('token') || (p && p.token);
+    if (!tok || !Lerna.auth.user || !M()) return;
+    if (p && !Lerna.param('token') && Date.now() - p.t > 3 * 3600e3) { store.del('lerna_pay'); return; }
+    if (Lerna.param('pay') === 'annule') { store.del('lerna_pay'); Lerna.toast(t('mm.cancelText'), 3500); return; }
+    waitModal('<div class="mm-wait"><div class="mm-spin"></div><h3>' + esc(t('mm.waiting')) + '</h3><p class="small mm-status"></p></div>', tok);
   }
 
   Lerna.ready(function () {
@@ -431,7 +492,7 @@ Lerna.addStrings({
     $('buyBtn').addEventListener('click', buy);
     $('momoBtn').addEventListener('click', momo);
     Lerna.auth.ready.then(function () {
-      renderPrice(); renderFaq(); renderStatus();
+      renderPrice(); renderFaq(); renderStatus(); resumePayment();
       if (Lerna.param('payment') === 'success') {
         Lerna.toast(t('pr.thanks'), 5000); Lerna.sound.play('success');
         // Le statut Premium est écrit par le webhook côté serveur : on recharge le profil après quelques secondes

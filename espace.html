@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#FBF6EC">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -129,11 +129,12 @@ Lerna.addStrings({
     'sp.support': 'Soutien et bien-être',
     'sp.supportText': 'Choisir son avenir peut être lourd. Si tu te sens dépassé·e, parler à quelqu’un aide vraiment.',
     'sp.r1': 'Trouver une ligne d’écoute gratuite dans ton pays', 'sp.r2': 'Santé mentale — Organisation mondiale de la Santé',
-    'sp.verify': 'Vérifie toujours auprès des sources officielles.',
-    'sp.n1': 'Études en France : la campagne de candidature ouvre généralement à l’automne pour la rentrée de septembre suivante.',
-    'sp.n2': 'Canada : depuis 2024, la plupart des nouveaux permis d’études demandent une attestation de la province (le CAQ au Québec).',
-    'sp.n3': 'Allemagne : prévois un compte bloqué d’environ 12 000 $ par an pour obtenir le visa étudiant.',
-    'sp.n4': 'Bourses : beaucoup de dates limites tombent entre novembre et mars pour une rentrée en septembre. Prépare tes documents maintenant.',
+    'sp.verify': 'LERNA peut se tromper : vérifie toujours auprès des sources officielles.',
+    'sp.n1': 'France : la procédure « Études en France » de Campus France se fait en ligne, en général d’octobre à décembre, pour la rentrée de septembre suivante. Les dates exactes de ton pays sont sur le site de Campus France.',
+    'sp.n2': 'Canada : la plupart des demandes de permis d’études doivent joindre une attestation de la province (PAL/TAL) ; au Québec, le CAQ en tient lieu. Depuis 2026, les masters et doctorats dans un établissement public en sont dispensés.',
+    'sp.n3': 'Allemagne : pour le visa étudiant, il faut prouver au moins 992 € par mois, soit 11 904 € par an, en général sur un compte bloqué ouvert avant la demande.',
+    'sp.n4': 'Bourses : chaque offre a sa propre date limite. Celles qui sont ouvertes en ce moment, avec leur source officielle, sont dans Opportunités.',
+    'sp.src': 'Source', 'sp.checked': 'vérifié le {d}', 'sp.calNote': 'Dates indicatives : elles changent selon les pays et les écoles.',
     'sp.cal.af': ['Bac : juin – juillet', 'Orientation des bacheliers : juillet – septembre', 'Rentrée universitaire : octobre – décembre (variable selon les universités)'],
     'sp.cal.ma': ['Bac : juin', 'Pré-inscriptions : juillet', 'Rentrée : septembre – octobre'],
     'sp.cal.fr': ['Parcoursup : vœux de janvier à mars', 'Réponses : juin – juillet', 'Rentrée : septembre'],
@@ -191,11 +192,12 @@ Lerna.addStrings({
     'sp.support': 'Support and wellbeing',
     'sp.supportText': 'Choosing your future can feel heavy. If you feel overwhelmed, talking to someone really helps.',
     'sp.r1': 'Find a free helpline in your country', 'sp.r2': 'Mental health — World Health Organization',
-    'sp.verify': 'Always check official sources.',
-    'sp.n1': 'Studying in France: the application campaign usually opens in autumn for the following September intake.',
-    'sp.n2': 'Canada: since 2024, most new study permits require a provincial attestation (the CAQ in Quebec).',
-    'sp.n3': 'Germany: plan a blocked account of about $12,000 a year to get the student visa.',
-    'sp.n4': 'Scholarships: many deadlines fall between November and March for a September start. Prepare your documents now.',
+    'sp.verify': 'LERNA can be wrong: always check official sources.',
+    'sp.n1': 'France: Campus France’s “Études en France” procedure is done online, usually from October to December, for the following September intake. Exact dates for your country are on the Campus France website.',
+    'sp.n2': 'Canada: most study permit applications must include a provincial attestation letter (PAL/TAL); in Quebec, the CAQ serves as one. Since 2026, master’s and doctoral students at public institutions are exempt.',
+    'sp.n3': 'Germany: for the student visa you must prove at least €992 a month, i.e. €11,904 a year, usually in a blocked account opened before applying.',
+    'sp.n4': 'Scholarships: each offer has its own deadline. Those open right now, with their official source, are in Opportunities.',
+    'sp.src': 'Source', 'sp.checked': 'checked on {d}', 'sp.calNote': 'Indicative dates: they vary by country and school.',
     'sp.cal.af': ['Final exams: June – July', 'Orientation of graduates: July – September', 'University start: October – December (varies by university)'],
     'sp.cal.ma': ['Final exams: June', 'Pre-registration: July', 'Start: September – October'],
     'sp.cal.fr': ['Parcoursup: choices from January to March', 'Answers: June – July', 'Start: September'],
@@ -347,12 +349,20 @@ Lerna.addStrings({
     var opps = matchingOpps().slice(0, 5);
     h += '<section class="blk"><div class="blk-head"><h2>' + Lerna.icon('star') + t('sp.opps') + '</h2><a class="btn-link" href="opportunites.html">' + t('sp.oppsAll') + '</a></div>' +
       (opps.length ? '<div class="list">' + opps.map(oppRow).join('') + '</div>' : '<p class="muted">' + t('sp.noOpps') + '</p>') + '</section>';
-    // Bloc 4 — tableau de bord
+    // Bloc 4 — tableau de bord (chaque info a sa source officielle et sa date de vérification)
+    var NEWS = [
+      { src: 'https://senegal.campusfrance.org', d: '2026-10-12' },
+      { src: 'https://www.canada.ca/en/immigration-refugees-citizenship/corporate/publications-manuals/operational-bulletins-manuals/temporary-residents/study-permits/attestation-letters.html', d: '2026-10-12' },
+      { src: 'https://allemagneenfrance.diplo.de/fr-de/service/visa/2541346-2541346', d: '2026-10-12' },
+      { src: '', d: '' }
+    ];
     var ck = calKey(), cal = t('sp.cal.' + ck);
     h += '<section class="blk"><div class="blk-head"><h2>' + Lerna.icon('layers') + t('sp.dash') + '</h2></div><div class="gridx">' +
-      '<div class="card"><h3>' + t('sp.news') + '</h3><ul class="news" style="margin-top:8px">' + [1, 2, 3, 4].map(function (i) { return '<li>' + t('sp.n' + i) + '</li>'; }).join('') + '</ul><p class="xsmall muted" style="margin-top:8px">' + t('sp.verify') + '</p></div>' +
+      '<div class="card"><h3>' + t('sp.news') + '</h3><ul class="news" style="margin-top:8px">' + NEWS.map(function (n, i) {
+        return '<li>' + t('sp.n' + (i + 1)) + (n.src ? ' <a class="xsmall news-src" href="' + n.src + '" target="_blank" rel="noopener">' + t('sp.src') + ' ↗</a> <span class="xsmall muted">· ' + t('sp.checked', { d: Lerna.fmtDate(n.d) }) + '</span>' : ' <a class="xsmall news-src" href="opportunites.html">' + t('nav.opps') + ' →</a>') + '</li>';
+      }).join('') + '</ul><p class="xsmall muted" style="margin-top:8px">' + t('sp.verify') + '</p></div>' +
       '<div class="stack">' +
-        '<div class="card"><h3>' + (country() && ck !== 'def' ? t('sp.calendar', { country: window.LERNA_COUNTRY_NAME(country()) }) : t('sp.calendarGeneric')) + '</h3><ul class="mini-cal" style="margin-top:12px">' + (Array.isArray(cal) ? cal : []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul></div>' +
+        '<div class="card"><h3>' + (country() && ck !== 'def' ? t('sp.calendar', { country: window.LERNA_COUNTRY_NAME(country()) }) : t('sp.calendarGeneric')) + '</h3><ul class="mini-cal" style="margin-top:12px">' + (Array.isArray(cal) ? cal : []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul><p class="xsmall muted" style="margin-top:8px">' + t('sp.calNote') + '</p></div>' +
         '<div class="card"><h3>' + t('sp.support') + '</h3><p class="small muted" style="margin:6px 0 8px">' + t('sp.supportText') + '</p><div class="res-links">' +
           '<a href="https://findahelpline.com" target="_blank" rel="noopener">' + t('sp.r1') + Lerna.icon('external', 'ic-sm') + '</a>' +
           '<a href="https://www.who.int/' + (Lerna.lang === 'fr' ? 'fr/' : '') + 'health-topics/mental-health" target="_blank" rel="noopener">' + t('sp.r2') + Lerna.icon('external', 'ic-sm') + '</a>' +

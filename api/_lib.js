@@ -8,7 +8,12 @@ import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 /* Nom exact, sinon le même en minuscules (une traduction automatique peut changer la casse) */
 export const env = (k, d = '') => (process.env[k] || process.env[k.toLowerCase()] || d).trim();
 
-export const MODEL = 'claude-sonnet-4-6';
+/* IA : Claude Haiku 5.5 d'abord (très bon en français, quelques centimes pour des milliers de messages),
+   puis Groq gratuit en secours si la clé Anthropic manque, si le crédit est vide ou si le service sature.
+   Le modèle peut être changé sans toucher au code : AI_MODEL (Anthropic) et GROQ_MODEL (Groq). */
+export const MODEL = () => env('AI_MODEL', 'claude-haiku-5-5');
+const GROQ_MODEL = () => env('GROQ_MODEL', 'openai/gpt-oss-120b');
+export const aiReady = () => !!(env('ANTHROPIC_API_KEY') || env('GROQ_API_KEY'));
 
 /* ---------- Réponses ---------- */
 const SEC_HEADERS = {
@@ -93,6 +98,9 @@ export async function getUser(request) {
   } catch { return null; }
 }
 
+/* Paiement FCFA (Wave, Orange Money, Free Money, carte) branché quand les 3 clés PayDunya sont sur Vercel */
+export const paydunyaReady = () => !!(env('PAYDUNYA_MASTER_KEY') && env('PAYDUNYA_PRIVATE_KEY') && env('PAYDUNYA_TOKEN'));
+
 /* Premium pas encore lancé : tout est ouvert (PREMIUM_ENABLED=false) */
 export const premiumOpen = () => env('PREMIUM_ENABLED', 'true') === 'false';
 
@@ -172,31 +180,89 @@ export async function hit(key) {
   memory.set(k, (memory.get(k) || 0) + 1);
 }
 
-/* ---------- Claude ---------- */
-export async function claude({ system, messages, maxTokens = 2000 }) {
+/* ---------- IA (Anthropic, puis Groq en secours) ---------- */
+const asText = (c) => (typeof c === 'string' ? c : Array.isArray(c) ? c.map((x) => (x && x.text) || '').join('\n') : '');
+
+async function anthropic({ system, messages, maxTokens }) {
   const key = env('ANTHROPIC_API_KEY');
   if (!key) throw Object.assign(new Error('no_api_key'), { status: 503 });
   const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), 55000);
+  const timer = setTimeout(() => ctrl.abort(), 50000);
   try {
     const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      signal: ctrl.signal,
-      headers: {
-        'x-api-key': key,
-        'anthropic-version': '2023-06-01',
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify({ model: MODEL, max_tokens: maxTokens, system, messages })
+      method: 'POST', signal: ctrl.signal,
+      headers: { 'x-api-key': key, 'anthropic-version': '2023-06-01', 'content-type': 'application/json' },
+      body: JSON.stringify({ model: MODEL(), max_tokens: maxTokens, system, messages })
     });
     const data = await res.json().catch(() => null);
-    if (!res.ok) {
-      const e = new Error('claude_' + res.status);
-      e.status = res.status === 429 || res.status === 529 ? 503 : 502;
-      throw e;
-    }
+    if (!res.ok) throw Object.assign(new Error('claude_' + res.status), { status: res.status === 429 || res.status === 529 ? 503 : 502 });
     return (data.content || []).filter((c) => c.type === 'text').map((c) => c.text).join('').trim();
   } finally { clearTimeout(timer); }
+}
+
+async function groq({ system, messages, maxTokens }) {
+  const key = env('GROQ_API_KEY');
+  if (!key) throw Object.assign(new Error('no_api_key'), { status: 503 });
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 50000);
+  try {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+      method: 'POST', signal: ctrl.signal,
+      headers: { Authorization: 'Bearer ' + key, 'content-type': 'application/json' },
+      body: JSON.stringify({
+        model: GROQ_MODEL(), max_tokens: Math.min(maxTokens * 2, 8000), temperature: 0.6,
+        messages: [{ role: 'system', content: system || '' }].concat((messages || []).map((m) => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: asText(m.content) })))
+      })
+    });
+    const data = await res.json().catch(() => null);
+    if (!res.ok) throw Object.assign(new Error('groq_' + res.status), { status: res.status === 429 ? 503 : 502 });
+    const txt = data && data.choices && data.choices[0] && data.choices[0].message ? data.choices[0].message.content : '';
+    return String(txt || '').replace(/<think>[\s\S]*?<\/think>/g, '').trim();
+  } finally { clearTimeout(timer); }
+}
+
+/* Centre IA (réglé depuis /admin, table app_config, clé « ai ») : marche/arrêt et plafond d'appels par jour */
+let aiCfg = { t: 0, v: null };
+async function aiSettings() {
+  if (Date.now() - aiCfg.t < 60000) return aiCfg.v;
+  let v = null;
+  if (supabaseReady()) {
+    try { const r = await sbFetch('/rest/v1/app_config?select=value&key=eq.ai'); v = Array.isArray(r.data) && r.data[0] ? r.data[0].value : null; } catch { v = null; }
+  }
+  aiCfg = { t: Date.now(), v };
+  return v;
+}
+/* Chaque appel IA est compté pour le tableau de bord du propriétaire (sans le contenu des messages) */
+function logAi(mode, provider, ok, ms) {
+  if (!supabaseReady()) return Promise.resolve();
+  return sbFetch('/rest/v1/events', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: { sid: 'server', ev: 'ai:' + String(mode || 'autre').replace(/[^a-z0-9_]/g, '').slice(0, 30), meta: { ok, p: provider, ms } } }).catch(() => null);
+}
+
+/* Nom gardé pour ne rien changer ailleurs : renvoie le texte de la réponse.
+   opts.mode = 'chat' | 'analyse' | … (pour les statistiques) */
+export async function claude(opts) {
+  const o = { maxTokens: 2000, ...opts };
+  const cfg = await aiSettings();
+  if (cfg && cfg.actif === false) throw Object.assign(new Error('ai_off'), { status: 503 });
+  const cap = cfg && Number.isInteger(cfg.plafond_jour) && cfg.plafond_jour > 0 ? cfg.plafond_jour : 0;
+  if (cap && (await usage('ai:global')) >= cap) throw Object.assign(new Error('ai_cap'), { status: 503 });
+  const t0 = Date.now();
+  let first = null;
+  if (env('ANTHROPIC_API_KEY')) {
+    try {
+      const t = await anthropic(o);
+      if (t) { await hit('ai:global'); await logAi(o.mode, 'anthropic', true, Date.now() - t0); return t; }
+    } catch (e) { first = e; }
+  }
+  if (env('GROQ_API_KEY')) {
+    try {
+      const t = await groq(o);
+      await hit('ai:global'); await logAi(o.mode, 'groq', true, Date.now() - t0);
+      return t;
+    } catch (e) { await logAi(o.mode, 'groq', false, Date.now() - t0); throw e; }
+  }
+  if (first) await logAi(o.mode, 'anthropic', false, Date.now() - t0);
+  throw first || Object.assign(new Error('no_api_key'), { status: 503 });
 }
 
 /* Extrait un objet JSON d'une réponse texte (tolère des ``` éventuels) */

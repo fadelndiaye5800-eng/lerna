@@ -121,7 +121,7 @@ export async function POST(request) {
 
   let result;
   try {
-    const text = await claude({ system: SYSTEM, messages: [{ role: 'user', content: buildPrompt(answers, lang) }], maxTokens: 3600 });
+    const text = await claude({ mode: 'analyse', system: SYSTEM, messages: [{ role: 'user', content: buildPrompt(answers, lang) }], maxTokens: 3600 });
     result = cleanResult(extractJson(text));
     if (!result.recos.length) throw new Error('empty');
   } catch (e) {

@@ -608,8 +608,21 @@
     return fetch('/api/config', { signal: ctrl ? ctrl.signal : undefined, headers: { Accept: 'application/json' } })
       .then(function (r) { if (!r.ok) throw new Error('no config'); return r.json(); })
       .then(function (c) { c.live = true; Object.assign(Lerna.config, c); store.set('lerna_ab_ovr', c.ab || {}); })
-      .catch(function () { Lerna.config.live = false; })
-      .then(function () { clearTimeout(timer); if (Lerna.config.live) store.sset('lerna_cfg', { t: Date.now(), c: Lerna.config }); return Lerna.config; });   // un échec n'est jamais gardé : la page suivante réessaie
+      .catch(function () {
+        Lerna.config.live = false;
+        /* Serveur lent ou hors ligne : on reprend la dernière config connue (URL Supabase + clé publique),
+           pour rester connecté au lieu de basculer en « mode aperçu » */
+        var last = store.get('lerna_cfg_last', null);
+        if (last && last.supabaseUrl && last.supabaseAnonKey) Object.assign(Lerna.config, last, { live: false });
+      })
+      .then(function () {
+        clearTimeout(timer);
+        if (Lerna.config.live) {
+          store.sset('lerna_cfg', { t: Date.now(), c: Lerna.config });
+          if (Lerna.config.supabaseUrl) store.set('lerna_cfg_last', Lerna.config);
+        }
+        return Lerna.config;
+      });   // un échec n'est jamais gardé pour la session : la page suivante réessaie
   }
 
   /* ------------------------------------------------------------------ */
@@ -672,6 +685,7 @@
     },
     capture: function (ev, props) {
       if (!A.allowed()) return;
+      Stats.log(ev, props && props.id ? { id: String(props.id).slice(0, 40) } : null);
       var p = Object.assign({}, Lerna.ab.props(), props || {});
       if (A.on && window.posthog) window.posthog.capture(ev, p);
       else if (A.queue.length < 50) A.queue.push([ev, p]);
@@ -679,6 +693,54 @@
     identify: function (u) { if (A.on && window.posthog && u && u.id) window.posthog.identify(u.id, { lang: Lerna.lang, pays: u.pays || null }); },
     reset: function () { if (A.on && window.posthog) window.posthog.reset(); }
   };
+
+  /* ------------------------------------------------------------------ */
+  /* Statistiques du propriétaire (table events, via lerna_log) :          */
+  /* pages ouvertes, temps passé, page de sortie, fonctions utilisées.    */
+  /* Identifiant anonyme tiré au hasard ; respecte « Statistiques » dans  */
+  /* Paramètres ; les visites du propriétaire ne sont pas comptées.        */
+  /* ------------------------------------------------------------------ */
+  var Stats = Lerna.stats = {
+    q: [], ready: false, t0: Date.now(), left: false,
+    sid: function () {
+      var x = store.get('lerna_sid', null);
+      if (!x) { x = Math.random().toString(36).slice(2, 10) + Date.now().toString(36); store.set('lerna_sid', x); }
+      return x;
+    },
+    page: function () { return ((doc.body && doc.body.getAttribute('data-page')) || location.pathname.split('/').pop().replace(/\.html$/, '') || 'home').slice(0, 40); },
+    log: function (ev, meta, keep) {
+      if (!A.allowed()) return;
+      ev = String(ev || '').toLowerCase().replace(/[^a-z0-9_:.-]/g, '_').slice(0, 40);
+      if (!ev || ev.indexOf('ai:') === 0) return;
+      var item = { p_sid: Stats.sid(), p_ev: ev, p_page: Stats.page(), p_meta: meta || null };
+      if (!Stats.ready) { if (Stats.q.length < 40) Stats.q.push(item); return; }
+      Stats.send(item, keep);
+    },
+    send: function (item, keep) {
+      var c = Lerna.config;
+      if (Auth.mode !== 'supabase' || !c.supabaseUrl || !c.supabaseAnonKey) return;
+      if (Auth.user && Auth.user.role === 'admin') return;
+      var go = function (tok) {
+        try {
+          fetch(c.supabaseUrl + '/rest/v1/rpc/lerna_log', { method: 'POST', keepalive: !!keep,
+            headers: { apikey: c.supabaseAnonKey, Authorization: 'Bearer ' + (tok || c.supabaseAnonKey), 'Content-Type': 'application/json' },
+            body: JSON.stringify(item) }).catch(function () {});
+        } catch (e) {}
+      };
+      if (keep) go(Stats.tok); else Auth.token().then(function (tok) { Stats.tok = tok; go(tok); }, function () { go(null); });
+    },
+    start: function () {
+      Stats.ready = true;
+      if (Auth.mode === 'supabase') Auth.token().then(function (tok) { Stats.tok = tok; });
+      var q = Stats.q; Stats.q = [];
+      q.forEach(function (x) { Stats.send(x); });
+    }
+  };
+  Stats.log('page');
+  doc.addEventListener('visibilitychange', function () {
+    if (doc.visibilityState === 'hidden' && !Stats.left) { Stats.left = true; Stats.log('leave', { s: Math.round((Date.now() - Stats.t0) / 1000) }, true); }
+    else if (doc.visibilityState === 'visible' && Stats.left) { Stats.left = false; Stats.t0 = Date.now(); }
+  });
 
   /* ------------------------------------------------------------------ */
   /* Appels API (jeton Supabase joint automatiquement)                    */
@@ -827,6 +889,7 @@
         role: (row && row.role) || 'user',
         ab: row && row.ab,
         prefs: row && row.prefs,
+        progress: row && row.progress,
         verified: !!u.email_confirmed_at
       };
     },
@@ -860,7 +923,7 @@
             });
           }).catch(function () {
             Auth.mode = 'demo';
-            Auth.user = store.get('lerna_user', null);
+            Auth.user = store.get('lerna_user_cache', null) || store.get('lerna_user', null);
           });
         }
         Auth.mode = 'demo';
@@ -881,7 +944,9 @@
           }
         }).then(function (r) {
           if (r.error) throw r.error;
-          return { needsVerification: !r.data.session };
+          if (!r.data.session) return { needsVerification: true };
+          /* Confirmation d'email désactivée dans Supabase : la personne est connectée tout de suite */
+          return Auth._load(r.data.user).then(function () { renderChrome(); Lerna.emit('lerna:auth', Auth.user); return { needsVerification: false }; });
         });
       }
       var accounts = store.get('lerna_demo_accounts', {});
@@ -1196,26 +1261,10 @@
     }
   }
 
+  /* Plus de pied de page « site web » : c'est une appli. Le © et la langue sont dans Paramètres. */
   function renderFooter() {
     var host = doc.getElementById('lerna-footer');
-    if (!host) return;
-    var t = Lerna.t;
-    host.innerHTML =
-      '<footer class="footer"><div class="container">' +
-        '<div class="footer-top">' +
-          '<div class="footer-brand"><a class="logo" href="' + Lerna.homeHref() + '">' + Lerna.logoHTML() + '</a><p>' + t('footer.tagline') + '</p></div>' +
-          '<ul class="footer-links">' +
-            (hasProfile() ? '<li><a href="aujourdhui.html">' + t('nav.today') + '</a></li><li><a href="index.html?decouvrir=1">' + t('nav.discover') + '</a></li>' : '<li><a href="index.html">' + t('nav.home') + '</a></li>') +
-            '<li><a href="questionnaire.html">' + t('footer.questionnaire') + '</a></li>' +
-            '<li><a href="explorer.html">' + t('nav.explore') + '</a></li>' +
-            '<li><a href="opportunites.html">' + t('nav.opps') + '</a></li>' +
-            '<li><a href="premium.html">' + t('nav.premium') + '</a></li>' +
-            '<li><a href="parametres.html">' + t('nav.settings') + '</a></li>' +
-            '<li><a href="contact.html">' + t('nav.contact') + '</a></li>' +
-          '</ul>' +
-        '</div>' +
-        '<div class="footer-bottom"><span>' + t('footer.copy', { year: new Date().getFullYear() }) + '</span>' + langSwitch() + '</div>' +
-      '</div></footer>';
+    if (host) { host.innerHTML = ''; host.hidden = true; }
   }
 
   /* Écran d'ouverture (comme Duolingo) : fond uni, petit ruban centré qui se dessine puis rebondit, « LERNA » en bas (≈ 1,5 s, sans son) */
@@ -1525,6 +1574,78 @@
     return 'premium';
   };
 
+  /* ------------------------------------------------------------------ */
+  /* Nouvel appareil (ou appli sur l'écran d'accueil) : tout revient du compte */
+  /* Questionnaire, résultats, flammes, points et badges sont relus depuis    */
+  /* Supabase quand ils manquent sur l'appareil.                              */
+  /* ------------------------------------------------------------------ */
+  var Q_COLS = { q1: 'age_range', q2: 'niveau', q3: 'bac', q4: 'pays_actuel', q5: 'langues', q6: 'matieres_fortes', q7: 'matieres_faibles', q8: 'profil_type',
+    q9: 'style_travail', q10: 'a_laise_avec', q11: 'vision_10ans', q12: 'objectif_pro', q13: 'destination', q14: 'priorites', q15: 'secteurs', q16: 'financement',
+    q17: 'budget', q18: 'mobilite', q19: 'travail_pendant', q20: 'duree_formation', q21: 'mode_apprentissage', q22: 'theorique_pratique', q23: 'reconnaissance',
+    q24: 'organisation', q25: 'vie_campus' };
+  Lerna.restoreFromAccount = function () {
+    if (Auth.mode !== 'supabase' || !Auth.user) return Promise.resolve(false);
+    var uid = Auth.user.id, jobs = [], changed = false;
+    if (!store.raw('lerna_profile')) {
+      jobs.push(Auth.sb.from('profils').select('*').eq('user_id', uid).order('date_creation', { ascending: false }).limit(1).then(function (r) {
+        var row = r.data && r.data[0];
+        if (!row) return;
+        var a = {};
+        Object.keys(Q_COLS).forEach(function (k) { var v = row[Q_COLS[k]]; if (v !== null && v !== undefined && v !== '') a[k] = v; });
+        if (row.langues_niveaux) a.q5_lvl = row.langues_niveaux;
+        if (row.autres && typeof row.autres === 'object') Object.keys(row.autres).forEach(function (k) { a[k + '_autre'] = row.autres[k]; });
+        if (row.note_libre) a.note = row.note_libre;
+        if (!Object.keys(a).length || store.raw('lerna_profile')) return;
+        var when = row.date_creation || new Date().toISOString();
+        store.set('lerna_profile', { answers: a, completed: when, lang: Lerna.lang, restored: true });
+        store.set('lerna_synced', uid + '|' + when);   // déjà sur le compte : pas de nouvel envoi
+        changed = true;
+      }, function () {}));
+    }
+    if (!store.raw('lerna_results')) {
+      jobs.push(Auth.sb.from('recommandations').select('*').eq('user_id', uid).order('date_generation', { ascending: false }).limit(1).then(function (r) {
+        var row = r.data && r.data[0];
+        if (!row || store.raw('lerna_results')) return;
+        var recos = [row.reco_1_json, row.reco_2_json, row.reco_3_json, row.reco_4_json, row.reco_5_json].filter(Boolean);
+        if (!recos.length) return;
+        store.set('lerna_results', { resume: row.resume || '', recos: recos, conseil: row.conseil || '', source: row.source || 'ai', date: row.date_generation, lang: 'fr', id: row.id });
+        changed = true;
+      }, function () {}));
+    }
+    /* Flammes, points, badges : on garde le meilleur des deux (appareil + compte) */
+    var pr = Auth.user.progress;
+    if (pr && typeof pr === 'object') {
+      var v = Daily.visits(), set = {};
+      v.days.concat(Array.isArray(pr.days) ? pr.days : []).forEach(function (d) { if (/^\d{4}-\d{2}-\d{2}$/.test(d)) set[d] = 1; });
+      var days = Object.keys(set).sort();
+      var first = [v.first, pr.first].filter(Boolean).sort()[0] || null;
+      if (days.length !== v.days.length || first !== v.first) { store.set('lerna_visits', { first: first, days: days.slice(-400) }); changed = true; }
+      var xp = Math.max(Daily.xp(), parseInt(pr.xp, 10) || 0);
+      if (xp !== Daily.xp()) { store.set('lerna_xp', xp); changed = true; }
+      var b = store.get('lerna_badges', []);
+      (Array.isArray(pr.badges) ? pr.badges : []).forEach(function (k) { if (b.indexOf(k) === -1) { b.push(k); changed = true; } });
+      store.set('lerna_badges', b);
+    }
+    return Promise.all(jobs).then(function () {
+      Lerna.pushProgress();
+      if (changed) Lerna.emit('lerna:restored', {});
+      return changed;
+    });
+  };
+  /* Envoie les flammes / points / badges au compte (au plus une fois par minute) */
+  var lastProgress = '';
+  Lerna.pushProgress = function () {
+    if (Auth.mode !== 'supabase' || !Auth.user || !Auth.sb) return;
+    var v = Daily.visits();
+    var snap = { first: v.first, days: v.days.slice(-400), xp: Daily.xp(), badges: store.get('lerna_badges', []).slice(-100) };
+    var k = JSON.stringify(snap);
+    if (k === lastProgress) return;
+    lastProgress = k;
+    Auth.user.progress = snap;
+    Auth.sb.from('users').update({ progress: snap }).eq('id', Auth.user.id).then(function () {}, function () {});
+  };
+  doc.addEventListener('visibilitychange', function () { if (doc.visibilityState === 'hidden') Lerna.pushProgress(); });
+
   /* Envoie au serveur le questionnaire fait AVANT la création du compte (sauvegarde + parrainage) */
   Lerna.syncProfile = function () {
     if (Auth.mode !== 'supabase' || !Auth.user) return Promise.resolve();
@@ -1810,6 +1931,7 @@
 
   /* Après connexion : sauvegarde du questionnaire fait avant le compte, parrainage, compteur d'amis */
   var syncedFor = null;
+  Auth.ready.then(function () { Stats.start(); });
   Lerna.on('lerna:auth', function (u) {
     if (!u) { A.reset(); return; }
     A.identify(u);
@@ -1821,10 +1943,18 @@
     else Auth.sb.from('users').update({ ab: Lerna.ab.all() }).eq('id', u.id).then(function () {}, function () {});
     if (u.prefs && typeof u.prefs === 'object' && !store.raw('lerna_prefs')) { store.set('lerna_prefs', u.prefs); Prefs.apply(); }
     Lerna.dossiers.pull();
-    Lerna.syncProfile().then(Lerna.referral.claim).then(Lerna.referral.refresh).catch(function () {});
+    Lerna.favs.pull();
+    Lerna.restoreFromAccount().then(function (changed) {
+      /* Profil retrouvé alors qu'on est sur l'accueil : direction « Aujourd'hui » (comme sur l'appareil d'origine) */
+      if (changed && store.raw('lerna_profile') && doc.body && doc.body.getAttribute('data-page') === 'home' && !/[?&](decouvrir|ref)=/.test(location.search)) location.replace('aujourdhui.html');
+      else if (changed) renderChrome();
+      return Lerna.syncProfile();
+    }).then(Lerna.referral.claim).then(Lerna.referral.refresh).catch(function () {});
   });
   /* Toutes les actions suivies (missions, points) partent aussi dans les mesures */
   Lerna.on('lerna:track', function (d) { if (d && d.ev && d.ev !== 'visit') A.capture(d.ev, d.id ? { id: String(d.id) } : null); });
+  var progressTimer = null;
+  Lerna.on('lerna:track', function () { clearTimeout(progressTimer); progressTimer = setTimeout(function () { Lerna.pushProgress(); }, 3000); });
 
   /* PWA : service worker uniquement en production (config serveur reçue) */
   /* Compte créé avec Google ou Apple (sans formulaire) : 2 infos en 2 appuis, une seule fois */

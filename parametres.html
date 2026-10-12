@@ -10,7 +10,7 @@
 <meta name="robots" content="noindex">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=9">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -66,6 +66,13 @@
   .ref-code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 800; letter-spacing: .14em; font-size: 1.1rem; background: var(--cream); border-radius: 10px; padding: 6px 12px; }
   .ver { text-align: center; font-size: .8rem; color: var(--muted); margin-top: 18px; }
   .ab-note { font-size: .78rem; color: var(--muted); margin-top: 8px; }
+  .st-search { position: relative; margin: 14px 0 8px; }
+  .st-search .ic { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--muted); pointer-events: none; }
+  .st-search .input { padding-left: 42px; border-radius: 14px; }
+  .st-empty { color: var(--muted); text-align: center; padding: 24px 0; }
+  .item-link { text-decoration: none; color: var(--brown); }
+  .item-link .ic { color: var(--muted); }
+  .item-link:hover { background: var(--cream); }
 </style>
 </head>
 <body data-page="parametres">
@@ -76,7 +83,6 @@
     <div id="root"></div>
   </div>
 </main>
-<div id="lerna-footer"></div>
 
 <script src="assets/js/core.js"></script>
 <script src="assets/js/questions.js"></script>
@@ -128,7 +134,9 @@ Lerna.addStrings({
     'st.aRef': 'Ton code de parrainage', 'st.aRefSub': '{n}/3 amis inscrits. 3 amis = tes écoles n°3 et n°4 débloquées.', 'st.aShare': 'Partager mon lien', 'st.aRefGuest': 'Crée ton compte pour avoir ton lien de parrainage.',
     'st.help': 'Une question, un problème ?', 'st.helpSub': 'Écris-nous : on répond par email.', 'st.contact': 'Nous contacter', 'st.report': 'Signaler un problème',
     'st.install': 'Installer l’application', 'st.installSub': 'LERNA sur ton écran d’accueil, comme une vraie app.', 'st.installBtn': 'Installer',
-    'st.version': 'LERNA · version 7 · {ab}'
+    'st.version': 'LERNA · version 7 · {ab}',
+    'st.search': 'Rechercher un réglage', 'st.searchNone': 'Aucun réglage ne correspond.',
+    'st.sLegal': 'Règles et confidentialité', 'st.lPrivacy': 'Politique de confidentialité', 'st.lTerms': 'Conditions d’utilisation', 'st.lSub': 'Abonnement et paiements', 'st.lNotice': 'Mentions légales'
   },
   en: {
     'st.docTitle': 'Settings — LERNA', 'st.title': 'Settings', 'st.sub': 'Set LERNA up your way. Everything saves automatically.',
@@ -176,7 +184,9 @@ Lerna.addStrings({
     'st.aRef': 'Your referral code', 'st.aRefSub': '{n}/3 friends signed up. 3 friends = your schools #3 and #4 unlocked.', 'st.aShare': 'Share my link', 'st.aRefGuest': 'Create your account to get your referral link.',
     'st.help': 'A question, a problem?', 'st.helpSub': 'Write to us: we answer by email.', 'st.contact': 'Contact us', 'st.report': 'Report a problem',
     'st.install': 'Install the app', 'st.installSub': 'LERNA on your home screen, like a real app.', 'st.installBtn': 'Install',
-    'st.version': 'LERNA · version 7 · {ab}'
+    'st.version': 'LERNA · version 7 · {ab}',
+    'st.search': 'Search settings', 'st.searchNone': 'No setting matches.',
+    'st.sLegal': 'Rules and privacy', 'st.lPrivacy': 'Privacy policy', 'st.lTerms': 'Terms of use', 'st.lSub': 'Subscription and payments', 'st.lNotice': 'Legal notice'
   }
 });
 
@@ -184,7 +194,7 @@ Lerna.addStrings({
   var t = Lerna.t, esc = Lerna.esc, P = Lerna.prefs, store = Lerna.store;
   var $ = function (id) { return document.getElementById(id); };
   var SECS = [['compte', 'st.sCompte', 'user'], ['apparence', 'st.sApparence', 'sun'], ['langue', 'st.sLangue', 'globe'], ['notifications', 'st.sNotif', 'bell'], ['sons', 'st.sSons', 'volume'],
-    ['orientation', 'st.sOrientation', 'compass'], ['accueil', 'st.sAccueil', 'home'], ['savoir', 'st.sKnow', 'user'], ['confidentialite', 'st.sPrivacy', 'shield'], ['abonnement', 'st.sAbo', 'gem'], ['aide', 'st.sAide', 'help']];
+    ['orientation', 'st.sOrientation', 'compass'], ['accueil', 'st.sAccueil', 'home'], ['savoir', 'st.sKnow', 'user'], ['confidentialite', 'st.sPrivacy', 'shield'], ['abonnement', 'st.sAbo', 'gem'], ['aide', 'st.sAide', 'help'], ['legal', 'st.sLegal', 'shield']];
 
   function sw(key, on, label) { return '<label class="switch"><input type="checkbox" data-pref="' + key + '"' + (on ? ' checked' : '') + ' aria-label="' + esc(label) + '"><span class="tr"></span></label>'; }
   function seg(key, cur, opts) {
@@ -197,18 +207,20 @@ Lerna.addStrings({
 
   function render() {
     var p = P.all(), u = Lerna.auth.user, h = '';
-    h += '<div class="st-head"><h1>' + t('st.title') + '</h1><p>' + t('st.sub') + '</p></div>';
+    h += '<div class="st-head"><h1>' + t('st.title') + '</h1>' +
+      '<div class="st-search">' + Lerna.icon('search') + '<input class="input" id="stSearch" type="search" autocomplete="off" placeholder="' + esc(t('st.search')) + '" aria-label="' + esc(t('st.search')) + '" value="' + esc(query) + '"></div></div>' +
+      '<p class="st-empty" id="stEmpty" hidden>' + t('st.searchNone') + '</p>';
 
     /* Compte */
     if (u) {
       h += sec('compte', 'st.sCompte', 'unlock',
         '<div class="item"><div class="acct"><span class="avatar">' + esc(Lerna.initials(u)) + '</span><div><strong>' + esc(Lerna.displayName(u) || u.email) + '</strong><div class="small muted">' + esc(u.email) + '</div></div></div></div>' +
-        '<form class="item col" id="acctForm"><div class="two"><div class="field"><label for="fPseudo">' + t('st.pseudo') + '</label><input class="input" id="fPseudo" maxlength="24" autocomplete="nickname" value="' + esc(u.pseudo || '') + '"><span class="small muted">' + t('st.pseudoSub') + '</span></div>' +
+        '<form class="item col" id="acctForm"><div class="two"><div class="field"><label for="fPseudo">' + t('st.pseudo') + '</label><input class="input" id="fPseudo" maxlength="24" autocomplete="nickname" value="' + esc(u.pseudo || '') + '"></div>' +
           '<div class="field"><label for="fPrenom">' + t('st.prenom') + '</label><input class="input" id="fPrenom" maxlength="60" autocomplete="given-name" value="' + esc(u.prenom || '') + '"></div>' +
           '<div class="field"><label for="fNom">' + t('st.nom') + '</label><input class="input" id="fNom" maxlength="60" autocomplete="family-name" value="' + esc(u.nom || '') + '"></div></div>' +
           '<div><button type="submit" class="btn btn-primary btn-sm">' + t('st.save') + '</button></div></form>' +
         (u.role === 'admin' ? item('Tableau de bord propriétaire', '', '<a class="btn btn-primary btn-sm" href="admin.html">Ouvrir</a>') : '') +
-        item(t('st.pw'), t('st.pwSub'), '<button type="button" class="btn btn-ghost btn-sm" id="pwBtn">' + t('st.pwBtn') + '</button>') +
+        item(t('st.pw'), '', '<button type="button" class="btn btn-ghost btn-sm" id="pwBtn">' + t('st.pwBtn') + '</button>') +
         item(t('st.logout'), '', '<button type="button" class="btn btn-ghost btn-sm" data-logout>' + Lerna.icon('logout', 'ic-sm') + t('st.logout') + '</button>') +
         item(t('st.delete'), t('st.deleteSub'), '<button type="button" class="btn btn-ghost btn-sm danger" id="delBtn">' + t('st.delete') + '</button>'));
     } else {
@@ -220,10 +232,10 @@ Lerna.addStrings({
     var th = p.theme, shown = P.theme();
     var themeCur = th === 'light' || th === 'dark' || th === 'auto' ? th : shown;
     h += sec('apparence', 'st.sApparence', 'palette',
-      item(t('st.theme'), t('st.themeSub'),
+      item(t('st.theme'), '',
         seg('theme', themeCur, [['light', t('st.light'), 'sun'], ['dark', t('st.dark'), 'moon'], ['auto', t('st.auto'), 'settings']])) +
-      item(t('st.text'), t('st.textSub'), seg('textSize', p.textSize, [['normal', t('st.normal')], ['large', t('st.large')]])) +
-      item(t('st.motion'), t('st.motionSub'), sw('reduceMotion', p.reduceMotion, t('st.motion'))));
+      item(t('st.text'), '', seg('textSize', p.textSize, [['normal', t('st.normal')], ['large', t('st.large')]])) +
+      item(t('st.motion'), '', sw('reduceMotion', p.reduceMotion, t('st.motion'))));
 
     /* Langue */
     h += sec('langue', 'st.sLangue', 'speaking', item(t('st.lang'), '', seg('lang', Lerna.lang, [['fr', 'Français'], ['en', 'English']])));
@@ -244,14 +256,14 @@ Lerna.addStrings({
       [['bourses', 'st.nBourses'], ['deadlines', 'st.nDeadlines'], ['mission', 'st.nMission'], ['parcours', 'st.nParcours'], ['news', 'st.nNews']].map(function (x) {
         return item(t(x[1]), '', sw('notif.' + x[0], p.notif[x[0]], t(x[1])));
       }).join('') +
-      item(t('st.nHour'), t('st.nHourSub'), '<select class="select sel-sm" data-num="notifHour" aria-label="' + esc(t('st.nHour')) + '">' + hourOpts(hours, p.notifHour) + '</select>') +
-      item(t('st.quiet'), t('st.quietSub'), '<div class="row" style="gap:8px"><span class="small muted">' + t('st.from') + '</span><select class="select sel-sm" style="min-width:96px" data-num="quietStart">' + hourOpts([20, 21, 22, 23], p.quietStart) + '</select><span class="small muted">' + t('st.to') + '</span><select class="select sel-sm" style="min-width:96px" data-num="quietEnd">' + hourOpts([5, 6, 7, 8, 9], p.quietEnd) + '</select></div>') +
+      item(t('st.nHour'), '', '<select class="select sel-sm" data-num="notifHour" aria-label="' + esc(t('st.nHour')) + '">' + hourOpts(hours, p.notifHour) + '</select>') +
+      item(t('st.quiet'), '', '<div class="row" style="gap:8px"><span class="small muted">' + t('st.from') + '</span><select class="select sel-sm" style="min-width:96px" data-num="quietStart">' + hourOpts([20, 21, 22, 23], p.quietStart) + '</select><span class="small muted">' + t('st.to') + '</span><select class="select sel-sm" style="min-width:96px" data-num="quietEnd">' + hourOpts([5, 6, 7, 8, 9], p.quietEnd) + '</select></div>') +
       item(t('st.nMax'), '', seg('notifMax', p.notifMax, [['day', t('st.nMaxDay')], ['2w', t('st.nMax2w')], ['week', t('st.nMaxWeek')]])));
 
     /* Sons */
     h += sec('sons', 'st.sSons', 'headphones',
-      item(t('st.sounds'), t('st.soundsSub'), sw('sounds', Lerna.sound.enabled, t('st.sounds'))) +
-      item(t('st.vib'), t('st.vibSub'), sw('vibrations', p.vibrations, t('st.vib'))));
+      item(t('st.sounds'), '', sw('sounds', Lerna.sound.enabled, t('st.sounds'))) +
+      item(t('st.vib'), '', sw('vibrations', p.vibrations, t('st.vib'))));
 
     /* Mon orientation */
     var prof = store.get('lerna_profile', null), c = Lerna.country();
@@ -259,20 +271,20 @@ Lerna.addStrings({
     var autoC = p.currency, detected = Lerna.currencyAuto();
     var targets = prof && prof.answers ? window.LERNA_ANSWER_TEXT(window.LERNA_QUESTION('q13'), prof.answers, Lerna.lang) : '';
     h += sec('orientation', 'st.sOrientation', 'compass',
-      item(t('st.oCountry'), c ? Lerna.flag(c, 'stk-xs') + ' ' + esc(window.LERNA_COUNTRY_NAME(c)) : '—', '') +
-      item(t('st.oCurrency'), t('st.oCurrencySub', { d: Lerna.fmtDate(Lerna.fx().date) }),
+      item(t('st.oCountry'), '', '<strong>' + (c ? Lerna.flag(c, 'stk-xs') + ' ' + esc(window.LERNA_COUNTRY_NAME(c)) : '—') + '</strong>') +
+      item(t('st.oCurrency'), '',
         '<select class="select sel-sm" data-str="currency" aria-label="' + esc(t('st.oCurrency')) + '">' +
           '<option value="auto"' + (autoC === 'auto' ? ' selected' : '') + '>' + esc(t('st.oAuto', { c: curLabel[detected] })) + '</option>' +
           ['XOF', 'EUR', 'USD'].map(function (k) { return '<option value="' + k + '"' + (autoC === k ? ' selected' : '') + '>' + curLabel[k] + '</option>'; }).join('') + '</select>') +
       (prof ? item(t('st.oTargets'), esc(targets || '—'), '<a class="btn btn-ghost btn-sm" href="questionnaire.html?update=1&go=1">' + t('st.change') + '</a>') +
-        item(t('st.oUpdate'), t('st.oUpdateSub'), '<a class="btn btn-primary btn-sm" href="questionnaire.html?update=1&go=1">' + t('st.go') + '</a>') +
-        item(t('st.oRedo'), t('st.oRedoSub'), '<a class="btn btn-ghost btn-sm" href="questionnaire.html?start=1" id="redo">' + t('st.go') + '</a>')
+        item(t('st.oUpdate'), '', '<a class="btn btn-primary btn-sm" href="questionnaire.html?update=1&go=1">' + t('st.go') + '</a>') +
+        item(t('st.oRedo'), '', '<a class="btn btn-ghost btn-sm" href="questionnaire.html?start=1" id="redo">' + t('st.go') + '</a>')
         : item(t('st.oNone'), '', '<a class="btn btn-primary btn-sm" href="questionnaire.html">' + t('st.oStart') + '</a>')));
 
     /* Mon accueil */
     var hid = p.homeHidden || [];
     h += sec('accueil', 'st.sAccueil', 'house',
-      item(t('st.hGoal'), t('st.hGoalSub'), seg('missionsGoal', p.missionsGoal, [[1, '1'], [3, '3'], [5, '5']])) +
+      item(t('st.hGoal'), '', seg('missionsGoal', p.missionsGoal, [[1, '1'], [3, '3'], [5, '5']])) +
       '<div class="item col"><div class="item-txt"><strong>' + t('st.hBlocks') + '</strong></div></div>' +
       [['parcours', 'st.hParcours'], ['dossier', 'st.hDossier'], ['bourse', 'st.hBourse'], ['mot', 'st.hMot'], ['ecoles', 'st.hEcoles'], ['invite', 'st.hInvite']].map(function (x) {
         return item(t(x[1]), '', '<label class="switch"><input type="checkbox" data-block="' + x[0] + '"' + (hid.indexOf(x[0]) === -1 ? ' checked' : '') + ' aria-label="' + esc(t(x[1])) + '"><span class="tr"></span></label>');
@@ -281,46 +293,69 @@ Lerna.addStrings({
     /* Ce que LERNA sait de toi */
     var me = Lerna.me.get();
     var domName = function (d) { var x = (window.LERNA_DOMAINS || []).filter(function (z) { return z.id === d; })[0]; return x ? Lerna.L(x.label) : d; };
-    var langName = { fr: 'Français', en: 'English', ar: 'العربية', es: 'Español', pt: 'Português', de: 'Deutsch', it: 'Italiano', wo: 'Wolof' };
     h += sec('savoir', 'st.sKnow', 'thinking',
-      '<p class="small muted" style="padding:14px 18px 0">' + t('st.kSub') + '</p>' +
-      item(t('st.kAvatar'), t(me.genreDevine ? 'st.kGuess' : 'st.kAvatarSub'), '<div class="avs">' + [['h', 'st.avH'], ['f', 'st.avF'], ['x', 'st.avX']].map(function (a) {
+      item(t('st.kAvatar'), '', '<div class="avs">' + [['h', 'st.avH'], ['f', 'st.avF'], ['x', 'st.avX']].map(function (a) {
         return '<button type="button" class="av' + (me.genre === a[0] ? ' on' : '') + (me.genre === a[0] && me.genreDevine ? ' guess' : '') + '" data-av="' + a[0] + '" title="' + esc(t(a[1])) + '" aria-pressed="' + (me.genre === a[0]) + '">' + t(a[1]) + '</button>';
       }).join('') + '</div>', true) +
-      item(t('st.kBirth'), (me.age ? t('st.kAge', { n: me.age }) + ' · ' : '') + t('st.kBirthSub'), '<input class="input" type="date" id="kBirth" style="max-width:190px" value="' + esc(me.naissance || '') + '" max="' + new Date().toISOString().slice(0, 10) + '">') +
-      item(t('st.kCountry'), t('st.kCountrySub'), '<strong>' + esc(me.pays ? window.LERNA_COUNTRY_NAME(me.pays) : '—') + '</strong>') +
-      item(t('st.kLang'), '', '<strong>' + esc(langName[me.langue] || me.langue || '—') + '</strong>') +
-      item(t('st.kDevice'), '', '<strong>' + esc(me.appareil) + '</strong>') +
+      item(t('st.kBirth'), me.age ? t('st.kAge', { n: me.age }) : '', '<input class="input" type="date" id="kBirth" style="max-width:190px" value="' + esc(me.naissance || '') + '" max="' + new Date().toISOString().slice(0, 10) + '">') +
+      item(t('st.kCountry'), '', '<strong>' + esc(me.pays ? window.LERNA_COUNTRY_NAME(me.pays) : '—') + '</strong>') +
       item(t('st.kLevel'), '', '<strong>' + esc(me.niveau || '—') + '</strong>') +
       item(t('st.kDoms'), '', '<strong>' + esc(me.domaines.length ? me.domaines.map(domName).join(', ') : t('st.kNone')) + '</strong>') +
-      item(t('st.kSeen'), me.vus.length ? '' : t('st.kNone'), me.vus.length ? '<div class="row" style="gap:8px;flex-wrap:wrap;justify-content:flex-end"><strong>' + esc(me.vus.map(domName).join(', ')) + '</strong><button type="button" class="btn btn-ghost btn-sm" id="kForget">' + t('st.kForget') + '</button></div>' : '') +
-      '<p class="small muted" style="padding:12px 18px 16px;display:flex;gap:8px">' + Lerna.icon('shield', 'ic-sm') + t('st.kNever') + '</p>');
+      item(t('st.kSeen'), '', me.vus.length ? '<div class="row" style="gap:8px;flex-wrap:wrap;justify-content:flex-end"><strong>' + esc(me.vus.map(domName).join(', ')) + '</strong><button type="button" class="btn btn-ghost btn-sm" id="kForget">' + t('st.kForget') + '</button></div>' : '<strong>' + t('st.kNone') + '</strong>'));
 
     /* Confidentialité */
     h += sec('confidentialite', 'st.sPrivacy', 'shield',
-      item(t('st.pLoc'), t('st.pLocSub'), seg('location', p.location, [['auto', t('st.pLocAuto')], ['never', t('st.pLocNever')]]), true) +
-      item(t('st.pPublic'), t('st.pPublicSub'), sw('profilePublic', p.profilePublic !== false, t('st.pPublic'))) +
-      item(t('st.pStats'), t('st.pStatsSub'), sw('analytics', p.analytics !== false, t('st.pStats'))) +
-      item(t('st.pExport'), t('st.pExportSub'), '<button type="button" class="btn btn-ghost btn-sm" id="exportBtn">' + Lerna.icon('download', 'ic-sm') + t('st.pExportBtn') + '</button>') +
-      item(t('st.pClear'), t('st.pClearSub'), '<button type="button" class="btn btn-ghost btn-sm" id="clearBtn">' + Lerna.icon('trash', 'ic-sm') + t('st.pClearBtn') + '</button>'));
+      item(t('st.pLoc'), '', seg('location', p.location, [['auto', t('st.pLocAuto')], ['never', t('st.pLocNever')]]), true) +
+      item(t('st.pPublic'), '', sw('profilePublic', p.profilePublic !== false, t('st.pPublic'))) +
+      item(t('st.pStats'), '', sw('analytics', p.analytics !== false, t('st.pStats'))) +
+      item(t('st.pExport'), '', '<button type="button" class="btn btn-ghost btn-sm" id="exportBtn">' + Lerna.icon('download', 'ic-sm') + t('st.pExportBtn') + '</button>') +
+      item(t('st.pClear'), '', '<button type="button" class="btn btn-ghost btn-sm" id="clearBtn">' + Lerna.icon('trash', 'ic-sm') + t('st.pClearBtn') + '</button>'));
 
     /* Abonnement et parrainage */
     var open = !Lerna.config.premiumEnabled, paid = u && Lerna.isPaidPremium && Lerna.isPaidPremium();
     h += sec('abonnement', 'st.sAbo', 'gem',
-      item(t('st.aState'), open ? t('st.aOpen') : '', '<span class="badge ' + (paid ? 'badge-orange' : 'badge-cream') + '">' + t(paid ? 'st.aPremium' : 'st.aFree') + '</span>') +
+      item(t('st.aState'), '', '<span class="badge ' + (paid ? 'badge-orange' : 'badge-cream') + '">' + t(paid ? 'st.aPremium' : 'st.aFree') + '</span>') +
       (paid && u.portal_url ? item(t('st.aManage'), '', '<a class="btn btn-ghost btn-sm" href="' + esc(u.portal_url) + '" target="_blank" rel="noopener">' + t('st.go') + '</a>') : (!paid ? item(t('st.aSee'), '', '<a class="btn btn-primary btn-sm" href="premium.html?src=settings">' + t('st.aSee') + '</a>') : '')) +
       (u ? item(t('st.aRef'), t('st.aRefSub', { n: Math.min(3, Lerna.referral.confirmed()) }), '<div class="row" style="gap:8px"><span class="ref-code">' + esc(Lerna.referral.code()) + '</span><button type="button" class="btn btn-ghost btn-sm" data-share="native">' + Lerna.icon('share', 'ic-sm') + t('st.aShare') + '</button></div>')
          : item(t('st.aRef'), t('st.aRefGuest'), '<a class="btn btn-ghost btn-sm" href="auth.html?mode=signup&redirect=parametres.html">' + t('st.signup') + '</a>')));
 
     /* Aide */
     h += sec('aide', 'st.sAide', 'mailbox',
-      item(t('st.help'), t('st.helpSub'), '<div class="row" style="gap:8px"><a class="btn btn-primary btn-sm" href="contact.html">' + t('st.contact') + '</a><a class="btn btn-ghost btn-sm" href="contact.html?sujet=probleme">' + t('st.report') + '</a></div>') +
-      (Lerna.install.available() ? item(t('st.install'), t('st.installSub'), '<button type="button" class="btn btn-ghost btn-sm" id="installBtn">' + Lerna.icon('download', 'ic-sm') + t('st.installBtn') + '</button>') : ''));
-    h += '<p class="ver">' + t('st.version', { ab: 'A/B : ' + Lerna.ab.variant('couleurs').toUpperCase() }) + '</p>';
+      item(t('st.help'), '', '<div class="row" style="gap:8px"><a class="btn btn-primary btn-sm" href="contact.html">' + t('st.contact') + '</a><a class="btn btn-ghost btn-sm" href="contact.html?sujet=probleme">' + t('st.report') + '</a></div>') +
+      (Lerna.install.available() ? item(t('st.install'), '', '<button type="button" class="btn btn-ghost btn-sm" id="installBtn">' + Lerna.icon('download', 'ic-sm') + t('st.installBtn') + '</button>') : ''));
+    h += sec('legal', 'st.sLegal', 'scroll',
+      [['confidentialite', 'st.lPrivacy'], ['conditions', 'st.lTerms'], ['abonnement', 'st.lSub'], ['mentions', 'st.lNotice']].map(function (x) {
+        return '<a class="item item-link" href="legal.html#' + x[0] + '"><div class="item-txt"><strong>' + t(x[1]) + '</strong></div>' + Lerna.icon('arrowR', 'ic-sm') + '</a>';
+      }).join(''));
+    h += '<p class="ver">© ' + new Date().getFullYear() + ' LERNA' + (u && u.role === 'admin' ? ' · A/B : ' + Lerna.ab.variant('couleurs').toUpperCase() : '') + '</p>';
 
     $('root').innerHTML = h;
     $('stNav').innerHTML = SECS.map(function (x) { return '<a href="#' + x[0] + '" data-sec="' + x[0] + '">' + Lerna.icon(x[2]) + t(x[1]) + '</a>'; }).join('');
     spy();
+    if (query) applySearch();
+  }
+
+  /* ---------- Recherche dans les réglages ---------- */
+  var query = '';
+  var norm = function (x) { return String(x || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); };
+  var SYN = { notifications: 'notif alerte rappel push message heure calme', apparence: 'theme sombre clair marron creme couleur dark light texte taille animation',
+    langue: 'langue francais anglais english language', sons: 'son vibration bruit', compte: 'compte profil mot de passe email deconnexion supprimer pseudo nom prenom',
+    orientation: 'pays devise fcfa euro dollar questionnaire destination', accueil: 'accueil aujourd hui missions blocs', savoir: 'genre naissance age pays niveau domaines',
+    confidentialite: 'confidentialite donnees vie privee localisation statistiques telecharger effacer historique', abonnement: 'premium abonnement paiement parrainage code ami wave orange money',
+    aide: 'aide contact probleme signaler installer', legal: 'legal conditions cgu regles politique confidentialite remboursement mentions abonnement paiement' };
+  function applySearch() {
+    var q = norm(query).trim(), any = false;
+    Lerna.qsa('#root .sec').forEach(function (sec) {
+      var head = norm(sec.querySelector('h2').textContent) + ' ' + (SYN[sec.id] || '');
+      var secHit = !q || head.indexOf(q) !== -1, shown = 0;
+      Lerna.qsa('.group > *', sec).forEach(function (it) {
+        var ok = secHit || norm(it.textContent).indexOf(q) !== -1;
+        it.hidden = !ok; if (ok) shown++;
+      });
+      sec.hidden = !shown; if (shown) any = true;
+    });
+    var e = $('stEmpty'); if (e) e.hidden = any;
+    var nav = $('stNav'); if (nav) nav.hidden = !!q;
   }
 
   /* Section visible → puce active */
@@ -346,6 +381,10 @@ Lerna.addStrings({
     Lerna.auth.ready.then(render);
     Lerna.onLang(render);
     var R = $('root');
+    R.addEventListener('input', function (e) {
+      if (e.target.id !== 'stSearch') return;
+      query = e.target.value; applySearch();
+    });
     R.addEventListener('change', function (e) {
       if (e.target.id === 'kBirth') { Lerna.me.set({ naissance: e.target.value }); saved(); render(); return; }
       var el = e.target, k;

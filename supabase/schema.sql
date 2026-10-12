@@ -555,3 +555,125 @@ begin
 end $$;
 revoke all on function public.lerna_momo_traiter(uuid, text) from public, anon;
 grant execute on function public.lerna_momo_traiter(uuid, text) to authenticated;
+
+-- ---------- Paiement automatique PayDunya (Wave, Orange Money, Free Money, carte) ----------
+-- L'élève paie le marchand « LERNA » : le numéro du propriétaire n'est plus jamais affiché.
+alter table public.paiements_momo add column if not exists provider text not null default 'manuel';
+alter table public.paiements_momo add column if not exists token text;
+create unique index if not exists paiements_momo_token_idx on public.paiements_momo (token) where token is not null;
+alter table public.paiements_momo alter column numero_payeur drop not null;
+alter table public.paiements_momo drop constraint if exists paiements_momo_moyen_check;
+alter table public.paiements_momo add constraint paiements_momo_moyen_check check (moyen in ('wave', 'orange_money', 'free_money', 'carte'));
+alter table public.paiements_momo drop constraint if exists paiements_momo_numero_payeur_check;
+alter table public.paiements_momo add constraint paiements_momo_numero_payeur_check check (numero_payeur is null or char_length(numero_payeur) between 7 and 16);
+-- Le numéro personnel n'est plus utilisé
+update public.app_config set value = value - 'numero' where key = 'momo';
+-- L'ancienne déclaration manuelle (qui montrait le numéro) est fermée
+revoke execute on function public.lerna_momo_demande(text, text, text, text) from authenticated;
+
+-- Activation après paiement confirmé par PayDunya (appelée seulement par le serveur LERNA)
+create or replace function public.lerna_pay_valider(p_token text)
+returns json language plpgsql security definer set search_path = public as $$
+declare
+  r public.paiements_momo; cur timestamptz; fin timestamptz;
+begin
+  select * into r from public.paiements_momo where token = p_token for update;
+  if not found then raise exception 'not_found'; end if;
+  if r.statut = 'valide' then return json_build_object('statut', 'valide', 'jusqu_au', r.premium_jusqu_au); end if;
+  select premium_expiry into cur from public.users where id = r.user_id;
+  fin := greatest(now(), coalesce(cur, now())) + case when r.formule = 'an' then interval '1 year' else interval '1 month' end;
+  update public.users set is_premium = true, premium_expiry = fin where id = r.user_id;
+  update public.paiements_momo set statut = 'valide', traite_at = now(), premium_jusqu_au = fin where id = r.id;
+  return json_build_object('statut', 'valide', 'jusqu_au', fin);
+end $$;
+revoke all on function public.lerna_pay_valider(text) from public, anon, authenticated;
+grant execute on function public.lerna_pay_valider(text) to service_role;
+
+-- ---------- Flammes, points et badges gardés sur le compte (nouvel appareil, appli écran d'accueil) ----------
+alter table public.users add column if not exists progress jsonb;
+grant update (progress) on public.users to authenticated;
+
+-- ---------- Statistiques du propriétaire (visites, sorties, fonctions utilisées, IA) ----------
+-- Une ligne par événement : « page » (page ouverte), « leave » (page quittée + durée), fonctions (questionnaire_done…), « ai:… » (appels IA).
+-- sid = identifiant anonyme tiré au hasard sur l'appareil ; aucune adresse IP n'est enregistrée.
+create table if not exists public.events (
+  id    bigserial primary key,
+  at    timestamptz not null default now(),
+  sid   text not null check (char_length(sid) between 6 and 40),
+  uid   uuid,
+  ev    text not null check (ev ~ '^[a-z0-9_:.-]{1,40}$'),
+  page  text check (char_length(page) <= 40),
+  meta  jsonb
+);
+create index if not exists events_at_idx on public.events (at desc);
+create index if not exists events_ev_at_idx on public.events (ev, at desc);
+alter table public.events enable row level security;
+drop policy if exists events_admin_read on public.events;
+create policy events_admin_read on public.events for select using (public.is_admin());
+revoke insert, update, delete on public.events from anon, authenticated;
+grant select on public.events to authenticated;
+
+create or replace function public.lerna_log(p_sid text, p_ev text, p_page text, p_meta jsonb default null)
+returns void language plpgsql security definer set search_path = public as $$
+begin
+  if p_sid is null or char_length(p_sid) not between 6 and 40 then return; end if;
+  if p_ev is null or p_ev !~ '^[a-z0-9_:.-]{1,40}$' or p_ev like 'ai:%' then return; end if;
+  if p_meta is not null and pg_column_size(p_meta) > 1500 then p_meta := null; end if;
+  insert into public.events (sid, uid, ev, page, meta) values (p_sid, auth.uid(), p_ev, left(p_page, 40), p_meta);
+end $$;
+revoke all on function public.lerna_log(text, text, text, jsonb) from public;
+grant execute on function public.lerna_log(text, text, text, jsonb) to anon, authenticated;
+
+create or replace function public.lerna_stats(p_days integer default 30)
+returns json language plpgsql security definer set search_path = public as $$
+declare d integer := least(greatest(coalesce(p_days, 30), 1), 365); since timestamptz := now() - make_interval(days => d); out json;
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  select json_build_object(
+    'days', d,
+    'visitors_today', (select count(distinct sid) from events where ev = 'page' and at >= date_trunc('day', now())),
+    'visitors_7', (select count(distinct sid) from events where ev = 'page' and at >= now() - interval '7 days'),
+    'visitors_n', (select count(distinct sid) from events where ev = 'page' and at >= since),
+    'views_n', (select count(*) from events where ev = 'page' and at >= since),
+    'per_day', (select coalesce(json_agg(x order by x.day), '[]'::json) from (select to_char(date_trunc('day', at), 'YYYY-MM-DD') as day, count(distinct sid) as visitors, count(*) as views from events where ev = 'page' and at >= since group by 1) x),
+    'top_pages', (select coalesce(json_agg(x), '[]'::json) from (select page, count(*) as n, count(distinct sid) as people from events where ev = 'page' and at >= since group by page order by n desc limit 12) x),
+    'exit_pages', (select coalesce(json_agg(x), '[]'::json) from (select page, count(*) as n from (select distinct on (sid, date_trunc('day', at)) sid, page from events where ev = 'page' and at >= since order by sid, date_trunc('day', at), at desc) l group by page order by n desc limit 10) x),
+    'avg_seconds', (select round(avg(least((meta->>'s')::numeric, 3600))) from events where ev = 'leave' and at >= since and (meta->>'s') ~ '^[0-9]{1,6}$'),
+    'features', (select coalesce(json_agg(x), '[]'::json) from (select ev, count(*) as n, count(distinct sid) as people from events where ev not in ('page', 'leave') and ev not like 'ai:%' and at >= since group by ev order by n desc limit 30) x),
+    'signups_n', (select count(*) from users where date_inscription >= since),
+    'users_total', (select count(*) from users),
+    'premium_active', (select count(*) from users where is_premium and (premium_expiry is null or premium_expiry > now())),
+    'revenue_n', (select coalesce(sum(montant), 0) from paiements_momo where statut = 'valide' and coalesce(traite_at, created_at) >= since),
+    'payments_n', (select count(*) from paiements_momo where statut = 'valide' and coalesce(traite_at, created_at) >= since),
+    'ai_per_day', (select coalesce(json_agg(x order by x.day), '[]'::json) from (select to_char(date_trunc('day', at), 'YYYY-MM-DD') as day, count(*) as calls, count(*) filter (where meta->>'ok' = 'false') as errors from events where ev like 'ai:%' and at >= since group by 1) x),
+    'ai_modes', (select coalesce(json_agg(x), '[]'::json) from (select substr(ev, 4) as mode, count(*) as n, count(*) filter (where meta->>'ok' = 'false') as errors, count(*) filter (where meta->>'p' = 'groq') as groq from events where ev like 'ai:%' and at >= since group by 1 order by n desc) x)
+  ) into out;
+  return out;
+end $$;
+revoke all on function public.lerna_stats(integer) from public, anon;
+grant execute on function public.lerna_stats(integer) to authenticated;
+
+-- Donner ou retirer Premium à la main (propriétaire seulement). p_days <= 0 : retire.
+create or replace function public.lerna_admin_premium(p_user uuid, p_days integer)
+returns json language plpgsql security definer set search_path = public as $$
+declare fin timestamptz;
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  if coalesce(p_days, 0) <= 0 then
+    update public.users set is_premium = false, premium_expiry = now() where id = p_user;
+    return json_build_object('premium', false);
+  end if;
+  select greatest(now(), coalesce(premium_expiry, now())) + make_interval(days => least(p_days, 3650)) into fin from public.users where id = p_user;
+  update public.users set is_premium = true, premium_expiry = fin where id = p_user;
+  return json_build_object('premium', true, 'jusqu_au', fin);
+end $$;
+revoke all on function public.lerna_admin_premium(uuid, integer) from public, anon;
+grant execute on function public.lerna_admin_premium(uuid, integer) to authenticated;
+
+-- Centre IA : marche/arrêt et plafond d'appels par jour (réglables depuis /admin.html)
+insert into public.app_config (key, value) values ('ai', '{"actif": true, "plafond_jour": 3000}'::jsonb) on conflict (key) do nothing;
+
+-- Le serveur LERNA (clé service) écrit les paiements et les statistiques
+grant all on public.paiements_momo to service_role;
+grant all on public.events to service_role;
+grant usage, select on sequence public.events_id_seq to service_role;
