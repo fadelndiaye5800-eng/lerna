@@ -64,7 +64,7 @@
 <!-- =========================================================================
      VERSION FRANÇAISE (fait foi)
      ========================================================================= -->
-<div data-lang="fr">
+<div data-lg="fr">
   <p class="lg-intro">Documents contractuels et d’information applicables au service LERNA. Version 2.0, en vigueur au 15 octobre 2026. La version française fait foi.</p>
   <nav class="lg-tabs" aria-label="Documents">
     <a href="#conditions">Conditions d’utilisation</a>
@@ -557,7 +557,7 @@
 <!-- =========================================================================
      ENGLISH VERSION (convenience translation — the French version prevails)
      ========================================================================= -->
-<div data-lang="en" hidden>
+<div data-lg="en" hidden>
   <p class="lg-intro">Contractual and information documents applicable to the LERNA service. Version 2.0, effective 15 October 2026. This English text is a convenience translation; the French version prevails.</p>
   <nav class="lg-tabs" aria-label="Documents">
     <a href="#en-conditions">Terms of use</a>
@@ -1050,18 +1050,18 @@
   Array.prototype.forEach.call(document.querySelectorAll('.yr'), function (e) { e.textContent = yr; });
   /* Une seule langue visible : celle de l'application (le français fait foi) */
   function showLang() {
-    var en = window.Lerna && Lerna.lang === 'en' && document.querySelector('[data-lang="en"]');
-    Array.prototype.forEach.call(document.querySelectorAll('[data-lang]'), function (d) { d.hidden = en ? d.getAttribute('data-lang') !== 'en' : d.getAttribute('data-lang') !== 'fr'; });
+    var en = window.Lerna && Lerna.lang === 'en' && document.querySelector('[data-lg="en"]');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-lg]'), function (d) { d.hidden = en ? d.getAttribute('data-lg') !== 'en' : d.getAttribute('data-lg') !== 'fr'; });
     document.documentElement.lang = en ? 'en' : 'fr';
     bindTabs();
   }
   var io = null;
   function bindTabs() {
-    var box = document.querySelector('[data-lang]:not([hidden])'); if (!box) return;
+    var box = document.querySelector('[data-lg]:not([hidden])'); if (!box) return;
     var tabs = Array.prototype.slice.call(box.querySelectorAll('.lg-tabs a'));
     function mark(id) { tabs.forEach(function (a) { var on = a.getAttribute('href') === '#' + id; a.classList.toggle('on', on); if (on) a.parentNode.scrollTo({ left: a.offsetLeft - 16, behavior: 'smooth' }); }); }
     var h = (location.hash || '').slice(1).replace(/^en-/, ''), first = box.querySelector('.doc');
-    if (box.getAttribute('data-lang') === 'en' && h) h = 'en-' + h;   // les liens #conditions… mènent aussi à la version anglaise
+    if (box.getAttribute('data-lg') === 'en' && h) h = 'en-' + h;   // les liens #conditions… mènent aussi à la version anglaise
     var target = h ? document.getElementById(h) : null;
     if (target && box.contains(target)) { mark(target.closest('.doc') ? target.closest('.doc').id : h); setTimeout(function () { target.scrollIntoView(); }, 60); }
     else mark(first ? first.id : '');
