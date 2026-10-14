@@ -7,7 +7,22 @@
      qui n'ont pas coupé ce type dans les Paramètres (étiquettes OneSignal n_mission, n_bourses…)
    - Le cron tourne à 5 h UTC (vercel.json) pour que les heures choisies ne soient pas déjà passées
    - Messages encourageants, jamais culpabilisants (une partie du public est mineure) */
-import { json, fail, env } from './_lib.js';
+import { json, fail, env, sbFetch, supabaseReady } from './_lib.js';
+
+/* Durées de conservation annoncées dans legal.html (Politique de confidentialité, art. 11) */
+async function purge() {
+  if (!supabaseReady()) return { skipped: true };
+  const ago = (days) => encodeURIComponent(new Date(Date.now() - days * 864e5).toISOString());
+  const day = (days) => new Date(Date.now() - days * 864e5).toISOString().slice(0, 10);
+  const del = (path) => sbFetch(path, { method: 'DELETE', headers: { Prefer: 'return=minimal' } }).then((r) => r.ok).catch(() => false);
+  return {
+    events: await del('/rest/v1/events?at=lt.' + ago(395)),                                                   // mesure d'audience : 13 mois
+    rate_limits: await del('/rest/v1/rate_limits?day=lt.' + day(30)),                                         // compteurs anti-abus : 30 jours
+    paiements_abandonnes: await del('/rest/v1/paiements_momo?statut=in.(en_attente,refuse)&created_at=lt.' + ago(365)), // 12 mois
+    messages: await del('/rest/v1/messages_contact?created_at=lt.' + ago(1096)),                              // 3 ans
+    signalements: await del('/rest/v1/signalements?created_at=lt.' + ago(1096))                               // 3 ans
+  };
+}
 
 const MESSAGES = [
   { type: 'mission', fr: ['Ta mission du jour est prête', "3 petites étapes pour avancer sur ton orientation aujourd'hui."], en: ["Today's mission is ready", '3 small steps to move your orientation forward today.'] },
@@ -21,8 +36,9 @@ const MESSAGES = [
 export async function GET(request) {
   const secret = env('CRON_SECRET');
   if (!secret || request.headers.get('authorization') !== 'Bearer ' + secret) return fail(401, 'unauthorized');
+  const cleaned = await purge();
   const appId = env('ONESIGNAL_APP_ID'), key = env('ONESIGNAL_REST_API_KEY');
-  if (!appId || !key) return json({ skipped: 'onesignal_not_configured' });
+  if (!appId || !key) return json({ cleaned, skipped: 'onesignal_not_configured' });
   const base_url = env('APP_URL', 'https://lerna.world').replace(/\/$/, '');
   const day = Math.floor(Date.now() / 86400000);
   const m = MESSAGES[day % MESSAGES.length];
@@ -60,5 +76,5 @@ export async function GET(request) {
     body: JSON.stringify(payload)
   }).then((r) => r.ok, () => false)));
   if (!results.some(Boolean)) return fail(502, 'onesignal_failed');
-  return json({ ok: true, message: m.fr[0], type: m.type, sent: results.filter(Boolean).length });
+  return json({ ok: true, cleaned, message: m.fr[0], type: m.type, sent: results.filter(Boolean).length });
 }

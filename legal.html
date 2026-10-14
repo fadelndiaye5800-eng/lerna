@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Règles et confidentialité — LERNA</title>
-<meta name="description" content="Politique de confidentialité, conditions d’utilisation, abonnement et paiements, mentions légales de LERNA.">
+<title>Informations légales — LERNA</title>
+<meta name="description" content="Conditions générales d’utilisation, conditions d’abonnement et de paiement, politique de confidentialité, cookies et stockage local, intelligence artificielle et mentions légales de LERNA.">
 <meta name="theme-color" content="#FBF6EC">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
@@ -15,232 +15,1070 @@
 <script src="assets/js/boot.js"></script>
 <link rel="stylesheet" href="assets/css/lerna.css">
 <style>
-  .lg-wrap { padding-top: 24px; padding-bottom: 80px; }
-  .lg-back { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: .9rem; color: var(--muted); text-decoration: none; }
-  .lg-back .ic { width: 16px; height: 16px; }
-  .lg-head h1 { font-size: clamp(1.7rem, 5vw, 2.3rem); margin-top: 10px; }
-  .lg-head p { color: var(--muted); margin-top: 6px; font-size: .9rem; }
-  .lg-tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; position: sticky; top: var(--nav-h); z-index: 20; background: var(--bg); padding: 12px 0; margin: 10px -4px 0; }
+  .lg-wrap { padding-top: 12px; padding-bottom: 80px; }
+  .lg-intro { color: var(--muted); font-size: .9rem; line-height: 1.6; margin-top: 4px; }
+  .lg-tabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; position: sticky; top: calc(var(--nav-h) + var(--safe-t, 0px)); z-index: 20; background: var(--bg); padding: 12px 0; margin: 6px -4px 0; }
   .lg-tabs::-webkit-scrollbar { display: none; }
   .lg-tabs a { flex-shrink: 0; padding: 9px 14px; border-radius: 99px; border: 1.5px solid var(--cream-dark); text-decoration: none; font-weight: 600; font-size: .86rem; color: var(--brown); white-space: nowrap; }
   .lg-tabs a.on { background: var(--orange-soft); border-color: var(--orange); }
   .doc { background: var(--surface); border: 1.5px solid var(--cream-dark); border-radius: 20px; padding: 22px 20px; margin-top: 14px; scroll-margin-top: calc(var(--nav-h) + 70px); }
-  @media (min-width: 720px) { .doc { padding: 32px 36px; } }
-  .doc h2 { font-size: 1.4rem; margin-bottom: 4px; }
+  @media (min-width: 720px) { .doc { padding: 34px 40px; } }
+  .doc h2 { font-size: 1.45rem; margin-bottom: 4px; }
   .doc .upd { font-size: .8rem; color: var(--muted); margin-bottom: 16px; }
-  .doc h3 { font-size: 1.02rem; margin: 22px 0 6px; }
-  .doc p, .doc li { font-size: .95rem; line-height: 1.65; color: var(--brown); }
+  .doc h3 { font-size: 1.04rem; margin: 26px 0 8px; scroll-margin-top: calc(var(--nav-h) + 70px); }
+  .doc h4 { font-size: .95rem; margin: 16px 0 6px; }
+  .doc p, .doc li, .doc td, .doc th { font-size: .94rem; line-height: 1.68; color: var(--brown); }
   .doc p + p { margin-top: 8px; }
-  .doc ul { padding-left: 20px; margin: 6px 0; }
-  .doc li + li { margin-top: 4px; }
+  .doc ul, .doc ol { padding-left: 20px; margin: 6px 0; }
+  .doc li + li { margin-top: 5px; }
   .doc strong { font-weight: 700; }
-  .lg-foot { text-align: center; font-size: .8rem; color: var(--muted); margin-top: 22px; }
+  .doc .toc { background: var(--bg); border-radius: 14px; padding: 14px 16px; margin: 6px 0 4px; }
+  .doc .toc p { font-weight: 700; font-size: .85rem; margin-bottom: 4px; }
+  .doc .toc ol { margin: 0; columns: 1; }
+  @media (min-width: 720px) { .doc .toc ol { columns: 2; column-gap: 28px; } }
+  .doc .toc li { font-size: .86rem; margin: 0 0 3px; break-inside: avoid; }
+  .doc .toc a { color: var(--brown); text-decoration: none; }
+  .doc .toc a:hover { color: var(--orange); }
+  .tbl { overflow-x: auto; margin: 10px 0; border: 1px solid var(--cream-dark); border-radius: 12px; }
+  .tbl table { border-collapse: collapse; width: 100%; min-width: 560px; }
+  .tbl th, .tbl td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--cream-dark); font-size: .86rem; line-height: 1.5; }
+  .tbl th { font-weight: 700; background: var(--bg); }
+  .tbl tr:last-child td { border-bottom: 0; }
+  @media (max-width: 640px) {
+    .tbl { overflow: visible; }
+    .tbl table { min-width: 0; }
+    .tbl thead { display: none; }
+    .tbl tr { display: block; padding: 11px 13px; border-bottom: 1px solid var(--cream-dark); }
+    .tbl tr:last-child { border-bottom: 0; }
+    .tbl td { display: block; border: 0; padding: 2px 0; }
+    .tbl td:first-child { font-weight: 700; margin-bottom: 2px; }
+    .tbl td[data-h]::before { content: attr(data-h) " : "; font-weight: 600; color: var(--muted); }
+  }
+  .lg-foot { text-align: center; font-size: .8rem; color: var(--muted); margin-top: 22px; line-height: 1.6; }
 </style>
 </head>
 <body data-page="legal">
 <div id="lerna-nav"></div>
 <main class="container container-md lg-wrap">
-  <a class="lg-back" href="parametres.html#legal"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Paramètres</a>
-  <header class="lg-head">
-    <h1>Règles et confidentialité</h1>
-    <p>Ce que LERNA fait de tes données, ce qui est permis sur LERNA, et comment fonctionne l’abonnement.</p>
-  </header>
-  <nav class="lg-tabs" id="lgTabs" aria-label="Documents">
-    <a href="#confidentialite">Confidentialité</a>
+
+<!-- =========================================================================
+     VERSION FRANÇAISE (fait foi)
+     ========================================================================= -->
+<div data-lang="fr">
+  <p class="lg-intro">Documents contractuels et d’information applicables au service LERNA. Version 2.0, en vigueur au 15 octobre 2026. La version française fait foi.</p>
+  <nav class="lg-tabs" aria-label="Documents">
     <a href="#conditions">Conditions d’utilisation</a>
     <a href="#abonnement">Abonnement et paiements</a>
+    <a href="#confidentialite">Confidentialité</a>
+    <a href="#cookies">Cookies et stockage</a>
+    <a href="#ia">Intelligence artificielle</a>
     <a href="#mentions">Mentions légales</a>
   </nav>
 
   <!-- ===================================================================== -->
-  <article class="doc" id="confidentialite">
-    <h2>Politique de confidentialité</h2>
-    <p class="upd">Dernière mise à jour : 12 octobre 2026</p>
-    <p>LERNA t’aide à choisir ton école, ta filière et ton parcours. Pour cela, l’application a besoin de quelques informations sur toi. Ce texte explique, simplement, lesquelles, pourquoi, avec qui elles sont partagées, combien de temps elles sont gardées et comment tu peux les contrôler.</p>
-
-    <h3>1. Qui est responsable de tes données</h3>
-    <p>Le responsable du traitement est l’éditeur de LERNA (voir les Mentions légales). Pour toute question sur tes données, écris-nous depuis la page <a href="contact.html?sujet=donnees">Contact</a>, sujet « Données personnelles ».</p>
-
-    <h3>2. Les données que nous utilisons</h3>
-    <ul>
-      <li><strong>Ton compte</strong> : adresse email, prénom, nom, pseudo, pays, niveau d’études et, si tu les indiques, ton genre et ta date de naissance. Ton mot de passe est chiffré : personne chez LERNA ne peut le lire.</li>
-      <li><strong>Ton questionnaire d’orientation</strong> : tes réponses (matières, projets, budget, destinations, préférences) et les recommandations obtenues.</li>
-      <li><strong>Ce que tu enregistres</strong> : écoles favorites, dossiers de candidature, documents que tu déposes dans ton coffre-fort, rappels.</li>
-      <li><strong>Tes échanges avec l’assistant IA</strong> : les questions que tu poses et les réponses reçues.</li>
-      <li><strong>Ton activité dans l’application</strong> : pages ouvertes, fonctions utilisées, série de jours (flammes), points et badges. Ces mesures servent à améliorer LERNA ; elles ne contiennent pas le contenu de tes réponses.</li>
-      <li><strong>Tes paiements</strong> : formule choisie, montant, moyen de paiement, date et, pour le mobile money, le numéro qui a payé. LERNA ne voit jamais ton code secret ni les numéros de ta carte bancaire.</li>
-      <li><strong>Des informations techniques</strong> : type d’appareil, langue, et pays deviné à partir de ton adresse internet (jamais ta position GPS). Cette adresse n’est pas conservée.</li>
-    </ul>
-    <p>LERNA ne te demande jamais ta religion, ton origine ethnique, tes opinions politiques, ta santé ni les revenus de ta famille. Merci de ne pas les écrire dans l’assistant ou le questionnaire.</p>
-
-    <h3>3. Pourquoi nous les utilisons</h3>
-    <ul>
-      <li>Te proposer des écoles, filières, bourses et opportunités qui correspondent à ton profil.</li>
-      <li>Garder ton parcours sur tous tes appareils quand tu es connecté.</li>
-      <li>Faire fonctionner l’assistant IA et les analyses d’orientation.</li>
-      <li>Gérer ton abonnement Premium et tes paiements.</li>
-      <li>T’envoyer les notifications que tu as choisies (tu les règles dans Paramètres).</li>
-      <li>Mesurer ce qui marche et corriger ce qui bloque, de façon globale.</li>
-      <li>Protéger LERNA contre les abus (limites d’utilisation, sécurité des comptes).</li>
-    </ul>
-    <p>Nous utilisons tes données parce que tu utilises le service et l’as demandé, avec ton accord quand il est nécessaire (notifications, statistiques), et pour respecter nos obligations légales (comptabilité des paiements).</p>
-
-    <h3>4. Avec qui elles sont partagées</h3>
-    <p>LERNA ne vend jamais tes données et n’affiche pas de publicité. Elles passent seulement par les prestataires techniques nécessaires au service :</p>
-    <ul>
-      <li><strong>Supabase</strong> : base de données et comptes, sur des serveurs situés en Europe (Paris).</li>
-      <li><strong>Vercel</strong> : hébergement de l’application.</li>
-      <li><strong>Anthropic et Groq</strong> : fournisseurs d’intelligence artificielle. Ils reçoivent les réponses du questionnaire et les messages envoyés à l’assistant, le temps de produire une réponse.</li>
-      <li><strong>PayDunya</strong> (et, pour certaines cartes, <strong>Lemon Squeezy</strong>) : traitement des paiements.</li>
-      <li><strong>PostHog</strong> et <strong>OneSignal</strong>, quand ils sont activés : statistiques d’utilisation et envoi de notifications.</li>
-    </ul>
-    <p>Certains de ces prestataires sont situés hors du Sénégal (Union européenne, États-Unis). Nous choisissons des prestataires qui protègent les données et ne les utilisent pas pour leur propre compte au-delà de ce que prévoient leurs conditions.</p>
-
-    <h3>5. Combien de temps elles sont gardées</h3>
-    <ul>
-      <li>Les données de ton compte sont gardées tant que ton compte existe. Si tu supprimes ton compte, elles sont effacées de nos serveurs.</li>
-      <li>Un compte inactif pendant 3 ans peut être supprimé, après un message de prévenance.</li>
-      <li>Les traces de paiement sont gardées le temps exigé par la loi comptable, même après la suppression du compte.</li>
-      <li>Les données gardées seulement sur ton téléphone (historique, brouillons) restent sous ton contrôle : tu les effaces dans Paramètres.</li>
-    </ul>
-
-    <h3>6. Tes droits</h3>
-    <p>Tu peux à tout moment : consulter et corriger tes informations (Paramètres), télécharger tes données (Paramètres → Confidentialité → Télécharger mes données), effacer ton historique, désactiver les statistiques et les notifications, et supprimer ton compte (Paramètres → Compte). Tu peux aussi t’opposer à un traitement ou demander une limitation en nous écrivant. Si tu estimes que tes droits ne sont pas respectés, tu peux saisir la Commission de protection des données personnelles (CDP) au Sénégal, ou l’autorité de protection des données de ton pays.</p>
-
-    <h3>7. Les moins de 18 ans</h3>
-    <p>LERNA s’adresse aux élèves et étudiants. Si tu as moins de 18 ans, utilise LERNA avec l’accord d’un parent ou d’un tuteur, surtout avant tout paiement.</p>
-
-    <h3>8. Stockage sur ton appareil</h3>
-    <p>LERNA garde certaines informations directement sur ton téléphone ou ton ordinateur (stockage du navigateur) : tes réglages, ton questionnaire en cours, ton historique, ta session de connexion. C’est ce qui permet à l’application de s’ouvrir vite et de marcher même avec une connexion faible. LERNA n’utilise pas de cookies publicitaires. Sur iPhone, l’application installée sur l’écran d’accueil et Safari ont chacun leur propre stockage : connecte-toi une fois dans l’application installée, ton parcours est alors récupéré depuis ton compte.</p>
-
-    <h3>9. Intelligence artificielle</h3>
-    <p>Les recommandations et l’assistant utilisent des modèles d’intelligence artificielle. Seules les informations utiles à la réponse sont envoyées (tes réponses au questionnaire, ta question, la liste des écoles concernées), sans ton email ni ton mot de passe. Les réponses de l’IA ne sont jamais utilisées pour prendre une décision à ta place : elles t’aident à réfléchir, et tu restes libre de les suivre ou non.</p>
-
-    <h3>10. Notifications</h3>
-    <p>Les notifications ne sont envoyées que si tu les as autorisées. Tu choisis dans Paramètres ce que tu veux recevoir, l’heure préférée, tes heures calmes et la fréquence maximale. Tu peux les couper à tout moment, dans LERNA ou dans les réglages de ton téléphone.</p>
-
-    <h3>11. Sécurité</h3>
-    <p>Les échanges sont chiffrés (HTTPS), les mots de passe sont chiffrés, chaque personne ne peut lire que ses propres données, et les documents du coffre-fort sont privés. Aucun système n’est parfait : choisis un mot de passe solide et ne le partage pas.</p>
-
-    <h3>12. Changements</h3>
-    <p>Si cette politique change de façon importante, nous te prévenons dans l’application avant que le changement s’applique.</p>
-  </article>
-
-  <!-- ===================================================================== -->
   <article class="doc" id="conditions">
-    <h2>Conditions d’utilisation</h2>
-    <p class="upd">Dernière mise à jour : 12 octobre 2026</p>
-    <p>En utilisant LERNA, tu acceptes ces règles. Elles existent pour que l’application reste utile, sûre et honnête pour tout le monde.</p>
+    <h2>Conditions générales d’utilisation</h2>
+    <p class="upd">Version 2.0 — en vigueur au 15 octobre 2026</p>
+    <div class="toc"><p>Sommaire</p><ol>
+      <li><a href="#cgu-1">Définitions</a></li><li><a href="#cgu-2">Objet, acceptation et documents applicables</a></li>
+      <li><a href="#cgu-3">Accès au Service</a></li><li><a href="#cgu-4">Compte Utilisateur</a></li>
+      <li><a href="#cgu-5">Description des Fonctionnalités</a></li><li><a href="#cgu-6">Nature des informations et absence de garantie de résultat</a></li>
+      <li><a href="#cgu-7">Règles d’utilisation</a></li><li><a href="#cgu-8">Contenus Utilisateur</a></li>
+      <li><a href="#cgu-9">Avis et évaluations</a></li><li><a href="#cgu-10">Programme de parrainage</a></li>
+      <li><a href="#cgu-11">Éléments de progression</a></li><li><a href="#cgu-12">Propriété intellectuelle</a></li>
+      <li><a href="#cgu-13">Disponibilité, maintenance et évolutions</a></li><li><a href="#cgu-14">Responsabilité</a></li>
+      <li><a href="#cgu-15">Sites et services tiers</a></li><li><a href="#cgu-16">Suspension et résiliation</a></li>
+      <li><a href="#cgu-17">Données personnelles</a></li><li><a href="#cgu-18">Preuve et communications électroniques</a></li>
+      <li><a href="#cgu-19">Force majeure</a></li><li><a href="#cgu-20">Modification des Conditions</a></li>
+      <li><a href="#cgu-21">Dispositions diverses</a></li><li><a href="#cgu-22">Droit applicable et règlement des différends</a></li>
+    </ol></div>
 
-    <h3>1. Ce que fait LERNA</h3>
-    <p>LERNA est un service d’aide à l’orientation. Il propose des écoles, des filières, des coûts indicatifs, des bourses, des stages et des conseils, à partir de tes réponses et de données publiques. LERNA est un outil d’aide à la décision : <strong>la décision finale t’appartient</strong>.</p>
-
-    <h3>2. LERNA peut se tromper</h3>
+    <h3 id="cgu-1">Article 1 — Définitions</h3>
+    <p>Dans les présentes, les termes ci-après, qu’ils soient employés au singulier ou au pluriel, ont la signification suivante :</p>
     <ul>
-      <li>Les frais, dates limites, conditions d’admission et montants de bourses viennent de sources officielles indiquées sur chaque fiche, à une date donnée. Ils peuvent changer sans que nous le sachions tout de suite.</li>
-      <li>Les réponses de l’assistant IA sont des suggestions. Elles peuvent contenir des erreurs.</li>
-      <li><strong>Vérifie toujours sur le site officiel de l’école ou de l’organisme avant de payer, de candidater ou de voyager.</strong></li>
-      <li>LERNA ne garantit aucune admission, bourse, visa ni emploi.</li>
+      <li><strong>« Service » ou « Application »</strong> : le service numérique d’orientation scolaire, universitaire et professionnelle dénommé LERNA, accessible depuis un navigateur internet ou sous forme d’application installée sur un terminal, ainsi que l’ensemble de ses fonctionnalités, contenus, interfaces et mises à jour.</li>
+      <li><strong>« Éditeur »</strong> : la personne qui édite et exploite le Service, identifiée dans les Mentions légales.</li>
+      <li><strong>« Utilisateur »</strong> : toute personne physique qui accède au Service ou l’utilise, avec ou sans Compte. Le terme « Visiteur » désigne l’Utilisateur qui n’a pas créé de Compte.</li>
+      <li><strong>« Compte »</strong> : l’espace personnel créé par l’Utilisateur au moyen d’une adresse électronique et d’un mot de passe, ou de tout autre mode d’authentification proposé par le Service, permettant notamment la conservation et la synchronisation de ses données entre plusieurs terminaux.</li>
+      <li><strong>« Contenus »</strong> : l’ensemble des éléments mis à disposition par l’Éditeur au sein du Service, notamment les fiches d’établissements, les informations relatives aux formations, aux frais de scolarité, aux bourses, aux stages, aux emplois et aux investisseurs, les textes éditoriaux, les questionnaires, les visuels, les sons et les éléments graphiques.</li>
+      <li><strong>« Contenus Utilisateur »</strong> : l’ensemble des éléments fournis, saisis, déposés ou publiés par l’Utilisateur, notamment ses réponses au questionnaire, ses messages, ses documents, ses dossiers de candidature, ses avis et ses signalements.</li>
+      <li><strong>« Recommandations »</strong> : les propositions d’établissements, de filières et de parcours générées par le Service à partir des réponses de l’Utilisateur et des données de référence du Service, au moyen notamment de traitements algorithmiques et de modèles d’intelligence artificielle.</li>
+      <li><strong>« Assistant »</strong> : l’ensemble des fonctionnalités conversationnelles et d’accompagnement reposant sur des modèles d’intelligence artificielle (assistant d’orientation, aide à la rédaction de lettres, préparation aux entretiens, analyse d’adéquation à une offre, évaluation d’un projet).</li>
+      <li><strong>« Opportunités »</strong> : les annonces et informations relatives à des bourses, stages, emplois, programmes et investisseurs, publiées par des tiers et référencées par le Service.</li>
+      <li><strong>« Mon dossier »</strong> : l’espace de suivi des démarches de candidature de l’Utilisateur, comprenant le cas échéant un espace de dépôt de documents (le « Coffre »).</li>
+      <li><strong>« Fonctionnalités Premium »</strong> : les fonctionnalités et contenus dont l’accès est réservé aux titulaires d’un Abonnement en cours de validité, tels que décrits sur la page Premium du Service.</li>
+      <li><strong>« Abonnement »</strong> : le droit d’accès temporaire aux Fonctionnalités Premium, acquis à titre onéreux dans les conditions prévues par les Conditions d’abonnement et de paiement.</li>
+      <li><strong>« Prestataire de paiement »</strong> : tout établissement, agrégateur ou opérateur de services de paiement ou de monnaie électronique intervenant dans l’exécution d’un paiement.</li>
+      <li><strong>« Conditions »</strong> : les présentes conditions générales d’utilisation.</li>
     </ul>
 
-    <h3>3. Ton compte</h3>
+    <h3 id="cgu-2">Article 2 — Objet, acceptation et documents applicables</h3>
+    <p>2.1. Les Conditions ont pour objet de définir les modalités d’accès et d’utilisation du Service, ainsi que les droits et obligations respectifs de l’Éditeur et de l’Utilisateur.</p>
+    <p>2.2. L’accès au Service et son utilisation emportent acceptation pleine et entière des Conditions. La création d’un Compte est subordonnée à l’acceptation expresse des Conditions et à la prise de connaissance de la Politique de confidentialité. L’Utilisateur qui n’accepte pas les Conditions doit s’abstenir d’utiliser le Service.</p>
+    <p>2.3. La relation entre l’Éditeur et l’Utilisateur est régie, par ordre de priorité décroissant : (i) les Conditions d’abonnement et de paiement, pour ce qui concerne l’Abonnement ; (ii) les présentes Conditions ; (iii) la Politique de confidentialité, la Politique relative aux cookies et au stockage local et la Charte relative à l’intelligence artificielle, qui ont une valeur d’information et précisent les traitements opérés. Les informations figurant sur les pages du Service, notamment la page Premium, complètent ces documents.</p>
+    <p>2.4. Les Conditions sont rédigées en langue française. Toute traduction est fournie à titre de commodité ; en cas de divergence, la version française prévaut.</p>
+
+    <h3 id="cgu-3">Article 3 — Accès au Service</h3>
+    <p>3.1. <strong>Conditions techniques.</strong> Le Service est accessible depuis un terminal connecté à internet, équipé d’un navigateur récent maintenu à jour. Il peut être installé sur l’écran d’accueil d’un terminal compatible. Certaines fonctionnalités nécessitent l’activation du stockage local du navigateur, l’autorisation des notifications ou une connexion active. Les équipements, logiciels et frais de connexion nécessaires à l’accès au Service sont à la charge exclusive de l’Utilisateur.</p>
+    <p>3.2. <strong>Accès gratuit et accès payant.</strong> L’accès au Service et à ses fonctionnalités de base est gratuit, dans la limite des seuils d’usage applicables. L’accès aux Fonctionnalités Premium est subordonné à la souscription d’un Abonnement. L’Éditeur peut, à tout moment et notamment pendant une phase de lancement, ouvrir temporairement tout ou partie des Fonctionnalités Premium sans contrepartie ; une telle ouverture ne crée aucun droit acquis à son maintien.</p>
+    <p>3.3. <strong>Seuils d’usage.</strong> Afin de garantir la qualité, la sécurité et la soutenabilité du Service, l’utilisation de certaines fonctionnalités, notamment l’Assistant et l’analyse d’orientation, est soumise à des seuils quantitatifs par période, différenciés selon que l’Utilisateur dispose ou non d’un Abonnement. Ces seuils peuvent être ajustés par l’Éditeur. L’atteinte d’un seuil suspend l’accès à la fonctionnalité concernée jusqu’au début de la période suivante.</p>
+    <p>3.4. <strong>Âge et capacité.</strong> Le Service s’adresse notamment à des élèves et étudiants, dont certains peuvent être mineurs. L’Utilisateur mineur au regard de la loi qui lui est applicable déclare utiliser le Service avec l’autorisation du ou des titulaires de l’autorité parentale, lesquels demeurent responsables de cette utilisation. Toute souscription à titre onéreux par un mineur requiert l’accord préalable de son représentant légal. Lorsque la réglementation applicable fixe un âge en deçà duquel le consentement à certains traitements de données doit être donné ou autorisé par le titulaire de l’autorité parentale, ce consentement est recueilli dans les conditions décrites par la Politique de confidentialité.</p>
+
+    <h3 id="cgu-4">Article 4 — Compte Utilisateur</h3>
+    <p>4.1. <strong>Création.</strong> La création d’un Compte requiert la fourniture d’une adresse électronique valide et la définition d’un mot de passe, ou le recours à un mode d’authentification tiers lorsqu’il est proposé. L’Utilisateur s’engage à fournir des informations exactes, complètes et à jour, et à les actualiser en cas de changement.</p>
+    <p>4.2. <strong>Caractère personnel.</strong> Le Compte est strictement personnel et incessible. Un même Utilisateur ne peut détenir plusieurs Comptes en vue de contourner les seuils d’usage, les conditions du programme de parrainage ou les conditions d’accès aux Fonctionnalités Premium.</p>
+    <p>4.3. <strong>Identifiants.</strong> L’Utilisateur est seul responsable de la conservation et de la confidentialité de ses identifiants, ainsi que de toute utilisation de son Compte. Toute action réalisée au moyen de ses identifiants est réputée effectuée par lui, sauf démonstration d’une utilisation frauduleuse qui ne lui est pas imputable. En cas de perte, de divulgation ou de suspicion d’utilisation non autorisée, l’Utilisateur modifie sans délai son mot de passe et en informe l’Éditeur par le formulaire de contact.</p>
+    <p>4.4. <strong>Synchronisation.</strong> Lorsque l’Utilisateur est connecté, son profil d’orientation, ses Recommandations, ses favoris, ses dossiers et ses éléments de progression sont associés à son Compte et restitués sur tout terminal depuis lequel il se connecte. Les éléments créés avant la création du Compte, conservés localement sur le terminal, peuvent être rattachés au Compte lors de la première connexion.</p>
+    <p>4.5. <strong>Suppression.</strong> L’Utilisateur peut à tout moment supprimer son Compte depuis les Paramètres du Service. La suppression est définitive et entraîne l’effacement des données associées dans les conditions prévues par la Politique de confidentialité, ainsi que la perte de tout Abonnement en cours, sans remboursement.</p>
+
+    <h3 id="cgu-5">Article 5 — Description des Fonctionnalités</h3>
+    <p>Le Service comprend notamment les fonctionnalités suivantes, dont le périmètre peut évoluer conformément à l’article 13 :</p>
     <ul>
-      <li>Tu donnes des informations exactes et tu gardes ton mot de passe secret. Un compte est personnel.</li>
-      <li>Tu es responsable de ce qui est fait depuis ton compte. Si tu penses qu’il a été piraté, change ton mot de passe et préviens-nous.</li>
+      <li><strong>Questionnaire et Recommandations</strong> : l’Utilisateur renseigne un questionnaire portant notamment sur sa situation scolaire, ses langues, ses centres d’intérêt, ses objectifs, ses contraintes géographiques et financières. Le Service génère à partir de ces éléments des Recommandations hiérarchisées, accompagnées d’éléments d’explication. Le nombre de Recommandations accessibles peut dépendre du statut de l’Utilisateur (Visiteur, titulaire d’un Compte, parrain, titulaire d’un Abonnement).</li>
+      <li><strong>Catalogue d’établissements</strong> : fiches descriptives d’établissements d’enseignement supérieur comprenant, lorsque l’information est disponible, des indications relatives aux formations, aux conditions d’admission, aux frais de scolarité et aux démarches, assorties de la source consultée et de la date de vérification.</li>
+      <li><strong>Opportunités</strong> : référencement d’annonces de bourses, stages, emplois, programmes et investisseurs publiées par des tiers, présentées avec leur source et retirées ou masquées lorsqu’elles sont expirées ou qu’elles n’ont pas pu être vérifiées à nouveau. Le détail de certaines Opportunités est réservé aux titulaires d’un Abonnement.</li>
+      <li><strong>Assistant et outils d’accompagnement</strong> : réponses aux questions d’orientation, aide à la rédaction et à la relecture de lettres de motivation, préparation aux entretiens, analyse d’adéquation entre le profil de l’Utilisateur et une Opportunité, évaluation de la maturité d’un projet entrepreneurial.</li>
+      <li><strong>Mon dossier</strong> : suivi structuré des démarches de candidature (étapes, pièces à réunir, échéances), dépôt et conservation de documents dans le Coffre, rappels.</li>
+      <li><strong>Espace « Aujourd’hui »</strong> : contenus et actions proposés quotidiennement, série de jours d’utilisation, points, niveaux et badges.</li>
+      <li><strong>Notifications</strong> : messages d’information et de rappel adressés sur le terminal de l’Utilisateur, sous réserve de son autorisation et selon les préférences qu’il a définies.</li>
+      <li><strong>Parrainage, avis et signalements</strong> : invitation de proches, dépôt d’avis sur le Service, signalement d’informations inexactes ou d’Opportunités expirées.</li>
     </ul>
 
-    <h3>4. Ce qui est permis</h3>
+    <h3 id="cgu-6">Article 6 — Nature des informations et absence de garantie de résultat</h3>
+    <p>6.1. <strong>Outil d’aide à la décision.</strong> Le Service est un outil d’information et d’aide à la décision. Il ne constitue ni un établissement d’enseignement, ni un organisme de placement ou de recrutement, ni un intermédiaire chargé de déposer des candidatures pour le compte de l’Utilisateur, ni un conseil juridique, financier, fiscal ou en matière d’immigration. Les choix d’orientation, de candidature, de financement et de mobilité relèvent de la seule décision de l’Utilisateur.</p>
+    <p>6.2. <strong>Caractère indicatif.</strong> Les informations relatives aux établissements, formations, frais, conditions d’admission, calendriers, montants et conditions d’éligibilité proviennent de sources publiques ou officielles identifiées, consultées à une date indiquée lorsque cela est possible. Elles sont susceptibles d’évoluer à tout moment à l’initiative de leurs émetteurs, de varier selon la filière, l’année d’études, la nationalité ou le statut de l’étudiant, ou de comporter des erreurs. Les montants exprimés dans une devise autre que la devise d’origine résultent de conversions indicatives.</p>
+    <p>6.3. <strong>Résultats générés automatiquement.</strong> Les Recommandations et les productions de l’Assistant sont générées de manière automatisée et probabiliste. Elles peuvent être incomplètes, imprécises ou inadaptées à la situation particulière de l’Utilisateur. Le Service peut se tromper.</p>
+    <p>6.4. <strong>Vérification.</strong> Il appartient à l’Utilisateur de vérifier, auprès de l’établissement, de l’organisme ou de l’autorité compétente, et préalablement à tout engagement, paiement, candidature ou déplacement, l’exactitude et l’actualité des informations qui conditionnent sa décision.</p>
+    <p>6.5. <strong>Absence de garantie de résultat.</strong> L’Éditeur ne garantit en aucun cas l’obtention d’une admission, d’une bourse, d’un financement, d’un visa, d’un stage ou d’un emploi.</p>
+
+    <h3 id="cgu-7">Article 7 — Règles d’utilisation</h3>
+    <p>7.1. L’Utilisateur s’engage à utiliser le Service de manière loyale, conformément à sa destination, aux Conditions et à la réglementation applicable.</p>
+    <p>7.2. Sont notamment interdits :</p>
     <ul>
-      <li>Utiliser LERNA pour ton orientation, celle de tes proches ou de tes élèves.</li>
-      <li>Partager tes résultats et ton lien de parrainage.</li>
-      <li>Laisser des avis honnêtes sur ton expérience réelle.</li>
-      <li>Nous signaler une erreur ou une offre expirée.</li>
+      <li>l’extraction, la collecte ou la réutilisation, par tout moyen automatisé ou manuel, de tout ou partie qualitativement ou quantitativement substantielle des Contenus ou des bases de données du Service ;</li>
+      <li>l’accès au Service ou l’interrogation de ses interfaces de programmation au moyen de robots, scripts ou outils automatisés non autorisés, ainsi que toute tentative de contournement des seuils d’usage, des mesures de sécurité ou des restrictions d’accès aux Fonctionnalités Premium ;</li>
+      <li>toute opération d’ingénierie inverse, de décompilation, de désassemblage ou d’analyse visant à reconstituer le code source ou les mécanismes du Service, sauf dans les limites permises par la loi ;</li>
+      <li>l’introduction de code malveillant, l’injection de requêtes, la surcharge délibérée de l’infrastructure ou toute action de nature à porter atteinte à l’intégrité, à la disponibilité ou à la confidentialité du Service ou des données qu’il traite ;</li>
+      <li>l’utilisation de l’Assistant ou de tout outil du Service pour produire, altérer ou faire usage de documents faux ou trompeurs, notamment de faux diplômes, relevés, attestations, lettres de recommandation ou pièces d’identité ;</li>
+      <li>l’usurpation d’identité, la fourniture d’informations sciemment inexactes, la création de Comptes fictifs ;</li>
+      <li>le dépôt ou la diffusion de contenus illicites, diffamatoires, injurieux, discriminatoires, haineux, violents, à caractère sexuel, portant atteinte à la vie privée ou aux droits de tiers, ou de fichiers malveillants ;</li>
+      <li>le harcèlement, la menace ou la sollicitation abusive d’autres Utilisateurs ou des équipes de l’Éditeur ;</li>
+      <li>la publication d’avis non authentiques, sollicités en contrepartie d’un avantage, ou ne reflétant pas une expérience réelle ;</li>
+      <li>la revente, la cession, la mise à disposition ou le partage, à titre gratuit ou onéreux, de l’accès à un Compte ou à un Abonnement ;</li>
+      <li>toute utilisation du Service à des fins commerciales non autorisées par écrit par l’Éditeur.</li>
     </ul>
+    <p>7.3. Tout manquement aux présentes règles peut donner lieu aux mesures prévues à l’article 16, sans préjudice de toute action que l’Éditeur pourrait engager.</p>
 
-    <h3>5. Ce qui est interdit</h3>
-    <ul>
-      <li>Publier des avis faux, achetés, injurieux ou qui visent une personne.</li>
-      <li>Harceler, menacer ou tromper d’autres personnes, ou se faire passer pour quelqu’un d’autre.</li>
-      <li>Déposer dans le coffre-fort ou envoyer des contenus illégaux, des faux documents ou des fichiers dangereux.</li>
-      <li>Utiliser l’assistant IA pour produire de faux diplômes, de fausses lettres ou tout document frauduleux.</li>
-      <li>Copier en masse les données de LERNA, utiliser des robots, contourner les limites ou la sécurité.</li>
-      <li>Revendre l’accès Premium ou partager un compte payant.</li>
-      <li>Utiliser LERNA d’une façon contraire à la loi.</li>
-    </ul>
-    <p>En cas de non-respect, LERNA peut retirer un contenu, limiter ou suspendre un compte, sans remboursement de l’abonnement en cours.</p>
+    <h3 id="cgu-8">Article 8 — Contenus Utilisateur</h3>
+    <p>8.1. L’Utilisateur demeure titulaire des droits sur ses Contenus Utilisateur. Il garantit disposer de l’ensemble des droits et autorisations nécessaires à leur fourniture et à leur traitement dans le cadre du Service, et que ceux-ci ne portent atteinte à aucun droit de tiers ni à aucune disposition légale.</p>
+    <p>8.2. L’Utilisateur concède à l’Éditeur, pour le monde entier, à titre non exclusif et gratuit, le droit d’héberger, reproduire, adapter techniquement, traiter et transmettre ses Contenus Utilisateur, dans la seule mesure nécessaire à l’exécution, à la sécurisation et à l’amélioration du Service, pour la durée de conservation applicable. S’agissant des avis dont l’Utilisateur a accepté la publication, cette concession comprend le droit de les afficher au sein du Service et de ses supports de présentation, accompagnés du prénom ou du pseudonyme de leur auteur.</p>
+    <p>8.3. L’Éditeur n’exerce pas de contrôle a priori sur les Contenus Utilisateur à caractère privé, notamment les documents déposés dans le Coffre. Il se réserve la faculté de retirer ou de rendre inaccessible tout Contenu Utilisateur manifestement illicite ou contraire aux Conditions qui serait porté à sa connaissance.</p>
+    <p>8.4. Il appartient à l’Utilisateur de conserver ses propres copies des documents qu’il dépose dans le Coffre. Le Coffre est un outil d’organisation et ne constitue pas un service d’archivage à valeur probante.</p>
 
-    <h3>6. Avis, signalements et parrainage</h3>
-    <ul>
-      <li>Les avis sont relus avant d’être affichés. Un avis peut être refusé s’il est faux, hors sujet, injurieux ou s’il contient des informations personnelles sur quelqu’un.</li>
-      <li>Un signalement d’offre expirée ou d’erreur nous aide à corriger rapidement ; merci d’indiquer ce qui ne va pas.</li>
-      <li>Le parrainage récompense de vrais amis : un ami compte lorsqu’il crée un compte confirmé et termine son questionnaire. Les faux comptes créés pour gagner des avantages sont supprimés, ainsi que les avantages obtenus.</li>
-    </ul>
+    <h3 id="cgu-9">Article 9 — Avis et évaluations</h3>
+    <p>9.1. L’Utilisateur peut déposer un avis assorti d’une note sur le Service. Les avis font l’objet d’un contrôle préalable à leur publication, destiné à vérifier leur conformité aux Conditions. Peuvent notamment être refusés ou retirés les avis sans rapport avec le Service, comportant des propos injurieux ou des données personnelles de tiers, ou dont l’authenticité est douteuse.</p>
+    <p>9.2. Aucune contrepartie n’est accordée en échange du dépôt d’un avis. Les avis sont présentés par ordre chronologique ou de pertinence, avec leur date ; la section des avis n’est affichée qu’à partir d’un nombre minimal d’avis publiés. Les notes issues de plateformes tierces sont présentées avec l’indication de leur source.</p>
 
-    <h3>7. Contenus et propriété</h3>
-    <p>L’application, son nom, son logo, ses textes et sa présentation appartiennent à LERNA. Les noms des écoles et organismes appartiennent à leurs propriétaires ; leur présence ne veut pas dire qu’ils soutiennent LERNA. Ce que tu écris reste à toi ; tu nous autorises seulement à l’utiliser pour faire fonctionner le service (et, pour un avis public, à l’afficher).</p>
+    <h3 id="cgu-10">Article 10 — Programme de parrainage</h3>
+    <p>10.1. L’Utilisateur titulaire d’un Compte peut inviter des tiers au moyen d’un lien personnel. Un parrainage est validé lorsque la personne invitée a créé un Compte, confirmé son adresse électronique lorsque cela est requis et terminé le questionnaire d’orientation.</p>
+    <p>10.2. Les parrainages validés peuvent donner accès à des avantages fonctionnels, tels que le déblocage de Recommandations supplémentaires. Ces avantages sont personnels, n’ont aucune valeur monétaire et ne peuvent être ni cédés, ni échangés, ni convertis.</p>
+    <p>10.3. Les parrainages obtenus au moyen de Comptes fictifs, multiples ou créés à seule fin d’obtenir un avantage sont annulés, de même que les avantages correspondants. L’Éditeur peut modifier, suspendre ou clore le programme de parrainage à tout moment, sans que les avantages déjà acquis de manière régulière ne soient remis en cause.</p>
 
-    <h3>8. Disponibilité et responsabilité</h3>
-    <p>Nous faisons le maximum pour que LERNA fonctionne bien, mais le service peut être interrompu pour maintenance ou panne. LERNA n’est pas responsable des décisions prises à partir de ses informations, ni des pertes liées à une information qui a changé chez une école ou un organisme. Rien dans ces conditions ne limite les droits que la loi t’accorde.</p>
+    <h3 id="cgu-11">Article 11 — Éléments de progression</h3>
+    <p>Les séries de jours, points, niveaux, badges et autres éléments de progression ont une fonction exclusivement pédagogique et motivationnelle. Ils n’ont aucune valeur monétaire, ne sont ni cessibles ni échangeables et ne confèrent aucun droit. Leurs règles d’attribution peuvent être ajustées, notamment pour corriger une anomalie.</p>
 
-    <h3>9. Changements et droit applicable</h3>
-    <p>Ces conditions peuvent évoluer ; la version en vigueur est toujours ici, avec sa date. Elles sont soumises au droit sénégalais. En cas de désaccord, nous cherchons d’abord une solution amiable ; à défaut, les tribunaux de Dakar sont compétents, sauf règle contraire protégeant le consommateur.</p>
+    <h3 id="cgu-12">Article 12 — Propriété intellectuelle</h3>
+    <p>12.1. Le Service, sa structure, son code, ses interfaces, sa charte graphique, ses textes, ses questionnaires, ses illustrations, ses sons, ses bases de données et leur contenu, ainsi que la dénomination LERNA, son logotype et ses autres signes distinctifs, sont la propriété de l’Éditeur ou font l’objet d’une autorisation d’utilisation à son profit, et sont protégés par le droit de la propriété intellectuelle applicable, notamment par l’Accord de Bangui révisé et les conventions internationales.</p>
+    <p>12.2. L’Éditeur concède à l’Utilisateur un droit d’utilisation personnel, non exclusif, non cessible et révocable du Service, pour ses besoins propres et dans les limites des Conditions. Toute reproduction, représentation, adaptation, extraction ou exploitation non expressément autorisée est interdite.</p>
+    <p>12.3. Les noms, marques et logos des établissements, organismes et entreprises cités dans le Service appartiennent à leurs titulaires respectifs. Leur mention a une finalité exclusivement informative et n’implique aucun partenariat, parrainage ou approbation de leur part, sauf mention expresse.</p>
+
+    <h3 id="cgu-13">Article 13 — Disponibilité, maintenance et évolutions</h3>
+    <p>13.1. L’Éditeur met en œuvre les moyens raisonnables à sa disposition pour assurer un accès continu au Service. Il n’est tenu à cet égard qu’à une obligation de moyens.</p>
+    <p>13.2. L’accès au Service peut être interrompu, notamment pour des opérations de maintenance, de mise à jour ou de sécurité, en cas d’indisponibilité des services de ses prestataires techniques, ou en cas de défaillance des réseaux de communication. Certaines fonctionnalités peuvent fonctionner en mode dégradé en l’absence de connexion.</p>
+    <p>13.3. L’Éditeur peut faire évoluer le Service, ajouter, modifier ou retirer des fonctionnalités ou des Contenus, afin notamment de l’améliorer, de l’adapter aux évolutions techniques ou réglementaires ou d’en assurer la sécurité. Lorsqu’une évolution affecte de manière substantielle une Fonctionnalité Premium au cours d’une période d’Abonnement, les Conditions d’abonnement et de paiement s’appliquent.</p>
+
+    <h3 id="cgu-14">Article 14 — Responsabilité</h3>
+    <p>14.1. <strong>Responsabilité de l’Utilisateur.</strong> L’Utilisateur est responsable de l’usage qu’il fait du Service, des Contenus Utilisateur qu’il fournit et des décisions qu’il prend. Il garantit l’Éditeur contre toute réclamation de tiers résultant d’un manquement de sa part aux Conditions.</p>
+    <p>14.2. <strong>Responsabilité de l’Éditeur.</strong> Dans les limites permises par la loi applicable, la responsabilité de l’Éditeur ne saurait être engagée : (i) à raison des décisions prises par l’Utilisateur sur le fondement des informations, Recommandations ou productions de l’Assistant ; (ii) à raison de la modification, par un établissement ou un organisme tiers, de ses conditions, frais, calendriers ou offres ; (iii) à raison des contenus, produits ou services de sites tiers ; (iv) en cas d’utilisation du Service non conforme aux Conditions ; (v) pour les dommages indirects, tels que perte de chance, perte de données non imputable à l’Éditeur, préjudice commercial ou d’image.</p>
+    <p>14.3. Lorsque la responsabilité de l’Éditeur est engagée, elle est limitée, toutes causes confondues, au montant effectivement payé par l’Utilisateur au titre de l’Abonnement au cours des douze mois précédant le fait générateur, ou, à défaut de paiement, à un montant forfaitaire équivalent au prix d’un Abonnement d’un mois.</p>
+    <p>14.4. Aucune stipulation des Conditions n’a pour effet d’exclure ou de limiter la responsabilité de l’Éditeur en cas de faute lourde ou intentionnelle, de dommage corporel, ni de priver l’Utilisateur ayant la qualité de consommateur des droits que lui confèrent les dispositions impératives de la loi qui lui est applicable.</p>
+
+    <h3 id="cgu-15">Article 15 — Sites et services tiers</h3>
+    <p>Le Service contient des liens vers des sites et services édités par des tiers, notamment des établissements d’enseignement, des plateformes de candidature, des organismes de bourses, des employeurs et des Prestataires de paiement. Ces sites et services relèvent de la seule responsabilité de leurs éditeurs et sont régis par leurs propres conditions et politiques, que l’Utilisateur est invité à consulter.</p>
+
+    <h3 id="cgu-16">Article 16 — Suspension et résiliation</h3>
+    <p>16.1. L’Utilisateur peut cesser d’utiliser le Service et supprimer son Compte à tout moment, dans les conditions de l’article 4.5.</p>
+    <p>16.2. En cas de manquement de l’Utilisateur aux Conditions, l’Éditeur peut, selon la gravité du manquement, retirer le contenu concerné, limiter l’accès à certaines fonctionnalités, suspendre temporairement le Compte ou le supprimer. Sauf urgence, manquement grave ou réitéré, fraude, atteinte à la sécurité du Service ou obligation légale, la mesure est précédée d’une notification invitant l’Utilisateur à présenter ses observations ou à remédier au manquement.</p>
+    <p>16.3. La suspension ou la suppression du Compte prononcée en application du présent article entraîne la perte de l’Abonnement en cours, sans remboursement, dans les limites permises par la loi applicable.</p>
+
+    <h3 id="cgu-17">Article 17 — Données personnelles</h3>
+    <p>Les traitements de données à caractère personnel mis en œuvre dans le cadre du Service sont décrits dans la Politique de confidentialité et dans la Politique relative aux cookies et au stockage local, qui précisent notamment leurs finalités, leurs bases juridiques, leurs destinataires, leurs durées de conservation et les modalités d’exercice des droits de l’Utilisateur.</p>
+
+    <h3 id="cgu-18">Article 18 — Preuve et communications électroniques</h3>
+    <p>18.1. L’Utilisateur reconnaît la valeur probante des enregistrements informatiques conservés par l’Éditeur et ses prestataires dans des conditions raisonnables de sécurité, notamment les journaux de connexion, les horodatages, les historiques de transactions et les confirmations transmises par les Prestataires de paiement, sauf preuve contraire.</p>
+    <p>18.2. Les communications relatives au Service peuvent être adressées à l’Utilisateur par voie électronique, au sein du Service, par notification ou à l’adresse électronique associée à son Compte.</p>
+
+    <h3 id="cgu-19">Article 19 — Force majeure</h3>
+    <p>L’exécution des obligations de l’Éditeur est suspendue en cas de survenance d’un événement de force majeure, tel que défini par la loi applicable et la jurisprudence, ainsi qu’en cas de défaillance générale des réseaux de télécommunication, d’indisponibilité prolongée des infrastructures de ses prestataires, de cyberattaque d’ampleur, de décision d’une autorité publique ou de perturbation des systèmes de paiement, dès lors que cet événement échappe à son contrôle raisonnable.</p>
+
+    <h3 id="cgu-20">Article 20 — Modification des Conditions</h3>
+    <p>L’Éditeur peut modifier les Conditions, notamment pour tenir compte de l’évolution du Service, de la réglementation ou de la jurisprudence. La version en vigueur, datée, est accessible à tout moment depuis les Paramètres. Les modifications substantielles sont portées à la connaissance des Utilisateurs titulaires d’un Compte par tout moyen approprié, dans un délai raisonnable avant leur entrée en vigueur. La poursuite de l’utilisation du Service après l’entrée en vigueur des Conditions modifiées vaut acceptation de celles-ci ; à défaut d’acceptation, l’Utilisateur peut supprimer son Compte.</p>
+
+    <h3 id="cgu-21">Article 21 — Dispositions diverses</h3>
+    <p>21.1. Si une stipulation des Conditions est déclarée nulle ou inapplicable, elle est réputée non écrite, sans affecter la validité des autres stipulations.</p>
+    <p>21.2. Le fait pour l’Éditeur de ne pas se prévaloir d’un manquement ne vaut pas renonciation à s’en prévaloir ultérieurement.</p>
+    <p>21.3. L’Éditeur peut céder ou transférer tout ou partie de ses droits et obligations au titre des Conditions, notamment dans le cadre d’une opération de restructuration, de cession ou d’apport de tout ou partie de son activité, sous réserve que les droits de l’Utilisateur n’en soient pas diminués.</p>
+
+    <h3 id="cgu-22">Article 22 — Droit applicable et règlement des différends</h3>
+    <p>22.1. Les Conditions sont régies par le droit sénégalais, sans préjudice des dispositions impératives plus protectrices de la loi du pays de résidence habituelle de l’Utilisateur ayant la qualité de consommateur.</p>
+    <p>22.2. En cas de différend, l’Utilisateur est invité à adresser préalablement une réclamation écrite par le formulaire de contact, afin de rechercher une solution amiable. L’Utilisateur consommateur conserve la faculté de recourir à tout mode alternatif de règlement des différends prévu par la loi qui lui est applicable.</p>
+    <p>22.3. À défaut de résolution amiable, tout litige relatif à la formation, à l’interprétation ou à l’exécution des Conditions relève de la compétence des juridictions de Dakar, sauf règle de compétence impérative contraire applicable à l’Utilisateur consommateur.</p>
   </article>
 
   <!-- ===================================================================== -->
   <article class="doc" id="abonnement">
-    <h2>Abonnement et paiements</h2>
-    <p class="upd">Dernière mise à jour : 12 octobre 2026</p>
+    <h2>Conditions d’abonnement et de paiement</h2>
+    <p class="upd">Version 2.0 — en vigueur au 15 octobre 2026</p>
+    <div class="toc"><p>Sommaire</p><ol>
+      <li><a href="#cgv-1">Objet et champ d’application</a></li><li><a href="#cgv-2">Offre gratuite et Fonctionnalités Premium</a></li>
+      <li><a href="#cgv-3">Formules et durée</a></li><li><a href="#cgv-4">Prix</a></li>
+      <li><a href="#cgv-5">Processus de commande</a></li><li><a href="#cgv-6">Moyens de paiement</a></li>
+      <li><a href="#cgv-7">Confirmation et activation</a></li><li><a href="#cgv-8">Renouvellement</a></li>
+      <li><a href="#cgv-9">Caractère définitif des paiements</a></li><li><a href="#cgv-10">Droit de rétractation</a></li>
+      <li><a href="#cgv-11">Incidents de paiement et fraude</a></li><li><a href="#cgv-12">Justificatifs</a></li>
+      <li><a href="#cgv-13">Évolution de l’offre</a></li><li><a href="#cgv-14">Suspension du Compte</a></li>
+      <li><a href="#cgv-15">Offres promotionnelles</a></li><li><a href="#cgv-16">Réclamations</a></li>
+      <li><a href="#cgv-17">Droit applicable</a></li>
+    </ol></div>
 
-    <h3>1. Gratuit et Premium</h3>
-    <p>LERNA a une version gratuite et une version Premium. Le détail de ce que chacune comprend est indiqué sur la page Premium au moment de l’achat.</p>
+    <h3 id="cgv-1">Article 1 — Objet et champ d’application</h3>
+    <p>1.1. Les présentes conditions (les « Conditions d’abonnement ») régissent la souscription, le paiement et l’exécution de l’Abonnement donnant accès aux Fonctionnalités Premium du Service. Les termes commençant par une majuscule ont la signification qui leur est donnée dans les Conditions générales d’utilisation.</p>
+    <p>1.2. Toute souscription suppose l’acceptation préalable et sans réserve des Conditions d’abonnement et des Conditions générales d’utilisation, matérialisée lors de la validation du paiement. Les Conditions d’abonnement applicables sont celles en vigueur à la date de la souscription.</p>
 
-    <h3>2. Prix et formules</h3>
+    <h3 id="cgv-2">Article 2 — Offre gratuite et Fonctionnalités Premium</h3>
+    <p>2.1. Le Service comprend une offre gratuite et une offre payante. Le périmètre des Fonctionnalités Premium, les seuils d’usage applicables à chaque offre et les éventuelles différences fonctionnelles sont décrits sur la page Premium du Service au moment de la souscription, laquelle fait partie intégrante de l’offre contractuelle.</p>
+    <p>2.2. L’Abonnement confère un droit d’accès personnel, non exclusif et non cessible aux Fonctionnalités Premium pour la durée souscrite. Il est soumis à une politique d’usage raisonnable : des plafonds techniques, fixés à un niveau excédant largement un usage individuel normal, peuvent s’appliquer afin de prévenir les usages automatisés ou abusifs et de préserver la qualité du Service pour l’ensemble des Utilisateurs.</p>
+    <p>2.3. L’Abonnement ne confère aucun droit sur les Contenus au-delà de leur consultation au sein du Service et ne garantit aucun résultat, conformément à l’article 6 des Conditions générales d’utilisation.</p>
+
+    <h3 id="cgv-3">Article 3 — Formules et durée</h3>
+    <p>3.1. L’Abonnement est proposé pour une durée d’un (1) mois ou d’un (1) an, selon la formule choisie par l’Utilisateur.</p>
+    <p>3.2. La période d’Abonnement court à compter de l’activation des Fonctionnalités Premium, telle que définie à l’article 7, et expire à la même heure du jour correspondant du mois ou de l’année suivant(e).</p>
+    <p>3.3. Lorsque l’Utilisateur souscrit une nouvelle période alors qu’un Abonnement est en cours de validité, la nouvelle période prend effet à l’expiration de la période en cours et s’y ajoute.</p>
+
+    <h3 id="cgv-4">Article 4 — Prix</h3>
+    <p>4.1. Les prix sont indiqués sur la page Premium et dans la fenêtre de paiement, dans la devise de paiement proposée à l’Utilisateur. Le prix applicable est celui affiché au moment de la validation de la commande ; il s’entend du montant total dû au titre de l’Abonnement.</p>
+    <p>4.2. Les montants éventuellement affichés dans une autre devise sont fournis à titre indicatif et résultent d’une conversion approximative ; seul le montant dans la devise de paiement fait foi.</p>
+    <p>4.3. Les frais facturés par l’opérateur de télécommunications, l’émetteur de la carte ou le fournisseur du portefeuille électronique de l’Utilisateur, notamment les frais de transfert, de change ou de transaction internationale, demeurent à la charge de ce dernier.</p>
+    <p>4.4. L’Éditeur peut modifier ses prix à tout moment. Les nouveaux prix s’appliquent aux souscriptions postérieures à leur entrée en vigueur et sont sans effet sur les périodes déjà payées.</p>
+
+    <h3 id="cgv-5">Article 5 — Processus de commande</h3>
+    <p>5.1. La souscription requiert un Compte. Le processus comprend les étapes suivantes : (i) choix de la formule ; (ii) choix du moyen de paiement ; (iii) le cas échéant, saisie du numéro de téléphone associé au portefeuille de monnaie électronique ; (iv) récapitulatif du montant et validation ; (v) autorisation du paiement par l’Utilisateur dans l’interface du Prestataire de paiement ou de l’opérateur concerné (application mobile, code USSD, page de paiement sécurisée, authentification forte de l’émetteur de la carte).</p>
+    <p>5.2. Avant la validation, l’Utilisateur peut vérifier le détail de sa commande et corriger toute erreur de saisie. La validation de la commande matérialise l’acceptation des Conditions d’abonnement et l’obligation de paiement.</p>
+    <p>5.3. Le contrat est formé à la réception, par l’Éditeur, de la confirmation du paiement par le Prestataire de paiement. Une demande de paiement non autorisée ou non confirmée dans le délai imparti par le Prestataire de paiement est réputée abandonnée et n’emporte aucune obligation pour l’une ou l’autre des parties.</p>
+
+    <h3 id="cgv-6">Article 6 — Moyens de paiement</h3>
+    <p>6.1. Les moyens de paiement proposés à la date des présentes peuvent comprendre, selon le pays et la disponibilité des services : les portefeuilles de monnaie électronique (notamment Wave, Orange Money et Free Money/Yas) et les cartes bancaires des réseaux acceptés par le Prestataire de paiement. La liste des moyens effectivement disponibles est celle affichée lors de la commande.</p>
+    <p>6.2. Les paiements sont exécutés par des Prestataires de paiement tiers, agréés ou habilités conformément à la réglementation qui leur est applicable, qui agissent selon leurs propres conditions générales. Les données d’authentification de paiement (code secret du portefeuille, numéro complet de carte, date d’expiration, cryptogramme visuel, codes d’authentification forte) sont saisies exclusivement dans les interfaces du Prestataire de paiement, de l’opérateur ou de l’émetteur de la carte et ne transitent pas par les serveurs de l’Éditeur.</p>
+    <p>6.3. L’Utilisateur garantit qu’il est titulaire du moyen de paiement utilisé ou dûment autorisé par son titulaire, et que ce moyen donne accès à des fonds suffisants.</p>
+
+    <h3 id="cgv-7">Article 7 — Confirmation et activation</h3>
+    <p>7.1. L’activation des Fonctionnalités Premium intervient après vérification, par les serveurs de l’Éditeur et directement auprès du Prestataire de paiement, du statut définitif de la transaction, de son montant et du Compte auquel elle se rattache. Aucune activation n’intervient sur la seule foi d’une information transmise par le terminal de l’Utilisateur.</p>
+    <p>7.2. L’activation est en principe immédiate. Elle peut toutefois être différée en cas de délai de traitement chez le Prestataire de paiement ou l’opérateur. Le Service vérifie automatiquement le statut de la transaction au retour de l’Utilisateur dans l’Application.</p>
+    <p>7.3. Si un paiement débité n’a pas donné lieu à activation dans un délai de vingt-quatre (24) heures, l’Utilisateur adresse une réclamation par le formulaire de contact en précisant la date, le moyen de paiement, le montant et, le cas échéant, la référence de la transaction. L’Éditeur procède alors aux vérifications nécessaires et active l’Abonnement lorsque le paiement est confirmé.</p>
+
+    <h3 id="cgv-8">Article 8 — Renouvellement</h3>
+    <p>8.1. Sauf mention contraire expresse lors de la commande, l’Abonnement payé par portefeuille de monnaie électronique ou par paiement ponctuel par carte n’est pas reconduit tacitement. À l’expiration de la période souscrite, l’accès aux Fonctionnalités Premium prend fin automatiquement, sans frais, et l’Utilisateur conserve l’accès à l’offre gratuite.</p>
+    <p>8.2. Lorsqu’une formule à reconduction automatique est proposée, son caractère reconductible, sa périodicité et les modalités de résiliation sont indiqués de manière apparente avant la validation de la commande ; la résiliation prend effet au terme de la période en cours.</p>
+
+    <h3 id="cgv-9">Article 9 — Caractère définitif des paiements</h3>
+    <p>9.1. En validant sa commande, l’Utilisateur demande l’exécution immédiate de l’Abonnement et l’accès immédiat aux Fonctionnalités Premium. Les sommes versées au titre d’une période d’Abonnement sont définitivement acquises à l’Éditeur et ne donnent lieu à aucun remboursement, total ou partiel, y compris en cas de non-utilisation, d’utilisation partielle, de suppression du Compte à l’initiative de l’Utilisateur ou de changement de situation de celui-ci.</p>
+    <p>9.2. Le présent article ne fait pas obstacle à la régularisation, après vérification, d’un paiement débité à plusieurs reprises par erreur, d’un paiement débité sans contrepartie d’activation, ou d’un montant débité supérieur au prix applicable. La régularisation peut prendre la forme d’une activation, d’une prolongation de la période d’Abonnement ou d’une restitution par l’intermédiaire du Prestataire de paiement.</p>
+    <p>9.3. Le présent article s’applique dans les limites permises par les dispositions impératives de la loi applicable à l’Utilisateur.</p>
+
+    <h3 id="cgv-10">Article 10 — Droit de rétractation</h3>
+    <p>10.1. Lorsque la loi applicable à l’Utilisateur consommateur lui reconnaît un droit de rétractation pour les contrats conclus à distance, l’Utilisateur, en validant sa commande, demande expressément que l’exécution de l’Abonnement commence avant l’expiration du délai de rétractation et reconnaît que, dans les cas où la loi le prévoit, il perd ainsi son droit de rétractation.</p>
+    <p>10.2. Lorsque la loi applicable maintient néanmoins ce droit, l’Utilisateur qui l’exerce dans le délai légal, par une déclaration dénuée d’ambiguïté adressée par le formulaire de contact, reste redevable d’un montant proportionnel au service fourni jusqu’à la communication de sa décision de se rétracter.</p>
+
+    <h3 id="cgv-11">Article 11 — Incidents de paiement et fraude</h3>
+    <p>11.1. En cas de rejet, d’annulation, de contestation ou de rétrofacturation d’un paiement, l’Éditeur peut suspendre l’accès aux Fonctionnalités Premium correspondantes jusqu’à régularisation.</p>
+    <p>11.2. Afin de prévenir la fraude et les usages abusifs, le nombre de tentatives de paiement par Compte et par période est limité, et l’Éditeur peut refuser ou annuler toute commande présentant des indices sérieux de fraude, d’usurpation de moyen de paiement ou de contournement des Conditions.</p>
+
+    <h3 id="cgv-12">Article 12 — Justificatifs</h3>
+    <p>Le Prestataire de paiement ou l’opérateur délivre à l’Utilisateur la confirmation de la transaction selon ses propres modalités. L’historique des paiements est conservé par l’Éditeur. L’Utilisateur peut obtenir un justificatif de paiement sur demande adressée par le formulaire de contact.</p>
+
+    <h3 id="cgv-13">Article 13 — Évolution de l’offre</h3>
+    <p>13.1. L’Éditeur peut faire évoluer le contenu des Fonctionnalités Premium, notamment pour les enrichir, les adapter ou les sécuriser.</p>
+    <p>13.2. Si, au cours d’une période d’Abonnement en cours, une Fonctionnalité Premium déterminante présentée sur la page Premium lors de la souscription est supprimée sans être remplacée par une fonctionnalité équivalente, l’Éditeur propose à l’Utilisateur concerné, à son choix, une prolongation de sa période d’Abonnement ou une compensation adaptée, dans la mesure du préjudice subi.</p>
+
+    <h3 id="cgv-14">Article 14 — Suspension du Compte</h3>
+    <p>La suspension ou la suppression du Compte prononcée en application de l’article 16 des Conditions générales d’utilisation entraîne la perte de l’Abonnement en cours, sans remboursement, dans les limites permises par la loi applicable.</p>
+
+    <h3 id="cgv-15">Article 15 — Offres promotionnelles</h3>
+    <p>L’Éditeur peut proposer des offres promotionnelles, des périodes d’accès offertes ou des avantages liés au programme de parrainage. Leurs conditions particulières, notamment leur durée et leur éligibilité, sont précisées lors de leur présentation. Elles ne sont ni cumulables ni convertibles en numéraire, sauf mention contraire.</p>
+
+    <h3 id="cgv-16">Article 16 — Réclamations</h3>
+    <p>Toute réclamation relative à une commande ou à un paiement est adressée par le formulaire de contact du Service, en sélectionnant le sujet approprié et en joignant les éléments permettant d’identifier la transaction. L’Éditeur s’efforce d’y répondre dans les meilleurs délais.</p>
+
+    <h3 id="cgv-17">Article 17 — Droit applicable</h3>
+    <p>Les Conditions d’abonnement sont régies par le droit sénégalais, notamment par la réglementation relative aux transactions électroniques, sans préjudice des dispositions impératives plus protectrices de la loi du pays de résidence habituelle de l’Utilisateur consommateur. Les stipulations de l’article 22 des Conditions générales d’utilisation relatives au règlement des différends sont applicables.</p>
+  </article>
+
+  <!-- ===================================================================== -->
+  <article class="doc" id="confidentialite">
+    <h2>Politique de confidentialité</h2>
+    <p class="upd">Version 2.0 — en vigueur au 15 octobre 2026</p>
+    <div class="toc"><p>Sommaire</p><ol>
+      <li><a href="#pc-1">Objet et cadre juridique</a></li><li><a href="#pc-2">Responsable du traitement</a></li>
+      <li><a href="#pc-3">Définitions</a></li><li><a href="#pc-4">Catégories de données traitées</a></li>
+      <li><a href="#pc-5">Origine des données</a></li><li><a href="#pc-6">Finalités et bases juridiques</a></li>
+      <li><a href="#pc-7">Personnalisation et décisions automatisées</a></li><li><a href="#pc-8">Catégories particulières de données</a></li>
+      <li><a href="#pc-9">Destinataires</a></li><li><a href="#pc-10">Transferts internationaux</a></li>
+      <li><a href="#pc-11">Durées de conservation</a></li><li><a href="#pc-12">Sécurité</a></li>
+      <li><a href="#pc-13">Droits des personnes</a></li><li><a href="#pc-14">Utilisateurs mineurs</a></li>
+      <li><a href="#pc-15">Caractère obligatoire ou facultatif</a></li><li><a href="#pc-16">Modifications</a></li>
+    </ol></div>
+
+    <h3 id="pc-1">1. Objet et cadre juridique</h3>
+    <p>1.1. La présente politique a pour objet d’informer les Utilisateurs, de manière concise, transparente et compréhensible, des traitements de données à caractère personnel mis en œuvre dans le cadre du Service, conformément à la loi sénégalaise n° 2008-12 du 25 janvier 2008 sur la protection des données à caractère personnel et à ses textes d’application, ainsi que, lorsqu’il est applicable, au règlement (UE) 2016/679 du 27 avril 2016 (« RGPD ») et aux législations nationales de protection des données applicables aux Utilisateurs.</p>
+    <p>1.2. Elle s’applique à l’ensemble des traitements réalisés au moyen du Service, quel que soit le terminal utilisé. Elle ne s’applique pas aux traitements réalisés par des tiers vers les sites desquels le Service renvoie, notamment les établissements d’enseignement, plateformes de candidature et Prestataires de paiement, qui agissent sous leur propre responsabilité.</p>
+
+    <h3 id="pc-2">2. Responsable du traitement</h3>
+    <p>2.1. Le responsable du traitement est l’Éditeur du Service, identifié dans les Mentions légales.</p>
+    <p>2.2. Pour toute question relative à la protection des données ou pour exercer ses droits, l’Utilisateur peut s’adresser à l’Éditeur au moyen du formulaire de la page Contact, en sélectionnant le sujet « Mes données personnelles ».</p>
+
+    <h3 id="pc-3">3. Définitions</h3>
+    <p>« Données » désigne toute information se rapportant à une personne physique identifiée ou identifiable. « Traitement » désigne toute opération appliquée à des Données, quel que soit le procédé utilisé. « Sous-traitant » désigne la personne qui traite des Données pour le compte et sur instruction du responsable du traitement. « Destinataire » désigne la personne qui reçoit communication de Données. Les autres termes ont la signification qui leur est donnée dans les Conditions générales d’utilisation.</p>
+
+    <h3 id="pc-4">4. Catégories de données traitées</h3>
+    <p>Selon les fonctionnalités utilisées, l’Éditeur traite les catégories de Données suivantes :</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Catégorie</th><th>Données concernées</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Identification et Compte</strong></td><td>Adresse électronique, identifiant technique du Compte, prénom, nom, pseudonyme, pays, niveau d’études, langue, rôle, statut et date d’expiration de l’Abonnement, date de création. Le mot de passe est conservé par le service d’authentification sous la seule forme d’une empreinte cryptographique non réversible.</td></tr>
+        <tr><td><strong>Profil d’orientation</strong></td><td>Réponses au questionnaire : tranche d’âge, niveau et diplôme, pays de résidence, langues et niveaux, matières appréciées ou difficiles, traits et styles de travail, objectifs professionnels, destinations souhaitées, priorités, secteurs d’intérêt, sources et niveau de financement envisagés, mobilité, besoin de travailler pendant les études, durée et mode de formation souhaités, réponses libres. Domaines d’études les plus consultés dans le Service, calculés sur le terminal de l’Utilisateur. Recommandations générées, scores d’adéquation et éléments d’explication.</td></tr>
+        <tr><td><strong>Informations complémentaires facultatives</strong></td><td>Genre (déclaré par l’Utilisateur ou, à défaut, déduit dans les conditions de l’article 7.3) et date de naissance.</td></tr>
+        <tr><td><strong>Contenus déposés et organisés</strong></td><td>Établissements et Opportunités enregistrés, dossiers de candidature, étapes, échéances, rappels, documents déposés dans le Coffre (par exemple relevés de notes, diplômes, curriculum vitae, lettres) et leurs métadonnées (nom, type, taille, date).</td></tr>
+        <tr><td><strong>Interactions avec l’Assistant</strong></td><td>Contenu des demandes adressées à l’Assistant et des réponses produites, éléments de profil utiles à la réponse. L’historique des conversations est conservé sur le terminal de l’Utilisateur ; côté serveur, seules des données de comptage et de fonctionnement sont journalisées.</td></tr>
+        <tr><td><strong>Progression et préférences</strong></td><td>Jours d’utilisation, séries, points, niveaux, badges, missions réalisées, réglages d’affichage, de langue, de sons, de vibrations, de notifications et de confidentialité.</td></tr>
+        <tr><td><strong>Transactions</strong></td><td>Formule, montant, devise, moyen de paiement, numéro de téléphone du portefeuille payeur le cas échéant, référence de transaction attribuée par le Prestataire de paiement, statut, horodatages de création et de traitement.</td></tr>
+        <tr><td><strong>Échanges avec l’Éditeur</strong></td><td>Messages adressés par le formulaire de contact (sujet, contenu, adresse de réponse), signalements d’Opportunités ou d’informations inexactes, avis (note, commentaire, choix de publication).</td></tr>
+        <tr><td><strong>Parrainage</strong></td><td>Code de parrainage, rattachement entre le Compte parrain et le Compte invité, statut de validation.</td></tr>
+        <tr><td><strong>Données techniques et d’usage</strong></td><td>Identifiant de session aléatoire, pages et écrans consultés, événements fonctionnels, horodatages, variante d’expérimentation attribuée, langue et thème, catégorie de terminal et de navigateur, pays de connexion déterminé au niveau du pays à partir de l’adresse IP, adresse IP traitée de manière transitoire et, pour la prévention des abus, sous la forme d’une empreinte pseudonymisée (hachage salé), journaux techniques de l’hébergeur.</td></tr>
+        <tr><td><strong>Notifications</strong></td><td>Identifiant d’abonnement aux notifications du terminal, préférences (catégories, heure souhaitée, heures calmes, fréquence), étiquettes techniques permettant le respect de ces préférences.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 id="pc-5">5. Origine des données</h3>
+    <p>Les Données sont collectées directement auprès de l’Utilisateur lors de son utilisation du Service, générées par le Service à partir de ces Données (Recommandations, éléments de progression, données d’usage), issues du terminal de l’Utilisateur (données techniques), ou transmises par les Prestataires de paiement (statut et référence des transactions).</p>
+
+    <h3 id="pc-6">6. Finalités et bases juridiques</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Finalité</th><th>Base juridique</th></tr></thead>
+      <tbody>
+        <tr><td>Création, gestion, authentification et sécurisation du Compte ; synchronisation entre terminaux</td><td>Exécution du contrat (Conditions générales d’utilisation)</td></tr>
+        <tr><td>Analyse du profil d’orientation et production des Recommandations, y compris au moyen de modèles d’intelligence artificielle</td><td>Exécution du contrat, à la demande de l’Utilisateur</td></tr>
+        <tr><td>Personnalisation des Contenus et des Opportunités (pays, langue, devise, éligibilité liée au genre ou à l’âge)</td><td>Exécution du contrat ; pour les informations facultatives, intérêt légitime de l’Éditeur à fournir des informations pertinentes, l’Utilisateur pouvant s’y opposer à tout moment</td></tr>
+        <tr><td>Fonctionnement de l’Assistant et des outils d’accompagnement</td><td>Exécution du contrat</td></tr>
+        <tr><td>Gestion de Mon dossier, du Coffre et des rappels</td><td>Exécution du contrat</td></tr>
+        <tr><td>Espace « Aujourd’hui », séries, points et badges</td><td>Exécution du contrat</td></tr>
+        <tr><td>Envoi de notifications sur le terminal</td><td>Consentement, recueilli par le système d’exploitation et paramétrable dans le Service</td></tr>
+        <tr><td>Souscription, paiement, activation et gestion de l’Abonnement ; traitement des réclamations</td><td>Exécution du contrat</td></tr>
+        <tr><td>Tenue de la comptabilité et conservation des pièces justificatives</td><td>Obligation légale</td></tr>
+        <tr><td>Publication des avis</td><td>Consentement de l’auteur de l’avis</td></tr>
+        <tr><td>Programme de parrainage</td><td>Exécution du contrat</td></tr>
+        <tr><td>Traitement des messages de contact et des signalements</td><td>Exécution du contrat ou intérêt légitime de l’Éditeur à répondre aux demandes et à corriger les informations</td></tr>
+        <tr><td>Mesure d’audience, statistiques agrégées, amélioration du Service et expérimentations comparatives (tests A/B)</td><td>Intérêt légitime de l’Éditeur à mesurer et améliorer son Service ; l’Utilisateur peut s’y opposer depuis les Paramètres ; consentement lorsque la réglementation applicable l’exige</td></tr>
+        <tr><td>Prévention de la fraude et des abus, limitation des usages, sécurité des systèmes</td><td>Intérêt légitime de l’Éditeur et des Utilisateurs à la sécurité du Service</td></tr>
+        <tr><td>Constatation, exercice ou défense de droits en justice</td><td>Intérêt légitime</td></tr>
+        <tr><td>Réponse aux réquisitions des autorités habilitées</td><td>Obligation légale</td></tr>
+      </tbody>
+    </table></div>
+    <p>Les Données ne sont pas traitées ultérieurement de manière incompatible avec ces finalités.</p>
+
+    <h3 id="pc-7">7. Personnalisation et décisions automatisées</h3>
+    <p>7.1. La production des Recommandations repose sur une évaluation automatisée de certains aspects du profil de l’Utilisateur (centres d’intérêt, contraintes, objectifs), réalisée à sa demande et dans son intérêt. Les Recommandations constituent des propositions et ne produisent aucun effet juridique à l’égard de l’Utilisateur ni ne l’affectent de manière significative de façon similaire : elles ne conditionnent ni l’accès au Service, ni une admission, ni un financement.</p>
+    <p>7.2. L’Utilisateur peut à tout moment modifier ses réponses, relancer l’analyse, consulter les éléments d’explication fournis et obtenir des informations complémentaires sur la logique sous-jacente par le formulaire de contact.</p>
+    <p>7.3. Lorsque l’Utilisateur n’a pas renseigné son genre, le Service peut en déduire une indication probable à partir du prénom, au moyen d’une table de correspondance, aux seules fins d’accorder grammaticalement les textes et de signaler les Opportunités dont l’éligibilité en dépend. Cette indication est enregistrée comme déduite, n’est pas communiquée à des tiers en tant que telle, n’emporte aucune conséquence juridique et peut être corrigée ou supprimée à tout moment depuis les Paramètres, rubrique relative aux informations connues par le Service.</p>
+
+    <h3 id="pc-8">8. Catégories particulières de données</h3>
+    <p>8.1. Le Service n’a pas pour finalité le traitement de catégories particulières de Données au sens de la réglementation applicable, notamment celles qui révèlent l’origine raciale ou ethnique, les opinions politiques, les convictions religieuses ou philosophiques, l’appartenance syndicale, la santé ou la vie sexuelle, ni de Données relatives aux infractions. Aucun champ du Service n’est conçu pour les recueillir.</p>
+    <p>8.2. L’Utilisateur est invité à ne pas en faire figurer dans les champs de saisie libre, les demandes adressées à l’Assistant ou les documents déposés, sauf nécessité tenant à sa démarche. Lorsqu’il en communique à son initiative, notamment dans un document justificatif, leur traitement est limité à la conservation et à la restitution de ce document à l’Utilisateur, ou à la réponse qu’il a sollicitée.</p>
+
+    <h3 id="pc-9">9. Destinataires</h3>
+    <p>9.1. <strong>Destinataires internes.</strong> Les Données sont accessibles aux seules personnes habilitées de l’Éditeur, dans la limite de leurs attributions et de ce qui est strictement nécessaire à l’exercice de celles-ci.</p>
+    <p>9.2. <strong>Sous-traitants.</strong> L’Éditeur recourt à des Sous-traitants pour l’exécution de prestations techniques, liés par des engagements contractuels de confidentialité, de sécurité et de traitement sur instruction. Ils relèvent des catégories suivantes :</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Catégorie de prestataire</th><th>Prestation</th><th>Localisation principale</th></tr></thead>
+      <tbody>
+        <tr><td>Hébergement applicatif et diffusion de contenu</td><td>Exécution de l’Application et des fonctions serveur, réseau de diffusion</td><td>États-Unis, avec points de présence mondiaux</td></tr>
+        <tr><td>Base de données, authentification et stockage de fichiers</td><td>Conservation des Comptes, profils, dossiers, documents du Coffre et historiques</td><td>Union européenne (France)</td></tr>
+        <tr><td>Fournisseurs de modèles d’intelligence artificielle</td><td>Production des Recommandations et des réponses de l’Assistant</td><td>États-Unis</td></tr>
+        <tr><td>Envoi de courriers électroniques</td><td>Messages transactionnels et transfert des messages de contact à l’Éditeur</td><td>États-Unis ou Union européenne</td></tr>
+        <tr><td>Notifications</td><td>Acheminement des notifications vers le terminal</td><td>États-Unis</td></tr>
+        <tr><td>Mesure d’audience</td><td>Statistiques d’utilisation, lorsque ce service est activé</td><td>Union européenne</td></tr>
+        <tr><td>Fourniture de polices de caractères</td><td>Chargement des polices d’affichage</td><td>Réseau mondial</td></tr>
+      </tbody>
+    </table></div>
+    <p>9.3. <strong>Tiers agissant pour leur propre compte.</strong> Reçoivent également communication des Données strictement nécessaires : les Prestataires de paiement et opérateurs de monnaie électronique, pour l’exécution des paiements et le respect de leurs propres obligations réglementaires, notamment en matière de lutte contre le blanchiment et la fraude ; les autorités administratives ou judiciaires habilitées, sur réquisition ; le cas échéant, l’acquéreur ou le bénéficiaire d’une opération portant sur tout ou partie de l’activité de l’Éditeur, dans le respect de la présente politique.</p>
+    <p>9.4. L’énumération des destinataires figurant au présent article est limitative. La liste nominative des Sous-traitants est communiquée sur demande adressée par le formulaire de contact.</p>
+
+    <h3 id="pc-10">10. Transferts internationaux</h3>
+    <p>10.1. En raison de la localisation des Sous-traitants mentionnés à l’article 9, des Données peuvent être transférées et traitées hors du pays dans lequel elles ont été collectées, notamment vers l’Union européenne et les États-Unis.</p>
+    <p>10.2. Ces transferts sont encadrés conformément à la réglementation applicable, selon le cas par le recours à des pays reconnus comme assurant un niveau de protection adéquat, par des garanties contractuelles appropriées, notamment les clauses contractuelles types adoptées par la Commission européenne, ou par l’accomplissement des formalités requises auprès de l’autorité de protection compétente. L’Utilisateur peut obtenir des informations sur ces garanties par le formulaire de contact.</p>
+
+    <h3 id="pc-11">11. Durées de conservation</h3>
+    <p>Les Données sont conservées pendant la durée strictement nécessaire aux finalités pour lesquelles elles sont traitées, puis supprimées ou anonymisées de manière irréversible :</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Données</th><th>Durée de conservation</th></tr></thead>
+      <tbody>
+        <tr><td>Compte, profil d’orientation, Recommandations, favoris, dossiers, progression</td><td>Pendant la durée d’existence du Compte. En l’absence de toute connexion pendant trois (3) ans, le Compte est supprimé ou anonymisé, après information préalable de l’Utilisateur.</td></tr>
+        <tr><td>Documents du Coffre</td><td>Jusqu’à leur suppression par l’Utilisateur et au plus tard jusqu’à la suppression du Compte.</td></tr>
+        <tr><td>Données d’un Visiteur conservées sur son terminal</td><td>Sous le seul contrôle de l’Utilisateur, jusqu’à leur effacement depuis les Paramètres ou le navigateur.</td></tr>
+        <tr><td>Transactions et pièces justificatives</td><td>Pendant la durée légale de conservation des documents comptables, soit dix (10) ans en droit OHADA, y compris après la suppression du Compte.</td></tr>
+        <tr><td>Demandes de paiement abandonnées</td><td>Douze (12) mois à compter de leur création, pour le traitement des réclamations.</td></tr>
+        <tr><td>Messages de contact et signalements</td><td>Trois (3) ans à compter du dernier échange.</td></tr>
+        <tr><td>Avis publiés</td><td>Pendant la durée de leur publication, jusqu’au retrait demandé par l’auteur ou la suppression de son Compte.</td></tr>
+        <tr><td>Données de mesure d’audience</td><td>Treize (13) mois au plus à compter de leur collecte.</td></tr>
+        <tr><td>Compteurs de prévention des abus (empreintes pseudonymisées)</td><td>Trente (30) jours au plus.</td></tr>
+        <tr><td>Journaux techniques de l’hébergeur</td><td>Selon les durées de rotation définies par le prestataire, n’excédant pas douze (12) mois.</td></tr>
+        <tr><td>Données nécessaires à la défense de droits</td><td>Jusqu’à l’expiration des délais de prescription applicables.</td></tr>
+      </tbody>
+    </table></div>
+    <p>Lors de la suppression du Compte, les Données associées sont effacées des bases actives sans délai ; leurs copies figurant dans les sauvegardes techniques sont écrasées selon le cycle normal de rotation de celles-ci.</p>
+
+    <h3 id="pc-12">12. Sécurité</h3>
+    <p>12.1. Compte tenu de l’état des connaissances, des coûts de mise en œuvre et des risques, l’Éditeur met en œuvre des mesures techniques et organisationnelles appropriées afin de garantir un niveau de sécurité adapté, notamment : chiffrement des communications (TLS) ; conservation des mots de passe sous forme d’empreintes ; contrôle d’accès au niveau de chaque enregistrement de la base de données, chaque Utilisateur ne pouvant accéder qu’à ses propres Données ; stockage privé des documents du Coffre, accessibles au moyen de liens temporaires à durée de validité courte ; conservation des clés et secrets d’accès aux services tiers exclusivement côté serveur ; pseudonymisation des identifiants réseau utilisés pour la prévention des abus ; vérification serveur à serveur des transactions de paiement ; limitation du nombre de requêtes ; en-têtes de sécurité applicables aux pages de l’Application ; principe du moindre privilège pour les accès d’administration.</p>
+    <p>12.2. En cas de violation de Données susceptible d’engendrer un risque pour les droits et libertés des personnes, l’Éditeur procède aux notifications requises auprès de l’autorité de protection compétente et, lorsque la réglementation l’exige, informe les personnes concernées dans les meilleurs délais.</p>
+    <p>12.3. La sécurité des Données dépend également de l’Utilisateur, qui choisit un mot de passe robuste et distinct, protège l’accès à son terminal et se déconnecte des terminaux partagés.</p>
+
+    <h3 id="pc-13">13. Droits des personnes</h3>
+    <p>13.1. Dans les conditions prévues par la réglementation applicable, l’Utilisateur dispose des droits suivants : droit d’être informé ; droit d’accès ; droit de rectification ; droit à l’effacement ; droit à la limitation du traitement ; droit d’opposition, notamment au traitement fondé sur l’intérêt légitime et à la mesure d’audience ; droit à la portabilité des Données qu’il a fournies ; droit de retirer à tout moment son consentement, sans que cela compromette la licéité du traitement fondé sur le consentement effectué avant ce retrait ; lorsque la loi applicable le prévoit, droit de définir des directives relatives au sort de ses Données après son décès.</p>
+    <p>13.2. Plusieurs de ces droits peuvent être exercés directement depuis les Paramètres du Service : modification des informations du Compte et des informations connues par le Service, téléchargement des Données (fichier comprenant notamment le profil, les Recommandations, les favoris et les dossiers), effacement de l’historique et des domaines consultés, désactivation de la mesure d’audience, gestion des notifications et suppression du Compte.</p>
+    <p>13.3. Les autres demandes sont adressées par le formulaire de la page Contact, sujet « Mes données personnelles ». L’Éditeur peut demander tout élément raisonnable permettant de vérifier l’identité du demandeur. Il y répond dans un délai d’un (1) mois à compter de la réception de la demande, ce délai pouvant être prolongé de deux (2) mois compte tenu de la complexité ou du nombre de demandes, auquel cas l’Utilisateur en est informé.</p>
+    <p>13.4. L’Utilisateur qui estime que ses droits ne sont pas respectés peut introduire une réclamation auprès de la Commission de protection des données personnelles (CDP) du Sénégal, ou de l’autorité de contrôle de son pays de résidence habituelle, de son lieu de travail ou du lieu de la violation alléguée.</p>
+
+    <h3 id="pc-14">14. Utilisateurs mineurs</h3>
+    <p>14.1. Le Service est susceptible d’être utilisé par des personnes mineures. Les traitements les concernant sont limités à ce qui est nécessaire au Service et font l’objet d’une attention particulière, notamment s’agissant du contenu et de la fréquence des notifications.</p>
+    <p>14.2. Lorsqu’un traitement est fondé sur le consentement et que l’Utilisateur n’a pas atteint l’âge fixé par la loi qui lui est applicable pour consentir seul (par exemple quinze ans en France), ce consentement est donné ou autorisé par le titulaire de l’autorité parentale. Le titulaire de l’autorité parentale peut exercer les droits de l’Utilisateur mineur dans les conditions de l’article 13.</p>
+
+    <h3 id="pc-15">15. Caractère obligatoire ou facultatif</h3>
+    <p>Les Données signalées comme obligatoires lors de la création du Compte ou de la souscription sont nécessaires à la fourniture du service correspondant ; à défaut, celui-ci ne peut être fourni. Les autres Données sont facultatives ; leur absence peut seulement réduire la pertinence de la personnalisation.</p>
+
+    <h3 id="pc-16">16. Modifications</h3>
+    <p>La présente politique peut être modifiée pour refléter l’évolution du Service, des traitements ou de la réglementation. La version en vigueur, datée, est accessible à tout moment depuis les Paramètres. Toute modification substantielle est portée à la connaissance des Utilisateurs titulaires d’un Compte par tout moyen approprié avant son entrée en vigueur.</p>
+  </article>
+
+  <!-- ===================================================================== -->
+  <article class="doc" id="cookies">
+    <h2>Cookies et stockage local</h2>
+    <p class="upd">Version 2.0 — en vigueur au 15 octobre 2026</p>
+
+    <h3 id="ck-1">1. Technologies utilisées</h3>
+    <p>1.1. Le Service est une application web progressive. Pour fonctionner, y compris en cas de connexion faible ou intermittente, il enregistre des informations sur le terminal de l’Utilisateur au moyen des technologies de stockage du navigateur : stockage local (<em>localStorage</em>), stockage de session (<em>sessionStorage</em>) et cache de l’application géré par un service d’arrière-plan (<em>service worker</em>). Ces technologies sont désignées ci-après ensemble les « Traceurs ».</p>
+    <p>1.2. Les informations enregistrées au moyen des Traceurs demeurent sur le terminal ; elles ne sont transmises aux serveurs de l’Éditeur que lorsque cela est nécessaire à la fonctionnalité concernée, notamment pour la synchronisation du Compte.</p>
+
+    <h3 id="ck-2">2. Catégories de Traceurs</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Catégorie</th><th>Finalité</th><th>Durée</th><th>Paramétrage</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Strictement nécessaires</strong></td><td>Session d’authentification et son renouvellement ; préférences d’affichage, de langue, de sons et d’accessibilité ; questionnaire en cours, résultats et éléments de progression ; variante d’expérimentation attribuée ; affichage unique de l’écran d’ouverture ; cache des fichiers de l’Application permettant son ouverture rapide et son fonctionnement hors ligne ; derniers réglages reçus du serveur ; file d’attente d’événements non encore transmis.</td><td>Jusqu’à la déconnexion, l’effacement par l’Utilisateur ou le remplacement lors d’une mise à jour ; écran d’ouverture : durée de la session</td><td>Non désactivables dans le Service, ces Traceurs étant indispensables à la fourniture du service demandé</td></tr>
+        <tr><td><strong>Mesure d’audience</strong></td><td>Identifiant de session aléatoire et événements d’utilisation (écrans consultés, fonctionnalités utilisées, durée de visite) aux fins de statistiques agrégées, de détection des dysfonctionnements et d’amélioration du Service. Les données ne sont pas recoupées avec d’autres traitements ni utilisées pour suivre la navigation sur d’autres sites.</td><td>Treize (13) mois au plus</td><td>Désactivable dans Paramètres → Confidentialité</td></tr>
+        <tr><td><strong>Notifications</strong></td><td>Identifiant d’abonnement aux notifications et préférences associées, permettant l’acheminement des messages choisis par l’Utilisateur.</td><td>Jusqu’au retrait de l’autorisation</td><td>Paramètres du Service et réglages du système d’exploitation</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 id="ck-3">3. Ressources tierces</h3>
+    <p>L’affichage de l’Application fait appel à des polices de caractères chargées depuis le réseau de diffusion d’un fournisseur tiers. À cette occasion, le terminal de l’Utilisateur communique à ce fournisseur les informations techniques nécessaires à toute requête internet, notamment son adresse IP et le type de navigateur. Les pages de paiement des Prestataires de paiement, ouvertes lors d’une souscription, sont soumises aux politiques de ces derniers.</p>
+
+    <h3 id="ck-4">4. Gestion par l’Utilisateur</h3>
+    <p>4.1. L’Utilisateur peut à tout moment désactiver la mesure d’audience, gérer ses notifications et effacer les données conservées sur son terminal depuis les Paramètres du Service. Il peut également supprimer les données de site depuis les réglages de son navigateur ou de son système d’exploitation.</p>
+    <p>4.2. L’effacement des Traceurs strictement nécessaires entraîne la déconnexion de l’Utilisateur et la perte des données qui n’ont pas été synchronisées avec un Compte.</p>
+    <p>4.3. Sur certains systèmes, notamment iOS, l’Application installée sur l’écran d’accueil et le navigateur disposent d’espaces de stockage distincts. L’Utilisateur qui installe l’Application se connecte à son Compte depuis celle-ci afin d’y retrouver ses données.</p>
+  </article>
+
+  <!-- ===================================================================== -->
+  <article class="doc" id="ia">
+    <h2>Charte relative à l’intelligence artificielle</h2>
+    <p class="upd">Version 2.0 — en vigueur au 15 octobre 2026</p>
+
+    <h3 id="ia-1">1. Usages de l’intelligence artificielle dans le Service</h3>
+    <p>Le Service recourt à des modèles d’intelligence artificielle générative, fournis par des prestataires spécialisés et accessibles au moyen d’interfaces de programmation, pour les usages suivants :</p>
     <ul>
-      <li>Premium est proposé pour <strong>1 mois</strong> ou pour <strong>1 an</strong>. Le prix affiché au moment du paiement est celui qui s’applique.</li>
-      <li>Le paiement se fait en FCFA par Wave, Orange Money, Yas (Free Money) ou carte bancaire, via notre prestataire de paiement sécurisé.</li>
-      <li>Il n’y a <strong>aucun prélèvement automatique</strong> : à la fin de la période, ton Premium s’arrête, sauf si tu payes à nouveau.</li>
-      <li>Si tu payes alors que ton Premium est encore actif, la nouvelle période s’ajoute à la suite.</li>
+      <li>l’analyse des réponses au questionnaire et la production des Recommandations et de leurs éléments d’explication ;</li>
+      <li>les réponses de l’Assistant aux questions d’orientation ;</li>
+      <li>l’aide à la rédaction et à la relecture de lettres de motivation, ainsi que la préparation aux entretiens ;</li>
+      <li>l’analyse d’adéquation entre le profil de l’Utilisateur et une Opportunité, et l’évaluation de la maturité d’un projet entrepreneurial ;</li>
+      <li>l’assistance aux équipes de l’Éditeur pour la préparation de fiches d’Opportunités à partir de pages officielles, systématiquement relues et vérifiées avant publication.</li>
     </ul>
 
-    <h3>3. Activation</h3>
-    <p>Premium s’active dès que le paiement est confirmé par le prestataire. Si ce n’est pas le cas dans l’heure qui suit un paiement réussi, écris-nous depuis la page Contact avec la date et le moyen de paiement.</p>
+    <h3 id="ia-2">2. Données transmises aux modèles</h3>
+    <p>2.1. Seules les informations nécessaires à la production de la réponse demandée sont transmises au fournisseur du modèle : selon le cas, les réponses au questionnaire, les éléments de profil utiles (prénom, âge, pays, genre lorsqu’il a été déclaré, domaines les plus consultés), le texte de la demande, le contenu soumis à relecture et les données de référence du Service relatives aux établissements ou Opportunités concernés.</p>
+    <p>2.2. Le périmètre des informations transmises est strictement limité à celles énumérées à l’article 2.1 ; il exclut les identifiants de connexion, l’adresse électronique, les données de paiement et les documents du Coffre.</p>
+    <p>2.3. Les fournisseurs traitent ces informations en qualité de Sous-traitants, aux fins de produire la réponse, et les conservent selon les durées prévues par leurs conditions contractuelles applicables aux interfaces de programmation, notamment pour la détection des abus. L’Éditeur peut recourir à plusieurs fournisseurs et basculer de l’un à l’autre afin d’assurer la continuité du Service.</p>
 
-    <h3>4. Pas de remboursement</h3>
-    <p>En payant, tu demandes l’accès immédiat aux fonctions Premium. <strong>Les paiements sont définitifs et ne sont pas remboursés</strong>, y compris si tu n’utilises pas Premium jusqu’à la fin de la période, sauf si la loi qui s’applique à toi impose le contraire. Lorsque la loi te donne un délai de rétractation, tu reconnais y renoncer en demandant l’accès immédiat au service.</p>
-    <p>Si un paiement a été débité deux fois par erreur, ou débité sans que Premium s’active, nous corrigeons la situation après vérification.</p>
+    <h3 id="ia-3">3. Limites des productions de l’intelligence artificielle</h3>
+    <p>3.1. Les productions de l’intelligence artificielle sont générées de manière probabiliste. Elles peuvent comporter des inexactitudes, des omissions, des informations obsolètes ou des formulations inadaptées. Elles ne constituent pas un avis professionnel, notamment juridique, financier ou en matière d’immigration.</p>
+    <p>3.2. L’Utilisateur exerce son esprit critique et vérifie auprès des sources officielles toute information déterminante pour sa décision. Les fiches d’établissements et d’Opportunités indiquent, lorsque cela est possible, la source consultée et la date de vérification.</p>
+    <p>3.3. Les productions de l’intelligence artificielle sont identifiées comme telles dans le Service.</p>
 
-    <h3>5. Suspension</h3>
-    <p>Un compte suspendu pour non-respect des Conditions d’utilisation perd son accès Premium sans remboursement.</p>
+    <h3 id="ia-4">4. Utilisation des productions</h3>
+    <p>4.1. Sous réserve des droits des tiers, l’Utilisateur peut librement utiliser, pour ses besoins personnels, les textes produits à sa demande, notamment les propositions de lettres. Il en demeure seul responsable et s’assure qu’ils reflètent fidèlement sa situation, son parcours et ses intentions.</p>
+    <p>4.2. Toute utilisation des outils d’intelligence artificielle du Service en vue de produire des documents faux, trompeurs ou frauduleux, ou de contourner les règles d’un établissement ou d’un organisme, est interdite conformément à l’article 7 des Conditions générales d’utilisation.</p>
+
+    <h3 id="ia-5">5. Seuils d’usage et disponibilité</h3>
+    <p>L’utilisation des fonctionnalités reposant sur l’intelligence artificielle est soumise à des seuils par période, différenciés selon l’offre, ainsi qu’à un plafond global destiné à préserver la stabilité du Service. Ces fonctionnalités peuvent être temporairement indisponibles, notamment en cas d’indisponibilité des fournisseurs.</p>
+
+    <h3 id="ia-6">6. Absence de décision produisant des effets juridiques</h3>
+    <p>Aucune décision produisant des effets juridiques à l’égard de l’Utilisateur, ou l’affectant de manière significative de façon similaire, n’est prise sur le seul fondement d’un traitement automatisé. Les productions de l’intelligence artificielle ont une vocation exclusivement consultative.</p>
+
+    <h3 id="ia-7">7. Signalement</h3>
+    <p>L’Utilisateur qui constate une production erronée, inappropriée ou préjudiciable peut la signaler par le formulaire de contact, afin que l’Éditeur puisse analyser la situation et améliorer le Service.</p>
   </article>
 
   <!-- ===================================================================== -->
   <article class="doc" id="mentions">
     <h2>Mentions légales</h2>
-    <p class="upd">Dernière mise à jour : 12 octobre 2026</p>
+    <p class="upd">Version 2.0 — en vigueur au 15 octobre 2026</p>
     <h3>Éditeur</h3>
-    <p>LERNA, service d’orientation scolaire et universitaire basé à Dakar, Sénégal.<br>Responsable de la publication : le fondateur de LERNA.<br>Contact : page <a href="contact.html">Contact</a> de l’application.</p>
+    <p>Le Service LERNA est édité par son fondateur, responsable de la publication. Les éléments complets d’identification de l’Éditeur sont communiqués sur demande adressée par le formulaire de la page <a href="contact.html">Contact</a>.</p>
+    <h3>Contact</h3>
+    <p>Formulaire de la page <a href="contact.html">Contact</a> du Service. Les demandes relatives aux données personnelles sont adressées en sélectionnant le sujet « Mes données personnelles ».</p>
     <h3>Hébergement</h3>
-    <p>Application : Vercel Inc. (États-Unis).<br>Base de données et comptes : Supabase, serveurs situés à Paris (France).</p>
-    <h3>Paiements</h3>
-    <p>PayDunya (Sénégal) pour Wave, Orange Money, Yas et cartes.</p>
-    <h3>Données personnelles</h3>
-    <p>Voir la <a href="#confidentialite">Politique de confidentialité</a>. Au Sénégal, l’autorité compétente est la Commission de protection des données personnelles (CDP).</p>
+    <p>Application et fonctions serveur : Vercel Inc., États-Unis (vercel.com).<br>Base de données, authentification et stockage de fichiers : Supabase, infrastructure située dans l’Union européenne, région de Paris, France (supabase.com).</p>
+    <h3>Propriété intellectuelle</h3>
+    <p>La dénomination LERNA, son logotype, sa charte graphique et l’ensemble des éléments du Service sont protégés dans les conditions prévues à l’article 12 des Conditions générales d’utilisation. Les polices de caractères Playfair Display et Inter sont utilisées conformément à la licence SIL Open Font License.</p>
+    <h3>Protection des données</h3>
+    <p>Voir la <a href="#confidentialite">Politique de confidentialité</a>. Autorité de contrôle au Sénégal : Commission de protection des données personnelles (CDP).</p>
   </article>
 
-  <p class="lg-foot">© <span id="yr">2026</span> LERNA</p>
+  <p class="lg-foot">Version 2.0 du 15 octobre 2026, qui remplace la version du 12 octobre 2026.<br>© <span class="yr">2026</span> LERNA. Tous droits réservés.</p>
+</div>
+
+<!-- =========================================================================
+     ENGLISH VERSION (convenience translation — the French version prevails)
+     ========================================================================= -->
+<div data-lang="en" hidden>
+  <p class="lg-intro">Contractual and information documents applicable to the LERNA service. Version 2.0, effective 15 October 2026. This English text is a convenience translation; the French version prevails.</p>
+  <nav class="lg-tabs" aria-label="Documents">
+    <a href="#en-conditions">Terms of use</a>
+    <a href="#en-abonnement">Subscription and payments</a>
+    <a href="#en-confidentialite">Privacy</a>
+    <a href="#en-cookies">Cookies and storage</a>
+    <a href="#en-ia">Artificial intelligence</a>
+    <a href="#en-mentions">Legal notice</a>
+  </nav>
+
+  <article class="doc" id="en-conditions">
+    <h2>General Terms of Use</h2>
+    <p class="upd">Version 2.0 — effective 15 October 2026</p>
+    <div class="toc"><p>Contents</p><ol>
+      <li><a href="#en-cgu-1">Definitions</a></li><li><a href="#en-cgu-2">Purpose, acceptance and applicable documents</a></li>
+      <li><a href="#en-cgu-3">Access to the Service</a></li><li><a href="#en-cgu-4">User Account</a></li>
+      <li><a href="#en-cgu-5">Description of the Features</a></li><li><a href="#en-cgu-6">Nature of the information and no guarantee of results</a></li>
+      <li><a href="#en-cgu-7">Rules of use</a></li><li><a href="#en-cgu-8">User Content</a></li>
+      <li><a href="#en-cgu-9">Reviews and ratings</a></li><li><a href="#en-cgu-10">Referral programme</a></li>
+      <li><a href="#en-cgu-11">Progress elements</a></li><li><a href="#en-cgu-12">Intellectual property</a></li>
+      <li><a href="#en-cgu-13">Availability, maintenance and changes</a></li><li><a href="#en-cgu-14">Liability</a></li>
+      <li><a href="#en-cgu-15">Third-party sites and services</a></li><li><a href="#en-cgu-16">Suspension and termination</a></li>
+      <li><a href="#en-cgu-17">Personal data</a></li><li><a href="#en-cgu-18">Evidence and electronic communications</a></li>
+      <li><a href="#en-cgu-19">Force majeure</a></li><li><a href="#en-cgu-20">Changes to the Terms</a></li>
+      <li><a href="#en-cgu-21">Miscellaneous</a></li><li><a href="#en-cgu-22">Governing law and disputes</a></li>
+    </ol></div>
+
+    <h3 id="en-cgu-1">Article 1 — Definitions</h3>
+    <p>In these terms, the following words, whether used in the singular or plural, have the following meaning:</p>
+    <ul>
+      <li><strong>“Service” or “Application”</strong>: the digital school, university and career guidance service called LERNA, accessible from a web browser or as an application installed on a device, together with all its features, content, interfaces and updates.</li>
+      <li><strong>“Publisher”</strong>: the person who publishes and operates the Service, identified in the Legal notice.</li>
+      <li><strong>“User”</strong>: any natural person who accesses or uses the Service, with or without an Account. “Visitor” means a User who has not created an Account.</li>
+      <li><strong>“Account”</strong>: the personal space created by the User with an email address and a password, or any other authentication method offered by the Service, allowing in particular the storage and synchronisation of their data across several devices.</li>
+      <li><strong>“Content”</strong>: all elements made available by the Publisher within the Service, including institution profiles, information on programmes, tuition fees, scholarships, internships, jobs and investors, editorial texts, questionnaires, visuals, sounds and graphic elements.</li>
+      <li><strong>“User Content”</strong>: all elements provided, entered, uploaded or published by the User, including questionnaire answers, messages, documents, application files, reviews and reports.</li>
+      <li><strong>“Recommendations”</strong>: the suggestions of institutions, programmes and paths generated by the Service from the User’s answers and the Service’s reference data, in particular by means of algorithmic processing and artificial intelligence models.</li>
+      <li><strong>“Assistant”</strong>: all conversational and coaching features based on artificial intelligence models (guidance assistant, cover letter help, interview preparation, fit analysis for an opportunity, project assessment).</li>
+      <li><strong>“Opportunities”</strong>: listings and information on scholarships, internships, jobs, programmes and investors, published by third parties and referenced by the Service.</li>
+      <li><strong>“My applications”</strong>: the space for tracking the User’s application steps, including, where applicable, a document storage space (the “Vault”).</li>
+      <li><strong>“Premium Features”</strong>: features and content reserved for holders of a valid Subscription, as described on the Premium page of the Service.</li>
+      <li><strong>“Subscription”</strong>: the temporary right of access to the Premium Features, acquired for consideration under the Subscription and Payment Terms.</li>
+      <li><strong>“Payment Provider”</strong>: any payment or electronic money institution, aggregator or operator involved in the execution of a payment.</li>
+      <li><strong>“Terms”</strong>: these general terms of use.</li>
+    </ul>
+
+    <h3 id="en-cgu-2">Article 2 — Purpose, acceptance and applicable documents</h3>
+    <p>2.1. The Terms define the conditions of access to and use of the Service, and the respective rights and obligations of the Publisher and the User.</p>
+    <p>2.2. Accessing and using the Service implies full acceptance of the Terms. Creating an Account requires express acceptance of the Terms and acknowledgement of the Privacy Policy. A User who does not accept the Terms must refrain from using the Service.</p>
+    <p>2.3. The relationship between the Publisher and the User is governed, in decreasing order of priority, by: (i) the Subscription and Payment Terms, as regards the Subscription; (ii) these Terms; (iii) the Privacy Policy, the Cookies and Local Storage Policy and the Artificial Intelligence Charter, which are informative and describe the processing carried out. The information on the pages of the Service, in particular the Premium page, supplements these documents.</p>
+    <p>2.4. The Terms are drafted in French. Any translation is provided for convenience; in the event of any discrepancy, the French version prevails.</p>
+
+    <h3 id="en-cgu-3">Article 3 — Access to the Service</h3>
+    <p>3.1. <strong>Technical requirements.</strong> The Service is accessible from an internet-connected device with a recent, up-to-date browser. It can be installed on the home screen of a compatible device. Some features require browser local storage, notification permission or an active connection. The equipment, software and connection costs needed to access the Service are borne solely by the User.</p>
+    <p>3.2. <strong>Free and paid access.</strong> Access to the Service and its basic features is free, within the applicable usage limits. Access to the Premium Features requires a Subscription. The Publisher may at any time, in particular during a launch phase, temporarily open all or part of the Premium Features free of charge; such opening creates no vested right to its continuation.</p>
+    <p>3.3. <strong>Usage limits.</strong> To ensure the quality, security and sustainability of the Service, the use of certain features, in particular the Assistant and the guidance analysis, is subject to quantitative limits per period, which differ depending on whether the User has a Subscription. The Publisher may adjust these limits. Reaching a limit suspends access to the relevant feature until the start of the next period.</p>
+    <p>3.4. <strong>Age and capacity.</strong> The Service is intended in particular for school and university students, some of whom may be minors. A User who is a minor under the law applicable to them declares that they use the Service with the permission of the holder(s) of parental authority, who remain responsible for that use. Any paid subscription by a minor requires the prior consent of their legal representative. Where the applicable regulations set an age below which consent to certain data processing must be given or authorised by the holder of parental authority, such consent is obtained as described in the Privacy Policy.</p>
+
+    <h3 id="en-cgu-4">Article 4 — User Account</h3>
+    <p>4.1. <strong>Creation.</strong> Creating an Account requires a valid email address and a password, or the use of a third-party authentication method where offered. The User undertakes to provide accurate, complete and up-to-date information and to update it if it changes.</p>
+    <p>4.2. <strong>Personal nature.</strong> The Account is strictly personal and non-transferable. A User may not hold several Accounts in order to circumvent usage limits, the referral programme conditions or the conditions of access to the Premium Features.</p>
+    <p>4.3. <strong>Credentials.</strong> The User is solely responsible for keeping their credentials safe and confidential, and for any use of their Account. Any action carried out with their credentials is deemed to have been carried out by them, unless a fraudulent use not attributable to them is shown. In the event of loss, disclosure or suspected unauthorised use, the User changes their password without delay and informs the Publisher through the contact form.</p>
+    <p>4.4. <strong>Synchronisation.</strong> When the User is signed in, their guidance profile, Recommendations, favourites, applications and progress elements are linked to their Account and restored on any device from which they sign in. Elements created before the Account was created and stored locally on the device may be attached to the Account on first sign-in.</p>
+    <p>4.5. <strong>Deletion.</strong> The User may delete their Account at any time from the Settings of the Service. Deletion is permanent and results in the erasure of the associated data under the conditions of the Privacy Policy, and in the loss of any current Subscription, without refund.</p>
+
+    <h3 id="en-cgu-5">Article 5 — Description of the Features</h3>
+    <p>The Service includes in particular the following features, whose scope may change in accordance with Article 13:</p>
+    <ul>
+      <li><strong>Questionnaire and Recommendations</strong>: the User completes a questionnaire covering in particular their education, languages, interests, goals and geographical and financial constraints. From these elements, the Service generates ranked Recommendations with explanations. The number of accessible Recommendations may depend on the User’s status (Visitor, Account holder, referrer, Subscription holder).</li>
+      <li><strong>Institution catalogue</strong>: profiles of higher education institutions including, where available, information on programmes, admission requirements, tuition fees and procedures, together with the source consulted and the date of verification.</li>
+      <li><strong>Opportunities</strong>: listings of scholarships, internships, jobs, programmes and investors published by third parties, presented with their source and removed or hidden once expired or when they could not be verified again. The details of some Opportunities are reserved for Subscription holders.</li>
+      <li><strong>Assistant and coaching tools</strong>: answers to guidance questions, help drafting and reviewing cover letters, interview preparation, fit analysis between the User’s profile and an Opportunity, assessment of the maturity of a business project.</li>
+      <li><strong>My applications</strong>: structured tracking of application steps (steps, documents to gather, deadlines), document storage in the Vault, reminders.</li>
+      <li><strong>“Today” space</strong>: daily content and actions, streak of days of use, points, levels and badges.</li>
+      <li><strong>Notifications</strong>: information and reminder messages sent to the User’s device, subject to their permission and according to the preferences they have set.</li>
+      <li><strong>Referral, reviews and reports</strong>: inviting friends and family, posting reviews of the Service, reporting inaccurate information or expired Opportunities.</li>
+    </ul>
+
+    <h3 id="en-cgu-6">Article 6 — Nature of the information and no guarantee of results</h3>
+    <p>6.1. <strong>Decision-support tool.</strong> The Service is an information and decision-support tool. It is not an educational institution, a placement or recruitment agency, an intermediary submitting applications on the User’s behalf, or legal, financial, tax or immigration advice. Guidance, application, funding and mobility choices are the User’s sole decision.</p>
+    <p>6.2. <strong>Indicative nature.</strong> Information on institutions, programmes, fees, admission requirements, calendars, amounts and eligibility conditions comes from identified public or official sources, consulted on a stated date where possible. It may change at any time at the initiative of its issuers, vary according to the programme, year of study, nationality or student status, or contain errors. Amounts shown in a currency other than the original currency result from indicative conversions.</p>
+    <p>6.3. <strong>Automatically generated results.</strong> Recommendations and Assistant outputs are generated automatically and probabilistically. They may be incomplete, inaccurate or unsuited to the User’s particular situation. The Service can be wrong.</p>
+    <p>6.4. <strong>Verification.</strong> The User must verify with the institution, organisation or competent authority, before any commitment, payment, application or travel, the accuracy and currency of the information on which their decision depends.</p>
+    <p>6.5. <strong>No guarantee of results.</strong> The Publisher does not in any way guarantee admission, a scholarship, funding, a visa, an internship or a job.</p>
+
+    <h3 id="en-cgu-7">Article 7 — Rules of use</h3>
+    <p>7.1. The User undertakes to use the Service fairly, in accordance with its purpose, the Terms and applicable law.</p>
+    <p>7.2. The following are prohibited in particular:</p>
+    <ul>
+      <li>extracting, collecting or re-using, by any automated or manual means, all or a qualitatively or quantitatively substantial part of the Content or databases of the Service;</li>
+      <li>accessing the Service or querying its programming interfaces with unauthorised robots, scripts or automated tools, and any attempt to circumvent usage limits, security measures or Premium Feature access restrictions;</li>
+      <li>any reverse engineering, decompiling, disassembling or analysis aimed at reconstructing the source code or mechanisms of the Service, except within the limits permitted by law;</li>
+      <li>introducing malicious code, injecting queries, deliberately overloading the infrastructure or any action likely to harm the integrity, availability or confidentiality of the Service or the data it processes;</li>
+      <li>using the Assistant or any tool of the Service to produce, alter or use false or misleading documents, including fake diplomas, transcripts, certificates, recommendation letters or identity documents;</li>
+      <li>identity theft, knowingly providing inaccurate information, creating fictitious Accounts;</li>
+      <li>uploading or disseminating unlawful, defamatory, insulting, discriminatory, hateful, violent or sexual content, content that infringes privacy or third-party rights, or malicious files;</li>
+      <li>harassing, threatening or abusively soliciting other Users or the Publisher’s teams;</li>
+      <li>publishing reviews that are not genuine, that were solicited in exchange for a benefit, or that do not reflect a real experience;</li>
+      <li>reselling, assigning, making available or sharing, free of charge or for consideration, access to an Account or a Subscription;</li>
+      <li>any use of the Service for commercial purposes not authorised in writing by the Publisher.</li>
+    </ul>
+    <p>7.3. Any breach of these rules may give rise to the measures provided for in Article 16, without prejudice to any action the Publisher may bring.</p>
+
+    <h3 id="en-cgu-8">Article 8 — User Content</h3>
+    <p>8.1. The User retains the rights to their User Content. They warrant that they hold all rights and authorisations necessary to provide it and have it processed within the Service, and that it does not infringe any third-party right or legal provision.</p>
+    <p>8.2. The User grants the Publisher, worldwide, on a non-exclusive and royalty-free basis, the right to host, reproduce, technically adapt, process and transmit their User Content, solely to the extent necessary to operate, secure and improve the Service, for the applicable retention period. For reviews whose publication the User has accepted, this grant includes the right to display them within the Service and its presentation materials, together with the first name or username of their author.</p>
+    <p>8.3. The Publisher does not review private User Content in advance, in particular documents stored in the Vault. It may remove or disable access to any manifestly unlawful User Content, or User Content contrary to the Terms, brought to its attention.</p>
+    <p>8.4. The User is responsible for keeping their own copies of the documents they store in the Vault. The Vault is an organisation tool and is not an evidential archiving service.</p>
+
+    <h3 id="en-cgu-9">Article 9 — Reviews and ratings</h3>
+    <p>9.1. The User may post a review with a rating of the Service. Reviews are checked before publication to verify their compliance with the Terms. Reviews unrelated to the Service, containing insults or third-party personal data, or whose authenticity is doubtful may in particular be rejected or removed.</p>
+    <p>9.2. No consideration is given in exchange for posting a review. Reviews are presented in chronological order or by relevance, with their date; the reviews section is displayed only once a minimum number of reviews has been published. Ratings from third-party platforms are shown with their source.</p>
+
+    <h3 id="en-cgu-10">Article 10 — Referral programme</h3>
+    <p>10.1. An Account holder may invite third parties using a personal link. A referral is validated once the invited person has created an Account, confirmed their email address where required and completed the guidance questionnaire.</p>
+    <p>10.2. Validated referrals may give access to functional benefits, such as unlocking additional Recommendations. These benefits are personal, have no monetary value and may not be assigned, exchanged or converted.</p>
+    <p>10.3. Referrals obtained through fictitious, multiple or benefit-driven Accounts are cancelled, together with the corresponding benefits. The Publisher may modify, suspend or close the referral programme at any time, without affecting benefits already properly acquired.</p>
+
+    <h3 id="en-cgu-11">Article 11 — Progress elements</h3>
+    <p>Streaks, points, levels, badges and other progress elements serve an exclusively educational and motivational purpose. They have no monetary value, may not be assigned or exchanged and confer no rights. Their award rules may be adjusted, in particular to correct an anomaly.</p>
+
+    <h3 id="en-cgu-12">Article 12 — Intellectual property</h3>
+    <p>12.1. The Service, its structure, code, interfaces, visual identity, texts, questionnaires, illustrations, sounds, databases and their content, as well as the name LERNA, its logo and other distinctive signs, are owned by the Publisher or licensed to it, and are protected by applicable intellectual property law, in particular the revised Bangui Agreement and international conventions.</p>
+    <p>12.2. The Publisher grants the User a personal, non-exclusive, non-transferable and revocable right to use the Service, for their own needs and within the limits of the Terms. Any reproduction, representation, adaptation, extraction or exploitation not expressly authorised is prohibited.</p>
+    <p>12.3. The names, trademarks and logos of the institutions, organisations and companies mentioned in the Service belong to their respective owners. They are mentioned for information purposes only and do not imply any partnership, sponsorship or endorsement on their part, unless expressly stated.</p>
+
+    <h3 id="en-cgu-13">Article 13 — Availability, maintenance and changes</h3>
+    <p>13.1. The Publisher uses the reasonable means at its disposal to provide continuous access to the Service. In this respect it is bound only by an obligation of means.</p>
+    <p>13.2. Access to the Service may be interrupted, in particular for maintenance, updates or security, if its technical providers’ services are unavailable, or if communication networks fail. Some features may operate in a degraded mode without a connection.</p>
+    <p>13.3. The Publisher may change the Service and add, modify or remove features or Content, in particular to improve it, adapt it to technical or regulatory changes or secure it. Where a change substantially affects a Premium Feature during a Subscription period, the Subscription and Payment Terms apply.</p>
+
+    <h3 id="en-cgu-14">Article 14 — Liability</h3>
+    <p>14.1. <strong>User’s liability.</strong> The User is responsible for their use of the Service, the User Content they provide and the decisions they make. They indemnify the Publisher against any third-party claim resulting from their breach of the Terms.</p>
+    <p>14.2. <strong>Publisher’s liability.</strong> To the extent permitted by applicable law, the Publisher is not liable: (i) for decisions made by the User on the basis of information, Recommendations or Assistant outputs; (ii) for changes by a third-party institution or organisation to its conditions, fees, calendars or offers; (iii) for the content, products or services of third-party sites; (iv) for use of the Service that does not comply with the Terms; (v) for indirect damage, such as loss of opportunity, loss of data not attributable to the Publisher, or commercial or reputational harm.</p>
+    <p>14.3. Where the Publisher is liable, its liability is limited, for all causes combined, to the amount actually paid by the User for the Subscription during the twelve months preceding the event giving rise to liability, or, absent any payment, to a fixed amount equal to the price of a one-month Subscription.</p>
+    <p>14.4. Nothing in the Terms excludes or limits the Publisher’s liability for gross negligence or wilful misconduct or for personal injury, or deprives a consumer User of the rights granted by the mandatory provisions of the law applicable to them.</p>
+
+    <h3 id="en-cgu-15">Article 15 — Third-party sites and services</h3>
+    <p>The Service contains links to sites and services published by third parties, including educational institutions, application platforms, scholarship bodies, employers and Payment Providers. These sites and services are the sole responsibility of their publishers and are governed by their own terms and policies, which the User is invited to read.</p>
+
+    <h3 id="en-cgu-16">Article 16 — Suspension and termination</h3>
+    <p>16.1. The User may stop using the Service and delete their Account at any time, as set out in Article 4.5.</p>
+    <p>16.2. If the User breaches the Terms, the Publisher may, depending on the seriousness of the breach, remove the content concerned, limit access to certain features, temporarily suspend the Account or delete it. Except in cases of urgency, serious or repeated breach, fraud, threat to the security of the Service or legal obligation, the measure is preceded by a notice inviting the User to submit observations or remedy the breach.</p>
+    <p>16.3. Suspension or deletion of the Account under this article results in the loss of the current Subscription, without refund, to the extent permitted by applicable law.</p>
+
+    <h3 id="en-cgu-17">Article 17 — Personal data</h3>
+    <p>The processing of personal data carried out within the Service is described in the Privacy Policy and the Cookies and Local Storage Policy, which set out in particular its purposes, legal bases, recipients, retention periods and the ways in which the User can exercise their rights.</p>
+
+    <h3 id="en-cgu-18">Article 18 — Evidence and electronic communications</h3>
+    <p>18.1. The User acknowledges the evidential value of the computer records kept by the Publisher and its providers under reasonable security conditions, including connection logs, timestamps, transaction histories and confirmations sent by Payment Providers, unless proven otherwise.</p>
+    <p>18.2. Communications relating to the Service may be sent to the User electronically, within the Service, by notification or to the email address linked to their Account.</p>
+
+    <h3 id="en-cgu-19">Article 19 — Force majeure</h3>
+    <p>The performance of the Publisher’s obligations is suspended in the event of force majeure as defined by applicable law and case law, as well as in the event of a general failure of telecommunication networks, prolonged unavailability of its providers’ infrastructure, a large-scale cyberattack, a decision of a public authority or disruption of payment systems, where such event is beyond its reasonable control.</p>
+
+    <h3 id="en-cgu-20">Article 20 — Changes to the Terms</h3>
+    <p>The Publisher may amend the Terms, in particular to reflect changes in the Service, regulations or case law. The current, dated version is available at any time from Settings. Substantial changes are brought to the attention of Account holders by any appropriate means, within a reasonable time before they take effect. Continued use of the Service after the amended Terms take effect constitutes acceptance; if the User does not accept them, they may delete their Account.</p>
+
+    <h3 id="en-cgu-21">Article 21 — Miscellaneous</h3>
+    <p>21.1. If any provision of the Terms is held void or unenforceable, it is deemed unwritten, without affecting the validity of the other provisions.</p>
+    <p>21.2. The Publisher’s failure to rely on a breach does not constitute a waiver of its right to rely on it later.</p>
+    <p>21.3. The Publisher may assign or transfer all or part of its rights and obligations under the Terms, in particular in the context of a restructuring, sale or contribution of all or part of its business, provided that the User’s rights are not reduced.</p>
+
+    <h3 id="en-cgu-22">Article 22 — Governing law and disputes</h3>
+    <p>22.1. The Terms are governed by Senegalese law, without prejudice to the more protective mandatory provisions of the law of the country of habitual residence of a consumer User.</p>
+    <p>22.2. In the event of a dispute, the User is invited to first send a written complaint through the contact form, with a view to finding an amicable solution. A consumer User retains the right to use any alternative dispute resolution method provided for by the law applicable to them.</p>
+    <p>22.3. Failing an amicable resolution, any dispute relating to the formation, interpretation or performance of the Terms falls within the jurisdiction of the courts of Dakar, unless a contrary mandatory jurisdiction rule applies to the consumer User.</p>
+  </article>
+
+  <article class="doc" id="en-abonnement">
+    <h2>Subscription and Payment Terms</h2>
+    <p class="upd">Version 2.0 — effective 15 October 2026</p>
+    <div class="toc"><p>Contents</p><ol>
+      <li><a href="#en-cgv-1">Purpose and scope</a></li><li><a href="#en-cgv-2">Free offer and Premium Features</a></li>
+      <li><a href="#en-cgv-3">Plans and duration</a></li><li><a href="#en-cgv-4">Prices</a></li>
+      <li><a href="#en-cgv-5">Ordering process</a></li><li><a href="#en-cgv-6">Payment methods</a></li>
+      <li><a href="#en-cgv-7">Confirmation and activation</a></li><li><a href="#en-cgv-8">Renewal</a></li>
+      <li><a href="#en-cgv-9">Payments are final</a></li><li><a href="#en-cgv-10">Right of withdrawal</a></li>
+      <li><a href="#en-cgv-11">Payment incidents and fraud</a></li><li><a href="#en-cgv-12">Receipts</a></li>
+      <li><a href="#en-cgv-13">Changes to the offer</a></li><li><a href="#en-cgv-14">Account suspension</a></li>
+      <li><a href="#en-cgv-15">Promotional offers</a></li><li><a href="#en-cgv-16">Complaints</a></li>
+      <li><a href="#en-cgv-17">Governing law</a></li>
+    </ol></div>
+
+    <h3 id="en-cgv-1">Article 1 — Purpose and scope</h3>
+    <p>1.1. These terms (the “Subscription Terms”) govern the purchase, payment and performance of the Subscription giving access to the Premium Features of the Service. Capitalised terms have the meaning given to them in the General Terms of Use.</p>
+    <p>1.2. Any purchase requires prior and unreserved acceptance of the Subscription Terms and the General Terms of Use, given when the payment is confirmed. The applicable Subscription Terms are those in force on the date of purchase.</p>
+
+    <h3 id="en-cgv-2">Article 2 — Free offer and Premium Features</h3>
+    <p>2.1. The Service includes a free offer and a paid offer. The scope of the Premium Features, the usage limits applicable to each offer and any functional differences are described on the Premium page of the Service at the time of purchase, which forms an integral part of the contractual offer.</p>
+    <p>2.2. The Subscription grants a personal, non-exclusive and non-transferable right of access to the Premium Features for the purchased period. It is subject to a fair-use policy: technical caps, set well above normal individual use, may apply in order to prevent automated or abusive use and preserve the quality of the Service for all Users.</p>
+    <p>2.3. The Subscription grants no rights to the Content beyond viewing it within the Service and guarantees no results, in accordance with Article 6 of the General Terms of Use.</p>
+
+    <h3 id="en-cgv-3">Article 3 — Plans and duration</h3>
+    <p>3.1. The Subscription is offered for one (1) month or one (1) year, depending on the plan chosen by the User.</p>
+    <p>3.2. The Subscription period runs from the activation of the Premium Features, as defined in Article 7, and expires at the same time on the corresponding day of the following month or year.</p>
+    <p>3.3. Where the User purchases a new period while a Subscription is still valid, the new period starts when the current period expires and is added to it.</p>
+
+    <h3 id="en-cgv-4">Article 4 — Prices</h3>
+    <p>4.1. Prices are shown on the Premium page and in the payment window, in the payment currency offered to the User. The applicable price is the one displayed when the order is confirmed; it is the total amount due for the Subscription.</p>
+    <p>4.2. Any amounts shown in another currency are indicative and result from an approximate conversion; only the amount in the payment currency is binding.</p>
+    <p>4.3. Fees charged by the User’s telecommunications operator, card issuer or e-wallet provider, including transfer, exchange or international transaction fees, remain payable by the User.</p>
+    <p>4.4. The Publisher may change its prices at any time. New prices apply to purchases made after they take effect and do not affect periods already paid.</p>
+
+    <h3 id="en-cgv-5">Article 5 — Ordering process</h3>
+    <p>5.1. A purchase requires an Account. The process includes the following steps: (i) choice of plan; (ii) choice of payment method; (iii) where applicable, entry of the phone number linked to the e-money wallet; (iv) summary of the amount and confirmation; (v) authorisation of the payment by the User in the interface of the relevant Payment Provider or operator (mobile app, USSD code, secure payment page, strong authentication by the card issuer).</p>
+    <p>5.2. Before confirming, the User can check the details of their order and correct any input error. Confirming the order constitutes acceptance of the Subscription Terms and an obligation to pay.</p>
+    <p>5.3. The contract is formed when the Publisher receives confirmation of the payment from the Payment Provider. A payment request that is not authorised or confirmed within the time allowed by the Payment Provider is deemed abandoned and creates no obligation for either party.</p>
+
+    <h3 id="en-cgv-6">Article 6 — Payment methods</h3>
+    <p>6.1. The payment methods offered at the date hereof may include, depending on the country and service availability: e-money wallets (in particular Wave, Orange Money and Free Money/Yas) and bank cards of the networks accepted by the Payment Provider. The methods actually available are those displayed when ordering.</p>
+    <p>6.2. Payments are executed by third-party Payment Providers, licensed or authorised under the regulations applicable to them, acting under their own terms. Payment authentication data (wallet PIN, full card number, expiry date, card security code, strong authentication codes) are entered exclusively in the interfaces of the Payment Provider, operator or card issuer and do not pass through the Publisher’s servers.</p>
+    <p>6.3. The User warrants that they hold the payment method used or are duly authorised by its holder, and that it gives access to sufficient funds.</p>
+
+    <h3 id="en-cgv-7">Article 7 — Confirmation and activation</h3>
+    <p>7.1. The Premium Features are activated after the Publisher’s servers have verified, directly with the Payment Provider, the final status of the transaction, its amount and the Account to which it relates. No activation takes place solely on the basis of information sent by the User’s device.</p>
+    <p>7.2. Activation is normally immediate. It may however be delayed by processing times at the Payment Provider or operator. The Service automatically checks the status of the transaction when the User returns to the Application.</p>
+    <p>7.3. If a debited payment has not led to activation within twenty-four (24) hours, the User sends a complaint through the contact form stating the date, payment method, amount and, where applicable, the transaction reference. The Publisher then carries out the necessary checks and activates the Subscription once the payment is confirmed.</p>
+
+    <h3 id="en-cgv-8">Article 8 — Renewal</h3>
+    <p>8.1. Unless expressly stated otherwise when ordering, a Subscription paid by e-money wallet or by one-off card payment is not renewed automatically. When the purchased period expires, access to the Premium Features ends automatically, at no cost, and the User keeps access to the free offer.</p>
+    <p>8.2. Where an automatically renewing plan is offered, its renewable nature, frequency and cancellation terms are clearly indicated before the order is confirmed; cancellation takes effect at the end of the current period.</p>
+
+    <h3 id="en-cgv-9">Article 9 — Payments are final</h3>
+    <p>9.1. By confirming their order, the User requests immediate performance of the Subscription and immediate access to the Premium Features. Amounts paid for a Subscription period are definitively acquired by the Publisher and are not refunded, in whole or in part, including in the event of non-use, partial use, deletion of the Account by the User or a change in the User’s circumstances.</p>
+    <p>9.2. This article does not prevent the correction, after verification, of a payment debited more than once in error, a payment debited without activation, or an amount debited above the applicable price. Correction may take the form of an activation, an extension of the Subscription period or a refund through the Payment Provider.</p>
+    <p>9.3. This article applies to the extent permitted by the mandatory provisions of the law applicable to the User.</p>
+
+    <h3 id="en-cgv-10">Article 10 — Right of withdrawal</h3>
+    <p>10.1. Where the law applicable to a consumer User grants a right of withdrawal for distance contracts, the User, by confirming their order, expressly requests that performance of the Subscription begin before the withdrawal period expires and acknowledges that, where the law so provides, they thereby lose their right of withdrawal.</p>
+    <p>10.2. Where the applicable law nevertheless maintains that right, a User who exercises it within the legal period, by an unambiguous statement sent through the contact form, remains liable for an amount proportionate to the service provided until they communicated their decision to withdraw.</p>
+
+    <h3 id="en-cgv-11">Article 11 — Payment incidents and fraud</h3>
+    <p>11.1. If a payment is rejected, cancelled, disputed or charged back, the Publisher may suspend access to the corresponding Premium Features until the situation is resolved.</p>
+    <p>11.2. To prevent fraud and abuse, the number of payment attempts per Account and per period is limited, and the Publisher may refuse or cancel any order showing serious signs of fraud, misuse of a payment method or circumvention of the Terms.</p>
+
+    <h3 id="en-cgv-12">Article 12 — Receipts</h3>
+    <p>The Payment Provider or operator sends the User confirmation of the transaction in accordance with its own procedures. The payment history is kept by the Publisher. The User may obtain proof of payment on request through the contact form.</p>
+
+    <h3 id="en-cgv-13">Article 13 — Changes to the offer</h3>
+    <p>13.1. The Publisher may change the content of the Premium Features, in particular to enrich, adapt or secure them.</p>
+    <p>13.2. If, during a current Subscription period, a key Premium Feature presented on the Premium page at the time of purchase is removed without being replaced by an equivalent feature, the Publisher offers the User concerned, at its choice, an extension of their Subscription period or appropriate compensation, to the extent of the harm suffered.</p>
+
+    <h3 id="en-cgv-14">Article 14 — Account suspension</h3>
+    <p>Suspension or deletion of the Account under Article 16 of the General Terms of Use results in the loss of the current Subscription, without refund, to the extent permitted by applicable law.</p>
+
+    <h3 id="en-cgv-15">Article 15 — Promotional offers</h3>
+    <p>The Publisher may offer promotions, free access periods or benefits linked to the referral programme. Their specific conditions, in particular their duration and eligibility, are stated when they are presented. Unless stated otherwise, they cannot be combined or converted into cash.</p>
+
+    <h3 id="en-cgv-16">Article 16 — Complaints</h3>
+    <p>Any complaint about an order or payment is sent through the contact form of the Service, selecting the appropriate subject and attaching the details needed to identify the transaction. The Publisher endeavours to respond as quickly as possible.</p>
+
+    <h3 id="en-cgv-17">Article 17 — Governing law</h3>
+    <p>The Subscription Terms are governed by Senegalese law, in particular the regulations on electronic transactions, without prejudice to the more protective mandatory provisions of the law of the country of habitual residence of a consumer User. The dispute provisions of Article 22 of the General Terms of Use apply.</p>
+  </article>
+
+  <article class="doc" id="en-confidentialite">
+    <h2>Privacy Policy</h2>
+    <p class="upd">Version 2.0 — effective 15 October 2026</p>
+    <div class="toc"><p>Contents</p><ol>
+      <li><a href="#en-pc-1">Purpose and legal framework</a></li><li><a href="#en-pc-2">Controller</a></li>
+      <li><a href="#en-pc-3">Definitions</a></li><li><a href="#en-pc-4">Categories of data processed</a></li>
+      <li><a href="#en-pc-5">Source of the data</a></li><li><a href="#en-pc-6">Purposes and legal bases</a></li>
+      <li><a href="#en-pc-7">Personalisation and automated decisions</a></li><li><a href="#en-pc-8">Special categories of data</a></li>
+      <li><a href="#en-pc-9">Recipients</a></li><li><a href="#en-pc-10">International transfers</a></li>
+      <li><a href="#en-pc-11">Retention periods</a></li><li><a href="#en-pc-12">Security</a></li>
+      <li><a href="#en-pc-13">Your rights</a></li><li><a href="#en-pc-14">Minor Users</a></li>
+      <li><a href="#en-pc-15">Mandatory or optional data</a></li><li><a href="#en-pc-16">Changes</a></li>
+    </ol></div>
+
+    <h3 id="en-pc-1">1. Purpose and legal framework</h3>
+    <p>1.1. This policy informs Users, in a concise, transparent and intelligible way, of the processing of personal data carried out within the Service, in accordance with Senegalese Law No. 2008-12 of 25 January 2008 on the protection of personal data and its implementing texts, and, where applicable, Regulation (EU) 2016/679 of 27 April 2016 (“GDPR”) and the national data protection laws applicable to Users.</p>
+    <p>1.2. It applies to all processing carried out through the Service, whatever the device used. It does not apply to processing carried out by third parties to whose sites the Service links, in particular educational institutions, application platforms and Payment Providers, which act under their own responsibility.</p>
+
+    <h3 id="en-pc-2">2. Controller</h3>
+    <p>2.1. The controller is the Publisher of the Service, identified in the Legal notice.</p>
+    <p>2.2. For any question about data protection or to exercise their rights, the User may contact the Publisher through the form on the Contact page, selecting the subject “My personal data”.</p>
+
+    <h3 id="en-pc-3">3. Definitions</h3>
+    <p>“Data” means any information relating to an identified or identifiable natural person. “Processing” means any operation performed on Data, whatever the means used. “Processor” means a person who processes Data on behalf of and on the instructions of the controller. “Recipient” means a person to whom Data is disclosed. Other terms have the meaning given to them in the General Terms of Use.</p>
+
+    <h3 id="en-pc-4">4. Categories of data processed</h3>
+    <p>Depending on the features used, the Publisher processes the following categories of Data:</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Category</th><th>Data concerned</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Identification and Account</strong></td><td>Email address, technical Account identifier, first name, last name, username, country, level of education, language, role, Subscription status and expiry date, creation date. The password is kept by the authentication service only as a non-reversible cryptographic hash.</td></tr>
+        <tr><td><strong>Guidance profile</strong></td><td>Questionnaire answers: age range, level and diploma, country of residence, languages and levels, favourite or difficult subjects, traits and working styles, career goals, desired destinations, priorities, sectors of interest, intended sources and level of funding, mobility, need to work while studying, desired programme length and format, free-text answers. Fields of study most viewed in the Service, computed on the User’s device. Generated Recommendations, fit scores and explanations.</td></tr>
+        <tr><td><strong>Optional additional information</strong></td><td>Gender (declared by the User or, failing that, inferred under Article 7.3) and date of birth.</td></tr>
+        <tr><td><strong>Stored and organised content</strong></td><td>Saved institutions and Opportunities, application files, steps, deadlines, reminders, documents stored in the Vault (for example transcripts, diplomas, CVs, letters) and their metadata (name, type, size, date).</td></tr>
+        <tr><td><strong>Interactions with the Assistant</strong></td><td>Content of requests sent to the Assistant and of the responses produced, profile elements relevant to the response. The conversation history is kept on the User’s device; server-side, only counting and operational data are logged.</td></tr>
+        <tr><td><strong>Progress and preferences</strong></td><td>Days of use, streaks, points, levels, badges, completed missions, display, language, sound, vibration, notification and privacy settings.</td></tr>
+        <tr><td><strong>Transactions</strong></td><td>Plan, amount, currency, payment method, phone number of the paying wallet where applicable, transaction reference assigned by the Payment Provider, status, creation and processing timestamps.</td></tr>
+        <tr><td><strong>Exchanges with the Publisher</strong></td><td>Messages sent through the contact form (subject, content, reply address), reports of Opportunities or inaccurate information, reviews (rating, comment, publication choice).</td></tr>
+        <tr><td><strong>Referral</strong></td><td>Referral code, link between the referrer Account and the invited Account, validation status.</td></tr>
+        <tr><td><strong>Technical and usage data</strong></td><td>Random session identifier, pages and screens viewed, functional events, timestamps, assigned experiment variant, language and theme, device and browser category, country of connection determined at country level from the IP address, IP address processed transiently and, for abuse prevention, as a pseudonymised fingerprint (salted hash), host technical logs.</td></tr>
+        <tr><td><strong>Notifications</strong></td><td>Device notification subscription identifier, preferences (categories, preferred time, quiet hours, frequency), technical tags used to honour these preferences.</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 id="en-pc-5">5. Source of the data</h3>
+    <p>Data is collected directly from the User when using the Service, generated by the Service from that Data (Recommendations, progress elements, usage data), obtained from the User’s device (technical data), or sent by Payment Providers (status and reference of transactions).</p>
+
+    <h3 id="en-pc-6">6. Purposes and legal bases</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Purpose</th><th>Legal basis</th></tr></thead>
+      <tbody>
+        <tr><td>Creating, managing, authenticating and securing the Account; synchronisation across devices</td><td>Performance of the contract (General Terms of Use)</td></tr>
+        <tr><td>Analysing the guidance profile and producing Recommendations, including through artificial intelligence models</td><td>Performance of the contract, at the User’s request</td></tr>
+        <tr><td>Personalising Content and Opportunities (country, language, currency, eligibility based on gender or age)</td><td>Performance of the contract; for optional information, the Publisher’s legitimate interest in providing relevant information, which the User may object to at any time</td></tr>
+        <tr><td>Operating the Assistant and coaching tools</td><td>Performance of the contract</td></tr>
+        <tr><td>Managing My applications, the Vault and reminders</td><td>Performance of the contract</td></tr>
+        <tr><td>“Today” space, streaks, points and badges</td><td>Performance of the contract</td></tr>
+        <tr><td>Sending notifications to the device</td><td>Consent, obtained by the operating system and adjustable in the Service</td></tr>
+        <tr><td>Purchase, payment, activation and management of the Subscription; handling complaints</td><td>Performance of the contract</td></tr>
+        <tr><td>Bookkeeping and retention of supporting documents</td><td>Legal obligation</td></tr>
+        <tr><td>Publishing reviews</td><td>Consent of the review’s author</td></tr>
+        <tr><td>Referral programme</td><td>Performance of the contract</td></tr>
+        <tr><td>Handling contact messages and reports</td><td>Performance of the contract or the Publisher’s legitimate interest in answering requests and correcting information</td></tr>
+        <tr><td>Audience measurement, aggregated statistics, improvement of the Service and comparative experiments (A/B tests)</td><td>The Publisher’s legitimate interest in measuring and improving its Service; the User may object in Settings; consent where required by applicable regulations</td></tr>
+        <tr><td>Preventing fraud and abuse, usage limitation, system security</td><td>Legitimate interest of the Publisher and Users in the security of the Service</td></tr>
+        <tr><td>Establishing, exercising or defending legal claims</td><td>Legitimate interest</td></tr>
+        <tr><td>Responding to requests from authorised authorities</td><td>Legal obligation</td></tr>
+      </tbody>
+    </table></div>
+    <p>Data is not further processed in a manner incompatible with these purposes.</p>
+
+    <h3 id="en-pc-7">7. Personalisation and automated decisions</h3>
+    <p>7.1. Producing Recommendations relies on an automated evaluation of certain aspects of the User’s profile (interests, constraints, goals), carried out at their request and in their interest. Recommendations are suggestions and produce no legal effect concerning the User nor similarly significantly affect them: they do not condition access to the Service, admission or funding.</p>
+    <p>7.2. The User may at any time change their answers, rerun the analysis, view the explanations provided and obtain further information on the underlying logic through the contact form.</p>
+    <p>7.3. Where the User has not stated their gender, the Service may infer a probable indication from the first name, using a lookup table, solely to make texts grammatically consistent and to flag Opportunities whose eligibility depends on it. This indication is recorded as inferred, is not disclosed to third parties as such, has no legal consequence and can be corrected or deleted at any time from Settings, in the section on information known to the Service.</p>
+
+    <h3 id="en-pc-8">8. Special categories of data</h3>
+    <p>8.1. The Service is not intended to process special categories of Data within the meaning of applicable regulations, in particular data revealing racial or ethnic origin, political opinions, religious or philosophical beliefs, trade union membership, health or sex life, or Data relating to offences. No field of the Service is designed to collect them.</p>
+    <p>8.2. The User is invited not to include such data in free-text fields, requests to the Assistant or stored documents, unless required by their application. Where they provide such data on their own initiative, in particular in a supporting document, its processing is limited to storing and returning that document to the User, or to the response they requested.</p>
+
+    <h3 id="en-pc-9">9. Recipients</h3>
+    <p>9.1. <strong>Internal recipients.</strong> Data is accessible only to the Publisher’s authorised personnel, within the limits of their duties and of what is strictly necessary to perform them.</p>
+    <p>9.2. <strong>Processors.</strong> The Publisher uses Processors for technical services, bound by contractual commitments of confidentiality, security and processing on instructions. They fall into the following categories:</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Provider category</th><th>Service</th><th>Main location</th></tr></thead>
+      <tbody>
+        <tr><td>Application hosting and content delivery</td><td>Running the Application and server functions, delivery network</td><td>United States, with worldwide points of presence</td></tr>
+        <tr><td>Database, authentication and file storage</td><td>Storage of Accounts, profiles, applications, Vault documents and histories</td><td>European Union (France)</td></tr>
+        <tr><td>Artificial intelligence model providers</td><td>Producing Recommendations and Assistant responses</td><td>United States</td></tr>
+        <tr><td>Email delivery</td><td>Transactional messages and forwarding of contact messages to the Publisher</td><td>United States or European Union</td></tr>
+        <tr><td>Notifications</td><td>Delivering notifications to the device</td><td>United States</td></tr>
+        <tr><td>Audience measurement</td><td>Usage statistics, where this service is enabled</td><td>European Union</td></tr>
+        <tr><td>Font delivery</td><td>Loading display fonts</td><td>Worldwide network</td></tr>
+      </tbody>
+    </table></div>
+    <p>9.3. <strong>Third parties acting on their own behalf.</strong> The strictly necessary Data is also disclosed to: Payment Providers and e-money operators, to execute payments and comply with their own regulatory obligations, in particular anti-money laundering and fraud prevention; authorised administrative or judicial authorities, upon lawful request; where applicable, the acquirer or beneficiary of a transaction concerning all or part of the Publisher’s business, in compliance with this policy.</p>
+    <p>9.4. The list of recipients in this article is exhaustive. The named list of Processors is available on request through the contact form.</p>
+
+    <h3 id="en-pc-10">10. International transfers</h3>
+    <p>10.1. Because of the location of the Processors listed in Article 9, Data may be transferred to and processed outside the country in which it was collected, in particular in the European Union and the United States.</p>
+    <p>10.2. These transfers are governed in accordance with applicable regulations, as the case may be by relying on countries recognised as ensuring an adequate level of protection, by appropriate contractual safeguards, in particular the standard contractual clauses adopted by the European Commission, or by completing the formalities required by the competent data protection authority. The User may obtain information on these safeguards through the contact form.</p>
+
+    <h3 id="en-pc-11">11. Retention periods</h3>
+    <p>Data is kept for no longer than strictly necessary for the purposes for which it is processed, then deleted or irreversibly anonymised:</p>
+    <div class="tbl"><table>
+      <thead><tr><th>Data</th><th>Retention period</th></tr></thead>
+      <tbody>
+        <tr><td>Account, guidance profile, Recommendations, favourites, applications, progress</td><td>For as long as the Account exists. If there is no sign-in for three (3) years, the Account is deleted or anonymised after prior notice to the User.</td></tr>
+        <tr><td>Vault documents</td><td>Until deleted by the User and at the latest until the Account is deleted.</td></tr>
+        <tr><td>Visitor data stored on their device</td><td>Under the User’s sole control, until erased from Settings or the browser.</td></tr>
+        <tr><td>Transactions and supporting documents</td><td>For the legal retention period for accounting records, i.e. ten (10) years under OHADA law, including after the Account is deleted.</td></tr>
+        <tr><td>Abandoned payment requests</td><td>Twelve (12) months from creation, to handle complaints.</td></tr>
+        <tr><td>Contact messages and reports</td><td>Three (3) years from the last exchange.</td></tr>
+        <tr><td>Published reviews</td><td>For as long as they are published, until removal is requested by the author or their Account is deleted.</td></tr>
+        <tr><td>Audience measurement data</td><td>Thirteen (13) months at most from collection.</td></tr>
+        <tr><td>Abuse prevention counters (pseudonymised fingerprints)</td><td>Thirty (30) days at most.</td></tr>
+        <tr><td>Host technical logs</td><td>According to the rotation periods set by the provider, not exceeding twelve (12) months.</td></tr>
+        <tr><td>Data needed to defend legal claims</td><td>Until the applicable limitation periods expire.</td></tr>
+      </tbody>
+    </table></div>
+    <p>When the Account is deleted, the associated Data is erased from active databases without delay; copies in technical backups are overwritten according to their normal rotation cycle.</p>
+
+    <h3 id="en-pc-12">12. Security</h3>
+    <p>12.1. Taking into account the state of the art, implementation costs and risks, the Publisher implements appropriate technical and organisational measures to ensure a suitable level of security, including: encryption of communications (TLS); storage of passwords as hashes; access control at the level of each database record, so that each User can access only their own Data; private storage of Vault documents, accessible through short-lived temporary links; keeping keys and secrets for third-party services exclusively server-side; pseudonymisation of network identifiers used for abuse prevention; server-to-server verification of payment transactions; request rate limiting; security headers on the Application’s pages; least-privilege principle for administrative access.</p>
+    <p>12.2. In the event of a Data breach likely to result in a risk to the rights and freedoms of individuals, the Publisher makes the required notifications to the competent data protection authority and, where required by regulations, informs the data subjects as soon as possible.</p>
+    <p>12.3. Data security also depends on the User, who chooses a strong and unique password, protects access to their device and signs out of shared devices.</p>
+
+    <h3 id="en-pc-13">13. Your rights</h3>
+    <p>13.1. Under the conditions laid down by applicable regulations, the User has the following rights: right to be informed; right of access; right to rectification; right to erasure; right to restriction of processing; right to object, in particular to processing based on legitimate interest and to audience measurement; right to portability of the Data they provided; right to withdraw consent at any time, without affecting the lawfulness of processing based on consent before its withdrawal; where the applicable law so provides, the right to give instructions on what happens to their Data after their death.</p>
+    <p>13.2. Several of these rights can be exercised directly from the Settings of the Service: editing Account information and the information known to the Service, downloading Data (a file including the profile, Recommendations, favourites and applications), erasing history and viewed fields, disabling audience measurement, managing notifications and deleting the Account.</p>
+    <p>13.3. Other requests are sent through the form on the Contact page, subject “My personal data”. The Publisher may ask for any reasonable information to verify the requester’s identity. It responds within one (1) month of receipt of the request; this period may be extended by two (2) months given the complexity or number of requests, in which case the User is informed.</p>
+    <p>13.4. A User who considers that their rights have not been respected may lodge a complaint with the Commission de protection des données personnelles (CDP) of Senegal, or with the supervisory authority of their country of habitual residence, place of work or place of the alleged infringement.</p>
+
+    <h3 id="en-pc-14">14. Minor Users</h3>
+    <p>14.1. The Service may be used by minors. Processing concerning them is limited to what is necessary for the Service and receives particular attention, especially regarding the content and frequency of notifications.</p>
+    <p>14.2. Where processing is based on consent and the User has not reached the age set by the law applicable to them to consent alone (for example fifteen in France), that consent is given or authorised by the holder of parental authority. The holder of parental authority may exercise the minor User’s rights under Article 13.</p>
+
+    <h3 id="en-pc-15">15. Mandatory or optional data</h3>
+    <p>Data marked as mandatory when creating the Account or purchasing is necessary to provide the corresponding service; without it, that service cannot be provided. Other Data is optional; its absence may only reduce the relevance of personalisation.</p>
+
+    <h3 id="en-pc-16">16. Changes</h3>
+    <p>This policy may be amended to reflect changes in the Service, the processing or regulations. The current, dated version is available at any time from Settings. Any substantial change is brought to the attention of Account holders by any appropriate means before it takes effect.</p>
+  </article>
+
+  <article class="doc" id="en-cookies">
+    <h2>Cookies and Local Storage</h2>
+    <p class="upd">Version 2.0 — effective 15 October 2026</p>
+
+    <h3 id="en-ck-1">1. Technologies used</h3>
+    <p>1.1. The Service is a progressive web application. To work, including on weak or intermittent connections, it stores information on the User’s device using browser storage technologies: local storage (<em>localStorage</em>), session storage (<em>sessionStorage</em>) and an application cache managed by a background service (<em>service worker</em>). These technologies are together referred to as “Trackers”.</p>
+    <p>1.2. Information stored using Trackers remains on the device; it is sent to the Publisher’s servers only where necessary for the relevant feature, in particular Account synchronisation.</p>
+
+    <h3 id="en-ck-2">2. Categories of Trackers</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Category</th><th>Purpose</th><th>Duration</th><th>Settings</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Strictly necessary</strong></td><td>Authentication session and its renewal; display, language, sound and accessibility preferences; questionnaire in progress, results and progress elements; assigned experiment variant; one-time display of the opening screen; cache of Application files enabling fast opening and offline use; latest settings received from the server; queue of events not yet sent.</td><td>Until sign-out, erasure by the User or replacement during an update; opening screen: session</td><td>Cannot be disabled in the Service, as they are essential to provide the requested service</td></tr>
+        <tr><td><strong>Audience measurement</strong></td><td>Random session identifier and usage events (screens viewed, features used, visit duration) for aggregated statistics, detecting malfunctions and improving the Service. The data is not combined with other processing nor used to track browsing on other sites.</td><td>Thirteen (13) months at most</td><td>Can be disabled in Settings → Privacy</td></tr>
+        <tr><td><strong>Notifications</strong></td><td>Notification subscription identifier and related preferences, used to deliver the messages chosen by the User.</td><td>Until permission is withdrawn</td><td>Service Settings and operating system settings</td></tr>
+      </tbody>
+    </table></div>
+
+    <h3 id="en-ck-3">3. Third-party resources</h3>
+    <p>The Application’s display uses fonts loaded from a third-party provider’s delivery network. When this happens, the User’s device sends that provider the technical information necessary for any internet request, in particular its IP address and browser type. The Payment Providers’ payment pages, opened during a purchase, are subject to their own policies.</p>
+
+    <h3 id="en-ck-4">4. Management by the User</h3>
+    <p>4.1. The User may at any time disable audience measurement, manage notifications and erase data stored on their device from the Settings of the Service. They may also delete site data from their browser or operating system settings.</p>
+    <p>4.2. Erasing strictly necessary Trackers signs the User out and results in the loss of data not synchronised with an Account.</p>
+    <p>4.3. On some systems, in particular iOS, the Application installed on the home screen and the browser have separate storage spaces. A User who installs the Application signs in to their Account from it in order to find their data.</p>
+  </article>
+
+  <article class="doc" id="en-ia">
+    <h2>Artificial Intelligence Charter</h2>
+    <p class="upd">Version 2.0 — effective 15 October 2026</p>
+
+    <h3 id="en-ia-1">1. Uses of artificial intelligence in the Service</h3>
+    <p>The Service uses generative artificial intelligence models, supplied by specialised providers and accessed through programming interfaces, for the following purposes:</p>
+    <ul>
+      <li>analysing questionnaire answers and producing Recommendations and their explanations;</li>
+      <li>the Assistant’s answers to guidance questions;</li>
+      <li>help drafting and reviewing cover letters, and interview preparation;</li>
+      <li>fit analysis between the User’s profile and an Opportunity, and assessment of the maturity of a business project;</li>
+      <li>assisting the Publisher’s teams in preparing Opportunity profiles from official pages, which are always reviewed and checked before publication.</li>
+    </ul>
+
+    <h3 id="en-ia-2">2. Data sent to the models</h3>
+    <p>2.1. Only the information needed to produce the requested response is sent to the model provider: as the case may be, questionnaire answers, relevant profile elements (first name, age, country, gender where declared, most viewed fields), the text of the request, the content submitted for review and the Service’s reference data on the institutions or Opportunities concerned.</p>
+    <p>2.2. The scope of the information sent is strictly limited to that listed in Article 2.1; it excludes sign-in credentials, the email address, payment data and Vault documents.</p>
+    <p>2.3. Providers process this information as Processors, in order to produce the response, and retain it for the periods set out in their contractual terms applicable to programming interfaces, in particular for abuse detection. The Publisher may use several providers and switch between them to ensure the continuity of the Service.</p>
+
+    <h3 id="en-ia-3">3. Limits of artificial intelligence outputs</h3>
+    <p>3.1. Artificial intelligence outputs are generated probabilistically. They may contain inaccuracies, omissions, outdated information or unsuitable wording. They are not professional advice, in particular legal, financial or immigration advice.</p>
+    <p>3.2. The User exercises critical judgement and checks any information decisive for their decision against official sources. Institution and Opportunity profiles show, where possible, the source consulted and the date of verification.</p>
+    <p>3.3. Artificial intelligence outputs are identified as such in the Service.</p>
+
+    <h3 id="en-ia-4">4. Use of outputs</h3>
+    <p>4.1. Subject to third-party rights, the User may freely use, for personal purposes, the texts produced at their request, in particular draft letters. They remain solely responsible for them and ensure that they faithfully reflect their situation, background and intentions.</p>
+    <p>4.2. Any use of the Service’s artificial intelligence tools to produce false, misleading or fraudulent documents, or to circumvent the rules of an institution or organisation, is prohibited under Article 7 of the General Terms of Use.</p>
+
+    <h3 id="en-ia-5">5. Usage limits and availability</h3>
+    <p>The use of features based on artificial intelligence is subject to limits per period, which differ by offer, and to an overall cap designed to preserve the stability of the Service. These features may be temporarily unavailable, in particular if providers are unavailable.</p>
+
+    <h3 id="en-ia-6">6. No decision producing legal effects</h3>
+    <p>No decision producing legal effects concerning the User, or similarly significantly affecting them, is taken solely on the basis of automated processing. Artificial intelligence outputs are purely advisory.</p>
+
+    <h3 id="en-ia-7">7. Reporting</h3>
+    <p>A User who notices an incorrect, inappropriate or harmful output may report it through the contact form, so that the Publisher can analyse the situation and improve the Service.</p>
+  </article>
+
+  <article class="doc" id="en-mentions">
+    <h2>Legal notice</h2>
+    <p class="upd">Version 2.0 — effective 15 October 2026</p>
+    <h3>Publisher</h3>
+    <p>The LERNA Service is published by its founder, who is the publication director. Full identification details of the Publisher are provided on request through the form on the <a href="contact.html">Contact</a> page.</p>
+    <h3>Contact</h3>
+    <p>Form on the <a href="contact.html">Contact</a> page of the Service. Requests concerning personal data are sent by selecting the subject “My personal data”.</p>
+    <h3>Hosting</h3>
+    <p>Application and server functions: Vercel Inc., United States (vercel.com).<br>Database, authentication and file storage: Supabase, infrastructure located in the European Union, Paris region, France (supabase.com).</p>
+    <h3>Intellectual property</h3>
+    <p>The name LERNA, its logo, its visual identity and all elements of the Service are protected as set out in Article 12 of the General Terms of Use. The Playfair Display and Inter typefaces are used under the SIL Open Font License.</p>
+    <h3>Data protection</h3>
+    <p>See the <a href="#en-confidentialite">Privacy Policy</a>. Supervisory authority in Senegal: Commission de protection des données personnelles (CDP).</p>
+  </article>
+
+  <p class="lg-foot">Version 2.0 of 15 October 2026, replacing the version of 12 October 2026.<br>© <span class="yr">2026</span> LERNA. All rights reserved.</p>
+</div>
+
 </main>
 
 <script src="assets/js/core.js"></script>
 <script>
 (function () {
-  document.getElementById('yr').textContent = new Date().getFullYear();
-  var tabs = Array.prototype.slice.call(document.querySelectorAll('#lgTabs a'));
-  function mark(id) { tabs.forEach(function (a) { var on = a.getAttribute('href') === '#' + id; a.classList.toggle('on', on); if (on && a.scrollIntoView) a.parentNode.scrollTo({ left: a.offsetLeft - 16, behavior: 'smooth' }); }); }
-  mark((location.hash || '#confidentialite').slice(1));
-  if ('IntersectionObserver' in window) {
-    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) mark(e.target.id); }); }, { rootMargin: '-35% 0px -60% 0px' });
-    document.querySelectorAll('.doc').forEach(function (d) { io.observe(d); });
+  var yr = String(new Date().getFullYear());
+  Array.prototype.forEach.call(document.querySelectorAll('.yr'), function (e) { e.textContent = yr; });
+  /* Une seule langue visible : celle de l'application (le français fait foi) */
+  function showLang() {
+    var en = window.Lerna && Lerna.lang === 'en' && document.querySelector('[data-lang="en"]');
+    Array.prototype.forEach.call(document.querySelectorAll('[data-lang]'), function (d) { d.hidden = en ? d.getAttribute('data-lang') !== 'en' : d.getAttribute('data-lang') !== 'fr'; });
+    document.documentElement.lang = en ? 'en' : 'fr';
+    bindTabs();
   }
+  var io = null;
+  function bindTabs() {
+    var box = document.querySelector('[data-lang]:not([hidden])'); if (!box) return;
+    var tabs = Array.prototype.slice.call(box.querySelectorAll('.lg-tabs a'));
+    function mark(id) { tabs.forEach(function (a) { var on = a.getAttribute('href') === '#' + id; a.classList.toggle('on', on); if (on) a.parentNode.scrollTo({ left: a.offsetLeft - 16, behavior: 'smooth' }); }); }
+    var h = (location.hash || '').slice(1).replace(/^en-/, ''), first = box.querySelector('.doc');
+    if (box.getAttribute('data-lang') === 'en' && h) h = 'en-' + h;   // les liens #conditions… mènent aussi à la version anglaise
+    var target = h ? document.getElementById(h) : null;
+    if (target && box.contains(target)) { mark(target.closest('.doc') ? target.closest('.doc').id : h); setTimeout(function () { target.scrollIntoView(); }, 60); }
+    else mark(first ? first.id : '');
+    if (io) io.disconnect();
+    if ('IntersectionObserver' in window) {
+      io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) mark(e.target.id); }); }, { rootMargin: '-35% 0px -60% 0px' });
+      box.querySelectorAll('.doc').forEach(function (d) { io.observe(d); });
+    }
+  }
+  /* Tableaux lisibles sur téléphone : chaque ligne devient une carte, avec le nom de la colonne */
+  Array.prototype.forEach.call(document.querySelectorAll('.tbl table'), function (tb) {
+    var hs = Array.prototype.map.call(tb.querySelectorAll('thead th'), function (th) { return th.textContent; });
+    if (hs.length < 3) return;
+    Array.prototype.forEach.call(tb.querySelectorAll('tbody tr'), function (tr) { Array.prototype.forEach.call(tr.children, function (td, i) { if (i > 0) td.setAttribute('data-h', hs[i]); }); });
+  });
+  showLang();
+  if (window.Lerna && Lerna.on) Lerna.on('lerna:lang', showLang);
 })();
 </script>
 </body>
