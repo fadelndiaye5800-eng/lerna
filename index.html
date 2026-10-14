@@ -91,6 +91,39 @@
   .step h3 { margin-bottom: 10px; }
   .step p { color: var(--muted); }
 
+  /* ---------- Découvrir LERNA : tout comprendre en un coup d'œil ---------- */
+  .disc { padding: 80px 0 24px; scroll-margin-top: calc(var(--nav-h) + 10px); }
+  .disc-lead { color: var(--muted); max-width: 620px; margin-top: 10px; font-size: 1.02rem; line-height: 1.6; }
+  .disc-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 28px; }
+  @media (min-width: 640px) { .disc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1024px) { .disc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; } }
+  .disc-card { display: flex; gap: 14px; align-items: flex-start; padding: 18px; }
+  .disc-card .stk { width: 46px; height: 46px; flex-shrink: 0; }
+  .disc-card h3 { font-size: 1rem; margin-bottom: 4px; }
+  .disc-card p { font-size: .88rem; color: var(--muted); line-height: 1.55; }
+  .plans { padding: 64px 0 24px; }
+  .plans-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 26px; }
+  @media (min-width: 720px) { .plans-grid { grid-template-columns: 1fr 1fr; } }
+  .plan { padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+  .plan.prem { border-color: var(--orange); }
+  .plan-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .plan-top h3 { font-size: 1.15rem; }
+  .plan-price { font-weight: 800; color: var(--brown); }
+  .plan ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .plan li { display: flex; gap: 10px; font-size: .92rem; line-height: 1.45; }
+  .plan li::before { content: '✓'; color: var(--orange); font-weight: 800; flex-shrink: 0; }
+  .plan .small { color: var(--muted); }
+  .plan .btn { margin-top: auto; align-self: flex-start; }
+  .hfaq { padding: 64px 0 88px; }
+  .hfaq-list { margin-top: 24px; }
+  .hfaq details { background: var(--surface); border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 0 18px; margin-bottom: 10px; }
+  .hfaq summary { cursor: pointer; padding: 16px 0; font-weight: 700; list-style: none; display: flex; justify-content: space-between; gap: 14px; align-items: center; }
+  .hfaq summary::-webkit-details-marker { display: none; }
+  .hfaq summary::after { content: '+'; color: var(--orange); font-size: 1.4rem; font-weight: 700; transition: transform .2s; flex-shrink: 0; }
+  .hfaq details[open] summary::after { transform: rotate(45deg); }
+  .hfaq details p { padding: 0 0 16px; color: var(--muted); line-height: 1.6; }
+  .hfaq details p a { color: var(--orange-deep); }
+
   /* ---------- Témoignages ---------- */
   .testi { background: var(--bg); border-top: 1px solid var(--on-panel-line); padding: 88px 0; }
   .t-card { display: flex; flex-direction: column; gap: 18px; }
@@ -135,7 +168,7 @@
   <section class="stats" aria-label="Chiffres clés">
     <div class="container">
       <div class="stats-grid">
-        <div class="stat reveal" style="--i:0"><div class="stat-num">218M+</div><div class="stat-lbl" data-i18n="home.s1">Étudiants dans le monde</div></div>
+        <div class="stat reveal" style="--i:0"><div class="stat-num">269 M</div><div class="stat-lbl" data-i18n="home.s1">Étudiants dans le supérieur (UNESCO, 2024)</div></div>
         <div class="stat reveal" style="--i:1"><div class="stat-num">5 min</div><div class="stat-lbl" data-i18n="home.s2">Pour ton orientation</div></div>
         <div class="stat reveal" style="--i:2"><div class="stat-num">100%</div><div class="stat-lbl" data-i18n="home.s3">Personnalisé pour toi</div></div>
         <div class="stat reveal" style="--i:3"><div class="stat-num" id="statFree">0 $</div><div class="stat-lbl" data-i18n="home.s4">Pour commencer</div></div>
@@ -147,6 +180,18 @@
   <section class="quick" aria-label="Accès rapide">
     <div class="container container-md">
       <div class="quick-grid" id="quickGrid"></div>
+    </div>
+  </section>
+
+  <!-- DÉCOUVRIR LERNA : ce que fait l'appli -->
+  <section class="disc" id="decouvrir" aria-labelledby="discTitle">
+    <div class="container container-md">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="home.dEyebrow">Découvrir LERNA</span>
+        <h2 id="discTitle" data-i18n="home.dTitle">Un mentor d’orientation dans ta poche.</h2>
+        <p class="disc-lead" data-i18n="home.dLead">LERNA t’aide à choisir, à préparer et à avancer, étape par étape. La décision reste la tienne.</p>
+      </div>
+      <div class="disc-grid" id="discGrid"></div>
     </div>
   </section>
 
@@ -166,7 +211,7 @@
         <article class="card card-hover step reveal" style="--i:1">
           <div class="step-top"><div class="step-num">02</div><img class="stk" src="assets/stickers/magnifier.webp" alt="" aria-hidden="true" width="160" height="160"></div>
           <h3 data-i18n="home.h2t">L'IA analyse tout</h3>
-          <p data-i18n="home.h2d">Notre intelligence artificielle croise ton profil avec des milliers d'écoles partout dans le monde pour trouver ce qui te correspond vraiment.</p>
+          <p data-i18n="home.h2d">Notre intelligence artificielle croise ton profil avec des écoles réelles dans plus de 40 pays pour trouver ce qui te correspond vraiment.</p>
         </article>
         <article class="card card-hover step reveal" style="--i:2">
           <div class="step-top"><div class="step-num">03</div><img class="stk" src="assets/stickers/target.webp" alt="" aria-hidden="true" width="160" height="160"></div>
@@ -174,6 +219,28 @@
           <p data-i18n="home.h3d">Les meilleures écoles pour toi, expliquées. Avec les stages et bourses qui correspondent à ton profil.</p>
         </article>
       </div>
+    </div>
+  </section>
+
+  <!-- GRATUIT / PREMIUM -->
+  <section class="plans" aria-labelledby="plansTitle">
+    <div class="container container-md">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="home.pEyebrow">Gratuit ou Premium</span>
+        <h2 id="plansTitle" data-i18n="home.pTitle">Gratuit pour commencer. Premium pour aller plus loin.</h2>
+      </div>
+      <div class="plans-grid" id="plansGrid"></div>
+    </div>
+  </section>
+
+  <!-- QUESTIONS FRÉQUENTES -->
+  <section class="hfaq" aria-labelledby="faqTitle">
+    <div class="container container-md">
+      <div class="section-head reveal">
+        <span class="eyebrow" data-i18n="home.fEyebrow">Questions fréquentes</span>
+        <h2 id="faqTitle" data-i18n="home.fTitle">Tout ce qu’il faut savoir.</h2>
+      </div>
+      <div class="hfaq-list" id="faqList"></div>
     </div>
   </section>
 
@@ -213,15 +280,39 @@ Lerna.addStrings({
     'home.cta': 'Commencer mon orientation →',
     'home.note': 'Gratuit · 5 minutes · Résultat immédiat',
     'home.again': 'Revoir mes résultats',
-    'home.s1': 'Étudiants dans le monde', 'home.s2': 'Pour ton orientation', 'home.s3': 'Personnalisé pour toi', 'home.s4n': '0 $', 'home.s4': 'Pour commencer',
+    'home.s1': 'Étudiants dans le supérieur (UNESCO, 2024)', 'home.s2': 'Pour ton orientation', 'home.s3': 'Personnalisé pour toi', 'home.s4n': '0 $', 'home.s4': 'Pour commencer',
     'home.q1t': 'Mon orientation', 'home.q1d': '25 questions, tes écoles idéales expliquées.',
     'home.q2t': 'Explorer les écoles', 'home.q2d': 'Coûts réels, points forts et points de vigilance.',
     'home.q3t': 'Opportunités', 'home.q3d': 'Bourses, stages et emplois avec leurs dates.',
     'home.q4t': 'Mon espace', 'home.q4d': 'Favoris, rappels et ton assistant IA.',
     'home.howEyebrow': 'Comment ça marche', 'home.howTitle': 'Trois étapes. Une vie plus claire.',
     'home.h1t': 'Tu réponds aux questions', 'home.h1d': "Qui tu es, ce que tu veux, ton budget, tes matières fortes. LERNA t'écoute vraiment.",
-    'home.h2t': "L'IA analyse tout", 'home.h2d': "Notre intelligence artificielle croise ton profil avec des milliers d'écoles partout dans le monde pour trouver ce qui te correspond vraiment.",
+    'home.h2t': "L'IA analyse tout", 'home.h2d': "Notre intelligence artificielle croise ton profil avec des écoles réelles dans plus de 40 pays pour trouver ce qui te correspond vraiment.",
     'home.h3t': 'Tu reçois ta feuille de route', 'home.h3d': 'Les meilleures écoles pour toi, expliquées. Avec les stages et bourses qui correspondent à ton profil.',
+    'home.dEyebrow': 'Découvrir LERNA', 'home.dTitle': 'Un mentor d’orientation dans ta poche.',
+    'home.dLead': 'LERNA t’aide à choisir, à préparer et à avancer, étape par étape. La décision reste la tienne.',
+    'home.d1t': 'Ton orientation par l’IA', 'home.d1d': '25 questions sur toi, ton budget et tes envies. LERNA te propose les écoles et filières qui te vont, et t’explique pourquoi.',
+    'home.d2t': 'Des écoles dans plus de 40 pays', 'home.d2d': 'Afrique, Europe, Amérique… Frais par filière, conditions d’admission et démarches, avec la source officielle.',
+    'home.d3t': 'Bourses, stages et emplois', 'home.d3d': 'Des offres vérifiées, avec leur date limite. Les offres passées sont mises de côté.',
+    'home.d4t': 'Un assistant à tes côtés', 'home.d4d': 'Pose tes questions, fais relire ta lettre de motivation, prépare tes entretiens.',
+    'home.d5t': 'Tes démarches organisées', 'home.d5d': 'Campus France, Parcoursup, inscriptions : les étapes, les pièces à fournir et tes documents au même endroit.',
+    'home.d6t': 'Un peu chaque jour', 'home.d6d': 'Mission du jour, série de jours et rappels avant les dates limites, pour ne rien rater.',
+    'home.pEyebrow': 'Gratuit ou Premium', 'home.pTitle': 'Gratuit pour commencer. Premium pour aller plus loin.',
+    'home.pFree': 'Gratuit', 'home.pFreePrice': '0', 'home.pPrem': 'Premium',
+    'home.pF1': 'Le questionnaire complet', 'home.pF2': '2 écoles recommandées (4 en invitant 3 amis)', 'home.pF3': 'Les fiches des écoles', 'home.pF4': 'Un aperçu des opportunités', 'home.pF5': 'L’assistant IA, quelques messages par jour',
+    'home.pP1': 'Tes 5 écoles recommandées, tout de suite', 'home.pP2': 'Toutes les bourses et tous les stages en détail', 'home.pP3': 'La comparaison de deux écoles', 'home.pP4': 'L’assistant IA sans compter', 'home.pP5': 'Rappels personnalisés et suivi de tes candidatures', 'home.pP6': 'L’export PDF de ton profil',
+    'home.pPrice': '4,99 $ / mois ou 39,99 $ / an', 'home.pFcfa': 'Soit {m} / mois ou {a} / an, par Wave, Orange Money, Yas ou carte.', 'home.pNoAuto': 'Sans prélèvement automatique.',
+    'home.pStart': 'Commencer gratuitement', 'home.pSee': 'Voir Premium',
+    'home.fEyebrow': 'Questions fréquentes', 'home.fTitle': 'Tout ce qu’il faut savoir.',
+    'home.fq1': 'LERNA, c’est quoi ?', 'home.fa1': 'Une application d’orientation. Elle t’aide à choisir ton école et ta filière, à trouver des bourses, des stages ou un emploi, et à préparer tes candidatures. LERNA est un mentor : il prépare et il guide, la décision reste la tienne.',
+    'home.fq2': 'C’est pour qui ?', 'home.fa2': 'Les collégiens, les lycéens, les étudiants, et aussi celles et ceux qui travaillent déjà ou font une pause et veulent reprendre des études. Partout dans le monde.',
+    'home.fq3': 'LERNA fait-il mes inscriptions à ma place ?', 'home.fa3': 'LERNA te montre les étapes, les pièces à fournir et les dates, t’aide à écrire ta lettre et à préparer tes documents. Tu déposes toi-même ta candidature sur Campus France, Parcoursup ou le site de l’école.',
+    'home.fq4': 'Les informations sont-elles fiables ?', 'home.fa4': 'Chaque fiche indique sa source officielle et la date de vérification. Les frais changent selon la filière et l’année : LERNA peut se tromper, alors vérifie toujours sur le site officiel avant de payer ou de candidater.',
+    'home.fq5': 'Combien ça coûte ?', 'home.fa5': 'Le questionnaire et l’essentiel sont gratuits. Premium coûte 4,99 $ par mois ou 39,99 $ par an{f}. Il n’y a pas de prélèvement automatique : à la fin de la période, Premium s’arrête simplement.',
+    'home.fa5f': ' (soit {m} ou {a})',
+    'home.fq6': 'Comment payer ?', 'home.fa6': 'Par Wave, Orange Money, Yas (Free Money) ou carte bancaire. Tu choisis ton moyen, tu confirmes dans ton appli, et Premium s’active tout seul.', 'home.fa6Soon': 'Le paiement en ligne ouvre très bientôt. Ton compte gratuit te donne déjà l’essentiel.',
+    'home.fq7': 'Sur quel appareil ?', 'home.fa7': 'Sur téléphone et sur ordinateur, en français et en anglais. Tu peux installer LERNA sur ton écran d’accueil comme une appli. Avec un compte, tu retrouves tout sur tous tes appareils.',
+    'home.fq8': 'Et mes données ?', 'home.fa8': 'Tu gardes la main : tu peux modifier, télécharger ou supprimer tes informations à tout moment dans Paramètres. Tout est détaillé dans la <a href="legal.html#confidentialite">politique de confidentialité</a>.',
     'home.tEyebrow': 'Ils utilisent LERNA', 'home.tTitle': "Ce qu'en disent les élèves.", 'home.rvCount': '{n} avis vérifiés', 'home.rvGoogle': 'Voir nos avis Google',
     'home.finalTitle': 'Ton avenir mérite de la <span class="orange">clarté</span>.',
     'home.finalSub': '25 questions, des écoles réelles, des coûts honnêtes, dans ta devise. Commence maintenant.',
@@ -235,15 +326,39 @@ Lerna.addStrings({
     'home.cta': 'Start my orientation →',
     'home.note': 'Free · 5 minutes · Instant result',
     'home.again': 'See my results again',
-    'home.s1': 'Students worldwide', 'home.s2': 'For your orientation', 'home.s3': 'Personalised for you', 'home.s4n': '$0', 'home.s4': 'To get started',
+    'home.s1': 'Higher-education students (UNESCO, 2024)', 'home.s2': 'For your orientation', 'home.s3': 'Personalised for you', 'home.s4n': '$0', 'home.s4': 'To get started',
     'home.q1t': 'My orientation', 'home.q1d': '25 questions, your ideal schools explained.',
     'home.q2t': 'Explore schools', 'home.q2d': 'Real costs, strengths and points to consider.',
     'home.q3t': 'Opportunities', 'home.q3d': 'Scholarships, internships and jobs with deadlines.',
     'home.q4t': 'My space', 'home.q4d': 'Favourites, reminders and your AI assistant.',
     'home.howEyebrow': 'How it works', 'home.howTitle': 'Three steps. A clearer life.',
     'home.h1t': 'You answer the questions', 'home.h1d': 'Who you are, what you want, your budget, your strong subjects. LERNA really listens.',
-    'home.h2t': 'The AI analyses everything', 'home.h2d': 'Our artificial intelligence matches your profile against thousands of schools around the world to find what truly fits you.',
+    'home.h2t': 'The AI analyses everything', 'home.h2d': 'Our artificial intelligence matches your profile against real schools in more than 40 countries to find what truly fits you.',
     'home.h3t': 'You get your roadmap', 'home.h3d': 'The best schools for you, explained. With the internships and scholarships that match your profile.',
+    'home.dEyebrow': 'Discover LERNA', 'home.dTitle': 'A guidance mentor in your pocket.',
+    'home.dLead': 'LERNA helps you choose, prepare and move forward, step by step. The decision stays yours.',
+    'home.d1t': 'AI-powered guidance', 'home.d1d': '25 questions about you, your budget and your goals. LERNA suggests the schools and programmes that fit you, and explains why.',
+    'home.d2t': 'Schools in more than 40 countries', 'home.d2d': 'Africa, Europe, the Americas… Fees by programme, admission requirements and procedures, with the official source.',
+    'home.d3t': 'Scholarships, internships and jobs', 'home.d3d': 'Verified offers with their deadline. Past offers are set aside.',
+    'home.d4t': 'An assistant by your side', 'home.d4d': 'Ask your questions, get your cover letter reviewed, prepare your interviews.',
+    'home.d5t': 'Your applications, organised', 'home.d5d': 'Campus France, Parcoursup, enrolment: the steps, the documents to provide and your files in one place.',
+    'home.d6t': 'A little every day', 'home.d6d': 'Daily mission, day streak and reminders before deadlines, so you miss nothing.',
+    'home.pEyebrow': 'Free or Premium', 'home.pTitle': 'Free to start. Premium to go further.',
+    'home.pFree': 'Free', 'home.pFreePrice': '0', 'home.pPrem': 'Premium',
+    'home.pF1': 'The full questionnaire', 'home.pF2': '2 recommended schools (4 by inviting 3 friends)', 'home.pF3': 'School profiles', 'home.pF4': 'A preview of opportunities', 'home.pF5': 'The AI assistant, a few messages a day',
+    'home.pP1': 'All 5 recommended schools, right away', 'home.pP2': 'All scholarships and internships in detail', 'home.pP3': 'Compare two schools', 'home.pP4': 'The AI assistant without counting', 'home.pP5': 'Personalised reminders and application tracking', 'home.pP6': 'PDF export of your profile',
+    'home.pPrice': '$4.99 / month or $39.99 / year', 'home.pFcfa': 'That is {m} / month or {a} / year, by Wave, Orange Money, Yas or card.', 'home.pNoAuto': 'No automatic renewal.',
+    'home.pStart': 'Start for free', 'home.pSee': 'See Premium',
+    'home.fEyebrow': 'FAQ', 'home.fTitle': 'Everything you need to know.',
+    'home.fq1': 'What is LERNA?', 'home.fa1': 'A guidance app. It helps you choose your school and programme, find scholarships, internships or a job, and prepare your applications. LERNA is a mentor: it prepares and guides, the decision stays yours.',
+    'home.fq2': 'Who is it for?', 'home.fa2': 'Middle and high school students, university students, and also people who already work or are taking a break and want to go back to studying. Anywhere in the world.',
+    'home.fq3': 'Does LERNA apply for me?', 'home.fa3': 'LERNA shows you the steps, the documents to provide and the dates, helps you write your letter and prepare your documents. You submit your application yourself on Campus France, Parcoursup or the school’s website.',
+    'home.fq4': 'Is the information reliable?', 'home.fa4': 'Each profile shows its official source and verification date. Fees change by programme and year: LERNA can be wrong, so always check the official website before paying or applying.',
+    'home.fq5': 'How much does it cost?', 'home.fa5': 'The questionnaire and the essentials are free. Premium costs $4.99 a month or $39.99 a year{f}. There is no automatic renewal: at the end of the period, Premium simply stops.',
+    'home.fa5f': ' (that is {m} or {a})',
+    'home.fq6': 'How do I pay?', 'home.fa6': 'By Wave, Orange Money, Yas (Free Money) or bank card. You choose your method, confirm in your app, and Premium turns on by itself.', 'home.fa6Soon': 'Online payment opens very soon. Your free account already gives you the essentials.',
+    'home.fq7': 'On which device?', 'home.fa7': 'On phone and computer, in French and English. You can install LERNA on your home screen like an app. With an account, you find everything on all your devices.',
+    'home.fq8': 'What about my data?', 'home.fa8': 'You stay in control: you can edit, download or delete your information at any time in Settings. Everything is detailed in the <a href="legal.html#confidentialite">privacy policy</a>.',
     'home.tEyebrow': 'They use LERNA', 'home.tTitle': 'What students say.', 'home.rvCount': '{n} verified reviews', 'home.rvGoogle': 'See our Google reviews',
     'home.finalTitle': 'Your future deserves <span class="orange">clarity</span>.',
     'home.finalSub': '25 questions, real schools, honest costs in your currency. Start now.',
@@ -273,6 +388,30 @@ Lerna.ready(function () {
     }).join('');
     Lerna.initReveal();
   }
+  /* Découvrir LERNA : ce que fait l'appli, gratuit / Premium, questions fréquentes */
+  function renderDiscover() {
+    var t = Lerna.t, esc = Lerna.esc;
+    var D = [['compass', 1], ['earth-africa', 2], ['medal', 3], ['speech', 4], ['folder', 5], ['fire', 6]];
+    document.getElementById('discGrid').innerHTML = D.map(function (d, i) {
+      return '<article class="card disc-card reveal" style="--i:' + (i % 3) + '">' + Lerna.sticker(d[0]) + '<div><h3>' + esc(t('home.d' + d[1] + 't')) + '</h3><p>' + esc(t('home.d' + d[1] + 'd')) + '</p></div></article>';
+    }).join('');
+    var pay = Lerna.config.pay, fc = function (n) { return Number(n || 0).toLocaleString('fr-FR') + ' FCFA'; };
+    var li = function (keys) { return '<ul>' + keys.map(function (k) { return '<li>' + esc(t(k)) + '</li>'; }).join('') + '</ul>'; };
+    document.getElementById('plansGrid').innerHTML =
+      '<article class="card plan reveal"><div class="plan-top"><h3>' + esc(t('home.pFree')) + '</h3><span class="plan-price">' + esc(Lerna.money(0)) + '</span></div>' +
+        li(['home.pF1', 'home.pF2', 'home.pF3', 'home.pF4', 'home.pF5']) +
+        '<a class="btn btn-ghost" href="questionnaire.html">' + esc(t('home.pStart')) + '</a></article>' +
+      '<article class="card plan prem reveal" style="--i:1"><div class="plan-top"><h3>' + esc(t('home.pPrem')) + '</h3><span class="plan-price">' + esc(t('home.pPrice')) + '</span></div>' +
+        (pay ? '<p class="small">' + esc(t('home.pFcfa', { m: fc(pay.prixMois), a: fc(pay.prixAn) })) + ' ' + esc(t('home.pNoAuto')) + '</p>' : '') +
+        li(['home.pP1', 'home.pP2', 'home.pP3', 'home.pP4', 'home.pP5', 'home.pP6']) +
+        '<a class="btn btn-primary" href="premium.html?src=decouvrir">' + esc(t('home.pSee')) + '</a></article>';
+    var f = pay ? t('home.fa5f', { m: fc(pay.prixMois), a: fc(pay.prixAn) }) : '';
+    var Q = [['home.fq1', esc(t('home.fa1'))], ['home.fq2', esc(t('home.fa2'))], ['home.fq3', esc(t('home.fa3'))], ['home.fq4', esc(t('home.fa4'))],
+      ['home.fq5', esc(t('home.fa5', { f: f }))], ['home.fq6', esc(t(pay ? 'home.fa6' : 'home.fa6Soon'))], ['home.fq7', esc(t('home.fa7'))], ['home.fq8', t('home.fa8')]];
+    document.getElementById('faqList').innerHTML = Q.map(function (q) { return '<details class="reveal"><summary>' + esc(t(q[0])) + '</summary><p>' + q[1] + '</p></details>'; }).join('');
+    Lerna.initReveal();
+  }
+
   /* Vrais avis uniquement : rien n'est affiché tant qu'il n'y a pas au moins 3 avis vérifiés */
   var reviews = null;
   function renderReviews() {
@@ -290,8 +429,11 @@ Lerna.ready(function () {
     sec.classList.remove('hidden');
     Lerna.initReveal();
   }
-  renderQuick();
-  Lerna.onLang(function () { renderQuick(); renderReviews(); renderHello(); });
+  renderQuick(); renderDiscover();
+  Lerna.onLang(function () { renderQuick(); renderDiscover(); renderReviews(); renderHello(); });
+  Lerna.auth.ready.then(renderDiscover);   // prix FCFA connus une fois les réglages du serveur chargés
+  Lerna.on('lerna:country', renderDiscover);
+  if (Lerna.param('decouvrir')) setTimeout(function () { var d = document.getElementById('decouvrir'); if (d && !location.hash) d.scrollIntoView({ behavior: 'smooth' }); }, 900);
   if (Lerna.store.raw('lerna_results')) document.getElementById('heroAgain').classList.remove('hidden');
   Lerna.auth.ready.then(function () {
     if (!Lerna.config.live) return;

@@ -191,7 +191,7 @@ Lerna.addStrings({
     'pr.f4': 'Accès aux opportunités (aperçu limité)', 'pr.f5': 'Recommandations illimitées', 'pr.f6': 'Tes 5 écoles recommandées, tout de suite',
     'pr.f7': 'Comparaison détaillée entre 2 écoles', 'pr.f8': 'Accès COMPLET stages et bourses', 'pr.f9': 'Notifications en PREMIER (avant les autres)',
     'pr.f10': 'Alertes entreprises cherchant des alternants', 'pr.f11': 'Informations investisseurs (projets étudiants)',
-    'pr.f12': 'Assistant IA illimité (sans limite de messages)', 'pr.f13': 'Rappels et alertes personnalisés', 'pr.f14': 'Suivi de mes candidatures',
+    'pr.f12': 'Assistant IA illimité (usage personnel normal)', 'pr.f13': 'Rappels et alertes personnalisés', 'pr.f14': 'Suivi de mes candidatures',
     'pr.f15': 'Export PDF de mon profil et recommandations',
     'pr.faqTitle': 'Questions fréquentes',
     'pr.q1': 'Comment je paie ?',
@@ -247,7 +247,7 @@ Lerna.addStrings({
     'pr.f4': 'Access to opportunities (limited preview)', 'pr.f5': 'Unlimited recommendations', 'pr.f6': 'All 5 recommended schools, right away',
     'pr.f7': 'Detailed comparison of 2 schools', 'pr.f8': 'FULL access to internships and scholarships', 'pr.f9': 'Notifications FIRST (before others)',
     'pr.f10': 'Alerts from companies looking for work-study students', 'pr.f11': 'Investor information (student projects)',
-    'pr.f12': 'Unlimited AI assistant (no message limit)', 'pr.f13': 'Personalised reminders and alerts', 'pr.f14': 'Application tracking',
+    'pr.f12': 'Unlimited AI assistant (normal personal use)', 'pr.f13': 'Personalised reminders and alerts', 'pr.f14': 'Application tracking',
     'pr.f15': 'PDF export of my profile and recommendations',
     'pr.faqTitle': 'Frequently asked questions',
     'pr.q1': 'How do I pay?',
@@ -288,7 +288,8 @@ Lerna.addStrings({
   var $ = function (id) { return document.getElementById(id); };
   var t = Lerna.t;
   var plan = 'monthly';
-  var ROWS = [[1, 1, 1], [2, 1, 1], [3, 1, 1], [4, 1, 1], [5, 0, 1], [6, 0, 1], [7, 0, 1], [8, 0, 1], [9, 0, 1], [10, 0, 1], [11, 0, 1], [12, 0, 1], [13, 0, 1], [14, 0, 1], [15, 0, 1]];
+  /* Seulement ce qui existe vraiment (la page Premium fait partie de l'offre) : 9 « notifications en premier » et 10 « alertes alternance » reviendront quand elles seront construites */
+  var ROWS = [[1, 1, 1], [2, 1, 1], [3, 1, 1], [4, 1, 1], [5, 0, 1], [6, 0, 1], [7, 0, 1], [8, 0, 1], [11, 0, 1], [12, 0, 1], [13, 0, 1], [14, 0, 1], [15, 0, 1]];
 
   var M = function () { return Lerna.config.pay || null; };                          // paiement FCFA (Wave, Orange Money, Yas, carte)
   var hasCard = function () { return !!(Lerna.config.checkoutMonthly && Lerna.config.checkoutYearly); };

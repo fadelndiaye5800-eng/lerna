@@ -322,6 +322,7 @@ Lerna.addStrings({
     /* Aide */
     h += sec('aide', 'st.sAide', 'mailbox',
       item(t('st.help'), '', '<div class="row" style="gap:8px"><a class="btn btn-primary btn-sm" href="contact.html">' + t('st.contact') + '</a><a class="btn btn-ghost btn-sm" href="contact.html?sujet=probleme">' + t('st.report') + '</a></div>') +
+      '<a class="item item-link" href="index.html?decouvrir=1"><div class="item-txt"><strong>' + t('nav.discover') + '</strong></div>' + Lerna.icon('arrowR', 'ic-sm') + '</a>' +
       (Lerna.install.available() ? item(t('st.install'), '', '<button type="button" class="btn btn-ghost btn-sm" id="installBtn">' + Lerna.icon('download', 'ic-sm') + t('st.installBtn') + '</button>') : ''));
     h += sec('legal', 'st.sLegal', 'scroll',
       [['conditions', 'st.lTerms'], ['abonnement', 'st.lSub'], ['confidentialite', 'st.lPrivacy'], ['cookies', 'st.lCookies'], ['ia', 'st.lAi'], ['mentions', 'st.lNotice']].map(function (x) {
