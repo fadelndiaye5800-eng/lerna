@@ -336,6 +336,7 @@
       'greet.nightSub': 'Ton parcours peut attendre demain matin. Repose-toi bien.',
       'greet.earlySub': 'Les premières heures sont les meilleures pour avancer.',
       'nav.settings': 'Paramètres', 'nav.dossiers': 'Mes dossiers', 'nav.help': 'Aide et contact',
+      'ab.streak': '{n} jours de suite', 'ab.streak1': '1 jour de suite', 'ab.streak0': 'Lance ta série aujourd’hui', 'ab.results': 'Tes résultats t’attendent', 'ab.start': 'Commence ton orientation', 'ab.g2': 'Ton orientation, pas à pas', 'ab.g3': 'Écoles, bourses et emplois', 'ab.g4': 'Gratuit pour commencer', 'ab.mission': 'Ta mission du jour t’attend',
       'nav.back': 'Retour', 'nav.school': 'École', 'nav.legal': 'Règles et confidentialité', 'nav.admin': 'Administration',
       'nav.streak': '{n} jour(s) d’affilée', 'nav.mainNav': 'Navigation principale'
     },
@@ -368,6 +369,7 @@
       'greet.nightSub': 'Your journey can wait until tomorrow morning. Get some rest.',
       'greet.earlySub': 'The first hours are the best to move forward.',
       'nav.settings': 'Settings', 'nav.dossiers': 'My applications', 'nav.help': 'Help and contact',
+      'ab.streak': '{n} days in a row', 'ab.streak1': '1 day in a row', 'ab.streak0': 'Start your streak today', 'ab.results': 'Your results are waiting', 'ab.start': 'Start your orientation', 'ab.g2': 'Your path, step by step', 'ab.g3': 'Schools, scholarships and jobs', 'ab.g4': 'Free to start', 'ab.mission': 'Your daily mission is waiting',
       'nav.back': 'Back', 'nav.school': 'School', 'nav.legal': 'Rules and privacy', 'nav.admin': 'Admin',
       'nav.streak': '{n}-day streak', 'nav.mainNav': 'Main navigation'
     }
@@ -1186,12 +1188,6 @@
     if (p === 'parametres' && !Auth.user) sc = { tab: true, title: 'nav.settings' };   // sans compte, « Moi » mène aux Paramètres
     return sc;
   }
-  function avatarBtn() {
-    var u = Auth.user, t = Lerna.t;
-    return u
-      ? '<a class="ab-avatar" href="espace.html" aria-label="' + t('nav.account') + '">' + Lerna.esc(Lerna.initials(u)) + '</a>'
-      : '<a class="ab-avatar guest" href="auth.html?mode=login" aria-label="' + t('nav.login') + '">' + Lerna.icon('user', 'ic-sm') + '</a>';
-  }
   function renderNav() {
     var host = doc.getElementById('lerna-nav');
     if (!host) return;
@@ -1200,20 +1196,50 @@
     if (sc.back) {
       left = '<button type="button" class="ab-btn ab-back" data-back="' + sc.back + '" aria-label="' + t('nav.back') + '">' + Lerna.icon('arrowL') + '</button>';
     } else if (p === 'home' || p === 'today') {
-      left = '<a class="ab-mark" href="' + Lerna.homeHref() + '" aria-label="LERNA">' + Lerna.mark('', 'LERNA') + '</a>';
+      /* Le nom LERNA, discret, et une petite ligne qui change toute seule (bonjour, série, prochaine étape) */
+      left = '<a class="ab-brand" href="' + Lerna.homeHref() + '" aria-label="LERNA">' +
+        '<span class="ab-word logo-txt"><i>L</i><i>E</i><i>R</i><i class="n">N</i><i>A</i></span>' +
+        '<span class="ab-tick"><span class="ab-tick-in"></span></span></a>';
     }
     if (p === 'today' || (p === 'home' && hasProfile())) {
       var st = Lerna.daily && Lerna.daily.streak ? Lerna.daily.streak() : { days: 0 };
       right += '<a class="ab-streak" href="aujourdhui.html" aria-label="' + Lerna.esc(t('nav.streak', { n: st.days })) + '">' + Lerna.icon('flame', 'ic-sm') + '<span>' + st.days + '</span></a>';
     }
-    if (sc.gear) right += '<a class="ab-btn" href="parametres.html" aria-label="' + t('nav.settings') + '">' + Lerna.icon('settings') + '</a>';
     if (p === 'home' && !u) right += '<a class="ab-login" href="auth.html?mode=login">' + t('nav.login') + '</a>';
-    else if (p !== 'espace' && p !== 'auth' && sc.tab) right += avatarBtn();
+    /* Paramètres en un geste depuis chaque onglet (à la place de l'ancien logo / avatar) */
+    if ((sc.tab || sc.gear) && p !== 'parametres') right += '<a class="ab-btn ab-gear" href="parametres.html" aria-label="' + t('nav.settings') + '" title="' + t('nav.settings') + '">' + Lerna.icon('settings') + '</a>';
     host.innerHTML =
       '<header class="appbar' + (sc.back ? ' is-detail' : '') + '"><div class="appbar-in">' + left +
         '<div class="appbar-title" role="heading" aria-level="1">' + Lerna.esc(title) + '</div>' +
         '<div class="appbar-actions">' + right + '</div>' +
       '</div></header>';
+    startTicker(host.querySelector('.ab-tick-in'));
+  }
+  /* Petite ligne animée de la barre du haut : glisse vers le haut toutes les 4 s */
+  var tickTimer = null;
+  function tickerLines() {
+    var t = Lerna.t;   // l'écran dit déjà bonjour en grand : la ligne donne autre chose
+    if (!hasProfile()) return [t('ab.g2'), t('ab.g3'), t('ab.g4')];
+    var d = Lerna.daily && Lerna.daily.streak ? Lerna.daily.streak().days : 0;
+    return [d > 0 ? t(d === 1 ? 'ab.streak1' : 'ab.streak', { n: d }) : t('ab.streak0'), t('ab.mission'), t(hasResults() ? 'ab.results' : 'ab.start')];
+  }
+  function startTicker(el) {
+    clearInterval(tickTimer);
+    if (!el) return;
+    var lines = tickerLines(), i = 0;
+    el.textContent = lines[0];
+    var calm = doc.documentElement.hasAttribute('data-calm') || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
+    if (calm || lines.length < 2) return;
+    tickTimer = setInterval(function () {
+      if (doc.hidden || !el.isConnected) { if (!el.isConnected) clearInterval(tickTimer); return; }
+      el.classList.add('out');
+      setTimeout(function () {
+        i = (i + 1) % lines.length;
+        el.textContent = lines[i];
+        el.classList.remove('out'); el.classList.add('in');
+        void el.offsetWidth; el.classList.remove('in');
+      }, 280);
+    }, 4000);
   }
   /* Retour : la page d'avant si on vient de LERNA, sinon l'écran parent */
   doc.addEventListener('click', function (e) {
@@ -1308,14 +1334,16 @@
     var calm = root.hasAttribute('data-calm') || (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches);
     var el = doc.createElement('div');
     el.id = 'lerna-splash'; el.setAttribute('aria-hidden', 'true');
-    el.innerHTML = '<div class="sp-mark">' + Lerna.mark('', '', { draw: true }) + '</div><div class="sp-word">LERNA</div>';
+    /* Le nom en bas : police du logo, lettres qui montent une à une, le N orange arrive en dernier */
+    el.innerHTML = '<div class="sp-mark">' + Lerna.mark('', '', { draw: true }) + '</div>' +
+      '<div class="sp-word"><i>L</i><i>E</i><i>R</i><i class="n">N</i><i>A</i></div>';
     doc.body.appendChild(el);
     if (calm) root.setAttribute('data-calm', '');
     setTimeout(function () {
       el.classList.add('out');
       root.removeAttribute('data-splash');
       setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 420);
-    }, calm ? 650 : 1550);
+    }, calm ? 800 : 1900);
   }
 
   function renderChrome() {

@@ -738,12 +738,21 @@ html[data-splash] body { overflow: hidden; }
 #lerna-splash .sp-mark .mark { width: 100%; height: 100%; display: block; }
 #lerna-splash .mark-line { stroke: var(--mark); stroke-dasharray: 1; stroke-dashoffset: 1; animation: drawLine .7s cubic-bezier(.65, 0, .35, 1) .05s forwards; }
 #lerna-splash .mark-fill { opacity: 0; animation: fillIn .3s ease .6s forwards; }
-#lerna-splash .sp-word { position: absolute; left: 0; right: 0; bottom: calc(44px + env(safe-area-inset-bottom, 0px)); text-align: center; font-family: var(--font-head); font-weight: 800; font-size: 1.05rem; letter-spacing: .32em; text-indent: .32em; color: var(--brown); opacity: 0; animation: fillIn .4s ease .7s forwards; }
+#lerna-splash .sp-word { position: absolute; left: 0; right: 0; bottom: calc(52px + env(safe-area-inset-bottom, 0px)); text-align: center; font-family: var(--font-title); font-weight: 900; font-size: 1.85rem; letter-spacing: .06em; text-indent: .06em; line-height: 1; color: var(--brown); }
+#lerna-splash .sp-word i { font-style: normal; display: inline-block; opacity: 0; transform: translateY(14px); animation: spLetter .5s cubic-bezier(.2, .9, .3, 1.2) forwards; }
+#lerna-splash .sp-word i:nth-child(1) { animation-delay: .42s; }
+#lerna-splash .sp-word i:nth-child(2) { animation-delay: .49s; }
+#lerna-splash .sp-word i:nth-child(3) { animation-delay: .56s; }
+#lerna-splash .sp-word i:nth-child(5) { animation-delay: .63s; }
+#lerna-splash .sp-word .n { color: var(--orange); animation: spLetter .5s cubic-bezier(.2, .9, .3, 1.2) .78s forwards, spGlow .9s ease 1.1s; }
+@keyframes spLetter { to { opacity: 1; transform: none; } }
+@keyframes spGlow { 0%, 100% { text-shadow: 0 0 0 rgba(240, 122, 30, 0); } 40% { text-shadow: 0 0 18px rgba(240, 122, 30, .55); transform: scale(1.08); } }
 @keyframes drawLine { to { stroke-dashoffset: 0; } }
 @keyframes fillIn { to { opacity: 1; } }
 @keyframes spPop { 0% { transform: scale(1); } 45% { transform: scale(1.12); } 100% { transform: scale(1); } }
 [data-calm] #lerna-splash .mark-line { display: none; }
-[data-calm] #lerna-splash .mark-fill, [data-calm] #lerna-splash .sp-word { animation: fillIn .3s ease forwards; }
+[data-calm] #lerna-splash .mark-fill { animation: fillIn .3s ease forwards; }
+[data-calm] #lerna-splash .sp-word i { animation: fillIn .3s ease forwards; transform: none; }
 [data-calm] #lerna-splash .sp-mark { animation: none; }
 
 /* ==========================================================================
@@ -779,8 +788,24 @@ body.no-nav { padding-top: 0; }
 .ab-btn .ic { width: 22px; height: 22px; }
 .ab-btn:hover, .ab-btn:active { background: var(--nav-hover); }
 .ab-back { margin-left: -8px; }
-.ab-mark { width: 30px; height: 30px; display: inline-flex; flex-shrink: 0; margin-right: 4px; }
-.ab-mark .mark { width: 100%; height: 100%; }
+/* Accueil / Aujourd'hui : le nom LERNA discret + une ligne qui change toute seule */
+.ab-brand { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 3px; text-decoration: none; color: var(--brown); }
+.ab-word { font-family: var(--font-title); font-weight: 900; font-size: 1.08rem; letter-spacing: .06em; line-height: 1; }
+.ab-word i { font-style: normal; display: inline-block; animation: abLetter .45s cubic-bezier(.2, .9, .3, 1.2) both; }
+.ab-word i:nth-child(2) { animation-delay: .04s; } .ab-word i:nth-child(3) { animation-delay: .08s; }
+.ab-word i:nth-child(4) { animation-delay: .12s; } .ab-word i:nth-child(5) { animation-delay: .16s; }
+.ab-word .n { color: var(--orange); animation: abLetter .45s cubic-bezier(.2, .9, .3, 1.2) .12s both, abHop 8s ease-in-out 2s infinite; }
+@keyframes abLetter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes abHop { 0%, 90%, 100% { transform: none; text-shadow: none; } 94% { transform: translateY(-3px); text-shadow: 0 3px 10px rgba(240, 122, 30, .45); } }
+.ab-tick { display: block; height: 1.25em; overflow: hidden; font-size: .8rem; line-height: 1.25; }
+.ab-tick-in { display: block; font-weight: 600; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: transform .28s ease, opacity .28s ease; }
+.ab-tick-in.out { transform: translateY(-100%); opacity: 0; }
+.ab-tick-in.in { transform: translateY(100%); opacity: 0; transition: none; }
+.ab-brand + .appbar-title { display: none; }
+[data-calm] .ab-word i, [data-calm] .ab-word .n { animation: none; }
+/* Variante A (maquette) : seulement le nom, un peu plus grand */
+html[data-abtop="a"] .ab-tick { display: none; }
+html[data-abtop="a"] .ab-word { font-size: 1.42rem; }
 .ab-avatar {
   width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
   display: inline-flex; align-items: center; justify-content: center;
@@ -812,7 +837,8 @@ body .op-head { padding-top: 4px; }
   .appbar-in { padding: 0 32px; }
   .appbar-title { font-size: 1.6rem; }
   .appbar.is-detail .appbar-title { font-size: 1.15rem; }
-  .ab-mark { display: none; }
+  .ab-word, .ab-gear { display: none; }   /* sur ordinateur, le nom et Paramètres sont déjà dans la barre latérale */
+  .ab-tick { font-size: 1.02rem; height: 1.3em; }
   .rail {
     display: flex; flex-direction: column;
     position: fixed; top: 0; bottom: 0; left: 0; width: var(--rail-w); z-index: 110;
