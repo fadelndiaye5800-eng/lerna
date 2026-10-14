@@ -423,7 +423,7 @@ Lerna.addStrings({
       '<div class="s-title"><h1>' + esc(s.nom) + '</h1>' +
         '<div class="s-meta">' + typeBadge +
           '<span class="tag">' + Lerna.icon('pin', 'ic-sm') + esc(s.ville + (s.type === 'online' ? '' : ', ' + window.LERNA_COUNTRY_NAME(s.pays))) + '</span>' +
-          '<span class="tag">' + Lerna.icon('calendar', 'ic-sm') + t('ec.founded', { y: s.fondee }) + '</span>' +
+          (s.fondee ? '<span class="tag">' + Lerna.icon('calendar', 'ic-sm') + t('ec.founded', { y: s.fondee }) + '</span>' : '') +
           '<a class="tag" href="' + esc(s.site) + '" target="_blank" rel="noopener" style="text-decoration:none">' + Lerna.icon('globe', 'ic-sm') + esc(s.site.replace(/^https?:\/\/(www\.)?/, '')) + '</a>' +
         '</div></div>' +
       '<div class="tabs-wrap"><div class="tabs" role="tablist">' + TABS.map(function (x) {
