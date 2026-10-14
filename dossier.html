@@ -289,7 +289,7 @@ Lerna.addStrings({
   }
   function renderList() {
     var ids = Lerna.dossiers.ids().filter(function (x) { return window.LERNA_SCHOOL(x); });
-    var h = '<span class="eyebrow">' + t('nav.dossiers') + '</span><h1 style="font-size:clamp(1.7rem,5vw,2.4rem)">' + t('ds.listTitle') + '</h1><p class="muted" style="margin:8px 0 22px;max-width:620px">' + t('ds.listSub') + '</p>';
+    var h = '<p class="muted" style="margin:4px 0 18px;max-width:620px">' + t('ds.listSub') + '</p>';
     h += window.LERNA_COFFRE.card() + '<p class="small muted mentor-line">' + Lerna.icon('shield', 'ic-sm') + t('cf.mentor') + '</p>';
     if (!Lerna.isLogged()) h += '<div class="notice" style="margin-bottom:18px">' + Lerna.icon('info') + '<div>' + t('ds.loginHint') + ' <a class="orange bold" href="auth.html?redirect=dossier.html">' + t('ds.login') + '</a></div></div>';
     if (ids.length) {

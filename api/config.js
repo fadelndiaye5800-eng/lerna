@@ -6,7 +6,7 @@
    et le pays deviné par l'adresse internet (en-tête Vercel x-vercel-ip-country).
    (Une seule fonction pour tout cela : le plan Vercel gratuit limite le nombre de fonctions à 12.)
    Aucune clé secrète (Anthropic, service_role, webhook, OneSignal REST, Resend) n'est jamais renvoyée. */
-import { json, env, sbFetch, supabaseReady, paydunyaReady, MODEL } from './_lib.js';
+import { json, env, sbFetch, supabaseReady, payProvider, MODEL } from './_lib.js';
 
 /* Réglages modifiables depuis /admin (table app_config, lue avec la clé serveur) */
 async function appConfig() {
@@ -33,10 +33,10 @@ const cleanFx = (fx) => {
 /* Paiement en FCFA (Wave, Orange Money, Free Money, carte) : prix réglés depuis /admin (table app_config).
    Aucun numéro de téléphone n'est envoyé au navigateur : l'élève paie le marchand « LERNA ». */
 const cleanPay = (m) => {
-  if (!paydunyaReady() || !m || typeof m !== 'object' || m.actif !== true) return null;
+  if (!payProvider() || !m || typeof m !== 'object' || m.actif !== true) return null;
   const p = (x) => (Number.isInteger(x) && x > 0 && x < 10000000 ? x : null);
   const prixMois = p(m.prix_mois), prixAn = p(m.prix_an);
-  return prixMois && prixAn ? { prixMois, prixAn, methods: ['wave', 'orange_money', 'free_money', 'card'] } : null;
+  return prixMois && prixAn ? { prixMois, prixAn, methods: ['wave', 'orange_money', 'free_money', 'card'], provider: payProvider(), test: /^sk_test_/.test(env('SASPAY_SECRET_KEY')) && payProvider() === 'saspay' } : null;
 };
 
 export async function GET(request) {

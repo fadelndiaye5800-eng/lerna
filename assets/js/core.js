@@ -335,7 +335,9 @@
       'common.indicativeFx': 'Frais indicatifs convertis en {cur} (taux du {date}) — vérifie toujours sur le site officiel de l’établissement.',
       'greet.nightSub': 'Ton parcours peut attendre demain matin. Repose-toi bien.',
       'greet.earlySub': 'Les premières heures sont les meilleures pour avancer.',
-      'nav.settings': 'Paramètres', 'nav.dossiers': 'Mes dossiers', 'nav.help': 'Aide et contact'
+      'nav.settings': 'Paramètres', 'nav.dossiers': 'Mes dossiers', 'nav.help': 'Aide et contact',
+      'nav.back': 'Retour', 'nav.school': 'École', 'nav.legal': 'Règles et confidentialité', 'nav.admin': 'Administration',
+      'nav.streak': '{n} jour(s) d’affilée', 'nav.mainNav': 'Navigation principale'
     },
     en: {
       'nav.home': 'Home', 'nav.explore': 'Explore', 'nav.opps': 'Opportunities', 'nav.space': 'My Space',
@@ -365,7 +367,9 @@
       'common.indicativeFx': 'Indicative fees converted to {cur} (rate of {date}) — always check the institution’s official website.',
       'greet.nightSub': 'Your journey can wait until tomorrow morning. Get some rest.',
       'greet.earlySub': 'The first hours are the best to move forward.',
-      'nav.settings': 'Settings', 'nav.dossiers': 'My applications', 'nav.help': 'Help and contact'
+      'nav.settings': 'Settings', 'nav.dossiers': 'My applications', 'nav.help': 'Help and contact',
+      'nav.back': 'Back', 'nav.school': 'School', 'nav.legal': 'Rules and privacy', 'nav.admin': 'Admin',
+      'nav.streak': '{n}-day streak', 'nav.mainNav': 'Main navigation'
     }
   });
 
@@ -1162,70 +1166,99 @@
       '</div>';
   }
 
+  /* ------------------------------------------------------------------ */
+  /* Habillage « appli » : barre du haut avec le titre de l'écran (comme   */
+  /* Instagram, Wave, Duolingo), barre d'onglets en bas sur téléphone,     */
+  /* barre latérale fixe sur ordinateur. Pas de menu burger, pas de        */
+  /* sélecteur de langue ni de nom en gros : c'est une appli, pas un site. */
+  /* ------------------------------------------------------------------ */
+  var SCREENS = {
+    home: { tab: true }, today: { tab: true },
+    explorer: { tab: true, title: 'nav.explore' }, opportunites: { tab: true, title: 'nav.opps' },
+    espace: { tab: true, title: 'nav.me', gear: true }, resultats: { tab: true, title: 'nav.results' },
+    questionnaire: { back: 'index.html', title: 'nav.orientation' }, ecole: { back: 'explorer.html', title: 'nav.school' },
+    dossier: { back: 'espace.html', title: 'nav.dossiers' }, premium: { back: 'espace.html', title: 'nav.premium' },
+    parametres: { back: 'espace.html', title: 'nav.settings' }, contact: { back: 'parametres.html', title: 'nav.help' },
+    legal: { back: 'parametres.html', title: 'nav.legal' }, auth: { back: 'index.html', title: '' }, admin: { back: 'parametres.html', title: 'nav.admin' }
+  };
+  function screen() {
+    var p = page(), sc = SCREENS[p] || { back: Lerna.homeHref(), title: '' };
+    if (p === 'parametres' && !Auth.user) sc = { tab: true, title: 'nav.settings' };   // sans compte, « Moi » mène aux Paramètres
+    return sc;
+  }
+  function avatarBtn() {
+    var u = Auth.user, t = Lerna.t;
+    return u
+      ? '<a class="ab-avatar" href="espace.html" aria-label="' + t('nav.account') + '">' + Lerna.esc(Lerna.initials(u)) + '</a>'
+      : '<a class="ab-avatar guest" href="auth.html?mode=login" aria-label="' + t('nav.login') + '">' + Lerna.icon('user', 'ic-sm') + '</a>';
+  }
   function renderNav() {
     var host = doc.getElementById('lerna-nav');
     if (!host) return;
-    var p = page(), u = Auth.user, t = Lerna.t;
-    var link = function (href, key, pages) {
-      return '<li><a href="' + href + '" class="' + (pages.indexOf(p) !== -1 ? 'active' : '') + '">' + t(key) + '</a></li>';
-    };
-    var account = u
-      ? '<a class="nav-account has-user" href="espace.html" aria-label="' + t('nav.account') + '">' + Lerna.esc(Lerna.initials(u)) + '</a>'
-      : '<a class="nav-login" href="auth.html?mode=login">' + t('nav.login') + '</a><a class="nav-account guest" href="auth.html?mode=login" aria-label="' + t('nav.login') + '">' + Lerna.icon('user') + '</a>';
+    var p = page(), sc = screen(), t = Lerna.t, u = Auth.user;
+    var left = '', title = sc.title ? t(sc.title) : '', right = '';
+    if (sc.back) {
+      left = '<button type="button" class="ab-btn ab-back" data-back="' + sc.back + '" aria-label="' + t('nav.back') + '">' + Lerna.icon('arrowL') + '</button>';
+    } else if (p === 'home' || p === 'today') {
+      left = '<a class="ab-mark" href="' + Lerna.homeHref() + '" aria-label="LERNA">' + Lerna.mark('', 'LERNA') + '</a>';
+    }
+    if (p === 'today' || (p === 'home' && hasProfile())) {
+      var st = Lerna.daily && Lerna.daily.streak ? Lerna.daily.streak() : { days: 0 };
+      right += '<a class="ab-streak" href="aujourdhui.html" aria-label="' + Lerna.esc(t('nav.streak', { n: st.days })) + '">' + Lerna.icon('flame', 'ic-sm') + '<span>' + st.days + '</span></a>';
+    }
+    if (sc.gear) right += '<a class="ab-btn" href="parametres.html" aria-label="' + t('nav.settings') + '">' + Lerna.icon('settings') + '</a>';
+    if (p === 'home' && !u) right += '<a class="ab-login" href="auth.html?mode=login">' + t('nav.login') + '</a>';
+    else if (p !== 'espace' && p !== 'auth' && sc.tab) right += avatarBtn();
     host.innerHTML =
-      '<nav class="nav" aria-label="Navigation principale"><div class="nav-inner">' +
-        '<button class="nav-burger" type="button" aria-label="' + t('nav.menu') + '" aria-expanded="false" aria-controls="lerna-side">' + Lerna.icon('menu', 'ic-lg') + '</button>' +
-        '<a class="logo" href="' + Lerna.homeHref() + '" aria-label="LERNA — ' + t('nav.home') + '">' + Lerna.logoHTML() + '</a>' +
-        '<ul class="nav-links">' +
-          (hasProfile() ? link('aujourdhui.html', 'nav.today', ['today', 'home']) : link('index.html', 'nav.home', ['home'])) +
-          link('explorer.html', 'nav.explore', ['explorer', 'ecole']) +
-          link('opportunites.html', 'nav.opps', ['opportunites']) +
-          link('espace.html', 'nav.space', ['espace']) +
-        '</ul>' +
-        '<div class="nav-right">' +
-          '<a class="btn btn-primary btn-sm nav-cta" href="questionnaire.html">' + t('nav.start') + '</a>' +
-          langSwitch() + account +
-        '</div>' +
-      '</div></nav>';
+      '<header class="appbar' + (sc.back ? ' is-detail' : '') + '"><div class="appbar-in">' + left +
+        '<div class="appbar-title" role="heading" aria-level="1">' + Lerna.esc(title) + '</div>' +
+        '<div class="appbar-actions">' + right + '</div>' +
+      '</div></header>';
   }
+  /* Retour : la page d'avant si on vient de LERNA, sinon l'écran parent */
+  doc.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-back]'); if (!b) return;
+    e.preventDefault();
+    var fromHere = doc.referrer && doc.referrer.indexOf(location.origin) === 0 && history.length > 1;
+    if (fromHere) history.back(); else location.href = b.getAttribute('data-back');
+  });
+  /* La barre du haut prend un fond et un trait dès qu'on fait défiler */
+  var abTick = false;
+  window.addEventListener('scroll', function () {
+    if (abTick) return; abTick = true;
+    requestAnimationFrame(function () { abTick = false; var bar = doc.querySelector('.appbar'); if (bar) bar.classList.toggle('scrolled', window.scrollY > 4); });
+  }, { passive: true });
 
+  /* Barre latérale fixe (ordinateur et tablette en largeur) */
   function renderSide() {
     var host = doc.getElementById('lerna-side-host');
     if (!host) { host = doc.createElement('div'); host.id = 'lerna-side-host'; doc.body.appendChild(host); }
+    if (doc.body.classList.contains('no-nav') || !doc.getElementById('lerna-nav')) { host.innerHTML = ''; doc.body.classList.remove('has-rail'); return; }
+    doc.body.classList.add('has-rail');
     var p = page(), u = Auth.user, t = Lerna.t;
     var a = function (href, icon, key, pages) {
-      return '<a href="' + href + '" class="' + (pages && pages.indexOf(p) !== -1 ? 'active' : '') + '">' + Lerna.icon(icon) + '<span>' + t(key) + '</span></a>';
+      var on = pages && pages.indexOf(p) !== -1;
+      return '<a href="' + href + '" class="' + (on ? 'active' : '') + '"' + (on ? ' aria-current="page"' : '') + '>' + Lerna.icon(icon) + '<span>' + t(key) + '</span></a>';
     };
     var userBlock = u
-      ? '<a class="side-user" href="espace.html"><span class="avatar">' + Lerna.esc(Lerna.initials(u)) + '</span><span><strong>' + Lerna.esc(Lerna.displayName(u) || u.email) + '</strong><br><span class="xsmall muted">' + (Lerna.isPremium() && Lerna.config.premiumEnabled ? t('nav.premiumBadge') : t('nav.free')) + '</span></span></a>'
-      : '<div class="row" style="margin-bottom:16px"><a class="btn btn-brown btn-sm" style="flex:1" href="auth.html?mode=login">' + t('nav.login') + '</a><a class="btn btn-primary btn-sm" style="flex:1;padding:9px 16px" href="auth.html?mode=signup">' + t('nav.signup') + '</a></div>';
+      ? '<a class="rail-user" href="espace.html"><span class="avatar">' + Lerna.esc(Lerna.initials(u)) + '</span><span class="rail-user-txt"><strong>' + Lerna.esc(Lerna.displayName(u) || u.email) + '</strong><span>' + (Lerna.isPaidPremium() || u.role === 'admin' ? t('nav.premiumBadge') : t('nav.free')) + '</span></span></a>'
+      : '<div class="rail-auth"><a class="btn btn-primary btn-sm" href="auth.html?mode=signup">' + t('nav.signup') + '</a><a class="btn btn-ghost btn-sm" href="auth.html?mode=login">' + t('nav.login') + '</a></div>';
     host.innerHTML =
-      '<div class="side-overlay" data-side-close></div>' +
-      '<aside class="side-panel" id="lerna-side" aria-hidden="true">' +
-        '<div class="side-head"><a class="logo" href="' + Lerna.homeHref() + '">' + Lerna.logoHTML() + '</a>' +
-        '<button class="side-close" type="button" data-side-close aria-label="' + t('nav.close') + '">' + Lerna.icon('x', 'ic-lg') + '</button></div>' +
-        userBlock +
-        '<nav class="side-links">' +
-          (hasProfile() ? a('aujourdhui.html', 'flame', 'nav.today', ['today']) : '') +
-          a(hasProfile() ? 'index.html?decouvrir=1' : 'index.html', 'home', hasProfile() ? 'nav.discover' : 'nav.home', ['home']) +
-          a('questionnaire.html', 'compass', 'nav.questionnaire', ['questionnaire']) +
-          (hasResults() ? a('resultats.html', 'target', 'nav.results', ['resultats']) : '') +
+      '<aside class="rail" aria-label="' + t('nav.mainNav') + '">' +
+        '<a class="logo rail-logo" href="' + Lerna.homeHref() + '">' + Lerna.logoHTML() + '</a>' +
+        '<nav class="rail-links">' +
+          (hasProfile() ? a('aujourdhui.html', 'flame', 'nav.today', ['today']) : a('index.html', 'home', 'nav.home', ['home'])) +
+          a(hasResults() ? 'resultats.html' : 'questionnaire.html', 'compass', 'nav.orientation', ['questionnaire', 'resultats', 'loading']) +
           a('explorer.html', 'school', 'nav.explore', ['explorer', 'ecole']) +
           a('opportunites.html', 'star', 'nav.opps', ['opportunites']) +
-          a('espace.html', 'user', 'nav.space', ['espace']) +
           a('dossier.html', 'folder', 'nav.dossiers', ['dossier']) +
+          (u ? a('espace.html', 'user', 'nav.me', ['espace']) : '') +
           a('premium.html', 'gem', 'nav.premium', ['premium']) +
-          a('parametres.html', 'settings', 'nav.settings', ['parametres']) +
         '</nav>' +
-        '<div class="side-bottom">' +
-          '<div class="side-sep"></div>' +
-          '<div class="side-row"><span>' + t('nav.language') + '</span>' + langSwitch() + '</div>' +
-          '<div class="side-row"><span>' + t('nav.sound') + '</span><button type="button" class="chip" data-sound-toggle>' + Lerna.icon(Sound.enabled ? 'volume' : 'volumeX', 'ic-sm') + ' ' + t(Sound.enabled ? 'common.on' : 'common.off') + '</button></div>' +
-          '<nav class="side-links">' +
-            '<a href="contact.html"' + (p === 'contact' ? ' class="active"' : '') + '>' + Lerna.icon('help') + '<span>' + t('nav.help') + '</span></a>' +
-            (u ? '<button type="button" data-logout>' + Lerna.icon('logout') + '<span>' + t('nav.logout') + '</span></button>' : '') +
-          '</nav>' +
-        '</div>' +
+        '<div class="rail-bottom"><nav class="rail-links">' +
+          a('parametres.html', 'settings', 'nav.settings', ['parametres', 'legal', 'admin']) +
+          a('contact.html', 'help', 'nav.help', ['contact']) +
+        '</nav>' + userBlock + '</div>' +
       '</aside>';
   }
 
@@ -1245,7 +1278,7 @@
         item('explorer.html', 'school', 'nav.explore', ['explorer', 'ecole']) +
         '<li><a href="' + Lerna.homeHref() + '" class="center' + (p === 'home' || p === 'today' ? ' active' : '') + '" aria-label="LERNA — ' + t(hasProfile() ? 'nav.today' : 'nav.home') + '"><span class="center-btn">' + Lerna.seal() + '</span></a></li>' +
         item('opportunites.html', 'star', 'nav.opps', ['opportunites']) +
-        item(Auth.user ? 'espace.html' : 'auth.html?mode=login', 'user', 'nav.me', ['espace', 'auth', 'premium', 'parametres', 'contact', 'dossier']) +
+        item(Auth.user ? 'espace.html' : 'parametres.html', 'user', 'nav.me', ['espace', 'auth', 'premium', 'parametres', 'contact', 'dossier', 'legal']) +
       '</ul></nav>';
     /* Bouton de la page où l'on est déjà : remonter en haut (comme Instagram ou TikTok) au lieu de rien faire */
     if (!host.__bound) {

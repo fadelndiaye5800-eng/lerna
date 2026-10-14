@@ -92,6 +92,10 @@
   .acc-row:last-child { border-bottom: none; }
   .danger { color: var(--orange-deep); border-color: rgba(184, 74, 6, .35); }
   .danger:hover { background: var(--orange-deep); color: var(--bg); border-color: var(--orange-deep); }
+  .me-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 14px 0 6px; }
+  .me-grid a { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 14px 6px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--cream-dark); text-decoration: none; color: var(--brown); font-weight: 600; font-size: .78rem; text-align: center; line-height: 1.2; }
+  .me-grid a .ic { width: 22px; height: 22px; color: var(--orange); }
+  .me-grid a:active { transform: scale(.97); }
 </style>
 </head>
 <body data-page="espace">
@@ -572,6 +576,11 @@ Lerna.addStrings({
         '<div class="complete"><div class="complete-top"><span>' + t('sp.complete') + '</span><strong>' + c + '%</strong></div><div class="bar"><span style="width:' + c + '%"></span></div></div>' +
         (Lerna.auth.mode === 'supabase' && user.verified === false ? '<div class="notice" style="margin-top:14px">' + Lerna.icon('mail') + '<div class="small">' + t('sp.verifyMail') + '</div></div>' : '') +
       '</section>' +
+      /* Raccourcis du compte, comme l'onglet « Moi » des grandes applis */
+      '<nav class="me-grid" aria-label="' + esc(t('nav.account')) + '">' +
+        [['dossier.html', 'folder', 'nav.dossiers'], ['premium.html', 'gem', 'nav.premium'], ['parametres.html', 'settings', 'nav.settings'], ['contact.html', 'help', 'nav.help']].map(function (x) {
+          return '<a href="' + x[0] + '">' + Lerna.icon(x[1]) + '<span>' + esc(t(x[2])) + '</span></a>';
+        }).join('') + '</nav>' +
       '<div class="tabs-wrap"><div class="tabs" role="tablist">' + TABS.map(function (x) { return '<button type="button" class="tab" role="tab" data-tab="' + x[0] + '">' + t(x[1]) + '</button>'; }).join('') + '</div></div>' +
       '<div class="tab-panel active" id="panel" role="tabpanel"></div>';
     renderPanel();

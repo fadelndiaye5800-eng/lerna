@@ -101,6 +101,15 @@ export async function getUser(request) {
 /* Paiement FCFA (Wave, Orange Money, Free Money, carte) branché quand les 3 clés PayDunya sont sur Vercel */
 export const paydunyaReady = () => !!(env('PAYDUNYA_MASTER_KEY') && env('PAYDUNYA_PRIVATE_KEY') && env('PAYDUNYA_TOKEN'));
 
+export const saspayReady = () => /^sk_(test|live)_/.test(env('SASPAY_SECRET_KEY'));
+/* Service de paiement utilisé : PAY_PROVIDER s'il est réglé (et branché), sinon SasPay, sinon PayDunya, sinon aucun */
+export const payProvider = () => {
+  const want = env('PAY_PROVIDER').toLowerCase();
+  if (want === 'saspay' && saspayReady()) return 'saspay';
+  if (want === 'paydunya' && paydunyaReady()) return 'paydunya';
+  return saspayReady() ? 'saspay' : paydunyaReady() ? 'paydunya' : '';
+};
+
 /* Premium pas encore lancé : tout est ouvert (PREMIUM_ENABLED=false) */
 export const premiumOpen = () => env('PREMIUM_ENABLED', 'true') === 'false';
 

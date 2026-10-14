@@ -745,3 +745,109 @@ html[data-splash] body { overflow: hidden; }
 [data-calm] #lerna-splash .mark-line { display: none; }
 [data-calm] #lerna-splash .mark-fill, [data-calm] #lerna-splash .sp-word { animation: fillIn .3s ease forwards; }
 [data-calm] #lerna-splash .sp-mark { animation: none; }
+
+/* ==========================================================================
+   Habillage « appli » (v8.4) : barre du haut à titre, barre latérale sur
+   ordinateur, onglets en bas sur téléphone. Remplace l'ancienne barre de site.
+   ========================================================================== */
+:root { --nav-h: 58px; --rail-w: 252px; --safe-t: env(safe-area-inset-top, 0px); }
+body { padding-top: calc(var(--nav-h) + var(--safe-t)); -webkit-tap-highlight-color: transparent; }
+body.no-nav { padding-top: 0; }
+.nav, .nav-burger, .side-overlay, .side-panel { display: none !important; }
+
+.appbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding-top: var(--safe-t);
+  background: var(--bg);
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s, background-color .2s;
+}
+.appbar.scrolled { border-bottom-color: var(--nav-line); background: var(--nav-bg); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
+.appbar-in { height: var(--nav-h); display: flex; align-items: center; gap: 6px; padding: 0 12px 0 16px; }
+.appbar-title {
+  flex: 1; min-width: 0;
+  font-family: var(--font-body); font-weight: 800; font-size: 1.36rem; letter-spacing: -0.015em; line-height: 1.1;
+  color: var(--brown); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.appbar.is-detail .appbar-title { font-size: 1.06rem; font-weight: 700; letter-spacing: -0.005em; }
+.appbar-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+.ab-btn {
+  width: 40px; height: 40px; border-radius: 50%; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  color: var(--brown); text-decoration: none; transition: background .15s;
+}
+.ab-btn .ic { width: 22px; height: 22px; }
+.ab-btn:hover, .ab-btn:active { background: var(--nav-hover); }
+.ab-back { margin-left: -8px; }
+.ab-mark { width: 30px; height: 30px; display: inline-flex; flex-shrink: 0; margin-right: 4px; }
+.ab-mark .mark { width: 100%; height: 100%; }
+.ab-avatar {
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--orange); color: #fff; font-weight: 700; font-size: .78rem; letter-spacing: .02em; text-decoration: none;
+}
+.ab-avatar.guest { background: var(--cream-dark); color: var(--brown); }
+.ab-avatar.guest .ic { width: 18px; height: 18px; }
+.ab-streak {
+  display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 11px 0 9px; border-radius: 99px;
+  background: var(--orange-soft); color: var(--orange-deep); font-weight: 800; font-size: .9rem; text-decoration: none;
+}
+.ab-streak .ic { width: 17px; height: 17px; color: var(--orange); }
+.ab-login { font-weight: 700; font-size: .92rem; color: var(--orange); text-decoration: none; padding: 8px 10px; border-radius: 99px; }
+.ab-login:hover { background: var(--nav-hover); }
+
+/* Les titres déjà dans la barre du haut ne sont pas répétés dans la page */
+body .ex-head > .container > .eyebrow, body .ex-head > .container > h1, body .ex-head > .container > p,
+body .op-head > .container > .eyebrow, body .op-head > .container > h1, body .op-head > .container > p,
+body .ct-head, body .st-head > h1, body .lg-back, body .lg-head { display: none; }
+body .ex-head { padding-top: 8px; }
+body .op-head { padding-top: 4px; }
+
+/* Barre latérale (ordinateur) */
+.rail { display: none; }
+@media (min-width: 960px) {
+  :root { --nav-h: 66px; }
+  body.has-rail { padding-left: var(--rail-w); }
+  body.has-rail .appbar { left: var(--rail-w); }
+  .appbar-in { padding: 0 32px; }
+  .appbar-title { font-size: 1.6rem; }
+  .appbar.is-detail .appbar-title { font-size: 1.15rem; }
+  .ab-mark { display: none; }
+  .rail {
+    display: flex; flex-direction: column;
+    position: fixed; top: 0; bottom: 0; left: 0; width: var(--rail-w); z-index: 110;
+    padding: 20px 14px 18px; background: var(--bg); border-right: 1px solid var(--nav-line); overflow-y: auto;
+  }
+  .rail-logo { display: inline-flex; padding: 6px 12px 22px; font-size: 1.42rem; }
+  .rail-links { display: flex; flex-direction: column; gap: 2px; }
+  .rail-links a {
+    display: flex; align-items: center; gap: 14px; padding: 11px 12px; border-radius: 12px;
+    text-decoration: none; font-weight: 600; font-size: .95rem; color: var(--brown); transition: background .15s;
+  }
+  .rail-links a .ic { width: 22px; height: 22px; color: var(--muted); }
+  .rail-links a:hover { background: var(--nav-hover); }
+  .rail-links a.active { background: var(--orange-soft); color: var(--orange-deep); }
+  .rail-links a.active .ic { color: var(--orange); }
+  .rail-bottom { margin-top: auto; padding-top: 14px; display: flex; flex-direction: column; gap: 12px; }
+  .rail-user { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 14px; text-decoration: none; color: var(--brown); }
+  .rail-user:hover { background: var(--nav-hover); }
+  .rail-user .avatar { width: 38px; height: 38px; font-size: .9rem; flex-shrink: 0; }
+  .rail-user-txt { min-width: 0; display: flex; flex-direction: column; }
+  .rail-user-txt strong { font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .rail-user-txt span { font-size: .78rem; color: var(--muted); }
+  .rail-auth { display: grid; gap: 8px; padding: 0 4px; }
+  .rail-auth .btn { width: 100%; }
+}
+/* Onglets en bas : téléphone ET tablette (jusqu'à 959 px) */
+@media (max-width: 959px) {
+  body.has-bottom-nav { padding-bottom: calc(var(--bottom-h) + var(--safe-b)); }
+  body.has-bottom-nav .bottom-nav { display: block; }
+  body.has-bottom-nav .toast { bottom: calc(var(--bottom-h) + var(--safe-b) + 14px); }
+}
+@media print { .appbar, .rail { display: none !important; } body { padding: 0 !important; } }
+body[data-page="ecole"] a.back { display: none; }
+@media (max-width: 959px) { body[data-page="parametres"] .st-nav { display: none; } }
+body[data-page="parametres"] .st-wrap { padding-top: 8px; }
+@media (min-width: 960px) { .ab-login, .ab-avatar { display: none; } }
+@media (min-width: 960px) { body.has-rail[data-page="questionnaire"] .qbar, body.has-rail[data-page="questionnaire"] .qnav { left: var(--rail-w); } }
+body[data-page="questionnaire"] .qbar { top: calc(var(--nav-h) + var(--safe-t)); }

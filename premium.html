@@ -216,6 +216,7 @@ Lerna.addStrings({
     'mm.opening': 'Ouverture de {w}…', 'mm.openHint': 'Confirme le paiement dans ton application, puis reviens ici.',
     'mm.openBtn': 'Ouvrir {w}', 'mm.qrHint': 'Sur ordinateur : scanne le code avec ton application Orange Money ou Max it.', 'mm.qrBtn': 'Afficher le code à scanner',
     'mm.ussd': 'Compose ce code sur le téléphone {n} et confirme le paiement :',
+    'mm.push': 'Une demande de paiement {w} arrive sur ton téléphone. Confirme-la avec ton code secret.', 'mm.test': 'Mode test : aucun vrai argent n’est débité.',
     'mm.waiting': 'En attente de la confirmation…', 'mm.close': 'Fermer',
     'mm.okTitle': 'Bienvenue dans Premium !', 'mm.okText': 'Ton paiement est confirmé. Toutes les fonctions Premium sont ouvertes.',
     'mm.cancelTitle': 'Paiement non abouti', 'mm.cancelText': 'Rien n’a été débité. Tu peux réessayer quand tu veux.',
@@ -271,6 +272,7 @@ Lerna.addStrings({
     'mm.opening': 'Opening {w}…', 'mm.openHint': 'Confirm the payment in your app, then come back here.',
     'mm.openBtn': 'Open {w}', 'mm.qrHint': 'On a computer: scan the code with your Orange Money or Max it app.', 'mm.qrBtn': 'Show the code to scan',
     'mm.ussd': 'Dial this code on phone {n} and confirm the payment:',
+    'mm.push': 'A {w} payment request is arriving on your phone. Confirm it with your PIN.', 'mm.test': 'Test mode: no real money is charged.',
     'mm.waiting': 'Waiting for confirmation…', 'mm.close': 'Close',
     'mm.okTitle': 'Welcome to Premium!', 'mm.okText': 'Your payment is confirmed. Every Premium feature is now open.',
     'mm.cancelTitle': 'Payment not completed', 'mm.cancelText': 'Nothing was charged. You can try again anytime.',
@@ -417,7 +419,7 @@ Lerna.addStrings({
       '<p class="mm-err" id="mmErr" role="alert"></p>' +
       '<button type="submit" class="btn btn-primary btn-block btn-lg" id="mmGo"></button>' +
       '<p class="mm-secure">' + IC.lock + '<span>' + esc(t('mm.secure')) + '</span></p>' +
-      '<p class="mm-terms">' + t('mm.terms') + '</p></form>',
+      '<p class="mm-terms">' + t('mm.terms') + '</p>' + (m.test ? '<p class="mm-terms" style="color:var(--orange-deep);font-weight:700">' + esc(t('mm.test')) + '</p>' : '') + '</form>',
       function (box) {
         function paint() {
           Lerna.qsa('[data-f]', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-f') === f); });
@@ -454,6 +456,12 @@ Lerna.addStrings({
             store.set('lerna_pay', { token: d.token, t: Date.now() });
             close();
             var w = wayName(way);
+            if (d.push) {
+              /* Paiement envoyé directement sur le téléphone : l'élève confirme dans son appli ou par code */
+              waitModal('<div class="mm-wait"><div class="mm-spin"></div><h3>' + esc(t('mm.waiting')) + '</h3><p>' + esc(t('mm.push', { w: w })) + '</p>' +
+                (d.message ? '<p class="small" style="margin-top:8px">' + esc(d.message) + '</p>' : '') + '<p class="small mm-status"></p></div>', d.token);
+              return;
+            }
             if (d.ussd) {
               waitModal('<div class="mm-wait"><div class="mm-spin"></div><h3>' + esc(t('mm.waiting')) + '</h3><p>' + esc(t('mm.ussd', { n: phone.replace(/^(\d{2})(\d{3})(\d{2})(\d{2})$/, '$1 $2 $3 $4') })) + '</p>' +
                 '<div class="big">' + esc(d.ussd) + '</div><p class="small mm-status"></p></div>', d.token);
