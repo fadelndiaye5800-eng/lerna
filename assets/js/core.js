@@ -336,6 +336,7 @@
       'greet.nightSub': 'Ton parcours peut attendre demain matin. Repose-toi bien.',
       'greet.earlySub': 'Les premières heures sont les meilleures pour avancer.',
       'nav.settings': 'Paramètres', 'nav.dossiers': 'Mes dossiers', 'nav.help': 'Aide et contact',
+      'mn.title': 'Menu', 'mn.go': 'Aller à', 'mn.settings': 'Réglages', 'mn.help': 'Aide et infos', 'mn.theme': 'Thème', 'mn.light': 'Clair', 'mn.dark': 'Sombre', 'mn.guest': 'Crée ton compte pour garder ton parcours sur tous tes appareils.', 'mn.tagline': 'Ton orientation, pas à pas',
       'ab.streak': '{n} jours de suite', 'ab.streak1': '1 jour de suite', 'ab.streak0': 'Lance ta série aujourd’hui', 'ab.results': 'Tes résultats t’attendent', 'ab.start': 'Commence ton orientation', 'ab.g2': 'Ton orientation, pas à pas', 'ab.g3': 'Écoles, bourses et emplois', 'ab.g4': 'Gratuit pour commencer', 'ab.mission': 'Ta mission du jour t’attend',
       'nav.back': 'Retour', 'nav.school': 'École', 'nav.legal': 'Règles et confidentialité', 'nav.admin': 'Administration',
       'nav.streak': '{n} jour(s) d’affilée', 'nav.mainNav': 'Navigation principale'
@@ -369,6 +370,7 @@
       'greet.nightSub': 'Your journey can wait until tomorrow morning. Get some rest.',
       'greet.earlySub': 'The first hours are the best to move forward.',
       'nav.settings': 'Settings', 'nav.dossiers': 'My applications', 'nav.help': 'Help and contact',
+      'mn.title': 'Menu', 'mn.go': 'Go to', 'mn.settings': 'Settings', 'mn.help': 'Help and info', 'mn.theme': 'Theme', 'mn.light': 'Light', 'mn.dark': 'Dark', 'mn.guest': 'Create your account to keep your path on all your devices.', 'mn.tagline': 'Your path, step by step',
       'ab.streak': '{n} days in a row', 'ab.streak1': '1 day in a row', 'ab.streak0': 'Start your streak today', 'ab.results': 'Your results are waiting', 'ab.start': 'Start your orientation', 'ab.g2': 'Your path, step by step', 'ab.g3': 'Schools, scholarships and jobs', 'ab.g4': 'Free to start', 'ab.mission': 'Your daily mission is waiting',
       'nav.back': 'Back', 'nav.school': 'School', 'nav.legal': 'Rules and privacy', 'nav.admin': 'Admin',
       'nav.streak': '{n}-day streak', 'nav.mainNav': 'Main navigation'
@@ -1206,8 +1208,8 @@
       right += '<a class="ab-streak" href="aujourdhui.html" aria-label="' + Lerna.esc(t('nav.streak', { n: st.days })) + '">' + Lerna.icon('flame', 'ic-sm') + '<span>' + st.days + '</span></a>';
     }
     if (p === 'home' && !u) right += '<a class="ab-login" href="auth.html?mode=login">' + t('nav.login') + '</a>';
-    /* Paramètres en un geste depuis chaque onglet (à la place de l'ancien logo / avatar) */
-    if ((sc.tab || sc.gear) && p !== 'parametres') right += '<a class="ab-btn ab-gear" href="parametres.html" aria-label="' + t('nav.settings') + '" title="' + t('nav.settings') + '">' + Lerna.icon('settings') + '</a>';
+    /* Les 3 barres : tout LERNA dans un seul menu (compte, pages, Paramètres, langue, thème, aide) */
+    if (p !== 'auth' && p !== 'questionnaire') right += '<button type="button" class="ab-btn ab-menu" aria-label="' + t('nav.menu') + '" aria-expanded="false" aria-controls="lerna-menu">' + Lerna.icon('menu') + '</button>';
     host.innerHTML =
       '<header class="appbar' + (sc.back ? ' is-detail' : '') + '"><div class="appbar-in">' + left +
         '<div class="appbar-title" role="heading" aria-level="1">' + Lerna.esc(title) + '</div>' +
@@ -1288,6 +1290,65 @@
       '</aside>';
   }
 
+  /* Menu « 3 barres » : un seul bloc avec le compte, toutes les pages, les réglages rapides et l'aide */
+  function renderMenu() {
+    var host = doc.getElementById('lerna-menu-host');
+    if (!host) { host = doc.createElement('div'); host.id = 'lerna-menu-host'; doc.body.appendChild(host); }
+    var p = page(), u = Auth.user, t = Lerna.t, wasOpen = host.querySelector('.mn.open');
+    var a = function (href, icon, key, pages) {
+      var on = pages && pages.indexOf(p) !== -1;
+      return '<a href="' + href + '" class="mn-link' + (on ? ' active' : '') + '"' + (on ? ' aria-current="page"' : '') + '>' + Lerna.icon(icon) + '<span>' + t(key) + '</span>' + Lerna.icon('arrowR', 'ic-sm mn-go') + '</a>';
+    };
+    var dark = Prefs.theme() === 'dark';
+    var acct = u
+      ? '<a class="mn-acct" href="espace.html"><span class="avatar">' + Lerna.esc(Lerna.initials(u)) + '</span><span class="mn-acct-txt"><strong>' + Lerna.esc(Lerna.displayName(u) || t('nav.account')) + '</strong><span>' + Lerna.esc(u.email || '') + '</span></span>' +
+        '<span class="mn-badge' + (Lerna.isPaidPremium() || u.role === 'admin' ? ' prem' : '') + '">' + t(Lerna.isPaidPremium() || u.role === 'admin' ? 'nav.premiumBadge' : 'nav.free') + '</span></a>'
+      : '<div class="mn-guest"><p>' + t('mn.guest') + '</p><div class="mn-guest-btns"><a class="btn btn-primary btn-sm" href="auth.html?mode=signup">' + t('nav.signup') + '</a><a class="btn btn-ghost btn-sm" href="auth.html?mode=login">' + t('nav.login') + '</a></div></div>';
+    host.innerHTML =
+      '<div class="mn-overlay" data-menu-close></div>' +
+      '<aside class="mn" id="lerna-menu" role="dialog" aria-modal="true" aria-label="' + t('mn.title') + '" aria-hidden="true">' +
+        '<div class="mn-head"><span class="logo mn-logo">' + Lerna.logoHTML() + '</span>' +
+          '<button type="button" class="ab-btn" data-menu-close aria-label="' + t('nav.close') + '">' + Lerna.icon('x') + '</button></div>' +
+        '<div class="mn-body">' + acct +
+          '<p class="mn-label">' + t('mn.go') + '</p><nav class="mn-group">' +
+            (hasProfile() ? a('aujourdhui.html', 'flame', 'nav.today', ['today']) : a('index.html', 'home', 'nav.home', ['home'])) +
+            a(hasResults() ? 'resultats.html' : 'questionnaire.html', 'compass', hasResults() ? 'nav.results' : 'nav.orientation', ['questionnaire', 'resultats', 'loading']) +
+            a('explorer.html', 'school', 'nav.explore', ['explorer', 'ecole']) +
+            a('opportunites.html', 'star', 'nav.opps', ['opportunites']) +
+            a('dossier.html', 'folder', 'nav.dossiers', ['dossier']) +
+            a('premium.html', 'gem', 'nav.premium', ['premium']) +
+          '</nav>' +
+          '<p class="mn-label">' + t('mn.settings') + '</p><div class="mn-group">' +
+            a('parametres.html', 'settings', 'nav.settings', ['parametres']) +
+            '<div class="mn-row">' + Lerna.icon('globe') + '<span>' + t('nav.language') + '</span>' + langSwitch('mn-lang') + '</div>' +
+            '<button type="button" class="mn-row" data-theme-toggle>' + Lerna.icon(dark ? 'moon' : 'sun') + '<span>' + t('mn.theme') + '</span><span class="mn-val">' + t(dark ? 'mn.dark' : 'mn.light') + '</span></button>' +
+            '<button type="button" class="mn-row" data-sound-toggle>' + Lerna.icon(Sound.enabled ? 'volume' : 'volumeX') + '<span>' + t('nav.sound') + '</span><span class="mn-val">' + t(Sound.enabled ? 'common.on' : 'common.off') + '</span></button>' +
+          '</div>' +
+          '<p class="mn-label">' + t('mn.help') + '</p><nav class="mn-group">' +
+            a('contact.html', 'help', 'nav.help', ['contact']) +
+            a('index.html?decouvrir=1', 'info', 'nav.discover', []) +
+            a('legal.html', 'shield', 'nav.legal', ['legal']) +
+            (u && u.role === 'admin' ? a('admin.html', 'book', 'nav.admin', ['admin']) : '') +
+          '</nav>' +
+          (u ? '<button type="button" class="mn-logout" data-logout>' + Lerna.icon('logout') + '<span>' + t('nav.logout') + '</span></button>' : '') +
+          '<p class="mn-foot"><span class="logo-txt">LER<span class="n">N</span>A</span> · ' + t('mn.tagline') + '</p>' +
+        '</div>' +
+      '</aside>';
+    if (wasOpen) openMenu(true, true);
+  }
+  var menuOpener = null;
+  function openMenu(open, quiet) {
+    var m = doc.getElementById('lerna-menu'), ov = doc.querySelector('.mn-overlay');
+    if (!m) return;
+    m.classList.toggle('open', open); ov.classList.toggle('open', open);
+    m.setAttribute('aria-hidden', String(!open));
+    Array.prototype.forEach.call(doc.querySelectorAll('.ab-menu'), function (b) { b.setAttribute('aria-expanded', String(open)); });
+    doc.documentElement.classList.toggle('mn-lock', open);
+    if (open && !quiet) { menuOpener = doc.activeElement; var f = m.querySelector('[data-menu-close]'); if (f) setTimeout(function () { f.focus(); }, 60); }
+    if (!open && menuOpener && menuOpener.focus) { menuOpener.focus(); menuOpener = null; }
+  }
+  Lerna.openMenu = openMenu;
+
   function renderBottom() {
     var host = doc.getElementById('lerna-bottom-host');
     if (doc.body.getAttribute('data-bottomnav') === 'off') { doc.body.classList.remove('has-bottom-nav'); if (host) host.innerHTML = ''; return; }
@@ -1348,20 +1409,11 @@
 
   function renderChrome() {
     if (!doc.body) return;
-    renderNav(); renderSide(); renderBottom(); renderFooter();
+    renderNav(); renderSide(); renderMenu(); renderBottom(); renderFooter();
     splash();
     Array.prototype.forEach.call(doc.querySelectorAll('[data-mark]'), function (el) { el.innerHTML = Lerna.mark('mark-think'); });
   }
   Lerna.renderChrome = renderChrome;
-
-  function openSide(open) {
-    var panel = doc.getElementById('lerna-side'), ov = doc.querySelector('.side-overlay'), burger = doc.querySelector('.nav-burger');
-    if (!panel) return;
-    panel.classList.toggle('open', open); ov.classList.toggle('open', open);
-    panel.setAttribute('aria-hidden', String(!open));
-    if (burger) burger.setAttribute('aria-expanded', String(open));
-    doc.body.style.overflow = open ? 'hidden' : '';
-  }
 
   /* Délégation d'événements globale */
   doc.addEventListener('click', function (e) {
@@ -1369,14 +1421,16 @@
     var a = e.target.closest('a[href]');
     if (a && !a.target) Lerna.rememberQuery(a.getAttribute('href'));
     if ((el = e.target.closest('[data-lang]'))) { e.preventDefault(); Lerna.setLang(el.getAttribute('data-lang')); Sound.play('click'); return; }
-    if (e.target.closest('.nav-burger')) { openSide(true); return; }
-    if (e.target.closest('[data-side-close]')) { openSide(false); return; }
-    if ((el = e.target.closest('[data-sound-toggle]'))) { Sound.toggle(); renderSide(); openSide(true); return; }
+    if (e.target.closest('.ab-menu')) { openMenu(true); Sound.play('click'); return; }
+    if (e.target.closest('[data-menu-close]')) { openMenu(false); return; }
+    if (e.target.closest('[data-theme-toggle]')) { Prefs.set('theme', Prefs.theme() === 'dark' ? 'light' : 'dark'); renderMenu(); return; }
+    if ((el = e.target.closest('[data-sound-toggle]'))) { Sound.toggle(); renderMenu(); return; }
+    if (e.target.closest('.mn a[href]')) { openMenu(false); }
     if (e.target.closest('[data-logout]')) { Auth.signOut().then(function () { Lerna.go('index.html'); }); return; }
   });
-  doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') openSide(false); });
+  doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') openMenu(false); });
   window.addEventListener('resize', Lerna.debounce(function () {
-    if (window.innerWidth > 768) openSide(false);
+    if (window.innerWidth > 959) openMenu(false);
   }, 150));
 
   /* Apparition au scroll */

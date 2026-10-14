@@ -874,3 +874,54 @@ body[data-page="parametres"] .st-wrap { padding-top: 8px; }
 @media (min-width: 960px) { .ab-login, .ab-avatar { display: none; } }
 @media (min-width: 960px) { body.has-rail[data-page="questionnaire"] .qbar, body.has-rail[data-page="questionnaire"] .qnav { left: var(--rail-w); } }
 body[data-page="questionnaire"] .qbar { top: calc(var(--nav-h) + var(--safe-t)); }
+
+/* ==========================================================================
+   Menu « 3 barres » (v8.6) : tout LERNA dans un seul bloc, qui glisse depuis la droite
+   ========================================================================== */
+html.mn-lock, html.mn-lock body { overflow: hidden; }
+.mn-overlay { position: fixed; inset: 0; z-index: 400; background: rgba(26, 12, 2, .42); opacity: 0; pointer-events: none; transition: opacity .25s ease; }
+.mn-overlay.open { opacity: 1; pointer-events: auto; }
+.mn {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 401; width: min(360px, 88vw);
+  display: flex; flex-direction: column; background: var(--bg); color: var(--brown);
+  padding-top: var(--safe-t); box-shadow: -10px 0 40px rgba(26, 10, 0, 0);
+  transform: translateX(104%); visibility: hidden; transition: transform .32s cubic-bezier(.2, .8, .2, 1), visibility 0s .32s, box-shadow .32s;
+}
+.mn.open { transform: none; visibility: visible; transition: transform .32s cubic-bezier(.2, .8, .2, 1), visibility 0s, box-shadow .32s; box-shadow: -10px 0 40px rgba(26, 10, 0, .18); }
+.mn-head { display: flex; align-items: center; justify-content: space-between; height: var(--nav-h); padding: 0 8px 0 20px; flex-shrink: 0; }
+.mn-logo { font-size: 1.3rem; }
+.mn-body { flex: 1; overflow-y: auto; padding: 4px 16px calc(24px + env(safe-area-inset-bottom, 0px)); -webkit-overflow-scrolling: touch; }
+.mn-acct { display: flex; align-items: center; gap: 12px; padding: 14px; border-radius: 18px; background: var(--surface); border: 1.5px solid var(--cream-dark); text-decoration: none; color: var(--brown); }
+.mn-acct .avatar { width: 46px; height: 46px; font-size: 1rem; flex-shrink: 0; }
+.mn-acct-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.mn-acct-txt strong { font-size: .98rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mn-acct-txt span { font-size: .78rem; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mn-badge { flex-shrink: 0; font-size: .72rem; font-weight: 800; padding: 5px 9px; border-radius: 99px; background: var(--cream-dark); color: var(--brown); }
+.mn-badge.prem { background: var(--orange); color: #fff; }
+.mn-guest { padding: 16px; border-radius: 18px; background: var(--surface); border: 1.5px solid var(--cream-dark); }
+.mn-guest p { font-size: .9rem; color: var(--muted); line-height: 1.5; }
+.mn-guest-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+.mn-label { margin: 22px 6px 8px; font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.mn-group { display: flex; flex-direction: column; background: var(--surface); border: 1.5px solid var(--cream-dark); border-radius: 18px; overflow: hidden; }
+.mn-link, .mn-row {
+  display: flex; align-items: center; gap: 14px; min-height: 52px; padding: 0 14px; width: 100%;
+  font: inherit; font-weight: 600; font-size: .95rem; color: var(--brown); text-decoration: none; text-align: left;
+  background: none; border: 0; border-top: 1px solid var(--cream-dark); cursor: pointer;
+}
+.mn-group > :first-child { border-top: 0; }
+.mn-link > .ic:first-child, .mn-row > .ic:first-child { width: 21px; height: 21px; color: var(--orange); flex-shrink: 0; }
+.mn-link span, .mn-row > span:not(.mn-val) { flex: 1; }
+.mn-link .mn-go { width: 15px; height: 15px; color: var(--muted); opacity: .7; }
+.mn-link:active, .mn-row:active, .mn-link:hover, button.mn-row:hover { background: var(--nav-hover); }
+.mn-link.active { color: var(--orange-deep); background: var(--orange-soft); }
+.mn-val { font-size: .86rem; font-weight: 700; color: var(--muted); }
+.mn-row .lang-switch { margin-left: auto; }
+.mn-logout { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin-top: 18px; min-height: 50px; border-radius: 16px; border: 1.5px solid var(--cream-dark); background: none; font: inherit; font-weight: 700; color: #B3261E; cursor: pointer; }
+.mn-logout .ic { width: 19px; height: 19px; }
+.mn-foot { margin-top: 18px; text-align: center; font-size: .8rem; color: var(--muted); }
+.mn-foot .logo-txt { font-family: var(--font-title); font-weight: 900; letter-spacing: .05em; color: var(--brown); }
+.mn-foot .n { color: var(--orange); }
+[data-calm] .mn, [data-calm] .mn-overlay { transition: none; }
+/* Sur ordinateur, la barre de gauche montre déjà tout : pas de 3 barres */
+@media (min-width: 960px) { .ab-menu { display: none; } }
+@media print { .mn, .mn-overlay { display: none !important; } }
