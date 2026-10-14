@@ -803,9 +803,6 @@ body.no-nav { padding-top: 0; }
 .ab-tick-in.in { transform: translateY(100%); opacity: 0; transition: none; }
 .ab-brand + .appbar-title { display: none; }
 [data-calm] .ab-word i, [data-calm] .ab-word .n { animation: none; }
-/* Variante A (maquette) : seulement le nom, un peu plus grand */
-html[data-abtop="a"] .ab-tick { display: none; }
-html[data-abtop="a"] .ab-word { font-size: 1.42rem; }
 .ab-avatar {
   width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
   display: inline-flex; align-items: center; justify-content: center;
