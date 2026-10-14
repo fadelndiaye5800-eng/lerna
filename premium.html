@@ -337,6 +337,7 @@ Lerna.addStrings({
   function renderStatus() {
     var u = Lerna.auth.user;
     var isP = !!u && Lerna.isPremium() && (u.is_premium || u.role === 'admin');
+    if (isP && u.role === 'admin' && Lerna.param('essai') === '1') isP = false;   // le propriétaire teste un vrai paiement
     $('buyBox').style.display = isP ? 'none' : '';
     $('already').classList.toggle('show', isP);
     if (isP) {

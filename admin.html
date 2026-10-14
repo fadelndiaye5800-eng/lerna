@@ -249,7 +249,9 @@
       '<div class="stack"><div class="two"><div class="field"><label for="mmPm">Prix 1 mois (FCFA)</label><input class="input" id="mmPm" type="number" min="200" step="100" value="' + (m.prix_mois || '') + '"></div>' +
       '<div class="field"><label for="mmPa">Prix 1 an (FCFA)</label><input class="input" id="mmPa" type="number" min="200" step="100" value="' + (m.prix_an || '') + '"></div></div>' +
       '<label class="row small" style="gap:8px"><input type="checkbox" id="mmOn"' + (m.actif ? ' checked' : '') + '> Paiement ouvert aux élèves</label>' +
-      '<button type="button" class="btn btn-primary" data-act="momo">Enregistrer</button></div></section>';
+      '<button type="button" class="btn btn-primary" data-act="momo">Enregistrer</button></div></section>' +
+      (on ? '<section class="card momo-set"><h3>Tester avec ton propre argent</h3><p class="small muted" style="margin:6px 0 12px">Ton compte est Premium d’office, donc la page Premium cache le bouton de paiement. Ce lien l’affiche quand même, pour toi seul. Astuce : mets d’abord le prix à 200 FCFA, fais le test, puis remets 3 000 et 24 000.</p>' +
+        '<a class="btn btn-ghost" href="premium.html?essai=1">Ouvrir la page de paiement (test)</a></section>' : '');
     if (!data.pays.length) return h + '<div class="empty"><h4>Aucun paiement pour l’instant</h4></div>';
     var LBL = { en_attente: 'Non finalisé', valide: 'Payé', refuse: 'Annulé' };
     var WAYS2 = { wave: 'Wave', orange_money: 'Orange Money', free_money: 'Yas (Free Money)', carte: 'Carte bancaire' };

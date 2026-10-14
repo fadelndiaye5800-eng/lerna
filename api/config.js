@@ -36,7 +36,7 @@ const cleanPay = (m) => {
   if (!payProvider() || !m || typeof m !== 'object' || m.actif !== true) return null;
   const p = (x) => (Number.isInteger(x) && x > 0 && x < 10000000 ? x : null);
   const prixMois = p(m.prix_mois), prixAn = p(m.prix_an);
-  return prixMois && prixAn ? { prixMois, prixAn, methods: ['wave', 'orange_money', 'free_money', 'card'], provider: payProvider(), test: /^sk_test_/.test(env('SASPAY_SECRET_KEY')) && payProvider() === 'saspay' } : null;
+  return prixMois && prixAn ? { prixMois, prixAn, methods: ['wave', 'orange_money', 'free_money', 'card'], provider: payProvider(), test: payProvider() === 'saspay' ? /^sk_test_/.test(env('SASPAY_SECRET_KEY')) : env('PAYDUNYA_MODE', 'live') === 'test' } : null;
 };
 
 export async function GET(request) {
