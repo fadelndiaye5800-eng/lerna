@@ -249,7 +249,9 @@
       '<div class="stack"><div class="two"><div class="field"><label for="mmPm">Prix 1 mois (FCFA)</label><input class="input" id="mmPm" type="number" min="200" step="100" value="' + (m.prix_mois || '') + '"></div>' +
       '<div class="field"><label for="mmPa">Prix 1 an (FCFA)</label><input class="input" id="mmPa" type="number" min="200" step="100" value="' + (m.prix_an || '') + '"></div></div>' +
       '<label class="row small" style="gap:8px"><input type="checkbox" id="mmOn"' + (m.actif ? ' checked' : '') + '> Paiement ouvert aux élèves</label>' +
-      '<button type="button" class="btn btn-primary" data-act="momo">Enregistrer</button></div></section>' +
+      '<button type="button" class="btn btn-primary" data-act="momo">Enregistrer</button></div>' +
+      '<div style="margin-top:14px"><button type="button" class="btn btn-ghost" data-act="paydiag">Tester la connexion au service de paiement</button>' +
+      '<div id="payDiag" class="small" style="margin-top:10px"></div></div></section>' +
       (on ? '<section class="card momo-set"><h3>Tester avec ton propre argent</h3><p class="small muted" style="margin:6px 0 12px">Ton compte est Premium d’office, donc la page Premium cache le bouton de paiement. Ce lien l’affiche quand même, pour toi seul. Astuce : mets d’abord le prix à 200 FCFA, fais le test, puis remets 3 000 et 24 000.</p>' +
         '<a class="btn btn-ghost" href="premium.html?essai=1">Ouvrir la page de paiement (test)</a></section>' : '');
     if (!data.pays.length) return h + '<div class="empty"><h4>Aucun paiement pour l’instant</h4></div>';
@@ -429,6 +431,24 @@
         if (act === 'ai') {
           var ai = { actif: $('aiOn').checked, plafond_jour: Math.max(0, parseInt($('aiCap').value, 10) || 0) };
           A.sb.from('app_config').upsert({ key: 'ai', value: ai, updated_at: new Date().toISOString(), updated_by: A.user.id }).then(function (r) { toast(r.error ? 'Erreur : ' + r.error.message : 'Réglages IA enregistrés (actifs sous 1 minute)'); reload(); });
+          return;
+        }
+        if (act === 'paydiag') {
+          var box = $('payDiag'); box.textContent = 'Test en cours…';
+          Lerna.api('/api/pay', { action: 'diag' }, { timeout: 40000 }).then(function (r) {
+            var d = r.data || {};
+            if (!r.ok) { box.textContent = 'Erreur : ' + (d.error || 'pas de réponse du serveur'); return; }
+            var ok = d.test && d.test.ok;
+            var line = function (k, v) { return '<div><span class="muted">' + k + ' :</span> <b>' + esc(String(v)) + '</b></div>'; };
+            box.innerHTML = '<div class="pill-s ' + (ok ? 'valide' : 'refuse') + '" style="display:inline-block;margin-bottom:8px">' + (ok ? 'Connexion OK' : 'Connexion refusée') + '</div>' +
+              line('Service utilisé', d.provider) + line('Réglage PAY_PROVIDER', d.pay_provider_var) + line('Mode PayDunya', d.mode) +
+              line('Clé MASTER', d.paydunya && d.paydunya.master) + line('Clé PRIVATE', d.paydunya && d.paydunya.private) + line('TOKEN', d.paydunya && d.paydunya.token) +
+              line('Clé SasPay', d.saspay) +
+              (d.test ? line('Réponse du service', (d.test.http ? 'HTTP ' + d.test.http + ' ' : '') + (d.test.code ? 'code ' + d.test.code + ' ' : '') + (d.test.message || (ok ? 'OK' : ''))) : '') +
+              (d.test_paydunya ? line('Test PayDunya (secours)', 'HTTP ' + d.test_paydunya.http + (d.test_paydunya.code ? ' code ' + d.test_paydunya.code : '') + ' ' + (d.test_paydunya.message || '')) : '') +
+              (d.conseil ? '<div style="margin-top:10px;padding:10px 12px;border-radius:12px;background:var(--orange-soft)"><b>Que faire :</b> ' + esc(d.conseil) + '</div>' : '') +
+              ((d.echecs || []).length ? '<div style="margin-top:12px"><b>Derniers échecs de paiement</b>' + d.echecs.map(function (e) { var m = e.meta || {}; return '<div style="padding:7px 0;border-top:1px solid var(--cream-dark)">' + dt(e.at) + ' · ' + esc(m.p || '') + ' · ' + esc(m.step || '') + (m.method ? ' (' + esc(m.method) + ')' : '') + '<br>' + esc(m.msg || '') + '</div>'; }).join('') + '</div>' : '');
+          });
           return;
         }
         if (act === 'momo') {

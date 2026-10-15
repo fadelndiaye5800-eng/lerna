@@ -36,8 +36,35 @@ async function pd(path, body) {
     });
     const txt = await res.text();
     let data = null; try { data = JSON.parse(txt); } catch { data = { raw: txt.slice(0, 300) }; }
-    return { ok: res.ok, data };
-  } catch { return { ok: false, data: null }; } finally { clearTimeout(timer); }
+    return { ok: res.ok, status: res.status, data };
+  } catch (e) { return { ok: false, status: 0, data: { raw: e && e.name === 'AbortError' ? 'délai dépassé (25 s)' : 'réseau injoignable' } }; } finally { clearTimeout(timer); }
+}
+
+/* Journal des échecs de paiement (table events, lisible depuis /admin et par l'équipe) : jamais de clé ni de numéro complet */
+const clean = (x) => String(x == null ? '' : typeof x === 'string' ? x : JSON.stringify(x)).replace(/(live|test)_(private|public)_[A-Za-z0-9]+/gi, '[clé]').replace(/\b7\d{8}\b/g, '7XXXXXXXX').slice(0, 240);
+function pdMsg(r) { const d = (r && r.data) || {}; return clean(d.response_text || d.message || d.description || d.error || d.raw || ''); }
+function logPay(step, meta) {
+  return sbFetch('/rest/v1/events', { method: 'POST', headers: { Prefer: 'return=minimal' }, body: { sid: 'server', ev: 'pay:' + step, meta } }).catch(() => null);
+}
+
+/* Traduction des réponses en une action claire pour le propriétaire */
+function hint(o) {
+  const t = o.test || {}, m = String(t.message || '').toLowerCase();
+  if (o.provider === 'aucun') return 'Aucun service branché : les 3 clés PayDunya (MASTER, PRIVATE, TOKEN) manquent dans Vercel, ou le site n’a pas été redéployé après les avoir ajoutées.';
+  if (o.provider === 'paydunya') {
+    if (t.ok) return 'PayDunya accepte tes clés. Si un paiement échoue encore, regarde la liste des échecs ci-dessous.';
+    if (o.paydunya.private === 'test' && o.mode !== 'test') return 'Tu as mis des clés de TEST alors que le mode est réel : dans PayDunya, copie les clés de PRODUCTION (la clé privée commence par live_private_), colle-les dans Vercel, puis Redeploy.';
+    if (o.paydunya.private === 'live' && o.mode === 'test') return 'Tes clés sont réelles mais PAYDUNYA_MODE vaut test : supprime cette variable dans Vercel (ou mets live), puis Redeploy.';
+    if (t.http === 0) return 'PayDunya ne répond pas (réseau ou délai) : réessaie dans quelques minutes.';
+    if (t.http === 401 || t.http === 403 || /key|cl[ée]|token|invalid|incorrect|authent|master|private/.test(m)) return 'PayDunya refuse tes clés : recopie les 3 clés de PRODUCTION de la même application (MASTER, PRIVATE, TOKEN — sans espace avant ou après), colle-les dans Vercel, puis Redeploy.';
+    if (/activ|production|kyc|compte|account|live/.test(m)) return 'PayDunya refuse car ton compte ou ton application n’est pas encore activé pour les vrais paiements : termine l’activation (pièces, validation) dans ton espace PayDunya ou écris à leur support.';
+    return 'PayDunya a répondu par une erreur : lis le message ci-dessus et envoie-le à Claude.';
+  }
+  if (o.provider === 'saspay') {
+    if (!o.pay_provider_var || o.pay_provider_var === '(vide)') return 'C’est SasPay qui est utilisé, pas PayDunya, parce qu’une clé SasPay est présente dans Vercel. Pour utiliser PayDunya : ajoute PAY_PROVIDER = paydunya dans Vercel (ou supprime SASPAY_SECRET_KEY), puis Redeploy.';
+    return t.ok ? 'SasPay répond.' : 'SasPay ne répond pas correctement : mets PAY_PROVIDER = paydunya dans Vercel, puis Redeploy.';
+  }
+  return '';
 }
 
 /* Numéro sénégalais → 9 chiffres (77 123 45 67) */
@@ -205,6 +232,34 @@ export async function POST(request) {
     return json({ statut: await settle(token) });
   }
 
+  /* ---------- Diagnostic (propriétaire seulement) : quel service, quelles clés présentes, et un vrai test de connexion ---------- */
+  if (body.action === 'diag') {
+    if (!user.admin) return fail(403, 'forbidden');
+    const k = KEYS(), kind = (v) => (!v ? 'absente' : /^test_/.test(v) ? 'test' : /^live_/.test(v) ? 'live' : 'présente');
+    const out = {
+      provider: payProvider() || 'aucun', pay_provider_var: env('PAY_PROVIDER') || '(vide)', mode: env('PAYDUNYA_MODE', 'live'),
+      paydunya: { master: k.master ? 'présente (' + k.master.length + ' caractères)' : 'absente', private: kind(k.priv), token: k.token ? 'présente (' + k.token.length + ' caractères)' : 'absente' },
+      saspay: /^sk_live_/.test(env('SASPAY_SECRET_KEY')) ? 'live' : /^sk_test_/.test(env('SASPAY_SECRET_KEY')) ? 'test' : env('SASPAY_SECRET_KEY') ? 'format inconnu' : 'absente',
+      prix: await prices()
+    };
+    if (out.provider === 'paydunya') {
+      const t = await pd('/checkout-invoice/create', { invoice: { total_amount: 200, description: 'Test de connexion LERNA (aucun débit)' }, store: { name: 'LERNA', website_url: url.origin } });
+      out.test = { http: t.status, code: (t.data && t.data.response_code) || null, message: pdMsg(t), ok: !!(t.data && t.data.response_code === '00') };
+    } else if (out.provider === 'saspay') {
+      const r = await sp('GET', '/countries/');
+      out.test = { http: r.status, ok: r.ok, reseaux_senegal: (await snNetworks()).map((n) => n.code), message: r.ok ? '' : clean(r.data) };
+      if (paydunyaReady()) {   // PayDunya sert de secours : on le teste aussi
+        const t = await pd('/checkout-invoice/create', { invoice: { total_amount: 200, description: 'Test de connexion LERNA (aucun débit)' }, store: { name: 'LERNA', website_url: url.origin } });
+        out.test_paydunya = { http: t.status, code: (t.data && t.data.response_code) || null, message: pdMsg(t), ok: !!(t.data && t.data.response_code === '00') };
+      }
+    }
+    out.conseil = hint(out);
+    const ev = await sbFetch('/rest/v1/events?ev=eq.pay:fail&select=at,meta&order=at.desc&limit=8');
+    out.echecs = Array.isArray(ev.data) ? ev.data : [];
+    await logPay('diag', { provider: out.provider, mode: out.mode, paydunya: out.paydunya, saspay: out.saspay, test: out.test || null, conseil: out.conseil });
+    return json(out);
+  }
+
   /* ---------- Démarrer un paiement ---------- */
   if (body.action !== 'start') return fail(400, 'unknown_action');
   const plan = body.plan === 'an' ? 'an' : body.plan === 'mois' ? 'mois' : null;
@@ -229,7 +284,7 @@ export async function POST(request) {
     const desc = 'LERNA Premium — ' + (plan === 'an' ? '1 an' : '1 mois');
     const back = origin + '/premium.html?pay=retour';
     const first = (u.prenom || fullName.split(' ')[0] || 'Client').slice(0, 40), last = (u.nom || 'LERNA').slice(0, 40);
-    let token = '', redirect = '', message = '';
+    let token = '', redirect = '', message = '', spErr = '';
     const network = await spNetwork(method);
     if (network && method !== 'card') {
       /* Paiement direct sur le téléphone de l'élève (Wave et Orange Money ouvrent leur appli via un lien) */
@@ -237,19 +292,28 @@ export async function POST(request) {
         customer: { email: user.email, first_name: first, last_name: last, phone: '+221' + phone }, return_url: back, metadata: { user_id: user.id, plan } }, randomUUID());
       const d = (r.data && r.data.data) || {};
       if (r.ok && d.id) { token = 'p-' + d.id; redirect = /^https:\/\//.test(d.checkout_url || '') ? d.checkout_url : ''; message = String(d.instructions || d.message || '').slice(0, 300); }
+      else spErr = 'paiement direct HTTP ' + r.status + ' ' + clean(r.data);
     }
     if (!token) {
       /* Carte, ou réseau introuvable : page de paiement sécurisée SasPay (l'élève y choisit son moyen) */
       const r = await sp('POST', '/checkout-sessions/', { amount: amount.toFixed(2), currency: 'XOF', description: desc, customer_email: user.email, customer_name: fullName, return_url: back, metadata: { user_id: user.id, plan } }, randomUUID());
       const d = (r.data && r.data.data) || {};
       if (r.ok && (d.id || d.slug) && /^https:\/\//.test(d.checkout_url || '')) { token = 'c-' + (d.id || d.slug); redirect = d.checkout_url; }
+      else spErr = (spErr ? spErr + ' / ' : '') + 'page de paiement HTTP ' + r.status + ' ' + clean(r.data);
     }
-    if (!TOKEN_RE.test(token)) return fail(502, 'provider_error');
-    const saved = await sbFetch('/rest/v1/paiements_momo', { method: 'POST', headers: { Prefer: 'return=minimal' },
-      body: { user_id: user.id, email: user.email, formule: plan, montant: amount, moyen: method === 'card' ? 'carte' : method, numero_payeur: phone, provider: 'saspay', token } });
-    if (!saved.ok) return fail(500, 'save_failed');
-    return json(redirect ? { token, redirect } : { token, push: true, message });
+    if (!TOKEN_RE.test(token)) {
+      const detail = 'SasPay : ' + (spErr || 'pas de réponse');
+      await logPay('fail', { p: 'saspay', step: 'start', method, network: network || null, msg: detail, fallback: paydunyaReady() });
+      if (!paydunyaReady()) return fail(502, 'provider_error', user.admin ? { detail } : undefined);
+      /* sinon : on continue avec PayDunya ci-dessous */
+    } else {
+      const saved = await sbFetch('/rest/v1/paiements_momo', { method: 'POST', headers: { Prefer: 'return=minimal' },
+        body: { user_id: user.id, email: user.email, formule: plan, montant: amount, moyen: method === 'card' ? 'carte' : method, numero_payeur: phone, provider: 'saspay', token } });
+      if (!saved.ok) { await logPay('fail', { p: 'saspay', step: 'save', msg: clean(saved.data) }); return fail(500, 'save_failed', user.admin ? { detail: 'Enregistrement : ' + clean(saved.data) } : undefined); }
+      return json(redirect ? { token, redirect } : { token, push: true, message });
+    }
   }
+  if (!paydunyaReady()) return fail(503, 'payment_not_configured');
 
   const inv = await pd('/checkout-invoice/create', {
     invoice: { total_amount: amount, description: 'LERNA Premium — ' + (plan === 'an' ? '1 an' : '1 mois') },
@@ -259,18 +323,23 @@ export async function POST(request) {
   });
   const token = inv.data && inv.data.response_code === '00' ? String(inv.data.token || '') : '';
   const checkout = inv.data && typeof inv.data.response_text === 'string' && /^https:\/\//.test(inv.data.response_text) ? inv.data.response_text : '';
-  if (!TOKEN_RE.test(token)) return fail(502, 'provider_error');
+  if (!TOKEN_RE.test(token)) {
+    const detail = 'PayDunya (' + env('PAYDUNYA_MODE', 'live') + ') : HTTP ' + inv.status + (inv.data && inv.data.response_code ? ', code ' + inv.data.response_code : '') + ' — ' + (pdMsg(inv) || 'pas de réponse');
+    await logPay('fail', { p: 'paydunya', step: 'invoice', method, http: inv.status, code: (inv.data && inv.data.response_code) || null, msg: detail });
+    return fail(502, 'provider_error', user.admin ? { detail } : undefined);
+  }
 
   const saved = await sbFetch('/rest/v1/paiements_momo', {
     method: 'POST', headers: { Prefer: 'return=minimal' },
     body: { user_id: user.id, email: user.email, formule: plan, montant: amount, moyen: method === 'card' ? 'carte' : method, numero_payeur: phone, provider: 'paydunya', token }
   });
-  if (!saved.ok) return fail(500, 'save_failed');
+  if (!saved.ok) { await logPay('fail', { p: 'paydunya', step: 'save', msg: clean(saved.data) }); return fail(500, 'save_failed', user.admin ? { detail: 'Enregistrement : ' + clean(saved.data) } : undefined); }
 
   const out = { token, checkout };
   if (method === 'wave') {
     const r = await pd('/softpay/wave-senegal', { wave_senegal_fullName: fullName, wave_senegal_email: user.email, wave_senegal_phone: phone, wave_senegal_payment_token: token });
     if (r.data && r.data.success && /^https:\/\//.test(r.data.url || '')) out.redirect = r.data.url;
+    else await logPay('fail', { p: 'paydunya', step: 'wave', http: r.status, msg: pdMsg(r) });
   } else if (method === 'orange_money') {
     const r = await pd('/softpay/new-orange-money-senegal', { customer_name: fullName, customer_email: user.email, phone_number: phone, invoice_token: token });
     const o = (r.data && r.data.other_url) || {};
@@ -278,14 +347,15 @@ export async function POST(request) {
       if (/^https?:\/\//.test(r.data.url || '')) out.qr = r.data.url;
       out.redirect = o.maxit_url || o.om_url || out.qr || '';
       if (o.om_url && o.om_url !== out.redirect) out.alt = o.om_url;
-    }
+    } else await logPay('fail', { p: 'paydunya', step: 'orange_money', http: r.status, msg: pdMsg(r) });
   } else if (method === 'free_money') {
     const r = await pd('/softpay/free-money-senegal', { customer_name: fullName, customer_email: user.email, phone_number: phone, payment_token: token });
     if (r.data && r.data.success) out.ussd = '#150#';
+    else await logPay('fail', { p: 'paydunya', step: 'free_money', http: r.status, msg: pdMsg(r) });
   }
   /* Carte, ou si le paiement direct n'a pas répondu : page de paiement sécurisée PayDunya */
   if (!out.redirect && !out.ussd) out.redirect = checkout;
-  if (!out.redirect && !out.ussd) return fail(502, 'provider_error');
+  if (!out.redirect && !out.ussd) { await logPay('fail', { p: 'paydunya', step: 'no_redirect', method }); return fail(502, 'provider_error', user.admin ? { detail: 'PayDunya : facture créée mais aucun lien de paiement renvoyé' } : undefined); }
   return json(out);
 }
 

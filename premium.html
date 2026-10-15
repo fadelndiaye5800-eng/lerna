@@ -451,7 +451,7 @@ Lerna.addStrings({
             var d = r.data || {};
             if (!r.ok || !d.token) {
               var code = d.error || '';
-              err.textContent = code === 'bad_phone' ? t('mm.needPhone') : code === 'too_many' ? t('mm.errMany') : /closed|not_configured/.test(code) ? t('mm.errOff') : t('mm.err');
+              err.textContent = (code === 'bad_phone' ? t('mm.needPhone') : code === 'too_many' ? t('mm.errMany') : /closed|not_configured/.test(code) ? t('mm.errOff') : t('mm.err')) + (d.detail ? ' — ' + d.detail : '');
               return;
             }
             Lerna.analytics.capture('premium_pay_start', { formule: f, moyen: way });

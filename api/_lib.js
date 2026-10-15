@@ -85,16 +85,16 @@ export async function getUser(request) {
     if (!res.ok) return null;
     const u = await res.json();
     if (!u || !u.id) return null;
-    let premium = false;
+    let premium = false, admin = false;
     if (supabaseReady()) {
       const row = await sbFetch('/rest/v1/users?id=eq.' + encodeURIComponent(u.id) + '&select=is_premium,premium_expiry,role');
       const r = Array.isArray(row.data) ? row.data[0] : null;
       premium = !!(r && r.is_premium && (!r.premium_expiry || new Date(r.premium_expiry) > new Date()));
-      if (r && r.role === 'admin') premium = true; // le propriétaire a tout Premium
+      if (r && r.role === 'admin') { premium = true; admin = true; } // le propriétaire a tout Premium
     }
     const paid = premium;
     if (premiumOpen()) premium = true; // phase de lancement : tout est ouvert
-    return { id: u.id, email: u.email, premium, paid, verified: !!u.email_confirmed_at, created: u.created_at };
+    return { id: u.id, email: u.email, premium, paid, admin, verified: !!u.email_confirmed_at, created: u.created_at };
   } catch { return null; }
 }
 
