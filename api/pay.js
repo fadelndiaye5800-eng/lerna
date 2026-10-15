@@ -18,7 +18,19 @@ import { createHash, timingSafeEqual } from 'node:crypto';
 import { randomUUID } from 'node:crypto';
 import { json, fail, env, sameOrigin, readJson, getUser, sbFetch, supabaseReady, usage, hit, paydunyaReady, saspayReady, payProvider } from './_lib.js';
 
-const KEYS = () => ({ master: env('PAYDUNYA_MASTER_KEY'), priv: env('PAYDUNYA_PRIVATE_KEY'), token: env('PAYDUNYA_TOKEN') });
+/* Clés collées : on enlève guillemets, espaces et caractères invisibles copiés avec (une page traduite peut en ajouter) */
+const tidy = (v) => String(v || '').replace(/[\s​-‍⁠﻿"'«»“”‘’`]/g, '');
+const KEYS = () => ({ master: tidy(env('PAYDUNYA_MASTER_KEY')), priv: tidy(env('PAYDUNYA_PRIVATE_KEY')), token: tidy(env('PAYDUNYA_TOKEN')) });
+/* À quoi ressemble une valeur (jamais la valeur elle-même) : sert à repérer une clé collée au mauvais endroit */
+function shape(v) {
+  if (!v) return 'absente';
+  const m = /^(live|test)_(public|private)_/.exec(v);
+  if (m) return (m[2] === 'public' ? 'clé publique' : 'clé privée') + (m[1] === 'live' ? ' de production' : ' de test');
+  if (/^[A-Za-z0-9]{8}(-[A-Za-z0-9]{4}){3}-[A-Za-z0-9]{12}$/.test(v)) return 'format clé principale (' + v.length + ' caractères)';
+  if (/^[A-Za-z0-9]{16,40}$/.test(v)) return 'format token (' + v.length + ' caractères)';
+  return 'format inconnu (' + v.length + ' caractères)';
+}
+const shapes = () => { const k = KEYS(); return { master: shape(k.master), private: shape(k.priv), token: shape(k.token) }; };
 const BASE = () => (env('PAYDUNYA_MODE', 'live') === 'test' ? 'https://app.paydunya.com/sandbox-api/v1' : 'https://app.paydunya.com/api/v1');
 const METHODS = ['wave', 'orange_money', 'free_money', 'card'];
 const TOKEN_RE = /^[A-Za-z0-9_-]{6,100}$/;
@@ -53,9 +65,18 @@ function hint(o) {
   if (o.provider === 'aucun') return 'Aucun service branché : les 3 clés PayDunya (MASTER, PRIVATE, TOKEN) manquent dans Vercel, ou le site n’a pas été redéployé après les avoir ajoutées.';
   if (o.provider === 'paydunya') {
     if (t.ok) return 'PayDunya accepte tes clés. Si un paiement échoue encore, regarde la liste des échecs ci-dessous.';
-    if (o.paydunya.private === 'test' && o.mode !== 'test') return 'Tu as mis des clés de TEST alors que le mode est réel : dans PayDunya, copie les clés de PRODUCTION (la clé privée commence par live_private_), colle-les dans Vercel, puis Redeploy.';
-    if (o.paydunya.private === 'live' && o.mode === 'test') return 'Tes clés sont réelles mais PAYDUNYA_MODE vaut test : supprime cette variable dans Vercel (ou mets live), puis Redeploy.';
+    const k = o.paydunya || {}, isKey = (s) => /^clé (publique|privée)/.test(s || '');
+    const fin = ', remplace la valeur dans Vercel (Settings → Environment Variables → ⋯ → Edit), puis Deployments → ⋯ → Redeploy.';
+    if (isKey(k.master)) return 'Erreur de place : dans PAYDUNYA_MASTER_KEY tu as collé la ' + k.master + '. Il faut la clé principale (« Master Key ») : elle ne commence ni par live_ ni par test_. Dans PayDunya : Intégration API → Applications → Détails → copie la Master Key' + fin;
+    if (/^clé publique/.test(k.private)) return 'Erreur de place : dans PAYDUNYA_PRIVATE_KEY tu as collé la ' + k.private + '. Il faut la clé PRIVÉE de production (elle commence par live_private_)' + fin;
+    if (/^format clé principale/.test(k.private)) return 'Erreur de place : dans PAYDUNYA_PRIVATE_KEY tu as collé la clé principale. Il faut la clé PRIVÉE de production (elle commence par live_private_)' + fin;
+    if (isKey(k.token) || /^format clé principale/.test(k.token)) return 'Erreur de place : dans PAYDUNYA_TOKEN tu as collé une clé. Il faut le Token de production (lettres et chiffres, sans live_ ni test_)' + fin;
+    if (/de test$/.test(k.private) && o.mode !== 'test') return 'Tu as mis la clé privée de TEST alors que le mode est réel : dans PayDunya, copie la clé privée et le token de PRODUCTION' + fin + ' Si PayDunya ne te montre que des clés de test, ton application n’est pas encore en production : Détails → Mettre à jour la configuration → Activer le mode production → « Oui, l’application est prête ».';
+    if (/de production$/.test(k.private) && o.mode === 'test') return 'Tes clés sont réelles mais PAYDUNYA_MODE vaut test : supprime cette variable dans Vercel (ou mets live), puis Redeploy.';
     if (t.http === 0) return 'PayDunya ne répond pas (réseau ou délai) : réessaie dans quelques minutes.';
+    if (/master/.test(m)) return 'PayDunya refuse ta clé principale (Master Key) : recopie-la depuis la MÊME application que la clé privée et le token' + fin;
+    if (/private/.test(m)) return 'PayDunya refuse ta clé privée : recopie la clé privée de PRODUCTION (live_private_…) de la même application' + fin;
+    if (/token/.test(m)) return 'PayDunya refuse ton token : recopie le token de PRODUCTION de la même application' + fin;
     if (t.http === 401 || t.http === 403 || /key|cl[ée]|token|invalid|incorrect|authent|master|private/.test(m)) return 'PayDunya refuse tes clés : recopie les 3 clés de PRODUCTION de la même application (MASTER, PRIVATE, TOKEN — sans espace avant ou après), colle-les dans Vercel, puis Redeploy.';
     if (/activ|production|kyc|compte|account|live/.test(m)) return 'PayDunya refuse car ton compte ou ton application n’est pas encore activé pour les vrais paiements : termine l’activation (pièces, validation) dans ton espace PayDunya ou écris à leur support.';
     return 'PayDunya a répondu par une erreur : lis le message ci-dessus et envoie-le à Claude.';
@@ -235,10 +256,9 @@ export async function POST(request) {
   /* ---------- Diagnostic (propriétaire seulement) : quel service, quelles clés présentes, et un vrai test de connexion ---------- */
   if (body.action === 'diag') {
     if (!user.admin) return fail(403, 'forbidden');
-    const k = KEYS(), kind = (v) => (!v ? 'absente' : /^test_/.test(v) ? 'test' : /^live_/.test(v) ? 'live' : 'présente');
     const out = {
       provider: payProvider() || 'aucun', pay_provider_var: env('PAY_PROVIDER') || '(vide)', mode: env('PAYDUNYA_MODE', 'live'),
-      paydunya: { master: k.master ? 'présente (' + k.master.length + ' caractères)' : 'absente', private: kind(k.priv), token: k.token ? 'présente (' + k.token.length + ' caractères)' : 'absente' },
+      paydunya: shapes(),
       saspay: /^sk_live_/.test(env('SASPAY_SECRET_KEY')) ? 'live' : /^sk_test_/.test(env('SASPAY_SECRET_KEY')) ? 'test' : env('SASPAY_SECRET_KEY') ? 'format inconnu' : 'absente',
       prix: await prices()
     };
@@ -324,9 +344,11 @@ export async function POST(request) {
   const token = inv.data && inv.data.response_code === '00' ? String(inv.data.token || '') : '';
   const checkout = inv.data && typeof inv.data.response_text === 'string' && /^https:\/\//.test(inv.data.response_text) ? inv.data.response_text : '';
   if (!TOKEN_RE.test(token)) {
-    const detail = 'PayDunya (' + env('PAYDUNYA_MODE', 'live') + ') : HTTP ' + inv.status + (inv.data && inv.data.response_code ? ', code ' + inv.data.response_code : '') + ' — ' + (pdMsg(inv) || 'pas de réponse');
-    await logPay('fail', { p: 'paydunya', step: 'invoice', method, http: inv.status, code: (inv.data && inv.data.response_code) || null, msg: detail });
-    return fail(502, 'provider_error', user.admin ? { detail } : undefined);
+    const mode = env('PAYDUNYA_MODE', 'live'), keys = shapes();
+    const detail = 'PayDunya (' + mode + ') : HTTP ' + inv.status + (inv.data && inv.data.response_code ? ', code ' + inv.data.response_code : '') + ' — ' + (pdMsg(inv) || 'pas de réponse');
+    const conseil = hint({ provider: 'paydunya', mode, paydunya: keys, test: { ok: false, http: inv.status, message: pdMsg(inv) } });
+    await logPay('fail', { p: 'paydunya', step: 'invoice', method, http: inv.status, code: (inv.data && inv.data.response_code) || null, msg: detail, keys, conseil });
+    return fail(502, 'provider_error', user.admin ? { detail: detail + (conseil ? ' — Que faire : ' + conseil : '') } : undefined);
   }
 
   const saved = await sbFetch('/rest/v1/paiements_momo', {
