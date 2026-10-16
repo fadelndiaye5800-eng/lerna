@@ -282,7 +282,9 @@ Lerna.addStrings({
     var F = s.fees, lang = Lerna.lang;
     if (!f.frais || !F) return '<span class="pending">' + t('ec.feeAsk') + '</span>';
     var local = userCountry && userCountry === s.pays;
-    var r = (local ? f.frais.local : f.frais.etranger) || f.frais.local || f.frais.etranger;
+    /* Étudiant étranger : jamais le tarif local à la place d'un tarif étranger inconnu */
+    var r = local ? (f.frais.local || f.frais.etranger) : f.frais.etranger;
+    if (!r) return '<span class="pending">' + t('ec.feeAsk') + '</span>' + (f.frais.detail ? ' <span class="small muted">· ' + esc(L(f.frais.detail)) + '</span>' : '');
     return '<span class="fee-v">' + esc(window.LERNA_FEE_RANGE(r, F.devise, lang)) + '</span>' + (f.frais.detail ? ' <span class="small muted">· ' + esc(L(f.frais.detail)) + '</span>' : '');
   }
   function feeVal(r, cur) {
@@ -314,7 +316,7 @@ Lerna.addStrings({
       var withFee = s.filieres.filter(function (f) { return f.frais; });
       if (withFee.length) h += '<div class="fee-fil"><h4>' + t('ec.feeByFil') + '</h4><div class="fee-rows">' + withFee.map(function (f) {
         var local = userCountry && userCountry === s.pays;
-        var r = (local ? f.frais.local : f.frais.etranger) || f.frais.local || f.frais.etranger;
+        var r = local ? (f.frais.local || f.frais.etranger) : f.frais.etranger;
         return '<div class="fee-row"><span class="k">' + esc(f.nom) + (f.frais.detail ? '<br><span class="small muted" style="font-weight:500">' + esc(L(f.frais.detail)) + '</span>' : '') + '</span><span class="v">' + feeVal(r, F.devise) + '</span></div>';
       }).join('') + '</div></div>';
     } else {

@@ -17,7 +17,7 @@
 (function () {
   'use strict';
   function T(fr, en) { return { fr: fr, en: en || fr }; }
-  var V = '2026-10-10'; // dernière vérification complète
+  var V = '2026-10-16'; // dernière vérification complète
 
   window.LERNA_OPPS = [
     /* ------------------------------ BOURSES ------------------------------ */
@@ -186,22 +186,13 @@
     {"id": "b-nyuad-aid-2027", "type": "bourse", "titre": "NYU Abu Dhabi — aide financière selon les besoins (entrée 2027)", "organisation": "New York University Abu Dhabi (Émirats arabes unis)", "pays": "AE", "domaine": "sciences", "domaines": ["business", "sciences", "sante", "ingenierie", "tech", "droit", "art", "education"], "niveau": "licence", "niveaux": ["licence"], "montant": {"fr": "Aide selon les besoins, ouverte à toutes les nationalités ; le montant dépend du besoin calculé par NYU", "en": "Need-based aid open to all nationalities; the amount depends on the need calculated by NYU"}, "eligibles": {"fr": "Élèves en dernière année de lycée, toutes nationalités. L’aide se demande avec le CSS Profile.", "en": "Final-year high-school students of any nationality. Aid is requested with the CSS Profile."}, "deadline": "2027-01-05", "deadlineNote": {"fr": "Candidature : 1er novembre 2026 (Early Decision I), 1er janvier 2027 (Early Decision II) ou 5 janvier 2027 (Regular Decision). CSS Profile : 10 novembre, 10 janvier ou 1er février.", "en": "Application: 1 November 2026 (Early Decision I), 1 January 2027 (Early Decision II) or 5 January 2027 (Regular Decision). CSS Profile: 10 November, 10 January or 1 February."}, "lien": "https://nyuad.nyu.edu/en/apply/undergraduate/apply/key-dates-and-deadlines.html", "source": "nyuad.nyu.edu", "verifie": "2026-10-15", "premium": false},
     /* ------------------------------ STAGES ------------------------------ */
     {
-      id: 's-bad-2027-s1', type: 'stage', ageMax: 30, titre: 'Programme de stages 2027 — session 1', organisation: 'Banque africaine de développement (BAD)',
-      pays: 'CI', ville: T('Abidjan ou à distance', 'Abidjan or remote'), domaine: 'business', domaines: ['business', 'droit', 'ingenierie', 'tech', 'agri', 'sante'], niveau: 'master',
-      duree: T('3 à 6 mois, à partir de janvier 2027', '3 to 6 months, from January 2027'),
-      montant: T('Allocation mensuelle + assurance maladie', 'Monthly stipend + health insurance'),
-      eligibles: T('Inscrit en master (ou diplômé depuis moins d’un an), 30 ans maximum, ressortissant d’un pays membre de la BAD, anglais ou français courant.', 'Enrolled in a master’s (or graduated less than a year ago), 30 or under, national of an AfDB member country, fluent English or French.'),
-      deadline: '2026-10-12',
-      lien: 'https://www.impactpool.org/jobs/1238973', source: 'annonce BAD relayée par impactpool.org', verifie: V, premium: false
-    },
-    {
       id: 's-unesco', type: 'stage', ageMin: 20, titre: 'Programme de stages de l’UNESCO', organisation: 'UNESCO',
       pays: 'INT', ville: T('Paris et bureaux dans le monde', 'Paris and offices worldwide'), domaine: 'education', domaines: ['education', 'sciences', 'comm', 'art', 'droit'], niveau: 'licence', niveaux: ['licence', 'master', 'doctorat'],
       duree: T('1 à 6 mois', '1 to 6 months'),
       montant: T('Non rémunéré (voyage, visa et assurance à ta charge)', 'Unpaid (travel, visa and insurance at your cost)'),
       eligibles: T('20 ans minimum, en 3e année de licence ou plus, ou diplômé depuis moins de 12 mois. Anglais ou français.', '20 or older, in the 3rd year of a bachelor’s or above, or graduated in the last 12 months. English or French.'),
       rolling: true, rollingNote: T('Candidature dans un vivier : ton dossier reste visible 6 mois par les services qui recrutent.', 'You apply to a talent pool: your file stays visible for 6 months to hiring teams.'),
-      lien: 'https://careers.unesco.org/content/Internship-Programme/', source: 'careers.unesco.org', verifie: V, premium: false
+      lien: 'https://careers.unesco.org/go/Internships/783902/', source: 'careers.unesco.org', verifie: V, premium: false
     },
 
     {
