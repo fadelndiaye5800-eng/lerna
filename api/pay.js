@@ -62,6 +62,7 @@ function logPay(step, meta) {
 /* Traduction des réponses en une action claire pour le propriétaire */
 function hint(o) {
   const t = o.test || {}, m = String(t.message || '').toLowerCase();
+  if (o.ancien) return 'Attention : tu testes une ANCIENNE version du site (' + o.site + '), qui garde les anciennes clés. Ce résultat ne compte pas : ouvre https://lerna-lilac.vercel.app/admin et refais le test.';
   if (o.provider === 'aucun') return 'Aucun service branché : les 3 clés PayDunya (MASTER, PRIVATE, TOKEN) manquent dans Vercel, ou le site n’a pas été redéployé après les avoir ajoutées.';
   if (o.provider === 'paydunya') {
     if (t.ok) return 'PayDunya accepte tes clés. Si un paiement échoue encore, regarde la liste des échecs ci-dessous.';
@@ -257,6 +258,9 @@ export async function POST(request) {
   if (body.action === 'diag') {
     if (!user.admin) return fail(403, 'forbidden');
     const out = {
+      site: url.host, version: (env('VERCEL_GIT_COMMIT_SHA') || '').slice(0, 7) || null,
+      /* Les adresses du type lerna-xxxxxxxx-compte.vercel.app sont d'anciennes versions figées, avec les anciennes clés */
+      ancien: /^lerna-[a-z0-9]{8,}-/.test(url.host),
       provider: payProvider() || 'aucun', pay_provider_var: env('PAY_PROVIDER') || '(vide)', mode: env('PAYDUNYA_MODE', 'live'),
       paydunya: shapes(),
       saspay: /^sk_live_/.test(env('SASPAY_SECRET_KEY')) ? 'live' : /^sk_test_/.test(env('SASPAY_SECRET_KEY')) ? 'test' : env('SASPAY_SECRET_KEY') ? 'format inconnu' : 'absente',

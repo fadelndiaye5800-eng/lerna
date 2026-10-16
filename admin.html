@@ -441,7 +441,7 @@
             var ok = d.test && d.test.ok;
             var line = function (k, v) { return '<div><span class="muted">' + k + ' :</span> <b>' + esc(String(v)) + '</b></div>'; };
             box.innerHTML = '<div class="pill-s ' + (ok ? 'valide' : 'refuse') + '" style="display:inline-block;margin-bottom:8px">' + (ok ? 'Connexion OK' : 'Connexion refusée') + '</div>' +
-              line('Service utilisé', d.provider) + line('Réglage PAY_PROVIDER', d.pay_provider_var) + line('Mode PayDunya', d.mode) +
+              (d.ancien ? '<div style="margin-bottom:8px;padding:10px 12px;border-radius:12px;background:var(--orange-soft)"><b>Ancienne version du site :</b> ' + esc(String(d.site)) + '. Ouvre <a href="https://lerna-lilac.vercel.app/admin.html">lerna-lilac.vercel.app</a> et refais le test.</div>' : '') + line('Adresse testée', d.site) + (d.version ? line('Version du site', d.version) : '') + line('Service utilisé', d.provider) + line('Réglage PAY_PROVIDER', d.pay_provider_var) + line('Mode PayDunya', d.mode) +
               line('Clé MASTER', d.paydunya && d.paydunya.master) + line('Clé PRIVATE', d.paydunya && d.paydunya.private) + line('TOKEN', d.paydunya && d.paydunya.token) +
               line('Clé SasPay', d.saspay) +
               (d.test ? line('Réponse du service', (d.test.http ? 'HTTP ' + d.test.http + ' ' : '') + (d.test.code ? 'code ' + d.test.code + ' ' : '') + (d.test.message || (ok ? 'OK' : ''))) : '') +
