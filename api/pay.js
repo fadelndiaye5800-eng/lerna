@@ -8,7 +8,7 @@
    POST /api/pay?ipn=1  (appel de PayDunya, formulaire) → active le Premium si la facture est payée
 
    Deux services possibles, un seul réglage pour changer (PAY_PROVIDER = "saspay" ou "paydunya") :
-   - SasPay : SASPAY_SECRET_KEY (sk_test_… pour les essais, sk_live_… en vrai). Webhook à créer dans le tableau de bord SasPay :
+   - SasPay (principal) : SASPAY_SECRET_KEY (sk_test_… pour les essais, sk_live_… en vrai). Webhook à créer dans le tableau de bord SasPay :
      https://TON-DOMAINE/api/pay?ipn=saspay
    - PayDunya : PAYDUNYA_MASTER_KEY, PAYDUNYA_PRIVATE_KEY, PAYDUNYA_TOKEN, PAYDUNYA_MODE = "live" (défaut) ou "test".
    Sans PAY_PROVIDER : SasPay si sa clé est là, sinon PayDunya.
@@ -63,7 +63,10 @@ function logPay(step, meta) {
 function hint(o) {
   const t = o.test || {}, m = String(t.message || '').toLowerCase();
   if (o.ancien) return 'Attention : tu testes une ANCIENNE version du site (' + o.site + '), qui garde les anciennes clés. Ce résultat ne compte pas : ouvre https://lerna-lilac.vercel.app/admin et refais le test.';
-  if (o.provider === 'aucun') return 'Aucun service branché : les 3 clés PayDunya (MASTER, PRIVATE, TOKEN) manquent dans Vercel, ou le site n’a pas été redéployé après les avoir ajoutées.';
+  if (o.saspay === 'format inconnu') return 'Ta clé SasPay n’a pas le bon format : elle doit commencer par sk_live_. Dans SasPay → Développeur → Clés API, génère une nouvelle clé, copie-la avec le bouton copier, remplace SASPAY_SECRET_KEY dans Vercel (⋯ → Edit), puis Deployments → ⋯ → Redeploy.';
+  if (o.provider === 'aucun') return 'Aucun service branché : ajoute SASPAY_SECRET_KEY (clé sk_live_…) dans Vercel, ou les 3 clés PayDunya, puis Redeploy.';
+  if (o.provider === 'paydunya' && /^(live|test)$/.test(o.saspay || '') && o.pay_provider_var === 'paydunya') return 'Tu as une clé SasPay, mais le réglage PAY_PROVIDER vaut paydunya, donc LERNA utilise encore PayDunya. Dans Vercel, mets PAY_PROVIDER = saspay (ou supprime ce réglage), puis Deployments → ⋯ → Redeploy.';
+  if (o.provider === 'paydunya' && o.saspay === 'absente' && !t.ok) return 'Le site ne voit pas de clé SasPay, donc il essaie PayDunya, qui refuse. Dans Vercel, vérifie que SASPAY_SECRET_KEY existe bien (avec « Production » coché), puis Deployments → ⋯ → Redeploy, et refais le test.';
   if (o.provider === 'paydunya') {
     if (t.ok) return 'PayDunya accepte tes clés. Si un paiement échoue encore, regarde la liste des échecs ci-dessous.';
     const k = o.paydunya || {}, isKey = (s) => /^clé (publique|privée)/.test(s || '');
@@ -83,8 +86,11 @@ function hint(o) {
     return 'PayDunya a répondu par une erreur : lis le message ci-dessus et envoie-le à Claude.';
   }
   if (o.provider === 'saspay') {
-    if (!o.pay_provider_var || o.pay_provider_var === '(vide)') return 'C’est SasPay qui est utilisé, pas PayDunya, parce qu’une clé SasPay est présente dans Vercel. Pour utiliser PayDunya : ajoute PAY_PROVIDER = paydunya dans Vercel (ou supprime SASPAY_SECRET_KEY), puis Redeploy.';
-    return t.ok ? 'SasPay répond.' : 'SasPay ne répond pas correctement : mets PAY_PROVIDER = paydunya dans Vercel, puis Redeploy.';
+    if (t.ok && !(t.reseaux_senegal || []).length) return 'SasPay accepte ta clé, mais ne montre aucun réseau du Sénégal (Wave, Orange Money…) : vérifie dans ton compte SasPay que le Sénégal est activé, ou écris à leur support.';
+    if (t.ok) return 'SasPay accepte ta clé. Les clés PayDunya peuvent rester dans Vercel : elles servent de secours et marcheront quand ton KYC PayDunya sera validé. Fais maintenant un vrai paiement de 200 FCFA pour vérifier.';
+    if (t.http === 0) return 'SasPay ne répond pas (réseau ou délai) : réessaie dans quelques minutes.';
+    if (t.http === 401 || t.http === 403) return 'SasPay refuse ta clé : elle est révoquée, incomplète ou mal copiée. Dans SasPay → Développeur → Clés API, génère une nouvelle clé, copie-la avec le bouton copier, remplace SASPAY_SECRET_KEY dans Vercel (⋯ → Edit), puis Deployments → ⋯ → Redeploy.';
+    return 'SasPay a répondu par une erreur : lis le message ci-dessus et envoie-le à Claude.';
   }
   return '';
 }
@@ -139,7 +145,12 @@ const SP_OK = /^(success|succeeded|successful|completed|paid|approved)$/i, SP_KO
 /* Statut réel chez SasPay : « p-<id> » = paiement direct, « c-<id> » = page de paiement */
 async function spStatus(token) {
   const id = encodeURIComponent(token.slice(2));
-  const r = token.startsWith('p-') ? await sp('GET', '/payments/' + id + '/verify/') : await sp('GET', '/checkout-sessions/' + id + '/');
+  let r;
+  if (token.startsWith('p-')) r = await sp('GET', '/payments/' + id + '/verify/');
+  else {   // route documentée : /checkout-sessions/{id}/status/ ; l'ancienne route sert de secours
+    r = await sp('GET', '/checkout-sessions/' + id + '/status/');
+    if (!r.ok) r = await sp('GET', '/checkout-sessions/' + id + '/');
+  }
   const d = (r.data && (r.data.data || r.data)) || {};
   const st = String(d.status || (d.payment && d.payment.status) || '');
   return SP_OK.test(st) ? 'ok' : SP_KO.test(st) ? 'ko' : 'wait';
@@ -270,8 +281,12 @@ export async function POST(request) {
       const t = await pd('/checkout-invoice/create', { invoice: { total_amount: 200, description: 'Test de connexion LERNA (aucun débit)' }, store: { name: 'LERNA', website_url: url.origin } });
       out.test = { http: t.status, code: (t.data && t.data.response_code) || null, message: pdMsg(t), ok: !!(t.data && t.data.response_code === '00') };
     } else if (out.provider === 'saspay') {
-      const r = await sp('GET', '/countries/');
-      out.test = { http: r.status, ok: r.ok, reseaux_senegal: (await snNetworks()).map((n) => n.code), message: r.ok ? '' : clean(r.data) };
+      const r = await sp('GET', '/countries/');   // liste publique (sans clé)
+      /* Vrai test de la clé : on demande un paiement qui n'existe pas. 404 = clé acceptée ; 401/403 = clé refusée */
+      const a = await sp('GET', '/payments/00000000-0000-0000-0000-000000000000/verify/');
+      const refused = a.status === 401 || a.status === 403;
+      out.test = { http: refused || a.status === 0 ? a.status : r.status, ok: r.ok && a.status !== 0 && !refused, reseaux_senegal: (await snNetworks()).map((n) => n.code),
+        message: refused ? 'clé refusée — ' + clean(a.data) : a.status === 0 ? 'pas de réponse' : r.ok ? 'clé acceptée' : clean(r.data) };
       if (paydunyaReady()) {   // PayDunya sert de secours : on le teste aussi
         const t = await pd('/checkout-invoice/create', { invoice: { total_amount: 200, description: 'Test de connexion LERNA (aucun débit)' }, store: { name: 'LERNA', website_url: url.origin } });
         out.test_paydunya = { http: t.status, code: (t.data && t.data.response_code) || null, message: pdMsg(t), ok: !!(t.data && t.data.response_code === '00') };
@@ -304,6 +319,7 @@ export async function POST(request) {
   const fullName = ((u.prenom || '') + ' ' + (u.nom || '')).trim().slice(0, 80) || 'Client LERNA';
 
   /* ---------- SasPay ---------- */
+  let spDetail = '';   // si SasPay échoue et que PayDunya (secours) échoue aussi, le propriétaire voit les deux erreurs
   if (payProvider() === 'saspay') {
     const desc = 'LERNA Premium — ' + (plan === 'an' ? '1 an' : '1 mois');
     const back = origin + '/premium.html?pay=retour';
@@ -327,6 +343,7 @@ export async function POST(request) {
     }
     if (!TOKEN_RE.test(token)) {
       const detail = 'SasPay : ' + (spErr || 'pas de réponse');
+      spDetail = detail;
       await logPay('fail', { p: 'saspay', step: 'start', method, network: network || null, msg: detail, fallback: paydunyaReady() });
       if (!paydunyaReady()) return fail(502, 'provider_error', user.admin ? { detail } : undefined);
       /* sinon : on continue avec PayDunya ci-dessous */
@@ -352,7 +369,7 @@ export async function POST(request) {
     const detail = 'PayDunya (' + mode + ') : HTTP ' + inv.status + (inv.data && inv.data.response_code ? ', code ' + inv.data.response_code : '') + ' — ' + (pdMsg(inv) || 'pas de réponse');
     const conseil = hint({ provider: 'paydunya', mode, paydunya: keys, test: { ok: false, http: inv.status, message: pdMsg(inv) } });
     await logPay('fail', { p: 'paydunya', step: 'invoice', method, http: inv.status, code: (inv.data && inv.data.response_code) || null, msg: detail, keys, conseil });
-    return fail(502, 'provider_error', user.admin ? { detail: detail + (conseil ? ' — Que faire : ' + conseil : '') } : undefined);
+    return fail(502, 'provider_error', user.admin ? { detail: (spDetail ? spDetail + ' — puis le secours ' : '') + detail + (conseil ? ' — Que faire : ' + conseil : '') } : undefined);
   }
 
   const saved = await sbFetch('/rest/v1/paiements_momo', {
