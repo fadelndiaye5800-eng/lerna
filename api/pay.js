@@ -122,13 +122,16 @@ async function snNetworks() {
   if (netCache.list.length && Date.now() - netCache.t < 3600e3) return netCache.list;
   const r = await sp('GET', '/countries/');
   const out = [];
+  const two = (x) => { const s = String(x || '').toUpperCase(); return /^[A-Z]{2}$/.test(s) ? s : ''; };
   const walk = (node, country, depth) => {
-    if (depth > 6 || !node || typeof node !== 'object') return;
+    if (depth > 8 || !node || typeof node !== 'object') return;
     if (Array.isArray(node)) { node.forEach((n) => walk(n, country, depth + 1)); return; }
-    const iso = String(node.iso || node.iso2 || node.country_code || node.country || '').toUpperCase();
-    if (Array.isArray(node.networks)) { const c = /^[A-Z]{2}$/.test(iso) ? iso : (/^[A-Z]{2}$/.test(String(node.code || '').toUpperCase()) ? String(node.code).toUpperCase() : country); walk(node.networks, c, depth + 1); return; }
-    if (typeof node.code === 'string' && (node.name || node.label || node.display_name)) out.push({ code: node.code, name: String(node.name || node.label || node.display_name), country: /^[A-Z]{2}$/.test(iso) ? iso : country });
-    for (const v of Object.values(node)) if (v && typeof v === 'object') walk(v, country, depth + 1);
+    const iso = two(node.iso) || two(node.iso2) || two(node.country_code) || two(node.country);
+    /* Le pays se transmet à tout ce qu'il contient, quel que soit le nom de la liste (networks, operators…) */
+    const kids = ['networks', 'operators', 'providers', 'payment_methods', 'methods'].map((k) => node[k]).find(Array.isArray);
+    if (kids) { walk(kids, iso || two(node.code) || country, depth + 1); return; }
+    if (typeof node.code === 'string' && (node.name || node.label || node.display_name)) out.push({ code: node.code, name: String(node.name || node.label || node.display_name), country: iso || country });
+    for (const v of Object.values(node)) if (v && typeof v === 'object') walk(v, iso || country, depth + 1);
   };
   walk(r.data, '', 0);
   const list = out.filter((n) => n.country === 'SN' || /_sn$/i.test(n.code));
@@ -293,7 +296,7 @@ export async function POST(request) {
       }
     }
     out.conseil = hint(out);
-    const ev = await sbFetch('/rest/v1/events?ev=eq.pay:fail&select=at,meta&order=at.desc&limit=8');
+    const ev = await sbFetch('/rest/v1/events?ev=in.(pay:fail,pay:fallback)&select=at,meta&order=at.desc&limit=8');
     out.echecs = Array.isArray(ev.data) ? ev.data : [];
     await logPay('diag', { provider: out.provider, mode: out.mode, paydunya: out.paydunya, saspay: out.saspay, test: out.test || null, conseil: out.conseil });
     return json(out);
@@ -325,7 +328,9 @@ export async function POST(request) {
     const back = origin + '/premium.html?pay=retour';
     const first = (u.prenom || fullName.split(' ')[0] || 'Client').slice(0, 40), last = (u.nom || 'LERNA').slice(0, 40);
     let token = '', redirect = '', message = '', spErr = '';
-    const network = await spNetwork(method);
+    let network = method === 'card' ? null : await spNetwork(method), guessed = false;
+    /* Réseau absent de la liste lue : on essaie le code habituel ; s'il est refusé, on passe à la page de paiement */
+    if (!network && method !== 'card') { network = { wave: 'wave_sn', orange_money: 'orange_money_sn', free_money: 'free_money_sn' }[method]; guessed = true; }
     if (network && method !== 'card') {
       /* Paiement direct sur le téléphone de l'élève (Wave et Orange Money ouvrent leur appli via un lien) */
       const r = await sp('POST', '/payments/softpay/', { amount: amount.toFixed(2), currency: 'XOF', country: 'SN', network, description: desc,
@@ -340,6 +345,8 @@ export async function POST(request) {
       const d = (r.data && r.data.data) || {};
       if (r.ok && (d.id || d.slug) && /^https:\/\//.test(d.checkout_url || '')) { token = 'c-' + (d.id || d.slug); redirect = d.checkout_url; }
       else spErr = (spErr ? spErr + ' / ' : '') + 'page de paiement HTTP ' + r.status + ' ' + clean(r.data);
+      /* Wave / Orange Money / Free envoyés sur la page SasPay au lieu de l'appli : on garde la raison pour la corriger */
+      if (method !== 'card' && token) await logPay('fallback', { p: 'saspay', step: 'page SasPay au lieu de l’appli', method, network, guessed, msg: spErr || 'paiement direct sans réponse', reseaux: (await snNetworks()).map((n) => n.code).slice(0, 20) });
     }
     if (!TOKEN_RE.test(token)) {
       const detail = 'SasPay : ' + (spErr || 'pas de réponse');
