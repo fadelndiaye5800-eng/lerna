@@ -1,0 +1,34 @@
+23:28:24 deqar 8038
+23:29:38 scorecard 992
+23:29:39 ofs 425
+23:29:43 cricos 664
+23:29:44 officiel ci-mesrs-prives 618
+23:29:46 officiel cm-minesup-ipes 234
+23:29:48 officiel ae-caa 103
+23:29:49 officiel ng-nuc-public-federal 77
+23:29:49 officiel ng-nuc-public-state 69
+23:29:50 officiel ng-nuc-prive-private 182
+23:29:54 officiel ug-nche 153
+Warning: TT: undefined function: 21
+23:29:56 officiel rw-hec 21
+23:29:58 officiel bw-bqa 68
+23:30:02 officiel zw-zimche 20
+Warning: TT: undefined function: 21
+23:30:04 officiel tz-tcu 30
+clés co-men-snies c_digo_instituci_n,nombre_instituci_n,n_mero_identificaci_n,principal_seccional,naturaleza_jur_dica,sector,car_cter_acad_mico,cod_departamento,departamento_domicilio,municipio_domicilio,direcci_n_domicilio,tel_fono_domicilio,norma_de_creaci_n,fecha_norma_de_creaci_n,acreditada_alta_calidad,fecha_acreditaci_n,resoluci_n_de_la_acreditaci,vigencia_de_la_acreditaci,estado,fecha_actualizacion,p_gina_web
+23:30:04 officiel co-men-snies 300
+23:30:04 officiel 1875
+23:39:54 wikidata 30192
+23:39:54 fiches Wikidata fusionnées avec une liste officielle : 155
+node:internal/url:806
+    const href = bindingUrl.parse(input, base, raiseException);
+                            ^
+
+TypeError: Invalid URL
+    at new URL (node:internal/url:806:29)
+    at file:///home/runner/work/lerna/lerna/scripts/annuaire/build.mjs:274:54 {
+  code: 'ERR_INVALID_URL',
+  input: 'https://'
+}
+
+Node.js v20.20.2
