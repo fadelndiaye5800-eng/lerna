@@ -1,4 +1,4 @@
-2026-10-18T23:19:26.917Z
+2026-10-18T23:21:41.548Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -163,45 +163,92 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Corporacion Tecnica Profesional Caminos Del Suroccidente Colombiano | Timbío | Cauca | prive | https://www.corpocaminos.edu.co | Institución Técnica Profesional
   Universitaria Del Chicamocha | Bucaramanga | Santander | prive | https://www.unich.edu.co | Institución Universitaria/Escuela Tecnológica
   Fundación Universitaria Católica Del Caribe | Barranquilla | Atlántico | prive | https://www.unicatolicaribe.edu.co | Institución Universitaria/Escuela Tecnológica
-##### https://accreditation.neta.gov.et
-ST 200 text/html; charset=UTF-8 75210 https://accreditation.neta.gov.et/
-TITLE FDRE ETA Accreditation System | FDRE ETA Accreditation System | TABLES 1 TR 11 LI 4
-  TR Cert # | Issued | Valid Until | Status | Institute | Accreditation For | Accreditation
-  TR ETA-000007 | Feb 18, 2026 | Feb 18, 2031 | Active | Debre Berhan University Asrat Weldeyes Health Science Campus | Program Level Midwifery | Accredited
-  TR ETA-000008 | Feb 18, 2026 | Feb 18, 2031 | Active | Debre Berhan University Asrat Weldeyes Health Science Campus | Program Level Anesthesia | Accredited
-  TR ETA-000010 | Feb 18, 2026 | Feb 18, 2029 | Active | Debre Berhan University Asrat Weldeyes Health Science Campus | Program Level Nursing | Provisionally Accredited
-  TR ETA-000011 | Feb 18, 2026 | Feb 18, 2029 | Active | Addis Ababa University Tikur Anbesa Campus | Program Level Anesthesia | Provisionally Accredited
-  TR ETA-000012 | Feb 18, 2026 | Feb 18, 2029 | Active | Arsi University Health Campus | Program Level Midwifery | Provisionally Accredited
-  TR ETA-000013 | Feb 18, 2026 | Feb 18, 2029 | Active | Bahir Dar University Tibebe Gion Campus | Program Level Anesthesia | Provisionally Accredited
-  TR ETA-000006 | Feb 9, 2026 | Feb 9, 2029 | Active | Dire Dawa University Main Campus | Program Level Anesthesia | Provisionally Accredited
-  TR ETA-000009 | Feb 8, 2026 | Feb 18, 2029 | Active | Debre Berhan University Asrat Weldeyes Health Science Campus | Program Level Medicine | Provisionally Accredited
-  TR ETA-000001 | May 29, 2025 | May 28, 2028 | Active | Arsi University Health Campus | Program Level Medicine | Provisionally Accredited
+##### https://www.bqa.org.bw/registered-and-accredited-higher-education?page=1
+ST 200 text/html; charset=UTF-8 80695 https://www.bqa.org.bw/registered-and-accredited-higher-education?page=1
+TITLE Registered and Accredited Higher Education ETPs | Botswana Qualifications Authority | TABLES 1 TR 19 LI 105
+  TR Education & Training Provider | Reg. No. | Category | Accreditation Date | Expiry Date
+  TR Molepolole College of Education | ETP0434 | Public | Mar 04, 2021 | Mar 03, 2031
+  TR Kings College | ETP0558 | Private | Dec 02, 2021 | Dec 02, 2031
+  TR St Augustine Theological School | ETP0573 | Private | Nov 19, 2021 | Nov 18, 2031
+  TR Aviation Academy Flying Mission(AAFM) | ETP0625 | Private | Aug 24, 2021 | Aug 23, 2031
+  TR Fountain Climb (Proprietary) Limited T/A Kgolagano College | ETP0632 | Private | Dec 22, 2022 | Dec 21, 2032
+  TR Prison Staff College | ETP0633 | Public | Feb 07, 2023 | Feb 06, 2033
+  TR Roads Training Centre | ETP0641 | Public | Jul 12, 2023 | Jul 11, 2033
+  TR Lijoka International Seminary And Bible College | ETP0644 | Private | Jul 12, 2023 | Jul 11, 2033
+  TR ABBA Bible College | ETP0648 | Private | Apr 16, 2024 | Apr 15, 2034
+  FILES 1
+   /sites/default/files/reg_qualifications/Privacy%20Policy.pdf
+##### https://zimche.ac.zw/wp-content/uploads/2026/03/Accredited-Universities-and-their-Programmes-Document.pdf
+ST 200 application/pdf 1112783 https://zimche.ac.zw/wp-content/uploads/2026/03/Accredited-Universities-and-their-Programmes-Document.pdf
+PDF pages 111
+  1
+  Table of Contents
+  INTRODUCTION .......................................................................................................................... 2
+  AFRICA UNIVERSITY.................................................................................................................... 3
+  ARRUPE JESUIT UNIVERSITY ....................................................................................................... 7
+  BINDURA UNIVERSITY OF SCIENCE EDUCATION ..................................................................... 10
+  CATHOLIC UNIVERSITY OF ZIMBABWE ..................................................................................... 14
+  CHINHOYI UNIVERSITY OF TECHNOLOGY ............................................................................... 17
+  GREAT ZIMBABWE UNIVERSITY................................................................................................. 22
+  GWANDA STATE UNIVERSITY .................................................................................................... 32
+  HARARE INSTITUTE OF TECHNOLOGY ...................................................................................... 34
+  MANICALAND STATE UNIVERSITY OF APPLIED SCIENCES ....................................................... 37
+  MARONDERA UNIVERSITY OF AGRICULTURAL SCIENCES AND TECHNOLOGY ....................... 39
+  MIDLANDS STATE UNIVERSITY.................................................................................................. 42
+  NATIONAL UNIVERSITY OF SCIENCE AND TECHNOLOGY ........................................................ 54
+  LUPANE STATE UNIVERSITY ...................................................................................................... 63
+  REFORMED CHURCH UNIVERSITY ........................................................................................... 68
+  SOLUSI UNIVERSITY.................................................................................................................. 70
+  UNIVERSITY OF ZIMBABWE....................................................................................................... 74
+  WOMEN’S UNIVERSITY IN AFRICA ............................................................................................ 96
+  ZIMBABWE EZEKIEL GUTI UNIVERSITY ...................................................................................... 99
+  ZIMBABWE NATIONAL DEFENCE UNIVERSITY ........................................................................ 103
+  ZIMBABWE OPEN UNIVERSITY ................................................................................................ 105
+  2
+  INTRODUCTION
+  Zimbabwe has, as of June 2024, twenty Higher Education Institutions registered with the
+  Zimbabwe Council for Higher Education. There are thirteen state universities and seven private
+  institutions that offer degrees.
+  This booklet serves to inform the public that the institutions cited therein are deemed duly
+  registered with the Zimbabwe Council for Higher Education. The cited programmes offered by
+##### https://www.ugc.ac.lk/downloads/statistics/stat_2024/Chapter%201.pdf
+ST 200 application/pdf 1031951 https://www.ugc.ac.lk/downloads/statistics/stat_2024/Chapter%201.pdf
+PDF pages 19
+  The Chapter 1 presents the general information at a
+  glance highlighting the evolution of the system since
+  2005 through a set of key education indicators of the
+  University education in Sri Lanka under the purview
+  of the University Grants Commission. The structure
+  of academic departments of the Higher Educational
+  Institutions established under the Universities Act. is
+  also presented.
+  General
+  Information
+  1
+  1
+  •
+  Uni. of Colombo
+  • Uni. of Sri J’Pura• Uni. of Moratuwa• The Open University• Uni. of the Visual & Performing Arts
+  • University of
+  Kelaniya
+  • Sabaragamuwa
+  University of Sri Lanka
+  • University of Ruhuna
+  • Uva
+  W
+  ellassa
+  University
+  • Eastern University,
+  Sri La
+  n
+  ka
+  • University of Jaff
+  n
+##### https://ugcnepal.edu.np/uploads/web-uploadsfiles/SSR%20Approved%20HEIs.pdf/
+ST 404 text/html; charset=utf-8 23323 https://ugcnepal.edu.np/uploads/web-uploadsfiles/SSR%20Approved%20HEIs.pdf/
+TITLE Error 404 | TABLES 0 TR 0 LI 0
   FILES 0
-##### https://opendata.gov.jo/api/3/action/package_search?q=universities&rows=8
-ST 400 application/json;charset=utf-8 84 https://opendata.gov.jo/api/3/action/package_search?q=universities&rows=8
-  JSON "Bad request - JSON Error: Invalid request. Please use POST method for your request"
-##### https://unifast.gov.ph/hei-list.html
-ST 200 text/html 270918 https://unifast.gov.ph/hei-list.html
-TITLE UniFAST | TABLES 1 TR 1 LI 46
-  TR Region | HEI Name | HEI Type
+##### https://www.dhet.gov.za/Registers_DocLib/Forms/AllItems.aspx
+ST 401 text/plain; charset=utf-8 16 https://www.dhet.gov.za/Registers_DocLib/Forms/AllItems.aspx
+TITLE  | TABLES 0 TR 0 LI 0
   FILES 0
-##### https://dohape.dfa.gov.ph/newsroom/advisories/861-list-of-higher-education-institutions-in-the-philippines.html
-ST 403 text/html; charset=UTF-8 6014 https://dohape.dfa.gov.ph/newsroom/advisories/861-list-of-higher-education-institutions-in-the-philippines.html
-TITLE Just a moment... | TABLES 0 TR 0 LI 0
-  FILES 0
-##### https://www.dhet.gov.za/SitePages/UniversityEducation.aspx
-ST 200 text/html; charset=utf-8 101310 https://www.dhet.gov.za/SitePages/UniversityEducation.aspx
-TITLE Department of Higher Education and Training - UniversityEducation | TABLES 6 TR 9 LI 20
-  TR University Education Branch​ The purpose of the branch is to develop and coordinate policy and regulatory frameworks for an effective and efficient university education system. University Education ma
-  TR University Education Branch​ The purpose of the branch is to develop and coordinate policy and regulatory frameworks for an effective and efficient university education system. University Education ma
-  TR 
-  TR ​ | ​
-  TR ​ | ​
-  TR ​Branch Coordinator
-  TR ​ Mrs Seputu Mampane Telephone Mampane.G@dhet.gov.za
-  TR Quick LinksmyNSFAS | INTERNATIONAL SCHOLARSHIP | SAQA | COUNCIL on HIGHER EDUCATION | REGISTER for PRIVATE HIGHER EDUCATION
-  TR Contact Us Important UnitsMedium Term StrategicReporting on Outcome 5Research on PSET Special Projects Research ResourcesWork with Us Careers Tenders International Scholarships | | More PSET-related l
-  FILES 3
-   /SiteAssets/University%20Education/2024%20Approved%20NSFAS%20Eligibility%20Criteria%20and%20Conditions%20for%20Financial%20Aid%20%20Final%20draft.pdf
-   /Registers_DocLib/Register%20of%20Private%20Higher%20Education%20Institutions%2018%20February%202019.pdf
-   https://www.dhet.gov.za/SiteAssets/Privacy%20Statement/DHET's%20Privacy%20Statement.pdf
