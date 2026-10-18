@@ -30,6 +30,9 @@ for (let u of SONDES) {
     if (/pdf/.test(ct) || buf.slice(0, 4).toString() === '%PDF') {
       const pdf = (await import('pdf-parse/lib/pdf-parse.js')).default; const d = await pdf(buf);
       lines.push('PDF pages ' + d.numpages); d.text.split('\n').filter((l) => l.trim()).slice(0, 30).forEach((l) => lines.push('  ' + cut(l)));
+    } else if (/sheet|excel|octet/.test(ct) || buf.slice(0, 2).toString() === 'PK') {
+      const XLSX = (await import('xlsx')).default; const wb = XLSX.read(buf);
+      for (const sn of wb.SheetNames.slice(0, 4)) { const rows = XLSX.utils.sheet_to_json(wb.Sheets[sn], { header: 1, defval: '' }); lines.push('SHEET ' + sn + ' rows ' + rows.length); rows.slice(0, 12).forEach((r) => lines.push('  R ' + cut(r.join(' | ')))); }
     } else if (/json/.test(ct)) { lines.push('  JSON ' + cut(buf.toString('utf8')).slice(0, 1500)); } else {
       const $ = cheerio.load(buf.toString('utf8'));
       lines.push('TITLE ' + cut($('title').text()) + ' | TABLES ' + $('table').length + ' TR ' + $('tr').length + ' LI ' + $('li').length);
