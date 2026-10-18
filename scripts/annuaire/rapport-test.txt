@@ -1,4 +1,4 @@
-2026-10-18T23:49:33.603Z
+2026-10-18T23:51:35.074Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -16,7 +16,8 @@ clés co-men-snies c_digo_instituci_n,nombre_instituci_n,n_mero_identificaci_n,p
 officiel co-men-snies 300
 officiel in-ugc 1256
 officiel jp-mext 1117
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117}
+officiel ca-ircc-dli 5
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":5}
 == ci-mesrs-prives : 618
   Abidjan Bloom University (ABU) | Abidjan | Cocody | prive | 90.000 F
   Abidjan Business School -(ABS) | Abidjan | Cocody | prive | 85000
@@ -227,18 +228,9 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   沖縄キリスト教学院大学 | 中頭郡 | 沖縄 | prive | 大学 (université)
   沖縄キリスト教短期大学 | 中頭郡 | 沖縄 | prive | 短期大学 (université courte)
   沖縄女子短期大学 | 島尻郡 | 沖縄 | prive | 短期大学 (université courte)
-##### https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-DLI_name_PT_Inst_type.xlsx
-ST 200 application/vnd.openxmlformats-officedoc 1977154 https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-DLI_name_PT_Inst_type.xlsx
-SHEET ODP-TR-Study-DLI_name_PT_Inst_t rows 2769
-  R Canada - Post-Secondary Study Permit Holders By Designated Learning Institutions' (DLI) Name,and DLI's Province, DLI's Institution Type, January 2016 - July 2026 | | | | | | | | | | | | | | | | | | | 
-  R Province/Territory, Institution Type, and Designated Learning Institution | | | 2016 | | | | | | | | | | | | | | | | | 2017 | | | | | | | | | | | | | | | | | 2018 | | | | | | | | | | | | | | | | | 201
-  R | | | Q1 | | | | Q2 | | | | Q3 | | | | Q4 | | | | 2016 Total | Q1 | | | | Q2 | | | | Q3 | | | | Q4 | | | | 2017 Total | Q1 | | | | Q2 | | | | Q3 | | | | Q4 | | | | 2018 Total | Q1 | | | | Q2 | | | | Q
-  R | | | Jan | Feb | Mar | Q1 Total | Apr | May | Jun | Q2 Total | Jul | Aug | Sep | Q3 Total | Oct | Nov | Dec | Q4 Total | | Jan | Feb | Mar | Q1 Total | Apr | May | Jun | Q2 Total | Jul | Aug | Sep | 
-  R | | Academy Canada | -- | -- | -- | -- | -- | 0 | 0 | -- | 0 | -- | -- | -- | -- | -- | -- | -- | 15 | -- | -- | -- | -- | -- | -- | 0 | -- | -- | -- | -- | -- | -- | 0 | -- | -- | 10 | -- | 0 | -- | 
-  R | | Eastern Academy | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 
-  R | | Keyin College | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 
-  R | | Keyin College Advanced Educational Systems Inc | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -- | -- | -- | -- | 0 | 0 | 0 | 0 | -- | 0 | 0 | -- | -- | 0 | -- | 0 | -- | -- | -- | 0 | -- | 0 | 0 | 0 | 0 | -- 
-  R | | Keyin College Data Enterprises | -- | 0 | 0 | -- | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -- | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 
-  R | | Keyin College Future First Inc | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -- | -- | 0 | 0 | -- | -- | -- | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -- | 0 | -- | -- | 0 | 0 | 0 | 0 | -- | 0 | 0 | 0 | 0 | 0 
-  R | | Keyin College Southcoast Training | 0 | 0 | 0 | 0 | -- | 0 | 0 | -- | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -- | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -- | 0 | -- | 0 | 0 | 0 | 0 | -- | 0 | 0 | 0 | 0 | 0 
-  R | | Keyin College Western Campus | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -- | 
+== ca-ircc-dli : 5
+  Academy Canada | DLI · 
+  Centre for Nursing Studies | DLI · Career College
+  College of the North Atlantic | DLI · Career College
+  Gander Flight Training Exploits Valley Air Service | DLI · College
+  Memorial University of Newfoundland | DLI · Theological School
