@@ -1,9 +1,5 @@
 export const SONDES = [
-  'https://www.mes.tn/',
-  'https://www.yok.gov.tr/',
-  'https://yokatlas.yok.gov.tr/',
-  'https://scu.eg/',
-  'https://www.enssup.gov.ma/',
-  'https://www.mesrs.dz/',
-  'https://www.academyinfo.go.kr/'
+  'https://www.mesrs.dz/index.php/reseau-universitaire/',
+  'https://www.mesrs.dz/index.php/etablissement/',
+  'https://www.mesrs.dz/fr/etablissements-prives/'
 ];
