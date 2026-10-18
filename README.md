@@ -19,6 +19,10 @@ page Premium centrée sur le résultat, bouton « Envoyer à mes parents » et F
 
 Explorer → onglet **France · Parcoursup** : les ~25 800 formations de Parcoursup (année la plus récente), lues en direct dans les données
 ouvertes du ministère (`fr-esr-cartographie_formations_parcoursup`, API Opendatasoft, CORS ouvert ; domaine ajouté à la CSP).
+Explorer → onglet **Monde** : annuaire mondial (≈ 37 000 établissements, ~200 pays) reconstruit **chaque mois** par GitHub Actions
+(`.github/workflows/annuaire.yml` → `scripts/annuaire/build.mjs` → `assets/annuaire/<PAYS>.json`). Sources : DEQAR (Europe, ODC-PDDL),
+College Scorecard (États-Unis, frais officiels, domaine public), Office for Students (Angleterre, OGL v3), CRICOS (Australie, coûts déclarés,
+CC BY 2.5 AU), Wikidata (autres pays, CC0, affiché « À vérifier »). Si une source échoue, ses anciennes fiches sont gardées ; erreurs dans `index.json`.
 Fiche école → carte **Reconnaissance et accréditation** (`assets/js/accred.js`) : marche à suivre et registres officiels
 (ANAQ-Sup, CAMES, Parcoursup, RNCP), sans jamais inventer de décision.
 
