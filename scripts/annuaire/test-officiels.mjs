@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import { readOfficiels } from './officiels.mjs';
 const only = (process.env.ONLY || '').split(',').filter(Boolean);
 const lines = [];
+const _log = console.log; console.log = (...a) => { lines.push(a.join(' ')); _log(...a); };
 const { rows, report } = await readOfficiels((...a) => lines.push(a.join(' ')));
 lines.push('RAPPORT ' + JSON.stringify(report));
 const by = {};
