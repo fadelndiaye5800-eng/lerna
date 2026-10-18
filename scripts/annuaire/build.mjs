@@ -270,6 +270,7 @@ const ids = new Set(), seenDom = new Set();
 let dropped = 0;
 for (const r of all) {
   if (!r.n || ids.has(r.i)) continue;
+  if (r.w) { try { const u = new URL(/^https?:\/\//i.test(r.w) ? r.w : 'https://' + r.w); r.w = u.hostname.includes('.') ? u.href : ''; } catch { r.w = ''; } }
   if (r.w && ccMismatch(r)) { dropped++; continue; }
   const key = r.w ? r.p + '|' + domain(r.w) + '|' + (new URL(r.w).pathname.split('/')[1] || '') : '';
   if (key && seenDom.has(key)) continue;

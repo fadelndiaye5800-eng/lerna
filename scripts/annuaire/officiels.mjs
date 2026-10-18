@@ -79,6 +79,13 @@ export const OFFICIELS = [
     url: 'https://www.datos.gov.co/resource/n5yy-8nav.json?$limit=5000', type: 'json', debugKeys: true,
     filter: (o) => /activ/i.test(o.estado || '') && /principal/i.test(o.principal_seccional || ''),
     map: (o) => ({ n: o.nombre_instituci_n, v: o.municipio_domicilio || o.municipio || '', r: o.departamento_domicilio || o.departamento || '', w: /\./.test(o.p_gina_web || '') ? o.p_gina_web : '', t: /oficial/i.test(o.sector || '') ? 'public' : /privad/i.test(o.sector || '') ? 'prive' : '', acc: [o.car_cter_acad_mico, /^s/i.test(o.acreditada_alta_calidad || '') ? 'Acreditación de alta calidad' + (o.vigencia_de_la_acreditaci ? ' (' + o.vigencia_de_la_acreditaci + ')' : '') : ''].filter(Boolean).join(' · ') })
+  },
+  {
+    cc: 'IN', id: 'in-ugc',
+    autorite: { fr: 'University Grants Commission (UGC), Inde', en: 'University Grants Commission (UGC), India' },
+    titre: { fr: 'Universités reconnues par l’UGC (centrales, d’État, « deemed », privées d’État)', en: 'UGC-recognised universities (central, state, deemed, state private)' },
+    url: 'https://www.ugc.gov.in/universitydetails/Getuniversity_details?unitypeID=0', page: 'https://www.ugc.gov.in/universitydetails/university?type=MuOh4z0uqRaY2k8Ag10I0g==', type: 'json', debugKeys: true,
+    map: (o) => ({ n: o.uni_name, v: '', r: o.state || '', w: /\./.test(o.url || '') ? o.url.trim() : '', t: /private/i.test(o.uni_type || '') ? 'prive' : /central|state/i.test(o.uni_type || '') ? 'public' : '', acc: [o.uni_type, o.status ? 'UGC ' + o.status : ''].filter(Boolean).join(' · ') })
   }
 ];
 
@@ -184,7 +191,7 @@ async function readPdfTz(src) {
 
 async function readJson(src) {
   const j = JSON.parse((await fetchBuf(src.url)).toString('utf8'));
-  const arr = Array.isArray(j) ? j : j.results || j.data || [];
+  const arr = Array.isArray(j) ? j : j.results || j.data || j.List || [];
   if (src.debugKeys && arr[0]) console.log('clés', src.id, Object.keys(arr[0]).join(','));
   return arr.filter(src.filter || (() => true)).map(src.map).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
 }
@@ -226,4 +233,4 @@ export async function readOfficiels(log = console.log) {
 }
 
 /* Métadonnées publiées pour l'appli (nom de l'organisme, titre de la liste, lien) */
-export const LISTES = Object.fromEntries(OFFICIELS.map((s) => [s.id, { cc: s.cc, autorite: s.autorite, titre: s.titre, url: s.url, fraisLabel: s.fraisLabel }]));
+export const LISTES = Object.fromEntries(OFFICIELS.map((s) => [s.id, { cc: s.cc, autorite: s.autorite, titre: s.titre, url: s.page || s.url, fraisLabel: s.fraisLabel }]));
