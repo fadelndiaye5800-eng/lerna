@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths: ['scripts/annuaire/officiels.mjs', 'scripts/annuaire/test-officiels.mjs']
+    paths: ['scripts/annuaire/officiels.mjs', 'scripts/annuaire/test-officiels.mjs', 'scripts/annuaire/sondes.mjs']
 permissions:
   contents: write
 concurrency:
