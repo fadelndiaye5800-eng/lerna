@@ -1,4 +1,4 @@
-2026-10-18T23:52:59.472Z
+2026-10-18T23:54:55.699Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -16,8 +16,8 @@ clés co-men-snies c_digo_instituci_n,nombre_instituci_n,n_mero_identificaci_n,p
 officiel co-men-snies 300
 officiel in-ugc 1256
 officiel jp-mext 1117
-officiel ca-ircc-dli 5
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":5}
+officiel ca-ircc-dli 667
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":667}
 == ci-mesrs-prives : 618
   Abidjan Bloom University (ABU) | Abidjan | Cocody | prive | 90.000 F
   Abidjan Business School -(ABS) | Abidjan | Cocody | prive | 85000
@@ -228,69 +228,18 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   沖縄キリスト教学院大学 | 中頭郡 | 沖縄 | prive | 大学 (université)
   沖縄キリスト教短期大学 | 中頭郡 | 沖縄 | prive | 短期大学 (université courte)
   沖縄女子短期大学 | 島尻郡 | 沖縄 | prive | 短期大学 (université courte)
-== ca-ircc-dli : 5
-  Academy Canada | DLI · 
-  Centre for Nursing Studies | DLI · Career College
-  College of the North Atlantic | DLI · Career College
-  Gander Flight Training Exploits Valley Air Service | DLI · College
-  Memorial University of Newfoundland | DLI · Theological School
-##### https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-DLI_name_PT_Inst_type.xlsx
-ST 200 application/vnd.openxmlformats-officedoc 1977154 https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-DLI_name_PT_Inst_type.xlsx
-SHEET ODP-TR-Study-DLI_name_PT_Inst_t rows 2769
-  R3 | | | Jan ... May | Jun | Q2 Total | Jul | Q3 Total |
-  R4 | | Academy Canada | -- ... -- | 0 | -- | 0 | 0 | --
-  R5 | | Eastern Academy | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R6 | | Keyin College | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R7 | | Keyin College Advanced Educational Systems Inc | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R8 | | Keyin College Data Enterprises | -- ... 0 | 0 | 0 | 0 | 0 | 0
-  R9 | | Keyin College Future First Inc | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R10 | | Keyin College Southcoast Training | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R11 | | Keyin College Western Campus | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R12 | Career College | | -- ... -- | 0 | -- | 0 | 0 | --
-  R13 | | Centre for Nursing Studies | 0 ... 0 | -- | -- | -- | -- | 10
-  R14 | | College of the North Atlantic | -- ... 20 | 35 | 75 | 35 | 35 | 155
-  R15 | | Western Regional School of Nursing | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R16 | College | | -- ... 20 | 35 | 80 | 40 | 40 | 165
-  R17 | | Gander Flight Training Exploits Valley Air Service | 0 ... 0 | 0 | 0 | 0 | 0 | --
-  R18 | Flight School | | 0 ... 0 | 0 | 0 | 0 | 0 | --
-  R19 | | Queen's College | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R20 | Theological School | | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R21 | | Memorial University of Newfoundland | 130 ... 125 | 110 | 360 | 150 | 150 | 830
-  R22 | University | | 130 ... 125 | 110 | 360 | 150 | 150 | 830
-  R23 Newfoundland and Labrador Total | | | 135 ... 150 | 145 | 440 | 190 | 190 | 1,000
-  R24 | | Academy of Learning College | 0 ... 0 | 0 | 0 | 0 | 0 | --
-  R25 | | Marguerite Connolly Training and Consulting | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R26 | | Red Cliff College of Applied Technology and Management | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R27 | Career College | | 0 ... 0 | 0 | 0 | 0 | 0 | --
-  R28 | | Collège de l'Île | 0 ... -- | -- | 5 | -- | -- | 15
-  R29 | | Great Wisdom Institute of Advanced Buddhist Learning | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R30 | | Holland College | 5 ... 30 | 25 | 75 | 30 | 30 | 135
-  R31 | College | | 5 ... 35 | 30 | 80 | 30 | 30 | 150
-  R32 | | Study Abroad Canada Language Institute | 0 ... 0 | -- | -- | -- | -- | 5
-  R33 | Language School | | 0 ... 0 | -- | -- | -- | -- | 5
-  R34 | | Moonlight International Academy | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R35 | Theological School | | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R36 | | Maritime Christian College | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R37 | | University of Prince Edward Island | 45 ... 50 | 45 | 140 | 60 | 60 | 290
-  R38 | University | | 45 ... 50 | 45 | 140 | 60 | 60 | 290
-  R39 Prince Edward Island Total | | | 50 ... 80 | 75 | 220 | 90 | 90 | 440
-  R40 | | Academy of Cosmetology | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R41 | | Academy of Learning Career College Halifax | -- ... -- | -- | 10 | 5 | 5 | 25
-  R42 | | Atlantic Flight Attendant Academy | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R43 | | Canadian College of Acupuncture and Traditional Chinese Medicine | 0 ... -- | 0 | -- | 0 | 0 | --
-  R44 | | Canadian College of Massage and Hydrotherapy | 0 ... 0 | -- | -- | -- | -- | --
-  R45 | | CPA Atlantic School of Business Association | -- ... 0 | -- | -- | -- | -- | 10
-  R46 | | Da Vinci College of Arts and Design | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R47 | | Eastern College Halifax | -- ... 0 | -- | -- | 0 | 0 | --
-  R48 | | Island Career Academy | 0 ... 0 | -- | -- | -- | -- | --
-  R49 | | Maritime Environmental Training Institute | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R50 | | Medavie HealthEd | 0 ... -- | -- | 5 | 0 | 0 | 10
-  R51 | | Northumberland College | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R52 | | Nova Scotia College of Early Childhood Education | 0 ... 0 | 0 | 0 | -- | -- | --
-  R53 | | Nova Scotia Fire Fighters School | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R54 | | Oxford International College Halifax | 0 ... 35 | 40 | 120 | 35 | 35 | 260
-  R55 | | Success College of Applied Arts and Technology | 0 ... 0 | 0 | 0 | 0 | 0 | 0
-  R56 | | The Maritime College | 0 ... 0 | 0 | 0 | 0 | 0 | --
-  R57 | | Willis College | 0 ... 40 | 55 | 120 | 40 | 40 | 260
-  R58 | Career College | | 5 ... 80 | 105 | 265 | 90 | 90 | 575
-  R59 | | Bishop's College School | 0 ... 0 | 0 | 0 | 0 | 0 | 0
+== ca-ircc-dli : 667
+  Academy Canada | Newfoundland and Labrador | DLI · Career College
+  Centre for Nursing Studies | Newfoundland and Labrador | DLI · College
+  College of the North Atlantic | Newfoundland and Labrador | DLI · College
+  Gander Flight Training Exploits Valley Air Service | Newfoundland and Labrador | DLI · Flight School
+  Memorial University of Newfoundland | Newfoundland and Labrador | DLI · University
+  Academy of Learning College | Prince Edward Island | DLI · Career College
+  Collège de l'Île | Prince Edward Island | DLI · College
+  Holland College | Prince Edward Island | DLI · College
+  Mohawk College of Applied Arts and Technology | Ontario | DLI · College
+  Mohawk College of Applied Arts and Technology at triOS College Business Technology Healthcare Inc | Ontario | DLI · College
+  Niagara College Canada | Ontario | DLI · College
+  Yukon University | Yukon | DLI · University
+  Aurora College | Northwest Territories | DLI · College
+  Not Stated | Not Stated | DLI · Not Stated
