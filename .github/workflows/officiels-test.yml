@@ -1,0 +1,31 @@
+# Test rapide des listes officielles (sans reconstruire tout l'annuaire)
+name: Test listes officielles
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['scripts/annuaire/officiels.mjs', 'scripts/annuaire/test-officiels.mjs']
+permissions:
+  contents: write
+concurrency:
+  group: officiels-test
+  cancel-in-progress: true
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install --no-save --no-package-lock cheerio@1 pdf-parse@1.1.1 xlsx@0.18.5 csv-parse@5
+      - run: node scripts/annuaire/test-officiels.mjs
+      - name: Publier le rapport
+        run: |
+          git config user.name "lerna-annuaire[bot]"
+          git config user.email "annuaire@users.noreply.github.com"
+          git add scripts/annuaire/rapport-test.txt
+          git commit -m "Test listes officielles : rapport" || exit 0
+          git pull --rebase origin main
+          git push origin HEAD:main

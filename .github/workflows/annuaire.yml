@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 20
       - name: Dépendances de lecture (CSV, Excel)
-        run: npm install --no-save --no-package-lock csv-parse@5 xlsx@0.18.5
+        run: npm install --no-save --no-package-lock csv-parse@5 xlsx@0.18.5 cheerio@1 pdf-parse@1.1.1
       - name: Construire l'annuaire
         run: node scripts/annuaire/build.mjs
         env:
