@@ -107,7 +107,7 @@ export const OFFICIELS = [
       const num = (c) => c === '--' || Number(String(c).replace(/[, ]/g, '')) > 0;
       for (const r of rows.slice(4)) {
         const c0 = String(r[0]).trim(), c1 = String(r[1]).trim(), n = String(r[2]).trim();
-        if (n) { if (r.slice(y0).some(num)) grp.push({ n }); continue; }
+        if (n) { if (!/^not stated$/i.test(n) && r.slice(y0).some(num)) grp.push({ n }); continue; }
         if (c1) { const typ = c1.replace(/\s*total$/i, ''); for (const g of grp.splice(0)) prov.push({ ...g, t: /^universit/i.test(typ) ? '' : '', acc: 'DLI · ' + typ }); continue; }
         if (/total$/i.test(c0) && !/^canada|^grand/i.test(c0)) { const pv = c0.replace(/\s*total$/i, ''); for (const g of prov.splice(0)) out.push({ ...g, r: pv }); }
       }
