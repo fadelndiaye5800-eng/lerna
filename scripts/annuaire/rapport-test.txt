@@ -1,11 +1,12 @@
-2026-10-18T23:09:05.282Z
+2026-10-18T23:11:51.972Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
 officiel ng-nuc-public-federal 77
 officiel ng-nuc-public-state 69
 officiel ng-nuc-prive-private 182
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182}
+officiel ug-nche 166
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":166}
 == ci-mesrs-prives : 618
   Abidjan Bloom University (ABU) | Abidjan | Cocody | 90.000 F
   Abidjan Business School -(ABS) | Abidjan | Cocody | 85000
@@ -96,6 +97,21 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Ummah University of Nigeria, Abuja | Abuja | 2026
   Pearl University, Calabar, Cross river | Cross river | 2026
   Omega University Kaduna | 2026
+== ug-nche : 166
+  Africa Institute of Music | Kampala | Provisional License to Operate as Other Degree Awarding Institution
+  Africa Reformation Theological Seminary | Wakiso | Provisional License to Operate as Other Degree Awarding Institution
+  Africa Renewal University | Wakiso | Chartered University
+  Africa Rural University | Kibaale | Provisional License to Operate as University
+  Africa University of Science and Management | Kanungu | Provisional License to Operate as University
+  African Bible University | Wakiso | Chartered University
+  African College of Commerce and Technology | Kabale | Certificate of Classification and Registration
+  African International Christian Ministry College of Science and Technology | Kabale | Certificate of Classification and Registration
+  Mountains of the Moon University | Fort Portal | University - Registered
+  Mulago School of Nursing and Midwifery | Kampala | Public OTI
+  Multitech Business School | Kampala | Provisional License to Operate as Other Degree Awarding Institution
+  Metropolitan International University-Mbarara Campus | 2022-10-17 | Campuses
+  Uganda Martyrs University- Fort Portal Campus | 2016-06-27 | Campuses
+  Uganda Pentecostal University, Kampala | 2025-11-03 | Campuses
 ##### https://www.hec.gov.rw/accredited-institutions
 ST 200 text/html; charset=utf-8 19460 https://www.hec.gov.rw/accredited-institutions
 TITLE Accredited Institutions | TABLES 0 TR 0 LI 25
@@ -121,93 +137,34 @@ TITLE Accredited Institutions | TABLES 0 TR 0 LI 25
   T African Biomanufacturing Institute
   T Private Institutions
   T Academic Programs Offered by the Private Higher Learning Institutions in Rwanda
-##### https://www.hec.gov.rw/fileadmin/user_upload/HEC/Accreditation/Heads_of_HLIs_operating_in_Rwanda_2025.pdf
-ST 200 application/pdf 225456 https://www.hec.gov.rw/fileadmin/user_upload/HEC/Accreditation/Heads_of_HLIs_operating_in_Rwanda_2025.pdf
-PDF pages 3
-  1
-  Heads of Higher Learning Institutions Operating in Rwanda
-  ==========================================================
-  A. Public Higher Learning Institutions
-  S/N Name of Institution Contact Name Position Cell Number Email
-  1. University of Rwanda - UR
-  Assoc. Prof. Didas
-  KAYIHURA MUGANGA
-  Ag. Vice Chancellor 0788495778 vc@ur.ac.rw
-  2. Rwanda Polytechnic - RP Dr. Sylvie MUCYO Vice Chancellor 0783036431 vc@rp.ac.rw
-  3. Institute of Legal Practice and Development
-  - ILPD
-  Dr. Kalimunda Muyoboke Aimé Rector 0788305752 aime.muyoboke@ilpd.ac.rw
-  B. Private Higher Learning Institutions
-  S/N Name of Institution Contact Name Position Cell Number Email
-  1. Independent University of Kigali - ULK Dr. SIKUBWABO Cyprien Vice Chancellor 0788304081 vc@ulk.ac.rw
-  2. Institute of Lay Adventists of Kigali - INILAK Dr. John NGAMIJE
-  Vice Chancellor 0788305084
-  jeanngamije@yahoo.com
-  3. Catholic University of Rwanda - CUR Dr. Laurent NTAGANDA Rector 0788596321 ntalaurent5@yahoo.fr
-  catholic.university.rwanda@cur.ac.rw
-  4. Adventist University of Central Africa -
-  AUCA
-  Dr. Pen Cook Ag. Vice Chancellor 0788310062 vc@auca.ac.rw
-  eustace@penniecook.com
-  5. Institut Catholique de Kabgayi - ICK Prof. Dr. DUSHIMANA
-  Fidele
-  Vice Chancellor 0782761152 recteur@uck.ac.rw
-  fidushimimana@uck.ac.rw
-  6. Institut d’Enseignement Supérieur de
-##### https://moe.gov.sa/en/mediacenter/MOEnews/Pages/edu-institutions.aspx
-ST 200 text/html; charset=utf-8 88300 https://www.moe.gov.sa/en/mediacenter/MOEnews/Pages/edu-institutions.aspx
-TITLE Ministry of Education | The Ministry of Education seeks to attract the best international educational institutions to the Kingdom | TABLES 0 TR 0 LI 0
-  FILES 0
-  T 22 Visitors said yes from 32 feedbacks
-  T Please tell us why (select up to two options)
-  T Please select maximum two options and proceed with submit
-  T الرجاء اختيار سببان كحد أعلى
-  T Notes must be less than 250 characters
-##### https://unche.or.ug/institutions/
-ST 200 text/html; charset=UTF-8 189310 https://unche.or.ug/institutions/
-TITLE Institutions – National Council for Higher Education | TABLES 10 TR 176 LI 73
-  TR Name | Institution Category | Accreditation Status | District | Campuses | Programmes
-  TR Africa Institute of Music | ODAI | Provisional License to Operate as Other Degree Awarding Institution | Kampala | 0 | 3
-  TR Africa Reformation Theological Seminary | ODAI | Provisional License to Operate as Other Degree Awarding Institution | Wakiso | 0 | 3
-  TR Africa Renewal University | University | Chartered University | Wakiso | 0 | 42
-  TR Africa Rural University | University | Provisional License to Operate as University | Kibaale | 0 | 2
-  TR Africa University of Science and Management | University | Provisional License to Operate as University | Kanungu | 0 | 3
-  TR African Bible University | University | Chartered University | Wakiso | 0 | 2
-  TR African College of Commerce and Technology | OTI | Certificate of Classification and Registration | Kabale | 0 | 5
-  TR African International Christian Ministry College of Science and Technology | OTI | Certificate of Classification and Registration | Kabale | 0 | 6
-  TR African Population Institute | OTI | Provisional License to Operate as Other Tertiary Institution | Kampala | 0 | 5
-  FILES 0
-##### https://www.cue.or.ke/index.php/accredited-universities
-ERR fetch failed
-##### https://gtec.edu.gh/institutions
-ST 200 text/html; charset=UTF-8 184207 https://gtec.edu.gh/institutions/
-TITLE institutions - GTEC Email Email | TABLES 0 TR 0 LI 35
-  FILES 0
-  T About Us
+  T Contacts
+  T Contact List for all Institutions
+  T Useful Links
+  T Staff Mail
+  T Smart Admin
+  T Equivalence
+  T HEC MIS
+  T Scholarships
+  T Accredited Institutions
+  T Policies
+  T Guidelines
+  T Reports
+  T Forms
+  T Education Statistics
   T Contact Us
-  T News & Events
-  T Services
-  T Accreditation
-  T Credential Evaluation
-  T Assessors
-  T Status Check
-  T Book Conference Facility
-  T Book Guest House
-  T Publications
-  T About Us
-  T Contact Us
-  T News & Events
-  T Services
-  T Accreditation
-  T Credential Evaluation
-  T Assessors
-  T Status Check
-  T Book Conference Facility
-  T Book Guest House
-  T Publications
-##### https://www.enssup.gov.ma/storage/enssup%20priv%C3%A9/2024/Liste%20des%20universit%C3%A9s%20et%20%C3%A9tablissements%20reconnus%20par%20l'Etat.pdf
-ERR fetch failed
-##### https://mesrisenegal.sn/page/desp-direction-de-lenseignement-superieur-prive
-ST 403 text/html 583 https://mesrisenegal.sn/page/desp-direction-de-lenseignement-superieur-prive
-TITLE  | TABLES 0 TR 0 LI 0
+  T 0786823101
+  T info@hec.gov.rw
+  T Ministry of Education Building (First floor)
+  T P.O Box: 6311 Kigali - Rwanda
+  T © 2026 Higher Education Council
+##### https://www.osym.gov.tr/TR,4699/universities.html
+ST 404 text/html 20877 https://www.osym.gov.tr/TR,4699/universities.html
+TITLE  | TABLES 0 TR 0 LI 2
   FILES 0
+  T T.C. ÖLÇME, SEÇME VE YERLEŞTİRME MERKEZİ BAŞKANLIĞI
+  T https://ais.osym.gov.tr
+  T https://gis.osym.gov.tr
+  T https://sanalpos.osym.gov.tr
+  T https://sonuc.osym.gov.tr
+##### https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/prepare/designated-learning-institutions-list.html
+ERR This operation was aborted
