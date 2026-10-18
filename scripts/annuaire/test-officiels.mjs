@@ -17,13 +17,15 @@ for (const [k, v] of Object.entries(by)) {
 /* Sondes */
 import * as cheerio from 'cheerio';
 const { SONDES } = await import('./sondes.mjs');
-for (const u of SONDES) {
+for (let u of SONDES) {
+  let grep = null; const m = /^GREP:(.+?)\|(https?:.+)$/.exec(u); if (m) { grep = new RegExp(m[1], 'gi'); u = m[2]; }
   lines.push('##### ' + u);
   try {
     const ctrl = new AbortController(); setTimeout(() => ctrl.abort(), 45000);
     const r = await fetch(u, { headers: { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36', 'Accept-Language': 'fr,en;q=0.8' }, signal: ctrl.signal });
     const ct = r.headers.get('content-type') || ''; const buf = Buffer.from(await r.arrayBuffer());
     lines.push('ST ' + r.status + ' ' + ct.slice(0, 40) + ' ' + buf.length + ' ' + r.url.slice(0, 150));
+    if (grep) { const t = buf.toString('utf8'); let k; let n = 0; while ((k = grep.exec(t)) && n++ < 40) lines.push('  G ' + t.slice(Math.max(0, k.index - 150), k.index + 350).replace(/\s+/g, ' ')); continue; }
     const cut = (x) => String(x).replace(/\s+/g, ' ').trim().slice(0, 200);
     if (/pdf/.test(ct) || buf.slice(0, 4).toString() === '%PDF') {
       const pdf = (await import('pdf-parse/lib/pdf-parse.js')).default; const d = await pdf(buf);
