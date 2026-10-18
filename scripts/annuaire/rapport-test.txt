@@ -1,4 +1,4 @@
-2026-10-18T23:13:17.450Z
+2026-10-18T23:15:19.391Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -6,8 +6,13 @@ officiel ng-nuc-public-federal 77
 officiel ng-nuc-public-state 69
 officiel ng-nuc-prive-private 182
 officiel ug-nche 153
+Warning: TT: undefined function: 21
 officiel rw-hec 21
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21}
+Warning: TT: undefined function: 21
+officiel tz-tcu 30
+clés co-men-snies c_digo_instituci_n,nombre_instituci_n,n_mero_identificaci_n,principal_seccional,naturaleza_jur_dica,sector,car_cter_acad_mico,cod_departamento,departamento_domicilio,municipio_domicilio,direcci_n_domicilio,tel_fono_domicilio,norma_de_creaci_n,fecha_norma_de_creaci_n,acreditada_alta_calidad,fecha_acreditaci_n,resoluci_n_de_la_acreditaci,vigencia_de_la_acreditaci,estado,fecha_actualizacion,p_gina_web
+officiel co-men-snies 300
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"tz-tcu":30,"co-men-snies":300}
 == ci-mesrs-prives : 618
   Abidjan Bloom University (ABU) | Abidjan | Cocody | prive | 90.000 F
   Abidjan Business School -(ABS) | Abidjan | Cocody | prive | 85000
@@ -128,74 +133,40 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   East African Christian College (EACC) | prive
   Africa Health Sciences University (AFU) | prive
   African School of Governance (ASG) | prive
-##### https://tcu.go.tz/sites/default/files/public_notices/2026-07/LIST%20OF%20UNIVERSITY%20INSTITUTIONS%20IN%20TANZANIA%20AS%20OF%2011%20AUGUST_2026.pdf
-ST 200 application/pdf 336588 https://tcu.go.tz/sites/default/files/public_notices/2026-07/LIST%20OF%20UNIVERSITY%20INSTITUTIONS%20IN%20TANZANIA%20AS%20OF%2011%20AUGUST_2026.pdf
-PDF pages 6
-  Universities for Prosperity 1 August 2026
-  TANZANIA COMMISSION FOR UNIVERSITIES
-  Universities for Prosperity
-  TCU Headquarters Office Building
-  2 TCU Street, 41220 Nzuguni,
-  P. O. Box 2600, Dodoma
-  TCU Offices - Dar es Salaam
-  Ministry of Education, Science and Technology Building, 7 Magogoni Street 11479,
-  P. O. Box 6562, Dar es Salaam
-  Tel: +255 (0) 26 2161560; +255 (0) 26 2161561
-  Email: es@tcu.go.tz
-  Website: www.tcu.go.tz
-  University Institutions Approved to operate in
-  Tanzania as of August 11, 2026
-  The Tanzania Commission for Universities (TCU) was established on July 1, 2005 through the
-  enactment of the Universities Act, Cap. 346 R.E 2023, with the legal mandate to regulate both
-  private and public-owned university institutions in Tanzania.
-  As of August 2026, the number of approved university institutions operating in Tanzania is 56,
-  whereas 24 are public-owned and 32 are private-owned university institutions.
-  The public is hereby notified that any university institution which does not appear in this list is
-  NOT authorised to offer university education in Tanzania in line with the Universities Act, Cap.
-  346.
-  2
-  Universities for Prosperity August 2026
-  1.0 FULLY FLEDGED UNIVERSITIES
-  1.1 Public Universities
-  SN Name of the University Head Office Status
-  1. University of Dar es Salaam (UDSM) Dar es Salaam Accredited and Chartered
-  2. Sokoine University of Agriculture (SUA) Morogoro Accredited and Chartered
-  3. Open University of Tanzania (OUT) Dar es Salaam Accredited and Chartered
-##### https://www.hec.gov.pk/english/universities/Pages/recognised.aspx
-ERR fetch failed
-##### https://www.republicoftogo.com/content/download/120320/3079919/1
-ST 200 application/pdf 1267660 https://www.republicoftogo.com/content/download/120320/3079919/1
-PDF pages 12
-  N° 1631 DU LUNDI 27 JUILLET 2026
-  QUOTIDIEN TOGOLAIS D'ANALYSES ET D'INFORMATIONS GENERALES / Prix : 250 FCFA
-  DERNIERES HEURES
-  Enseignement supérieur : 111 établissements agréés pour l’année académique 2026-2027
-  Le ministère chargé de l’Enseignement supérieur a publié la liste officielle des établissements reconnus et
-  agréés par l’État au titre de l’année académique 2026-2027. Au total, 111 structures, dont 13 établissements
-  publics, sont autorisées à accueillir des étudiants et à délivrer des formations reconnues.
-  Cette liste regroupe les universités publiques, les instituts, les écoles supérieures ainsi que les établissements
-  privés ayant satisfait aux exigences réglementaires en vigueur. Leur habilitation garantit la conformité des
-  formations proposées et la reconnaissance des diplômes délivrés dans les domaines autorisés.
-  À l’approche de la rentrée universitaire, le ministère invite les nouveaux bacheliers, les étudiants et leurs
-  familles à consulter ce document avant toute inscription. « Avant toute inscription, vérifiez que l’établissement
-  choisi y figure », a rappelé l’institution.
-  Cette démarche s’inscrit dans la politique d’assainissement du paysage universitaire et de renforcement
-  de la qualité de l’enseignement supérieur. Elle vise également à rapprocher les formations nationales des
-  standards de l’espace CAMES.
-  CADRE DE VIE
-  PRODUITS FNFI
-  TOG OM AT IN
-  Les acquis de la Feuille de route 2020-2025
-  consolident la transformation du secteur
-  PAGE 2
-  PAGE 3
-  Echos des bénéficiaires
-  Projet Gedec
-  Le président du Conseil, Faure Essozimna Gnassingbé, s’est
-  entretenu le jeudi 23 juillet 2026 avec l’ambassadeur de l’Union
-  européenne au Togo, Gwilym Ceri Jones, arrivé au terme de sa
-  mission diplomatique dans le pays.
-  Partenariat Togo-UE
-##### https://www.datos.gov.co/resource/n5yy-8nav.json?$limit=3
-ST 200 application/json;charset=utf-8 2295 https://www.datos.gov.co/resource/n5yy-8nav.json?$limit=3
+== tz-tcu : 30
+  University of Dar es Salaam (UDSM) | Dar es Salaam | public | Accredited and Chartered
+  Sokoine University of Agriculture (SUA) | Morogoro | public | Accredited and Chartered
+  Open University of Tanzania (OUT) | Dar es Salaam | public | Accredited and Chartered
+  State University of Zanzibar (SUZA) | Zanzibar | public | Accredited
+  Mzumbe University (MU) | Morogoro | public | Accredited and Chartered
+  Ardhi University (ARU) | Dar es Salaam | public | Accredited and Chartered
+  University of Dodoma (UDOM) | Dodoma | public | Accredited and Chartered
+  Moshi Cooperative University (MoCU) | Moshi | public | Accredited and Chartered
+  St. Joseph University in Tanzania (SJUIT) | Dar es Salaam | prive | Accredited
+  Teofilo Kisanji University (TEKU) | Mbeya | prive | Accredited and Chartered
+  Mwenge Catholic University (MWECAU) | Moshi | prive | Accredited
+  Jordan University College (JUCo) | University | prive
+  Marian University College (MARUCo) | University | prive
+  Institute of Marine Sciences (IMS) | University | public
+== co-men-snies : 300
+  Universidad Popular Del Cesar | Aguachica | Cesar | public | www.unicesar.edu.co | Universidad
+  Universidad de Antioquia | Andes | Antioquia | public | www.udea.edu.co | Universidad
+  Universidad Nacional de Colombia | Bogotá, D.C. | Bogotá D.C. | public | www.unal.edu.co | Universidad
+  Universidad Pedagogica Nacional | Bogotá, D.C. | Bogotá D.C. | public | www.pedagogica.edu.co | Universidad
+  Universidad Pedagogica Y Tecnologica de Colombia - Uptc | Tunja | Boyacá | public | www.uptc.edu.co | Universidad
+  Universidad Del Cauca | Popayán | Cauca | public | www.unicauca.edu.co | Universidad
+  Universidad Tecnologica de Pereira - Utp | Pereira | Risaralda | public | www.utp.edu.co | Universidad
+  Universidad de Caldas | Manizales | Caldas | public | www.ucaldas.edu.co | Universidad
+  Escuela de Inteligencia Y Contrainteligencia Brigadier General Ricardo Charry Solano | Bogotá, D.C. | Bogotá D.C. | public | www.esici.edu.co | Institución Universitaria/Escuela Tecnológica
+  Escuela de Logistica | Bogotá, D.C. | Bogotá D.C. | public | No disponible | Institución Universitaria/Escuela Tecnológica
+  Escuela Superior de Guerra General Rafael Reyes Prieto | Bogotá, D.C. | Bogotá D.C. | public | www.esdegue.mil.co | Institución Universitaria/Escuela Tecnológica
+  Corporacion Tecnica Profesional Caminos Del Suroccidente Colombiano | Timbío | Cauca | prive | www.corpocaminos.edu.co | Institución Técnica Profesional
+  Universitaria Del Chicamocha | Bucaramanga | Santander | prive | www.unich.edu.co | Institución Universitaria/Escuela Tecnológica
+  Fundación Universitaria Católica Del Caribe | Barranquilla | Atlántico | prive | www.unicatolicaribe.edu.co | Institución Universitaria/Escuela Tecnológica
+##### https://hea.org.zm/?p=10997
+ST 200 text/html 1651 https://online.hea.org.zm/?p=10997
+TITLE Higher Education Authority - Zambia | TABLES 0 TR 0 LI 0
+  FILES 0
+##### https://www.datos.gov.co/resource/n5yy-8nav.json?$limit=1
+ST 200 application/json;charset=utf-8 748 https://www.datos.gov.co/resource/n5yy-8nav.json?$limit=1
   JSON [{"c_digo_instituci_n":"1123","nombre_instituci_n":"UNIVERSIDAD POPULAR DEL CESAR","n_mero_identificaci_n":"892.300.285-6","principal_seccional":"Seccional","naturaleza_jur_dica":"Nacional","sector":"
