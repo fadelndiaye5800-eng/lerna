@@ -14,7 +14,7 @@ module.exports = [
     eligibles: T('Étudiants hors États-Unis qui candidatent à un master ou un doctorat à temps plein à Cambridge et cochent la case Gates dans le formulaire de l’université.', 'Non-US students applying for a full-time master’s or PhD at Cambridge who tick the Gates box in the university application.'),
     deadline: '2026-12-08',
     deadlineNote: T('8 décembre 2026 ou 6 janvier 2027 selon le master : la date exacte est indiquée pour chaque formation dans le catalogue de Cambridge.', '8 December 2026 or 6 January 2027 depending on the course: the exact date is shown for each course in the Cambridge course directory.'),
-    lien: 'https://www.gatescambridge.org/apply/timeline/', source: 'gatescambridge.org', verifie: V, premium: true
+    lien: 'https://www.gatescambridge.org/apply/timeline/', source: 'gatescambridge.org', verifie: V, premium: false
   },
   {
     id: 'b-mbzuai-2027', type: 'bourse', titre: 'Master en intelligence artificielle — MBZUAI (rentrée 2027)', organisation: 'Mohamed bin Zayed University of Artificial Intelligence (Abou Dhabi)',
@@ -23,7 +23,7 @@ module.exports = [
     eligibles: T('Candidature au master (test de sélection en ligne). Le financement est étudié pendant l’examen du dossier.', 'Apply to the master’s (online screening test). Funding is considered during the review.'),
     ouverture: '2026-09-07', deadline: '2026-12-15',
     deadlineNote: T('15 décembre 2026 pour la plupart des masters (biologie computationnelle : 22 janvier 2027).', '15 December 2026 for most master’s programmes (computational biology: 22 January 2027).'),
-    lien: 'https://mbzuai.ac.ae/admissions/graduate-masters-admissions', source: 'mbzuai.ac.ae', verifie: V, premium: true
+    lien: 'https://mbzuai.ac.ae/admissions/graduate-masters-admissions', source: 'mbzuai.ac.ae', verifie: V, premium: false
   },
   {
     id: 'i-yc-w27', type: 'investisseur', genre: 'accelerateur', equity: true, stade: 'produit', titre: 'Y Combinator — promotion Winter 2027', organisation: 'Y Combinator (San Francisco)',
@@ -32,7 +32,7 @@ module.exports = [
     eligibles: T('Fondateurs de startups, quel que soit le pays. Programme de janvier à mars 2027 à San Francisco.', 'Startup founders from any country. Programme from January to March 2027 in San Francisco.'),
     deadline: '2026-11-02',
     deadlineNote: T('2 novembre 2026, 20 h heure du Pacifique. Les candidatures envoyées après sont encore étudiées, sans garantie.', '2 November 2026, 8pm Pacific Time. Later applications are still reviewed, with no guarantee.'),
-    lien: 'https://www.ycombinator.com/apply', source: 'ycombinator.com', verifie: V, premium: true
+    lien: 'https://www.ycombinator.com/apply', source: 'ycombinator.com', verifie: V, premium: false
   },
   {
     id: 'i-anzisha-2027', type: 'investisseur', genre: 'prix', equity: false, stade: 'clients', titre: 'Anzisha Fellowship 2027 (jeunes entrepreneurs de 15 à 22 ans)', organisation: 'Anzisha Prize',
@@ -40,6 +40,6 @@ module.exports = [
     montant: T('40 000 $ de prix + allocations versées par étapes pendant 2 ans', '$40,000 in prizes + milestone stipends over 2 years'),
     eligibles: T('15 à 22 ans, citoyen d’un pays africain, avoir déjà lancé son entreprise ou son projet et y consacrer au moins 20 h par semaine.', '15 to 22, citizen of an African country, already running your business or project and spending at least 20 hours a week on it.'),
     ouverture: '2026-09-29', deadline: '2026-11-10',
-    lien: 'https://anzisha.org/apply/', source: 'anzisha.org', verifie: V, premium: true
+    lien: 'https://anzisha.org/apply/', source: 'anzisha.org', verifie: V, premium: false
   }
 ];

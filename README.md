@@ -11,6 +11,12 @@ Version 7 : logo officiel (ruban orange) partout + écran d'ouverture animé, 43
 IA branchée (« Est-ce pour moi ? », « Mon projet est-il prêt ? », aide admin), coffre-fort de candidature, connexion Apple prête,
 « Ce que LERNA sait de toi », barre du bas corrigée.
 
+Version 8 (oct. 2026) — modèle Premium revu : **l'information est gratuite, Premium paie l'aide pour décrocher sa place**.
+Toutes les offres sont visibles par tous (plus d'offre masquée) ; **Pack Candidature** (paiement unique, 6 mois, prix `prix_pack`
+réglé dans /admin, 12 000 FCFA par défaut) ; onglet **Budget** dans Mon dossier (coût réel de la 1re année + plan B, Premium) ;
+**alertes ciblées** Premium (nouvelle offre du domaine de la personne, étiquettes OneSignal `premium`, `d1`–`d3`) ;
+page Premium centrée sur le résultat, bouton « Envoyer à mes parents » et FAQ « Pourquoi payer si les infos sont gratuites ? ».
+
 ## Ce que contient le projet
 
 ```
@@ -25,7 +31,7 @@ explorer.html         32 établissements, 6 filtres, pagination, favoris
 ecole.html            Fiche : Présentation | Filières | Admission | Coûts | Vie étudiante | Avis (vérifiés + lien Google)
 opportunites.html     Stages | Bourses | Emplois | Investisseurs ; offres Premium sans titre ni organisme ; sauvegarde
 espace.html           Profil, recommandations, rappels, offres sauvegardées, assistant IA, comparateur, candidatures, compte
-premium.html          Comparatif, 4.99$/mois ou 39.99$/an, garantie 30 jours
+premium.html          Comparatif, 4.99$/mois, Pack Candidature 6 mois (paiement unique) ou 39.99$/an, envoi aux parents
 auth.html             Inscription (avec pseudo facultatif) / connexion / Google / mot de passe oublié
 dossier.html          « Mon dossier » par école : étapes (avec dates officielles), documents, atelier lettre de motivation,
                       entraînement à l'entretien, CV en PDF, demande de recommandation, visa, suivi

@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>LERNA Premium</title>
 <meta name="lerna-title" content="pr.docTitle">
-<meta name="description" content="LERNA Premium : recommandations illimitées, accès complet aux stages et bourses, assistant IA illimité. 4.99$/mois ou 39.99$/an, aussi par Wave et Orange Money.">
+<meta name="description" content="LERNA Premium : ton dossier de candidature complet, lettres et entretien corrigés sans limite, budget réel et plan B, alertes sur les nouvelles offres. Au mois, à l’année ou en Pack Candidature, par Wave, Orange Money ou carte.">
 <meta name="theme-color" content="#FBF6EC">
 <meta property="og:title" content="LERNA Premium">
-<meta property="og:description" content="Toutes tes écoles recommandées, l’accès complet aux bourses et stages, et un assistant IA sans limite.">
+<meta property="og:description" content="Les infos sont gratuites. Premium t’aide à décrocher ta place : dossier, lettres, entretien, budget et dates limites.">
 <meta property="og:image" content="/assets/icons/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.json">
@@ -95,6 +95,20 @@
   .faq details[open] summary::after { transform: rotate(45deg); }
   .faq details p { padding: 0 0 18px; color: var(--muted); }
   .final-cta { text-align: center; padding: 20px 0 80px; }
+  .billing { flex-wrap: wrap; justify-content: center; border-radius: 24px; }
+  .mm-plans.three { grid-template-columns: 1fr 1fr 1fr; }
+  @media (max-width: 420px) { .mm-plans.three { grid-template-columns: 1fr 1fr; } .mm-plans.three button[data-f="pack"] { grid-column: 1 / -1; } }
+  .why { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin-top: 26px; }
+  .why .card { padding: 22px 20px; }
+  .why h3 { font-size: 1.05rem; margin: 10px 0 6px; }
+  .why p { color: var(--muted); font-size: .92rem; }
+  .agency { margin-top: 18px; text-align: center; color: var(--muted); font-size: .92rem; max-width: 620px; margin-left: auto; margin-right: auto; }
+  .agency strong { color: var(--brown); }
+  .parents { display: flex; gap: 18px; align-items: center; flex-wrap: wrap; padding: 26px 24px; }
+  .parents > div { flex: 1; min-width: 220px; }
+  .parents h2 { font-size: clamp(1.3rem, 3.4vw, 1.7rem); }
+  .parents p { color: var(--muted); margin-top: 8px; }
+  .cmp .lim { font-size: .78rem; font-weight: 700; color: var(--muted); }
 </style>
 </head>
 <body data-page="premium">
@@ -105,7 +119,7 @@
     <div class="container container-sm fade-up">
       <span class="badge" data-i18n="pr.badge">LERNA Premium</span>
       <h1 data-i18n="pr.title">Sois prêt avant les autres.</h1>
-      <p data-i18n="pr.sub">Tous les outils de LERNA pour préparer ton orientation.</p>
+      <p data-i18n="pr.sub">Les infos restent gratuites. Premium t’accompagne jusqu’à ta place : dossier, lettres, entretien, budget et dates limites.</p>
     </div>
   </section>
 
@@ -115,6 +129,7 @@
         <div class="billing" role="group" aria-label="Facturation">
           <button type="button" class="active" data-plan="monthly" data-i18n="pr.monthly">Mensuel</button>
           <button type="button" data-plan="yearly"><span data-i18n="pr.yearly">Annuel</span> <span class="save" data-i18n="pr.save">−33%</span></button>
+          <button type="button" data-plan="pack" id="packTab" hidden data-i18n="pr.pack">Pack Candidature</button>
         </div>
         <div class="price" id="price"></div>
         <p class="price-sub" id="priceSub"></p>
@@ -134,7 +149,9 @@
 
   <section class="section">
     <div class="container container-md">
-      <p class="msg reveal" data-i18n-html="pr.message">Premium t’ouvre <strong>toutes tes écoles recommandées</strong>, la comparaison détaillée, l’accès complet aux bourses et aux stages, et un assistant IA sans limite.</p>
+      <p class="msg reveal" data-i18n-html="pr.message">Les infos sont gratuites. Premium t’aide à <strong>décrocher ta place</strong>.</p>
+      <div class="why" id="why"></div>
+      <p class="agency reveal" data-i18n-html="pr.agency"></p>
     </div>
   </section>
 
@@ -146,6 +163,16 @@
       </div>
       <div class="reveal" style="overflow-x:auto">
         <table class="cmp" id="cmp"></table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container container-md">
+      <div class="card parents reveal">
+        <span class="stk-wrap" id="parentsStk"></span>
+        <div><h2 data-i18n="pr.parTitle">Ce sont tes parents qui paient ?</h2><p data-i18n="pr.parText"></p></div>
+        <button type="button" class="btn btn-brown" id="parentsBtn" data-i18n="pr.parBtn">Envoyer à mes parents</button>
       </div>
     </div>
   </section>
@@ -173,7 +200,33 @@ Lerna.addStrings({
   fr: {
     'pr.docTitle': 'LERNA Premium', 'pr.badge': 'LERNA Premium',
     'pr.title': 'Sois prêt avant les autres.',
-    'pr.sub': 'Tous les outils de LERNA pour préparer ton orientation.',
+    'pr.sub': 'Les infos restent gratuites. Premium t’accompagne jusqu’à ta place : dossier, lettres, entretien, budget et dates limites.',
+    'pr.message': 'Les infos sont gratuites. Premium t’aide à <strong>décrocher ta place</strong>.',
+    'pr.w1t': 'Ton dossier, sans rien oublier', 'pr.w1': 'Les étapes et les documents de chaque candidature (Campus France, Parcoursup, universités), avec les dates officielles et des rappels avant chaque échéance.',
+    'pr.w2t': 'Lettres et entretien, corrigés sans limite', 'pr.w2': 'LERNA relit ta lettre de motivation et tes réponses d’entretien autant de fois qu’il le faut, jusqu’à ce qu’elles soient prêtes.',
+    'pr.w3t': 'Ton vrai budget, et un plan B', 'pr.w3': 'Le coût réel de ta première année (scolarité, logement, vie, visa, billet) et des écoles de secours qui rentrent dans ton budget.',
+    'pr.w4t': 'Les nouvelles offres pour toi, en premier', 'pr.w4': 'Une alerte dès qu’une bourse, un stage ou un financement de ton domaine est ajouté dans LERNA.',
+    'pr.agency': 'Un accompagnement en agence pour étudier à l’étranger coûte souvent bien plus cher. Avec le <strong>Pack Candidature</strong>, tu as les outils de toute la saison pour une fraction de ce prix.',
+    'pr.pack': 'Pack Candidature', 'pr.pPack': '19,99 $', 'pr.pPackUnit': '/ 6 mois',
+    'pr.subPack': 'Un seul paiement pour toute ta saison de candidatures : 6 mois d’accès complet, sans renouvellement.',
+    'pr.fcfaPack': 'soit <strong>{m}</strong> en une fois, payable par Wave, Orange Money, Yas ou carte',
+    'mm.pack': 'Pack 6 mois', 'mm.packTag': 'Candidature',
+    'pr.parTitle': 'Ce sont tes parents qui paient ?',
+    'pr.parText': 'Envoie-leur en un message ce que LERNA t’apporte et le prix. Ils peuvent payer avec leur propre numéro Wave ou Orange Money : tu l’entres au moment du paiement, ils confirment sur leur téléphone.',
+    'pr.parBtn': 'Envoyer à mes parents',
+    'pr.parMsg': 'Bonjour, je prépare mes candidatures d’études avec LERNA. Premium m’aide à constituer mon dossier (Campus France, Parcoursup, universités), à corriger mes lettres de motivation, à préparer l’entretien, à calculer le vrai budget et à ne rater aucune date limite. Ça coûte {p}. Tu peux regarder ici : {u}',
+    'pr.parCopied': 'Message copié : colle-le dans WhatsApp.',
+    'pr.perDay': '{n}/jour',
+    'pr.f3': 'Fiches écoles : frais, admission et liens officiels',
+    'pr.f4': 'Toutes les bourses, stages, emplois et financements',
+    'pr.f5': 'Nouvelle analyse de ton profil', 'pr.f12': 'Assistant IA',
+    'pr.f14': 'Mon dossier : étapes, documents et suivi',
+    'pr.f16': 'Correction de lettre et entraînement à l’entretien',
+    'pr.f17': 'Mon budget réel et plan B', 'pr.f18': 'Alerte dès qu’une offre de ton domaine est ajoutée',
+    'pr.f19': '« Est-ce pour moi ? » sur chaque offre',
+    'pr.q5': 'Pourquoi payer si les infos sont gratuites ?', 'pr.a5': 'Parce que l’info ne suffit pas : ce qui fait la différence, c’est un dossier complet, une lettre solide, un entretien préparé et aucune date limite ratée. Toutes les écoles et toutes les offres restent visibles gratuitement ; Premium te fait gagner du temps et réduit le risque d’erreur.',
+    'pr.q6': 'C’est quoi le Pack Candidature ?', 'pr.a6': 'Un paiement unique qui ouvre tout Premium pendant 6 mois : le temps d’une saison complète de candidatures. Pas d’abonnement, rien n’est prélevé ensuite.',
+    'pr.q7': 'Mes parents peuvent payer pour moi ?', 'pr.a7': 'Oui. Au moment de payer, entre le numéro Wave ou Orange Money de ton parent : la demande arrive sur son téléphone et il la confirme. Le Premium s’ouvre sur ton compte.',
     'pr.monthly': 'Mensuel', 'pr.yearly': 'Annuel', 'pr.save': '−33%',
     'pr.pMonthly': '4,99 $', 'pr.pMonthlyUnit': '/ mois', 'pr.pYearly': '39,99 $', 'pr.pYearlyUnit': '/ an',
     'pr.subMonthly': 'Facturé chaque mois. Tu arrêtes quand tu veux.',
@@ -183,15 +236,14 @@ Lerna.addStrings({
     'pr.note': 'Paiement sécurisé · Sans engagement',
     'pr.isPremium': 'Tu es Premium', 'pr.until': 'Ton accès est actif jusqu’au {d}.', 'pr.active': 'Ton accès Premium est actif.',
     'pr.manage': 'Gérer mon abonnement →',
-    'pr.message': 'Premium t’ouvre <strong>toutes tes écoles recommandées</strong>, la comparaison détaillée, l’accès complet aux bourses et aux stages, et un assistant IA sans limite.',
     'pr.message2': 'Prends une <strong>longueur d’avance</strong> sur ton orientation.',
     'pr.cmpEyebrow': 'Comparaison', 'pr.cmpTitle': 'Gratuit ou Premium ?',
     'pr.colFeature': 'Fonctionnalité', 'pr.colFree': 'Gratuit', 'pr.colPremium': 'Premium',
-    'pr.f1': 'Questionnaire complet 25 questions', 'pr.f2': "2 écoles recommandées (4 en invitant 3 amis)", 'pr.f3': 'Informations générales écoles',
-    'pr.f4': 'Accès aux opportunités (aperçu limité)', 'pr.f5': 'Recommandations illimitées', 'pr.f6': 'Tes 5 écoles recommandées, tout de suite',
+    'pr.f1': 'Questionnaire complet 25 questions', 'pr.f2': "2 écoles recommandées (4 en invitant 3 amis)", 
+     'pr.f6': 'Tes 5 écoles recommandées, tout de suite',
     'pr.f7': 'Comparaison détaillée entre 2 écoles', 'pr.f8': 'Accès COMPLET stages et bourses', 'pr.f9': 'Notifications en PREMIER (avant les autres)',
     'pr.f10': 'Alertes entreprises cherchant des alternants', 'pr.f11': 'Informations investisseurs (projets étudiants)',
-    'pr.f12': 'Assistant IA illimité (usage personnel normal)', 'pr.f13': 'Rappels et alertes personnalisés', 'pr.f14': 'Suivi de mes candidatures',
+    
     'pr.f15': 'Export PDF de mon profil et recommandations',
     'pr.faqTitle': 'Questions fréquentes',
     'pr.q1': 'Comment je paie ?',
@@ -199,7 +251,7 @@ Lerna.addStrings({
     'pr.a1Card': 'Par carte bancaire (Visa, Mastercard) sur une page de paiement sécurisée : LERNA ne voit et ne stocke jamais tes coordonnées bancaires.',
     'pr.a1Both': 'En FCFA, avec Wave, Orange Money, Yas ou une carte bancaire (Visa, Mastercard). Tu confirmes le paiement dans ton application ; LERNA ne voit jamais ton code secret ni ta carte.',
     'pr.a1Soon': 'Le paiement en ligne s’ouvre très bientôt.',
-    'pr.q2': 'Je peux arrêter quand je veux ?', 'pr.a2': 'Oui. Rien n’est prélevé automatiquement : tu paies 1 mois ou 1 an, et c’est tout. Ton accès reste actif jusqu’à la fin de la période payée.',
+    'pr.q2': 'Je peux arrêter quand je veux ?', 'pr.a2': 'Oui. Rien n’est prélevé automatiquement : tu paies 1 mois, 6 mois (Pack Candidature) ou 1 an, et c’est tout. Ton accès reste actif jusqu’à la fin de la période payée.',
     'pr.q3': 'Pourquoi l’annuel coûte moins cher ?', 'pr.a3': 'Un an coûte le prix de 8 mois : tu économises 33 %. Si tu candidates dans moins de 3 mois, le mensuel peut suffire.',
     'pr.q4': 'Quand mon Premium s’active-t-il ?', 'pr.a4': 'Tout de suite : dès que tu confirmes le paiement dans ton application, ton Premium s’ouvre automatiquement.',
     'pr.payCta': 'Passer à Premium', 'pr.cardCta': 'Payer par carte bancaire',
@@ -229,7 +281,33 @@ Lerna.addStrings({
   en: {
     'pr.docTitle': 'LERNA Premium', 'pr.badge': 'LERNA Premium',
     'pr.title': 'Be ready before the others.',
-    'pr.sub': 'Every LERNA tool to prepare your path.',
+    'pr.sub': 'Information stays free. Premium takes you all the way to your place: application file, letters, interview, budget and deadlines.',
+    'pr.message': 'Information is free. Premium helps you <strong>win your place</strong>.',
+    'pr.w1t': 'Your application file, nothing forgotten', 'pr.w1': 'The steps and documents for each application (Campus France, Parcoursup, universities), with official dates and reminders before every deadline.',
+    'pr.w2t': 'Letters and interview, reviewed without limit', 'pr.w2': 'LERNA reviews your cover letter and interview answers as many times as needed, until they are ready.',
+    'pr.w3t': 'Your real budget, and a plan B', 'pr.w3': 'The real cost of your first year (tuition, housing, living, visa, flight) and back-up schools that fit your budget.',
+    'pr.w4t': 'New offers for you, first', 'pr.w4': 'An alert as soon as a scholarship, internship or funding in your field is added to LERNA.',
+    'pr.agency': 'Paying an agency to help you study abroad often costs much more. With the <strong>Application Pack</strong>, you get the tools for the whole season for a fraction of that price.',
+    'pr.pack': 'Application Pack', 'pr.pPack': '$19.99', 'pr.pPackUnit': '/ 6 months',
+    'pr.subPack': 'One payment for your whole application season: 6 months of full access, no renewal.',
+    'pr.fcfaPack': 'that is <strong>{m}</strong> once, payable by Wave, Orange Money, Yas or card',
+    'mm.pack': '6-month pack', 'mm.packTag': 'Applications',
+    'pr.parTitle': 'Are your parents paying?',
+    'pr.parText': 'Send them one message explaining what LERNA does for you and the price. They can pay with their own Wave or Orange Money number: you enter it at checkout, they confirm on their phone.',
+    'pr.parBtn': 'Send to my parents',
+    'pr.parMsg': 'Hi, I am preparing my study applications with LERNA. Premium helps me build my application file (Campus France, Parcoursup, universities), improve my cover letters, prepare for interviews, work out the real budget and never miss a deadline. It costs {p}. You can have a look here: {u}',
+    'pr.parCopied': 'Message copied: paste it into WhatsApp.',
+    'pr.perDay': '{n}/day',
+    'pr.f3': 'School pages: fees, admission and official links',
+    'pr.f4': 'All scholarships, internships, jobs and funding',
+    'pr.f5': 'New analysis of your profile', 'pr.f12': 'AI assistant',
+    'pr.f14': 'My application file: steps, documents and tracking',
+    'pr.f16': 'Cover-letter review and interview practice',
+    'pr.f17': 'My real budget and plan B', 'pr.f18': 'Alert as soon as an offer in your field is added',
+    'pr.f19': '“Is this for me?” on every offer',
+    'pr.q5': 'Why pay if the information is free?', 'pr.a5': 'Because information is not enough: what makes the difference is a complete file, a strong letter, a prepared interview and no missed deadline. Every school and every offer stays visible for free; Premium saves you time and lowers the risk of mistakes.',
+    'pr.q6': 'What is the Application Pack?', 'pr.a6': 'A single payment that opens all of Premium for 6 months: a full application season. No subscription, nothing is charged afterwards.',
+    'pr.q7': 'Can my parents pay for me?', 'pr.a7': 'Yes. At checkout, enter your parent’s Wave or Orange Money number: the request arrives on their phone and they confirm it. Premium opens on your account.',
     'pr.monthly': 'Monthly', 'pr.yearly': 'Yearly', 'pr.save': '−33%',
     'pr.pMonthly': '$4.99', 'pr.pMonthlyUnit': '/ month', 'pr.pYearly': '$39.99', 'pr.pYearlyUnit': '/ year',
     'pr.subMonthly': 'Billed monthly. Stop whenever you want.',
@@ -239,15 +317,14 @@ Lerna.addStrings({
     'pr.note': 'Secure payment · No commitment',
     'pr.isPremium': "You're Premium", 'pr.until': 'Your access is active until {d}.', 'pr.active': 'Your Premium access is active.',
     'pr.manage': 'Manage my subscription →',
-    'pr.message': 'Premium unlocks <strong>all your recommended schools</strong>, detailed comparison, full access to scholarships and internships, and an unlimited AI assistant.',
     'pr.message2': 'Get a <strong>head start</strong> on your path.',
     'pr.cmpEyebrow': 'Comparison', 'pr.cmpTitle': 'Free or Premium?',
     'pr.colFeature': 'Feature', 'pr.colFree': 'Free', 'pr.colPremium': 'Premium',
-    'pr.f1': 'Full 25-question questionnaire', 'pr.f2': '2 recommended schools (4 by inviting 3 friends)', 'pr.f3': 'General school information',
-    'pr.f4': 'Access to opportunities (limited preview)', 'pr.f5': 'Unlimited recommendations', 'pr.f6': 'All 5 recommended schools, right away',
+    'pr.f1': 'Full 25-question questionnaire', 'pr.f2': '2 recommended schools (4 by inviting 3 friends)', 
+     'pr.f6': 'All 5 recommended schools, right away',
     'pr.f7': 'Detailed comparison of 2 schools', 'pr.f8': 'FULL access to internships and scholarships', 'pr.f9': 'Notifications FIRST (before others)',
     'pr.f10': 'Alerts from companies looking for work-study students', 'pr.f11': 'Investor information (student projects)',
-    'pr.f12': 'Unlimited AI assistant (normal personal use)', 'pr.f13': 'Personalised reminders and alerts', 'pr.f14': 'Application tracking',
+    
     'pr.f15': 'PDF export of my profile and recommendations',
     'pr.faqTitle': 'Frequently asked questions',
     'pr.q1': 'How do I pay?',
@@ -255,7 +332,7 @@ Lerna.addStrings({
     'pr.a1Card': 'By card (Visa, Mastercard) on a secure payment page: LERNA never sees or stores your card details.',
     'pr.a1Both': 'In CFA francs, with Wave, Orange Money, Yas or a bank card (Visa, Mastercard). You confirm in your app; LERNA never sees your PIN or your card.',
     'pr.a1Soon': 'Online payment opens very soon.',
-    'pr.q2': 'Can I stop whenever I want?', 'pr.a2': 'Yes. Nothing is charged automatically: you pay for 1 month or 1 year, that’s all. Access stays active until the end of the paid period.',
+    'pr.q2': 'Can I stop whenever I want?', 'pr.a2': 'Yes. Nothing is charged automatically: you pay for 1 month, 6 months (Application Pack) or 1 year, that’s all. Access stays active until the end of the paid period.',
     'pr.q3': 'Why is yearly cheaper?', 'pr.a3': 'A year costs the price of 8 months: you save 33%. If you apply within 3 months, monthly may be enough.',
     'pr.q4': 'When does Premium start?', 'pr.a4': 'Right away: as soon as you confirm the payment in your app, Premium opens automatically.',
     'pr.payCta': 'Go Premium', 'pr.cardCta': 'Pay by card',
@@ -289,7 +366,11 @@ Lerna.addStrings({
   var t = Lerna.t;
   var plan = 'monthly';
   /* Seulement ce qui existe vraiment (la page Premium fait partie de l'offre) : 9 « notifications en premier » et 10 « alertes alternance » reviendront quand elles seront construites */
-  var ROWS = [[1, 1, 1], [2, 1, 1], [3, 1, 1], [4, 1, 1], [5, 0, 1], [6, 0, 1], [7, 0, 1], [8, 0, 1], [11, 0, 1], [12, 0, 1], [13, 0, 1], [14, 0, 1], [15, 0, 1]];
+  /* Gratuit : tout ce qui est information (écoles, frais, toutes les offres) + Mon dossier.
+     Premium : ce qui fait gagner du temps et réduit le risque (IA sans limite, budget et plan B, alertes ciblées, 5 écoles).
+     Un nombre = limite par jour en gratuit. */
+  var ROWS = [[1, 1, 1], [2, 1, 1], [3, 1, 1], [4, 1, 1], [14, 1, 1], [16, 3, 1], [19, 3, 1], [12, 5, 1], [5, 1, 1], [6, 0, 1], [17, 0, 1], [18, 0, 1], [7, 0, 1], [15, 0, 1]];
+  var WHY = [['w1', 'folder'], ['w2', 'memo'], ['w3', 'money-bag'], ['w4', 'bell']];
 
   var M = function () { return Lerna.config.pay || null; };                          // paiement FCFA (Wave, Orange Money, Yas, carte)
   var hasCard = function () { return !!(Lerna.config.checkoutMonthly && Lerna.config.checkoutYearly); };
@@ -312,13 +393,21 @@ Lerna.addStrings({
   ];
   var wayName = function (id) { var w = WAYS.filter(function (x) { return x.id === id; })[0]; return w ? t(w.name) : ''; };
 
+  /* Pack Candidature : paiement unique en FCFA (6 mois), seulement quand son prix est réglé dans /admin */
+  var askPack = Lerna.param('plan') === 'pack';   // arrivée depuis « Débloquer avec le Pack Candidature »
+  var packOn = function () { var m = M(); return !!(m && m.prixPack); };
   function renderPrice() {
+    $('packTab').hidden = !packOn();
+    if (askPack && packOn()) { plan = 'pack'; askPack = false; }
+    if (plan === 'pack' && !packOn()) plan = 'monthly';
     Lerna.qsa('[data-plan]').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-plan') === plan); });
-    $('price').innerHTML = (plan === 'monthly' ? t('pr.pMonthly') + ' <small>' + t('pr.pMonthlyUnit') + '</small>' : t('pr.pYearly') + ' <small>' + t('pr.pYearlyUnit') + '</small>');
-    $('priceSub').textContent = t(plan === 'monthly' ? (hasCard() && !M() ? 'pr.subMonthly' : 'pr.subMonthlyOnce') : 'pr.subYearly');
+    $('price').innerHTML = plan === 'monthly' ? t('pr.pMonthly') + ' <small>' + t('pr.pMonthlyUnit') + '</small>'
+      : plan === 'pack' ? t('pr.pPack') + ' <small>' + t('pr.pPackUnit') + '</small>'
+      : t('pr.pYearly') + ' <small>' + t('pr.pYearlyUnit') + '</small>';
+    $('priceSub').textContent = t(plan === 'monthly' ? (hasCard() && !M() ? 'pr.subMonthly' : 'pr.subMonthlyOnce') : plan === 'pack' ? 'pr.subPack' : 'pr.subYearly');
     var m = M();
     $('fcfaLine').hidden = !m; $('payChips').hidden = !m;
-    if (m) $('fcfaLine').innerHTML = t(plan === 'monthly' ? 'pr.fcfa' : 'pr.fcfaYear', { m: fcfa(plan === 'monthly' ? m.prixMois : m.prixAn) });
+    if (m) $('fcfaLine').innerHTML = t(plan === 'monthly' ? 'pr.fcfa' : plan === 'pack' ? 'pr.fcfaPack' : 'pr.fcfaYear', { m: fcfa(plan === 'monthly' ? m.prixMois : plan === 'pack' ? m.prixPack : m.prixAn) });
     /* Un seul bouton quand le paiement FCFA est branché ; sinon carte (Lemon Squeezy) ou « bientôt » */
     $('momoBtn').hidden = !m;
     $('buyBtn').hidden = !!m;
@@ -326,12 +415,35 @@ Lerna.addStrings({
   function renderTable() {
     var yes = '<span class="yes" aria-label="✓">✓</span>', no = '<span class="no" aria-label="✗">✗</span>';
     $('cmp').innerHTML = '<thead><tr><th scope="col">' + t('pr.colFeature') + '</th><th scope="col" class="c">' + t('pr.colFree') + '</th><th scope="col" class="c prem">' + t('pr.colPremium') + '</th></tr></thead><tbody>' +
-      ROWS.map(function (r) { return '<tr><td>' + t('pr.f' + r[0]) + '</td><td class="c">' + (r[1] ? yes : no) + '</td><td class="c prem">' + (r[2] ? yes : no) + '</td></tr>'; }).join('') + '</tbody>';
+      ROWS.map(function (r) {
+        var free = r[1] === 0 ? no : r[1] === 1 && r[0] !== 5 ? yes : '<span class="lim">' + t('pr.perDay', { n: r[1] }) + '</span>';
+        return '<tr><td>' + t('pr.f' + r[0]) + '</td><td class="c">' + free + '</td><td class="c prem">' + (r[2] ? yes : no) + '</td></tr>';
+      }).join('') + '</tbody>';
+  }
+  function renderWhy() {
+    $('why').innerHTML = WHY.map(function (w, i) {
+      return '<div class="card reveal" style="--i:' + i + '">' + Lerna.sticker(w[1], 'stk-sm') + '<h3>' + esc(t('pr.' + w[0] + 't')) + '</h3><p>' + esc(t('pr.' + w[0])) + '</p></div>';
+    }).join('');
+    $('parentsStk').innerHTML = Lerna.sticker('family');
+  }
+  /* Message prêt à envoyer aux parents (WhatsApp ou partage du téléphone) */
+  function sendParents() {
+    var m = M(), price = m ? (packOn() ? fcfa(m.prixPack) + ' (' + t('pr.pack') + ', 6 ' + (Lerna.lang === 'en' ? 'months' : 'mois') + ')' : fcfa(m.prixMois) + ' / ' + (Lerna.lang === 'en' ? 'month' : 'mois')) : t('pr.pMonthly') + ' / ' + (Lerna.lang === 'en' ? 'month' : 'mois');
+    var url = location.origin + '/premium.html?src=parent';
+    var msg = t('pr.parMsg', { p: price, u: url });
+    Lerna.track('premium_parents');
+    Lerna.sound.play('click');
+    if (navigator.share) { navigator.share({ text: msg }).catch(function () {}); return; }
+    if (mobile()) { location.href = 'https://wa.me/?text=' + encodeURIComponent(msg); return; }
+    var done = function () { Lerna.toast(t('pr.parCopied'), 3500); };
+    if (navigator.clipboard) navigator.clipboard.writeText(msg).then(done, function () { window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank', 'noopener'); });
+    else window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank', 'noopener');
   }
   function renderFaq() {
     var a1 = M() ? 'pr.a1Momo' : hasCard() ? 'pr.a1Card' : 'pr.a1Soon';
-    var qs = [['pr.q1', a1], ['pr.q2', 'pr.a2'], ['pr.q3', 'pr.a3']];
-    if (M()) qs.push(['pr.q4', 'pr.a4']);
+    var qs = [['pr.q5', 'pr.a5'], ['pr.q1', a1], ['pr.q2', 'pr.a2'], ['pr.q3', 'pr.a3']];
+    if (packOn()) qs.splice(1, 0, ['pr.q6', 'pr.a6']);
+    if (M()) qs.push(['pr.q7', 'pr.a7'], ['pr.q4', 'pr.a4']);
     $('faq').innerHTML = qs.map(function (q) { return '<details class="reveal"><summary>' + t(q[0]) + '</summary><p>' + t(q[1]) + '</p></details>'; }).join('');
     Lerna.initReveal();
   }
@@ -407,12 +519,13 @@ Lerna.addStrings({
     if (needAccount()) return;
     var m = M(); if (!m) return;
     Lerna.sound.play('click');
-    var f = plan === 'yearly' ? 'an' : 'mois', way = '';
+    var f = plan === 'yearly' ? 'an' : plan === 'pack' && m.prixPack ? 'pack' : 'mois', way = '';
     var close = Lerna.modal(
       '<div class="modal-head"><h3>' + esc(t('mm.title')) + '</h3><button class="modal-close" data-close aria-label="' + esc(t('mm.close')) + '">' + Lerna.icon('x') + '</button></div>' +
       '<form id="mmForm" novalidate>' +
-      '<div class="mm-step"><h4>' + esc(t('mm.s1')) + '</h4><div class="mm-plans">' +
+      '<div class="mm-step"><h4>' + esc(t('mm.s1')) + '</h4><div class="mm-plans' + (m.prixPack ? ' three' : '') + '">' +
         '<button type="button" data-f="mois">' + esc(t('mm.month')) + '<span>' + fcfa(m.prixMois) + '</span></button>' +
+        (m.prixPack ? '<button type="button" data-f="pack">' + esc(t('mm.pack')) + '<span>' + fcfa(m.prixPack) + '</span><em>' + esc(t('mm.packTag')) + '</em></button>' : '') +
         '<button type="button" data-f="an">' + esc(t('mm.year')) + '<span>' + fcfa(m.prixAn) + '</span><em>' + esc(t('mm.save')) + '</em></button></div></div>' +
       '<div class="mm-step"><h4>' + esc(t('mm.s2')) + '</h4><div class="mm-ways">' + WAYS.map(function (w) {
         return '<button type="button" data-w="' + w.id + '"><span class="pm" style="background:' + w.color + '">' + IC[w.ic] + '</span><span><strong>' + esc(t(w.name)) + '</strong><small>' + esc(t(w.sub)) + '</small></span></button>';
@@ -428,7 +541,7 @@ Lerna.addStrings({
           Lerna.qsa('[data-w]', box).forEach(function (b) { b.classList.toggle('on', b.getAttribute('data-w') === way); });
           box.querySelector('#mmPhoneWrap').hidden = !way || way === 'card';
           if (way && way !== 'card') box.querySelector('#mmPhoneLbl').textContent = t('mm.s3', { w: wayName(way) });
-          box.querySelector('#mmGo').textContent = t('mm.pay', { m: fcfa(f === 'an' ? m.prixAn : m.prixMois) });
+          box.querySelector('#mmGo').textContent = t('mm.pay', { m: fcfa(f === 'an' ? m.prixAn : f === 'pack' ? m.prixPack : m.prixMois) });
         }
         paint();
         box.addEventListener('click', function (e) {
@@ -497,7 +610,8 @@ Lerna.addStrings({
 
   Lerna.ready(function () {
   Lerna.analytics.capture('premium_view', { src: Lerna.param('src') || document.referrer.split('/').pop().split('?')[0] || 'direct' });
-    renderPrice(); renderTable(); renderFaq();
+    renderPrice(); renderTable(); renderFaq(); renderWhy();
+    $('parentsBtn').addEventListener('click', sendParents);
     Lerna.qsa('[data-plan]').forEach(function (b) { b.addEventListener('click', function () { plan = b.getAttribute('data-plan'); renderPrice(); Lerna.sound.play('click'); }); });
     $('buyBtn').addEventListener('click', buy);
     $('momoBtn').addEventListener('click', momo);
@@ -511,7 +625,7 @@ Lerna.addStrings({
         }, 4000);
       }
     });
-    Lerna.onLang(function () { renderPrice(); renderTable(); renderFaq(); });
+    Lerna.onLang(function () { renderPrice(); renderTable(); renderFaq(); renderWhy(); });
   });
 })();
 </script>

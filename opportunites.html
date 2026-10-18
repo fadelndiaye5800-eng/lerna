@@ -156,10 +156,10 @@ Lerna.addStrings({
     'op.none': 'Aucune offre ouverte avec ces filtres.', 'op.noneSub': 'Retire un filtre ou affiche les offres clôturées pour voir les prochaines sessions.',
     'op.verified': 'Mis à jour le {d}. Chaque offre est vérifiée sur la page officielle de l’organisme. LERNA peut se tromper : avant de postuler, relis toujours les conditions sur le site officiel.',
     'op.srcOk': 'Source officielle : {s} · vérifiée le {d}',
-    'op.premTitle': 'Accès complet avec Premium',
-    'op.premText': "Tu vois un aperçu limité. Premium débloque le détail de toutes les offres.",
-    'op.premInvTitle': 'Informations investisseurs — Premium',
-    'op.premInvText': "Certains programmes sont réservés à Premium : montants, conditions et contacts complets.",
+    'op.premTitle': 'Toutes les offres sont ouvertes à tous',
+    'op.premText': "Premium t’aide à postuler : alerte dès qu’une offre de ton domaine arrive, « Est-ce pour moi ? » sans limite, lettre et entretien corrigés.",
+    'op.premInvTitle': 'Prépare ton projet avec Premium',
+    'op.premInvText': "Tous les programmes sont visibles. Premium te prévient dès qu’un nouveau financement arrive et vérifie sans limite si ton projet est prêt.",
     'op.premBtn': 'Voir Premium →',
     'op.remote': 'À distance', 'op.intl': 'International', 'op.africa': 'Afrique',
     'op.hidden': 'Nom et organisme visibles avec Premium', 'op.save': 'Sauvegarder', 'op.saved': 'Sauvegardée',
@@ -217,10 +217,10 @@ Lerna.addStrings({
     'op.none': 'No open offer with these filters.', 'op.noneSub': 'Remove a filter or show closed offers to see upcoming sessions.',
     'op.verified': 'Updated on {d}. Every offer is checked on the organisation’s official page. LERNA can be wrong: before applying, always reread the conditions on the official website.',
     'op.srcOk': 'Official source: {s} · checked on {d}',
-    'op.premTitle': 'Full access with Premium',
-    'op.premText': 'You are seeing a limited preview. Premium unlocks the details of every offer.',
-    'op.premInvTitle': 'Investor information — Premium',
-    'op.premInvText': 'Some programmes are reserved for Premium: full amounts, conditions and contacts.',
+    'op.premTitle': 'Every offer is open to everyone',
+    'op.premText': 'Premium helps you apply: an alert as soon as an offer in your field arrives, unlimited “Is this for me?”, cover letter and interview reviewed.',
+    'op.premInvTitle': 'Prepare your project with Premium',
+    'op.premInvText': 'Every programme is visible. Premium alerts you as soon as new funding arrives and checks without limit whether your project is ready.',
     'op.premBtn': 'See Premium →',
     'op.remote': 'Remote', 'op.intl': 'International', 'op.africa': 'Africa',
     'op.hidden': 'Name and organisation visible with Premium', 'op.save': 'Save', 'op.saved': 'Saved',
@@ -486,9 +486,10 @@ Lerna.addStrings({
     });
     $('count').textContent = st.closed ? t('op.countAll', { n: shown.length }) : (open.length ? t((open.length === 1 ? 'op.c1.' : 'op.cn.') + st.tab, { n: open.length }) : t('op.c0'));
     $('guide').innerHTML = st.tab === 'investisseur' ? guideHTML() : '';
-    var lockedCount = shown.filter(function (o) { return o.masked; }).length;
-    $('premBanner').innerHTML = lockedCount
-      ? '<div class="prem-banner">' + Lerna.icon('gem', 'ic-lg') + '<div><h3>' + t(st.tab === 'investisseur' ? 'op.premInvTitle' : 'op.premTitle') + '</h3><p>' + t(st.tab === 'investisseur' ? 'op.premInvText' : 'op.premText') + '</p></div><a class="btn btn-primary btn-sm" href="premium.html">' + t('op.premBtn') + '</a></div>'
+    /* Plus d'offre cachée : le bandeau présente l'aide à la candidature (Premium), jamais un verrou sur l'information */
+    var showPrem = Lerna.config.premiumEnabled && !Lerna.isPaidPremium() && open.length > 0;
+    $('premBanner').innerHTML = showPrem
+      ? '<div class="prem-banner">' + Lerna.icon('gem', 'ic-lg') + '<div><h3>' + t(st.tab === 'investisseur' ? 'op.premInvTitle' : 'op.premTitle') + '</h3><p>' + t(st.tab === 'investisseur' ? 'op.premInvText' : 'op.premText') + '</p></div><a class="btn btn-primary btn-sm" href="premium.html?src=offres">' + t('op.premBtn') + '</a></div>'
       : '';
     $('list').innerHTML = shown.length ? shown.map(card).join('') :
       '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('star') + '<h4>' + t('op.none') + '</h4><p>' + t('op.noneSub') + '</p></div>';

@@ -33,6 +33,41 @@ const MESSAGES = [
   { type: 'deadlines', fr: ['Des dates limites approchent', 'Certaines candidatures ferment bientôt. Jette un œil à tes échéances.'], en: ['Deadlines are coming up', 'Some applications close soon. Take a look at your deadlines.'] }
 ];
 
+/* Alertes ciblées Premium : une offre ajoutée depuis /admin ces dernières 24 h → notification aux comptes Premium
+   dont un des 3 domaines (étiquettes d1, d2, d3) correspond, à 18 h heure locale. 3 offres au maximum par jour. */
+const TYPE_FR = { bourse: 'Nouvelle bourse pour toi', stage: 'Nouveau stage pour toi', emploi: 'Nouvel emploi pour toi', investisseur: 'Nouveau financement pour ton projet' };
+const TYPE_EN = { bourse: 'A new scholarship for you', stage: 'A new internship for you', emploi: 'A new job for you', investisseur: 'New funding for your project' };
+async function premiumAlerts(appId, key, base_url) {
+  if (!supabaseReady()) return 0;
+  const since = encodeURIComponent(new Date(Date.now() - 864e5).toISOString());
+  const r = await sbFetch('/rest/v1/opportunites?active=eq.true&date_publication=gt.' + since + '&select=slug,type,titre,domaine,data&order=date_publication.desc&limit=3');
+  if (!r.ok || !Array.isArray(r.data)) return 0;
+  let sent = 0;
+  for (const o of r.data) {
+    const d = o.data || {};
+    const doms = [...new Set([...(Array.isArray(d.domaines) ? d.domaines : []), o.domaine].filter((x) => typeof x === 'string' && /^[a-z_-]{1,20}$/.test(x)))].slice(0, 6);
+    const titre = String(o.titre || d.titre || '').slice(0, 120);
+    if (!titre) continue;
+    const filters = [];
+    if (doms.length) {
+      doms.forEach((dom, i) => ['d1', 'd2', 'd3'].forEach((k, j) => {
+        if (i || j) filters.push({ operator: 'OR' });
+        filters.push({ field: 'tag', key: 'premium', relation: '=', value: '1' }, { field: 'tag', key: 'n_bourses', relation: '!=', value: '0' }, { field: 'tag', key: k, relation: '=', value: dom });
+      }));
+    } else filters.push({ field: 'tag', key: 'premium', relation: '=', value: '1' }, { field: 'tag', key: 'n_bourses', relation: '!=', value: '0' });
+    const ok = await fetch('https://api.onesignal.com/notifications', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Key ' + key },
+      body: JSON.stringify({ app_id: appId, target_channel: 'push', filters,
+        headings: { fr: TYPE_FR[o.type] || 'Nouvelle offre pour toi', en: TYPE_EN[o.type] || 'A new offer for you' },
+        contents: { fr: titre, en: titre },
+        url: base_url + '/opportunites.html?src=alerte', chrome_web_icon: base_url + '/assets/icons/icon-192.png',
+        delayed_option: 'timezone', delivery_time_of_day: '6:00PM', ttl: 20 * 3600 })
+    }).then((x) => x.ok, () => false);
+    if (ok) sent++;
+  }
+  return sent;
+}
+
 export async function GET(request) {
   const secret = env('CRON_SECRET');
   if (!secret || request.headers.get('authorization') !== 'Bearer ' + secret) return fail(401, 'unauthorized');
@@ -75,6 +110,7 @@ export async function GET(request) {
     headers: { 'Content-Type': 'application/json', Authorization: 'Key ' + key },
     body: JSON.stringify(payload)
   }).then((r) => r.ok, () => false)));
-  if (!results.some(Boolean)) return fail(502, 'onesignal_failed');
-  return json({ ok: true, cleaned, message: m.fr[0], type: m.type, sent: results.filter(Boolean).length });
+  const alerts = await premiumAlerts(appId, key, base_url).catch(() => 0);
+  if (!results.some(Boolean) && !alerts) return fail(502, 'onesignal_failed');
+  return json({ ok: true, cleaned, message: m.fr[0], type: m.type, sent: results.filter(Boolean).length, premium_alerts: alerts });
 }

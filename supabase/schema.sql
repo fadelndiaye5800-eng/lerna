@@ -677,3 +677,54 @@ insert into public.app_config (key, value) values ('ai', '{"actif": true, "plafo
 grant all on public.paiements_momo to service_role;
 grant all on public.events to service_role;
 grant usage, select on sequence public.events_id_seq to service_role;
+
+-- ---------- Octobre 2026 : Pack Candidature + offres toutes visibles ----------
+-- Pack Candidature : paiement unique, 6 mois d'accès complet (une saison de candidatures : Campus France, Parcoursup, universités)
+alter table public.paiements_momo drop constraint if exists paiements_momo_formule_check;
+alter table public.paiements_momo add constraint paiements_momo_formule_check check (formule in ('mois', 'an', 'pack'));
+update public.app_config set value = value || '{"prix_pack": 12000}'::jsonb where key = 'momo' and not (value ? 'prix_pack');
+
+create or replace function public.lerna_pay_valider(p_token text)
+returns json language plpgsql security definer set search_path = public as $$
+declare
+  r public.paiements_momo; cur timestamptz; fin timestamptz;
+begin
+  select * into r from public.paiements_momo where token = p_token for update;
+  if not found then raise exception 'not_found'; end if;
+  if r.statut = 'valide' then return json_build_object('statut', 'valide', 'jusqu_au', r.premium_jusqu_au); end if;
+  select premium_expiry into cur from public.users where id = r.user_id;
+  fin := greatest(now(), coalesce(cur, now())) + case when r.formule = 'an' then interval '1 year' when r.formule = 'pack' then interval '6 months' else interval '1 month' end;
+  update public.users set is_premium = true, premium_expiry = fin where id = r.user_id;
+  update public.paiements_momo set statut = 'valide', traite_at = now(), premium_jusqu_au = fin where id = r.id;
+  return json_build_object('statut', 'valide', 'jusqu_au', fin);
+end $$;
+revoke all on function public.lerna_pay_valider(text) from public, anon, authenticated;
+grant execute on function public.lerna_pay_valider(text) to service_role;
+
+create or replace function public.lerna_momo_traiter(p_id uuid, p_decision text)
+returns json language plpgsql security definer set search_path = public as $$
+declare
+  r public.paiements_momo; cur timestamptz; fin timestamptz;
+begin
+  if not public.is_admin() then raise exception 'forbidden'; end if;
+  select * into r from public.paiements_momo where id = p_id for update;
+  if not found then raise exception 'not_found'; end if;
+  if r.statut <> 'en_attente' then raise exception 'already_done'; end if;
+  if p_decision = 'refuse' then
+    update public.paiements_momo set statut = 'refuse', traite_at = now(), traite_par = auth.uid() where id = p_id;
+    return json_build_object('statut', 'refuse');
+  elsif p_decision <> 'valide' then
+    raise exception 'bad_decision';
+  end if;
+  select premium_expiry into cur from public.users where id = r.user_id;
+  fin := greatest(now(), coalesce(cur, now())) + case when r.formule = 'an' then interval '1 year' when r.formule = 'pack' then interval '6 months' else interval '1 month' end;
+  update public.users set is_premium = true, premium_expiry = fin where id = r.user_id;
+  update public.paiements_momo set statut = 'valide', traite_at = now(), traite_par = auth.uid(), premium_jusqu_au = fin where id = p_id;
+  return json_build_object('statut', 'valide', 'jusqu_au', fin);
+end $$;
+revoke all on function public.lerna_momo_traiter(uuid, text) from public, anon;
+grant execute on function public.lerna_momo_traiter(uuid, text) to authenticated;
+
+-- Les offres publiques ne sont plus cachées : tout le monde voit toutes les bourses, stages et investisseurs.
+-- Premium paie l'aide pour postuler (dossier, lettres, entretien, alertes), pas l'information.
+update public.opportunites set is_premium = false, data = coalesce(data, '{}'::jsonb) || '{"premium": false}'::jsonb where is_premium;

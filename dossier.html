@@ -47,6 +47,17 @@
   .cf-h4 { font-size: 1rem; margin: 18px 0 10px; }
   .cf-steps, .cf-dates { display: flex; flex-direction: column; gap: 8px; margin-left: 18px; font-size: .9rem; }
   .cf-dates { list-style: none; margin-left: 0; }
+  .bg-in { display: flex; align-items: center; gap: 8px; }
+  .bg-in span { font-weight: 700; color: var(--muted); font-size: .86rem; min-width: 34px; }
+  .bg-total { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-top: 18px; padding-top: 14px; border-top: 1.5px solid var(--cream-dark); }
+  .bg-total strong { font-family: var(--font-head); font-size: 1.6rem; color: var(--brown); }
+  .bg-blur { filter: blur(6px); user-select: none; pointer-events: none; }
+  .bg-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--cream-dark); }
+  .bg-plan { display: grid; grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .bg-alt { min-width: 0; display: flex; align-items: center; gap: 12px; border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 12px; }
+  .bg-alt .flg { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+  .bg-alt strong { display: block; line-height: 1.3; overflow-wrap: anywhere; }
+  .bg-alt small { display: block; color: var(--muted); font-size: .8rem; }
   .cf-dates li { display: flex; gap: 10px; align-items: baseline; }
   .cf-dates .dt { font-weight: 800; color: var(--brown); white-space: nowrap; min-width: 92px; }
   .cf-dates .dt.soon { color: var(--orange); }
@@ -161,7 +172,18 @@ Lerna.addStrings({
     'ds.start': 'Commencer un dossier', 'ds.pickTitle': 'Pour quelle école ?', 'ds.pickFromResults': 'Tes écoles recommandées', 'ds.pickFromFavs': 'Tes favoris', 'ds.pickAll': 'Ou cherche dans toutes les écoles',
     'ds.open': 'Ouvrir le dossier →', 'ds.nextStep': 'Prochaine étape : {s}', 'ds.allDone': 'Toutes les étapes sont faites 🎉',
     'ds.back': '← Mes dossiers', 'ds.progress': 'Avancement', 'ds.stepsDone': '{n}/{t} étapes',
-    'ds.tSteps': 'Étapes', 'ds.tDocs': 'Documents', 'ds.tLetter': 'Lettre', 'ds.tInterview': 'Entretien', 'ds.tCv': 'CV', 'ds.tReco': 'Recommandation', 'ds.tVisa': 'Visa', 'ds.tTrack': 'Suivi',
+    'ds.tSteps': 'Étapes', 'ds.tDocs': 'Documents', 'ds.tLetter': 'Lettre', 'ds.tInterview': 'Entretien', 'ds.tCv': 'CV', 'ds.tReco': 'Recommandation', 'ds.tVisa': 'Visa', 'ds.tTrack': 'Suivi', 'ds.tBudget': 'Budget',
+    'bg.title': 'Mon budget réel', 'bg.sub': 'Ce que va vraiment coûter ta première année. Les montants de départ viennent de la fiche de l’école : corrige-les avec tes vrais chiffres.',
+    'bg.tuition': 'Scolarité + inscription (par an)', 'bg.housing': 'Logement (par mois)', 'bg.living': 'Vie courante : repas, transport… (par mois)',
+    'bg.visa': 'Visa et frais de dossier (une fois)', 'bg.flight': 'Billet d’avion (une fois)', 'bg.other': 'Assurance, installation, autres (une fois)',
+    'bg.yearly': 'Chaque année', 'bg.once': 'Une seule fois (au départ)', 'bg.total': 'Total de ta première année',
+    'bg.noFee': 'Les frais de cette école ne sont pas encore vérifiés par LERNA : mets le montant de la fiche officielle.',
+    'bg.yourBudget': 'Ton budget scolarité indiqué : jusqu’à {m} par an.', 'bg.ok': 'La scolarité rentre dans ton budget.', 'bg.over': 'La scolarité dépasse ton budget de {m} par an. Regarde une bourse ou un plan B.',
+    'bg.note': 'Estimations indicatives : vérifie toujours les montants sur les pages officielles de l’école, de l’ambassade et de la compagnie aérienne. LERNA peut se tromper.',
+    'bg.planB': 'Plan B : des écoles de ton domaine qui coûtent moins', 'bg.planBSub': 'Garde au moins une candidature de secours. Ces écoles enseignent les mêmes domaines, pour un budget de départ plus bas.',
+    'bg.from': 'à partir de {m} la 1re année', 'bg.see': 'Voir la fiche', 'bg.noPlanB': 'Pas d’école moins chère dans ton domaine pour l’instant.',
+    'bg.lockTitle': 'Ton budget réel et ton plan B sont dans Premium', 'bg.lockText': 'Calcule le coût complet de ta première année (scolarité, logement, vie, visa, billet) et découvre des écoles de secours qui rentrent dans ton budget.',
+    'bg.lockBtn': 'Débloquer avec le Pack Candidature',
     'ds.who': 'Ce guide est pour toi si :', 'ds.notYou': 'Ce n’est pas ta situation ?', 'ds.officialPage': 'Page officielle', 'ds.officialDate': 'Date officielle : {d}',
     'ds.myDate': 'Ma date limite', 'ds.markDone': 'Marquer comme fait', 'ds.markUndo': 'Annuler',
     'ds.links': 'Liens de l’école', 'ds.linksNote': 'Les liens marqués 🔎 lancent une recherche sur le site officiel de l’école.',
@@ -202,7 +224,18 @@ Lerna.addStrings({
     'ds.start': 'Start an application', 'ds.pickTitle': 'For which school?', 'ds.pickFromResults': 'Your recommended schools', 'ds.pickFromFavs': 'Your favourites', 'ds.pickAll': 'Or search all schools',
     'ds.open': 'Open →', 'ds.nextStep': 'Next step: {s}', 'ds.allDone': 'All steps done 🎉',
     'ds.back': '← My applications', 'ds.progress': 'Progress', 'ds.stepsDone': '{n}/{t} steps',
-    'ds.tSteps': 'Steps', 'ds.tDocs': 'Documents', 'ds.tLetter': 'Letter', 'ds.tInterview': 'Interview', 'ds.tCv': 'CV', 'ds.tReco': 'Reference', 'ds.tVisa': 'Visa', 'ds.tTrack': 'Tracking',
+    'ds.tSteps': 'Steps', 'ds.tDocs': 'Documents', 'ds.tLetter': 'Letter', 'ds.tInterview': 'Interview', 'ds.tCv': 'CV', 'ds.tReco': 'Reference', 'ds.tVisa': 'Visa', 'ds.tTrack': 'Tracking', 'ds.tBudget': 'Budget',
+    'bg.title': 'My real budget', 'bg.sub': 'What your first year will really cost. Starting amounts come from the school page: correct them with your real figures.',
+    'bg.tuition': 'Tuition + registration (per year)', 'bg.housing': 'Housing (per month)', 'bg.living': 'Living costs: food, transport… (per month)',
+    'bg.visa': 'Visa and application fees (once)', 'bg.flight': 'Flight (once)', 'bg.other': 'Insurance, settling in, other (once)',
+    'bg.yearly': 'Every year', 'bg.once': 'Only once (when you leave)', 'bg.total': 'Total for your first year',
+    'bg.noFee': 'This school’s fees are not verified by LERNA yet: enter the amount from the official page.',
+    'bg.yourBudget': 'Your stated tuition budget: up to {m} a year.', 'bg.ok': 'The tuition fits your budget.', 'bg.over': 'The tuition is {m} a year over your budget. Look at a scholarship or a plan B.',
+    'bg.note': 'Indicative estimates: always check the amounts on the official pages of the school, the embassy and the airline. LERNA can be wrong.',
+    'bg.planB': 'Plan B: schools in your field that cost less', 'bg.planBSub': 'Always keep at least one back-up application. These schools teach the same fields, with a lower starting budget.',
+    'bg.from': 'from {m} for the 1st year', 'bg.see': 'See the page', 'bg.noPlanB': 'No cheaper school in your field for now.',
+    'bg.lockTitle': 'Your real budget and plan B are in Premium', 'bg.lockText': 'Work out the full cost of your first year (tuition, housing, living, visa, flight) and discover back-up schools that fit your budget.',
+    'bg.lockBtn': 'Unlock with the Application Pack',
     'ds.who': 'This guide is for you if:', 'ds.notYou': 'Not your situation?', 'ds.officialPage': 'Official page', 'ds.officialDate': 'Official date: {d}',
     'ds.myDate': 'My deadline', 'ds.markDone': 'Mark as done', 'ds.markUndo': 'Undo',
     'ds.links': 'School links', 'ds.linksNote': 'Links marked 🔎 run a search on the school’s official website.',
@@ -243,7 +276,7 @@ Lerna.addStrings({
   var $ = function (id) { return document.getElementById(id); };
   var profile = store.get('lerna_profile', null), answers = profile && profile.answers;
   var id = Lerna.param('ecole'), tab = (location.hash || '#etapes').slice(1);
-  var TABS = [['etapes', 'ds.tSteps', 'check'], ['documents', 'ds.tDocs', 'file'], ['lettre', 'ds.tLetter', 'edit'], ['entretien', 'ds.tInterview', 'chat'], ['cv', 'ds.tCv', 'user'], ['reco', 'ds.tReco', 'mail'], ['visa', 'ds.tVisa', 'globe'], ['suivi', 'ds.tTrack', 'trend']];
+  var TABS = [['etapes', 'ds.tSteps', 'check'], ['documents', 'ds.tDocs', 'file'], ['lettre', 'ds.tLetter', 'edit'], ['entretien', 'ds.tInterview', 'chat'], ['cv', 'ds.tCv', 'user'], ['reco', 'ds.tReco', 'mail'], ['visa', 'ds.tVisa', 'globe'], ['budget', 'ds.tBudget', 'dollar'], ['suivi', 'ds.tTrack', 'trend']];
   if (!TABS.some(function (x) { return x[0] === tab; })) tab = 'etapes';
   function country() { return Lerna.country(); }
   function school() { return id ? window.LERNA_SCHOOL(id) : null; }
@@ -339,7 +372,7 @@ Lerna.addStrings({
     renderPanel();
   }
   function renderPanel() {
-    var fn = { etapes: pSteps, documents: pDocs, lettre: pLetter, entretien: pInterview, cv: pCv, reco: pReco, visa: pVisa, suivi: pTrack }[tab];
+    var fn = { etapes: pSteps, documents: pDocs, lettre: pLetter, entretien: pInterview, cv: pCv, reco: pReco, visa: pVisa, budget: pBudget, suivi: pTrack }[tab];
     $('panel').innerHTML = fn();
     bindPanel();
   }
@@ -493,6 +526,61 @@ Lerna.addStrings({
     h += '<div class="row">' + (v ? '<a class="btn btn-primary btn-sm" href="' + esc(v.url) + '" target="_blank" rel="noopener">' + t('ds.officialPage') + ' ↗</a>' : '') + '</div></section>';
     return h;
   }
+  /* Budget réel + plan B (Premium) — montants gardés en dollars, affichés et saisis dans la devise de la personne */
+  var BUDGET_MAX = { gratuit: 300, faible: 1500, moyen: 5000, confortable: 15000, premium: Infinity };
+  function rate() { var c = Lerna.currency(), fx = Lerna.fx(); return c === 'XOF' ? fx.XOF : c === 'EUR' ? fx.EUR : 1; }
+  function niceNum(x) { x = Math.max(0, x || 0); var step = Lerna.currency() === 'XOF' ? (x >= 10000 ? 1000 : 100) : (x >= 1000 ? 10 : 1); return Math.round(x / step) * step; }
+  function curLbl() { var c = Lerna.currency(); return c === 'XOF' ? 'FCFA' : c === 'EUR' ? '€' : '$'; }
+  function firstYear(x, local) {
+    var fee = window.LERNA_FEE_FOR(x, local ? x.pays : country());
+    if (fee === null) return null;
+    var online = x.type === 'online';
+    return fee + (x.inscription || 0) + (online ? 0 : 12 * ((x.logement || [0])[0] + (x.vie || [0])[0]));
+  }
+  function budgetDefaults(s) {
+    var fee = window.LERNA_FEE_FOR(s, country()), online = s.type === 'online';
+    return { tuition: fee === null ? 0 : fee + (s.inscription || 0), housing: online ? 0 : (s.logement || [0])[0], living: online ? 0 : (s.vie || [0])[0], visa: 0, flight: 0, other: 0 };
+  }
+  function budgetVals() { var s = school(), d = dossier(); return Object.assign(budgetDefaults(s), d.budget || {}); }
+  function budgetTotals(v) { var y = v.tuition + 12 * (v.housing + v.living), o = v.visa + v.flight + v.other; return { yearly: y, once: o, total: y + o }; }
+  function planB(s) {
+    var max = answers && BUDGET_MAX[answers.q17] !== undefined ? BUDGET_MAX[answers.q17] : Infinity;
+    var mine = firstYear(s) || Infinity, doms = s.domaines || [];
+    return (window.LERNA_SCHOOLS || []).filter(function (x) {
+      if (x.id === s.id || !(x.domaines || []).some(function (d) { return doms.indexOf(d) !== -1; })) return false;
+      var fee = window.LERNA_FEE_FOR(x, country()), fy = firstYear(x);
+      return fee !== null && fy !== null && fee <= max && fy < mine;
+    }).sort(function (a, b) { return firstYear(a) - firstYear(b); }).slice(0, 3);
+  }
+  function pBudget() {
+    var s = school();
+    var h = '<h2 style="font-size:1.3rem">' + t('bg.title') + '</h2><p class="muted small" style="margin:6px 0 14px">' + t('bg.sub') + '</p>';
+    if (!Lerna.isPremium()) {
+      return h + '<section class="card bg-lock">' + Lerna.sticker('money-bag', 'stk-sm') + '<h3 style="margin-top:8px">' + t('bg.lockTitle') + '</h3><p class="muted" style="margin:6px 0 16px">' + t('bg.lockText') + '</p>' +
+        '<div class="bg-blur" aria-hidden="true"><div class="bg-row"><span>' + t('bg.tuition') + '</span><strong>' + Lerna.money(budgetDefaults(s).tuition || 4000) + '</strong></div><div class="bg-row"><span>' + t('bg.total') + '</span><strong>' + Lerna.money(9000) + '</strong></div></div>' +
+        '<a class="btn btn-primary" style="margin-top:16px" href="premium.html?src=budget&plan=pack">' + t('bg.lockBtn') + ' →</a></section>';
+    }
+    var v = budgetVals(), T = budgetTotals(v), r = rate();
+    var field = function (k, lbl) { return '<div class="field"><label for="bg_' + k + '">' + t(lbl) + '</label><div class="bg-in"><input class="input" type="number" min="0" step="any" inputmode="decimal" id="bg_' + k + '" data-bg="' + k + '" value="' + niceNum(v[k] * r) + '"><span>' + curLbl() + '</span></div></div>'; };
+    if (window.LERNA_FEE_FOR(s, country()) === null) h += '<div class="notice" style="margin-bottom:12px">' + Lerna.icon('info') + '<div>' + t('bg.noFee') + '</div></div>';
+    h += '<section class="card"><p class="label">' + t('bg.yearly') + '</p><div class="cv-grid">' + field('tuition', 'bg.tuition') + field('housing', 'bg.housing') + field('living', 'bg.living') + '</div>' +
+      '<p class="label" style="margin-top:16px">' + t('bg.once') + '</p><div class="cv-grid">' + field('visa', 'bg.visa') + field('flight', 'bg.flight') + field('other', 'bg.other') + '</div>' +
+      '<div class="bg-total"><span>' + t('bg.total') + '</span><strong id="bgTotal">' + Lerna.money(T.total) + '</strong></div><div id="bgVerdict">' + verdictHTML(v) + '</div>' +
+      '<p class="small muted" style="margin-top:12px">' + t('bg.note') + ' ' + Lerna.moneyNote() + '</p></section>';
+    var B = planB(s);
+    h += '<section class="card" style="margin-top:16px"><h3>' + t('bg.planB') + '</h3><p class="muted small" style="margin:6px 0 12px">' + t('bg.planBSub') + '</p>';
+    h += B.length ? '<div class="bg-plan">' + B.map(function (x) {
+      return '<div class="bg-alt">' + Lerna.flag(x.pays) + '<div style="flex:1;min-width:0"><strong>' + esc(x.nom) + '</strong><small>' + esc(x.ville + ', ' + window.LERNA_COUNTRY_NAME(x.pays)) + ' · ' + t('bg.from', { m: Lerna.money(firstYear(x)) }) + '</small></div><a class="btn btn-ghost btn-sm" href="ecole.html?id=' + x.id + '">' + t('bg.see') + '</a></div>';
+    }).join('') + '</div>' : '<p class="muted">' + t('bg.noPlanB') + '</p>';
+    return h + '</section>';
+  }
+  function verdictHTML(v) {
+    var max = answers && BUDGET_MAX[answers.q17];
+    if (!max || max === Infinity) return '';
+    var over = v.tuition - max;
+    return '<p class="small" style="margin-top:8px">' + t('bg.yourBudget', { m: Lerna.money(max) }) + ' <strong class="' + (over > 0 ? 'orange' : '') + '">' + (over > 0 ? t('bg.over', { m: Lerna.money(over) }) : t('bg.ok')) + '</strong></p>';
+  }
+
   /* Suivi */
   var STATUS = [['prep', 'ds.sPrep', 'memo'], ['sent', 'ds.sSent', 'envelope'], ['interview', 'ds.sInterview', 'mic'], ['waiting', 'ds.sWaiting', 'hourglass'], ['accepted', 'ds.sAccepted', 'party'], ['refused', 'ds.sRefused', 'seedling']];
   function pTrack() {
@@ -566,6 +654,17 @@ Lerna.addStrings({
         var ok = function () { Lerna.toast(t('ds.copied')); Lerna.sound.play('select'); };
         if (navigator.clipboard) navigator.clipboard.writeText(txt).then(ok, function () {}); else ok();
       });
+    }
+    if (tab === 'budget' && Lerna.isPremium()) {
+      P.addEventListener('input', function (e) {
+        var k = e.target.getAttribute('data-bg'); if (!k) return;
+        var d = dossier(), v = budgetVals(), n = parseFloat(String(e.target.value).replace(',', '.'));
+        v[k] = n >= 0 ? n / rate() : 0;
+        d.budget = v; save(d);
+        $('bgTotal').textContent = Lerna.money(budgetTotals(v).total);
+        $('bgVerdict').innerHTML = verdictHTML(v);
+      });
+      Lerna.track('budget_open', id);
     }
     if (tab === 'suivi') {
       P.addEventListener('input', function (e) {

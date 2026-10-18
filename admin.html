@@ -240,7 +240,7 @@
   function dt(iso) { var d = new Date(iso); return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) + ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }); }
   function pPays() {
     if (!live()) return '<p class="muted">Disponible une fois Supabase branché.</p>';
-    var m = data.momo || { prix_mois: 3000, prix_an: 24000, actif: false };
+    var m = data.momo || { prix_mois: 3000, prix_an: 24000, prix_pack: 12000, actif: false };
     var on = !!Lerna.config.pay;
     var h = '<section class="card momo-set"><div class="row" style="justify-content:space-between;gap:10px"><h3>Paiement en FCFA</h3>' +
       '<span class="pill-s ' + (on ? 'valide' : 'refuse') + '">' + (on ? (Lerna.config.pay.provider === 'saspay' ? 'SasPay' : 'PayDunya') + ' branché' + (Lerna.config.pay.test ? ' · mode test' : '') : 'Paiement pas encore branché') + '</span></div>' +
@@ -248,6 +248,7 @@
       (on ? '' : ' Pour l’ouvrir : ajoute SASPAY_SECRET_KEY dans Vercel (ou les 3 clés PayDunya).') + '</p>' +
       '<div class="stack"><div class="two"><div class="field"><label for="mmPm">Prix 1 mois (FCFA)</label><input class="input" id="mmPm" type="number" min="200" step="100" value="' + (m.prix_mois || '') + '"></div>' +
       '<div class="field"><label for="mmPa">Prix 1 an (FCFA)</label><input class="input" id="mmPa" type="number" min="200" step="100" value="' + (m.prix_an || '') + '"></div></div>' +
+      '<div class="field"><label for="mmPp">Prix Pack Candidature — paiement unique, 6 mois (FCFA, vide = pack masqué)</label><input class="input" id="mmPp" type="number" min="200" step="100" value="' + (m.prix_pack || '') + '"></div>' +
       '<label class="row small" style="gap:8px"><input type="checkbox" id="mmOn"' + (m.actif ? ' checked' : '') + '> Paiement ouvert aux élèves</label>' +
       '<button type="button" class="btn btn-primary" data-act="momo">Enregistrer</button></div>' +
       '<div style="margin-top:14px"><button type="button" class="btn btn-ghost" data-act="paydiag">Tester la connexion au service de paiement</button>' +
@@ -259,7 +260,7 @@
     var WAYS2 = { wave: 'Wave', orange_money: 'Orange Money', free_money: 'Yas (Free Money)', carte: 'Carte bancaire' };
     return h + data.pays.map(function (p) {
       var pend = p.statut === 'en_attente';
-      return '<div class="msg-card pay-card"><div class="top"><span class="amt">' + fcfa(p.montant) + ' · ' + (p.formule === 'an' ? '1 an' : '1 mois') + '</span><span><span class="pill-s ' + p.statut + '">' + LBL[p.statut] + '</span></span></div>' +
+      return '<div class="msg-card pay-card"><div class="top"><span class="amt">' + fcfa(p.montant) + ' · ' + (p.formule === 'an' ? '1 an' : p.formule === 'pack' ? 'Pack 6 mois' : '1 mois') + '</span><span><span class="pill-s ' + p.statut + '">' + LBL[p.statut] + '</span></span></div>' +
         '<div class="det"><span>Moyen</span><b>' + esc(WAYS2[p.moyen] || p.moyen) + '</b>' +
         (p.numero_payeur ? '<span>Numéro</span><b>' + esc(p.numero_payeur) + '</b>' : '') +
         '<span>Compte</span><b>' + esc(p.email || '') + '</b>' +
@@ -453,6 +454,7 @@
         }
         if (act === 'momo') {
           var mm = { prix_mois: parseInt($('mmPm').value, 10), prix_an: parseInt($('mmPa').value, 10), actif: $('mmOn').checked };
+          var pk = parseInt($('mmPp').value, 10); if (pk >= 200) mm.prix_pack = pk;
           if (!(mm.prix_mois >= 200) || !(mm.prix_an >= 200)) return toast('Prix invalide');
           A.sb.from('app_config').upsert({ key: 'momo', value: mm, updated_at: new Date().toISOString(), updated_by: A.user.id }).then(function (r) {
             try { sessionStorage.removeItem('lerna_cfg'); } catch (e) {}
@@ -471,7 +473,7 @@
         var dec = b.getAttribute('data-v'), pid = b.getAttribute('data-pay');
         var pp = data.pays.filter(function (x) { return x.id === pid; })[0];
         if (!pp) return;
-        var q = 'À faire seulement si tu vois ce paiement de ' + fcfa(pp.montant) + ' comme réussi dans ton compte ' + (pp.provider === 'saspay' ? 'SasPay' : 'PayDunya') + '.\n\nActiver le Premium de ' + (pp.email || 'cet élève') + ' pour ' + (pp.formule === 'an' ? '1 an' : '1 mois') + ' ?';
+        var q = 'À faire seulement si tu vois ce paiement de ' + fcfa(pp.montant) + ' comme réussi dans ton compte ' + (pp.provider === 'saspay' ? 'SasPay' : 'PayDunya') + '.\n\nActiver le Premium de ' + (pp.email || 'cet élève') + ' pour ' + (pp.formule === 'an' ? '1 an' : pp.formule === 'pack' ? '6 mois (Pack Candidature)' : '1 mois') + ' ?';
         if (!confirm(q)) return;
         b.disabled = true;
         A.sb.rpc('lerna_momo_traiter', { p_id: pid, p_decision: dec }).then(function (r) {

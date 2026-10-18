@@ -2,7 +2,7 @@
    L'élève ne voit jamais le numéro du propriétaire : il paie le marchand « LERNA » dans son appli,
    et le Premium s'active tout seul (IPN PayDunya + vérification serveur à serveur).
 
-   POST { action: "start", plan: "mois"|"an", method: "wave"|"orange_money"|"free_money"|"card", phone? }
+   POST { action: "start", plan: "mois"|"an"|"pack", method: "wave"|"orange_money"|"free_money"|"card", phone? }
         → { token, redirect?, alt?, qr?, ussd? }
    POST { action: "verify", token } → { statut: "valide"|"en_attente"|"refuse" }
    POST /api/pay?ipn=1  (appel de PayDunya, formulaire) → active le Premium si la facture est payée
@@ -33,6 +33,8 @@ function shape(v) {
 const shapes = () => { const k = KEYS(); return { master: shape(k.master), private: shape(k.priv), token: shape(k.token) }; };
 const BASE = () => (env('PAYDUNYA_MODE', 'live') === 'test' ? 'https://app.paydunya.com/sandbox-api/v1' : 'https://app.paydunya.com/api/v1');
 const METHODS = ['wave', 'orange_money', 'free_money', 'card'];
+/* « pack » = Pack Candidature : paiement unique, 6 mois d'accès complet (une saison de candidatures) */
+const LABEL = { mois: 'LERNA Premium — 1 mois', an: 'LERNA Premium — 1 an', pack: 'LERNA Pack Candidature — 6 mois' };
 const TOKEN_RE = /^[A-Za-z0-9_-]{6,100}$/;
 
 async function pd(path, body) {
@@ -164,7 +166,7 @@ async function prices() {
   const v = Array.isArray(r.data) && r.data[0] ? r.data[0].value : null;
   if (!v || v.actif !== true) return null;
   const ok = (x) => Number.isInteger(x) && x >= 200 && x < 10000000;
-  return ok(v.prix_mois) && ok(v.prix_an) ? { mois: v.prix_mois, an: v.prix_an } : null;
+  return ok(v.prix_mois) && ok(v.prix_an) ? { mois: v.prix_mois, an: v.prix_an, pack: ok(v.prix_pack) ? v.prix_pack : null } : null;
 }
 
 const rowByToken = async (token) => {
@@ -304,7 +306,7 @@ export async function POST(request) {
 
   /* ---------- Démarrer un paiement ---------- */
   if (body.action !== 'start') return fail(400, 'unknown_action');
-  const plan = body.plan === 'an' ? 'an' : body.plan === 'mois' ? 'mois' : null;
+  const plan = body.plan === 'an' ? 'an' : body.plan === 'mois' ? 'mois' : body.plan === 'pack' ? 'pack' : null;
   const method = METHODS.includes(body.method) ? body.method : null;
   if (!plan || !method) return fail(400, 'bad_request');
   const phone = method === 'card' ? null : senPhone(body.phone);
@@ -315,6 +317,7 @@ export async function POST(request) {
   const P = await prices();
   if (!P) return fail(503, 'payment_closed');
   const amount = P[plan];
+  if (!amount) return fail(503, 'payment_closed');   // Pack Candidature pas encore mis en vente (prix vide dans /admin)
 
   const origin = url.origin;
   const me = await sbFetch('/rest/v1/users?id=eq.' + encodeURIComponent(user.id) + '&select=prenom,nom');
@@ -324,7 +327,7 @@ export async function POST(request) {
   /* ---------- SasPay ---------- */
   let spDetail = '';   // si SasPay échoue et que PayDunya (secours) échoue aussi, le propriétaire voit les deux erreurs
   if (payProvider() === 'saspay') {
-    const desc = 'LERNA Premium — ' + (plan === 'an' ? '1 an' : '1 mois');
+    const desc = LABEL[plan];
     const back = origin + '/premium.html?pay=retour';
     const first = (u.prenom || fullName.split(' ')[0] || 'Client').slice(0, 40), last = (u.nom || 'LERNA').slice(0, 40);
     let token = '', redirect = '', message = '', spErr = '';
@@ -364,7 +367,7 @@ export async function POST(request) {
   if (!paydunyaReady()) return fail(503, 'payment_not_configured');
 
   const inv = await pd('/checkout-invoice/create', {
-    invoice: { total_amount: amount, description: 'LERNA Premium — ' + (plan === 'an' ? '1 an' : '1 mois') },
+    invoice: { total_amount: amount, description: LABEL[plan] },
     store: { name: 'LERNA', website_url: origin },
     actions: { callback_url: origin + '/api/pay?ipn=1', return_url: origin + '/premium.html?pay=retour', cancel_url: origin + '/premium.html?pay=annule' },
     custom_data: { user_id: user.id, plan }

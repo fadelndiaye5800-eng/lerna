@@ -1901,8 +1901,13 @@
             prenom: (Lerna.displayName(u) || '').slice(0, 40), pays: (u.pays || (prof && prof.answers && prof.answers.q4) || '').slice(0, 2),
             n_mission: n.mission ? '1' : '0', n_bourses: n.bourses ? '1' : '0', n_deadlines: n.deadlines ? '1' : '0',
             n_parcours: n.parcours ? '1' : '0', n_news: n.news ? '1' : '0',
-            n_hour: String(P.notifHour), n_freq: String(P.notifMax)
+            n_hour: String(P.notifHour), n_freq: String(P.notifMax),
+            /* Alertes ciblées (Premium) : /api/cron-daily prévient dès qu'une offre d'un de ces domaines est ajoutée */
+            premium: Lerna.isPaidPremium() ? '1' : '0'
           });
+          var doms = (prof && prof.answers && Array.isArray(prof.answers.q15) ? prof.answers.q15 : []).slice(0, 3), dt = {};
+          ['d1', 'd2', 'd3'].forEach(function (k, i) { dt[k] = doms[i] ? String(doms[i]).slice(0, 20) : ''; });
+          os.User.addTags(dt);
         } catch (e) {}
       });
     }
