@@ -84,7 +84,7 @@ export const OFFICIELS = [
     cc: 'IN', id: 'in-ugc',
     autorite: { fr: 'University Grants Commission (UGC), Inde', en: 'University Grants Commission (UGC), India' },
     titre: { fr: 'Universités reconnues par l’UGC (centrales, d’État, « deemed », privées d’État)', en: 'UGC-recognised universities (central, state, deemed, state private)' },
-    url: 'https://www.ugc.gov.in/universitydetails/Getuniversity_details?unitypeID=0', page: 'https://www.ugc.gov.in/universitydetails/university?type=MuOh4z0uqRaY2k8Ag10I0g==', type: 'json', debugKeys: true,
+    url: 'https://www.ugc.gov.in/universitydetails/Getuniversity_details?unitypeID=0', page: 'https://www.ugc.gov.in/universitydetails/university?type=MuOh4z0uqRaY2k8Ag10I0g==', type: 'json',
     map: (o) => ({ n: o.uni_name, v: '', r: o.state || '', w: /\./.test(o.url || '') ? o.url.trim() : '', t: /private/i.test(o.uni_type || '') ? 'prive' : /central|state/i.test(o.uni_type || '') ? 'public' : '', acc: [o.uni_type, o.status ? 'UGC ' + o.status : ''].filter(Boolean).join(' · ') })
   }
 ];
