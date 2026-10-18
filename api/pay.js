@@ -120,23 +120,35 @@ async function sp(method, path, body, idem) {
 }
 /* Réseaux du Sénégal lus dans la liste publique de SasPay (codes du type « wave_sn ») ; gardés 1 h */
 let netCache = { t: 0, list: [] };
+let netSamples = {};   // extraits des réponses publiques de SasPay, montrés au propriétaire dans le test de connexion
 async function snNetworks() {
   if (netCache.list.length && Date.now() - netCache.t < 3600e3) return netCache.list;
-  const r = await sp('GET', '/countries/');
   const out = [];
-  const two = (x) => { const s = String(x || '').toUpperCase(); return /^[A-Z]{2}$/.test(s) ? s : ''; };
+  const two = (x) => { const s = String(x || '').toUpperCase(); return s === 'SEN' ? 'SN' : /^[A-Z]{2}$/.test(s) ? s : ''; };
   const walk = (node, country, depth) => {
     if (depth > 8 || !node || typeof node !== 'object') return;
     if (Array.isArray(node)) { node.forEach((n) => walk(n, country, depth + 1)); return; }
-    const iso = two(node.iso) || two(node.iso2) || two(node.country_code) || two(node.country);
+    const named = /s[ée]n[ée]gal/i.test(String(node.name || node.label || node.country_name || '')) ? 'SN' : '';
+    const iso = two(node.iso) || two(node.iso2) || two(node.iso3) || two(node.country_code) || two(node.country) || named;
     /* Le pays se transmet à tout ce qu'il contient, quel que soit le nom de la liste (networks, operators…) */
     const kids = ['networks', 'operators', 'providers', 'payment_methods', 'methods'].map((k) => node[k]).find(Array.isArray);
     if (kids) { walk(kids, iso || two(node.code) || country, depth + 1); return; }
-    if (typeof node.code === 'string' && (node.name || node.label || node.display_name)) out.push({ code: node.code, name: String(node.name || node.label || node.display_name), country: iso || country });
+    if (typeof node.code === 'string' && (node.name || node.label || node.display_name) && !/^(SN|SEN)$/i.test(node.code)) out.push({ code: node.code, name: String(node.name || node.label || node.display_name), country: iso || country });
     for (const v of Object.values(node)) if (v && typeof v === 'object') walk(v, iso || country, depth + 1);
   };
+  const keep = () => out.filter((n) => n.country === 'SN' || /[_-]sn$/i.test(n.code));
+  const snap = (r) => (r.status || 'sans réponse') + ' ' + JSON.stringify(r.data == null ? null : r.data).slice(0, 1500);
+  const r = await sp('GET', '/countries/');
+  netSamples = { countries: snap(r) };
   walk(r.data, '', 0);
-  const list = out.filter((n) => n.country === 'SN' || /_sn$/i.test(n.code));
+  /* Si la liste des pays ne donne pas les réseaux, on essaie les listes de réseaux du Sénégal */
+  for (const path of ['/networks/?country=SN', '/countries/SN/networks/']) {
+    if (keep().length) break;
+    const n = await sp('GET', path);
+    netSamples[path] = snap(n);
+    if (n.ok) walk(n.data, 'SN', 0);
+  }
+  const list = keep();
   if (list.length) netCache = { t: Date.now(), list };
   return list;
 }
@@ -300,7 +312,7 @@ export async function POST(request) {
     out.conseil = hint(out);
     const ev = await sbFetch('/rest/v1/events?ev=in.(pay:fail,pay:fallback)&select=at,meta&order=at.desc&limit=8');
     out.echecs = Array.isArray(ev.data) ? ev.data : [];
-    await logPay('diag', { provider: out.provider, mode: out.mode, paydunya: out.paydunya, saspay: out.saspay, test: out.test || null, conseil: out.conseil });
+    await logPay('diag', { provider: out.provider, mode: out.mode, paydunya: out.paydunya, saspay: out.saspay, test: out.test || null, conseil: out.conseil, saspay_listes: out.provider === 'saspay' ? netSamples : undefined });
     return json(out);
   }
 
