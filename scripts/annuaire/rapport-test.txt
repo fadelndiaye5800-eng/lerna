@@ -1,4 +1,4 @@
-2026-10-18T23:43:27.978Z
+2026-10-18T23:45:05.845Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -14,7 +14,6 @@ Warning: TT: undefined function: 21
 officiel tz-tcu 30
 clés co-men-snies c_digo_instituci_n,nombre_instituci_n,n_mero_identificaci_n,principal_seccional,naturaleza_jur_dica,sector,car_cter_acad_mico,cod_departamento,departamento_domicilio,municipio_domicilio,direcci_n_domicilio,tel_fono_domicilio,norma_de_creaci_n,fecha_norma_de_creaci_n,acreditada_alta_calidad,fecha_acreditaci_n,resoluci_n_de_la_acreditaci,vigencia_de_la_acreditaci,estado,fecha_actualizacion,p_gina_web
 officiel co-men-snies 300
-clés in-ugc uni_name,address,address1,address2,Zip,state,status,uni_type,ESTD,url,NM_VC,VCPNO,VCPNOR,VCFNO,VCMOB,VCE_ML,NM_REG,RPNO,RPNOR,RFNO,REMOB,RE_ML,UPNO,UPNO1,U_EMAIL,D_J_VC,D_J_REG,college,Is_Registered_paramarsh,AIshe_code,NM_Nodal,Nodal_Mob,Nodal_Phn,Nodal_Email,Nodal_Dept,Nodal_Desg,user_username,user_password,uniportal_id,import_remarks,Is_hindi,ID,Type,created_date,created_user,created_Ip,created_Mac,updated_date,updated_user,updated_Ip,updated_Mac
 officiel in-ugc 1256
 RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256}
 == ci-mesrs-prives : 618
@@ -212,3 +211,191 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Yenepoya | Karnataka | http://yenepoya.edu.in | Deemed to be Universities · UGC Section-III
   Yogi Vemana University | Andhra Pradesh | public | https://yvu.edu.in/ | State · UGC 2(f) & 12B
   Young India Skills University | Telangana | public | https://yisu.in/ | State · UGC 2(f)
+##### https://www.mext.go.jp/b_menu/toukei/mext_01087.html
+ST 200 text/html 23228 https://www.mext.go.jp/b_menu/toukei/mext_01087.html
+TITLE 文部科学省 学校コード：文部科学省 | TABLES 1 TR 3 LI 36
+  TR | 幼稚園、幼保連携型認定こども園、小学校、中学校、義務教育学校、高等学校、中等教育学校、特別支援学校、専修学校、各種学校 | 大学、短期大学、高等専門学校
+  TR 北海道、青森県、岩手県、宮城県、秋田県、山形県、福島県、茨城県、栃木県、群馬県、埼玉県、千葉県、東京都、神奈川県、新潟県、富山県、石川県、福井県、山梨県、長野県、岐阜県、静岡県、愛知県、三重県 | エクセル形式（Excel：3,010KB） csv形式（1）（csv：4,567KB） csv形式（2）（csv：872KB） | エクセル形式（Excel：130KB） csv形式（csv：179KB
+  TR 滋賀県、京都府、大阪府、兵庫県、奈良県、和歌山県、鳥取県、島根県、岡山県、広島県、山口県、徳島県、香川県、愛媛県、高知県、福岡県、佐賀県、長崎県、熊本県、大分県、宮崎県、鹿児島県、沖縄県 | エクセル形式（Excel：2,156KB） csv形式（csv：3,907KB）
+  FILES 71
+   /content/20210128-mxt_chousa01-000011635_01.pdf
+   /content/20260529-mxt_chousa01-000011635_1.xlsx
+   /content/20260825-mxt_chousa01-000011635_2-1.csv
+   /content/20260825-mxt_chousa01-000011635_2-2.csv
+   /content/20260529-mxt_chousa01-000011635_5.xlsx
+   /content/20260825-mxt_chousa01-000011635_6.csv
+   /content/20260529-mxt_chousa01-000011635_3.xlsx
+   /content/20260825-mxt_chousa01-000011635_4.csv
+   /content/20251226-mxt_chousa01-000011635_1.xlsx
+   /content/20251226-mxt_chousa01-000011635_2.csv
+   /content/20251226-mxt_chousa01-000011635_3.xlsx
+   /content/20251226-mxt_chousa01-000011635_4.csv
+   /content/20251226-mxt_chousa01-000011635_5.xlsx
+   /content/20251226-mxt_chousa01-000011635_6.csv
+   /content/20241226-mxt_chousa01-000011635_1.xlsx
+  A トップ -> /index.htm
+  A 白書・統計・出版物 -> /b_menu/b005.htm
+  A 統計情報 -> /b_menu/toukei/main_b8.htm
+  A 学校コードの取り扱いについて（PDF：309KB） -> /content/20210128-mxt_chousa01-000011635_01.pdf
+  A 文部科学省 学校コードに基づく学校コード検索 (edu-data.jp) -> https://edu-data.jp/
+  A Excel：3,010KB -> /content/20260529-mxt_chousa01-000011635_1.xlsx
+  A csv：4,567KB -> /content/20260825-mxt_chousa01-000011635_2-1.csv
+  A csv：872KB -> /content/20260825-mxt_chousa01-000011635_2-2.csv
+  A Excel：130KB -> /content/20260529-mxt_chousa01-000011635_5.xlsx
+  A csv：179KB -> /content/20260825-mxt_chousa01-000011635_6.csv
+  A Excel：2,156KB -> /content/20260529-mxt_chousa01-000011635_3.xlsx
+  A csv：3,907KB -> /content/20260825-mxt_chousa01-000011635_4.csv
+  A Excel：2,979KB -> /content/20251226-mxt_chousa01-000011635_1.xlsx
+  A csv：4,292KB -> /content/20251226-mxt_chousa01-000011635_2.csv
+  A Excel：2,131KB -> /content/20251226-mxt_chousa01-000011635_3.xlsx
+  A csv：3,076KB -> /content/20251226-mxt_chousa01-000011635_4.csv
+  A Excel：132KB -> /content/20251226-mxt_chousa01-000011635_5.xlsx
+  A csv：142KB -> /content/20251226-mxt_chousa01-000011635_6.csv
+  A Excel：2,877KB -> /content/20241226-mxt_chousa01-000011635_1.xlsx
+  A csv：5,322KB -> /content/20241226-mxt_chousa01-000011635_2.csv
+  A Excel：2,054KB -> /content/20241226-mxt_chousa01-000011635_3.xlsx
+  A csv：3,814KB -> /content/20241226-mxt_chousa01-000011635_4.csv
+  A Excel：131KB -> /content/20241226-mxt_chousa01-000011635_5.xlsx
+  A csv：175KB -> /content/20241226-mxt_chousa01-000011635_6.csv
+  A Excel：2,847KB -> /content/20230731-mxt_chousa01-000011635_1.xlsx
+  A csv：4,254KB -> /content/20230809-mxt_chousa01-000011635_2.csv
+  A Excel：2,054KB -> /content/20230731-mxt_chousa01-000011635_3.xlsx
+  A csv：3,045KB -> /content/20230731-mxt_chousa01-000011635_4.csv
+  A Excel：131KB -> /content/20230731-mxt_chousa01-000011635_5.xlsx
+  A csv：142KB -> /content/20230731-mxt_chousa01-000011635_6.csv
+  A Excel：2,814KB -> /content/221222-mxt-mxt_chousa01-1000011635_1.xlsx
+  A csv：4,255KB -> /content/221222-mxt-mxt_chousa01-1000011635_2.csv
+  A Excel：1,995KB -> /content/221222-mxt-mxt_chousa01-1000011635_3.xlsx
+  A csv：3,068KB -> /content/221222-mxt-mxt_chousa01-1000011635_4.csv
+  A Excel：117KB -> /content/221222-mxt-mxt_chousa01-1000011635_5.xlsx
+  A csv：143KB -> /content/221222-mxt-mxt_chousa01-1000011635_6.csv
+  A Excel：3787KB -> /content/211222-mxt-mxt_chousa01-1000011635_1.xlsx
+  A csv：4100KB -> /content/220124-mxt-mxt_chousa01-1000011635_3.csv
+  A Excel：3213KB -> /content/211223-mxt-mxt_chousa01-1000011635_4.xlsx
+  A csv：3200KB -> /content/220124-mxt-mxt_chousa01-1000011635_6.csv
+  A Excel：123KB -> /content/211222-mxt-mxt_chousa01-1000011635_7.xlsx
+  A csv：131KB -> /content/211222-mxt-mxt_chousa01-1000011635_8.csv
+  A Excel：2977KB -> /content/20210305-mxt_chousa01-000011635_01.xlsx
+  A csv：3873KB -> /content/20210305-mxt_chousa01-000011635_01.csv
+  A Excel：2034KB -> /content/20210305-mxt_chousa01-000011635_02.xlsx
+  A csv：2774KB -> /content/20210305-mxt_chousa01-000011635_02.csv
+  A Excel：124KB -> /content/20210305-mxt_chousa01-000011635_03.xlsx
+  A csv：130KB -> /content/20210305-mxt_chousa01-000011635_03.csv
+  A こちら 大学等の学校コードにおける学校番号の運用について（※PDF:105KB） -> /content/20210120-mxt_chousa01-000011635_03.pdf
+  A 北海道（PDF：253KB） -> /content/20201222-mxt_chousa01-000011635_a.pdf
+  A 岩手県（PDF：424KB） -> /content/20201222-mxt_chousa01-000011635_b.pdf
+  A 宮城県（PDF：235KB） -> /content/20201222-mxt_chousa01-000011635_c.pdf
+  A 秋田県（PDF：408KB） -> /content/20201222-mxt_chousa01-000011635_d.pdf
+  A 山形県（PDF：215KB） -> /content/20201222-mxt_chousa01-000011635_e.pdf
+  A 福島県（PDF：258KB） -> /content/20201222-mxt_chousa01-000011635_f.pdf
+  A 茨城県（PDF：216KB） -> /content/20201222-mxt_chousa01-000011635_g.pdf
+  A 埼玉県（PDF：308KB） -> /content/20201222-mxt_chousa01-000011635_h.pdf
+  A 東京都（PDF：486KB） -> /content/20201222-mxt_chousa01-000011635_i.pdf
+  A 神奈川県（PDF：318KB） -> /content/20201222-mxt_chousa01-000011635_j.pdf
+  A 新潟県（PDF：242KB） -> /content/20201222-mxt_chousa01-000011635_k.pdf
+  A 富山県（PDF：431KB） -> /content/20201222-mxt_chousa01-000011635_l.pdf
+  A 石川県（PDF：214KB） -> /content/20201222-mxt_chousa01-000011635_m.pdf
+  A 長野県（PDF：228KB） -> /content/20201222-mxt_chousa01-000011635_n.pdf
+  A 岐阜県（PDF：215KB） -> /content/20201222-mxt_chousa01-000011635_o.pdf
+  A 愛知県（PDF：469KB） -> /content/20201222-mxt_chousa01-000011635_p.pdf
+  A 三重県（PDF：263KB） -> /content/20201222-mxt_chousa01-000011635_q.pdf
+  A 滋賀県（PDF：231KB） -> /content/20201222-mxt_chousa01-000011635_r.pdf
+  A 島根県（PDF：257KB） -> /content/20201222-mxt_chousa01-000011635_s.pdf
+  A 徳島県（PDF：216KB） -> /content/20201222-mxt_chousa01-000011635_t.pdf
+  A 香川県（PDF：215KB） -> /content/20201222-mxt_chousa01-000011635_u.pdf
+  A 愛媛県（PDF：218KB） -> /content/20201222-mxt_chousa01-000011635_v.pdf
+  A 福岡県（PDF：235KB） -> /content/20201222-mxt_chousa01-000011635_w.pdf
+  A 佐賀県（PDF：239KB） -> /content/20201222-mxt_chousa01-000011635_x.pdf
+  A 宮崎県（PDF：577KB） -> /content/20201222-mxt_chousa01-000011635_y.pdf
+  A 沖縄県（PDF：239KB） -> /content/20201222-mxt_chousa01-000011635_z.pdf
+##### https://open.canada.ca/data/api/3/action/package_show?id=90115b00-f9b8-49e8-afa3-b4cff8facaee
+ST 200 application/json;charset=utf-8 43797 https://open.canada.ca/data/api/3/action/package_show?id=90115b00-f9b8-49e8-afa3-b4cff8facaee
+  JSON {"help": "https://open.canada.ca/data/api/3/action/help_show?name=package_show", "success": true, "result": {"association_type": [], "audience": ["educators", "general_public", "immigrants", "noncanad
+##### https://datos.gob.cl/api/3/action/package_search?q=directorio%20instituciones%20educacion%20superior&rows=5
+ST 200 application/json;charset=utf-8 18467 https://datos.gob.cl/api/3/action/package_search?q=directorio%20instituciones%20educacion%20superior&rows=5
+  JSON {"help": "https://datos.gob.cl/api/3/action/help_show?name=package_search", "success": true, "result": {"count": 7, "facets": {}, "results": [{"creator_user_id": "fb905435-dfb7-4e15-9d49-cc2d233a3d04"
+##### https://dadosabertos.mec.gov.br/
+ST 403 text/html; charset=UTF-8 5688 https://dadosabertos.mec.gov.br/
+TITLE Just a moment... | TABLES 0 TR 0 LI 0
+  FILES 0
+##### https://dados.gov.br/dados/conjuntos-dados/instituicoes-de-educacao-superior-e-cursos-cadastrados-no-e-mec
+ST 200 text/html 9632 https://dados.gov.br/dados/conjuntos-dados/instituicoes-de-educacao-superior-e-cursos-cadastrados-no-e-mec
+TITLE Portal de Dados Abertos | TABLES 0 TR 0 LI 0
+  FILES 0
+##### https://datos.gob.ar/api/3/action/package_search?q=universidades&rows=5
+ST 502 text/html; charset=UTF-8 6394 https://datos.gob.ar/api/3/action/package_search?q=universidades&rows=5
+TITLE datos.gob.ar | 502: Bad gateway | TABLES 0 TR 0 LI 0
+  FILES 0
+  A cloudflare.com -> https://www.cloudflare.com/5xx-error-landing?utm_source=errorcode_502&utm_campaign=datos.gob.ar
+  T Browser
+  T Cloudflare
+  T What happened?
+  T The web server reported a bad gateway error.
+  T What can I do?
+  T Please try again in a few minutes.
+  T Cloudflare Ray ID: a4cb6a19ade92ade • Your IP: Click to reveal 172.190.118.234 • Performance & security by Cloudflare
+##### https://www.datosabiertos.gob.pe/api/3/action/package_search?q=universidades%20licenciadas&rows=5
+ST 404 text/html; charset=utf-8 22139 https://www.datosabiertos.gob.pe/universidades%20licenciadas?rows=5
+TITLE Página no encontrada | Plataforma Nacional de Datos Abiertos | TABLES 0 TR 0 LI 2
+  FILES 1
+   https://www.datosabiertos.gob.pe/sites/default/files/leydigital.pdf
+  A  -> /
+  A Nos gustaría conocer tu opinión sobre qué datos públicos o p -> https://facilita.gob.pe/t/1024
+  A Decreto de Urgencia que crea el Sistema Nacional de Transfor -> https://www.gob.pe/institucion/pcm/normas-legales/395320-006-2020
+  A Decreto de urgencia que aprueba el marco de confianza digita -> https://www.gob.pe/institucion/pcm/normas-legales/395322-007-2020
+  A Ley de Gobierno Digital -> https://www.datosabiertos.gob.pe/sites/default/files/leydigital.pdf
+  A Gobernanza de Datos -> https://www.datosabiertos.gob.pe/%C2%BFqu%C3%A9-es-gobernanza-de-datos
+  A Colombia -> https://www.datos.gov.co/
+  A México -> https://datos.gob.mx/
+  A Chile -> https://datos.gob.cl/
+  JS https://www.datosabiertos.gob.pe/profiles/dkan/modules/contrib/date/date_api/date.css?tl7e9n
+  JS //fonts.googleapis.com/css?family=Open
+  JS https://fonts.googleapis.com/css?family=Roboto
+  JS https://www.datosabiertos.gob.pe/profiles/dkan/modules/contrib/recline/js/jsondataview.js?tl7e9n
+  JS /jsondataview.js
+  JS /date_api
+  JS /fonts.googleapis.com
+  T Datos Abiertos
+  T Marco de Gobernanza de Datos del Estado Peruano está constituido por instrumentos técnicos y normativos que establecen los requisitos mínimos que las entidades de la Administración Pública deben imple
+  T Secretaría de Gobierno y Transformación Digital Presidencia del Consejo de Ministros
+  T Documentación
+  T Alianza del Pacífico
+  T Colombia
+  T México
+  T Chile
+##### https://datos.gob.mx/busca/api/3/action/package_search?q=instituciones%20educacion%20superior&rows=5
+ST 404 text/html; charset=utf-8 14347 https://www.datos.gob.mx/busca/api/3/action/package_search?q=instituciones%20educacion%20superior&rows=5
+TITLE Página no encontrada - datos.gob.mx | TABLES 0 TR 0 LI 30
+  FILES 0
+  A  -> https://www.gob.mx
+  A Trámites -> https://www.gob.mx/tramites
+  A Gobierno -> https://www.gob.mx/gobierno
+  A  -> https://www.gob.mx/busqueda
+  A Inicio -> /
+  A Bases de datos -> /dataset/
+  A Instituciones -> /organization/
+  A Categorías -> /group/
+  A Visualizaciones de datos -> /visualizador
+  A búsqueda directa de datos -> /dataset
+  A Explorar datos.gob.mx -> https://www.datos.gob.mx
+  A Consultar portal histórico -> https://historico.datos.gob.mx
+  A Datos -> https://datos.gob.mx/
+  A Publicaciones -> https://www.gob.mx/publicaciones
+  A Portal de Obligaciones de Transparencia -> https://consultapublicamx.plataformadetransparencia.org.mx/vut-web/faces/view/consultaPublica.xhtml?idEntidad=MzM=&idSujetoObligado=MTAwMDE=#inicio
+  A PNT -> https://consultapublicamx.plataformadetransparencia.org.mx
+  A INAI -> http://www.inai.org.mx/
+  A Alerta -> https://alertadores.funcionpublica.gob.mx/
+  A Denuncia -> https://sidec.funcionpublica.gob.mx/#!/
+  A Leer más -> https://www.gob.mx/que-es-gobmx
+  A Administraciones anteriores -> https://www.gob.mx/amlo
+  A Declaración de Accesibilidad -> https://www.gob.mx/accesibilidad
+  A Marco jurídico -> http://www.ordenjuridico.gob.mx/
+  A Política de seguridad -> https://www.gob.mx/terminos#medidas-seguridad-informacion
+  A Términos y Condiciones -> https://www.gob.mx/terminos
+  A Aviso de privacidad -> https://www.gob.mx/aviso_de_privacidad
+  A Aviso de privacidad simplificado -> https://www.gob.mx/privacidadsimplificado
+  A Mapa de sitio -> https://www.gob.mx/sitemap
+  A  -> https://x.com/GobiernoMX
+##### https://www.data.gouv.fr/api/1/datasets/?q=universites+maroc&page_size=3
+ST 200 application/json 93 https://www.data.gouv.fr/api/1/datasets/?q=universites+maroc&page_size=3
+  JSON {"data": [], "next_page": null, "page": 1, "page_size": 3, "previous_page": null, "total": 0}
