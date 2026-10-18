@@ -30,8 +30,8 @@ async function getJSON(u, opt = {}) {
   }
   return null;
 }
-async function download(u, file) {
-  const r = await fetch(u, { headers: UA });
+async function download(u, file, headers) {
+  const r = await fetch(u, { headers: headers || UA });
   if (!r.ok) throw new Error('download ' + r.status + ' ' + u);
   fs.writeFileSync(file, Buffer.from(await r.arrayBuffer()));
   return file;
@@ -75,7 +75,10 @@ async function scorecard() {
   } catch { /* page indisponible */ }
   const tries = [zip, 'https://ed-public-download.scorecard.network/downloads/Most-Recent-Cohorts-Institution_10152026.zip'].filter(Boolean);
   let f = null, lastErr = '';
-  for (const u of tries) { try { f = await download(u, path.join(TMP, 'sc.zip')); break; } catch (e) { lastErr = e.message; } }
+  for (const u of tries) for (const h of [{ 'User-Agent': 'curl/8.5.0', Accept: '*/*' }, { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36', Accept: '*/*' }, UA]) {
+    if (f) break;
+    try { f = await download(u, path.join(TMP, 'sc.zip'), h); } catch (e) { lastErr = e.message; }
+  }
   if (!f) throw new Error('Scorecard indisponible : ' + lastErr);
   execSync('unzip -o -q ' + f + ' -d ' + path.join(TMP, 'sc'));
   const csv = fs.readdirSync(path.join(TMP, 'sc')).find((x) => /Institution.*\.csv$/.test(x));
