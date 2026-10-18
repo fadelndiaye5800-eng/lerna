@@ -1,0 +1,34 @@
+2026-10-18T22:59:57.898Z
+officiel ci-mesrs-prives 618
+officiel cm-minesup-ipes 234
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234}
+== ci-mesrs-prives : 618
+  Abidjan Bloom University (ABU) | Abidjan | Cocody | 90.000 F
+  Abidjan Business School -(ABS) | Abidjan | Cocody | 85000
+  Academie de Gestion et D'Hotellerie -(AGH) | Abidjan | Cocody | (affectés et non affectés) : 120.000f
+  Academie de L'Entrepreneuriat et des Metiers (AEM) Yopougon | Abidjan | Yopougon
+  Academie des Sciences Technologiques et Comptables -(ASTC PLATEAU) | Abidjan | Plateau | 85000
+  Academie des Sciences Technologiques et Comptables Cocody -(ASTC COCODY) | Abidjan | Cocody | 85000
+  Academie Elites | Abidjan | Yopougon | 85 000 F
+  Academie Ficoges Cocody | Abidjan | Cocody | 100 000 FCFA
+  Ihett | Abidjan | Yopougon | 45 000 F CFA
+  Ihpt Treichville | Abidjan | Plateau | 150000
+  Imba International Business School -(IMBA) | Bingerville | Bingerville | 85 000 F
+  Universite Polytechnique Moderne Mona (UPM MONA) | Abidjan | Cocody | 75 000F CFA
+  Université Internationale des Sciences Appliquées et de Technologies - UNISAT (BTS) | Abidjan | Cocody | 200 000 FCFA
+  Veraces Richter College (VRC) | Abidjan | Cocody
+== cm-minesup-ipes : 234
+  Institut Supérieur des Sciences, de Technologie, de Management et Développement Durable (ISSTMADD) | l’Adamaoua
+  Sanda Institut Supérieur de Management (SISMA) | l’Adamaoua
+  Centre International des Etudes Polytechniques d’Obala | Centre
+  Citec Higher Institute of Technology and Management (ICTU) | Centre
+  Ecole Sup Prépa | Centre
+  Ecole Supérieure de Commerce et de Gestion des Entreprises (SUP DE CO) | Centre
+  Ecole Supérieure de Commerce et de Gestion de Yaoundé (ESCGY) | Centre
+  Ecole Supérieure des Sciences de la Finance, de l’Assurance et des Risques de Yaoundé (ESSFAR) | Centre
+  Institut Supérieur de Technologie et de Management (ISTM) | Littoral
+  Institut Supérieur de Technologies Appliquées (INSTAP) | Littoral
+  Institut Supérieur de Transport, de Tourisme, des Affaires et de Management (ISTTAM) | Littoral
+  ST Joan of Arc Higher Institute of Medical and Management Sciences | Sud-ouest
+  Swisslink Higher Institute of Business and Technology (SHIBAT) | Sud-ouest
+  TRUSTECH Higher Institute of Technology and Professional Management | Sud-ouest
