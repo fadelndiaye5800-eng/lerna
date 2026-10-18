@@ -1,4 +1,4 @@
-2026-10-18T23:23:45.940Z
+2026-10-18T23:30:00.587Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -195,3 +195,327 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Corporacion Tecnica Profesional Caminos Del Suroccidente Colombiano | Timbío | Cauca | prive | https://www.corpocaminos.edu.co | Institución Técnica Profesional
   Universitaria Del Chicamocha | Bucaramanga | Santander | prive | https://www.unich.edu.co | Institución Universitaria/Escuela Tecnológica
   Fundación Universitaria Católica Del Caribe | Barranquilla | Atlántico | prive | https://www.unicatolicaribe.edu.co | Institución Universitaria/Escuela Tecnológica
+##### https://gtec.edu.gh/accredited-institutions
+ST 200 text/html; charset=UTF-8 186044 https://gtec.edu.gh/accredited-institutions/
+TITLE accredited-institutions - GTEC Email Email | TABLES 0 TR 0 LI 35
+  FILES 0
+  T About Us
+  T Contact Us
+  T News & Events
+  T Services
+  T Accreditation
+  T Credential Evaluation
+  T Assessors
+  T Status Check
+  T Book Conference Facility
+  T Book Guest House
+  T Publications
+  T About Us
+  T Contact Us
+  T News & Events
+  T Services
+  T Accreditation
+  T Credential Evaluation
+  T Assessors
+  T Status Check
+  T Book Conference Facility
+  T Book Guest House
+  T Publications
+  T Working Hours:Monday - Friday 8:00 - 17:00
+  T About
+  T Contact Us
+  T Publications
+  T Accreditation
+  T Right to Information
+  T Service Charges
+  T Vision/Mission/Core ValuesStrategic Plan
+  T QA GuidelinesPartnersContact Us
+  T Copyright © 2026 GTEC. All Rights Reserved.
+##### https://gtec.edu.gh/
+ST 200 text/html; charset=UTF-8 361800 https://gtec.edu.gh/
+TITLE Home - GTEC Email Email | TABLES 0 TR 0 LI 43
+  FILES 5
+   https://gtec.edu.gh/wp-content/uploads/2026/10/GTEC-Criteria-for-Establishment-of-Teaching-Units.pdf
+   https://gtec.edu.gh/wp-content/uploads/2026/10/GTEC-Criteria-for-Establishment-of-Non-Teaching-Units.pdf
+   https://gtec.edu.gh/wp-content/uploads/2026/10/GTEC_Newsletter-September-2026.pdf
+   /wp-content/uploads/2026/04/GTEC-Policy-on-Honorary-Degree.pdf
+   /wp-content/uploads/2026/04/GTEC-Policy-on-Mature-Students-1.pdf
+  T About Us
+  T Contact Us
+  T News & Events
+  T Services
+  T Accreditation
+  T Credential Evaluation
+  T Assessors
+  T Status Check
+  T Book Conference Facility
+  T Book Guest House
+  T Publications
+  T About Us
+  T Contact Us
+  T News & Events
+  T Services
+  T Accreditation
+  T Credential Evaluation
+  T Assessors
+  T Status Check
+  T Book Conference Facility
+  T Book Guest House
+  T Publications
+  T Welcome to the Ghana Tertiary Education Commission (GTEC),
+  T the custodian of quality, integrity, and strategic direction in Ghana’s tertiary education landscape.
+  T At GTEC, we are driven by a clear mandate: to regulate, assure quality, and shape a world-class tertiary education system that responds to national development needs and global standards. In a rapidly
+  T Our work is anchored in innovation, transparency, and firm regulatory leadership. From enforcing accreditation standards to advancing digital systems and policy reforms, we are committed to protecting
+  T We invite you to engage with us, explore our services, and partner with us as we build a credible, inclusive, and future-ready tertiary education system for Ghana.
+  T .wp-block-media-text { margin-top:0 !important; } .wp-block-media-text__content { margin-top:0 !important; padding-top:0 !important; } @media (max-width:768px){ #gtec-readmore-content{ display:none; }
+  T General Overview
+  T The National Council for Tertiary Education (NCTE) and the National Accreditation Board (NAB) have been merged under the new Education Regulatory Bodies Act, 2020 (Act 1023) to form the Ghana Tertiary
+  T The Act was given Presidential Assent on August 21, 2020, paving way for the Governing Board to be appointed and inaugurated on November 25, 2020.
+  T (Establishment of the Ghana Tertiary Education Commission By this Act, a corporate body known as the Ghana Tertiary Education Commission…
+  T Driving a world class tertiary education system for National Development.
+  T GTEC exists to ensure equitable access to relevant world class tertiary education through the formulation and coordination of policies and plans, provision of accreditation and quality assurance.
+  T Announcements
+  T Publications
+  T Downloadable Documents
+  T GTEC Criteria for Establishment of Teaching Units
+  T By GTEC
+  T GTEC Criteria for Establishment of Non-Teaching Units
+  T By GTEC
+  T GTEC Newsletter September 2026
+  T By GTEC
+  T GTEC Policy on Honorary Degree
+  T By GTEC
+  T GTEC Policy on Mature Students
+  T By GTEC
+  T GTEC Annual Report 2025
+  T By GTEC
+  T Guidelines for Joint Awards
+  T By GTEC
+  T GTEC Distance Learning Programme Accreditation Pack
+  T By GTEC
+  T News & Events
+  T Our Latest News
+  T GTEC Engages University of Ghana, College of Education, on Study Centers and Programme Compliance
+  T UMAT Vice-Chancellor and management Pay Courtesy Call on GTEC Director-General
+  T IAA, GTEC Deepen Collaboration to Strengthen Internal Controls.
+  T Nigerian Parliamentary Delegation Engages GTEC Over Certificate Racketeering Concerns
+  T GTEC ENGAGES STAKEHOLDERS TO STRENGTHEN GOVERNANCE AND STABILITY AT WIAWSO COLLEGE OF EDUCATION
+  T GTEC DIRECTOR-GENERAL WELCOMES NEW PRINCIPAL OF ST. FRANCIS COLLEGE OF EDUCATION
+  T Message Us!
+  T For any enquiry…
+  T There was an error trying to submit your form. Please try again.
+  T There was an error trying to submit your form. Please try again.
+  T Learn More From
+  T Frequently Asked Questions
+  T Click on “Credential Evaluation” under the dropdown of Services on the Navigation Bar or Click CEMS just after the Welcome address on the home page to register and follow the evaluation process or vis
+  T To verify whether an institution is accredited, visit the GTEC website and check if the institution appears under the accredited, unaccredited, or unrecognized institutions list. You may also contact 
+  T To apply for accreditation, visit the GTEC Accreditation Page to review the accreditation roadmap, requirements, and application procedures.
+  T Working Hours:Monday - Friday 8:00 - 17:00
+  T About
+  T Contact Us
+  T Publications
+  T Accreditation
+  T Right to Information
+  T Service Charges
+  T Vision/Mission/Core ValuesStrategic Plan
+  T QA GuidelinesPartnersContact Us
+  T Copyright © 2026 GTEC. All Rights Reserved.
+##### http://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189
+ERR fetch failed
+##### https://www.cue.or.ke/documents/Accredited_Universities_Kenya_August_2022.pdf
+ERR fetch failed
+##### https://www.yok.gov.tr/universiteler/universitelerimiz
+ST 404 text/html; charset=UTF-8 6603 https://www.yok.gov.tr/universiteler/universitelerimiz
+TITLE Not Found | TABLES 0 TR 0 LI 0
+  FILES 0
+##### https://istatistik.yok.gov.tr/
+ST 200 text/html;charset=UTF-8 18151 https://istatistik.yok.gov.tr/
+TITLE Yükseköğretim Bilgi Yönetim Sistemi | TABLES 0 TR 0 LI 0
+  FILES 0
+##### https://www.ugc.gov.in/universitydetails/university
+ST 200 text/html; charset=utf-8 42686 https://www.ugc.gov.in/universitydetails/university
+TITLE Welcome to UGC, New Delhi, India | TABLES 0 TR 0 LI 104
+  FILES 3
+   https://www.ugc.gov.in/pdfnews/UGC Organisational Chart.pdf
+   https://www.ugc.gov.in/oldpdf/certificate/UGC_Certificate.pdf
+   https://www.dohe-education.gov.in/static/uploads/2026/01/9de3a363f1e3ca10e9645b323f76738e.pdf
+  T Follow Us onTwitter
+  T Follow Us onTwitter
+  T Like Us onFacebook
+  T Like Us onFacebook
+  T Follow Us onLinkedIn
+  T Follow Us onLinkedIn
+  T Follow Us onInstagram
+  T Follow Us onInstagram
+  T Subscribe onYouYube
+  T Subscribe onYouYube
+  T Follow Us onWhatsApp group
+  T Follow Us onWhatsApp group
+  T About Us
+  T Genesis
+  T Mandate
+  T UGC Act
+  T UGC Organisational Chart
+  T UGC Bureaus
+  T UGC Offices
+  T Inter University Centres
+  T National Facilities
+  T Website Security Audit Certificate
+  T Organization
+  T Commission Members
+  T Commission Decisions
+  T Chairman
+  T Vice Chairman
+  T Secretary
+  T Financial Advisor
+  T Additional Secretaries
+  T Joint Secretaries
+  T Deputy Secretaries
+  T Education Officers
+  T Under Secretaries
+  T Former Chairpersons
+  T Former Vice - Chairpersons
+  T Former Secrataries
+  T Key Initiatives
+  T Guidelines
+  T Regulations
+  T Central Universities
+  T State Universities
+  T Deemed to be Universities
+  T State Private Universities
+  T Fake Universities
+  T Colleges (12(B)/2(f))
+  T Autonomous Colleges
+  T Institutions of National Importance
+  T Institutions of Eminence
+  T List of Fake Universities
+  T List of HEIs not Following Ph.D Regulations
+  T List of HEIs not appointed Ombudsperson
+  T List of Defaulter State (Private) Universities
+  T FHEI List
+  T e-Publications
+  T e-Books
+  T Annual Reports/ Annual Accounts
+  T Press Release
+  T Archives Publications
+  T Search HEI
+  T For UGC Officials
+  T e-Office
+  T NIC mail
+  T RTI online
+  T PG portal
+  T Professional Councils
+  T State Higher Education Councils
+  T AICTE
+  T National Testing Agency (NTA)
+  T Quick links
+  T Web portal for Fellowship/Scholarship Legacy Cases
+  T Rashtriya Uchchatar Shiksha Abhiyan
+  T University Activity Monitoring Portal
+  T Deemed to be University Portal
+  T UGC NET Online
+  T UGC Regulations
+  T UGC Circulars
+  T Contact Us
+  T University Grants Commission (UGC) Bahadur Shah Zafar Marg, New Delhi - 110002.
+  T Phone: 011-23604446, 011-23604200
+  T Email: contact.ugc@nic.in
+  T Copyright © 2023 University Grants Commission New Delhi, India
+  T Website last updated on: 19-10-2026
+##### https://www.dhet.gov.za/SitePages/PrivateHigherEducationInstitutions.aspx
+ST 404 text/html; charset=utf-8 692 https://www.dhet.gov.za/SitePages/PrivateHigherEducationInstitutions.aspx
+TITLE  | TABLES 0 TR 0 LI 0
+  FILES 0
+##### https://www.mqa.gov.my/mqr/
+ST 200 text/html 1073 https://www.mqa.gov.my/mqr/
+TITLE :: Malaysian Qualifications Register :: | TABLES 0 TR 0 LI 0
+  FILES 0
+##### https://www.mext.go.jp/a_menu/koutou/daigaku/index.htm
+ST 200 text/html 7687 https://www.mext.go.jp/a_menu/koutou/daigaku/index.htm
+TITLE 大学における教育内容・方法の改善等について：文部科学省 | TABLES 0 TR 0 LI 9
+  FILES 0
+  T 大学における教育内容・方法の改善等について
+  T 大学進学率の上昇や、高等学校における教育内容の多様化の一方で、社会人学生や留学生の増加も見込まれるなど、学生の興味・関心や履修歴といった大学生の質が様々な面において多様になってきています。また、他方で、大学には、時代の変化や社会の要請に適切に対応した教育研究活動を行うことが求められるようにもなっています。 こうした中、各大学においては、教育の質の確保・向上のための様々な取組が進められていますが、急
+  T ここでは、大学の教育内容・方法等の改善に向けた取組の実施状況をQ＆A形式で掲載しています。(それぞれの内容は、以下のリンク先を御覧ください。)
+  T なお、 「大学における教育内容等の改革状況について」の調査結果はQ5 日本の大学では、教育内容・方法等の改善がどれくらい進んでいるのでしょうか。から見ることができます。
+  T 大学の教育内容・方法の改善に関するQ&A（平成26年2月更新）
+  T Q1．大学のカリキュラムなどの教育内容はどのような考え方で決められるのですか。また、教育内容の改革として、具体的にどのような取組が進んでいるのですか。
+  T Q2．大学が充実した教育の場となるためには、大学の先生がしっかりとした教育指導方法で授業を行うことが大事だと考えますが、これについて大学では何か取組を行っていますか。
+  T Q3．日本の大学の現状について、「授業に出席しなくても単位が取れる」「勉強しなくても簡単に卒業できる」などの声を耳にしますが、これについて大学はどのような対策を講じているのでしょうか。
+  T Q4．大学の教育研究活動に関する情報提供については、どのような項目がどの程度行われているのでしょうか。
+  T Q5．日本の大学では、教育内容・方法等の改善がどれくらい進んでいるのでしょうか。
+  T 文部科学省ホームページ内の関連ページ
+  T 国公私立大学を通じた大学教育改革の支援
+  T 先導的大学改革推進委託事業
+  T お問合せ先
+  T 高等教育局大学振興課大学改革推進室
+  T （高等教育局大学振興課大学改革推進室）
+  T ページの先頭に戻る
+  T 文部科学省ホームページトップへ
+  T -- 登録：平成21年以前 --
+##### https://eta.gov.et/
+ST 200 text/html; charset=utf-8 22461 https://eta.gov.et/
+TITLE Ethiopia Technology Authority | TABLES 0 TR 0 LI 3
+  FILES 0
+  T Loading services...
+  T የቅርብ ጊዜ ዜናዎች
+  T ከአዳዲስ ገጽታዎችና ዜናዎች ጋር ዘመናዊ ይቆዩ፣ ከክልሉ የሚመጡ እይታዎችና እንቅስቃሴዎችን ያስሱ
+  T አጋሮቻችን
+  T ጥያቄ አለዎት?
+  T We Promote Safety and Security in Technology.
+  T ይመዝገቡ
+  T ስለ አዳዲስ ባህሪያትና እድሳቶች ለመወቅ በዜና መዝገባችን ይቀላቀሉ
+  T By subscribing you agree with our Privacy Policy and provide consent to receive updates from our company.
+  T @ 2025 Powered by MInT. Developed by 360Ground. All rights reserved.
+  T የግል የመረጃ ፖሊሲ
+  T የአገልግሎት ውሎች
+  T ኩኪዎች ማዋቀር
+##### https://www.ched.gov.ph/higher-education-institutions/
+ERR fetch failed
+##### https://www.moe.gov.sa/ar/education/highereducation/Pages/UniversitiesList.aspx
+ST 200 text/html; charset=utf-8 83578 https://www.moe.gov.sa/ar/education/highereducation/Pages/UniversitiesList.aspx
+TITLE وزارة التعليم | الجامعات الحكومية | TABLES 0 TR 0 LI 0
+  FILES 0
+  T 22 من الزوار أعجبهم محتوى الصفحة من أصل 32 مشاركة
+  T أضف السبب (اختر من خيار واحد إلى خياران)
+  T الرجاء اختيار سببان كحد أعلى
+  T الرجاء اختيار سببان كحد أعلى
+  T الملاحظات يجب ان تكون اقل من ٢٥٠ حرف
+##### https://mohe.gov.jo/
+ERR fetch failed
+##### https://www.gtec.edu.gh/sites/default/files/accredited.pdf
+ST 404 text/html; charset=UTF-8 179771 https://gtec.edu.gh/sites/default/files/accredited.pdf
+TITLE Page not found - GTEC Email Email | TABLES 0 TR 0 LI 35
+  FILES 0
+  T About Us
+  T Contact Us
+  T News & Events
+  T Services
+  T Accreditation
+  T Credential Evaluation
+  T Assessors
+  T Status Check
+  T Book Conference Facility
+  T Book Guest House
+  T Publications
+  T About Us
+  T Contact Us
+  T News & Events
+  T Services
+  T Accreditation
+  T Credential Evaluation
+  T Assessors
+  T Status Check
+  T Book Conference Facility
+  T Book Guest House
+  T Publications
+  T Working Hours:Monday - Friday 8:00 - 17:00
+  T About
+  T Contact Us
+  T Publications
+  T Accreditation
+  T Right to Information
+  T Service Charges
+  T Vision/Mission/Core ValuesStrategic Plan
+  T QA GuidelinesPartnersContact Us
+  T Copyright © 2026 GTEC. All Rights Reserved.
