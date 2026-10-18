@@ -79,7 +79,7 @@ async function scorecard() {
     if (f) break;
     try { f = await download(u, path.join(TMP, 'sc.zip'), h); } catch (e) { lastErr = e.message; }
   }
-  if (!f) throw new Error('Scorecard indisponible : ' + lastErr);
+  if (!f) return scorecardApi(lastErr);   // téléchargement refusé : on passe par l'API officielle (api.data.gov)
   execSync('unzip -o -q ' + f + ' -d ' + path.join(TMP, 'sc'));
   const csv = fs.readdirSync(path.join(TMP, 'sc')).find((x) => /Institution.*\.csv$/.test(x));
   const data = parse(fs.readFileSync(path.join(TMP, 'sc', csv)), { columns: true, skip_empty_lines: true });
@@ -92,6 +92,32 @@ async function scorecard() {
     if (!acc) continue;   // seulement les établissements avec un accréditeur reconnu
     rows.push({ i: 'scorecard:' + r.UNITID, s: 'scorecard', p: 'US', n: clean(r.INSTNM), a: r.ALIAS && !['NULL', 'NA'].includes(r.ALIAS) ? clean(r.ALIAS, 80) : '', v: clean(r.CITY, 60), r: r.STABBR, w: url(r.INSTURL), t: CTRL[r.CONTROL] || '',
       x: { acc, u: r.UNITID, fi: num(r.TUITIONFEE_IN), fo: num(r.TUITIONFEE_OUT), ca: num(r.COSTT4_A), ad: num(r.ADM_RATE), ug: num(r.UGDS) } });
+  }
+  add('scorecard', rows);
+}
+
+
+/* API officielle College Scorecard (api.data.gov). Clé gratuite dans le secret GitHub API_DATA_GOV_KEY, sinon DEMO_KEY
+   (30 requêtes par heure : il en faut ~25, à 100 établissements par page). */
+async function scorecardApi(why) {
+  const key = process.env.API_DATA_GOV_KEY || 'DEMO_KEY';
+  const F = ['id', 'school.name', 'school.alias', 'school.city', 'school.state', 'school.school_url', 'school.ownership', 'school.accreditor', 'latest.cost.tuition.in_state', 'latest.cost.tuition.out_of_state', 'latest.cost.attendance.academic_year', 'latest.admissions.admission_rate.overall', 'latest.student.size'];
+  const CTRL = { 1: 'public', 2: 'prive_nl', 3: 'prive_lucratif' };
+  const rows = [];
+  for (let page = 0; page < 60; page++) {
+    const u = 'https://api.data.gov/ed/collegescorecard/v1/schools.json?api_key=' + key + '&school.operating=1&school.main_campus=1&school.degrees_awarded.highest__range=3..&per_page=100&page=' + page + '&fields=' + F.join(',');
+    const j = await getJSON(u);
+    if (!j || !Array.isArray(j.results)) { if (!rows.length) throw new Error('Scorecard API indisponible (' + why + ')'); break; }
+    for (const r of j.results) {
+      const acc = clean(r['school.accreditor'], 120);
+      if (!acc || !r['school.name']) continue;
+      const alias = clean(r['school.alias'], 80);
+      rows.push({ i: 'scorecard:' + r.id, s: 'scorecard', p: 'US', n: clean(r['school.name']), a: alias && !/^(null|na)$/i.test(alias) ? alias : '', v: clean(r['school.city'], 60), r: r['school.state'], w: url(r['school.school_url']), t: CTRL[r['school.ownership']] || '',
+        x: { acc, u: String(r.id), fi: r['latest.cost.tuition.in_state'] ?? null, fo: r['latest.cost.tuition.out_of_state'] ?? null, ca: r['latest.cost.attendance.academic_year'] ?? null, ad: r['latest.admissions.admission_rate.overall'] ?? null, ug: r['latest.student.size'] ?? null } });
+    }
+    const m = j.metadata || {};
+    if ((page + 1) * 100 >= (m.total || 0)) break;
+    await wait(1500);
   }
   add('scorecard', rows);
 }
