@@ -103,12 +103,13 @@ export const OFFICIELS = [
     page: 'https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee', url: 'https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-DLI_name_PT_Inst_type.xlsx', type: 'xlsx',
     transform: (rows) => {
       const yr = rows[1] || []; const y0 = yr.findIndex((c) => String(c).trim() === '2026'); if (y0 < 0) throw new Error('colonne 2026 absente');
-      const out = []; let prov = '', typ = '';
+      const out = [], grp = [], prov = [];
+      const num = (c) => c === '--' || Number(String(c).replace(/[, ]/g, '')) > 0;
       for (const r of rows.slice(4)) {
-        if (String(r[0]).trim()) prov = String(r[0]).trim(); if (String(r[1]).trim()) typ = String(r[1]).trim();
-        const n = String(r[2]).trim(); if (!n || /total/i.test(n) || /total/i.test(prov + typ)) continue;
-        const recent = r.slice(y0).some((c) => c === '--' || Number(c) > 0); if (!recent) continue;
-        out.push({ n, r: prov.replace(/\s*total$/i, ''), t: /public/i.test(typ) ? 'public' : /private/i.test(typ) ? 'prive' : '', acc: 'DLI · ' + typ });
+        const c0 = String(r[0]).trim(), c1 = String(r[1]).trim(), n = String(r[2]).trim();
+        if (n) { if (r.slice(y0).some(num)) grp.push({ n }); continue; }
+        if (c1) { const typ = c1.replace(/\s*total$/i, ''); for (const g of grp.splice(0)) prov.push({ ...g, t: /^universit/i.test(typ) ? '' : '', acc: 'DLI · ' + typ }); continue; }
+        if (/total$/i.test(c0) && !/^canada|^grand/i.test(c0)) { const pv = c0.replace(/\s*total$/i, ''); for (const g of prov.splice(0)) out.push({ ...g, r: pv }); }
       }
       return out;
     }
