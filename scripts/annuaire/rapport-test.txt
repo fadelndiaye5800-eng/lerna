@@ -1,4 +1,4 @@
-2026-10-18T23:45:05.845Z
+2026-10-18T23:47:14.269Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -211,191 +211,75 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Yenepoya | Karnataka | http://yenepoya.edu.in | Deemed to be Universities · UGC Section-III
   Yogi Vemana University | Andhra Pradesh | public | https://yvu.edu.in/ | State · UGC 2(f) & 12B
   Young India Skills University | Telangana | public | https://yisu.in/ | State · UGC 2(f)
-##### https://www.mext.go.jp/b_menu/toukei/mext_01087.html
-ST 200 text/html 23228 https://www.mext.go.jp/b_menu/toukei/mext_01087.html
-TITLE 文部科学省 学校コード：文部科学省 | TABLES 1 TR 3 LI 36
-  TR | 幼稚園、幼保連携型認定こども園、小学校、中学校、義務教育学校、高等学校、中等教育学校、特別支援学校、専修学校、各種学校 | 大学、短期大学、高等専門学校
-  TR 北海道、青森県、岩手県、宮城県、秋田県、山形県、福島県、茨城県、栃木県、群馬県、埼玉県、千葉県、東京都、神奈川県、新潟県、富山県、石川県、福井県、山梨県、長野県、岐阜県、静岡県、愛知県、三重県 | エクセル形式（Excel：3,010KB） csv形式（1）（csv：4,567KB） csv形式（2）（csv：872KB） | エクセル形式（Excel：130KB） csv形式（csv：179KB
-  TR 滋賀県、京都府、大阪府、兵庫県、奈良県、和歌山県、鳥取県、島根県、岡山県、広島県、山口県、徳島県、香川県、愛媛県、高知県、福岡県、佐賀県、長崎県、熊本県、大分県、宮崎県、鹿児島県、沖縄県 | エクセル形式（Excel：2,156KB） csv形式（csv：3,907KB）
-  FILES 71
-   /content/20210128-mxt_chousa01-000011635_01.pdf
-   /content/20260529-mxt_chousa01-000011635_1.xlsx
-   /content/20260825-mxt_chousa01-000011635_2-1.csv
-   /content/20260825-mxt_chousa01-000011635_2-2.csv
-   /content/20260529-mxt_chousa01-000011635_5.xlsx
-   /content/20260825-mxt_chousa01-000011635_6.csv
-   /content/20260529-mxt_chousa01-000011635_3.xlsx
-   /content/20260825-mxt_chousa01-000011635_4.csv
-   /content/20251226-mxt_chousa01-000011635_1.xlsx
-   /content/20251226-mxt_chousa01-000011635_2.csv
-   /content/20251226-mxt_chousa01-000011635_3.xlsx
-   /content/20251226-mxt_chousa01-000011635_4.csv
-   /content/20251226-mxt_chousa01-000011635_5.xlsx
-   /content/20251226-mxt_chousa01-000011635_6.csv
-   /content/20241226-mxt_chousa01-000011635_1.xlsx
-  A トップ -> /index.htm
-  A 白書・統計・出版物 -> /b_menu/b005.htm
-  A 統計情報 -> /b_menu/toukei/main_b8.htm
-  A 学校コードの取り扱いについて（PDF：309KB） -> /content/20210128-mxt_chousa01-000011635_01.pdf
-  A 文部科学省 学校コードに基づく学校コード検索 (edu-data.jp) -> https://edu-data.jp/
-  A Excel：3,010KB -> /content/20260529-mxt_chousa01-000011635_1.xlsx
-  A csv：4,567KB -> /content/20260825-mxt_chousa01-000011635_2-1.csv
-  A csv：872KB -> /content/20260825-mxt_chousa01-000011635_2-2.csv
-  A Excel：130KB -> /content/20260529-mxt_chousa01-000011635_5.xlsx
-  A csv：179KB -> /content/20260825-mxt_chousa01-000011635_6.csv
-  A Excel：2,156KB -> /content/20260529-mxt_chousa01-000011635_3.xlsx
-  A csv：3,907KB -> /content/20260825-mxt_chousa01-000011635_4.csv
-  A Excel：2,979KB -> /content/20251226-mxt_chousa01-000011635_1.xlsx
-  A csv：4,292KB -> /content/20251226-mxt_chousa01-000011635_2.csv
-  A Excel：2,131KB -> /content/20251226-mxt_chousa01-000011635_3.xlsx
-  A csv：3,076KB -> /content/20251226-mxt_chousa01-000011635_4.csv
-  A Excel：132KB -> /content/20251226-mxt_chousa01-000011635_5.xlsx
-  A csv：142KB -> /content/20251226-mxt_chousa01-000011635_6.csv
-  A Excel：2,877KB -> /content/20241226-mxt_chousa01-000011635_1.xlsx
-  A csv：5,322KB -> /content/20241226-mxt_chousa01-000011635_2.csv
-  A Excel：2,054KB -> /content/20241226-mxt_chousa01-000011635_3.xlsx
-  A csv：3,814KB -> /content/20241226-mxt_chousa01-000011635_4.csv
-  A Excel：131KB -> /content/20241226-mxt_chousa01-000011635_5.xlsx
-  A csv：175KB -> /content/20241226-mxt_chousa01-000011635_6.csv
-  A Excel：2,847KB -> /content/20230731-mxt_chousa01-000011635_1.xlsx
-  A csv：4,254KB -> /content/20230809-mxt_chousa01-000011635_2.csv
-  A Excel：2,054KB -> /content/20230731-mxt_chousa01-000011635_3.xlsx
-  A csv：3,045KB -> /content/20230731-mxt_chousa01-000011635_4.csv
-  A Excel：131KB -> /content/20230731-mxt_chousa01-000011635_5.xlsx
-  A csv：142KB -> /content/20230731-mxt_chousa01-000011635_6.csv
-  A Excel：2,814KB -> /content/221222-mxt-mxt_chousa01-1000011635_1.xlsx
-  A csv：4,255KB -> /content/221222-mxt-mxt_chousa01-1000011635_2.csv
-  A Excel：1,995KB -> /content/221222-mxt-mxt_chousa01-1000011635_3.xlsx
-  A csv：3,068KB -> /content/221222-mxt-mxt_chousa01-1000011635_4.csv
-  A Excel：117KB -> /content/221222-mxt-mxt_chousa01-1000011635_5.xlsx
-  A csv：143KB -> /content/221222-mxt-mxt_chousa01-1000011635_6.csv
-  A Excel：3787KB -> /content/211222-mxt-mxt_chousa01-1000011635_1.xlsx
-  A csv：4100KB -> /content/220124-mxt-mxt_chousa01-1000011635_3.csv
-  A Excel：3213KB -> /content/211223-mxt-mxt_chousa01-1000011635_4.xlsx
-  A csv：3200KB -> /content/220124-mxt-mxt_chousa01-1000011635_6.csv
-  A Excel：123KB -> /content/211222-mxt-mxt_chousa01-1000011635_7.xlsx
-  A csv：131KB -> /content/211222-mxt-mxt_chousa01-1000011635_8.csv
-  A Excel：2977KB -> /content/20210305-mxt_chousa01-000011635_01.xlsx
-  A csv：3873KB -> /content/20210305-mxt_chousa01-000011635_01.csv
-  A Excel：2034KB -> /content/20210305-mxt_chousa01-000011635_02.xlsx
-  A csv：2774KB -> /content/20210305-mxt_chousa01-000011635_02.csv
-  A Excel：124KB -> /content/20210305-mxt_chousa01-000011635_03.xlsx
-  A csv：130KB -> /content/20210305-mxt_chousa01-000011635_03.csv
-  A こちら 大学等の学校コードにおける学校番号の運用について（※PDF:105KB） -> /content/20210120-mxt_chousa01-000011635_03.pdf
-  A 北海道（PDF：253KB） -> /content/20201222-mxt_chousa01-000011635_a.pdf
-  A 岩手県（PDF：424KB） -> /content/20201222-mxt_chousa01-000011635_b.pdf
-  A 宮城県（PDF：235KB） -> /content/20201222-mxt_chousa01-000011635_c.pdf
-  A 秋田県（PDF：408KB） -> /content/20201222-mxt_chousa01-000011635_d.pdf
-  A 山形県（PDF：215KB） -> /content/20201222-mxt_chousa01-000011635_e.pdf
-  A 福島県（PDF：258KB） -> /content/20201222-mxt_chousa01-000011635_f.pdf
-  A 茨城県（PDF：216KB） -> /content/20201222-mxt_chousa01-000011635_g.pdf
-  A 埼玉県（PDF：308KB） -> /content/20201222-mxt_chousa01-000011635_h.pdf
-  A 東京都（PDF：486KB） -> /content/20201222-mxt_chousa01-000011635_i.pdf
-  A 神奈川県（PDF：318KB） -> /content/20201222-mxt_chousa01-000011635_j.pdf
-  A 新潟県（PDF：242KB） -> /content/20201222-mxt_chousa01-000011635_k.pdf
-  A 富山県（PDF：431KB） -> /content/20201222-mxt_chousa01-000011635_l.pdf
-  A 石川県（PDF：214KB） -> /content/20201222-mxt_chousa01-000011635_m.pdf
-  A 長野県（PDF：228KB） -> /content/20201222-mxt_chousa01-000011635_n.pdf
-  A 岐阜県（PDF：215KB） -> /content/20201222-mxt_chousa01-000011635_o.pdf
-  A 愛知県（PDF：469KB） -> /content/20201222-mxt_chousa01-000011635_p.pdf
-  A 三重県（PDF：263KB） -> /content/20201222-mxt_chousa01-000011635_q.pdf
-  A 滋賀県（PDF：231KB） -> /content/20201222-mxt_chousa01-000011635_r.pdf
-  A 島根県（PDF：257KB） -> /content/20201222-mxt_chousa01-000011635_s.pdf
-  A 徳島県（PDF：216KB） -> /content/20201222-mxt_chousa01-000011635_t.pdf
-  A 香川県（PDF：215KB） -> /content/20201222-mxt_chousa01-000011635_u.pdf
-  A 愛媛県（PDF：218KB） -> /content/20201222-mxt_chousa01-000011635_v.pdf
-  A 福岡県（PDF：235KB） -> /content/20201222-mxt_chousa01-000011635_w.pdf
-  A 佐賀県（PDF：239KB） -> /content/20201222-mxt_chousa01-000011635_x.pdf
-  A 宮崎県（PDF：577KB） -> /content/20201222-mxt_chousa01-000011635_y.pdf
-  A 沖縄県（PDF：239KB） -> /content/20201222-mxt_chousa01-000011635_z.pdf
+##### https://www.mext.go.jp/content/20260529-mxt_chousa01-000011635_5.xlsx
+ST 200 application/vnd.openxmlformats-officedoc 133068 https://www.mext.go.jp/content/20260529-mxt_chousa01-000011635_5.xlsx
+SHEET 学校コード及び属性情報 rows 1229
+  R 文部科学省 学校コード一覧 | | | | | | | | | | 更新日： | 46162
+  R 学校コード | 学校種 | 都道府県番号 | 設置 区分 | 本分校 | 学校名 | 学校所在地 | 郵便番号 | 属性情報 設定年月日 | 属性情報 廃止年月日 | 旧学校 調査番号 | 移行後の学校コード
+  R F101110100010 | F1(大学) | 01(北海道) | 1(国) | 1(本) | 北海道大学 | 北海道札幌市北区北８条西５丁目 | 0600808 | 44216 | | 0100 |
+  R F101110100029 | F1(大学) | 01(北海道) | 1(国) | 1(本) | 北海道教育大学 | 北海道札幌市北区あいの里５条３－１－３ | 0028501 | 44216 | | 0104 |
+  R F101110100038 | F1(大学) | 01(北海道) | 1(国) | 1(本) | 室蘭工業大学 | 北海道室蘭市水元町２７－１ | 0508585 | 44216 | | 0108 |
+  R F101110100047 | F1(大学) | 01(北海道) | 1(国) | 1(本) | 小樽商科大学 | 北海道小樽市緑３－５－２１ | 0478501 | 44216 | | 0112 |
+  R F101110100056 | F1(大学) | 01(北海道) | 1(国) | 1(本) | 帯広畜産大学 | 北海道帯広市稲田町西２線１１ | 0808555 | 44216 | | 0116 |
+  R F101110100065 | F1(大学) | 01(北海道) | 1(国) | 1(本) | 北見工業大学 | 北海道北見市公園町１６５ | 0908507 | 44216 | | 0120 |
+  R F101110100074 | F1(大学) | 01(北海道) | 1(国) | 1(本) | 旭川医科大学 | 北海道旭川市緑が丘東２条１－１－１ | 0788510 | 44216 | | 0404 |
+  R F101210100081 | F1(大学) | 01(北海道) | 2(公) | 1(本) | 札幌医科大学 | 北海道札幌市中央区南１条西１７－２９１ | 0608556 | 44216 | | 1100 |
+  R F101210100090 | F1(大学) | 01(北海道) | 2(公) | 1(本) | 公立はこだて未来大学 | 北海道函館市亀田中野町１１６－２ | 0418655 | 44216 | | 1102 |
+  R F101210100107 | F1(大学) | 01(北海道) | 2(公) | 1(本) | 釧路公立大学 | 北海道釧路市芦野４丁目１番１号 | 0858585 | 44216 | | 1104 |
 ##### https://open.canada.ca/data/api/3/action/package_show?id=90115b00-f9b8-49e8-afa3-b4cff8facaee
 ST 200 application/json;charset=utf-8 43797 https://open.canada.ca/data/api/3/action/package_show?id=90115b00-f9b8-49e8-afa3-b4cff8facaee
-  JSON {"help": "https://open.canada.ca/data/api/3/action/help_show?name=package_show", "success": true, "result": {"association_type": [], "audience": ["educators", "general_public", "immigrants", "noncanad
-##### https://datos.gob.cl/api/3/action/package_search?q=directorio%20instituciones%20educacion%20superior&rows=5
-ST 200 application/json;charset=utf-8 18467 https://datos.gob.cl/api/3/action/package_search?q=directorio%20instituciones%20educacion%20superior&rows=5
-  JSON {"help": "https://datos.gob.cl/api/3/action/help_show?name=package_search", "success": true, "result": {"count": 7, "facets": {}, "results": [{"creator_user_id": "fb905435-dfb7-4e15-9d49-cc2d233a3d04"
-##### https://dadosabertos.mec.gov.br/
-ST 403 text/html; charset=UTF-8 5688 https://dadosabertos.mec.gov.br/
-TITLE Just a moment... | TABLES 0 TR 0 LI 0
-  FILES 0
-##### https://dados.gov.br/dados/conjuntos-dados/instituicoes-de-educacao-superior-e-cursos-cadastrados-no-e-mec
-ST 200 text/html 9632 https://dados.gov.br/dados/conjuntos-dados/instituicoes-de-educacao-superior-e-cursos-cadastrados-no-e-mec
-TITLE Portal de Dados Abertos | TABLES 0 TR 0 LI 0
-  FILES 0
-##### https://datos.gob.ar/api/3/action/package_search?q=universidades&rows=5
-ST 502 text/html; charset=UTF-8 6394 https://datos.gob.ar/api/3/action/package_search?q=universidades&rows=5
-TITLE datos.gob.ar | 502: Bad gateway | TABLES 0 TR 0 LI 0
-  FILES 0
-  A cloudflare.com -> https://www.cloudflare.com/5xx-error-landing?utm_source=errorcode_502&utm_campaign=datos.gob.ar
-  T Browser
-  T Cloudflare
-  T What happened?
-  T The web server reported a bad gateway error.
-  T What can I do?
-  T Please try again in a few minutes.
-  T Cloudflare Ray ID: a4cb6a19ade92ade • Your IP: Click to reveal 172.190.118.234 • Performance & security by Cloudflare
-##### https://www.datosabiertos.gob.pe/api/3/action/package_search?q=universidades%20licenciadas&rows=5
-ST 404 text/html; charset=utf-8 22139 https://www.datosabiertos.gob.pe/universidades%20licenciadas?rows=5
-TITLE Página no encontrada | Plataforma Nacional de Datos Abiertos | TABLES 0 TR 0 LI 2
-  FILES 1
-   https://www.datosabiertos.gob.pe/sites/default/files/leydigital.pdf
-  A  -> /
-  A Nos gustaría conocer tu opinión sobre qué datos públicos o p -> https://facilita.gob.pe/t/1024
-  A Decreto de Urgencia que crea el Sistema Nacional de Transfor -> https://www.gob.pe/institucion/pcm/normas-legales/395320-006-2020
-  A Decreto de urgencia que aprueba el marco de confianza digita -> https://www.gob.pe/institucion/pcm/normas-legales/395322-007-2020
-  A Ley de Gobierno Digital -> https://www.datosabiertos.gob.pe/sites/default/files/leydigital.pdf
-  A Gobernanza de Datos -> https://www.datosabiertos.gob.pe/%C2%BFqu%C3%A9-es-gobernanza-de-datos
-  A Colombia -> https://www.datos.gov.co/
-  A México -> https://datos.gob.mx/
-  A Chile -> https://datos.gob.cl/
-  JS https://www.datosabiertos.gob.pe/profiles/dkan/modules/contrib/date/date_api/date.css?tl7e9n
-  JS //fonts.googleapis.com/css?family=Open
-  JS https://fonts.googleapis.com/css?family=Roboto
-  JS https://www.datosabiertos.gob.pe/profiles/dkan/modules/contrib/recline/js/jsondataview.js?tl7e9n
-  JS /jsondataview.js
-  JS /date_api
-  JS /fonts.googleapis.com
-  T Datos Abiertos
-  T Marco de Gobernanza de Datos del Estado Peruano está constituido por instrumentos técnicos y normativos que establecen los requisitos mínimos que las entidades de la Administración Pública deben imple
-  T Secretaría de Gobierno y Transformación Digital Presidencia del Consejo de Ministros
-  T Documentación
-  T Alianza del Pacífico
-  T Colombia
-  T México
-  T Chile
-##### https://datos.gob.mx/busca/api/3/action/package_search?q=instituciones%20educacion%20superior&rows=5
-ST 404 text/html; charset=utf-8 14347 https://www.datos.gob.mx/busca/api/3/action/package_search?q=instituciones%20educacion%20superior&rows=5
-TITLE Página no encontrada - datos.gob.mx | TABLES 0 TR 0 LI 30
-  FILES 0
-  A  -> https://www.gob.mx
-  A Trámites -> https://www.gob.mx/tramites
-  A Gobierno -> https://www.gob.mx/gobierno
-  A  -> https://www.gob.mx/busqueda
-  A Inicio -> /
-  A Bases de datos -> /dataset/
-  A Instituciones -> /organization/
-  A Categorías -> /group/
-  A Visualizaciones de datos -> /visualizador
-  A búsqueda directa de datos -> /dataset
-  A Explorar datos.gob.mx -> https://www.datos.gob.mx
-  A Consultar portal histórico -> https://historico.datos.gob.mx
-  A Datos -> https://datos.gob.mx/
-  A Publicaciones -> https://www.gob.mx/publicaciones
-  A Portal de Obligaciones de Transparencia -> https://consultapublicamx.plataformadetransparencia.org.mx/vut-web/faces/view/consultaPublica.xhtml?idEntidad=MzM=&idSujetoObligado=MTAwMDE=#inicio
-  A PNT -> https://consultapublicamx.plataformadetransparencia.org.mx
-  A INAI -> http://www.inai.org.mx/
-  A Alerta -> https://alertadores.funcionpublica.gob.mx/
-  A Denuncia -> https://sidec.funcionpublica.gob.mx/#!/
-  A Leer más -> https://www.gob.mx/que-es-gobmx
-  A Administraciones anteriores -> https://www.gob.mx/amlo
-  A Declaración de Accesibilidad -> https://www.gob.mx/accesibilidad
-  A Marco jurídico -> http://www.ordenjuridico.gob.mx/
-  A Política de seguridad -> https://www.gob.mx/terminos#medidas-seguridad-informacion
-  A Términos y Condiciones -> https://www.gob.mx/terminos
-  A Aviso de privacidad -> https://www.gob.mx/aviso_de_privacidad
-  A Aviso de privacidad simplificado -> https://www.gob.mx/privacidadsimplificado
-  A Mapa de sitio -> https://www.gob.mx/sitemap
-  A  -> https://x.com/GobiernoMX
-##### https://www.data.gouv.fr/api/1/datasets/?q=universites+maroc&page_size=3
-ST 200 application/json 93 https://www.data.gouv.fr/api/1/datasets/?q=universites+maroc&page_size=3
-  JSON {"data": [], "next_page": null, "page": 1, "page_size": 3, "previous_page": null, "total": 0}
+  G ctive"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 0, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-IS_CITZ_sign_date.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989673", "data_quality": [], "datastore_active": false, "datastore_contai
+  G ctive"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 1, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/FR_ODP-TR-Study-IS_CITZ_sign_date.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2019-01-14T16:50:25.971317", "data_quality": [], "datastore_active": false, "datastore_contai
+  G gueur"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 2, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Study-IS_CITZ.csv", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989707", "data_quality": [], "datastore_active": false, "datastore_contains_all_records
+  G gueur"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 3, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-IS_PT_study_level_sign.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989736", "data_quality": [], "datastore_active": false, "datastore_c
+  G gueur"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 4, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/FR_ODP-TR-Study-IS_PT_study_level_sign.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2019-01-14T17:00:26.811140", "data_quality": [], "datastore_active": false, "datastore_c
+  G tive "}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 5, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Study-IS_PT_study.csv", "url_type": null, "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989763", "data_quality": [], "datastore_active": false, "datastore_contains_all_r
+  G ctive"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 6, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-IS_PT_gender_sign.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989790", "data_quality": [], "datastore_active": false, "datastore_contai
+  G ctive"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 7, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/FR_ODP-TR-Study-IS_PT_gender_sign.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2019-01-16T20:21:03.220615", "data_quality": [], "datastore_active": false, "datastore_contai
+  G ctive"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 8, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Study-IS_PT_gender.csv", "url_type": null, "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.990033", "data_quality": [], "datastore_active": false, "datastore_contains_all_
+  G level"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 9, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP_annual-TR-Study-IS_PT_study_level_year_end.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.990060", "data_quality": [], "datastore_active": false, "
+  G evel"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 10, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/FR_ODP_annual-TR-Study-IS_PT_study_level_year_end.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-09-07T10:30:11.600492", "data_quality": [], "datastore_active": false, "
+  G ship"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 11, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP_annual-TR-Study-IS_CITZ_year_end.xlsx", "url_type": null}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-09-07T10:30:11.600506", "data_quality": [], "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "date_
+  G ship"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 12, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/FR_ODP_annual-TR-Study-IS_CITZ_year_end.xlsx", "url_type": null}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2024-08-30T15:00:25.191144", "data_quality": [], "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "date_
+  G ueur"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 13, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-DLI_name_PT_Admin_type.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2024-08-30T15:00:25.191147", "data_quality": [], "datastore_active": false, "datastore_c
+  G ueur"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 14, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/FR_ODP-TR-Study-DLI_name_PT_Admin_type.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2024-08-30T15:00:25.191149", "data_quality": [], "datastore_active": false, "datastore_c
+  G ueur"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 15, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Study-DLI_name_PT_Admin_type.csv", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2024-09-04T13:51:20.788719", "data_quality": [], "datastore_active": false, "datastore_conta
+  G ueur"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 16, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-DLI_name_PT_Inst_type.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2024-09-04T14:00:31.170977", "data_quality": [], "datastore_active": false, "datastore_co
+  G ueur"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 17, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/FR_ODP-TR-Study-DLI_name_PT_Inst_type.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2024-09-04T14:00:31.170981", "data_quality": [], "datastore_active": false, "datastore_co
+  G ueur"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 18, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Study-DLI_name_PT_Inst_type.csv", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2024-09-04T14:00:31.170982", "data_quality": [], "datastore_active": false, "datastore_contai
+  G 00e9"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 19, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-DLI_PT_Inst_type_COC.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2024-09-04T14:00:31.170984", "data_quality": [], "datastore_active": false, "datastore_con
+  G 00e9"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 20, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/FR_ODP-TR-Study-DLI_PT_Inst_type_COC.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2024-09-04T14:00:31.170985", "data_quality": [], "datastore_active": false, "datastore_con
+  G 00e9"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 21, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/ODP-TR-Study-DLI_PT_Inst_type_COC.csv", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989817", "data_quality": [], "datastore_active": false, "datastore_contain
+  G ship"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 22, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/IRCC_M_TRStudy_0004_E.xls", "url_type": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989844", "data_quality": [], "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "date_published": "2017-03-
+  G ship"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 23, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/IRCC_M_TRStudy_0004_F.xls", "url_type": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989871", "data_quality": [], "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "date_published": "2017-03-
+  G MA) "}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 24, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/IRCC_M_TRStudy_0005_E.xls", "url_type": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989898", "data_quality": [], "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "date_published": "2017-03-
+  G MA) "}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 25, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/IRCC_M_TRStudy_0005_F.xls", "url_type": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989925", "data_quality": [], "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "date_published": "2017-03-
+  G year"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 26, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/IRCC_M_TRStudy_0006_E.xls", "url_type": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989952", "data_quality": [], "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "date_published": "2017-03-
+  G year"}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 27, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/IRCC_M_TRStudy_0006_F.xls", "url_type": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.989979", "data_quality": [], "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "date_published": "2017-03-
+  G ive "}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 28, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/IRCC_M_TRStudy_0007_E.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}, {"cache_last_updated": null, "cache_url": null, "character_set": "", "created": "2017-04-12T15:51:14.990006", "data_quality": [], "datastore_active": false, "datastore_contains_all_recor
+  G ive "}, "package_id": "90115b00-f9b8-49e8-afa3-b4cff8facaee", "position": 29, "resource_type": "dataset", "state": "active", "unique_identifier": "", "url": "https://www.ircc.canada.ca/opendata-donneesouvertes/data/IRCC_M_TRStudy_0007_F.xlsx", "url_type": "", "validation_status": "", "validation_timestamp": ""}], "tags": [], "groups": [], "relationships_as_subject": [], "relationships_as_object": []}}
+##### https://datos.gob.cl/api/3/action/package_search?q=directorio%20instituciones%20educacion%20superior&rows=7
+ST 200 application/json;charset=utf-8 34694 https://datos.gob.cl/api/3/action/package_search?q=directorio%20instituciones%20educacion%20superior&rows=7
+  G num_resources": 1, "num_tags": 2, "organization": {"id": "AJ004", "name": "comision_administradora_del_sistema_de_creditos_para_estudios_superiores", "title": "Comisi\u00f3n Administradora del Sistema de Cr\u00e9ditos para Estudios Superiores", "type": "organization", "description": "Comisi\u00f3n Ingresa, la Comisi\u00f3n Administradora del Sistema de Cr\u00e9ditos para Estudios Superiores, es un servicio p\u00fablico aut\u00f3nomo del Estado de car\u00e1cter descentralizado, creado en 2005 por
+  G 32:24.805550", "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org": "AJ004", "private": false, "state": "active", "title": "Asignaci\u00f3n CAE por tipo de Instituci\u00f3n de Educaci\u00f3n Superior", "type": "dataset", "url": "No informado", "extras": [{"key": "Cobertura temporal", "value": "Desde 2006 y hasta 2012, incluido"}, {"key": "Frecuencia", "value": "Anual"}, {"key": "Granularidad", "value": "instituci\u00f3n educaci\u00f3n superior"}], "groups": [{
+  G ": "Educaci\u00f3n", "id": "5", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-093928.386146educacion.png", "name": "educacion", "title": "Educaci\u00f3n"}, {"description": "Datos sobre finanzas p\u00fablicas, impuestos, presupuestos gubernamentales, y transacciones econ\u00f3micas.", "display_name": "Finanzas", "id": "8", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-094426.539535finanzas.png", "name": "finanzas", "title": "Finanzas"}], "resources": [{
+  G lay_name": "Finanzas", "id": "8", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-094426.539535finanzas.png", "name": "finanzas", "title": "Finanzas"}], "resources": [{"cache_last_updated": null, "cache_url": null, "created": "2013-01-29T18:35:56", "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "description": "Cantidad de beneficiarios del Cr\u00e9dito con Garant\u00eda Estatal que obtuvieron el financiamiento entre los a\u00f1os 2006 y 201
+  G num_resources": 1, "num_tags": 2, "organization": {"id": "AJ004", "name": "comision_administradora_del_sistema_de_creditos_para_estudios_superiores", "title": "Comisi\u00f3n Administradora del Sistema de Cr\u00e9ditos para Estudios Superiores", "type": "organization", "description": "Comisi\u00f3n Ingresa, la Comisi\u00f3n Administradora del Sistema de Cr\u00e9ditos para Estudios Superiores, es un servicio p\u00fablico aut\u00f3nomo del Estado de car\u00e1cter descentralizado, creado en 2005 por
+  G 32:24.805550", "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org": "AJ004", "private": false, "state": "active", "title": "Asignaci\u00f3n CAE por tipo de Instituci\u00f3n de Educaci\u00f3n Superior", "type": "dataset", "url": "No informado", "extras": [{"key": "Cobertura temporal", "value": "Desde 2006 y hasta 2012, incluido"}, {"key": "Frecuencia", "value": "Anual"}, {"key": "Granularidad", "value": "instituci\u00f3n educaci\u00f3n superior"}], "groups": [{
+  G ": "Educaci\u00f3n", "id": "5", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-093928.386146educacion.png", "name": "educacion", "title": "Educaci\u00f3n"}, {"description": "Datos sobre finanzas p\u00fablicas, impuestos, presupuestos gubernamentales, y transacciones econ\u00f3micas.", "display_name": "Finanzas", "id": "8", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-094426.539535finanzas.png", "name": "finanzas", "title": "Finanzas"}], "resources": [{
+  G lay_name": "Finanzas", "id": "8", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-094426.539535finanzas.png", "name": "finanzas", "title": "Finanzas"}], "resources": [{"cache_last_updated": null, "cache_url": null, "created": "2013-07-04T14:51:43", "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "description": "Cantidad de beneficiarios del Cr\u00e9dito con Garant\u00eda Estatal que obtuvieron el financiamiento entre los a\u00f1os 2006 y 201
+  G s\u00ed como programas de pre y posgrado. ", "num_resources": 1, "num_tags": 3, "organization": {"id": "AJ001", "name": "subsecretaria_de_educacion", "title": "Subsecretar\u00eda de Educaci\u00f3n", "type": "organization", "description": "", "image_url": "", "created": "2015-10-30T12:32:23.758243", "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org": "AJ001", "private": false, "state": "active", "title": "Titulados en Educaci\u00f3n Superior", "type": "dataset
+  G 32:23.758243", "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org": "AJ001", "private": false, "state": "active", "title": "Titulados en Educaci\u00f3n Superior", "type": "dataset", "url": "No informado", "version": "", "extras": [{"key": "Cobertura temporal", "value": "2007 a la actualidad"}, {"key": "Frecuencia", "value": "Anual"}, {"key": "Granularidad", "value": "Cantidad de titulados por instituci\u00f3n y carrera"}], "groups": [{"description": "Datos que
+  G ": "Educaci\u00f3n", "id": "5", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-093928.386146educacion.png", "name": "educacion", "title": "Educaci\u00f3n"}], "resources": [{"cache_last_updated": null, "cache_url": null, "created": "2021-08-04T15:39:35.612825", "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "description": "Link a web de datos abiertos", "format": "", "hash": "", "id": "009ad61b-72b0-4e95-9050-58bc8dce7bc1", "last_modified":
+  G onsejo de Rectores.", "num_resources": 1, "num_tags": 1, "organization": {"id": "AJ002", "name": "consejo_de_rectores_de_las_universidades_chilenas", "title": "Consejo de Rectores de las Universidades Chilenas", "type": "organization", "description": "Somos el Consejo de Rectoras y Rectores de las Universidades Chilenas (CRUCH), organismo colegiado, aut\u00f3nomo, con personalidad jur\u00eddica de derecho p\u00fablico, conformado por las rectoras y rectores de las treinta universidades estatales
+  G 32:24.785782", "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org": "AJ002", "private": false, "state": "active", "title": "Informaci\u00f3n Geograf\u00edca del Consejo de Rectores", "type": "dataset", "url": "No informado", "extras": [{"key": "Cobertura temporal", "value": "anual"}, {"key": "Frecuencia", "value": "Anual"}, {"key": "Granularidad", "value": "ubicacion geografica"}], "groups": [{"description": "Datos que abordan aspectos relacionados con el sist
+  G ": "Educaci\u00f3n", "id": "5", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-093928.386146educacion.png", "name": "educacion", "title": "Educaci\u00f3n"}, {"description": "Informaci\u00f3n geoespacial, mapas, territorios y datos sobre caracter\u00edsticas f\u00edsicas y humanas del entorno.", "display_name": "Geograf\u00eda", "id": "9", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-094611.691972geografia.png", "name": "geografia", "title": "Geograf\u0
+  G ": "Geograf\u00eda", "id": "9", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-094611.691972geografia.png", "name": "geografia", "title": "Geograf\u00eda"}], "resources": [{"cache_last_updated": null, "cache_url": null, "created": "2013-04-16T10:04:55", "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "description": "UBICACION GEOGRAFICA DE LAS CASAS CENTRALES DE LAS INSTITUCIONES INTEGRANTES DEL CONSEJO DE RECTORES DE LAS\u00a0UNIVERSIDADES
+  G onsejo de Rectores.", "num_resources": 1, "num_tags": 1, "organization": {"id": "AJ002", "name": "consejo_de_rectores_de_las_universidades_chilenas", "title": "Consejo de Rectores de las Universidades Chilenas", "type": "organization", "description": "Somos el Consejo de Rectoras y Rectores de las Universidades Chilenas (CRUCH), organismo colegiado, aut\u00f3nomo, con personalidad jur\u00eddica de derecho p\u00fablico, conformado por las rectoras y rectores de las treinta universidades estatales
+  G 32:24.785782", "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org": "AJ002", "private": false, "state": "active", "title": "Informaci\u00f3n Geograf\u00edca del Consejo de Rectores", "type": "dataset", "url": "No informado", "extras": [{"key": "Cobertura temporal", "value": "anual"}, {"key": "Frecuencia", "value": "Anual"}, {"key": "Granularidad", "value": "ubicacion geografica"}], "groups": [{"description": "Datos que abordan aspectos relacionados con el sist
+  G ": "Educaci\u00f3n", "id": "5", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-093928.386146educacion.png", "name": "educacion", "title": "Educaci\u00f3n"}, {"description": "Informaci\u00f3n geoespacial, mapas, territorios y datos sobre caracter\u00edsticas f\u00edsicas y humanas del entorno.", "display_name": "Geograf\u00eda", "id": "9", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-094611.691972geografia.png", "name": "geografia", "title": "Geograf\u0
+  G ": "Geograf\u00eda", "id": "9", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-094611.691972geografia.png", "name": "geografia", "title": "Geograf\u00eda"}], "resources": [{"cache_last_updated": null, "cache_url": null, "created": "2013-05-15T19:29:09", "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "description": "UBICACION GEOGRAFICA DE LAS CASAS CENTRALES DE LAS INSTITUCIONES INTEGRANTES DEL CONSEJO DE RECTORES DE LAS\u00a0UNIVERSIDADES
+  G sources": 8, "num_tags": 6, "organization": {"id": "5cc68148-e503-4cc0-ba82-f3d6a38af2ff", "name": "infraestructura-de-datos-geoespaciales-de-chile", "title": "Infraestructura de Datos Geoespaciales de Chile", "type": "organization", "description": "La Infraestructura de Datos Geoespaciales de Chile (IDE Chile) es una red de instituciones p\u00fablicas que trabaja de manera coordinada y colaborativa con el objetivo de poner a disposici\u00f3n de toda la comunidad, informaci\u00f3n geoespacial ac
+  G ": true, "approval_status": "approved", "state": "active"}, "owner_org": "5cc68148-e503-4cc0-ba82-f3d6a38af2ff", "private": false, "state": "active", "title": "Categor\u00eda Geoespacial: Instalaciones y edificaciones", "type": "dataset", "url": "", "version": "", "resources": [{"cache_last_updated": null, "cache_url": null, "created": "2024-06-04T21:55:08.822291", "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "description": "Sin descripci\u00f3n", "format": 
+  G edici\u00f3n es del a\u00f1o 2015.", "num_resources": 0, "num_tags": 4, "organization": {"id": "AH007", "name": "instituto_nacional_de_estadisticas", "title": "Instituto Nacional de Estad\u00edsticas", "type": "organization", "description": "", "image_url": "2025-07-30-160601.026553ine.png", "created": "2015-10-30T12:32:19.450486", "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org": "AH007", "private": false, "state": "active", "title": "Encuesta Nacional sob
+  G 32:19.450486", "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org": "AH007", "private": false, "state": "active", "title": "Encuesta Nacional sobre Gasto y Personal en Investigaci\u00f3n y Desarrollo (I+D)", "type": "dataset", "url": "https://www.ine.cl/estadisticas/economia/ciencia-y-tecnologia/gasto-y-personal-en-investigacion-y-desarrollo", "version": "", "tags": [{"display_name": "Ciencias", "id": "dd3b32f2-a9b5-4986-a0cb-c7f04ff8cc75", "name": "Ciencias",
