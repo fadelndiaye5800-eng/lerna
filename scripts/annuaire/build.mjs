@@ -67,10 +67,16 @@ async function deqar() {
 
 /* ---------- 2. États-Unis : College Scorecard ---------- */
 async function scorecard() {
-  const page = await (await fetch('https://collegescorecard.ed.gov/data/', { headers: UA })).text();
-  const zip = (page.match(/https:\/\/[^"']*Most-Recent-Cohorts-Institution[^"']*\.zip/) || [])[0];
-  if (!zip) throw new Error('lien Scorecard introuvable');
-  const f = await download(zip, path.join(TMP, 'sc.zip'));
+  /* Le lien change à chaque publication : on le lit sur la page des données, sinon on essaie le dernier connu */
+  let zip = '';
+  try {
+    const page = await (await fetch('https://collegescorecard.ed.gov/data/', { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; LERNA-annuaire/1.0)' } })).text();
+    zip = (page.match(/https:\/\/[^"'\s]*Most-Recent-Cohorts-Institution[^"'\s]*\.zip/) || [])[0] || '';
+  } catch { /* page indisponible */ }
+  const tries = [zip, 'https://ed-public-download.scorecard.network/downloads/Most-Recent-Cohorts-Institution_10152026.zip'].filter(Boolean);
+  let f = null, lastErr = '';
+  for (const u of tries) { try { f = await download(u, path.join(TMP, 'sc.zip')); break; } catch (e) { lastErr = e.message; } }
+  if (!f) throw new Error('Scorecard indisponible : ' + lastErr);
   execSync('unzip -o -q ' + f + ' -d ' + path.join(TMP, 'sc'));
   const csv = fs.readdirSync(path.join(TMP, 'sc')).find((x) => /Institution.*\.csv$/.test(x));
   const data = parse(fs.readFileSync(path.join(TMP, 'sc', csv)), { columns: true, skip_empty_lines: true });
