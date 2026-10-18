@@ -499,7 +499,7 @@ grant select on public.paiements_momo to authenticated;
 
 -- Réglages (numéro qui reçoit, prix en FCFA, marche/arrêt), modifiables depuis /admin.html
 insert into public.app_config (key, value) values
-  ('momo', '{"numero": "+221786655769", "prix_mois": 3000, "prix_an": 24000, "actif": true}'::jsonb)
+  ('momo', '{"numero": "+221786655769", "prix_mois": 4900, "prix_an": 39000, "actif": true}'::jsonb)
 on conflict (key) do nothing;
 
 -- L'élève déclare son paiement (le montant vient des réglages, jamais du navigateur)
@@ -682,7 +682,7 @@ grant usage, select on sequence public.events_id_seq to service_role;
 -- Pack Candidature : paiement unique, 6 mois d'accès complet (une saison de candidatures : Campus France, Parcoursup, universités)
 alter table public.paiements_momo drop constraint if exists paiements_momo_formule_check;
 alter table public.paiements_momo add constraint paiements_momo_formule_check check (formule in ('mois', 'an', 'pack'));
-update public.app_config set value = value || '{"prix_pack": 12000}'::jsonb where key = 'momo' and not (value ? 'prix_pack');
+update public.app_config set value = value || '{"prix_pack": 25000}'::jsonb where key = 'momo' and not (value ? 'prix_pack');
 
 create or replace function public.lerna_pay_valider(p_token text)
 returns json language plpgsql security definer set search_path = public as $$

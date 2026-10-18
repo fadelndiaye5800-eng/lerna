@@ -240,7 +240,7 @@
   function dt(iso) { var d = new Date(iso); return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }) + ' à ' + d.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' }); }
   function pPays() {
     if (!live()) return '<p class="muted">Disponible une fois Supabase branché.</p>';
-    var m = data.momo || { prix_mois: 3000, prix_an: 24000, prix_pack: 12000, actif: false };
+    var m = data.momo || { prix_mois: 4900, prix_an: 39000, prix_pack: 25000, actif: false };
     var on = !!Lerna.config.pay;
     var h = '<section class="card momo-set"><div class="row" style="justify-content:space-between;gap:10px"><h3>Paiement en FCFA</h3>' +
       '<span class="pill-s ' + (on ? 'valide' : 'refuse') + '">' + (on ? (Lerna.config.pay.provider === 'saspay' ? 'SasPay' : 'PayDunya') + ' branché' + (Lerna.config.pay.test ? ' · mode test' : '') : 'Paiement pas encore branché') + '</span></div>' +

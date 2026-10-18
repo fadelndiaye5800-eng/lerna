@@ -502,7 +502,7 @@ grant select on public.paiements_momo to authenticated;
 
 -- Réglages (numéro qui reçoit, prix en FCFA, marche/arrêt), modifiables depuis /admin.html
 insert into public.app_config (key, value) values
-  ('momo', '{"numero": "+221786655769", "prix_mois": 3000, "prix_an": 24000, "actif": true}'::jsonb)
+  ('momo', '{"numero": "+221786655769", "prix_mois": 4900, "prix_an": 39000, "actif": true}'::jsonb)
 on conflict (key) do nothing;
 
 -- L'élève déclare son paiement (le montant vient des réglages, jamais du navigateur)

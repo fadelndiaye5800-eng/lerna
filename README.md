@@ -13,7 +13,7 @@ IA branchée (« Est-ce pour moi ? », « Mon projet est-il prêt ? », aide adm
 
 Version 8 (oct. 2026) — modèle Premium revu : **l'information est gratuite, Premium paie l'aide pour décrocher sa place**.
 Toutes les offres sont visibles par tous (plus d'offre masquée) ; **Pack Candidature** (paiement unique, 6 mois, prix `prix_pack`
-réglé dans /admin, 12 000 FCFA par défaut) ; onglet **Budget** dans Mon dossier (coût réel de la 1re année + plan B, Premium) ;
+réglé dans /admin, 25 000 FCFA) ; onglet **Budget** dans Mon dossier (coût réel de la 1re année + plan B, Premium) ;
 **alertes ciblées** Premium (nouvelle offre du domaine de la personne, étiquettes OneSignal `premium`, `d1`–`d3`) ;
 page Premium centrée sur le résultat, bouton « Envoyer à mes parents » et FAQ « Pourquoi payer si les infos sont gratuites ? ».
 
@@ -31,7 +31,7 @@ explorer.html         32 établissements, 6 filtres, pagination, favoris
 ecole.html            Fiche : Présentation | Filières | Admission | Coûts | Vie étudiante | Avis (vérifiés + lien Google)
 opportunites.html     Stages | Bourses | Emplois | Investisseurs ; offres Premium sans titre ni organisme ; sauvegarde
 espace.html           Profil, recommandations, rappels, offres sauvegardées, assistant IA, comparateur, candidatures, compte
-premium.html          Comparatif, 4.99$/mois, Pack Candidature 6 mois (paiement unique) ou 39.99$/an, envoi aux parents
+premium.html          Comparatif : 4 900 FCFA (7.99$)/mois, Pack Candidature 25 000 FCFA (39.99$) pour 6 mois, 39 000 FCFA (59.99$)/an, envoi aux parents
 auth.html             Inscription (avec pseudo facultatif) / connexion / Google / mot de passe oublié
 dossier.html          « Mon dossier » par école : étapes (avec dates officielles), documents, atelier lettre de motivation,
                       entraînement à l'entretien, CV en PDF, demande de recommandation, visa, suivi
@@ -104,7 +104,7 @@ Le fichier `.vercelignore` empêche de publier sur le site `supabase/`, `scripts
 4. La notification quotidienne est déjà programmée dans `vercel.json` (9 h UTC, livrée à 18 h heure locale de chaque personne). Elle n'envoie rien tant que `CRON_SECRET` et OneSignal ne sont pas configurés.
 
 ### 5. Lemon Squeezy
-1. Produit « LERNA Premium » avec deux variantes : 4.99 $/mois et 39.99 $/an.
+1. Produit « LERNA Premium » avec deux variantes : 7.99 $/mois et 59.99 $/an.
 2. Copie les liens de paiement dans `LEMON_SQUEEZY_CHECKOUT_MONTHLY` / `_YEARLY`.
 3. Redirection après achat : `https://ton-domaine/premium.html?payment=success`.
 4. **Settings → Webhooks** : URL `https://ton-domaine/api/webhook`, événements `subscription_*`, « signing secret » dans `LEMON_SQUEEZY_WEBHOOK_SECRET`.
@@ -217,6 +217,6 @@ Stickers et drapeaux dessinés à partir de **Noto Color Emoji** (Google, licenc
 ## Décisions prises là où les documents se contredisaient
 
 - **Logo** : N en orange (décision finale du dashboard de septembre 2026). Le **sceau LERNA** (carré marron encadré d'orange, L crème et N orange) remplace l'ancienne étoile, trop proche de celle de Gemini.
-- **Remise annuelle** : affichée « −33 % » (39.99 $ au lieu de 59.88 $).
+- **Remise annuelle** : affichée « −34 % » (39 000 FCFA au lieu de 58 800 FCFA ; 59.99 $ au lieu de 95.88 $).
 - **Couleurs** : aucun vert/rouge/bleu dans l'interface. Les stickers et drapeaux gardent leurs vraies couleurs.
 - **Premium** : `PREMIUM_ENABLED=false` ouvre les fonctions Premium (phase de lancement), sauf les écoles n°3 à 5 qui se débloquent par parrainage.
