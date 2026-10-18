@@ -1,0 +1,215 @@
+/* LERNA — construction de l'annuaire mondial des établissements (lancé chaque mois par GitHub Actions).
+   Uniquement des registres publics dont la réutilisation est autorisée :
+   - DEQAR (EQAR) : établissements évalués par une agence qualité enregistrée — métadonnées sous ODC PDDL (domaine public)
+   - College Scorecard (Département de l'Éducation des États-Unis) : établissements, accréditeur reconnu, frais officiels — domaine public
+   - Office for Students (Angleterre) : registre légal des établissements — Open Government Licence v3
+   - CRICOS (Australie) : établissements autorisés à accueillir des étudiants étrangers, coûts déclarés des formations — CC BY 2.5 AU
+   - Wikidata : annuaire public pour les autres pays (CC0) — signalé comme « non vérifié », jamais présenté comme une accréditation
+   La France n'est pas ici : Explorer lit Parcoursup en direct.
+   Sortie : assets/annuaire/index.json + assets/annuaire/<PAYS>.json (tableaux compacts). */
+import fs from 'node:fs';
+import path from 'node:path';
+import { execSync } from 'node:child_process';
+import { parse } from 'csv-parse/sync';
+import XLSX from 'xlsx';
+
+const OUT = path.resolve('assets/annuaire');
+const TMP = path.resolve('.annuaire-tmp');
+fs.mkdirSync(OUT, { recursive: true });
+fs.mkdirSync(TMP, { recursive: true });
+const UA = { 'User-Agent': 'LERNA-annuaire/1.0 (https://lerna-lilac.vercel.app ; annuaire d’orientation étudiante)' };
+const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+const log = (...a) => console.log(new Date().toISOString().slice(11, 19), ...a);
+const clean = (s, n = 160) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim().slice(0, n);
+const url = (w) => { w = clean(w, 300); if (!w || /^(null|na|n\/a|none|not applicable)$/i.test(w)) return ''; if (!/^https?:\/\//i.test(w)) w = 'https://' + w; try { const u = new URL(w); return /\./.test(u.hostname) ? u.href : ''; } catch { return ''; } };
+const domain = (w) => { try { return new URL(w).hostname.replace(/^www\d?\./, '').toLowerCase(); } catch { return ''; } };
+async function getJSON(u, opt = {}) {
+  for (let t = 0; t < 4; t++) {
+    try { const r = await fetch(u, { headers: { ...UA, Accept: 'application/json', ...(opt.headers || {}) } }); if (r.status === 429 || r.status >= 500) { await wait(5000 * (t + 1)); continue; } return await r.json(); }
+    catch { await wait(4000 * (t + 1)); }
+  }
+  return null;
+}
+async function download(u, file) {
+  const r = await fetch(u, { headers: UA });
+  if (!r.ok) throw new Error('download ' + r.status + ' ' + u);
+  fs.writeFileSync(file, Buffer.from(await r.arrayBuffer()));
+  return file;
+}
+const all = [];
+const stats = {};
+const add = (src, rows) => { all.push(...rows); stats[src] = rows.length; log(src, rows.length); };
+
+/* ---------- 1. DEQAR (Europe et partenaires) ---------- */
+async function deqar() {
+  const rows = [];
+  const B = 'https://backend.deqar.eu/connectapi/v1/institutions/';
+  for (let off = 0; off < 20000; off += 500) {
+    const j = await getJSON(B + '?limit=500&offset=' + off);
+    if (!j || !Array.isArray(j.results) || !j.results.length) break;
+    for (const x of j.results) {
+      if (x.closure_date) continue;
+      const loc = (x.locations || []).find((l) => !l.country_valid_to) || (x.locations || [])[0] || {};
+      let cc = loc.country && loc.country.iso_3166_alpha2; if (!cc) continue;
+      let region = '';
+      const m = /^([A-Z]{2})-(.+)$/.exec(cc);
+      if (m) { region = { ENG: 'Angleterre', WLS: 'Pays de Galles', SCT: 'Écosse', NIR: 'Irlande du Nord', fr: 'Fédération Wallonie-Bruxelles', fl: 'Communauté flamande', de: 'Communauté germanophone' }[m[2]] || ''; cc = m[1]; }
+      if (!/^[A-Z]{2}$/.test(cc)) continue;
+      const n0 = (x.names || [])[0] || {};
+      rows.push({ i: 'deqar:' + x.id, s: 'deqar', p: cc, n: clean(x.name_primary), a: clean(n0.name_english && n0.name_english !== x.name_primary ? n0.name_english : n0.acronym || ''), v: clean(loc.city, 60), r: region, w: url(x.website_link), x: { d: x.deqar_id, o: x.is_other_provider ? 1 : 0 } });
+    }
+    if (off + 500 >= j.count) break;
+    await wait(800);
+  }
+  add('deqar', rows);
+}
+
+/* ---------- 2. États-Unis : College Scorecard ---------- */
+async function scorecard() {
+  const page = await (await fetch('https://collegescorecard.ed.gov/data/', { headers: UA })).text();
+  const zip = (page.match(/https:\/\/[^"']*Most-Recent-Cohorts-Institution[^"']*\.zip/) || [])[0];
+  if (!zip) throw new Error('lien Scorecard introuvable');
+  const f = await download(zip, path.join(TMP, 'sc.zip'));
+  execSync('unzip -o -q ' + f + ' -d ' + path.join(TMP, 'sc'));
+  const csv = fs.readdirSync(path.join(TMP, 'sc')).find((x) => /Institution.*\.csv$/.test(x));
+  const data = parse(fs.readFileSync(path.join(TMP, 'sc', csv)), { columns: true, skip_empty_lines: true });
+  const num = (v) => { const n = Number(v); return v === '' || v === 'NULL' || v === 'PrivacySuppressed' || !isFinite(n) ? null : n; };
+  const CTRL = { 1: 'public', 2: 'prive_nl', 3: 'prive_lucratif' };
+  const rows = [];
+  for (const r of data) {
+    if (r.CURROPER !== '1' || num(r.HIGHDEG) < 3 || r.MAIN !== '1') continue;
+    const acc = r.ACCREDAGENCY && r.ACCREDAGENCY !== 'NULL' ? clean(r.ACCREDAGENCY, 120) : '';
+    if (!acc) continue;   // seulement les établissements avec un accréditeur reconnu
+    rows.push({ i: 'scorecard:' + r.UNITID, s: 'scorecard', p: 'US', n: clean(r.INSTNM), a: r.ALIAS && !['NULL', 'NA'].includes(r.ALIAS) ? clean(r.ALIAS, 80) : '', v: clean(r.CITY, 60), r: r.STABBR, w: url(r.INSTURL), t: CTRL[r.CONTROL] || '',
+      x: { acc, u: r.UNITID, fi: num(r.TUITIONFEE_IN), fo: num(r.TUITIONFEE_OUT), ca: num(r.COSTT4_A), ad: num(r.ADM_RATE), ug: num(r.UGDS) } });
+  }
+  add('scorecard', rows);
+}
+
+/* ---------- 3. Angleterre : registre de l'Office for Students ---------- */
+async function ofs() {
+  const f = await download('https://register-api.officeforstudents.org.uk/api/Download', path.join(TMP, 'ofs.xlsx'));
+  const wb = XLSX.readFile(f);
+  const data = XLSX.utils.sheet_to_json(wb.Sheets.Register || wb.Sheets[wb.SheetNames[0]], { header: 1 });
+  const hi = data.findIndex((r) => (r || []).some((c) => /legal name/i.test(String(c || ''))));
+  const H = data[hi].map((h) => String(h || '').toLowerCase());
+  const col = (k) => H.findIndex((h) => h.includes(k));
+  const I = { n: col('legal name'), t: col('trading name'), u: col('ukprn'), a: col('contact address'), w: col('website'), c: col('category'), dap: col('highest level of degree') };
+  const rows = [];
+  for (const r of data.slice(hi + 1)) {
+    if (!r || !r[I.n]) continue;
+    const legal = clean(r[I.n]);
+    const addr = String(r[I.a] || '').split(/\r?\n/).map((s) => s.trim()).filter((s) => s && !/united kingdom/i.test(s));
+    const pc = addr.findIndex((s) => /^[A-Z]{1,2}\d[A-Z\d]? ?\d[A-Z]{2}$/i.test(s));
+    const tn = String(r[I.t] || '');
+    const trade = tn && !/not applicable/i.test(tn) ? clean(tn.split(/\r?\n/)[0]) : '';
+    rows.push({ i: 'ofs:' + r[I.u], s: 'ofs', p: 'GB', n: trade || legal, a: trade && trade !== legal ? legal : '', v: clean(pc > 0 ? addr[pc - 1] : '', 60), r: 'Angleterre', w: url(r[I.w]),
+      x: { u: String(r[I.u]), cat: clean(r[I.c], 40), dap: clean(r[I.dap], 40) } });
+  }
+  add('ofs', rows);
+}
+
+/* ---------- 4. Australie : CRICOS ---------- */
+async function cricos() {
+  const meta = await getJSON('https://data.gov.au/data/api/3/action/package_show?id=cricos');
+  const res = (meta && meta.result && meta.result.resources) || [];
+  const pick = (re) => (res.find((r) => re.test(r.name || '') && /csv/i.test(r.format || '')) || {}).url;
+  const fi = await download(pick(/Institutions/i), path.join(TMP, 'cr_i.csv'));
+  const fc = await download(pick(/^CRICOS Courses/i), path.join(TMP, 'cr_c.csv'));
+  const rd = (f) => parse(fs.readFileSync(f, 'utf8').replace(/^﻿/, ''), { columns: true, skip_empty_lines: true, relax_column_count: true });
+  const inst = rd(fi), courses = rd(fc);
+  const num = (v) => { const n = Number(String(v || '').replace(/[$,\s]/g, '')); return isFinite(n) && n > 0 ? n : null; };
+  const by = {};
+  for (const c of courses) { if (/^yes$/i.test(c.Expired || '')) continue; (by[c['CRICOS Provider Code']] = by[c['CRICOS Provider Code']] || []).push(c); }
+  const HE = /Bachelor|Master|Doctoral|Graduate Diploma|Graduate Certificate|Associate Degree/i;
+  const rng = (a) => (a.length ? [Math.min(...a), Math.max(...a)] : null);
+  const cost = (c) => num(c['Estimated Total Course Cost']) || num(c['Tuition Fee']);
+  const rows = [];
+  for (const i of inst) {
+    const cs = (by[i['CRICOS Provider Code']] || []).filter((c) => HE.test(c['Course Level'] || ''));
+    if (!cs.length) continue;
+    const city = clean(i['Postal Address City'], 60).toLowerCase().replace(/\b\w/g, (m) => m.toUpperCase());
+    rows.push({ i: 'cricos:' + i['CRICOS Provider Code'], s: 'cricos', p: 'AU', n: clean(i['Trading Name'] || i['Institution Name']), a: i['Trading Name'] && i['Trading Name'] !== i['Institution Name'] ? clean(i['Institution Name']) : '', v: city, r: i['Postal Address State'], w: url(i.Website),
+      t: /government/i.test(i['Institution Type']) ? 'public' : 'prive',
+      x: { code: i['CRICOS Provider Code'], nb: cs.length, fb: rng(cs.filter((c) => /^Bachelor/i.test(c['Course Level'])).map(cost).filter(Boolean)), fm: rng(cs.filter((c) => /^Master/i.test(c['Course Level'])).map(cost).filter(Boolean)) } });
+  }
+  add('cricos', rows);
+}
+
+/* ---------- 5. Wikidata (autres pays) ---------- */
+async function sparql(q) {
+  for (let t = 0; t < 4; t++) {
+    try {
+      const r = await fetch('https://query.wikidata.org/sparql?query=' + encodeURIComponent(q), { headers: { ...UA, Accept: 'application/sparql-results+json' } });
+      if (r.status === 429 || r.status >= 500) { await wait(10000 * (t + 1)); continue; }
+      return (await r.json()).results.bindings;
+    } catch { await wait(6000 * (t + 1)); }
+  }
+  return null;
+}
+async function wikidata() {
+  const cs = await sparql('SELECT ?c ?cc WHERE { ?c wdt:P31 wd:Q6256; wdt:P297 ?cc. FILTER NOT EXISTS { ?c wdt:P576 ?e } }');
+  const SKIP = new Set(['FR', 'US', 'GB', 'AU']);
+  const list = [...new Map(cs.map((b) => [b.cc.value, b.c.value.split('/').pop()])).entries()].filter(([cc]) => !SKIP.has(cc));
+  const rows = [], miss = [];
+  for (const [cc, q] of list) {
+    const b = await sparql(`SELECT DISTINCT ?u ?fr ?en ?site ?cityfr ?cityen WHERE { VALUES ?type { wd:Q3918 wd:Q875538 wd:Q902104 wd:Q38723 wd:Q1371037 wd:Q15936437 wd:Q23002054 wd:Q189004 } ?u wdt:P31 ?type; wdt:P17 wd:${q}; wdt:P856 ?site. FILTER NOT EXISTS { ?u wdt:P576 ?end } OPTIONAL { ?u rdfs:label ?fr FILTER(LANG(?fr)='fr') } OPTIONAL { ?u rdfs:label ?en FILTER(LANG(?en)='en') } OPTIONAL { ?u wdt:P131 ?city. OPTIONAL { ?city rdfs:label ?cityfr FILTER(LANG(?cityfr)='fr') } OPTIONAL { ?city rdfs:label ?cityen FILTER(LANG(?cityen)='en') } } }`);
+    if (!b) { miss.push(cc); continue; }
+    const seen = new Map();
+    for (const x of b) {
+      const id = x.u.value.split('/').pop();
+      if (seen.has(id)) continue;
+      const n = (x.fr || x.en || {}).value;
+      if (!n || /^Q\d+$/.test(n)) continue;
+      seen.set(id, { i: 'wikidata:' + id, s: 'wikidata', p: cc, n: clean(n), a: x.en && x.fr && x.en.value !== x.fr.value ? clean(x.en.value) : '', v: clean((x.cityfr || x.cityen || {}).value, 60), w: url(x.site.value), x: { q: id } });
+    }
+    rows.push(...seen.values());
+    await wait(1200);
+  }
+  if (miss.length) log('wikidata : pays non lus', miss.join(','));
+  add('wikidata', rows);
+}
+
+/* ---------- Lancement : une source qui échoue n'empêche pas les autres ---------- */
+const prev = fs.existsSync(path.join(OUT, 'index.json')) ? JSON.parse(fs.readFileSync(path.join(OUT, 'index.json'), 'utf8')) : null;
+for (const [name, fn] of [['deqar', deqar], ['scorecard', scorecard], ['ofs', ofs], ['cricos', cricos], ['wikidata', wikidata]]) {
+  try { await fn(); } catch (e) { log('ÉCHEC', name, e.message); stats[name] = 0; }
+}
+/* Sécurité : si une source renvoie beaucoup moins que la dernière fois, on garde l'ancienne version de ses fiches */
+if (prev && prev.sources) {
+  for (const [src, n] of Object.entries(prev.sources)) {
+    if ((stats[src] || 0) < n * 0.7) {
+      log('source', src, 'en baisse (', stats[src] || 0, 'contre', n, ') : anciennes fiches conservées');
+      for (const f of fs.readdirSync(OUT).filter((x) => /^[A-Z]{2}\.json$/.test(x))) {
+        const old = JSON.parse(fs.readFileSync(path.join(OUT, f), 'utf8')).filter((r) => r.s === src);
+        const keep = new Set(all.map((r) => r.i));
+        for (const r of old) if (!keep.has(r.i)) all.push(r);
+      }
+      stats[src] = n;
+    }
+  }
+}
+
+/* Dédoublonnage : une fiche Wikidata est retirée si un registre officiel du même pays a le même site */
+const officialDomains = new Set(all.filter((r) => r.s !== 'wikidata' && r.w).map((r) => r.p + '|' + domain(r.w)));
+const final = [];
+const ids = new Set();
+for (const r of all) {
+  if (!r.n || ids.has(r.i)) continue;
+  if (r.s === 'wikidata' && r.w && officialDomains.has(r.p + '|' + domain(r.w))) continue;
+  ids.add(r.i);
+  for (const k of Object.keys(r)) if (r[k] === '' || r[k] == null) delete r[k];
+  final.push(r);
+}
+const byCountry = {};
+for (const r of final) (byCountry[r.p] = byCountry[r.p] || []).push(r);
+for (const f of fs.readdirSync(OUT).filter((x) => /^[A-Z]{2}\.json$/.test(x))) fs.unlinkSync(path.join(OUT, f));
+const countries = {};
+for (const [cc, rows] of Object.entries(byCountry)) {
+  rows.sort((a, b) => (a.s === 'wikidata') - (b.s === 'wikidata') || a.n.localeCompare(b.n, 'fr'));
+  rows.forEach((r) => delete r.p);
+  fs.writeFileSync(path.join(OUT, cc + '.json'), JSON.stringify(rows));
+  countries[cc] = { n: rows.length, o: rows.filter((r) => r.s !== 'wikidata').length };
+}
+fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify({ maj: new Date().toISOString().slice(0, 10), sources: stats, total: final.length, countries }));
+log('TOTAL', final.length, 'établissements dans', Object.keys(countries).length, 'pays');
