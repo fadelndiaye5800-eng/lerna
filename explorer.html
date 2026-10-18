@@ -172,6 +172,7 @@ Lerna.addStrings({
     'ex.pFiche': 'Fiche Parcoursup officielle', 'ex.pStats': 'Chiffres d’admission', 'ex.pSite': 'Site de l’école', 'ex.pMore': 'Voir plus de formations',
     'ex.pPub': 'Public', 'ex.pPriv': 'Privé',
     'ex.srcMonde': 'Monde',
+    'ex.mHidden': '{n} autre(s) établissement(s) dans l’annuaire public de ce pays, dont la reconnaissance officielle n’est pas vérifiée.', 'ex.mShowAll': 'Les afficher →',
     'ex.mCountry': 'Choisis un pays', 'ex.mOfficial': 'Officiels seulement',
     'ex.mCount': '{n} établissement(s) — {c}', 'ex.mLoading': 'Chargement de l’annuaire…', 'ex.mErr': 'L’annuaire n’a pas pu être chargé. Réessaie dans un instant.',
     'ex.mSoon': 'L’annuaire mondial est en cours de construction : il apparaît ici dans quelques minutes.',
@@ -186,6 +187,7 @@ Lerna.addStrings({
     'ex.bOff': 'Registre officiel', 'ex.bWd': 'À vérifier', 'ex.bPub': 'Public', 'ex.bPrivNl': 'Privé à but non lucratif', 'ex.bPrivL': 'Privé à but lucratif', 'ex.bPriv': 'Privé',
     'ex.fUs': 'Frais de scolarité : <b>{f}</b> par an pour un étudiant étranger (tarif hors État)', 'ex.fUsCost': 'Coût moyen d’une année complète (frais, logement, vie) : <b>{f}</b>',
     'ex.fAdm': 'Taux d’admission : <b>{p} %</b>', 'ex.fUg': 'Étudiants en licence : <b>{n}</b>',
+    'ex.fAuB1': 'Licence (bachelor) : coût total déclaré <b>{a}</b>', 'ex.fAuM1': 'Master : coût total déclaré <b>{a}</b>',
     'ex.fAuB': 'Licence (bachelor) : coût total déclaré de <b>{a}</b> à <b>{b}</b> selon la formation', 'ex.fAuM': 'Master : coût total déclaré de <b>{a}</b> à <b>{b}</b> selon la formation',
     'ex.fOfsDap': 'Délivre ses propres diplômes : <b>{d}</b>', 'ex.dapTaught': 'licence et master', 'ex.dapResearch': 'jusqu’au doctorat',
     'ex.fSrc': 'Montants publiés par la source officielle ; vérifie le tarif de ta formation sur le site de l’école.',
@@ -217,6 +219,7 @@ Lerna.addStrings({
     'ex.pFiche': 'Official Parcoursup page', 'ex.pStats': 'Admission figures', 'ex.pSite': 'School website', 'ex.pMore': 'See more programmes',
     'ex.pPub': 'Public', 'ex.pPriv': 'Private',
     'ex.srcMonde': 'World',
+    'ex.mHidden': '{n} more institution(s) in this country’s public directory, with unverified official recognition.', 'ex.mShowAll': 'Show them →',
     'ex.mCountry': 'Choose a country', 'ex.mOfficial': 'Official only',
     'ex.mCount': '{n} institution(s) — {c}', 'ex.mLoading': 'Loading the directory…', 'ex.mErr': 'The directory could not be loaded. Try again in a moment.',
     'ex.mSoon': 'The world directory is being built: it will appear here in a few minutes.',
@@ -231,6 +234,7 @@ Lerna.addStrings({
     'ex.bOff': 'Official register', 'ex.bWd': 'To be checked', 'ex.bPub': 'Public', 'ex.bPrivNl': 'Private non-profit', 'ex.bPrivL': 'Private for-profit', 'ex.bPriv': 'Private',
     'ex.fUs': 'Tuition: <b>{f}</b> a year for an international student (out-of-state rate)', 'ex.fUsCost': 'Average cost of a full year (fees, housing, living): <b>{f}</b>',
     'ex.fAdm': 'Admission rate: <b>{p}%</b>', 'ex.fUg': 'Undergraduate students: <b>{n}</b>',
+    'ex.fAuB1': 'Bachelor: declared total cost <b>{a}</b>', 'ex.fAuM1': 'Master: declared total cost <b>{a}</b>',
     'ex.fAuB': 'Bachelor: declared total cost from <b>{a}</b> to <b>{b}</b> depending on the programme', 'ex.fAuM': 'Master: declared total cost from <b>{a}</b> to <b>{b}</b> depending on the programme',
     'ex.fOfsDap': 'Awards its own degrees: <b>{d}</b>', 'ex.dapTaught': 'bachelor’s and master’s', 'ex.dapResearch': 'up to doctorate',
     'ex.fSrc': 'Amounts published by the official source; check your programme’s fee on the school’s website.',
@@ -452,8 +456,8 @@ Lerna.addStrings({
       if (x.ug) f.push(t('ex.fUg', { n: Number(x.ug).toLocaleString(Lerna.lang === 'en' ? 'en-US' : 'fr-FR') }));
     }
     if (r.s === 'cricos') {
-      if (x.fb) f.push(t('ex.fAuB', { a: aud(x.fb[0]), b: aud(x.fb[1]) }));
-      if (x.fm) f.push(t('ex.fAuM', { a: aud(x.fm[0]), b: aud(x.fm[1]) }));
+      if (x.fb) f.push(x.fb[0] === x.fb[1] ? t('ex.fAuB1', { a: aud(x.fb[0]) }) : t('ex.fAuB', { a: aud(x.fb[0]), b: aud(x.fb[1]) }));
+      if (x.fm) f.push(x.fm[0] === x.fm[1] ? t('ex.fAuM1', { a: aud(x.fm[0]) }) : t('ex.fAuM', { a: aud(x.fm[0]), b: aud(x.fm[1]) }));
     }
     if (r.s === 'ofs' && x.dap && /taught|research/i.test(x.dap)) f.push(t('ex.fOfsDap', { d: esc(t(/research/i.test(x.dap) ? 'ex.dapResearch' : 'ex.dapTaught')) }));
     if (!f.length) return '';
@@ -486,6 +490,8 @@ Lerna.addStrings({
     $('grid').innerHTML = list.length ? list.slice(0, M.show).map(mCard).join('') :
       '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + t('ex.mNone') + '</h4>' + (off ? '<p>' + t('ex.mNoneOff') + '</p>' : '') + '</div>';
     $('mMore').hidden = list.length <= M.show;
+    var hidden = M.off ? (M.rows || []).filter(function (r) { return r.s === 'wikidata'; }).length : 0;
+    if (hidden && list.length <= M.show) $('grid').insertAdjacentHTML('beforeend', '<div class="notice" style="grid-column:1/-1">' + Lerna.icon('info') + '<div>' + esc(t('ex.mHidden', { n: hidden })) + ' <a href="#" class="orange bold" data-mshow>' + esc(t('ex.mShowAll')) + '</a></div></div>');
   }
   function mLoad(cc) {
     M.cc = cc; M.show = 30;
@@ -525,6 +531,7 @@ Lerna.addStrings({
     $('mFilters').addEventListener('change', function (e) { var s = e.target.closest('[data-m]'); if (s) mLoad(s.value); });
     $('mFilters').addEventListener('click', function (e) { if (!e.target.closest('[data-moff]')) return; M.off = !M.off; mFilters(); mRender(); });
     $('mMoreBtn').addEventListener('click', function () { M.show += 30; mRender(); });
+    $('grid').addEventListener('click', function (e) { if (!e.target.closest('[data-mshow]')) return; e.preventDefault(); M.off = false; mFilters(); mRender(); });
     $('srcTabs').addEventListener('click', function (e) { var b = e.target.closest('[data-src]'); if (b && b.getAttribute('data-src') !== src) { Lerna.sound.play('click'); setSrc(b.getAttribute('data-src')); } });
     $('pFilters').addEventListener('change', function (e) { var s = e.target.closest('[data-p]'); if (!s) return; P[s.getAttribute('data-p')] = s.value; pSearch(); });
     $('pFilters').addEventListener('click', function (e) { if (!e.target.closest('[data-papp]')) return; P.app = !P.app; pSearch(); });
