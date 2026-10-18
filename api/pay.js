@@ -129,7 +129,7 @@ async function snNetworks() {
     if (depth > 8 || !node || typeof node !== 'object') return;
     if (Array.isArray(node)) { node.forEach((n) => walk(n, country, depth + 1)); return; }
     const named = /s[ée]n[ée]gal/i.test(String(node.name || node.label || node.country_name || '')) ? 'SN' : '';
-    const iso = two(node.iso) || two(node.iso2) || two(node.iso3) || two(node.country_code) || two(node.country) || named;
+    const iso = two(node.iso) || two(node.iso_code) || two(node.iso2) || two(node.iso3) || two(node.country_code) || two(node.country) || named;
     /* Le pays se transmet à tout ce qu'il contient, quel que soit le nom de la liste (networks, operators…) */
     const kids = ['networks', 'operators', 'providers', 'payment_methods', 'methods'].map((k) => node[k]).find(Array.isArray);
     if (kids) { walk(kids, iso || two(node.code) || country, depth + 1); return; }
@@ -141,12 +141,16 @@ async function snNetworks() {
   const r = await sp('GET', '/countries/');
   netSamples = { countries: snap(r) };
   walk(r.data, '', 0);
-  /* Si la liste des pays ne donne pas les réseaux, on essaie les listes de réseaux du Sénégal */
-  for (const path of ['/networks/?country=SN', '/countries/SN/networks/']) {
-    if (keep().length) break;
-    const n = await sp('GET', path);
-    netSamples[path] = snap(n);
-    if (n.ok) walk(n.data, 'SN', 0);
+  /* La liste des pays ne contient pas les réseaux : on prend l'identifiant du Sénégal (iso_code « SN »)
+     puis on demande ses réseaux (/networks/?country=<identifiant>) */
+  if (!keep().length) {
+    const countries = (r.data && Array.isArray(r.data.data) ? r.data.data : Array.isArray(r.data) ? r.data : []);
+    const sn = countries.find((c) => c && /^(SN|SEN)$/i.test(String(c.iso_code || c.iso || c.code || '')));
+    if (sn && sn.id) {
+      const n = await sp('GET', '/networks/?country=' + encodeURIComponent(sn.id));
+      netSamples.networks = snap(n);
+      if (n.ok) walk(n.data, 'SN', 0);
+    } else netSamples.networks = 'Sénégal absent de la liste des pays';
   }
   const list = keep();
   if (list.length) netCache = { t: Date.now(), list };

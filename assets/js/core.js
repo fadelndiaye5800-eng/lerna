@@ -755,9 +755,11 @@
   /* ------------------------------------------------------------------ */
   /* Erreurs gardées pour le propriétaire (table events, sans données personnelles) :
      appels au serveur refusés et plantages du code, avec le type d'appareil, pour corriger vite. */
-  var errCount = 0;
+  var errCount = 0, leaving = false;
+  window.addEventListener('pagehide', function () { leaving = true; });   // appels coupés parce qu'on change de page : pas une vraie erreur
+  window.addEventListener('pageshow', function () { leaving = false; });
   function logErr(ev, meta) {
-    if (errCount++ > 8) return;
+    if (leaving || errCount++ > 8) return;
     try { meta.mob = /Mobi|iPhone|iPad|Android/i.test(navigator.userAgent) ? 1 : 0; meta.pwa = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone ? 1 : 0; } catch (e) {}
     try { Stats.log(ev, meta); } catch (e) {}
   }
@@ -1810,7 +1812,11 @@
     if (!prof || !prof.answers) return Promise.resolve();
     var key = Auth.user.id + '|' + (prof.updated || prof.completed);
     if (store.get('lerna_synced', null) === key) return Promise.resolve();
-    return Lerna.api('/api/profile', { raw: prof.answers, results: res }).then(function (r) { if (r.ok) store.set('lerna_synced', key); });
+    if (store.get('lerna_sync_wait', null) === Lerna.today()) return Promise.resolve();   // limite du jour atteinte : on réessaie demain
+    return Lerna.api('/api/profile', { raw: prof.answers, results: res }).then(function (r) {
+      if (r.ok || r.status === 400) store.set('lerna_synced', key);          // 400 = questionnaire incomplet : inutile de renvoyer
+      else if (r.status === 429) store.set('lerna_sync_wait', Lerna.today());
+    });
   };
 
   /* ================================================================== */
