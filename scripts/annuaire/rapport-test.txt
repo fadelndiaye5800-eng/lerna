@@ -1,7 +1,11 @@
-2026-10-18T22:59:57.898Z
+2026-10-18T23:05:23.608Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234}
+officiel ae-caa 103
+officiel ng-nuc-public-federal 77
+officiel ng-nuc-public-state 69
+officiel ng-nuc-prive-private 182
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182}
 == ci-mesrs-prives : 618
   Abidjan Bloom University (ABU) | Abidjan | Cocody | 90.000 F
   Abidjan Business School -(ABS) | Abidjan | Cocody | 85000
@@ -18,8 +22,8 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234}
   Université Internationale des Sciences Appliquées et de Technologies - UNISAT (BTS) | Abidjan | Cocody | 200 000 FCFA
   Veraces Richter College (VRC) | Abidjan | Cocody
 == cm-minesup-ipes : 234
-  Institut Supérieur des Sciences, de Technologie, de Management et Développement Durable (ISSTMADD) | l’Adamaoua
-  Sanda Institut Supérieur de Management (SISMA) | l’Adamaoua
+  Institut Supérieur des Sciences, de Technologie, de Management et Développement Durable (ISSTMADD) | Adamaoua
+  Sanda Institut Supérieur de Management (SISMA) | Adamaoua
   Centre International des Etudes Polytechniques d’Obala | Centre
   Citec Higher Institute of Technology and Management (ICTU) | Centre
   Ecole Sup Prépa | Centre
@@ -32,3 +36,63 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234}
   ST Joan of Arc Higher Institute of Medical and Management Sciences | Sud-ouest
   Swisslink Higher Institute of Business and Technology (SHIBAT) | Sud-ouest
   TRUSTECH Higher Institute of Technology and Professional Management | Sud-ouest
+== ae-caa : 103
+  Abu Dhabi Hospitality Academy – les Roches | Les Roches - أكاديمية أبوظبي للضيافة | Abu Dhabi | https://lesroches.edu/campuses/abu-dhabi/
+  Abu Dhabi Polytechnic | بوليتيكنيك أبوظبي | Abu Dhabi | https://adpoly.ac.ae/
+  Abu Dhabi School Of Management | كلية أبوظبي للإدارة | Abu Dhabi | https://adsm.ac.ae/
+  Abu Dhabi University | جامعة أبوظبى | Abu Dhabi | http://www.adu.ac.ae
+  Ain Al Khaleej University Of Health Sciences | جامعة عين الخليج للعلوم الصحية | Abu Dhabi | https://akuhs.ac.ae
+  Ajman University | جامعة عجمان | Ajman | http://www.ajman.ac.ae
+  Al Ain University (FORMERLY: AL AIN UNIVERSITY OF SCIENCE & TECHNOLOGY) | جامعة العين (سابقا، جامعة العين للعلوم والتكنولوجيا) | Abu Dhabi | http://www.aau.ac.ae/
+  Al Qasimiya University | جامعة القاسمية | Sharjah | https://www.alqasimia.ac.ae/ar/Pages/default.aspx
+  Istituto Marangoni Dubai | معهد مارانجوني دبي | Dubai | https://www.istitutomarangoni.com/en/campus/dubai-
+  Joint Command And Staff College - Abu Dhabi | كلية القيادة والأركان المشتركة - أبوظبي | Abu Dhabi | https://www.jcsc.milnet.ae
+  Jumeira University | جامعة جميرا | Dubai | http://www.ju.ac.ae
+  University Of Wollongong In Dubai | جامعة ولونغونغ فى دبى | Dubai | http://www.uowdubai.ac.ae
+  Zayed Ii Military College | كلية زايد الثاني العسكرية | Abu Dhabi | http://www.zmc.mil.ae
+  Zayed University | جامعة زايد | Dubai, Abu Dhabi | http://www.zu.ac.ae
+== ng-nuc-public-federal : 77
+  Abubakar Tafawa Balewa University, Bauchi | Bauchi | https://www.atbu.edu.ng | 1988
+  Ahmadu Bello University, Zaria | Zaria | https://www.abu.edu.ng | 1962
+  Bayero University, Kano | Kano | https://www.buk.edu.ng | 1975
+  Federal University Gashua, Yobe | Yobe | https://www.fugashua.edu.ng | 2013
+  Federal University of Petroleum Resources, Effurun | Effurun | https://www.fupre.edu.ng | 2007
+  Federal University of Technology, Akure | Akure | https://www.futa.edu.ng | 1981
+  Federal University of Technology, Minna | Minna | https://www.futminna.edu.ng | 1982
+  Federal University of Technology, Owerri | Owerri | https://www.futo.edu.ng | 1980
+  University of Uyo | https://www.uniuyo.edu.ng | 1991
+  Usumanu Danfodiyo University | https://www.udusok.edu.ng | 1975
+  Nigerian Maritime University Okerenkoko, Delta State | Delta State | https://www.nmu.edu.ng | 2018
+  Federal University of Agriculture and Technology Obio-Akpa Akwa Ibom State | 2025
+  Federal University of Science and Technology, Epe | Epe | 2025
+  Federal University of Science and Technology, Kabo, Kano | Kano | https://fustkabo.edu.ng/ | 2025
+== ng-nuc-public-state : 69
+  Rivers State University | https://www.rsu.edu.ng | 1979
+  Ambrose Alli University, Ekpoma | Ekpoma | https://www.aauekpoma.edu.ng | 1980
+  Abia State University, Uturu | Uturu | https://www.abiastateuniversity.edu.ng | 1981
+  Ekiti State University | https://www.eksu.edu.ng | 1982
+  Enugu State University of Science and Technology, Enugu | Enugu | https://www.esut.edu.ng | 1982
+  Olabisi Onabanjo University, Ago Iwoye | Ago Iwoye | https://www.oouagoiwoye.edu.ng | 1982
+  Lagos State University, Ojo | Ojo | https://www.lasu.edu.ng | 1983
+  Ladoke Akintola University of Technology, Ogbomoso | Ogbomoso | https://www.lautech.edu.ng | 1990
+  Bauchi State University, Gadau | Gadau | https://www.basug.edu.ng | 2011
+  Northwest University Kano | https://www.nwu.edu.ng | 2012
+  First Technical University Ibadan | https://tech-u.edu.ng/ | 2012
+  University of Innovation, Science and Technology, Omuma, Imo State | Imo State | 2025
+  Taraba State University of Tropical Agriculture, Science, Technology and Climate Action, Gembu | Gembu | 2026
+  Jigawa State University of Medical and Allied Health Sciences, Majia | Majia | 2026
+== ng-nuc-prive-private : 182
+  Babcock University,Ilishan-Remo | Ilishan-Remo | https://www.babcock.edu.ng | 1999
+  Igbinedion University Okada | https://www.iuokada.edu.ng | 1999
+  Madonna University, Okija | Okija | https://www.madonnauniversity.edu.ng | 1999
+  Bowen University, Iwo | Iwo | https://www.bowen.edu.ng | 2001
+  Benson Idahosa University, Benin City | Benin City | https://www.biu.edu.ng/ | 2002
+  Covenant University Ota | https://www.covenantuniversity.edu.ng/ | 2002
+  Pan-Atlantic University, Lagos | Lagos | https://www.pau.edu.ng | 2002
+  American University of Nigeria, Yola | Yola | https://www.aun.edu.ng | 2003
+  University of Offa, Kwara State | Kwara State | 2021
+  Mewar International University, Masaka, Nasarawa State | Nasarawa State | https://www.miu.edu.ng/ | 2021
+  Edusoko University, Bida, Niger State | Niger State | 2021
+  Ummah University of Nigeria, Abuja | Abuja | 2026
+  Pearl University, Calabar, Cross river | Cross river | 2026
+  Omega University Kaduna | 2026
