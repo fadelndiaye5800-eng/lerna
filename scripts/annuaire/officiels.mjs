@@ -53,6 +53,19 @@ export const OFFICIELS = [
     sections: [[/Public Higher Learning/i, 'public'], [/Private Higher Learning/i, 'prive']]
   },
   {
+    cc: 'BW', id: 'bw-bqa',
+    autorite: { fr: 'Botswana Qualifications Authority (BQA)', en: 'Botswana Qualifications Authority (BQA)' },
+    titre: { fr: 'Établissements d’enseignement supérieur enregistrés et accrédités', en: 'Registered and accredited higher-education providers' },
+    url: 'https://www.bqa.org.bw/registered-and-accredited-higher-education', type: 'table', pageParam: 'page', maxPages: 12,
+    cols: { n: 0, cat: 2, acc: 4 }, accPrefix: { fr: 'Accréditation valable jusqu’au ', en: 'Accreditation valid until ' }, statutCol: 2
+  },
+  {
+    cc: 'ZW', id: 'zw-zimche',
+    autorite: { fr: 'Zimbabwe Council for Higher Education (ZIMCHE)', en: 'Zimbabwe Council for Higher Education (ZIMCHE)' },
+    titre: { fr: 'Universités enregistrées et programmes accrédités', en: 'Registered universities and accredited programmes' },
+    url: 'https://zimche.ac.zw/wp-content/uploads/2026/03/Accredited-Universities-and-their-Programmes-Document.pdf', type: 'pdf-toc'
+  },
+  {
     cc: 'TZ', id: 'tz-tcu',
     autorite: { fr: 'Tanzania Commission for Universities (TCU)', en: 'Tanzania Commission for Universities (TCU)' },
     titre: { fr: 'Établissements universitaires autorisés en Tanzanie (tout établissement absent de la liste n’est pas autorisé)', en: 'University institutions approved to operate in Tanzania (any institution not on the list is not authorised)' },
@@ -80,6 +93,17 @@ async function fetchBuf(url) {
 }
 
 async function readTable(src) {
+  if (src.pageParam) {
+    const all = [], seen = new Set();
+    for (let p = 0; p < (src.maxPages || 10); p++) {
+      const u = src.url + (src.url.includes('?') ? '&' : '?') + src.pageParam + '=' + p;
+      const part = await readTable({ ...src, pageParam: null, url: u });
+      const fresh = part.filter((r) => !seen.has(r.n));
+      if (!fresh.length) break;
+      fresh.forEach((r) => { seen.add(r.n); all.push(r); });
+    }
+    return all;
+  }
   const $ = cheerio.load((await fetchBuf(src.url)).toString('utf8'));
   const rows = [];
   const C = src.cols;
@@ -96,7 +120,9 @@ async function readTable(src) {
     let w = '';
     if (C.w != null) { const cell = tds.eq(C.w); w = cell.find('a[href]').attr('href') || c[C.w] || ''; w = /^https?:\/\//i.test(w) ? w : /^www\./i.test(w) ? 'https://' + w : ''; }
     const y = C.y != null && /^\d{4}$/.test(c[C.y] || '') ? c[C.y] : '';
-    rows.push({ n: title(n), a: C.a != null ? clean(c[C.a]) : '', v, r: C.r != null ? title(c[C.r]) : '', f: C.f != null ? clean(c[C.f], 80) : '', w, y, acc: C.acc != null ? clean(c[C.acc], 100) : '' });
+    const st = src.statutCol != null ? (/public|state|government/i.test(c[src.statutCol] || '') ? 'public' : /private|priv/i.test(c[src.statutCol] || '') ? 'prive' : '') : '';
+    const acc = C.acc != null && c[C.acc] ? (src.accPrefix ? src.accPrefix.fr : '') + clean(c[C.acc], 100) : '';
+    rows.push({ n: title(n), a: C.a != null ? clean(c[C.a]) : '', v, r: C.r != null ? title(c[C.r]) : '', f: C.f != null ? clean(c[C.f], 80) : '', w, y, acc, t: st });
   });
   return rows;
 }
@@ -163,6 +189,18 @@ async function readJson(src) {
   return arr.filter(src.filter || (() => true)).map(src.map).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
 }
 
+/* PDF dont la table des matières liste les établissements : « NOM DE L'UNIVERSITÉ ........ 12 » */
+async function readPdfToc(src) {
+  const pdf = (await import('pdf-parse/lib/pdf-parse.js')).default;
+  const lines = (await pdf(await fetchBuf(src.url))).text.split(/\r?\n/).map((l) => clean(l, 300));
+  const rows = [];
+  for (const l of lines) {
+    const m = /^([A-Z][A-Z’'&().,\- ]{5,}?)\s*\.{4,}\s*\d+$/.exec(l);
+    if (m && !/^(INTRODUCTION|TABLE OF CONTENTS|CONTENTS|ANNEX|APPENDIX)/.test(m[1])) rows.push({ n: title(m[1]) });
+  }
+  return rows;
+}
+
 async function readList(src) {
   const $ = cheerio.load((await fetchBuf(src.url)).toString('utf8'));
   return $(src.selector).map((i, e) => ({ n: title($(e).text()) })).get().filter((r) => r.n.length > 3);
@@ -173,7 +211,7 @@ export async function readOfficiels(log = console.log) {
   const out = [], report = {};
   for (const src of OFFICIELS) {
     try {
-      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : src.type === 'pdf-acr' ? await readPdfAcr(src) : src.type === 'pdf-tz' ? await readPdfTz(src) : src.type === 'json' ? await readJson(src) : await readList(src);
+      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : src.type === 'pdf-acr' ? await readPdfAcr(src) : src.type === 'pdf-tz' ? await readPdfTz(src) : src.type === 'pdf-toc' ? await readPdfToc(src) : src.type === 'json' ? await readJson(src) : await readList(src);
       const seen = new Set();
       for (const r of rows) {
         const key = r.n.toLowerCase();
