@@ -37,7 +37,14 @@ export const OFFICIELS = [
     titre: { fr: 'Liste des universités ' + fr + ' approuvées', en: 'List of approved ' + en + ' universities' },
     url: 'https://www.nuc.edu.ng/nigerian-univerisities/' + slug + '/', type: 'table', statut,
     cols: { n: 1, w: 3, y: 4 }, cityFromName: true
-  }))
+  })),
+  {
+    cc: 'UG', id: 'ug-nche',
+    autorite: { fr: 'National Council for Higher Education (NCHE) de l’Ouganda', en: 'Uganda National Council for Higher Education (NCHE)' },
+    titre: { fr: 'Établissements d’enseignement supérieur enregistrés et leur statut d’accréditation', en: 'Registered higher-education institutions and their accreditation status' },
+    url: 'https://unche.or.ug/institutions/', type: 'table',
+    cols: { n: 0, v: 3, acc: 2, cat: 1 }
+  }
 ];
 
 const UA = { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 LERNA-annuaire', 'Accept-Language': 'fr,en;q=0.8' };
@@ -66,7 +73,7 @@ async function readTable(src) {
     let w = '';
     if (C.w != null) { const cell = tds.eq(C.w); w = cell.find('a[href]').attr('href') || c[C.w] || ''; w = /^https?:\/\//i.test(w) ? w : /^www\./i.test(w) ? 'https://' + w : ''; }
     const y = C.y != null && /^\d{4}$/.test(c[C.y] || '') ? c[C.y] : '';
-    rows.push({ n: title(n), a: C.a != null ? clean(c[C.a]) : '', v, r: C.r != null ? title(c[C.r]) : '', f: C.f != null ? clean(c[C.f], 80) : '', w, y });
+    rows.push({ n: title(n), a: C.a != null ? clean(c[C.a]) : '', v, r: C.r != null ? title(c[C.r]) : '', f: C.f != null ? clean(c[C.f], 80) : '', w, y, acc: C.acc != null ? clean(c[C.acc], 100) : '' });
   });
   return rows;
 }
@@ -103,7 +110,7 @@ export async function readOfficiels(log = console.log) {
         const key = r.n.toLowerCase();
         if (seen.has(key)) continue; seen.add(key);
         out.push({ i: 'officiel:' + src.id + ':' + seen.size, s: 'officiel', p: src.cc, n: r.n, a: r.a || '', v: r.v || '', r: r.r || '', w: r.w || '', t: src.statut || '',
-          x: { l: src.id, f: r.f && !/^0$/.test(r.f) ? r.f : undefined, y: r.y || undefined } });
+          x: { l: src.id, f: r.f && !/^0$/.test(r.f) ? r.f : undefined, y: r.y || undefined, acc: r.acc || undefined } });
       }
       report[src.id] = seen.size; log('officiel', src.id, seen.size);
     } catch (e) { report[src.id] = 'erreur : ' + String(e.message || e).slice(0, 120); log('officiel ÉCHEC', src.id, e.message); }
