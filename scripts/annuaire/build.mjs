@@ -152,20 +152,23 @@ async function wikidata() {
   const SKIP = new Set(['FR', 'US', 'GB', 'AU']);
   const list = [...new Map(cs.map((b) => [b.cc.value, b.c.value.split('/').pop()])).entries()].filter(([cc]) => !SKIP.has(cc));
   const rows = [], miss = [];
-  for (const [cc, q] of list) {
-    const b = await sparql(`SELECT DISTINCT ?u ?fr ?en ?site ?cityfr ?cityen WHERE { VALUES ?type { wd:Q3918 wd:Q875538 wd:Q902104 wd:Q38723 wd:Q1371037 wd:Q15936437 wd:Q23002054 wd:Q189004 } ?u wdt:P31 ?type; wdt:P17 wd:${q}; wdt:P856 ?site. FILTER NOT EXISTS { ?u wdt:P576 ?end } OPTIONAL { ?u rdfs:label ?fr FILTER(LANG(?fr)='fr') } OPTIONAL { ?u rdfs:label ?en FILTER(LANG(?en)='en') } OPTIONAL { ?u wdt:P131 ?city. OPTIONAL { ?city rdfs:label ?cityfr FILTER(LANG(?cityfr)='fr') } OPTIONAL { ?city rdfs:label ?cityen FILTER(LANG(?cityen)='en') } } }`);
-    if (!b) { miss.push(cc); continue; }
+  /* 3 requêtes à la fois au maximum (règle d'usage du service Wikidata) ; libellés français, sinon anglais */
+  const one = async ([cc, q]) => {
+    const b = await sparql(`SELECT ?u ?uLabel ?site ?cityLabel WHERE { VALUES ?type { wd:Q3918 wd:Q875538 wd:Q902104 wd:Q38723 wd:Q1371037 wd:Q15936437 wd:Q23002054 wd:Q189004 } ?u wdt:P31 ?type; wdt:P17 wd:${q}; wdt:P856 ?site. FILTER NOT EXISTS { ?u wdt:P576 ?end } OPTIONAL { ?u wdt:P131 ?city } SERVICE wikibase:label { bd:serviceParam wikibase:language "fr,en,mul". } }`);
+    if (!b) { miss.push(cc); return; }
     const seen = new Map();
     for (const x of b) {
       const id = x.u.value.split('/').pop();
       if (seen.has(id)) continue;
-      const n = (x.fr || x.en || {}).value;
+      const n = (x.uLabel || {}).value;
       if (!n || /^Q\d+$/.test(n)) continue;
-      seen.set(id, { i: 'wikidata:' + id, s: 'wikidata', p: cc, n: clean(n), a: x.en && x.fr && x.en.value !== x.fr.value ? clean(x.en.value) : '', v: clean((x.cityfr || x.cityen || {}).value, 60), w: url(x.site.value), x: { q: id } });
+      const city = (x.cityLabel || {}).value || '';
+      seen.set(id, { i: 'wikidata:' + id, s: 'wikidata', p: cc, n: clean(n), v: /^Q\d+$/.test(city) ? '' : clean(city, 60), w: url(x.site.value), x: { q: id } });
     }
     rows.push(...seen.values());
-    await wait(1200);
-  }
+  };
+  const queue = list.slice();
+  await Promise.all([1, 2, 3].map(async () => { while (queue.length) { await one(queue.shift()); await wait(500); } }));
   if (miss.length) log('wikidata : pays non lus', miss.join(','));
   add('wikidata', rows);
 }
