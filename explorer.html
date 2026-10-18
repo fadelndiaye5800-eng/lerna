@@ -71,9 +71,10 @@
   .pager button { min-width: 44px; height: 44px; border-radius: 12px; background: var(--cream-dark); font-weight: 700; color: var(--brown); padding: 0 12px; }
   .pager button.active { background: var(--orange); color: #fff; }
   .pager button:disabled { opacity: .4; cursor: default; }
-  .src-tabs { display: inline-flex; background: var(--cream-dark); border-radius: 99px; padding: 4px; margin-top: 18px; gap: 2px; max-width: 100%; }
+  .src-tabs { display: inline-flex; background: var(--cream-dark); border-radius: 99px; padding: 4px; margin-top: 18px; gap: 2px; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+  .src-tabs::-webkit-scrollbar { display: none; }
   .src-tabs button { white-space: nowrap; }
-  .src-tabs button { padding: 9px 16px; border-radius: 99px; font-weight: 700; font-size: .86rem; color: var(--muted); }
+  .src-tabs button { padding: 9px 13px; border-radius: 99px; font-weight: 700; font-size: .86rem; color: var(--muted); }
   .src-tabs button.active { background: var(--surface); color: var(--brown); box-shadow: 0 2px 8px rgba(61, 31, 0, .1); }
   .psup-note { display: flex; gap: 10px; align-items: flex-start; font-size: .86rem; color: var(--muted); margin-top: 12px; }
   .pcard { padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
@@ -85,6 +86,10 @@
   .pcard .badges .pub { background: rgba(46, 125, 50, .12); color: #2E7D32; }
   .pcard .badges .ctr { background: rgba(232, 100, 12, .12); color: var(--orange-deep, #B84D06); }
   .pcard .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 6px; }
+  .pcard .badges .wd { background: rgba(120, 120, 120, .14); color: var(--muted); }
+  .pcard .facts { display: grid; gap: 4px; font-size: .86rem; }
+  .pcard .facts b { color: var(--brown); }
+  .pcard .rec { font-size: .82rem; color: var(--muted); }
   .more-wrap { text-align: center; margin: 26px 0 0; }
   .disclaimer { font-size: .8rem; color: var(--muted); text-align: center; margin: 26px auto 60px; max-width: 560px; }
 </style>
@@ -106,10 +111,13 @@
       <div class="src-tabs" role="tablist" id="srcTabs">
         <button type="button" class="active" data-src="lerna" role="tab" data-i18n="ex.srcLerna">Sélection LERNA</button>
         <button type="button" data-src="psup" role="tab" data-i18n="ex.srcPsup">France · Parcoursup</button>
+        <button type="button" data-src="monde" role="tab" data-i18n="ex.srcMonde">Monde</button>
       </div>
       <div class="filters" id="filters" role="group" aria-label="Filtres"></div>
       <div class="filters" id="pFilters" role="group" aria-label="Filtres Parcoursup" hidden></div>
       <p class="psup-note" id="psupNote" hidden></p>
+      <div class="filters" id="mFilters" role="group" aria-label="Filtres Monde" hidden></div>
+      <p class="psup-note" id="mNote" hidden></p>
     </div>
   </section>
 
@@ -126,6 +134,8 @@
     </div>
     <div class="sgrid" id="grid"></div>
     <nav class="pager" id="pager" aria-label="Pagination"></nav>
+    <div class="more-wrap" id="mMore" hidden><button type="button" class="btn btn-ghost" id="mMoreBtn" data-i18n="ex.pMore">Voir plus</button></div>
+    <p class="disclaimer" id="mCredit" hidden></p>
     <div class="more-wrap" id="pMore" hidden><button type="button" class="btn btn-ghost" id="pMoreBtn" data-i18n="ex.pMore">Voir plus de formations</button></div>
     <p class="disclaimer" id="fxNote">Frais indicatifs en USD — vérifie toujours sur le site officiel de l’établissement.</p>
   </section>
@@ -160,7 +170,28 @@ Lerna.addStrings({
     'ex.pErr': 'Les données de Parcoursup ne répondent pas pour le moment. Réessaie, ou cherche directement sur parcoursup.fr.',
     'ex.pNone': 'Aucune formation trouvée.', 'ex.pNoneSub': 'Essaie un mot plus simple (ex. « droit », « commerce ») ou retire un filtre.',
     'ex.pFiche': 'Fiche Parcoursup officielle', 'ex.pStats': 'Chiffres d’admission', 'ex.pSite': 'Site de l’école', 'ex.pMore': 'Voir plus de formations',
-    'ex.pPub': 'Public', 'ex.pPriv': 'Privé', 'ex.pCtr': 'Privé sous contrat avec l’État', 'ex.pAppB': 'Apprentissage'
+    'ex.pPub': 'Public', 'ex.pPriv': 'Privé',
+    'ex.srcMonde': 'Monde',
+    'ex.mCountry': 'Choisis un pays', 'ex.mOfficial': 'Officiels seulement',
+    'ex.mCount': '{n} établissement(s) — {c}', 'ex.mLoading': 'Chargement de l’annuaire…', 'ex.mErr': 'L’annuaire n’a pas pu être chargé. Réessaie dans un instant.',
+    'ex.mSoon': 'L’annuaire mondial est en cours de construction : il apparaît ici dans quelques minutes.',
+    'ex.mNone': 'Aucun établissement trouvé.', 'ex.mNoneOff': 'Aucun registre officiel ouvert n’existe encore pour ce pays dans LERNA. Décoche « Registres officiels seulement » pour voir l’annuaire public, à vérifier.',
+    'ex.mNote': 'Écoles venant uniquement de registres publics : agences qualité européennes (DEQAR), Département de l’Éducation des États-Unis, Office for Students (Angleterre), gouvernement australien (CRICOS). Pour les autres pays, l’annuaire public Wikidata est affiché à part, comme non vérifié.',
+    'ex.mFrance': 'Pour la France, utilise l’onglet « France · Parcoursup ».',
+    'ex.rDeqar': 'Évaluée par une agence qualité enregistrée en Europe (base DEQAR)',
+    'ex.rScore': 'Accréditée par {a}, accréditeur reconnu par le Département de l’Éducation des États-Unis',
+    'ex.rOfs': 'Inscrite au registre officiel de l’Office for Students (Angleterre)',
+    'ex.rCricos': 'Autorisée par le gouvernement australien à accueillir des étudiants étrangers (registre CRICOS)',
+    'ex.rWd': 'Annuaire public (Wikidata) : reconnaissance officielle NON vérifiée par LERNA. Demande les numéros d’autorisation et vérifie auprès du ministère avant de payer.',
+    'ex.bOff': 'Registre officiel', 'ex.bWd': 'À vérifier', 'ex.bPub': 'Public', 'ex.bPrivNl': 'Privé à but non lucratif', 'ex.bPrivL': 'Privé à but lucratif', 'ex.bPriv': 'Privé',
+    'ex.fUs': 'Frais de scolarité : <b>{f}</b> par an pour un étudiant étranger (tarif hors État)', 'ex.fUsCost': 'Coût moyen d’une année complète (frais, logement, vie) : <b>{f}</b>',
+    'ex.fAdm': 'Taux d’admission : <b>{p} %</b>', 'ex.fUg': 'Étudiants en licence : <b>{n}</b>',
+    'ex.fAuB': 'Licence (bachelor) : coût total déclaré de <b>{a}</b> à <b>{b}</b> selon la formation', 'ex.fAuM': 'Master : coût total déclaré de <b>{a}</b> à <b>{b}</b> selon la formation',
+    'ex.fOfsDap': 'Délivre ses propres diplômes : <b>{d}</b>', 'ex.dapTaught': 'licence et master', 'ex.dapResearch': 'jusqu’au doctorat',
+    'ex.fSrc': 'Montants publiés par la source officielle ; vérifie le tarif de ta formation sur le site de l’école.',
+    'ex.lSite': 'Site officiel', 'ex.lSrc': 'Voir dans le registre', 'ex.lWd': 'Fiche Wikidata',
+    'ex.mCredit': 'Sources et licences : DEQAR — EQAR (ODC-PDDL) · College Scorecard — U.S. Department of Education (domaine public) · Office for Students (Open Government Licence v3.0) · CRICOS — Commonwealth of Australia (CC BY 2.5 AU) · Wikidata (CC0). Mise à jour automatique chaque mois — dernière : {d}.',
+    'ex.pCtr': 'Privé sous contrat avec l’État', 'ex.pAppB': 'Apprentissage'
   },
   en: {
     'ex.docTitle': 'Explore schools — LERNA',
@@ -184,7 +215,28 @@ Lerna.addStrings({
     'ex.pErr': 'Parcoursup data is not responding right now. Try again, or search directly on parcoursup.fr.',
     'ex.pNone': 'No programme found.', 'ex.pNoneSub': 'Try a simpler word (e.g. “law”, “business”) or remove a filter.',
     'ex.pFiche': 'Official Parcoursup page', 'ex.pStats': 'Admission figures', 'ex.pSite': 'School website', 'ex.pMore': 'See more programmes',
-    'ex.pPub': 'Public', 'ex.pPriv': 'Private', 'ex.pCtr': 'Private, under contract with the State', 'ex.pAppB': 'Work-study'
+    'ex.pPub': 'Public', 'ex.pPriv': 'Private',
+    'ex.srcMonde': 'World',
+    'ex.mCountry': 'Choose a country', 'ex.mOfficial': 'Official only',
+    'ex.mCount': '{n} institution(s) — {c}', 'ex.mLoading': 'Loading the directory…', 'ex.mErr': 'The directory could not be loaded. Try again in a moment.',
+    'ex.mSoon': 'The world directory is being built: it will appear here in a few minutes.',
+    'ex.mNone': 'No institution found.', 'ex.mNoneOff': 'LERNA has no open official register for this country yet. Untick “Official registers only” to see the public directory, to be checked.',
+    'ex.mNote': 'Schools taken only from public registers: European quality agencies (DEQAR), the U.S. Department of Education, the Office for Students (England), the Australian Government (CRICOS). For other countries, the public Wikidata directory is shown separately, as unverified.',
+    'ex.mFrance': 'For France, use the “France · Parcoursup” tab.',
+    'ex.rDeqar': 'Reviewed by a registered European quality-assurance agency (DEQAR database)',
+    'ex.rScore': 'Accredited by {a}, an accreditor recognised by the U.S. Department of Education',
+    'ex.rOfs': 'Listed on the official Office for Students register (England)',
+    'ex.rCricos': 'Authorised by the Australian Government to enrol international students (CRICOS register)',
+    'ex.rWd': 'Public directory (Wikidata): official recognition NOT checked by LERNA. Ask for authorisation numbers and check with the ministry before paying.',
+    'ex.bOff': 'Official register', 'ex.bWd': 'To be checked', 'ex.bPub': 'Public', 'ex.bPrivNl': 'Private non-profit', 'ex.bPrivL': 'Private for-profit', 'ex.bPriv': 'Private',
+    'ex.fUs': 'Tuition: <b>{f}</b> a year for an international student (out-of-state rate)', 'ex.fUsCost': 'Average cost of a full year (fees, housing, living): <b>{f}</b>',
+    'ex.fAdm': 'Admission rate: <b>{p}%</b>', 'ex.fUg': 'Undergraduate students: <b>{n}</b>',
+    'ex.fAuB': 'Bachelor: declared total cost from <b>{a}</b> to <b>{b}</b> depending on the programme', 'ex.fAuM': 'Master: declared total cost from <b>{a}</b> to <b>{b}</b> depending on the programme',
+    'ex.fOfsDap': 'Awards its own degrees: <b>{d}</b>', 'ex.dapTaught': 'bachelor’s and master’s', 'ex.dapResearch': 'up to doctorate',
+    'ex.fSrc': 'Amounts published by the official source; check your programme’s fee on the school’s website.',
+    'ex.lSite': 'Official website', 'ex.lSrc': 'See in the register', 'ex.lWd': 'Wikidata record',
+    'ex.mCredit': 'Sources and licences: DEQAR — EQAR (ODC-PDDL) · College Scorecard — U.S. Department of Education (public domain) · Office for Students (Open Government Licence v3.0) · CRICOS — Commonwealth of Australia (CC BY 2.5 AU) · Wikidata (CC0). Updated automatically every month — last: {d}.',
+    'ex.pCtr': 'Private, under contract with the State', 'ex.pAppB': 'Work-study'
   }
 });
 
@@ -287,7 +339,7 @@ Lerna.addStrings({
 
   /* ---------- Toute la France : catalogue officiel Parcoursup, lu en direct (données ouvertes du ministère, CORS ouvert) ---------- */
   var PSUP = 'https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/fr-esr-cartographie_formations_parcoursup';
-  var src = Lerna.param('src') === 'psup' ? 'psup' : 'lerna';
+  var src = ['psup', 'monde'].indexOf(Lerna.param('src')) !== -1 ? Lerna.param('src') : 'lerna';
   var P = { year: null, tf: '', tc: '', reg: '', app: false, offset: 0, total: 0, facets: null, seq: 0, items: [] };
   var PPER = 20;
   function odsq(v) { return '"' + String(v).replace(/\\/g, '').replace(/"/g, '') + '"'; }
@@ -363,24 +415,121 @@ Lerna.addStrings({
       $('pMore').hidden = true;
     });
   }
+
+  /* ---------- Monde : annuaire construit chaque mois à partir des registres officiels (assets/annuaire) ---------- */
+  var M = { idx: null, cc: '', rows: null, off: true, show: 30, cache: {} };
+  var SRC_LINK = {
+    deqar: function (r) { var id = String(r.i).split(':')[1]; return 'https://www.eqar.eu/qa-results/institutions/view/' + encodeURIComponent(id); },
+    scorecard: function (r) { return 'https://collegescorecard.ed.gov/school/?' + encodeURIComponent(r.x && r.x.u || ''); },
+    ofs: function () { return 'https://www.officeforstudents.org.uk/for-providers/regulatory-resources/the-ofs-register/'; },
+    cricos: function (r) { return 'https://cricos.education.gov.au/Institution/InstitutionDetails.aspx?ProviderCode=' + encodeURIComponent(r.x && r.x.code || ''); },
+    wikidata: function (r) { return 'https://www.wikidata.org/wiki/' + encodeURIComponent(r.x && r.x.q || ''); }
+  };
+  function mIdx() {
+    if (M.idx) return Promise.resolve(M.idx);
+    return fetch('assets/annuaire/index.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error('404'); return r.json(); }).then(function (j) { M.idx = j; return j; });
+  }
+  function mFilters() {
+    var cs = Object.keys(M.idx.countries).map(function (c) { return [c, window.LERNA_COUNTRY_NAME(c)]; }).sort(function (a, b) { return a[1].localeCompare(b[1], Lerna.lang); });
+    $('mFilters').innerHTML = '<select class="fsel on" data-m="cc" aria-label="' + esc(t('ex.mCountry')) + '" style="max-width:260px">' +
+      cs.map(function (c) { var o = M.idx.countries[c[0]]; return '<option value="' + c[0] + '"' + (c[0] === M.cc ? ' selected' : '') + '>' + esc(c[1]) + ' (' + o.n + ')</option>'; }).join('') + '</select>' +
+      '<button type="button" class="fsel' + (M.off ? ' on' : '') + '" data-moff style="padding-right:16px;background-image:none">' + esc(t('ex.mOfficial')) + '</button>';
+    $('mNote').innerHTML = Lerna.icon('shield', 'ic-sm') + '<span>' + esc(t('ex.mNote')) + ' ' + esc(t('ex.mFrance')) + '</span>';
+    $('mCredit').textContent = t('ex.mCredit', { d: Lerna.fmtDate(M.idx.maj) });
+  }
+  function mStatut(r) {
+    var k = { public: 'ex.bPub', prive_nl: 'ex.bPrivNl', prive_lucratif: 'ex.bPrivL', prive: 'ex.bPriv' }[r.t];
+    return k ? '<span>' + esc(t(k)) + '</span>' : '';
+  }
+  function mFacts(r) {
+    var x = r.x || {}, f = [];
+    var usd = function (n) { var m = Lerna.money(n), d = Lerna.money(n, 'USD'); return m === d ? m : m + ' (' + d + ')'; };
+    var aud = function (n) { return Math.round(n).toLocaleString(Lerna.lang === 'en' ? 'en-AU' : 'fr-FR') + ' AUD'; };
+    if (r.s === 'scorecard') {
+      if (x.fo) f.push(t('ex.fUs', { f: esc(usd(x.fo)) }));
+      if (x.ca) f.push(t('ex.fUsCost', { f: esc(usd(x.ca)) }));
+      if (x.ad) f.push(t('ex.fAdm', { p: Math.round(x.ad * 1000) / 10 }));
+      if (x.ug) f.push(t('ex.fUg', { n: Number(x.ug).toLocaleString(Lerna.lang === 'en' ? 'en-US' : 'fr-FR') }));
+    }
+    if (r.s === 'cricos') {
+      if (x.fb) f.push(t('ex.fAuB', { a: aud(x.fb[0]), b: aud(x.fb[1]) }));
+      if (x.fm) f.push(t('ex.fAuM', { a: aud(x.fm[0]), b: aud(x.fm[1]) }));
+    }
+    if (r.s === 'ofs' && x.dap && /taught|research/i.test(x.dap)) f.push(t('ex.fOfsDap', { d: esc(t(/research/i.test(x.dap) ? 'ex.dapResearch' : 'ex.dapTaught')) }));
+    if (!f.length) return '';
+    var money = r.s === 'scorecard' || r.s === 'cricos';
+    return '<div class="facts">' + f.map(function (s) { return '<div>' + s + '</div>'; }).join('') + (money ? '<div class="small muted">' + esc(t('ex.fSrc')) + (r.s === 'scorecard' ? ' ' + esc(Lerna.moneyNote()) : '') + '</div>' : '') + '</div>';
+  }
+  function mCard(r) {
+    var wd = r.s === 'wikidata', https = function (u) { return /^https?:\/\//.test(u || '') ? u : ''; };
+    var rec = { deqar: t('ex.rDeqar'), scorecard: t('ex.rScore', { a: (r.x && r.x.acc) || '' }), ofs: t('ex.rOfs'), cricos: t('ex.rCricos'), wikidata: t('ex.rWd') }[r.s];
+    var src = SRC_LINK[r.s] ? SRC_LINK[r.s](r) : '';
+    return '<article class="card pcard"><h3>' + esc(r.n) + '</h3>' + (r.a ? '<div class="loc">' + esc(r.a) + '</div>' : '') +
+      '<div class="loc">' + Lerna.flag(M.cc, 'stk-xs') + ' ' + esc([r.v, r.r, window.LERNA_COUNTRY_NAME(M.cc)].filter(Boolean).join(', ')) + '</div>' +
+      '<div class="badges">' + (wd ? '<span class="wd">' + esc(t('ex.bWd')) + '</span>' : '<span class="pub">' + esc(t('ex.bOff')) + '</span>') + mStatut(r) + '</div>' +
+      '<p class="rec">' + esc(rec) + '</p>' + mFacts(r) +
+      '<div class="acts">' + (https(r.w) ? '<a class="btn btn-primary btn-sm" href="' + esc(r.w) + '" target="_blank" rel="noopener nofollow">' + esc(t('ex.lSite')) + ' ↗</a>' : '') +
+      (src ? '<a class="btn btn-ghost btn-sm" href="' + esc(src) + '" target="_blank" rel="noopener">' + esc(t(wd ? 'ex.lWd' : 'ex.lSrc')) + ' ↗</a>' : '') + '</div></article>';
+  }
+  function mList() {
+    var q = norm(st.q).split(/\s+/).filter(Boolean);
+    return (M.rows || []).filter(function (r) {
+      if (M.off && r.s === 'wikidata') return false;
+      if (!q.length) return true;
+      var hay = norm([r.n, r.a, r.v, r.r].join(' '));
+      return q.every(function (w) { return hay.indexOf(w) !== -1; });
+    });
+  }
+  function mRender() {
+    var list = mList(), off = M.off && (M.rows || []).length && !(M.rows || []).some(function (r) { return r.s !== 'wikidata'; });
+    $('count').textContent = t('ex.mCount', { n: list.length.toLocaleString(Lerna.lang === 'en' ? 'en-US' : 'fr-FR'), c: window.LERNA_COUNTRY_NAME(M.cc) });
+    $('grid').innerHTML = list.length ? list.slice(0, M.show).map(mCard).join('') :
+      '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + t('ex.mNone') + '</h4>' + (off ? '<p>' + t('ex.mNoneOff') + '</p>' : '') + '</div>';
+    $('mMore').hidden = list.length <= M.show;
+  }
+  function mLoad(cc) {
+    M.cc = cc; M.show = 30;
+    if (M.cache[cc]) { M.rows = M.cache[cc]; mRender(); return Promise.resolve(); }
+    $('count').textContent = t('ex.mLoading'); $('grid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px 0">' + Lerna.thinking('inline') + '</div>';
+    return fetch('assets/annuaire/' + cc + '.json').then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (rows) {
+      M.cache[cc] = rows; if (M.cc !== cc) return; M.rows = rows;
+      /* Un pays sans registre officiel ouvert : on montre l'annuaire public (signalé « à vérifier ») plutôt qu'une page vide */
+      if (!rows.some(function (r) { return r.s !== 'wikidata'; })) M.off = false;
+      mFilters(); mRender(); Lerna.track('annuaire_pays', cc);
+    }).catch(function () { $('grid').innerHTML = '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('alert') + '<h4>' + t('ex.mErr') + '</h4></div>'; });
+  }
+  function mStart() {
+    $('count').textContent = t('ex.mLoading'); $('grid').innerHTML = '';
+    mIdx().then(function () {
+      var me = Lerna.country(), list = Object.keys(M.idx.countries);
+      if (!list.length) throw new Error('vide');
+      var cc = M.cc || (list.indexOf(me) !== -1 ? me : list.indexOf('SN') !== -1 ? 'SN' : list[0]);
+      M.cc = cc; mFilters(); return mLoad(cc);
+    }).catch(function () { $('count').textContent = ''; $('grid').innerHTML = '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('info') + '<h4>' + t('ex.mSoon') + '</h4></div>'; });
+  }
   function setSrc(v) {
     src = v;
     Lerna.qsa('[data-src]').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-src') === v); b.setAttribute('aria-selected', String(b.getAttribute('data-src') === v)); });
-    var ps = v === 'psup';
-    $('filters').hidden = ps; $('pFilters').hidden = !ps; $('psupNote').hidden = !ps; $('sortWrap').hidden = ps; $('pager').hidden = ps; $('fxNote').hidden = ps;
-    $('q').placeholder = t(ps ? 'ex.pSearchPh' : 'ex.searchPh');
-    if (ps) pSearch(); else { $('pMore').hidden = true; render(); }
+    var ps = v === 'psup', mo = v === 'monde', lo = v === 'lerna';
+    $('filters').hidden = !lo; $('sortWrap').hidden = !lo; $('pager').hidden = !lo; $('fxNote').hidden = !lo;
+    $('pFilters').hidden = !ps; $('psupNote').hidden = !ps; $('pMore').hidden = true;
+    $('mFilters').hidden = !mo; $('mNote').hidden = !mo; $('mCredit').hidden = !mo; $('mMore').hidden = true;
+    $('q').placeholder = t(ps ? 'ex.pSearchPh' : mo ? 'ex.searchPh' : 'ex.searchPh');
+    if (ps) pSearch(); else if (mo) mStart(); else render();
   }
 
   Lerna.ready(function () {
     $('q').value = st.q;
     renderFilters(); render();
-    $('q').addEventListener('input', Lerna.debounce(function (e) { st.q = e.target.value; st.page = 1; if (src === 'psup') pSearch(); else render(); }, 260));
+    $('q').addEventListener('input', Lerna.debounce(function (e) { st.q = e.target.value; st.page = 1; if (src === 'psup') pSearch(); else if (src === 'monde') { M.show = 30; mRender(); } else render(); }, 260));
+    $('mFilters').addEventListener('change', function (e) { var s = e.target.closest('[data-m]'); if (s) mLoad(s.value); });
+    $('mFilters').addEventListener('click', function (e) { if (!e.target.closest('[data-moff]')) return; M.off = !M.off; mFilters(); mRender(); });
+    $('mMoreBtn').addEventListener('click', function () { M.show += 30; mRender(); });
     $('srcTabs').addEventListener('click', function (e) { var b = e.target.closest('[data-src]'); if (b && b.getAttribute('data-src') !== src) { Lerna.sound.play('click'); setSrc(b.getAttribute('data-src')); } });
     $('pFilters').addEventListener('change', function (e) { var s = e.target.closest('[data-p]'); if (!s) return; P[s.getAttribute('data-p')] = s.value; pSearch(); });
     $('pFilters').addEventListener('click', function (e) { if (!e.target.closest('[data-papp]')) return; P.app = !P.app; pSearch(); });
     $('pMoreBtn').addEventListener('click', function () { pSearch(true); });
-    if (src === 'psup') setSrc('psup');
+    if (src !== 'lerna') setSrc(src);
     $('filters').addEventListener('change', function (e) {
       var s = e.target.closest('[data-f]'); if (!s) return;
       st[s.getAttribute('data-f')] = s.value; st.page = 1;

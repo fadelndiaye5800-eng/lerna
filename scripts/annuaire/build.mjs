@@ -17,7 +17,7 @@ const OUT = path.resolve('assets/annuaire');
 const TMP = path.resolve('.annuaire-tmp');
 fs.mkdirSync(OUT, { recursive: true });
 fs.mkdirSync(TMP, { recursive: true });
-const UA = { 'User-Agent': 'LERNA-annuaire/1.0 (https://lerna-lilac.vercel.app ; annuaire d’orientation étudiante)' };
+const UA = { 'User-Agent': 'LERNA-annuaire/1.0 (+https://lerna-lilac.vercel.app; student orientation directory)' };   // ASCII seulement (en-tête HTTP)
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const log = (...a) => console.log(new Date().toISOString().slice(11, 19), ...a);
 const clean = (s, n = 160) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim().slice(0, n);
@@ -38,6 +38,7 @@ async function download(u, file) {
 }
 const all = [];
 const stats = {};
+const errors = {};
 const add = (src, rows) => { all.push(...rows); stats[src] = rows.length; log(src, rows.length); };
 
 /* ---------- 1. DEQAR (Europe et partenaires) ---------- */
@@ -176,7 +177,7 @@ async function wikidata() {
 /* ---------- Lancement : une source qui échoue n'empêche pas les autres ---------- */
 const prev = fs.existsSync(path.join(OUT, 'index.json')) ? JSON.parse(fs.readFileSync(path.join(OUT, 'index.json'), 'utf8')) : null;
 for (const [name, fn] of [['deqar', deqar], ['scorecard', scorecard], ['ofs', ofs], ['cricos', cricos], ['wikidata', wikidata]]) {
-  try { await fn(); } catch (e) { log('ÉCHEC', name, e.message); stats[name] = 0; }
+  try { await fn(); } catch (e) { log('ÉCHEC', name, e.message); stats[name] = 0; errors[name] = String(e && e.message || e).slice(0, 300); }
 }
 /* Sécurité : si une source renvoie beaucoup moins que la dernière fois, on garde l'ancienne version de ses fiches */
 if (prev && prev.sources) {
@@ -204,6 +205,7 @@ for (const r of all) {
   for (const k of Object.keys(r)) if (r[k] === '' || r[k] == null) delete r[k];
   final.push(r);
 }
+if (final.length < 100) { log('Construction trop pauvre (', final.length, ') : rien n’est remplacé'); fs.writeFileSync(path.join(OUT, 'rapport.json'), JSON.stringify({ maj: new Date().toISOString(), sources: stats, erreurs: errors })); process.exit(0); }
 const byCountry = {};
 for (const r of final) (byCountry[r.p] = byCountry[r.p] || []).push(r);
 for (const f of fs.readdirSync(OUT).filter((x) => /^[A-Z]{2}\.json$/.test(x))) fs.unlinkSync(path.join(OUT, f));
@@ -214,5 +216,5 @@ for (const [cc, rows] of Object.entries(byCountry)) {
   fs.writeFileSync(path.join(OUT, cc + '.json'), JSON.stringify(rows));
   countries[cc] = { n: rows.length, o: rows.filter((r) => r.s !== 'wikidata').length };
 }
-fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify({ maj: new Date().toISOString().slice(0, 10), sources: stats, total: final.length, countries }));
+fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify({ maj: new Date().toISOString().slice(0, 10), sources: stats, erreurs: errors, total: final.length, countries }));
 log('TOTAL', final.length, 'établissements dans', Object.keys(countries).length, 'pays');
