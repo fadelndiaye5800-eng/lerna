@@ -271,6 +271,7 @@ Lerna.addStrings({
     'mm.terms': 'En payant, tu demandes l’accès immédiat à Premium et tu acceptes les <a href="legal.html#conditions">conditions d’utilisation</a> et les <a href="legal.html#abonnement">conditions d’abonnement</a>. Le paiement est définitif.',
     'mm.needWay': 'Choisis un moyen de paiement.', 'mm.needPhone': 'Écris ton numéro : 9 chiffres, par exemple 77 123 45 67.',
     'mm.errMany': 'Trop de tentatives aujourd’hui. Réessaie demain ou écris-nous depuis la page Contact.',
+    'mm.relog': 'Ta session a expiré sur cet appareil. Reconnecte-toi : tu reviendras ici pour payer.', 'mm.net': 'Pas de connexion internet. Vérifie ton réseau puis réessaie.',
     'mm.errOff': 'Le paiement s’ouvre très bientôt.', 'mm.err': 'Le service de paiement ne répond pas. Réessaie dans un instant.',
     'mm.opening': 'Ouverture de {w}…', 'mm.openHint': 'Confirme le paiement dans ton application, puis reviens ici.',
     'mm.openBtn': 'Ouvrir {w}', 'mm.qrHint': 'Sur ordinateur : scanne le code avec ton application Orange Money ou Max it.', 'mm.qrBtn': 'Afficher le code à scanner',
@@ -352,6 +353,7 @@ Lerna.addStrings({
     'mm.terms': 'By paying, you request immediate access to Premium and accept the <a href="legal.html#conditions">terms of use</a> and the <a href="legal.html#abonnement">subscription terms</a>. Payment is final.',
     'mm.needWay': 'Choose a payment method.', 'mm.needPhone': 'Enter your number: 9 digits, e.g. 77 123 45 67.',
     'mm.errMany': 'Too many attempts today. Try again tomorrow or write to us from the Contact page.',
+    'mm.relog': 'Your session expired on this device. Log in again: you will come back here to pay.', 'mm.net': 'No internet connection. Check your network and try again.',
     'mm.errOff': 'Payment opens very soon.', 'mm.err': 'The payment service is not responding. Try again in a moment.',
     'mm.opening': 'Opening {w}…', 'mm.openHint': 'Confirm the payment in your app, then come back here.',
     'mm.openBtn': 'Open {w}', 'mm.qrHint': 'On a computer: scan the code with your Orange Money or Max it app.', 'mm.qrBtn': 'Show the code to scan',
@@ -493,17 +495,26 @@ Lerna.addStrings({
   }
   /* Vérifie une facture auprès du serveur, toutes les 4 s, pendant 3 min au plus */
   var pollTimer = null;
+  var polling = false;
   function poll(token, onState, max) {
     var n = 0; max = max || 45;
-    clearTimeout(pollTimer);
+    clearTimeout(pollTimer); polling = true;
     (function tick() {
       Lerna.api('/api/pay', { action: 'verify', token: token }, { timeout: 20000 }).then(function (r) {
         var st = r.ok && r.data ? r.data.statut : 'en_attente';
-        if (st === 'valide' || st === 'refuse' || ++n >= max) { store.del('lerna_pay'); return onState(st === 'en_attente' ? 'lent' : st); }
+        /* Payé ou refusé : on oublie la facture. Trop lent : on la garde (3 h) pour revérifier au retour de l'appli */
+        if (st === 'valide' || st === 'refuse') store.del('lerna_pay');
+        if (st === 'valide' || st === 'refuse' || ++n >= max) { polling = false; return onState(st === 'en_attente' ? 'lent' : st); }
         pollTimer = setTimeout(tick, 4000);
       });
     })();
   }
+  /* Retour sur LERNA après Wave / Orange Money (le téléphone a pu mettre la page en pause) : on revérifie tout de suite */
+  document.addEventListener('visibilitychange', function () {
+    if (document.visibilityState !== 'visible' || polling || !store.get('lerna_pay', null)) return;
+    Lerna.qsa('.modal-wrap').forEach(function (w) { if (w.querySelector('#mmBox')) { w.remove(); document.body.style.overflow = ''; } });   // pas deux fenêtres d'attente l'une sur l'autre
+    resumePayment();
+  });
   function successView(box) {
     box.innerHTML = '<div class="mm-wait"><div class="mm-done">' + IC.check + '</div><h3>' + esc(t('mm.okTitle')) + '</h3><p>' + esc(t('mm.okText')) + '</p>' +
       '<button type="button" class="btn btn-primary btn-block" style="margin-top:18px" data-close>' + esc(t('mm.close')) + '</button></div>';
@@ -571,6 +582,13 @@ Lerna.addStrings({
             var d = r.data || {};
             if (!r.ok || !d.token) {
               var code = d.error || '';
+              /* Session expirée sur ce téléphone : on reconnecte la personne puis on la ramène ici */
+              if (r.status === 401) {
+                err.textContent = t('mm.relog');
+                Lerna.auth.signOut().then(function () { setTimeout(function () { Lerna.go('auth.html?mode=login&redirect=premium.html', true); }, 1600); });
+                return;
+              }
+              if (r.status === 0) { err.textContent = t('mm.net'); return; }
               err.textContent = (code === 'bad_phone' ? t('mm.needPhone') : code === 'too_many' ? t('mm.errMany') : /closed|not_configured/.test(code) ? t('mm.errOff') : t('mm.err')) + (d.detail ? ' — ' + d.detail : '');
               return;
             }

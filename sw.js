@@ -3,7 +3,7 @@
 if (new URL(self.location.href).searchParams.get('os') === '1') {
   try { importScripts('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js'); } catch (e) {}
 }
-const VERSION = 'lerna-v8.6.2';
+const VERSION = 'lerna-v8.7.0';
 const CORE = [
   '/', '/index.html', '/aujourdhui.html', '/questionnaire.html', '/loading.html', '/resultats.html', '/explorer.html', '/ecole.html',
   '/opportunites.html', '/espace.html', '/premium.html', '/auth.html', '/dossier.html', '/parametres.html', '/contact.html', '/legal.html', '/manifest.json',
@@ -33,7 +33,16 @@ self.addEventListener('fetch', (e) => {
     }).catch(() => caches.match(req, { ignoreSearch: true }).then((r) => r || caches.match('/index.html'))));
     return;
   }
-  // Fichiers statiques et polices : cache d'abord, mise à jour en arrière-plan
+  // Code de l'app (JS, CSS, JSON) : réseau d'abord, cache seulement hors connexion.
+  // Sinon un téléphone gardait l'ancien code après une mise à jour (pages nouvelles + code ancien = bugs).
+  if (url.origin === location.origin && /\.(js|css|json)$/.test(url.pathname)) {
+    e.respondWith(fetch(req, { cache: 'no-cache' }).then((res) => {   // no-cache : le navigateur revérifie auprès du serveur (rapide si rien n'a changé)
+      if (res && res.ok) { const copy = res.clone(); caches.open(VERSION).then((c) => c.put(req, copy)); }
+      return res;
+    }).catch(() => caches.match(req, { ignoreSearch: true })));
+    return;
+  }
+  // Images, autocollants et polices : cache d'abord, mise à jour en arrière-plan
   e.respondWith(caches.match(req).then((cached) => {
     const net = fetch(req).then((res) => {
       if (res && (res.ok || res.type === 'opaque')) { const copy = res.clone(); caches.open(VERSION).then((c) => c.put(req, copy)); }

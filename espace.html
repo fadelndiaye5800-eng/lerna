@@ -610,16 +610,7 @@ Lerna.addStrings({
   function deleteAccount() {
     Lerna.modal('<div class="modal-head"><h3>' + t('sp.delTitle') + '</h3><button class="modal-close" data-close aria-label="' + t('common.close') + '">' + Lerna.icon('x') + '</button></div><p>' + t('sp.delText') + '</p>' +
       '<div class="row" style="margin-top:22px"><button type="button" class="btn btn-ghost" data-close>' + t('common.cancel') + '</button><button type="button" class="btn btn-brown" id="delYes">' + t('sp.delConfirm') + '</button></div>', function (m) {
-      m.querySelector('#delYes').addEventListener('click', function () {
-        var p;
-        if (Lerna.auth.mode === 'supabase') p = Lerna.api('/api/account', { action: 'delete' }).then(function (r) { if (!r.ok) throw new Error('delete'); return Lerna.auth.signOut(); });
-        else {
-          var acc = store.get('lerna_demo_accounts', {}); delete acc[user.email]; store.set('lerna_demo_accounts', acc);
-          p = Lerna.auth.signOut();
-        }
-        p.then(function () { wipeLocal(); Lerna.toast(t('sp.deleted')); setTimeout(function () { location.href = 'index.html'; }, 900); })
-          .catch(function () { Lerna.toast(t('common.error')); });
-      });
+      m.querySelector('#delYes').addEventListener('click', function () { Lerna.account.remove(this, t('sp.deleted')); });
     });
   }
   /* Synchronisation : un compte fraîchement créé récupère les résultats faits avant inscription */

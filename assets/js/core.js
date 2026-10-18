@@ -727,7 +727,7 @@
     send: function (item, keep) {
       var c = Lerna.config;
       if (Auth.mode !== 'supabase' || !c.supabaseUrl || !c.supabaseAnonKey) return;
-      if (Auth.user && Auth.user.role === 'admin') return;
+      if (Auth.user && Auth.user.role === 'admin' && item.p_ev.indexOf('err:') !== 0) return;   // les erreurs du propriétaire sont gardées aussi
       var go = function (tok) {
         try {
           fetch(c.supabaseUrl + '/rest/v1/rpc/lerna_log', { method: 'POST', keepalive: !!keep,
@@ -753,6 +753,22 @@
   /* ------------------------------------------------------------------ */
   /* Appels API (jeton Supabase joint automatiquement)                    */
   /* ------------------------------------------------------------------ */
+  /* Erreurs gardées pour le propriétaire (table events, sans données personnelles) :
+     appels au serveur refusés et plantages du code, avec le type d'appareil, pour corriger vite. */
+  var errCount = 0;
+  function logErr(ev, meta) {
+    if (errCount++ > 8) return;
+    try { meta.mob = /Mobi|iPhone|iPad|Android/i.test(navigator.userAgent) ? 1 : 0; meta.pwa = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone ? 1 : 0; } catch (e) {}
+    try { Stats.log(ev, meta); } catch (e) {}
+  }
+  window.addEventListener('error', function (e) {
+    if (!e || !e.message) return;
+    logErr('err:js', { m: String(e.message).slice(0, 140), f: String(e.filename || '').split('/').pop().slice(0, 40), l: e.lineno || 0 });
+  });
+  window.addEventListener('unhandledrejection', function (e) {
+    var r = e && e.reason;
+    logErr('err:js', { m: String((r && (r.message || r.code)) || r || 'promesse').slice(0, 140), f: 'promise' });
+  });
   Lerna.api = function (path, body, opts) {
     opts = opts || {};
     return Auth.token().then(function (tok) {
@@ -765,10 +781,11 @@
           clearTimeout(timer);
           return r.text().then(function (txt) {
             var data = null; try { data = JSON.parse(txt); } catch (e) {}
+            if (!r.ok) logErr('err:api', { p: String(path).slice(0, 40), s: r.status, e: String((data && data.error) || '').slice(0, 40), a: String((body && body.action) || '').slice(0, 20) });
             return { ok: r.ok && data !== null, status: r.status, data: data };
           });
         })
-        .catch(function () { clearTimeout(timer); return { ok: false, status: 0, data: null }; });
+        .catch(function () { clearTimeout(timer); logErr('err:api', { p: String(path).slice(0, 40), s: 0, a: String((body && body.action) || '').slice(0, 20) }); return { ok: false, status: 0, data: null }; });
     });
   };
 
@@ -1023,12 +1040,22 @@
       renderChrome();
       return Promise.resolve();
     },
+    /* Déconnexion garantie, même sur téléphone avec un réseau faible : on prévient le serveur,
+       mais on n'attend jamais plus de 2,5 s, et on efface quoi qu'il arrive la session gardée sur l'appareil
+       (sinon elle revenait au prochain chargement et la personne restait connectée). */
     signOut: function () {
-      var p = Auth.mode === 'supabase' ? Auth.sb.auth.signOut() : Promise.resolve();
-      return p.then(function () {
-        store.del('lerna_user'); store.del('lerna_user_cache');
+      var done = function () {
+        try {
+          Object.keys(localStorage).forEach(function (k) { if (/^sb-.+-auth-token(-code-verifier)?$/.test(k)) localStorage.removeItem(k); });
+        } catch (e) {}
+        store.del('lerna_user'); store.del('lerna_user_cache'); store.del('lerna_pay');
         Auth.user = null; renderChrome(); Lerna.emit('lerna:auth', null);
-      });
+        try { A.reset(); } catch (e) {}
+      };
+      if (Auth.mode !== 'supabase' || !Auth.sb) { done(); return Promise.resolve(); }
+      var net = Promise.resolve().then(function () { return Auth.sb.auth.signOut({ scope: 'local' }); }).catch(function () {});
+      var wait = new Promise(function (r) { setTimeout(r, 2500); });
+      return Promise.race([net, wait]).then(done, done);
     }
   };
   Auth.ready = new Promise(function (resolve) {
@@ -1037,6 +1064,13 @@
   });
   /* Utilisateur connu avant la fin de l'init (évite le flash du bouton "Connexion") */
   Auth.user = store.get('lerna_user_cache', null) || store.get('lerna_user', null);
+  /* Page rouverte avec le bouton Retour (iPhone, Android) : si on s'est déconnecté ou connecté
+     entre-temps, la page gardée en mémoire est périmée → on la recharge */
+  window.addEventListener('pageshow', function (e) {
+    if (!e.persisted) return;
+    var now = store.get('lerna_user_cache', null) || store.get('lerna_user', null);
+    if ((now && now.id) !== (Auth.user && Auth.user.id)) location.reload();
+  });
 
   Lerna.isLogged = function () { return !!Auth.user; };
   Lerna.isPremium = function () {
@@ -1089,8 +1123,10 @@
     Lerna.emit('lerna:pending', a);
   }
   Lerna.addStrings({
-    fr: { 'acc.needed': 'Crée ton compte gratuit (ou connecte-toi) pour garder ça.', 'acc.doneSave': 'C’est fait : l’offre est sauvegardée dans ton compte.', 'acc.doneDossier': 'Ton dossier est créé.' },
-    en: { 'acc.needed': 'Create your free account (or log in) to keep this.', 'acc.doneSave': 'Done: the offer is saved to your account.', 'acc.doneDossier': 'Your application is created.' }
+    fr: { 'acc.needed': 'Crée ton compte gratuit (ou connecte-toi) pour garder ça.', 'acc.doneSave': 'C’est fait : l’offre est sauvegardée dans ton compte.', 'acc.doneDossier': 'Ton dossier est créé.',
+      'acc.delRelog': 'Ta session a expiré. Reconnecte-toi, puis supprime ton compte à nouveau.', 'acc.delNet': 'Pas de connexion internet : ton compte n’a pas été supprimé. Réessaie quand tu as du réseau.', 'acc.delWait': 'Suppression en cours…' },
+    en: { 'acc.needed': 'Create your free account (or log in) to keep this.', 'acc.doneSave': 'Done: the offer is saved to your account.', 'acc.doneDossier': 'Your application is created.',
+      'acc.delRelog': 'Your session has expired. Log in again, then delete your account.', 'acc.delNet': 'No internet connection: your account was not deleted. Try again when you are online.', 'acc.delWait': 'Deleting…' }
   });
 
   Lerna.favs = {
@@ -1426,7 +1462,13 @@
     if (e.target.closest('[data-theme-toggle]')) { Prefs.set('theme', Prefs.theme() === 'dark' ? 'light' : 'dark'); renderMenu(); return; }
     if ((el = e.target.closest('[data-sound-toggle]'))) { Sound.toggle(); renderMenu(); return; }
     if (e.target.closest('.mn a[href]')) { openMenu(false); }
-    if (e.target.closest('[data-logout]')) { Auth.signOut().then(function () { Lerna.go('index.html'); }); return; }
+    if ((el = e.target.closest('[data-logout]'))) {
+      if (el.disabled) return;
+      el.disabled = true; openMenu(false);
+      /* « replace » : le bouton Retour ne ramène pas sur une page de l'ancien compte */
+      Auth.signOut().then(function () { Lerna.go('index.html', true); });
+      return;
+    }
   });
   doc.addEventListener('keydown', function (e) { if (e.key === 'Escape') openMenu(false); });
   window.addEventListener('resize', Lerna.debounce(function () {
@@ -1936,6 +1978,32 @@
   var LOCAL_KEYS = ['lerna_profile', 'lerna_results', 'lerna_history', 'lerna_favoris', 'lerna_opp_favs', 'lerna_chat', 'lerna_tracker', 'lerna_reminders', 'lerna_reviews',
     'lerna_visits', 'lerna_xp', 'lerna_badges', 'lerna_dossiers', 'lerna_cv', 'lerna_prefs'];
   Lerna.account = {
+    /* Suppression du compte, la même partout (Paramètres, Mon espace) :
+       un seul envoi même si on appuie deux fois, message clair en cas d'échec,
+       et l'appareil est vidé puis on part sur l'accueil sans pouvoir revenir en arrière. */
+    remove: function (btn, doneText) {
+      if (btn && btn.disabled) return Promise.resolve();
+      var label = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = Lerna.t('acc.delWait'); }
+      var p;
+      if (Auth.mode === 'supabase') {
+        p = Lerna.api('/api/account', { action: 'delete' }, { timeout: 30000 }).then(function (r) {
+          if (r.ok) return;
+          var e = new Error('delete'); e.code = r.status === 401 ? 'relog' : r.status === 0 ? 'net' : 'server'; throw e;
+        });
+      } else {
+        p = Promise.resolve().then(function () { var acc = store.get('lerna_demo_accounts', {}); if (Auth.user) delete acc[Auth.user.email]; store.set('lerna_demo_accounts', acc); });
+      }
+      return p.then(function () { return Auth.signOut(); }).then(function () {
+        Lerna.account.wipeLocal();
+        Lerna.toast(doneText || '', 2500);
+        setTimeout(function () { Lerna.go('index.html', true); }, 900);
+      }, function (e) {
+        if (btn) { btn.disabled = false; btn.textContent = label; }
+        if (e && e.code === 'relog') { Lerna.toast(Lerna.t('acc.delRelog'), 4500); Auth.signOut().then(function () { setTimeout(function () { Lerna.go('auth.html?mode=login&redirect=parametres.html', true); }, 1500); }); return; }
+        Lerna.toast(Lerna.t(e && e.code === 'net' ? 'acc.delNet' : 'common.error'), 4500);
+      });
+    },
     exportData: function () {
       var u = Auth.user || {};
       var data = { exported: new Date().toISOString(), user: u.email ? { email: u.email, prenom: u.prenom, nom: u.nom, pseudo: u.pseudo || null, pays: u.pays, niveau: u.niveau, bio: u.bio } : null };
