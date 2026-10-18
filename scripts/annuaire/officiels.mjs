@@ -22,8 +22,22 @@ export const OFFICIELS = [
     autorite: { fr: 'Ministère de l’Enseignement supérieur (MINESUP) du Cameroun', en: 'Cameroon Ministry of Higher Education (MINESUP)' },
     titre: { fr: 'Liste des institutions privées d’enseignement supérieur autorisées', en: 'List of authorised private higher-education institutions' },
     url: 'https://www.minesup.gov.cm/DDES/Liste%20IPES%20par%20ordre%20alphab%C3%A9tique.pdf', type: 'pdf-num', statut: 'prive',
-    region: /^R[ée]gion d[eu’' ]+(.+)$/i
-  }
+    region: /^R[ée]gion d[eu](?:\s+l[’'])?\s*(.+)$/i
+  },
+  {
+    cc: 'AE', id: 'ae-caa',
+    autorite: { fr: 'Commission for Academic Accreditation (CAA), ministère de l’Enseignement supérieur des Émirats arabes unis', en: 'Commission for Academic Accreditation (CAA), UAE Ministry of Higher Education' },
+    titre: { fr: 'Établissements d’enseignement supérieur licenciés (statut actif)', en: 'Licensed higher-education institutions (active status)' },
+    url: 'https://caa.ae/Pages/Institutes/All.aspx', type: 'table',
+    cols: { n: 0, a: 1, r: 2, w: 3 }, keep: { col: 4, re: /^A$/ }
+  },
+  ...[['federal-univeristies', 'public', 'fédérales', 'Federal'], ['state-univerisity', 'public', 'des États fédérés', 'State'], ['private-univeristies', 'prive', 'privées', 'Private']].map(([slug, statut, fr, en]) => ({
+    cc: 'NG', id: 'ng-nuc-' + statut + '-' + slug.split('-')[0],
+    autorite: { fr: 'National Universities Commission (NUC) du Nigeria', en: 'National Universities Commission (NUC), Nigeria' },
+    titre: { fr: 'Liste des universités ' + fr + ' approuvées', en: 'List of approved ' + en + ' universities' },
+    url: 'https://www.nuc.edu.ng/nigerian-univerisities/' + slug + '/', type: 'table', statut,
+    cols: { n: 1, w: 3, y: 4 }, cityFromName: true
+  }))
 ];
 
 const UA = { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 LERNA-annuaire', 'Accept-Language': 'fr,en;q=0.8' };
@@ -39,11 +53,20 @@ async function fetchBuf(url) {
 async function readTable(src) {
   const $ = cheerio.load((await fetchBuf(src.url)).toString('utf8'));
   const rows = [];
+  const C = src.cols;
   $(src.selector || 'table tr').each((i, tr) => {
-    const c = $(tr).find('td').map((j, td) => clean($(td).text())).get();
-    if (c.length <= src.cols.n) return;
-    const n = c[src.cols.n]; if (!n || n.length < 3) return;
-    rows.push({ n: title(n), v: src.cols.v != null ? title(c[src.cols.v]) : '', r: src.cols.r != null ? title(c[src.cols.r]) : '', f: src.cols.f != null ? clean(c[src.cols.f], 80) : '' });
+    const tds = $(tr).find('td');
+    const c = tds.map((j, td) => clean($(td).text())).get();
+    if (c.length <= C.n) return;
+    if (src.keep && !src.keep.re.test(c[src.keep.col] || '')) return;
+    let n = c[C.n]; if (!n || n.length < 3 || /^(s\/n|name|nom)$/i.test(n)) return;
+    let v = C.v != null ? title(c[C.v]) : '';
+    /* « Université X, Ville » : la ville est après la dernière virgule */
+    if (src.cityFromName && !v) { const m = /^(.*\S),\s*([A-Za-zÀ-ÿ' .-]{3,30})$/.exec(n); if (m) { v = m[2]; } }
+    let w = '';
+    if (C.w != null) { const cell = tds.eq(C.w); w = cell.find('a[href]').attr('href') || c[C.w] || ''; w = /^https?:\/\//i.test(w) ? w : /^www\./i.test(w) ? 'https://' + w : ''; }
+    const y = C.y != null && /^\d{4}$/.test(c[C.y] || '') ? c[C.y] : '';
+    rows.push({ n: title(n), a: C.a != null ? clean(c[C.a]) : '', v, r: C.r != null ? title(c[C.r]) : '', f: C.f != null ? clean(c[C.f], 80) : '', w, y });
   });
   return rows;
 }
@@ -79,8 +102,8 @@ export async function readOfficiels(log = console.log) {
       for (const r of rows) {
         const key = r.n.toLowerCase();
         if (seen.has(key)) continue; seen.add(key);
-        out.push({ i: 'officiel:' + src.id + ':' + seen.size, s: 'officiel', p: src.cc, n: r.n, v: r.v || '', r: r.r || '', t: src.statut || '',
-          x: { l: src.id, f: r.f && !/^0$/.test(r.f) ? r.f : undefined } });
+        out.push({ i: 'officiel:' + src.id + ':' + seen.size, s: 'officiel', p: src.cc, n: r.n, a: r.a || '', v: r.v || '', r: r.r || '', w: r.w || '', t: src.statut || '',
+          x: { l: src.id, f: r.f && !/^0$/.test(r.f) ? r.f : undefined, y: r.y || undefined } });
       }
       report[src.id] = seen.size; log('officiel', src.id, seen.size);
     } catch (e) { report[src.id] = 'erreur : ' + String(e.message || e).slice(0, 120); log('officiel ÉCHEC', src.id, e.message); }

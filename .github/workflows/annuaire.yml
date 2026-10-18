@@ -7,7 +7,7 @@ on:
     - cron: '17 3 2 * *'        # le 2 de chaque mois à 3 h 17 UTC
   push:
     branches: [main]
-    paths: ['scripts/annuaire/**', '.github/workflows/annuaire.yml']
+    paths: ['scripts/annuaire/build.mjs', '.github/workflows/annuaire.yml']
 permissions:
   contents: write
 concurrency:

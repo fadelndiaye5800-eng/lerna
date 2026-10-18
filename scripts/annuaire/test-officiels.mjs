@@ -11,6 +11,6 @@ for (const [k, v] of Object.entries(by)) {
   if (only.length && !only.includes(k)) continue;
   lines.push('== ' + k + ' : ' + v.length);
   const pick = v.length > 14 ? v.slice(0, 8).concat(v.slice(Math.floor(v.length / 2), Math.floor(v.length / 2) + 3), v.slice(-3)) : v;
-  pick.forEach((r) => lines.push('  ' + [r.n, r.v, r.r, r.x.f].filter(Boolean).join(' | ')));
+  pick.forEach((r) => lines.push('  ' + [r.n, r.a, r.v, r.r, r.w, r.x.f, r.x.y].filter(Boolean).join(' | ')));
 }
 fs.writeFileSync('scripts/annuaire/rapport-test.txt', new Date().toISOString() + '\n' + lines.join('\n') + '\n');
