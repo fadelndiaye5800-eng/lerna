@@ -1,42 +1,43 @@
-2026-10-18T23:11:51.972Z
+2026-10-18T23:13:17.450Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
 officiel ng-nuc-public-federal 77
 officiel ng-nuc-public-state 69
 officiel ng-nuc-prive-private 182
-officiel ug-nche 166
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":166}
+officiel ug-nche 153
+officiel rw-hec 21
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21}
 == ci-mesrs-prives : 618
-  Abidjan Bloom University (ABU) | Abidjan | Cocody | 90.000 F
-  Abidjan Business School -(ABS) | Abidjan | Cocody | 85000
-  Academie de Gestion et D'Hotellerie -(AGH) | Abidjan | Cocody | (affectés et non affectés) : 120.000f
-  Academie de L'Entrepreneuriat et des Metiers (AEM) Yopougon | Abidjan | Yopougon
-  Academie des Sciences Technologiques et Comptables -(ASTC PLATEAU) | Abidjan | Plateau | 85000
-  Academie des Sciences Technologiques et Comptables Cocody -(ASTC COCODY) | Abidjan | Cocody | 85000
-  Academie Elites | Abidjan | Yopougon | 85 000 F
-  Academie Ficoges Cocody | Abidjan | Cocody | 100 000 FCFA
-  Ihett | Abidjan | Yopougon | 45 000 F CFA
-  Ihpt Treichville | Abidjan | Plateau | 150000
-  Imba International Business School -(IMBA) | Bingerville | Bingerville | 85 000 F
-  Universite Polytechnique Moderne Mona (UPM MONA) | Abidjan | Cocody | 75 000F CFA
-  Université Internationale des Sciences Appliquées et de Technologies - UNISAT (BTS) | Abidjan | Cocody | 200 000 FCFA
-  Veraces Richter College (VRC) | Abidjan | Cocody
+  Abidjan Bloom University (ABU) | Abidjan | Cocody | prive | 90.000 F
+  Abidjan Business School -(ABS) | Abidjan | Cocody | prive | 85000
+  Academie de Gestion et D'Hotellerie -(AGH) | Abidjan | Cocody | prive | (affectés et non affectés) : 120.000f
+  Academie de L'Entrepreneuriat et des Metiers (AEM) Yopougon | Abidjan | Yopougon | prive
+  Academie des Sciences Technologiques et Comptables -(ASTC PLATEAU) | Abidjan | Plateau | prive | 85000
+  Academie des Sciences Technologiques et Comptables Cocody -(ASTC COCODY) | Abidjan | Cocody | prive | 85000
+  Academie Elites | Abidjan | Yopougon | prive | 85 000 F
+  Academie Ficoges Cocody | Abidjan | Cocody | prive | 100 000 FCFA
+  Ihett | Abidjan | Yopougon | prive | 45 000 F CFA
+  Ihpt Treichville | Abidjan | Plateau | prive | 150000
+  Imba International Business School -(IMBA) | Bingerville | Bingerville | prive | 85 000 F
+  Universite Polytechnique Moderne Mona (UPM MONA) | Abidjan | Cocody | prive | 75 000F CFA
+  Université Internationale des Sciences Appliquées et de Technologies - UNISAT (BTS) | Abidjan | Cocody | prive | 200 000 FCFA
+  Veraces Richter College (VRC) | Abidjan | Cocody | prive
 == cm-minesup-ipes : 234
-  Institut Supérieur des Sciences, de Technologie, de Management et Développement Durable (ISSTMADD) | Adamaoua
-  Sanda Institut Supérieur de Management (SISMA) | Adamaoua
-  Centre International des Etudes Polytechniques d’Obala | Centre
-  Citec Higher Institute of Technology and Management (ICTU) | Centre
-  Ecole Sup Prépa | Centre
-  Ecole Supérieure de Commerce et de Gestion des Entreprises (SUP DE CO) | Centre
-  Ecole Supérieure de Commerce et de Gestion de Yaoundé (ESCGY) | Centre
-  Ecole Supérieure des Sciences de la Finance, de l’Assurance et des Risques de Yaoundé (ESSFAR) | Centre
-  Institut Supérieur de Technologie et de Management (ISTM) | Littoral
-  Institut Supérieur de Technologies Appliquées (INSTAP) | Littoral
-  Institut Supérieur de Transport, de Tourisme, des Affaires et de Management (ISTTAM) | Littoral
-  ST Joan of Arc Higher Institute of Medical and Management Sciences | Sud-ouest
-  Swisslink Higher Institute of Business and Technology (SHIBAT) | Sud-ouest
-  TRUSTECH Higher Institute of Technology and Professional Management | Sud-ouest
+  Institut Supérieur des Sciences, de Technologie, de Management et Développement Durable (ISSTMADD) | Adamaoua | prive
+  Sanda Institut Supérieur de Management (SISMA) | Adamaoua | prive
+  Centre International des Etudes Polytechniques d’Obala | Centre | prive
+  Citec Higher Institute of Technology and Management (ICTU) | Centre | prive
+  Ecole Sup Prépa | Centre | prive
+  Ecole Supérieure de Commerce et de Gestion des Entreprises (SUP DE CO) | Centre | prive
+  Ecole Supérieure de Commerce et de Gestion de Yaoundé (ESCGY) | Centre | prive
+  Ecole Supérieure des Sciences de la Finance, de l’Assurance et des Risques de Yaoundé (ESSFAR) | Centre | prive
+  Institut Supérieur de Technologie et de Management (ISTM) | Littoral | prive
+  Institut Supérieur de Technologies Appliquées (INSTAP) | Littoral | prive
+  Institut Supérieur de Transport, de Tourisme, des Affaires et de Management (ISTTAM) | Littoral | prive
+  ST Joan of Arc Higher Institute of Medical and Management Sciences | Sud-ouest | prive
+  Swisslink Higher Institute of Business and Technology (SHIBAT) | Sud-ouest | prive
+  TRUSTECH Higher Institute of Technology and Professional Management | Sud-ouest | prive
 == ae-caa : 103
   Abu Dhabi Hospitality Academy – les Roches | Les Roches - أكاديمية أبوظبي للضيافة | Abu Dhabi | https://lesroches.edu/campuses/abu-dhabi/
   Abu Dhabi Polytechnic | بوليتيكنيك أبوظبي | Abu Dhabi | https://adpoly.ac.ae/
@@ -53,51 +54,51 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Zayed Ii Military College | كلية زايد الثاني العسكرية | Abu Dhabi | http://www.zmc.mil.ae
   Zayed University | جامعة زايد | Dubai, Abu Dhabi | http://www.zu.ac.ae
 == ng-nuc-public-federal : 77
-  Abubakar Tafawa Balewa University, Bauchi | Bauchi | https://www.atbu.edu.ng | 1988
-  Ahmadu Bello University, Zaria | Zaria | https://www.abu.edu.ng | 1962
-  Bayero University, Kano | Kano | https://www.buk.edu.ng | 1975
-  Federal University Gashua, Yobe | Yobe | https://www.fugashua.edu.ng | 2013
-  Federal University of Petroleum Resources, Effurun | Effurun | https://www.fupre.edu.ng | 2007
-  Federal University of Technology, Akure | Akure | https://www.futa.edu.ng | 1981
-  Federal University of Technology, Minna | Minna | https://www.futminna.edu.ng | 1982
-  Federal University of Technology, Owerri | Owerri | https://www.futo.edu.ng | 1980
-  University of Uyo | https://www.uniuyo.edu.ng | 1991
-  Usumanu Danfodiyo University | https://www.udusok.edu.ng | 1975
-  Nigerian Maritime University Okerenkoko, Delta State | Delta State | https://www.nmu.edu.ng | 2018
-  Federal University of Agriculture and Technology Obio-Akpa Akwa Ibom State | 2025
-  Federal University of Science and Technology, Epe | Epe | 2025
-  Federal University of Science and Technology, Kabo, Kano | Kano | https://fustkabo.edu.ng/ | 2025
+  Abubakar Tafawa Balewa University, Bauchi | Bauchi | public | https://www.atbu.edu.ng | 1988
+  Ahmadu Bello University, Zaria | Zaria | public | https://www.abu.edu.ng | 1962
+  Bayero University, Kano | Kano | public | https://www.buk.edu.ng | 1975
+  Federal University Gashua, Yobe | Yobe | public | https://www.fugashua.edu.ng | 2013
+  Federal University of Petroleum Resources, Effurun | Effurun | public | https://www.fupre.edu.ng | 2007
+  Federal University of Technology, Akure | Akure | public | https://www.futa.edu.ng | 1981
+  Federal University of Technology, Minna | Minna | public | https://www.futminna.edu.ng | 1982
+  Federal University of Technology, Owerri | Owerri | public | https://www.futo.edu.ng | 1980
+  University of Uyo | public | https://www.uniuyo.edu.ng | 1991
+  Usumanu Danfodiyo University | public | https://www.udusok.edu.ng | 1975
+  Nigerian Maritime University Okerenkoko, Delta State | Delta State | public | https://www.nmu.edu.ng | 2018
+  Federal University of Agriculture and Technology Obio-Akpa Akwa Ibom State | public | 2025
+  Federal University of Science and Technology, Epe | Epe | public | 2025
+  Federal University of Science and Technology, Kabo, Kano | Kano | public | https://fustkabo.edu.ng/ | 2025
 == ng-nuc-public-state : 69
-  Rivers State University | https://www.rsu.edu.ng | 1979
-  Ambrose Alli University, Ekpoma | Ekpoma | https://www.aauekpoma.edu.ng | 1980
-  Abia State University, Uturu | Uturu | https://www.abiastateuniversity.edu.ng | 1981
-  Ekiti State University | https://www.eksu.edu.ng | 1982
-  Enugu State University of Science and Technology, Enugu | Enugu | https://www.esut.edu.ng | 1982
-  Olabisi Onabanjo University, Ago Iwoye | Ago Iwoye | https://www.oouagoiwoye.edu.ng | 1982
-  Lagos State University, Ojo | Ojo | https://www.lasu.edu.ng | 1983
-  Ladoke Akintola University of Technology, Ogbomoso | Ogbomoso | https://www.lautech.edu.ng | 1990
-  Bauchi State University, Gadau | Gadau | https://www.basug.edu.ng | 2011
-  Northwest University Kano | https://www.nwu.edu.ng | 2012
-  First Technical University Ibadan | https://tech-u.edu.ng/ | 2012
-  University of Innovation, Science and Technology, Omuma, Imo State | Imo State | 2025
-  Taraba State University of Tropical Agriculture, Science, Technology and Climate Action, Gembu | Gembu | 2026
-  Jigawa State University of Medical and Allied Health Sciences, Majia | Majia | 2026
+  Rivers State University | public | https://www.rsu.edu.ng | 1979
+  Ambrose Alli University, Ekpoma | Ekpoma | public | https://www.aauekpoma.edu.ng | 1980
+  Abia State University, Uturu | Uturu | public | https://www.abiastateuniversity.edu.ng | 1981
+  Ekiti State University | public | https://www.eksu.edu.ng | 1982
+  Enugu State University of Science and Technology, Enugu | Enugu | public | https://www.esut.edu.ng | 1982
+  Olabisi Onabanjo University, Ago Iwoye | Ago Iwoye | public | https://www.oouagoiwoye.edu.ng | 1982
+  Lagos State University, Ojo | Ojo | public | https://www.lasu.edu.ng | 1983
+  Ladoke Akintola University of Technology, Ogbomoso | Ogbomoso | public | https://www.lautech.edu.ng | 1990
+  Bauchi State University, Gadau | Gadau | public | https://www.basug.edu.ng | 2011
+  Northwest University Kano | public | https://www.nwu.edu.ng | 2012
+  First Technical University Ibadan | public | https://tech-u.edu.ng/ | 2012
+  University of Innovation, Science and Technology, Omuma, Imo State | Imo State | public | 2025
+  Taraba State University of Tropical Agriculture, Science, Technology and Climate Action, Gembu | Gembu | public | 2026
+  Jigawa State University of Medical and Allied Health Sciences, Majia | Majia | public | 2026
 == ng-nuc-prive-private : 182
-  Babcock University,Ilishan-Remo | Ilishan-Remo | https://www.babcock.edu.ng | 1999
-  Igbinedion University Okada | https://www.iuokada.edu.ng | 1999
-  Madonna University, Okija | Okija | https://www.madonnauniversity.edu.ng | 1999
-  Bowen University, Iwo | Iwo | https://www.bowen.edu.ng | 2001
-  Benson Idahosa University, Benin City | Benin City | https://www.biu.edu.ng/ | 2002
-  Covenant University Ota | https://www.covenantuniversity.edu.ng/ | 2002
-  Pan-Atlantic University, Lagos | Lagos | https://www.pau.edu.ng | 2002
-  American University of Nigeria, Yola | Yola | https://www.aun.edu.ng | 2003
-  University of Offa, Kwara State | Kwara State | 2021
-  Mewar International University, Masaka, Nasarawa State | Nasarawa State | https://www.miu.edu.ng/ | 2021
-  Edusoko University, Bida, Niger State | Niger State | 2021
-  Ummah University of Nigeria, Abuja | Abuja | 2026
-  Pearl University, Calabar, Cross river | Cross river | 2026
-  Omega University Kaduna | 2026
-== ug-nche : 166
+  Babcock University,Ilishan-Remo | Ilishan-Remo | prive | https://www.babcock.edu.ng | 1999
+  Igbinedion University Okada | prive | https://www.iuokada.edu.ng | 1999
+  Madonna University, Okija | Okija | prive | https://www.madonnauniversity.edu.ng | 1999
+  Bowen University, Iwo | Iwo | prive | https://www.bowen.edu.ng | 2001
+  Benson Idahosa University, Benin City | Benin City | prive | https://www.biu.edu.ng/ | 2002
+  Covenant University Ota | prive | https://www.covenantuniversity.edu.ng/ | 2002
+  Pan-Atlantic University, Lagos | Lagos | prive | https://www.pau.edu.ng | 2002
+  American University of Nigeria, Yola | Yola | prive | https://www.aun.edu.ng | 2003
+  University of Offa, Kwara State | Kwara State | prive | 2021
+  Mewar International University, Masaka, Nasarawa State | Nasarawa State | prive | https://www.miu.edu.ng/ | 2021
+  Edusoko University, Bida, Niger State | Niger State | prive | 2021
+  Ummah University of Nigeria, Abuja | Abuja | prive | 2026
+  Pearl University, Calabar, Cross river | Cross river | prive | 2026
+  Omega University Kaduna | prive | 2026
+== ug-nche : 153
   Africa Institute of Music | Kampala | Provisional License to Operate as Other Degree Awarding Institution
   Africa Reformation Theological Seminary | Wakiso | Provisional License to Operate as Other Degree Awarding Institution
   Africa Renewal University | Wakiso | Chartered University
@@ -106,65 +107,95 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   African Bible University | Wakiso | Chartered University
   African College of Commerce and Technology | Kabale | Certificate of Classification and Registration
   African International Christian Ministry College of Science and Technology | Kabale | Certificate of Classification and Registration
-  Mountains of the Moon University | Fort Portal | University - Registered
-  Mulago School of Nursing and Midwifery | Kampala | Public OTI
-  Multitech Business School | Kampala | Provisional License to Operate as Other Degree Awarding Institution
-  Metropolitan International University-Mbarara Campus | 2022-10-17 | Campuses
-  Uganda Martyrs University- Fort Portal Campus | 2016-06-27 | Campuses
-  Uganda Pentecostal University, Kampala | 2025-11-03 | Campuses
-##### https://www.hec.gov.rw/accredited-institutions
-ST 200 text/html; charset=utf-8 19460 https://www.hec.gov.rw/accredited-institutions
-TITLE Accredited Institutions | TABLES 0 TR 0 LI 25
-  FILES 2
-   /fileadmin/user_upload/HEC/Accreditation/Accademic_Programs_Offered_By_Private_Institutions_Accredited_In_Rwanda_2025.pdf
-   /fileadmin/user_upload/HEC/Accreditation/Heads_of_HLIs_operating_in_Rwanda_2025.pdf
-  T About HEC
-  T Accreditation
-  T Services
-  T Updates
-  T Publications
-  T English
-  T English
-  T HEC MIS
-  T Accreditation
-  T Accreditation Process
-  T Accredited Institutions
-  T Accredited Institutions
-  T Public Institutions
-  T University of Rwanda
-  T Institute of Legal Practice And Development
-  T Rwanda Polytechnic
-  T African Biomanufacturing Institute
-  T Private Institutions
-  T Academic Programs Offered by the Private Higher Learning Institutions in Rwanda
-  T Contacts
-  T Contact List for all Institutions
-  T Useful Links
-  T Staff Mail
-  T Smart Admin
-  T Equivalence
-  T HEC MIS
-  T Scholarships
-  T Accredited Institutions
-  T Policies
-  T Guidelines
-  T Reports
-  T Forms
-  T Education Statistics
-  T Contact Us
-  T 0786823101
-  T info@hec.gov.rw
-  T Ministry of Education Building (First floor)
-  T P.O Box: 6311 Kigali - Rwanda
-  T © 2026 Higher Education Council
-##### https://www.osym.gov.tr/TR,4699/universities.html
-ST 404 text/html 20877 https://www.osym.gov.tr/TR,4699/universities.html
-TITLE  | TABLES 0 TR 0 LI 2
-  FILES 0
-  T T.C. ÖLÇME, SEÇME VE YERLEŞTİRME MERKEZİ BAŞKANLIĞI
-  T https://ais.osym.gov.tr
-  T https://gis.osym.gov.tr
-  T https://sanalpos.osym.gov.tr
-  T https://sonuc.osym.gov.tr
-##### https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/prepare/designated-learning-institutions-list.html
-ERR This operation was aborted
+  Makerere University Business School | Kampala | Public OTI
+  Management Training and Advisory Centre (MTAC) | Kampala | OTI – Registered
+  Masaba College of Management and Professional Studies | Mbale | Provisional License to Operate as Other Tertiary Institution
+  Westminister Christian Institute | Kampala | Provisional License to Operate as Other Degree Awarding Institution
+  YMCA Comprehensive Institute | Kampala | Charter to Other Degree Awarding Institution
+  YWCA Vocational Training Institute | Kampala | Provisional License to Operate as Other Tertiary Institution
+== rw-hec : 21
+  University of Rwanda (UR) | public
+  Rwanda Polytechnic (RP) | public
+  Institute of Legal Practice and Development (ILPD) | public
+  Independent University of Kigali (ULK) | prive
+  Institute of Lay Adventists of Kigali (INILAK) | prive
+  Catholic University of Rwanda (CUR) | prive
+  Institut Catholique de Kabgayi (ICK) | prive
+  Institut Polytechnique de Byumba (IPB) | prive
+  Kibogora Polytechnic (KP) | prive
+  Carnegie Mellon University Africa (CMUA) | prive
+  University of Kigali (UoK) | prive
+  East African Christian College (EACC) | prive
+  Africa Health Sciences University (AFU) | prive
+  African School of Governance (ASG) | prive
+##### https://tcu.go.tz/sites/default/files/public_notices/2026-07/LIST%20OF%20UNIVERSITY%20INSTITUTIONS%20IN%20TANZANIA%20AS%20OF%2011%20AUGUST_2026.pdf
+ST 200 application/pdf 336588 https://tcu.go.tz/sites/default/files/public_notices/2026-07/LIST%20OF%20UNIVERSITY%20INSTITUTIONS%20IN%20TANZANIA%20AS%20OF%2011%20AUGUST_2026.pdf
+PDF pages 6
+  Universities for Prosperity 1 August 2026
+  TANZANIA COMMISSION FOR UNIVERSITIES
+  Universities for Prosperity
+  TCU Headquarters Office Building
+  2 TCU Street, 41220 Nzuguni,
+  P. O. Box 2600, Dodoma
+  TCU Offices - Dar es Salaam
+  Ministry of Education, Science and Technology Building, 7 Magogoni Street 11479,
+  P. O. Box 6562, Dar es Salaam
+  Tel: +255 (0) 26 2161560; +255 (0) 26 2161561
+  Email: es@tcu.go.tz
+  Website: www.tcu.go.tz
+  University Institutions Approved to operate in
+  Tanzania as of August 11, 2026
+  The Tanzania Commission for Universities (TCU) was established on July 1, 2005 through the
+  enactment of the Universities Act, Cap. 346 R.E 2023, with the legal mandate to regulate both
+  private and public-owned university institutions in Tanzania.
+  As of August 2026, the number of approved university institutions operating in Tanzania is 56,
+  whereas 24 are public-owned and 32 are private-owned university institutions.
+  The public is hereby notified that any university institution which does not appear in this list is
+  NOT authorised to offer university education in Tanzania in line with the Universities Act, Cap.
+  346.
+  2
+  Universities for Prosperity August 2026
+  1.0 FULLY FLEDGED UNIVERSITIES
+  1.1 Public Universities
+  SN Name of the University Head Office Status
+  1. University of Dar es Salaam (UDSM) Dar es Salaam Accredited and Chartered
+  2. Sokoine University of Agriculture (SUA) Morogoro Accredited and Chartered
+  3. Open University of Tanzania (OUT) Dar es Salaam Accredited and Chartered
+##### https://www.hec.gov.pk/english/universities/Pages/recognised.aspx
+ERR fetch failed
+##### https://www.republicoftogo.com/content/download/120320/3079919/1
+ST 200 application/pdf 1267660 https://www.republicoftogo.com/content/download/120320/3079919/1
+PDF pages 12
+  N° 1631 DU LUNDI 27 JUILLET 2026
+  QUOTIDIEN TOGOLAIS D'ANALYSES ET D'INFORMATIONS GENERALES / Prix : 250 FCFA
+  DERNIERES HEURES
+  Enseignement supérieur : 111 établissements agréés pour l’année académique 2026-2027
+  Le ministère chargé de l’Enseignement supérieur a publié la liste officielle des établissements reconnus et
+  agréés par l’État au titre de l’année académique 2026-2027. Au total, 111 structures, dont 13 établissements
+  publics, sont autorisées à accueillir des étudiants et à délivrer des formations reconnues.
+  Cette liste regroupe les universités publiques, les instituts, les écoles supérieures ainsi que les établissements
+  privés ayant satisfait aux exigences réglementaires en vigueur. Leur habilitation garantit la conformité des
+  formations proposées et la reconnaissance des diplômes délivrés dans les domaines autorisés.
+  À l’approche de la rentrée universitaire, le ministère invite les nouveaux bacheliers, les étudiants et leurs
+  familles à consulter ce document avant toute inscription. « Avant toute inscription, vérifiez que l’établissement
+  choisi y figure », a rappelé l’institution.
+  Cette démarche s’inscrit dans la politique d’assainissement du paysage universitaire et de renforcement
+  de la qualité de l’enseignement supérieur. Elle vise également à rapprocher les formations nationales des
+  standards de l’espace CAMES.
+  CADRE DE VIE
+  PRODUITS FNFI
+  TOG OM AT IN
+  Les acquis de la Feuille de route 2020-2025
+  consolident la transformation du secteur
+  PAGE 2
+  PAGE 3
+  Echos des bénéficiaires
+  Projet Gedec
+  Le président du Conseil, Faure Essozimna Gnassingbé, s’est
+  entretenu le jeudi 23 juillet 2026 avec l’ambassadeur de l’Union
+  européenne au Togo, Gwilym Ceri Jones, arrivé au terme de sa
+  mission diplomatique dans le pays.
+  Partenariat Togo-UE
+##### https://www.datos.gov.co/resource/n5yy-8nav.json?$limit=3
+ST 200 application/json;charset=utf-8 2295 https://www.datos.gov.co/resource/n5yy-8nav.json?$limit=3
+  JSON [{"c_digo_instituci_n":"1123","nombre_instituci_n":"UNIVERSIDAD POPULAR DEL CESAR","n_mero_identificaci_n":"892.300.285-6","principal_seccional":"Seccional","naturaleza_jur_dica":"Nacional","sector":"
