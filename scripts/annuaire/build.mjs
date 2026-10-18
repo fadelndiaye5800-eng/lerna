@@ -200,13 +200,28 @@ if (prev && prev.sources) {
   }
 }
 
-/* Dédoublonnage : une fiche Wikidata est retirée si un registre officiel du même pays a le même site */
-const officialDomains = new Set(all.filter((r) => r.s !== 'wikidata' && r.w).map((r) => r.p + '|' + domain(r.w)));
+/* Contrôles de cohérence :
+   - un site dont l'extension désigne un autre pays (ex. .bj pour une fiche classée au Sénégal) est écarté : localisation douteuse
+   - doublons (même pays, même site) : on garde la source la plus précise (frais officiels d'abord), Wikidata en dernier */
+const GENERIC_CC = new Set(['io', 'co', 'ai', 'me', 'tv', 'cc', 'ly', 'fm', 'ws', 'la', 'to', 'nu', 'sh', 'gg', 'im', 'ac', 'eu', 'is', 'in', 'so', 'st', 'vc', 'ms', 'gl', 'ma', 'am', 'ag', 'bz', 'la']);
+const ccMismatch = (r) => {
+  const h = domain(r.w); if (!h) return false;
+  const tld = h.split('.').pop();
+  if (tld.length !== 2 || GENERIC_CC.has(tld)) return false;
+  const c = tld === 'uk' ? 'GB' : tld.toUpperCase();
+  return c !== r.p;
+};
+const PRIO = { scorecard: 0, ofs: 1, cricos: 2, deqar: 3, wikidata: 9 };
+all.sort((a, b) => (PRIO[a.s] ?? 5) - (PRIO[b.s] ?? 5));
 const final = [];
-const ids = new Set();
+const ids = new Set(), seenDom = new Set();
+let dropped = 0;
 for (const r of all) {
   if (!r.n || ids.has(r.i)) continue;
-  if (r.s === 'wikidata' && r.w && officialDomains.has(r.p + '|' + domain(r.w))) continue;
+  if (r.w && ccMismatch(r)) { dropped++; continue; }
+  const key = r.w ? r.p + '|' + domain(r.w) + '|' + (new URL(r.w).pathname.split('/')[1] || '') : '';
+  if (key && seenDom.has(key)) continue;
+  if (key) seenDom.add(key);
   ids.add(r.i);
   for (const k of Object.keys(r)) if (r[k] === '' || r[k] == null) delete r[k];
   final.push(r);
@@ -223,4 +238,4 @@ for (const [cc, rows] of Object.entries(byCountry)) {
   countries[cc] = { n: rows.length, o: rows.filter((r) => r.s !== 'wikidata').length };
 }
 fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify({ maj: new Date().toISOString().slice(0, 10), sources: stats, erreurs: errors, total: final.length, countries }));
-log('TOTAL', final.length, 'établissements dans', Object.keys(countries).length, 'pays');
+log('écartés (pays du site incohérent)', dropped); log('TOTAL', final.length, 'établissements dans', Object.keys(countries).length, 'pays');
