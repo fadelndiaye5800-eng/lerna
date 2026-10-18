@@ -64,7 +64,8 @@ export const OFFICIELS = [
     autorite: { fr: 'Ministère de l’Éducation nationale de Colombie (SNIES, données ouvertes datos.gov.co)', en: 'Colombian Ministry of National Education (SNIES, datos.gov.co open data)' },
     titre: { fr: 'Institutions d’enseignement supérieur enregistrées au SNIES', en: 'Higher-education institutions registered in SNIES' },
     url: 'https://www.datos.gov.co/resource/n5yy-8nav.json?$limit=5000', type: 'json', debugKeys: true,
-    map: (o) => ({ n: o.nombre_instituci_n, v: o.municipio_domicilio || o.municipio || '', r: o.departamento_domicilio || o.departamento || '', w: o.p_gina_web || o.pagina_web || '', t: /oficial/i.test(o.sector || '') ? 'public' : /privad/i.test(o.sector || '') ? 'prive' : '', acc: o.car_cter_acad_mico || '' })
+    filter: (o) => /activ/i.test(o.estado || '') && /principal/i.test(o.principal_seccional || ''),
+    map: (o) => ({ n: o.nombre_instituci_n, v: o.municipio_domicilio || o.municipio || '', r: o.departamento_domicilio || o.departamento || '', w: /\./.test(o.p_gina_web || '') ? o.p_gina_web : '', t: /oficial/i.test(o.sector || '') ? 'public' : /privad/i.test(o.sector || '') ? 'prive' : '', acc: [o.car_cter_acad_mico, /^s/i.test(o.acreditada_alta_calidad || '') ? 'Acreditación de alta calidad' + (o.vigencia_de_la_acreditaci ? ' (' + o.vigencia_de_la_acreditaci + ')' : '') : ''].filter(Boolean).join(' · ') })
   }
 ];
 
@@ -149,7 +150,8 @@ async function readPdfTz(src) {
     const st = ST.exec(txt); const acc = st ? st[1] : '';
     const rest = st ? txt.slice(0, st.index) : txt;
     const k = /^(.+\))\s*(.*)$/.exec(rest);
-    rows.push({ n: clean(k ? k[1] : rest), v: clean(k ? k[2] : ''), t: statut, acc });
+    const v = clean(k ? k[2] : '');
+    rows.push({ n: clean(k ? k[1] : rest), v: /^(University|College|Campus|Centre|Center|Institute)\b/i.test(v) ? '' : v, t: statut, acc });
   }
   return rows;
 }
@@ -158,7 +160,7 @@ async function readJson(src) {
   const j = JSON.parse((await fetchBuf(src.url)).toString('utf8'));
   const arr = Array.isArray(j) ? j : j.results || j.data || [];
   if (src.debugKeys && arr[0]) console.log('clés', src.id, Object.keys(arr[0]).join(','));
-  return arr.map(src.map).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
+  return arr.filter(src.filter || (() => true)).map(src.map).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
 }
 
 async function readList(src) {
@@ -176,7 +178,7 @@ export async function readOfficiels(log = console.log) {
       for (const r of rows) {
         const key = r.n.toLowerCase();
         if (seen.has(key)) continue; seen.add(key);
-        out.push({ i: 'officiel:' + src.id + ':' + seen.size, s: 'officiel', p: src.cc, n: r.n, a: r.a || '', v: r.v || '', r: r.r || '', w: r.w || '', t: r.t || src.statut || '',
+        out.push({ i: 'officiel:' + src.id + ':' + seen.size, s: 'officiel', p: src.cc, n: r.n, a: r.a || '', v: r.v || '', r: r.r || '', w: r.w ? (/^https?:\/\//i.test(r.w) ? r.w : 'https://' + r.w.replace(/^\/+/, '')) : '', t: r.t || src.statut || '',
           x: { l: src.id, f: r.f && !/^0$/.test(r.f) ? r.f : undefined, y: r.y || undefined, acc: r.acc || undefined } });
       }
       report[src.id] = seen.size; log('officiel', src.id, seen.size);

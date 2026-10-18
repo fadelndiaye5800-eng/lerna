@@ -12,6 +12,7 @@ import path from 'node:path';
 import { execSync } from 'node:child_process';
 import { parse } from 'csv-parse/sync';
 import XLSX from 'xlsx';
+import { readOfficiels, LISTES } from './officiels.mjs';
 
 const OUT = path.resolve('assets/annuaire');
 const TMP = path.resolve('.annuaire-tmp');
@@ -211,7 +212,12 @@ async function wikidata() {
 
 /* ---------- Lancement : une source qui échoue n'empêche pas les autres ---------- */
 const prev = fs.existsSync(path.join(OUT, 'index.json')) ? JSON.parse(fs.readFileSync(path.join(OUT, 'index.json'), 'utf8')) : null;
-for (const [name, fn] of [['deqar', deqar], ['scorecard', scorecard], ['ofs', ofs], ['cricos', cricos], ['wikidata', wikidata]]) {
+async function officiels() {
+  const { rows, report } = await readOfficiels(log);
+  for (const [k, v] of Object.entries(report)) if (typeof v === 'string') errors['officiel:' + k] = v;
+  add('officiel', rows);
+}
+for (const [name, fn] of [['deqar', deqar], ['scorecard', scorecard], ['ofs', ofs], ['cricos', cricos], ['officiel', officiels], ['wikidata', wikidata]]) {
   try { await fn(); } catch (e) { log('ÉCHEC', name, e.message); stats[name] = 0; errors[name] = String(e && e.message || e).slice(0, 300); }
 }
 /* Sécurité : si une source renvoie beaucoup moins que la dernière fois, on garde l'ancienne version de ses fiches */
@@ -240,8 +246,25 @@ const ccMismatch = (r) => {
   const c = tld === 'uk' ? 'GB' : tld.toUpperCase();
   return c !== r.p;
 };
-const PRIO = { scorecard: 0, ofs: 1, cricos: 2, deqar: 3, wikidata: 9 };
+const PRIO = { scorecard: 0, ofs: 1, cricos: 2, officiel: 3, deqar: 4, wikidata: 9 };
 all.sort((a, b) => (PRIO[a.s] ?? 5) - (PRIO[b.s] ?? 5));
+/* Rapprochement par le nom : une fiche Wikidata qui correspond à une école d'une liste officielle du même pays est fusionnée
+   (on garde la fiche officielle et on lui ajoute le site web connu par Wikidata s'il lui manquait) */
+const STOP = new Set(['de', 'du', 'des', 'la', 'le', 'les', 'l', 'd', 'of', 'the', 'and', 'et', 'en', 'a', 'in', 'for', 'y', 'e']);
+const nkey = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\([^)]*\)/g, ' ').replace(/[^a-z0-9]+/g, ' ').split(' ').filter((w) => w && !STOP.has(w)).join(' ');
+const offByName = new Map();
+for (const r of all) if (r.s === 'officiel') { const k = r.p + '|' + nkey(r.n); if (!offByName.has(k)) offByName.set(k, r); }
+let merged = 0;
+for (let i = all.length - 1; i >= 0; i--) {
+  const r = all[i];
+  if (r.s !== 'wikidata') continue;
+  const o = offByName.get(r.p + '|' + nkey(r.n)) || (r.a ? offByName.get(r.p + '|' + nkey(r.a)) : null);
+  if (!o) continue;
+  if (!o.w && r.w) o.w = r.w;
+  if (!o.v && r.v) o.v = r.v;
+  all.splice(i, 1); merged++;
+}
+log('fiches Wikidata fusionnées avec une liste officielle :', merged);
 const final = [];
 const ids = new Set(), seenDom = new Set();
 let dropped = 0;
@@ -266,5 +289,5 @@ for (const [cc, rows] of Object.entries(byCountry)) {
   fs.writeFileSync(path.join(OUT, cc + '.json'), JSON.stringify(rows));
   countries[cc] = { n: rows.length, o: rows.filter((r) => r.s !== 'wikidata').length };
 }
-fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify({ maj: new Date().toISOString().slice(0, 10), sources: stats, erreurs: errors, total: final.length, countries }));
+fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify({ maj: new Date().toISOString().slice(0, 10), sources: stats, erreurs: errors, total: final.length, countries, listes: LISTES }));
 log('écartés (pays du site incohérent)', dropped); log('TOTAL', final.length, 'établissements dans', Object.keys(countries).length, 'pays');
