@@ -3,11 +3,11 @@
 if (new URL(self.location.href).searchParams.get('os') === '1') {
   try { importScripts('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js'); } catch (e) {}
 }
-const VERSION = 'lerna-v8.7.0';
+const VERSION = 'lerna-v8.9.0';
 const CORE = [
   '/', '/index.html', '/aujourdhui.html', '/questionnaire.html', '/loading.html', '/resultats.html', '/explorer.html', '/ecole.html',
   '/opportunites.html', '/espace.html', '/premium.html', '/auth.html', '/dossier.html', '/parametres.html', '/contact.html', '/legal.html', '/manifest.json',
-  '/assets/css/lerna.css', '/assets/js/boot.js', '/assets/js/core.js', '/assets/js/guides.js', '/assets/js/coffre.js', '/assets/js/questions.js', '/assets/js/data-schools.js',
+  '/assets/css/lerna.css', '/assets/js/boot.js', '/assets/js/core.js', '/assets/js/guides.js', '/assets/js/accred.js', '/assets/js/coffre.js', '/assets/js/questions.js', '/assets/js/data-schools.js',
   '/assets/js/data-opps.js', '/assets/js/engine.js', '/assets/js/daily.js', '/assets/icons/icon.svg', '/assets/icons/icon-192.png',
   '/assets/stickers/autre.webp', '/assets/stickers/fire.webp', '/assets/stickers/target.webp', '/assets/stickers/wave.webp'
 ];

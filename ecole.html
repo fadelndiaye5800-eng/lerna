@@ -36,6 +36,8 @@
   .panel { padding: 28px 0 40px; }
   .panel h3 { margin-bottom: 12px; }
   .two { display: grid; gap: 18px; }
+  .accred-steps { margin: 12px 0 0 18px; display: grid; gap: 8px; }
+  .accred-steps li { padding-left: 4px; }
   @media (min-width: 768px) { .two { grid-template-columns: 1fr 1fr; } }
   .desc { font-size: 1.04rem; line-height: 1.75; }
   .rank { display: flex; gap: 12px; align-items: flex-start; }
@@ -128,6 +130,7 @@
 <script src="assets/js/data-schools.js"></script>
 <script src="assets/js/data-opps.js"></script>
 <script src="assets/js/guides.js"></script>
+<script src="assets/js/accred.js"></script>
 <script>
 Lerna.addStrings({
   fr: {
@@ -254,6 +257,7 @@ Lerna.addStrings({
         '<div class="card"><h3>' + t('ec.documents') + '</h3><ul class="list-check">' + a.documents.map(function (d) { return '<li>' + esc(L(d)) + '</li>'; }).join('') + '</ul></div>' +
         '<div class="card"><h3>' + t('ec.deadlines') + '</h3><p>' + esc(L(a.dates)) + '</p></div>' +
       '</div>' +
+      window.LERNA_ACCRED(s) +
       howTo() +
       '</div>';
   }

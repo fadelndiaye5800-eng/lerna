@@ -17,6 +17,11 @@ réglé dans /admin, 25 000 FCFA) ; onglet **Budget** dans Mon dossier (coût r�
 **alertes ciblées** Premium (nouvelle offre du domaine de la personne, étiquettes OneSignal `premium`, `d1`–`d3`) ;
 page Premium centrée sur le résultat, bouton « Envoyer à mes parents » et FAQ « Pourquoi payer si les infos sont gratuites ? ».
 
+Explorer → onglet **France · Parcoursup** : les ~25 800 formations de Parcoursup (année la plus récente), lues en direct dans les données
+ouvertes du ministère (`fr-esr-cartographie_formations_parcoursup`, API Opendatasoft, CORS ouvert ; domaine ajouté à la CSP).
+Fiche école → carte **Reconnaissance et accréditation** (`assets/js/accred.js`) : marche à suivre et registres officiels
+(ANAQ-Sup, CAMES, Parcoursup, RNCP), sans jamais inventer de décision.
+
 ## Ce que contient le projet
 
 ```
