@@ -1,4 +1,4 @@
-2026-10-18T23:31:51.475Z
+2026-10-18T23:33:46.063Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -195,41 +195,13 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Corporacion Tecnica Profesional Caminos Del Suroccidente Colombiano | Timbío | Cauca | prive | https://www.corpocaminos.edu.co | Institución Técnica Profesional
   Universitaria Del Chicamocha | Bucaramanga | Santander | prive | https://www.unich.edu.co | Institución Universitaria/Escuela Tecnológica
   Fundación Universitaria Católica Del Caribe | Barranquilla | Atlántico | prive | https://www.unicatolicaribe.edu.co | Institución Universitaria/Escuela Tecnológica
-##### https://gtec.edu.gh/accredited-institutions/
-ST 200 text/html; charset=UTF-8 186044 https://gtec.edu.gh/accredited-institutions/
-TITLE accredited-institutions - GTEC Email Email | TABLES 0 TR 0 LI 35
-  FILES 0
-  A  -> https://gtec.edu.gh/
-  A Email -> mailto:info@gtec.edu.gh
-  A  -> https://www.tiktok.com/@gtec.official?_r=1&_t=ZS-95MpTdrFZO0
-  A  -> https://x.com/gtec___?s=21
-  A About Us -> https://gtec.edu.gh/about/
-  A Contact Us -> https://gtec.edu.gh/contact-us/
-  A News & Events -> https://gtec.edu.gh/news/
-  A Accreditation -> https://gtec.edu.gh/accreditation/
-  A Credential Evaluation -> https://cems.gtec.edu.gh/
-  A Assessors -> https://gtec.edu.gh/assessors/
-  A Status Check -> https://gtec.edu.gh/status-check/
-  A Book Conference Facility -> https://gtec.edu.gh/book-conference-facility/
-  A Book Guest House -> https://gtec.edu.gh/guest-house-facility/
-  A Publications -> https://gtec.edu.gh/publications/
-  A AMIS -> https://amis.gtec.edu.gh/
-  A Accreditation -> /accreditation
-  A Right to Information -> https://gtec.edu.gh/right-to-information/
-  A Service Charges -> https://gtec.edu.gh/service-charge/
-  A Email -> mailto:
-  JS //fonts.googleapis.com
-  JS /json
-  JS https://gtec.edu.gh/wp-json/oembed/1.0/embed?url=https
-  JS https://api.w.org/
-  JS https://gtec.edu.gh/wp-json/
-  JS https://gtec.edu.gh/wp-json/wp/v2/pages/2981
-  JS https://api.whatsapp.com/send?phone=https
-  JS https://gtec.edu.gh/wp-admin/admin-ajax.php
-  JS /admin-ajax.php
-##### https://www.ugc.gov.in/universitydetails/university
-ST 200 text/html; charset=utf-8 42686 https://www.ugc.gov.in/universitydetails/university
-TITLE Welcome to UGC, New Delhi, India | TABLES 0 TR 0 LI 104
+##### https://gtec.edu.gh/wp-json/wp/v2/pages/2981
+ST 200 application/json; charset=UTF-8 13118 https://gtec.edu.gh/wp-json/wp/v2/pages/2981
+  JSON {"id":2981,"date":"2026-05-05T16:52:07","date_gmt":"2026-05-05T16:52:07","guid":{"rendered":"http:\/\/localhost\/gtecweb\/?page_id=2981"},"modified":"2026-06-25T15:07:18","modified_gmt":"2026-06-25T15
+##### https://www.ugc.gov.in/universitydetails/university?type=ddmCMsxJZgXH2S/m0uMOKQ==
+ST 200 text/html; charset=utf-8 46255 https://www.ugc.gov.in/universitydetails/university?type=ddmCMsxJZgXH2S/m0uMOKQ==
+TITLE Welcome to UGC, New Delhi, India | TABLES 1 TR 1 LI 104
+  TR Sr.No | Type | Name of the University | Address | Zip | state | Status | URL
   FILES 3
    https://www.ugc.gov.in/pdfnews/UGC Organisational Chart.pdf
    https://www.ugc.gov.in/oldpdf/certificate/UGC_Certificate.pdf
@@ -289,6 +261,7 @@ TITLE Welcome to UGC, New Delhi, India | TABLES 0 TR 0 LI 104
   A Press Release -> /publication/ugc_pressrelease
   A Archives Publications -> /publication/Other_Publications
   A Search HEI -> /universitydetails/university?type=MuOh4z0uqRaY2k8Ag10I0g==
+  A Home / -> 
   A e-Office -> https://parichay.nic.in/
   A NIC mail -> https://email.gov.in/
   A RTI online -> https://rtionline.gov.in/RTIMIS/login/index.php
@@ -317,15 +290,125 @@ TITLE Welcome to UGC, New Delhi, India | TABLES 0 TR 0 LI 104
   A  -> http://www.goidirectory.gov.in/index.php
   A Disclaimer -> /Home/Disclaimer
   A Privacy Policy -> /Home/PrivacyPolicy
-##### https://www.moe.gov.sa/ar/education/highereducation/Pages/UniversitiesList.aspx
-ST 200 text/html; charset=utf-8 83578 https://www.moe.gov.sa/ar/education/highereducation/Pages/UniversitiesList.aspx
-TITLE وزارة التعليم | الجامعات الحكومية | TABLES 0 TR 0 LI 0
+  JS /Content/Datatables/jquery.dataTables.min.css
+  JS /Content/Datatables/dataTables.responsive.css
+  JS /Content/Datatables/select.dataTables.min.css
+  JS /Content/Datatables/searchPanes.dataTables.min.css
+  JS /Content/Datatables/buttons.dataTables.min.css
+  JS /Content/Datatables/datatables.min.css
+  JS /Scripts/Areas/UGC_Admin/Datatables/jquery.dataTables.min2808.js
+  JS /Scripts/Areas/UGC_Admin/Datatables/dataTables.select.min2808.js
+  JS /Scripts/Areas/UGC_Admin/Datatables/dataTables.searchPanes.min2808.js
+  JS /Scripts/Areas/UGC_Admin/Datatables/dataTables.buttons.min.js
+  JS /Scripts/Areas/UGC_Admin/Datatables/jszip.min.js
+  JS /Scripts/Areas/UGC_Admin/Datatables/buttons.html5.min.js
+##### https://www.ugc.gov.in/universitydetails/university?type=0wBmFB1Rb4JGVzq9UP/iOg==
+ST 200 text/html; charset=utf-8 46255 https://www.ugc.gov.in/universitydetails/university?type=0wBmFB1Rb4JGVzq9UP/iOg==
+TITLE Welcome to UGC, New Delhi, India | TABLES 1 TR 1 LI 104
+  TR Sr.No | Type | Name of the University | Address | Zip | state | Status | URL
+  FILES 3
+   https://www.ugc.gov.in/pdfnews/UGC Organisational Chart.pdf
+   https://www.ugc.gov.in/oldpdf/certificate/UGC_Certificate.pdf
+   https://www.dohe-education.gov.in/static/uploads/2026/01/9de3a363f1e3ca10e9645b323f76738e.pdf
+  A  -> /Home
+  A Screen Reader -> /Home/screen_reader
+  A Hindi -> https://ugchindi.ugc.ac.in/
+  A Contact Us -> /Home/contact
+  A FAQs -> /Home/faq
+  A e-Procurement -> https://eprocure.gov.in/eprocure/app
+  A Tenders -> /Tenders/Index
+  A Jobs -> /Tenders/Jobs
+  A Toggle search -> /Search/Index
+  A  -> /
+  A  -> http://www.ugc.ac.in/
+  A Genesis -> /Aboutus/Genesis
+  A Mandate -> /Aboutus/Mandate
+  A UGC Act -> /Aboutus/UGC_ACT
+  A Logo -> /Aboutus/Logo
+  A UGC Organisational Chart -> https://www.ugc.gov.in/pdfnews/UGC Organisational Chart.pdf
+  A UGC Bureaus -> /Bureaus/Index
+  A UGC Offices -> /Aboutus/UGC_Offices
+  A Inter University Centres -> /Aboutus/Inter_University_Centres
+  A National Facilities -> /Aboutus/National_Facilities
+  A Website Security Audit Certificate -> https://www.ugc.gov.in/oldpdf/certificate/UGC_Certificate.pdf
+  A Commission Members -> /Commission/CommissionMembers
+  A Commission Decisions -> /Commission/Decision_by_the_Commission
+  A Chairman -> /Administration/Chairman
+  A Vice Chairman -> /Administration/Vice_Chairman
+  A Secretary -> /Administration/Secretary
+  A Financial Advisor -> /Administration/Financial_Advisor
+  A Additional Secretaries -> /Administration/Additional_Secretaries
+  A Joint Secretaries -> /Administration/js
+  A Deputy Secretaries -> /Administration/ds
+  A Education Officers -> /Administration/eo
+  A Under Secretaries -> /Administration/us
+  A Former Chairpersons -> /Administration/Former_Commission_Members
+  A Key Initiatives -> /MajorInitatives
+  A Guidelines -> /Guideline
+  A Regulations -> /regulations
+  A Central Universities -> /universitydetails/university?type=ddmCMsxJZgXH2S/m0uMOKQ==
+  A State Universities -> /universitydetails/university?type=LZ1FUMk6U2JWGNLvhWfVSA==
+  A Deemed to be Universities -> /universitydetails/university?type=UCL6fMspL2LJS89kv++N3A==
+  A State Private Universities -> /universitydetails/university?type=0wBmFB1Rb4JGVzq9UP/iOg==
+  A Fake Universities -> /universitydetails/Fakeuniversity
+  A Colleges (12(B)/2(f)) -> /colleges
+  A Autonomous Colleges -> /colleges/Autonomous_Colleges
+  A Institutions of National Importance -> https://www.dohe-education.gov.in/static/uploads/2026/01/9de3a363f1e3ca10e9645b323f76738e.pdf
+  A Institutions of Eminence -> https://ioe.ugc.ac.in/
+  A List of Fake Universities -> /universitydetails/HEIs_Violating_Regulations?tab=fakeuni
+  A List of HEIs not Following Ph.D Regulations -> /universitydetails/HEIs_Violating_Regulations?tab=phd-regulations
+  A List of HEIs not appointed Ombudsperson -> /universitydetails/HEIs_Violating_Regulations?tab=ombudsperson
+  A List of Defaulter State (Private) Universities -> /universitydetails/HEIs_Violating_Regulations?tab=Defaulter
+  A FHEI List -> /FHEI
+  A e-Books -> /publication/ebook
+  A Annual Reports/ Annual Accounts -> /publication/Annual_Reports
+  A Press Release -> /publication/ugc_pressrelease
+  A Archives Publications -> /publication/Other_Publications
+  A Search HEI -> /universitydetails/university?type=MuOh4z0uqRaY2k8Ag10I0g==
+  A Home / -> 
+  A e-Office -> https://parichay.nic.in/
+  A NIC mail -> https://email.gov.in/
+  A RTI online -> https://rtionline.gov.in/RTIMIS/login/index.php
+  A PG portal -> https://pgportal.gov.in
+  A Professional Councils -> /UGCofficials/Professional_Councils
+  A State Higher Education Councils -> /UGCofficials/State_Higher_Education_Councils
+  A MoE -> https://www.education.gov.in/
+  A AICTE -> https://www.aicte-india.org/
+  A National Testing Agency (NTA) -> https://www.nta.ac.in/
+  A Web portal for Fellowship/Scholarship Legacy Cases -> https://scholarship.canarabank.bank.in/
+  A Rashtriya Uchchatar Shiksha Abhiyan -> http://rusa.nic.in/
+  A University Activity Monitoring Portal -> https://uamp.ugc.ac.in/
+  A Deemed to be University Portal -> https://deemed.ugc.ac.in/
+  A DEB -> https://deb.ugc.ac.in/
+  A UGC NET Online -> http://www.ugcnetonline.in/
+  A UGC Circulars -> /Circulars
+  A  -> https://india.gov.in/
+  A  -> http://mygov.in/
+  A  -> http://evisitors.nic.in
+  A  -> http://digitalindia.gov.in/
+  A  -> /rti
+  A  -> https://data.gov.in/
+  A  -> http://www.nvsp.in/
+  A  -> http://dial.gov.in/
+  A  -> web_information_manager
+  A  -> http://www.goidirectory.gov.in/index.php
+  A Disclaimer -> /Home/Disclaimer
+  A Privacy Policy -> /Home/PrivacyPolicy
+  JS /Content/Datatables/jquery.dataTables.min.css
+  JS /Content/Datatables/dataTables.responsive.css
+  JS /Content/Datatables/select.dataTables.min.css
+  JS /Content/Datatables/searchPanes.dataTables.min.css
+  JS /Content/Datatables/buttons.dataTables.min.css
+  JS /Content/Datatables/datatables.min.css
+  JS /Scripts/Areas/UGC_Admin/Datatables/jquery.dataTables.min2808.js
+  JS /Scripts/Areas/UGC_Admin/Datatables/dataTables.select.min2808.js
+  JS /Scripts/Areas/UGC_Admin/Datatables/dataTables.searchPanes.min2808.js
+  JS /Scripts/Areas/UGC_Admin/Datatables/dataTables.buttons.min.js
+  JS /Scripts/Areas/UGC_Admin/Datatables/jszip.min.js
+  JS /Scripts/Areas/UGC_Admin/Datatables/buttons.html5.min.js
+##### https://www.moe.gov.sa/ar/education/highereducation/_api/web/lists
+ST 403 text/html 1233 https://www.moe.gov.sa/ar/education/highereducation/_api/web/lists
+TITLE 403 - Forbidden: Access is denied. | TABLES 0 TR 0 LI 0
   FILES 0
-  A وزارة التعليم -> /ar/Pages/default.aspx
-  A التعليم -> /ar/education/Pages/default.aspx
-  A التعليم الجامعي -> /ar/education/highereducation/Pages/default.aspx
-  T 22 من الزوار أعجبهم محتوى الصفحة من أصل 32 مشاركة
-  T أضف السبب (اختر من خيار واحد إلى خياران)
-  T الرجاء اختيار سببان كحد أعلى
-  T الرجاء اختيار سببان كحد أعلى
-  T الملاحظات يجب ان تكون اقل من ٢٥٠ حرف
+  T 403 - Forbidden: Access is denied.
+  T You do not have permission to view this directory or page using the credentials that you supplied.
