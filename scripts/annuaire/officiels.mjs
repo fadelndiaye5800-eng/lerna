@@ -43,7 +43,14 @@ export const OFFICIELS = [
     autorite: { fr: 'National Council for Higher Education (NCHE) de l’Ouganda', en: 'Uganda National Council for Higher Education (NCHE)' },
     titre: { fr: 'Établissements d’enseignement supérieur enregistrés et leur statut d’accréditation', en: 'Registered higher-education institutions and their accreditation status' },
     url: 'https://unche.or.ug/institutions/', type: 'table',
-    cols: { n: 0, v: 3, acc: 2, cat: 1 }
+    cols: { n: 0, v: 3, acc: 2, cat: 1 }, skip: { col: 3, re: /^\d{4}-\d{2}-\d{2}$/ }
+  },
+  {
+    cc: 'RW', id: 'rw-hec',
+    autorite: { fr: 'Higher Education Council (HEC) du Rwanda', en: 'Rwanda Higher Education Council (HEC)' },
+    titre: { fr: 'Établissements d’enseignement supérieur en activité au Rwanda (publics et privés)', en: 'Higher learning institutions operating in Rwanda (public and private)' },
+    url: 'https://www.hec.gov.rw/fileadmin/user_upload/HEC/Accreditation/Heads_of_HLIs_operating_in_Rwanda_2025.pdf', type: 'pdf-acr',
+    sections: [[/Public Higher Learning/i, 'public'], [/Private Higher Learning/i, 'prive']]
   }
 ];
 
@@ -66,6 +73,7 @@ async function readTable(src) {
     const c = tds.map((j, td) => clean($(td).text())).get();
     if (c.length <= C.n) return;
     if (src.keep && !src.keep.re.test(c[src.keep.col] || '')) return;
+    if (src.skip && src.skip.re.test(c[src.skip.col] || '')) return;
     let n = c[C.n]; if (!n || n.length < 3 || /^(s\/n|name|nom)$/i.test(n)) return;
     let v = C.v != null ? title(c[C.v]) : '';
     /* « Université X, Ville » : la ville est après la dernière virgule */
@@ -94,6 +102,25 @@ async function readPdfNum(src) {
   return rows.map((r) => ({ n: title(r.n), r: r.r }));
 }
 
+/* PDF où chaque établissement s'écrit « 12. Nom de l'établissement - SIGLE » (on ne garde que le nom et le sigle,
+   jamais les noms ou coordonnées de personnes qui suivent) */
+async function readPdfAcr(src) {
+  const pdf = (await import('pdf-parse/lib/pdf-parse.js')).default;
+  const lines = (await pdf(await fetchBuf(src.url))).text.split(/\r?\n/).map((l) => clean(l, 300)).filter(Boolean);
+  const rows = []; let statut = '';
+  for (let i = 0; i < lines.length; i++) {
+    for (const [re, st] of src.sections || []) if (re.test(lines[i])) statut = st;
+    let m = /^(\d{1,3})\.\s+(.+)$/.exec(lines[i]); if (!m) continue;
+    let txt = m[2];
+    if (!/\s-\s*[A-Z]/.test(txt) && lines[i + 1] && /^-\s*[A-Z]/.test(lines[i + 1])) txt += ' ' + lines[i + 1];
+    else if (!/\s-\s*[A-Z]/.test(txt) && lines[i + 1] && lines[i + 2] && /^-\s*[A-Z]/.test(lines[i + 2]) && /^[A-Za-z’' ]+$/.test(lines[i + 1])) txt += ' ' + lines[i + 1] + ' ' + lines[i + 2];
+    const k = /^(.+?)\s*-\s*([A-Z][A-Za-z&]{1,12})\b/.exec(txt);
+    if (!k) continue;
+    rows.push({ n: clean(k[1]) + ' (' + k[2] + ')', t: statut });
+  }
+  return rows;
+}
+
 async function readList(src) {
   const $ = cheerio.load((await fetchBuf(src.url)).toString('utf8'));
   return $(src.selector).map((i, e) => ({ n: title($(e).text()) })).get().filter((r) => r.n.length > 3);
@@ -104,12 +131,12 @@ export async function readOfficiels(log = console.log) {
   const out = [], report = {};
   for (const src of OFFICIELS) {
     try {
-      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : await readList(src);
+      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : src.type === 'pdf-acr' ? await readPdfAcr(src) : await readList(src);
       const seen = new Set();
       for (const r of rows) {
         const key = r.n.toLowerCase();
         if (seen.has(key)) continue; seen.add(key);
-        out.push({ i: 'officiel:' + src.id + ':' + seen.size, s: 'officiel', p: src.cc, n: r.n, a: r.a || '', v: r.v || '', r: r.r || '', w: r.w || '', t: src.statut || '',
+        out.push({ i: 'officiel:' + src.id + ':' + seen.size, s: 'officiel', p: src.cc, n: r.n, a: r.a || '', v: r.v || '', r: r.r || '', w: r.w || '', t: r.t || src.statut || '',
           x: { l: src.id, f: r.f && !/^0$/.test(r.f) ? r.f : undefined, y: r.y || undefined, acc: r.acc || undefined } });
       }
       report[src.id] = seen.size; log('officiel', src.id, seen.size);
