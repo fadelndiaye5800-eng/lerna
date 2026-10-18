@@ -1,4 +1,4 @@
-2026-10-18T23:54:55.699Z
+2026-10-18T23:56:52.799Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -16,8 +16,8 @@ clés co-men-snies c_digo_instituci_n,nombre_instituci_n,n_mero_identificaci_n,p
 officiel co-men-snies 300
 officiel in-ugc 1256
 officiel jp-mext 1117
-officiel ca-ircc-dli 667
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":667}
+officiel ca-ircc-dli 666
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":666}
 == ci-mesrs-prives : 618
   Abidjan Bloom University (ABU) | Abidjan | Cocody | prive | 90.000 F
   Abidjan Business School -(ABS) | Abidjan | Cocody | prive | 85000
@@ -228,7 +228,7 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   沖縄キリスト教学院大学 | 中頭郡 | 沖縄 | prive | 大学 (université)
   沖縄キリスト教短期大学 | 中頭郡 | 沖縄 | prive | 短期大学 (université courte)
   沖縄女子短期大学 | 島尻郡 | 沖縄 | prive | 短期大学 (université courte)
-== ca-ircc-dli : 667
+== ca-ircc-dli : 666
   Academy Canada | Newfoundland and Labrador | DLI · Career College
   Centre for Nursing Studies | Newfoundland and Labrador | DLI · College
   College of the North Atlantic | Newfoundland and Labrador | DLI · College
@@ -240,6 +240,128 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Mohawk College of Applied Arts and Technology | Ontario | DLI · College
   Mohawk College of Applied Arts and Technology at triOS College Business Technology Healthcare Inc | Ontario | DLI · College
   Niagara College Canada | Ontario | DLI · College
+  Vancouver Island University | British Columbia | DLI · University
   Yukon University | Yukon | DLI · University
   Aurora College | Northwest Territories | DLI · College
-  Not Stated | Not Stated | DLI · Not Stated
+##### https://www.mes.tn/
+ERR fetch failed
+##### https://www.yok.gov.tr/
+ST 418 text/html; charset=utf-8 545 https://www.yok.gov.tr/
+TITLE  | TABLES 0 TR 0 LI 0
+  FILES 0
+##### https://yokatlas.yok.gov.tr/
+ST 403 text/html 409 https://yokatlas.yok.gov.tr/
+TITLE  | TABLES 0 TR 0 LI 0
+  FILES 0
+##### https://scu.eg/
+ERR fetch failed
+##### https://www.enssup.gov.ma/
+ERR fetch failed
+##### https://www.mesrs.dz/
+ST 200 text/html; charset=UTF-8 1455609 https://www.mesrs.dz/fr/accueil/
+TITLE Ministère de enseignement supérieur et de la recherche scientifique | TABLES 0 TR 0 LI 67
+  FILES 1
+   https://www.mesrs.dz/wp-content/uploads/2026/04/صفحة-سياسة-قطاع-التعليم-العالي.pdf
+  A Personal Data Protection Policy -> https://www.mesrs.dz/wp-content/uploads/2026/04/صفحة-سياسة-قطاع-التعليم-العالي.pdf
+  A agregats -> https://www.mesrs.dz/index.php/fr/agregats-2024-2025-3/
+  A plateformes numériques -> https://www.mesrs.dz/fr/plateformes-mesrs/
+  A Envelope -> https://mail.mesrs.dz/
+  A Edit -> https://progres.mesrs.dz/rdvdoleance/
+  A Accueil -> https://www.mesrs.dz/fr/accueil/
+  A Le Ministre -> https://www.mesrs.dz/fr/le-ministre/
+  A Secrétariat général -> https://www.mesrs.dz/fr/secretariat-general/
+  A Cabinet -> https://www.mesrs.dz/fr/cabinet/
+  A Inspection générale -> https://www.mesrs.dz/fr/inspection-generale/
+  A Structures centrales -> https://www.mesrs.dz/fr/structures-centrales/
+  A Recherche Scientifique -> /index.php/recherche-scientifique
+  A Coopération Interuniversitaire -> https://www.mesrs.dz/fr/cooperation-interuniversitaire/
+  A Ethique et Déontologie -> /index.php/ethique-et-deontologie
+  A Textes Juridiques -> /index.php/textes-juridiques/
+  A English -> https://www.mesrs.dz/en/home/
+  A العربية -> https://www.mesrs.dz/
+  A PORTAIL DES NOUVEAUX BACHELIERS 2023 -> http://bac2023.mesrs.dz
+  A RAPPEL: Projet de la grille d’évaluation pour la promotion a -> https://www.mesrs.dz/fr/2026/10/projet-de-la-grille-devaluation-pour-la-promotion-au-grade-de-professeur/
+  A Proclamation des résultats du concours sur titres et travaux -> https://www.mesrs.dz/fr/2026/10/proclamation-des-resultats-du-concours-sur-titres-et-travaux-en-vue-de-lacces-au-grade-de-professeur-hospitalo-universitaire/
+  A L’Algérie accueillera la 13e édition des Jeux africains univ -> https://www.mesrs.dz/fr/2026/09/lalgerie-accueillera-la-13e-edition-des-jeux-africains-universitaires-a-oran-en-2028/
+  A concours d’accès au grade de Professeur hospitalo-universita -> https://www.mesrs.dz/fr/2026/08/concours-dacces-au-grade-de-professeur-hospitalo-universitaire-et-de-maitre-de-conferences-classe-a-hospitalo-universitaire/
+  A Résultats de la 54e session de la commission universitaire n -> https://www.mesrs.dz/fr/2026/08/resultats-de-la-54e-session-de-la-commission-universitaire-nationale-cun-recours/
+  A Le Président de la République, M. Abdelmadjid Tebboune, féli -> https://www.mesrs.dz/fr/2026/07/le-president-de-la-republique-m-abdelmadjid-tebboune-felicite-lequipe-enp-racing-team-pour-son-sacre-au-formula-student-uk/
+  A Avis à l’ensemble des titulaires du baccalauréat, session 20 -> https://www.mesrs.dz/fr/2026/07/avis-a-lensemble-des-titulaires-du-baccalaureat-session-2026/
+  A Annonce: Festival algérien africain du théâtre universitaire -> https://www.mesrs.dz/fr/2026/07/annonce-festival-algerien-africain-du-theatre-universitaire-2/
+  A Annonce aux admis à l’examen du baccalauréat session 202609  -> https://www.mesrs.dz/fr/2026/07/annonce-aux-admis-a-lexamen-du-baccalaureat-session-2026-2/
+  A Planning de déroulement des épreuves au titre du concours d’ -> https://www.mesrs.dz/fr/2026/06/planning-de-deroulement-des-epreuves-au-titre-du-concours-dacces-aux-grades-de-professeur-et-de-maitre-de-conferences-hospitalo-universitaires-classe-a/
+  A  -> https://www.mesrs.dz/fr/2026/10/le-ministre-de-lenseignement-superieur-et-de-la-recherche-scientifique-inspecte-la-residence-universitaire-pour-garcons-de-kouba-et-la-residence-universitaire-pour-fill
+  A  -> https://www.mesrs.dz/fr/2026/10/le-ministre-de-lenseignement-superieur-et-de-la-recherche-scientifique-felicite-les-deux-etudiantes-medaillees-dor-et-dargent-aux-championnats-dafrique-de-canoe-kay/
+  A  -> https://www.mesrs.dz/fr/2026/10/reunions-du-ministre-66/
+  A  -> https://www.mesrs.dz/fr/2026/10/le-ministre-de-lenseignement-superieur-et-de-la-recherche-scientifique-felicite-les-chercheurs-algeriens-figurant-parmi-les-2-des-chercheurs-les-plus-influents-au-monde
+  A  -> https://www.mesrs.dz/fr/2026/10/protomarket-2-financement-de-937-projets-innovants-pour-renforcer-linnovation-et-lentrepreneuriat-en-milieu-universitaire/
+  A  -> https://www.mesrs.dz/fr/2026/10/le-ministre-de-lenseignement-superieur-et-de-la-recherche-scientifique-salue-la-creation-du-fonds-universitaire-pour-linnovation-et-les-startups/
+  A  -> https://www.mesrs.dz/fr/2026/09/le-ministre-de-lenseignement-superieur-et-de-la-recherche-scientifique-examine-les-moyens-de-renforcer-la-recherche-scientifique-sur-les-terres-rares-dans-le-massif-du-
+  A  -> https://www.mesrs.dz/fr/2026/09/le-ministre-de-lenseignement-superieur-et-de-la-recherche-scientifique-preside-a-saida-louverture-de-lassemblee-generale-de-la-quatrieme-edition-du-reseau-africa-uni/
+  A  -> https://www.mesrs.dz/fr/2026/09/le-president-de-la-republique-m-abdelmadjid-tebboune-recoit-les-membres-du-conseil-superieur-de-la-communaute-scientifique-nationale-a-letranger/
+  A  -> https://www.mesrs.dz/fr/2026/09/m-kamel-baddari-rencontre-le-coordinateur-du-conseil-superieur-de-la-communaute-scientifique-nationale-a-letranger/
+  A  -> https://algerianpresidentaward.dz/
+  A octobre 12, 2026 -> https://www.mesrs.dz/fr/2026/10/12/
+  A  -> https://www.mesrs.dz/fr/2026/09/depuis-jijel-m-kamel-baddari-preside-louverture-de-lannee-universitaire-2026-2027-une-nouvelle-annee-placee-sous-le-signe-du-renouveau-de-linnovation-et-de-la-co/
+  A septembre 22, 2026 -> https://www.mesrs.dz/fr/2026/09/22/
+  A  -> https://www.mesrs.dz/fr/2026/09/le-ministre-de-lenseignement-superieur-et-de-la-recherche-scientifique-inspecte-la-residence-universitaire-bab-ezzouar-3-cub3/
+  A septembre 17, 2026 -> https://www.mesrs.dz/fr/2026/09/17/
+  A  -> https://www.mesrs.dz/fr/2026/09/m-kamel-baddari-senquiert-de-la-preparation-de-la-faculte-des-sciences-economiques-de-luniversite-ibrahim-sultan-cheibout-dalger-3/
+  A  -> https://www.mesrs.dz/fr/2026/09/le-ministre-de-lenseignement-superieur-et-de-la-recherche-scientifique-inspecte-les-residences-universitaires-el-alia-et-bouraoui-ammar-pour-senquerir-de/
+  A septembre 14, 2026 -> https://www.mesrs.dz/fr/2026/09/14/
+  A  -> https://www.mesrs.dz/fr/2026/09/le-ministre-de-lenseignement-superieur-et-de-la-recherche-scientifique-rencontre-les-cadres-de-luniversite-de-medea-et-souligne-la-necessite-de-renforcer-le-role-de-lun
+  A septembre 12, 2026 -> https://www.mesrs.dz/fr/2026/09/12/
+  A  -> https://www.mesrs.dz/fr/2026/09/m-kamel-baddari-depuis-medea-la-disponibilite-des-oeuvres-universitaires-et-lamelioration-des-conditions-dhebergement-des-etudiants-une-priorite-pour-la-rentree-univers
+  A  -> https://www.mesrs.dz/fr/2026/09/le-ministre-de-lenseignement-superieur-et-de-la-recherche-scientifique-inspecte-letat-de-preparation-des-residences-universitaires-de-la-wilaya-de-tipasa/
+  A septembre 10, 2026 -> https://www.mesrs.dz/fr/2026/09/10/
+  A voir toutes les activités -> https://www.mesrs.dz/index.php/fr/activites/
+  A Activités Ministérielles -> /index.php/activites
+  A toute l'actualité -> https://www.mesrs.dz/index.php/fr/actualites/
+  A octobre 17, 2026 -> https://www.mesrs.dz/fr/2026/10/17/
+  A août 6, 2026 -> https://www.mesrs.dz/fr/2026/08/06/
+  A août 3, 2026 -> https://www.mesrs.dz/fr/2026/08/03/
+  A juin 24, 2026 -> https://www.mesrs.dz/fr/2026/06/24/
+  A Liste nominative des candidats admis définitivement à concou -> https://www.mesrs.dz/fr/2026/06/liste-nominative-des-candidats-admis-definitivement-a-concourir-au-titre-du-concours-sur-titres-et-travaux-en-vue-de-lacces-au-grade-de-professeur-hospitalo-universitai
+  A juin 17, 2026 -> https://www.mesrs.dz/fr/2026/06/17/
+  A Liste nominative des candidats admis définitivement à concou -> https://www.mesrs.dz/fr/2026/06/liste-nominative-des-candidats-admis-definitivement-a-concourir-au-titre-du-concours-sur-epreuves-en-vue-de-lacces-au-grade-de-maitre-de-conferences-hospitalo-universit
+  A Prolongation des délais relatifs au dépôt des candidatures a -> https://www.mesrs.dz/fr/2026/06/ouverture-de-la-cinquante-quatrieme-54-eme-session-de-la-commission-universitaire-nationale-2/
+  A juin 13, 2026 -> https://www.mesrs.dz/fr/2026/06/13/
+  A Résultats de la sixième (6ᵉ) session de la commission d’éval -> https://www.mesrs.dz/fr/2026/06/https-www-mesrs-dz-index-php-2026-06-resultats-6-session-ingenieurs-de-recherche-apres-recours/
+  A juin 10, 2026 -> https://www.mesrs.dz/fr/2026/06/10/
+  A  -> https://www.mesrs.dz/fr/2026/06/liste-nominative-des-candidats-admis-a-concourir-au-titre-du-concours-sur-epreuves-en-vue-de-lacces-au-grade-de-maitre-de-conferences-hospitalo-universitaire-classe-a/
+  A juin 2, 2026 -> https://www.mesrs.dz/fr/2026/06/02/
+  A  -> https://www.mesrs.dz/fr/2026/06/liste-nominative-des-candidats-admis-a-concourir-au-titre-du-concours-sur-titres-et-travaux-en-vue-de-lacces-au-grade-de-professeur-hospitalo-universitaire/
+  A Ouverture de la neuvième (9 ème) session de candidature en v -> https://www.mesrs.dz/fr/2026/05/ouverture-de-la-neuvieme-9-eme-session-de-candidature-en-vue-de-lobtention-de-lhabilitation-universitaire/
+  A mai 21, 2026 -> https://www.mesrs.dz/fr/2026/05/21/
+  A Plus d'actu -> /index.php/actualites/
+  A Progres Progres -> /index.php/progres
+  A Plateforme de collaboration Plateformes de collaboration -> https://services.mesrs.dz/plateforme
+  A nouvelles nominations nouvelles nominations -> /index.php/nouvelles-nominations
+  A Marchés publics Marchés publics -> /index.php/marches-publics
+  A ciné université ciné université -> https://services.mesrs.dz/plateforme/course/view.php?id=199
+  A Y accéder -> https://studyinalgeria.dz
+  A Portail Etudiant Portail Etudiant -> https://progres.mesrs.dz/webetu/login.xhtml
+  A Équivalence des diplômes Équivalence des diplômes -> /index.php/fr/espace-etudiant/plateforme-equivalence/
+  A Authentification des diplômes Authentification des diplômes -> https://progres.mesrs.dz/webauthentification/pages/index.xhtml
+  A Application MyBus -> https://play.google.com/store/apps/details?id=com.mesrs.mybus.mybusapp
+  A Y accéder -> /index.php/espace-etudiant/
+  A Votre espace -> /index.php/enseignant-2
+  A GESTION DE CARRière -> https://progres.mesrs.dz/webgrh/login.xhtml
+  A RECHERCHE Scientifique -> /index.php/scientific-research/
+  A CONSULTER -> /index.php/etablissement/
+  A DÉCOUVRIR -> /index.php/reseau-universitaire/
+  A DGRSDT -> https://dgrsdt.dz/fr
+  A PNST -> https://www.pnst.cerist.dz/index.php
+  A SNDL -> https://www.sndl.cerist.dz/
+  A O.P.U -> http://opu.dz/
+  A ONOU -> http://onou.dz/AR/
+  JS //fonts.googleapis.com
+  JS //fonts.googleapis.com/css?family=Source
+  JS https://www.mesrs.dz/wp-json/elementskit/v1/
+  JS https://www.mesrs.dz/wp-json/
+  JS https://www.mesrs.dz/wp-admin/admin-ajax.php
+  JS /admin-ajax.php
+##### https://www.academyinfo.go.kr/
+ST 200 text/html 458 https://www.academyinfo.go.kr/
+TITLE 대학알리미 | TABLES 0 TR 0 LI 0
+  FILES 0
