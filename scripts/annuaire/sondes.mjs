@@ -1,5 +1,5 @@
 export const SONDES = [
-  'GREP:url|https://www.ugc.gov.in/Scripts/Pages/unijs.js',
-  'GREP:gtec_|accredit|https://gtec.edu.gh/accredited-institutions/',
-  'GREP:ajax|action|https://gtec.edu.gh/status-check/'
+  'https://www.ugc.gov.in/universitydetails/Getuniversity_details?unitypeID=0',
+  'https://www.ugc.gov.in/universitydetails/Getuniversity_details?unitypeID=3',
+  'GREP:Copyright|reproduc|https://www.ugc.gov.in/Home/Disclaimer'
 ];
