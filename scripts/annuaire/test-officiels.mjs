@@ -34,7 +34,9 @@ for (const u of SONDES) {
       $('tr').slice(0, 10).each((i, e) => lines.push('  TR ' + cut($(e).find('td,th').map((j, c) => $(c).text().trim()).get().join(' | '))));
       const files = $('a[href]').map((i, a) => $(a).attr('href')).get().filter((h) => /\.(pdf|xlsx?|csv)(\?|$)/i.test(h));
       lines.push('  FILES ' + files.length); files.slice(0, 15).forEach((f) => lines.push('   ' + cut(f)));
-      if (!$('tr').length) $('h2,h3,h4,li a,p').slice(0, 90).each((i, e) => { const t = cut($(e).text()); if (t.length > 4) lines.push('  T ' + t); });
+      const seen = new Set(); $('a[href]').each((i, a) => { const h = $(a).attr('href'); const t = cut($(a).text()).slice(0, 60); if (seen.has(h) || seen.size > 120 || /^#|javascript:|facebook|twitter|instagram|youtube|linkedin|whatsapp/i.test(h)) return; seen.add(h); lines.push('  A ' + t + ' -> ' + cut(h)); });
+      const js = buf.toString('utf8').match(/(https?:)?\/\/?[\w\-./]*(api|ajax|json|wp-json|datatable|admin-ajax)[\w\-./?=&]*/gi) || []; [...new Set(js)].slice(0, 25).forEach((x) => lines.push('  JS ' + x.slice(0, 180)));
+      if (!$('tr').length && seen.size < 15) $('h2,h3,h4,li a,p').slice(0, 90).each((i, e) => { const t = cut($(e).text()); if (t.length > 4) lines.push('  T ' + t); });
     }
   } catch (e) { lines.push('ERR ' + e.message); }
 }
