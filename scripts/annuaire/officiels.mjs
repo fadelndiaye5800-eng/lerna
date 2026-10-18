@@ -95,6 +95,23 @@ export const OFFICIELS = [
     discover: { page: 'https://www.mext.go.jp/b_menu/toukei/mext_01087.html', re: /_5\.xlsx$/ }, type: 'xlsx', skip: 2,
     filter: (r) => /^(F1|F2|H1)/.test(r[1]) && /^1/.test(String(r[4])) && !String(r[9]).trim(),
     map: (r) => ({ n: r[5], r: String(r[2]).replace(/^\d+\(|\)$/g, ''), v: (/^(.+?[都道府県])(.+?[市区町村郡])/.exec(String(r[6])) || [])[2] || '', t: /^3/.test(String(r[3])) ? 'prive' : 'public', acc: /^F1/.test(r[1]) ? '大学 (université)' : /^F2/.test(r[1]) ? '短期大学 (université courte)' : '高等専門学校 (collège de technologie)' })
+  },
+  {
+    cc: 'CA', id: 'ca-ircc-dli',
+    autorite: { fr: 'Immigration, Réfugiés et Citoyenneté Canada (IRCC), données ouvertes — Licence du gouvernement ouvert – Canada', en: 'Immigration, Refugees and Citizenship Canada (IRCC), open data — Open Government Licence – Canada' },
+    titre: { fr: 'Établissements d’enseignement désignés (EED/DLI) du postsecondaire ayant accueilli des titulaires de permis d’études en 2026', en: 'Post-secondary designated learning institutions (DLI) with study-permit holders in 2026' },
+    page: 'https://open.canada.ca/data/en/dataset/90115b00-f9b8-49e8-afa3-b4cff8facaee', url: 'https://www.ircc.canada.ca/opendata-donneesouvertes/data/EN_ODP-TR-Study-DLI_name_PT_Inst_type.xlsx', type: 'xlsx',
+    transform: (rows) => {
+      const yr = rows[1] || []; const y0 = yr.findIndex((c) => String(c).trim() === '2026'); if (y0 < 0) throw new Error('colonne 2026 absente');
+      const out = []; let prov = '', typ = '';
+      for (const r of rows.slice(4)) {
+        if (String(r[0]).trim()) prov = String(r[0]).trim(); if (String(r[1]).trim()) typ = String(r[1]).trim();
+        const n = String(r[2]).trim(); if (!n || /total/i.test(n) || /total/i.test(prov + typ)) continue;
+        const recent = r.slice(y0).some((c) => c === '--' || Number(c) > 0); if (!recent) continue;
+        out.push({ n, r: prov.replace(/\s*total$/i, ''), t: /public/i.test(typ) ? 'public' : /private/i.test(typ) ? 'prive' : '', acc: 'DLI · ' + typ });
+      }
+      return out;
+    }
   }
 ];
 
@@ -217,6 +234,7 @@ async function readXlsx(src) {
   const XLSX = (await import('xlsx')).default;
   const wb = XLSX.read(await fetchBuf(await resolveUrl(src)), src.csv ? { type: 'buffer', codepage: src.codepage || 65001 } : undefined);
   const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[src.sheet || 0]], { header: 1, defval: '' });
+  if (src.transform) return src.transform(rows).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
   return rows.slice(src.skip || 0).filter(src.filter || (() => true)).map(src.map).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
 }
 
