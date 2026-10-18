@@ -86,6 +86,15 @@ export const OFFICIELS = [
     titre: { fr: 'Universités reconnues par l’UGC (centrales, d’État, « deemed », privées d’État)', en: 'UGC-recognised universities (central, state, deemed, state private)' },
     url: 'https://www.ugc.gov.in/universitydetails/Getuniversity_details?unitypeID=0', page: 'https://www.ugc.gov.in/universitydetails/university?type=MuOh4z0uqRaY2k8Ag10I0g==', type: 'json',
     map: (o) => ({ n: o.uni_name, v: '', r: o.state || '', w: /\./.test(o.url || '') ? o.url.trim() : '', t: /private/i.test(o.uni_type || '') ? 'prive' : /central|state/i.test(o.uni_type || '') ? 'public' : '', acc: [o.uni_type, o.status ? 'UGC ' + o.status : ''].filter(Boolean).join(' · ') })
+  },
+  {
+    cc: 'JP', id: 'jp-mext',
+    autorite: { fr: 'Ministère de l’Éducation du Japon (MEXT), codes officiels des établissements', en: 'Japan Ministry of Education (MEXT), official school codes' },
+    titre: { fr: 'Universités, universités courtes et collèges de technologie (学校コード, MEXT)', en: 'Universities, junior colleges and colleges of technology (MEXT school codes)' },
+    page: 'https://www.mext.go.jp/b_menu/toukei/mext_01087.html', url: 'https://www.mext.go.jp/b_menu/toukei/mext_01087.html',
+    discover: { page: 'https://www.mext.go.jp/b_menu/toukei/mext_01087.html', re: /_5\.xlsx$/ }, type: 'xlsx', skip: 2,
+    filter: (r) => /^(F1|F2|H1)/.test(r[1]) && /^1/.test(String(r[4])) && !String(r[9]).trim(),
+    map: (r) => ({ n: r[5], r: String(r[2]).replace(/^\d+\(|\)$/g, ''), v: (/^(.+?[都道府県])(.+?[市区町村郡])/.exec(String(r[6])) || [])[2] || '', t: /^3/.test(String(r[3])) ? 'prive' : 'public', acc: /^F1/.test(r[1]) ? '大学 (université)' : /^F2/.test(r[1]) ? '短期大学 (université courte)' : '高等専門学校 (collège de technologie)' })
   }
 ];
 
@@ -196,6 +205,21 @@ async function readJson(src) {
   return arr.filter(src.filter || (() => true)).map(src.map).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
 }
 
+/* Classeur Excel ou CSV officiel. discover : { page, re } trouve le fichier le plus récent sur la page de l'organisme */
+async function resolveUrl(src) {
+  if (!src.discover) return src.url;
+  const $ = cheerio.load((await fetchBuf(src.discover.page)).toString('utf8'));
+  const h = $('a[href]').map((i, a) => $(a).attr('href')).get().find((x) => src.discover.re.test(x));
+  if (!h) throw new Error('fichier introuvable sur ' + src.discover.page);
+  return new URL(h, src.discover.page).href;
+}
+async function readXlsx(src) {
+  const XLSX = (await import('xlsx')).default;
+  const wb = XLSX.read(await fetchBuf(await resolveUrl(src)), src.csv ? { type: 'buffer', codepage: src.codepage || 65001 } : undefined);
+  const rows = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[src.sheet || 0]], { header: 1, defval: '' });
+  return rows.slice(src.skip || 0).filter(src.filter || (() => true)).map(src.map).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
+}
+
 /* PDF dont la table des matières liste les établissements : « NOM DE L'UNIVERSITÉ ........ 12 » */
 async function readPdfToc(src) {
   const pdf = (await import('pdf-parse/lib/pdf-parse.js')).default;
@@ -218,7 +242,7 @@ export async function readOfficiels(log = console.log) {
   const out = [], report = {};
   for (const src of OFFICIELS) {
     try {
-      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : src.type === 'pdf-acr' ? await readPdfAcr(src) : src.type === 'pdf-tz' ? await readPdfTz(src) : src.type === 'pdf-toc' ? await readPdfToc(src) : src.type === 'json' ? await readJson(src) : await readList(src);
+      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : src.type === 'pdf-acr' ? await readPdfAcr(src) : src.type === 'pdf-tz' ? await readPdfTz(src) : src.type === 'pdf-toc' ? await readPdfToc(src) : src.type === 'json' ? await readJson(src) : src.type === 'xlsx' ? await readXlsx(src) : await readList(src);
       const seen = new Set();
       for (const r of rows) {
         const key = r.n.toLowerCase();

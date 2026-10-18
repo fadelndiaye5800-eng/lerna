@@ -253,12 +253,13 @@ all.sort((a, b) => (PRIO[a.s] ?? 5) - (PRIO[b.s] ?? 5));
 const STOP = new Set(['de', 'du', 'des', 'la', 'le', 'les', 'l', 'd', 'of', 'the', 'and', 'et', 'en', 'a', 'in', 'for', 'y', 'e']);
 const nkey = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\([^)]*\)/g, ' ').replace(/[^a-z0-9]+/g, ' ').split(' ').filter((w) => w && !STOP.has(w)).join(' ');
 const offByName = new Map();
-for (const r of all) if (r.s === 'officiel') { const k = r.p + '|' + nkey(r.n); if (!offByName.has(k)) offByName.set(k, r); }
+for (const r of all) if (r.s === 'officiel') { const n = nkey(r.n); if (n.length < 4) continue; const k = r.p + '|' + n; if (!offByName.has(k)) offByName.set(k, r); }
 let merged = 0;
 for (let i = all.length - 1; i >= 0; i--) {
   const r = all[i];
   if (r.s !== 'wikidata') continue;
-  const o = offByName.get(r.p + '|' + nkey(r.n)) || (r.a ? offByName.get(r.p + '|' + nkey(r.a)) : null);
+  const kn = nkey(r.n), ka = r.a ? nkey(r.a) : '';
+  const o = (kn.length >= 4 && offByName.get(r.p + '|' + kn)) || (ka.length >= 4 ? offByName.get(r.p + '|' + ka) : null);
   if (!o) continue;
   if (!o.w && r.w) o.w = r.w;
   if (!o.v && r.v) o.v = r.v;
