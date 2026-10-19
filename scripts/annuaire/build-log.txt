@@ -1,65 +1,137 @@
-01:51:05 deqar 8038
-01:52:20 scorecard 992
-01:52:21 ofs 425
-01:52:24 cricos 664
-01:52:25 officiel ci-mesrs-prives 618
-01:52:27 officiel cm-minesup-ipes 234
-01:52:30 officiel ae-caa 103
-01:52:31 officiel ng-nuc-public-federal 77
-01:52:32 officiel ng-nuc-public-state 69
-01:52:33 officiel ng-nuc-prive-private 182
-01:52:36 officiel ug-nche 153
+12:27:28 deqar 8038
+12:28:43 scorecard 992
+12:28:44 ofs 425
+12:28:48 cricos 664
+12:28:50 officiel ci-mesrs-prives 618
+12:28:57 officiel cm-minesup-ipes 234
+12:28:59 officiel ae-caa 103
+12:29:01 officiel ng-nuc-public-federal 77
+12:29:02 officiel ng-nuc-public-state 69
+12:29:03 officiel ng-nuc-prive-private 182
+12:29:06 officiel ug-nche 153
 Warning: TT: undefined function: 21
-01:52:39 officiel rw-hec 21
-01:52:41 officiel bw-bqa 68
-01:52:44 officiel zw-zimche 20
+12:29:08 officiel rw-hec 21
+12:29:11 officiel bw-bqa 68
+12:29:14 officiel zw-zimche 20
 Warning: TT: undefined function: 21
-01:52:46 officiel tz-tcu 30
+12:29:17 officiel tz-tcu 30
 clés co-men-snies c_digo_instituci_n,nombre_instituci_n,n_mero_identificaci_n,principal_seccional,naturaleza_jur_dica,sector,car_cter_acad_mico,cod_departamento,departamento_domicilio,municipio_domicilio,direcci_n_domicilio,tel_fono_domicilio,norma_de_creaci_n,fecha_norma_de_creaci_n,acreditada_alta_calidad,fecha_acreditaci_n,resoluci_n_de_la_acreditaci,vigencia_de_la_acreditaci,estado,fecha_actualizacion,p_gina_web
-01:52:47 officiel co-men-snies 300
-01:52:48 officiel in-ugc 1256
-01:52:54 officiel jp-mext 1117
-01:52:57 officiel ca-ircc-dli 666
-01:53:04 officiel dz-mesrs 104
-01:53:05 officiel nl-duo 54
-01:53:10 officiel cn-moe 2952
-01:53:17 officiel ke-cue 89
+12:29:18 officiel co-men-snies 300
+12:29:21 officiel in-ugc 1256
+12:29:23 officiel jp-mext 1117
+12:29:26 officiel ca-ircc-dli 666
+12:29:36 officiel dz-mesrs 104
+12:29:37 officiel nl-duo 54
+12:29:41 officiel cn-moe 2952
+12:29:48 officiel ke-cue 89
 Warning: TT: undefined function: 32
 Warning: TT: undefined function: 32
-01:53:22 officiel tn-mes-prives 89
-01:53:23 officiel tn-mes-universites 13
-01:54:23 officiel sn-anaqsup-hab 146
-01:54:24 officiel ÉCHEC cames-pred-bj HTTP 500
-01:54:27 officiel cames-pred-bf 49
-01:54:27 officiel ÉCHEC cames-pred-cm HTTP 500
-01:54:28 officiel ÉCHEC cames-pred-cf HTTP 500
-01:54:28 officiel cames-pred-cg 2
-01:54:30 officiel cames-pred-ci 17
-01:54:30 officiel cames-pred-ga 4
-01:54:30 officiel cames-pred-gn 2
-01:54:31 officiel ÉCHEC cames-pred-gw HTTP 500
-01:54:31 officiel ÉCHEC cames-pred-mg HTTP 500
-01:54:32 officiel cames-pred-ml 20
-01:54:33 officiel cames-pred-ne 10
-01:54:33 officiel cames-pred-cd 1
-01:54:34 officiel ÉCHEC cames-pred-rw HTTP 500
-01:54:35 officiel cames-pred-sn 26
-01:54:35 officiel cames-pred-td 8
-01:54:36 officiel cames-pred-tg 12
-01:54:38 officiel eg-scu-publiques 28
-01:54:38 officiel eg-scu-ahleya 33
-01:54:39 officiel eg-scu-privees 39
-01:54:39 officiel eg-scu-techno-publiques 12
-01:54:39 officiel eg-scu-techno-privees 2
-01:54:43 officiel eg-scu-instituts-prives 181
-01:54:43 officiel eg-scu-instituts-publics 13
-01:54:43 officiel eg-scu-etrangeres 15
-01:54:47 officiel eg-scu-branches 10
-01:54:47 officiel eg-scu-speciales 2
-01:54:47 officiel eg-scu-sous-tutelle 4
-01:54:47 officiel eg-scu-accords 9
-01:54:47 officiel 8860
-02:06:03 wikidata 30194
-02:06:03 fiches Wikidata fusionnées avec une liste officielle : 528
-02:06:03 écartés (pays du site incohérent) 183
-02:06:03 TOTAL 42834 établissements dans 199 pays
+12:29:56 officiel tn-mes-prives 89
+12:29:58 officiel tn-mes-universites 13
+12:31:02 officiel sn-anaqsup-hab 146
+12:31:03 officiel ÉCHEC cames-pred-bj HTTP 500
+12:31:07 officiel cames-pred-bf 49
+12:31:08 officiel ÉCHEC cames-pred-cm HTTP 500
+12:31:08 officiel ÉCHEC cames-pred-cf HTTP 500
+12:31:09 officiel cames-pred-cg 2
+12:31:11 officiel cames-pred-ci 17
+12:31:11 officiel cames-pred-ga 4
+12:31:11 officiel cames-pred-gn 2
+12:31:12 officiel ÉCHEC cames-pred-gw HTTP 500
+12:31:13 officiel ÉCHEC cames-pred-mg HTTP 500
+12:31:14 officiel cames-pred-ml 20
+12:31:15 officiel cames-pred-ne 10
+12:31:15 officiel cames-pred-cd 1
+12:31:16 officiel ÉCHEC cames-pred-rw HTTP 500
+12:31:18 officiel cames-pred-sn 26
+12:31:18 officiel cames-pred-td 8
+12:31:19 officiel cames-pred-tg 12
+12:31:21 officiel eg-scu-publiques 28
+12:31:22 officiel eg-scu-ahleya 33
+12:31:22 officiel eg-scu-privees 39
+12:31:23 officiel eg-scu-techno-publiques 12
+12:31:23 officiel eg-scu-techno-privees 2
+12:31:23 officiel eg-scu-instituts-prives 181
+12:31:23 officiel eg-scu-instituts-publics 13
+12:31:24 officiel eg-scu-etrangeres 15
+12:31:24 officiel eg-scu-branches 10
+12:31:24 officiel eg-scu-speciales 2
+12:31:24 officiel eg-scu-sous-tutelle 4
+12:31:24 officiel eg-scu-accords 9
+12:31:24 officiel 8860
+12:38:01 wikidata 30208
+12:38:01 fiches Wikidata fusionnées avec une liste officielle : 526
+12:38:02 nettoyage US {"noms":0,"doublons":4,"sigles":0,"lerna":20}
+12:38:02 nettoyage GB {"noms":0,"doublons":10,"sigles":0,"lerna":12}
+12:38:02 nettoyage AU {"noms":0,"doublons":0,"sigles":0,"lerna":4}
+12:38:02 nettoyage CI {"noms":0,"doublons":5,"sigles":0,"lerna":2}
+12:38:02 nettoyage CM {"noms":0,"doublons":0,"sigles":0,"lerna":1}
+12:38:02 nettoyage AE {"noms":0,"doublons":5,"sigles":0,"lerna":1}
+12:38:02 nettoyage NG {"noms":0,"doublons":2,"sigles":0,"lerna":2}
+12:38:02 nettoyage UG {"noms":0,"doublons":3,"sigles":0,"lerna":1}
+12:38:02 nettoyage RW {"noms":0,"doublons":1,"sigles":0,"lerna":2}
+12:38:02 nettoyage TZ {"noms":0,"doublons":2,"sigles":1,"lerna":1}
+12:38:02 nettoyage IN {"noms":1,"doublons":19,"sigles":0,"lerna":3}
+12:38:02 nettoyage JP {"noms":0,"doublons":4,"sigles":0,"lerna":0}
+12:38:02 nettoyage CA {"noms":0,"doublons":0,"sigles":0,"lerna":21}
+12:38:02 nettoyage NL {"noms":0,"doublons":3,"sigles":0,"lerna":3}
+12:38:02 nettoyage CN {"noms":0,"doublons":9,"sigles":0,"lerna":4}
+12:38:02 nettoyage KE {"noms":0,"doublons":1,"sigles":0,"lerna":4}
+12:38:02 nettoyage TN {"noms":0,"doublons":0,"sigles":0,"lerna":2}
+12:38:02 nettoyage SN {"noms":0,"doublons":9,"sigles":3,"lerna":16}
+12:38:02 nettoyage BF {"noms":0,"doublons":0,"sigles":0,"lerna":3}
+12:38:02 nettoyage GA {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage GN {"noms":0,"doublons":2,"sigles":0,"lerna":0}
+12:38:02 nettoyage CD {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage TG {"noms":0,"doublons":0,"sigles":0,"lerna":1}
+12:38:02 nettoyage EG {"noms":0,"doublons":0,"sigles":0,"lerna":3}
+12:38:02 nettoyage UA {"noms":0,"doublons":9,"sigles":0,"lerna":0}
+12:38:02 nettoyage FR {"noms":0,"doublons":0,"sigles":0,"lerna":14}
+12:38:02 nettoyage DE {"noms":0,"doublons":5,"sigles":0,"lerna":6}
+12:38:02 nettoyage DK {"noms":0,"doublons":1,"sigles":0,"lerna":1}
+12:38:02 nettoyage FI {"noms":0,"doublons":0,"sigles":0,"lerna":2}
+12:38:02 nettoyage KZ {"noms":0,"doublons":3,"sigles":0,"lerna":0}
+12:38:02 nettoyage ES {"noms":0,"doublons":0,"sigles":0,"lerna":3}
+12:38:02 nettoyage XK {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage TR {"noms":0,"doublons":21,"sigles":0,"lerna":2}
+12:38:02 nettoyage MA {"noms":0,"doublons":0,"sigles":0,"lerna":6}
+12:38:02 nettoyage IL {"noms":0,"doublons":8,"sigles":0,"lerna":0}
+12:38:02 nettoyage BE {"noms":0,"doublons":3,"sigles":0,"lerna":6}
+12:38:02 nettoyage AL {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage PL {"noms":0,"doublons":6,"sigles":0,"lerna":0}
+12:38:02 nettoyage RS {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage CZ {"noms":0,"doublons":2,"sigles":0,"lerna":1}
+12:38:02 nettoyage CH {"noms":0,"doublons":0,"sigles":0,"lerna":4}
+12:38:02 nettoyage NO {"noms":0,"doublons":2,"sigles":0,"lerna":1}
+12:38:02 nettoyage IT {"noms":0,"doublons":0,"sigles":0,"lerna":3}
+12:38:02 nettoyage AT {"noms":0,"doublons":2,"sigles":0,"lerna":1}
+12:38:02 nettoyage BY {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage CY {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage KG {"noms":0,"doublons":2,"sigles":0,"lerna":0}
+12:38:02 nettoyage ET {"noms":0,"doublons":0,"sigles":0,"lerna":1}
+12:38:02 nettoyage GR {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage HU {"noms":0,"doublons":2,"sigles":0,"lerna":1}
+12:38:02 nettoyage AM {"noms":0,"doublons":2,"sigles":0,"lerna":0}
+12:38:02 nettoyage SA {"noms":0,"doublons":1,"sigles":0,"lerna":1}
+12:38:02 nettoyage RU {"noms":0,"doublons":3,"sigles":0,"lerna":0}
+12:38:02 nettoyage LB {"noms":0,"doublons":1,"sigles":0,"lerna":1}
+12:38:02 nettoyage UZ {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage BR {"noms":0,"doublons":25,"sigles":0,"lerna":0}
+12:38:02 nettoyage MY {"noms":0,"doublons":0,"sigles":0,"lerna":2}
+12:38:02 nettoyage SE {"noms":0,"doublons":0,"sigles":0,"lerna":1}
+12:38:02 nettoyage ZA {"noms":0,"doublons":0,"sigles":0,"lerna":6}
+12:38:02 nettoyage MN {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage LT {"noms":0,"doublons":2,"sigles":0,"lerna":0}
+12:38:02 nettoyage VN {"noms":0,"doublons":2,"sigles":0,"lerna":0}
+12:38:02 nettoyage GH {"noms":0,"doublons":2,"sigles":0,"lerna":4}
+12:38:02 nettoyage GY {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage FJ {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage SG {"noms":0,"doublons":0,"sigles":0,"lerna":3}
+12:38:02 nettoyage NP {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage PK {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage BD {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage PH {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:02 nettoyage BJ {"noms":0,"doublons":1,"sigles":0,"lerna":1}
+12:38:02 nettoyage BI {"noms":0,"doublons":1,"sigles":0,"lerna":0}
+12:38:03 écartés (pays du site incohérent) 181
+12:38:03 TOTAL 42643 établissements dans 199 pays
