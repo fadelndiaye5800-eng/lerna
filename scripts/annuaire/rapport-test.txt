@@ -1,4 +1,4 @@
-2026-10-19T01:43:54.383Z
+2026-10-19T01:46:47.801Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -26,23 +26,23 @@ Warning: TT: undefined function: 32
 officiel tn-mes-prives 89
 officiel tn-mes-universites 13
 officiel sn-anaqsup-hab 146
-officiel ÉCHEC cames-pred-bj HTTP 400
-officiel ÉCHEC cames-pred-bf HTTP 400
-officiel ÉCHEC cames-pred-cm HTTP 400
-officiel ÉCHEC cames-pred-cf HTTP 400
-officiel ÉCHEC cames-pred-cg HTTP 400
-officiel ÉCHEC cames-pred-ci HTTP 400
-officiel ÉCHEC cames-pred-ga HTTP 400
-officiel ÉCHEC cames-pred-gn HTTP 400
-officiel ÉCHEC cames-pred-gw HTTP 400
-officiel ÉCHEC cames-pred-mg HTTP 400
-officiel ÉCHEC cames-pred-ml HTTP 400
-officiel ÉCHEC cames-pred-ne HTTP 400
-officiel ÉCHEC cames-pred-cd HTTP 400
-officiel ÉCHEC cames-pred-rw HTTP 400
-officiel ÉCHEC cames-pred-sn HTTP 400
-officiel ÉCHEC cames-pred-td HTTP 400
-officiel ÉCHEC cames-pred-tg HTTP 400
+officiel ÉCHEC cames-pred-bj HTTP 500
+officiel cames-pred-bf 49
+officiel ÉCHEC cames-pred-cm HTTP 500
+officiel ÉCHEC cames-pred-cf HTTP 500
+officiel cames-pred-cg 2
+officiel cames-pred-ci 17
+officiel cames-pred-ga 4
+officiel cames-pred-gn 2
+officiel ÉCHEC cames-pred-gw HTTP 500
+officiel ÉCHEC cames-pred-mg HTTP 500
+officiel cames-pred-ml 20
+officiel cames-pred-ne 10
+officiel cames-pred-cd 1
+officiel ÉCHEC cames-pred-rw HTTP 500
+officiel cames-pred-sn 26
+officiel cames-pred-td 8
+officiel cames-pred-tg 12
 officiel eg-scu-publiques 28
 officiel eg-scu-ahleya 33
 officiel eg-scu-privees 39
@@ -55,7 +55,7 @@ officiel eg-scu-branches 10
 officiel eg-scu-speciales 2
 officiel eg-scu-sous-tutelle 4
 officiel eg-scu-accords 9
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":666,"dz-mesrs":104,"nl-duo":54,"cn-moe":2952,"ke-cue":89,"tn-mes-prives":89,"tn-mes-universites":13,"sn-anaqsup-hab":146,"cames-pred-bj":"erreur : HTTP 400","cames-pred-bf":"erreur : HTTP 400","cames-pred-cm":"erreur : HTTP 400","cames-pred-cf":"erreur : HTTP 400","cames-pred-cg":"erreur : HTTP 400","cames-pred-ci":"erreur : HTTP 400","cames-pred-ga":"erreur : HTTP 400","cames-pred-gn":"erreur : HTTP 400","cames-pred-gw":"erreur : HTTP 400","cames-pred-mg":"erreur : HTTP 400","cames-pred-ml":"erreur : HTTP 400","cames-pred-ne":"erreur : HTTP 400","cames-pred-cd":"erreur : HTTP 400","cames-pred-rw":"erreur : HTTP 400","cames-pred-sn":"erreur : HTTP 400","cames-pred-td":"erreur : HTTP 400","cames-pred-tg":"erreur : HTTP 400","eg-scu-publiques":28,"eg-scu-ahleya":33,"eg-scu-privees":39,"eg-scu-techno-publiques":12,"eg-scu-techno-privees":2,"eg-scu-instituts-prives":181,"eg-scu-instituts-publics":13,"eg-scu-etrangeres":15,"eg-scu-branches":10,"eg-scu-speciales":2,"eg-scu-sous-tutelle":4,"eg-scu-accords":9}
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":666,"dz-mesrs":104,"nl-duo":54,"cn-moe":2952,"ke-cue":89,"tn-mes-prives":89,"tn-mes-universites":13,"sn-anaqsup-hab":146,"cames-pred-bj":"erreur : HTTP 500","cames-pred-bf":49,"cames-pred-cm":"erreur : HTTP 500","cames-pred-cf":"erreur : HTTP 500","cames-pred-cg":2,"cames-pred-ci":17,"cames-pred-ga":4,"cames-pred-gn":2,"cames-pred-gw":"erreur : HTTP 500","cames-pred-mg":"erreur : HTTP 500","cames-pred-ml":20,"cames-pred-ne":10,"cames-pred-cd":1,"cames-pred-rw":"erreur : HTTP 500","cames-pred-sn":26,"cames-pred-td":8,"cames-pred-tg":12,"eg-scu-publiques":28,"eg-scu-ahleya":33,"eg-scu-privees":39,"eg-scu-techno-publiques":12,"eg-scu-techno-privees":2,"eg-scu-instituts-prives":181,"eg-scu-instituts-publics":13,"eg-scu-etrangeres":15,"eg-scu-branches":10,"eg-scu-speciales":2,"eg-scu-sous-tutelle":4,"eg-scu-accords":9}
 == ci-mesrs-prives : 618
   Abidjan Bloom University (ABU) | Abidjan | Cocody | prive | 90.000 F
   Abidjan Business School -(ABS) | Abidjan | Cocody | prive | 85000
@@ -385,6 +385,112 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Institut Polytechnique de Dakar/Thomas Sankara (IPD) | Dakar | Dakar | Habilitation ANAQ-Sup : avis favorable (2016) · 3 formations examinées
   National Institute Of Information Technology Limited (NIIT-LTD) | Dakar | Dakar | Habilitation ANAQ-Sup : avis favorable (2014) · 3 formations examinées
   Ecole Supérieure de Commerce et de Gestion (ESUP) | Dakar | Dakar | Habilitation ANAQ-Sup : avis favorable (2014) · 3 formations examinées
+== cames-pred-bf : 49
+  Université Libre du Burkina (ULB)Ouagadougou | 10 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Université Ouaga 3S | 20 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Institut Supérieur des Filières Professionnalisantes de BOBO DIOULASSO | 5 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Université privée Notre Dame d'Afrique | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Université Saint Thomas d'Acquin | 30 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Ecole Supérieure de Commerce de Ouagadougou | 17 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Ecole Supérieure de Commerce et d'Informatique de Gestion(ESCO-IGES) | 17 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Institut International de Formation à l'Expertise Comptable et de Gestion | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2025)
+  Université privée Catholique Saint Joseph | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Universite Privee de Ouagadougou | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Université Joseph KI-ZERBO | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Institut Panafricain pour le Developpement/Afrique de l'ouest-sahel(IPD/AOS) | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2020)
+  Institut de Formation Colbert | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2020)
+  Ecole Supérieure Privée en Direct | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2020)
+== cames-pred-cg : 2
+  Université DENIS SASSOU-N'GUESSO | 19 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Ecole Supérieure de Gestion et d'Administration des Entreprises | 8 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
+== cames-pred-ci : 17
+  Agitel-Formation | 9 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Institut Supérieur Polytechnique d'Afrique | 3 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Centre Lasalien Africain(CELAF institut)Abidjan | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2025)
+  Institut des Sciences et Techniques de la Communication | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Faculté Universitaires Privees d'Abidjan(FUPA) | 17 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Institut International Polytechnique des Elites d'Abidjan | 16 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Institut Ivoirien de Technologie | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Institut Universitaire D’Abidjan | 46 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Université des Lagunes | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Université Internationale de Côte d'Ivoire | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Groupe Conseils et Strategie International Pole Polytechnique | 3 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
+  Institut National Polytechnique Houphouet Boigny | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2022)
+  Hautes Etudes Commerciales Abidjan (HEC) | 8 diplômes reconnus par le CAMES (dernière reconnaissance : 2020)
+  Universite Methodiste de Cote D'Ivoire | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2020)
+== cames-pred-ga : 4
+  African University of Management & Technologies | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  École des Hautes Études Comptables et Financière | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Ecole Supérieure de Commerce et de Management | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2020)
+  Université Internationale de Libreville | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2020)
+== cames-pred-gn : 2
+  Université Kofi ANNAN de Guinée | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Université la SOURCE | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
+== cames-pred-ml : 20
+  Complexe Scolaire et Universitaire Privé BAZO | 11 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Ecole Supérieure de Gestion, d'Informatique et de Comptabilité | 10 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Institut Supérieur des Techniques Economiques, Comptables et Commerciales | 27 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Université Scientifique Libre de Bamako | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Institut National de Formation en Sciences de la Santé | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2025)
+  Ecole Supérieure de Management, de Commerce et d'Informatique | 12 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Institut Africain de Management (IAM Bamako) | 8 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Institut des Sciences Politiques,Relations Internationales et de la communication(ISPRIC)bamako | 8 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Ecole Supérieure de Commerce du Mali | 5 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
+  Ecole Supérieure de Technologie et de Management(ESTM) | 5 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
+  Institut Privé Africain de technologies et de Management | 3 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
+  Institut Supérieur de Technologies Appliquées | 16 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Université Africaine de Management, des Sciences Appliquées et de Télécommunications | 6 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Université Catholique de l'Afrique de l'Ouest-Unité Universitaire de Bamako | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2021)
+== cames-pred-ne : 10
+  Ecole Nationale de Santé Publique Zinder | 3 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Ecole supérieure de commerce et d'administration des entreprises | 5 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Ecoles des Techniques Economiques Commerçiales et de Communication(ETEC) | 11 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
+  Ecole Nationale de Sante Publique Damoure Zika | 3 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
+  Institut Pratique de Santé Publique | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Centre regional de formation en agrometeorologie et hydrologique operationnelle(AGRHYMET) | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Institut Supérieur de Santé | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Ecole Superieure des Telecommunications | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2020)
+  Institut Africain de Technologie/IAT-NIAMEY | 3 diplômes reconnus par le CAMES (dernière reconnaissance : 2020)
+  Ecole de Sante Publique et de l’Action Sociale | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2020)
+== cames-pred-cd : 1
+  Ecole Régionale Post-Universitaire d’Aménagement et de Gestion Intégrés des Forêts et Territoires Tropicaux - Centre de Catégorie 2 de l'UNESCO | 3 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+== cames-pred-sn : 26
+  AFI-Université de l’Entreprise | 10 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Centre Africain d'Etudes Superieures en Gestion(CESAG)Dakar | 35 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Centre Trainmar | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Ecole Supérieure de Commerce et de Gestion | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Institut Polytechnique de Dakar | 8 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Institut Saint Michel/UCAO | 11 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Université Hamadou Hapate Ba - Dakar | 11 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Ecole Supérieure Multinationale des Telecommunications | 10 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Université des Sciences de la Santé de Dakar | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2024)
+  Centre Ouest Africain de Formation et d'Etudes Bancaires - BCEAO | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2023)
+  Euromed Universite | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2023)
+  Institut Africain de Management (IAM) | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2020)
+  Institut privé de formation et de recherches médicales | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2020)
+  Université de l'Entreprise/Dakar | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2020)
+== cames-pred-td : 8
+  Institut Privé AMOUL de Farcha | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Université Toumai | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2025)
+  Ecole Internationale de Formation en Santé | 3 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Universite la Francophonie de N'Djamena | 5 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Institut Polytechnique Koudori Guizine | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Ecole Supérieure des Sciences de Gestion Pierre Elliot Trudeau | 3 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Institut Supérieur de Formation Professionnelle et Polytechnique | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Université HEC | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2020)
+== cames-pred-tg : 12
+  Ecole Supérieure des Affaires (ESA) | 22 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Ecole Africaine des Métiers de l'Architecture et d'Urbanisme (E.A.M.A.U)Lome | 5 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Institut Supérieur de Droit et d'Interprétariat | 11 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
+  Université Catholique de l'Afrique de l'Ouest Unité Universitaire au Togo | 14 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
+  Université de Kara | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
+  Institut de Formation Technique Supérieure | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
+  Lome Business School | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Institut Supérieur Privé de Management | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Ecole Superieure de Gestion d’Informatique et des Sciences (ESGIS)-Lome | 11 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Ecole Supérieure d’Administration et de Gestion Notre Dame de l’Eglise (ESAG-NDE)-LOME. | 23 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
+  Institut Régional d'Enseignement Supérieur et de Recherche en Développement Culturel | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2022)
+  Institut Africain d'Administration et d'Etudes commerciales(IAEC)Lome | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2021)
 == eg-scu-publiques : 28
   جامعة القاهرة | public | https://cu.edu.eg/ar/Home | Universités publiques
   جامعة الاسكندرية | public | https://alexu.edu.eg/ | Universités publiques
