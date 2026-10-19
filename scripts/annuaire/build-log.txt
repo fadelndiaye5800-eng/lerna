@@ -1,28 +1,35 @@
-00:02:44 deqar 8038
-00:03:58 scorecard 992
-00:04:00 ofs 425
-00:04:03 cricos 664
-00:04:05 officiel ci-mesrs-prives 618
-00:04:07 officiel cm-minesup-ipes 234
-00:04:08 officiel ae-caa 103
-00:04:10 officiel ng-nuc-public-federal 77
-00:04:11 officiel ng-nuc-public-state 69
-00:04:11 officiel ng-nuc-prive-private 182
-00:04:15 officiel ug-nche 153
+00:43:26 deqar 8038
+00:44:41 scorecard 992
+00:44:43 ofs 425
+00:44:48 cricos 664
+00:44:49 officiel ci-mesrs-prives 618
+00:44:52 officiel cm-minesup-ipes 234
+00:44:54 officiel ae-caa 103
+00:44:56 officiel ng-nuc-public-federal 77
+00:44:57 officiel ng-nuc-public-state 69
+00:44:58 officiel ng-nuc-prive-private 182
+00:45:01 officiel ug-nche 153
 Warning: TT: undefined function: 21
-00:04:18 officiel rw-hec 21
-00:04:20 officiel bw-bqa 68
-00:04:25 officiel zw-zimche 20
+00:45:05 officiel rw-hec 21
+00:45:07 officiel bw-bqa 68
+00:45:10 officiel zw-zimche 20
 Warning: TT: undefined function: 21
-00:04:27 officiel tz-tcu 30
+00:45:12 officiel tz-tcu 30
 clés co-men-snies c_digo_instituci_n,nombre_instituci_n,n_mero_identificaci_n,principal_seccional,naturaleza_jur_dica,sector,car_cter_acad_mico,cod_departamento,departamento_domicilio,municipio_domicilio,direcci_n_domicilio,tel_fono_domicilio,norma_de_creaci_n,fecha_norma_de_creaci_n,acreditada_alta_calidad,fecha_acreditaci_n,resoluci_n_de_la_acreditaci,vigencia_de_la_acreditaci,estado,fecha_actualizacion,p_gina_web
-00:04:28 officiel co-men-snies 300
-00:04:31 officiel in-ugc 1256
-00:04:34 officiel jp-mext 1117
-00:04:39 officiel ca-ircc-dli 666
-00:04:40 officiel dz-mesrs 104
-00:04:40 officiel 5018
-00:08:46 wikidata 30192
-00:08:46 fiches Wikidata fusionnées avec une liste officielle : 446
-00:08:46 écartés (pays du site incohérent) 174
-00:08:46 TOTAL 39795 établissements dans 199 pays
+00:45:13 officiel co-men-snies 300
+00:45:16 officiel in-ugc 1256
+00:45:18 officiel jp-mext 1117
+00:45:21 officiel ca-ircc-dli 666
+00:45:23 officiel dz-mesrs 104
+00:45:24 officiel nl-duo 54
+00:45:28 officiel cn-moe 2952
+00:45:34 officiel ke-cue 89
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+00:45:39 officiel tn-mes-prives 89
+00:45:40 officiel tn-mes-universites 13
+00:45:40 officiel 8215
+00:56:52 wikidata 30192
+00:56:52 fiches Wikidata fusionnées avec une liste officielle : 495
+00:56:52 écartés (pays du site incohérent) 176
+00:56:52 TOTAL 42855 établissements dans 199 pays
