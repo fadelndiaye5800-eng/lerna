@@ -1,35 +1,47 @@
-00:43:26 deqar 8038
-00:44:41 scorecard 992
-00:44:43 ofs 425
-00:44:48 cricos 664
-00:44:49 officiel ci-mesrs-prives 618
-00:44:52 officiel cm-minesup-ipes 234
-00:44:54 officiel ae-caa 103
-00:44:56 officiel ng-nuc-public-federal 77
-00:44:57 officiel ng-nuc-public-state 69
-00:44:58 officiel ng-nuc-prive-private 182
-00:45:01 officiel ug-nche 153
+00:57:37 deqar 8038
+00:58:52 scorecard 992
+00:58:54 ofs 425
+00:58:59 cricos 664
+00:59:01 officiel ci-mesrs-prives 618
+00:59:05 officiel cm-minesup-ipes 234
+00:59:07 officiel ae-caa 103
+00:59:08 officiel ng-nuc-public-federal 77
+00:59:09 officiel ng-nuc-public-state 69
+00:59:10 officiel ng-nuc-prive-private 182
+00:59:13 officiel ug-nche 153
 Warning: TT: undefined function: 21
-00:45:05 officiel rw-hec 21
-00:45:07 officiel bw-bqa 68
-00:45:10 officiel zw-zimche 20
+00:59:16 officiel rw-hec 21
+00:59:18 officiel bw-bqa 68
+00:59:22 officiel zw-zimche 20
 Warning: TT: undefined function: 21
-00:45:12 officiel tz-tcu 30
+00:59:24 officiel tz-tcu 30
 clés co-men-snies c_digo_instituci_n,nombre_instituci_n,n_mero_identificaci_n,principal_seccional,naturaleza_jur_dica,sector,car_cter_acad_mico,cod_departamento,departamento_domicilio,municipio_domicilio,direcci_n_domicilio,tel_fono_domicilio,norma_de_creaci_n,fecha_norma_de_creaci_n,acreditada_alta_calidad,fecha_acreditaci_n,resoluci_n_de_la_acreditaci,vigencia_de_la_acreditaci,estado,fecha_actualizacion,p_gina_web
-00:45:13 officiel co-men-snies 300
-00:45:16 officiel in-ugc 1256
-00:45:18 officiel jp-mext 1117
-00:45:21 officiel ca-ircc-dli 666
-00:45:23 officiel dz-mesrs 104
-00:45:24 officiel nl-duo 54
-00:45:28 officiel cn-moe 2952
-00:45:34 officiel ke-cue 89
+00:59:25 officiel co-men-snies 300
+00:59:27 officiel in-ugc 1256
+00:59:30 officiel jp-mext 1117
+00:59:34 officiel ca-ircc-dli 666
+00:59:36 officiel dz-mesrs 104
+00:59:37 officiel nl-duo 54
+00:59:41 officiel cn-moe 2952
+00:59:48 officiel ke-cue 89
 Warning: TT: undefined function: 32
 Warning: TT: undefined function: 32
-00:45:39 officiel tn-mes-prives 89
-00:45:40 officiel tn-mes-universites 13
-00:45:40 officiel 8215
-00:56:52 wikidata 30192
-00:56:52 fiches Wikidata fusionnées avec une liste officielle : 495
-00:56:52 écartés (pays du site incohérent) 176
-00:56:52 TOTAL 42855 établissements dans 199 pays
+00:59:53 officiel tn-mes-prives 89
+00:59:54 officiel tn-mes-universites 13
+00:59:56 officiel eg-scu-publiques 28
+00:59:56 officiel eg-scu-ahleya 33
+00:59:56 officiel eg-scu-privees 39
+00:59:57 officiel eg-scu-techno-publiques 12
+00:59:57 officiel eg-scu-techno-privees 2
+00:59:57 officiel eg-scu-instituts-prives 181
+00:59:57 officiel eg-scu-instituts-publics 13
+00:59:57 officiel eg-scu-etrangeres 15
+00:59:58 officiel eg-scu-branches 10
+00:59:58 officiel eg-scu-speciales 2
+00:59:58 officiel eg-scu-sous-tutelle 4
+00:59:58 officiel eg-scu-accords 9
+00:59:58 officiel 8563
+01:10:29 wikidata 30193
+01:10:29 fiches Wikidata fusionnées avec une liste officielle : 495
+01:10:29 écartés (pays du site incohérent) 182
+01:10:29 TOTAL 42569 établissements dans 199 pays
