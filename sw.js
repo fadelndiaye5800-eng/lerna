@@ -3,7 +3,7 @@
 if (new URL(self.location.href).searchParams.get('os') === '1') {
   try { importScripts('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js'); } catch (e) {}
 }
-const VERSION = 'lerna-v8.18.0';
+const VERSION = 'lerna-v8.18.1';
 const CORE = [
   '/', '/index.html', '/aujourdhui.html', '/questionnaire.html', '/loading.html', '/resultats.html', '/explorer.html', '/ecole.html',
   '/opportunites.html', '/espace.html', '/premium.html', '/auth.html', '/dossier.html', '/fiche.html', '/parametres.html', '/contact.html', '/legal.html', '/manifest.json',

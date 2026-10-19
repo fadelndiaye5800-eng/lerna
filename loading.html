@@ -186,12 +186,12 @@ Lerna.addStrings({
           if (Lerna.store.raw('lerna_results')) $('limitPrev').classList.remove('hidden');
           Lerna.sound.play('error');
         }, 300);
-        $('limitLocal').addEventListener('click', function () { local(2, 'fallback'); location.href = 'resultats.html'; });
+        $('limitLocal').addEventListener('click', function () { local(3, 'fallback'); location.href = 'resultats.html'; });
         return;
       } else if (!Lerna.config.live) {
         local(5, 'local');      // API pas encore déployée (aperçu)
       } else {
-        local(2, 'fallback');   // IA indisponible : 2 recommandations de secours (§14.5)
+        local(3, 'fallback');   // IA indisponible : 3 recommandations de secours (les 3 offertes)
       }
       done = true;
       go();

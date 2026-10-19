@@ -1012,7 +1012,8 @@
     },
     oauth: function (provider, redirect) {
       if (Auth.mode !== 'supabase') return Promise.reject({ code: 'demo' });
-      return Auth.sb.auth.signInWithOAuth({ provider: provider, options: { redirectTo: location.origin + '/' + (redirect || 'espace.html') } })
+      /* Retour sur auth.html : la session est créée, puis on continue vers la page demandée (ou on affiche l'erreur) */
+      return Auth.sb.auth.signInWithOAuth({ provider: provider, options: { redirectTo: location.origin + '/auth.html?redirect=' + encodeURIComponent(redirect || 'espace.html') } })
         .then(function (r) { if (r.error) throw r.error; });
     },
     google: function (redirect) { return Auth.oauth('google', redirect); },
@@ -1659,7 +1660,7 @@
   };
 
   /* ================================================================== */
-  /* PARRAINAGE — 3 amis inscrits débloquent les écoles n°3 et n°4         */
+  /* PARRAINAGE — 3 amis inscrits débloquent les écoles n°4 et n°5         */
   /* ================================================================== */
   function localCode(seed) {
     var h = 0, s = String(seed || 'lerna'); for (var i = 0; i < s.length; i++) h = (h * 31 + s.charCodeAt(i)) >>> 0;
@@ -1723,14 +1724,11 @@
       } catch (e) { manual(); }
     }
   };
-  /* Accès aux recommandations : 2 gratuites, n°3-4 par parrainage (ou Premium), n°5 Premium.
-     Tant que le Premium n'est pas lancé, les n°3 à 5 se débloquent toutes par parrainage. */
+  /* Accès aux recommandations : les 3 meilleures tout de suite ; n°4 et n°5 avec 3 amis inscrits, ou avec Premium */
   Lerna.isPaidPremium = function () { return !!Lerna.config.premiumEnabled && Lerna.isPremium(); };
   Lerna.recoAccess = function (i) {
-    if (i < 2 || Lerna.isPaidPremium()) return 'open';
-    var ref = Lerna.referral.unlocked();
-    if (!Lerna.config.premiumEnabled || i <= 3) return ref ? 'open' : 'ref';
-    return 'premium';
+    if (i < 3 || Lerna.isPaidPremium() || Lerna.referral.unlocked()) return 'open';
+    return 'ref';
   };
 
   /* ------------------------------------------------------------------ */

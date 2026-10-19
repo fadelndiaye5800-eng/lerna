@@ -1,5 +1,5 @@
 /* POST /api/analyze — analyse IA des 25 réponses (document maître §14)
-   5 recommandations : 2 visibles par tous, n°3-4 débloquées par 3 amis invités (ou Premium), n°5 Premium.
+   5 recommandations, de la plus adaptée à la moins adaptée : les 3 premières visibles par tous, n°4 et n°5 débloquées par 3 amis inscrits (ou Premium).
    Gratuit : 1 analyse complète par jour et par adresse IP (et par compte). Premium : illimité. */
 import { json, fail, sameOrigin, readJson, clientIp, hashKey, getUser, usage, hit, claude, extractJson, str, cleanRaw, saveProfile } from './_lib.js';
 import { buildCandidates, candidatesPrompt, bindRecos } from './_catalogue.js';

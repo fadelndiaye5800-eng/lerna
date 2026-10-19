@@ -69,14 +69,14 @@ Lerna.addStrings({
   fr: {
     'au.docTitle': 'Connexion — LERNA',
     'au.titleSignup': 'Crée ton compte', 'au.titleLogin': 'Content de te revoir',
-    'au.leadSignup': 'Sauvegarde tes résultats, débloque ta 3ème recommandation et retrouve tes écoles partout.',
+    'au.leadSignup': 'Sauvegarde tes résultats, invite 3 amis pour débloquer tes écoles n°4 et n°5, et retrouve tes écoles partout.',
     'au.leadLogin': 'Connecte-toi pour retrouver ton espace.',
     'au.tabSignup': "S'inscrire", 'au.tabLogin': 'Se connecter',
     'au.pseudo': 'Pseudo', 'au.optional': '(facultatif)', 'au.pseudoPh': 'Comment LERNA t\'appelle', 'au.pseudoHelp': 'LERNA l\'utilise pour te saluer. Sinon, ce sera ton prénom.',
     'au.prenom': 'Prénom', 'au.nom': 'Nom de famille', 'au.email': 'Adresse email', 'au.password': 'Mot de passe', 'au.confirm': 'Confirmer le mot de passe',
     'au.pays': 'Pays', 'au.paysPh': 'Choisis ton pays', 'au.niveau': "Niveau d'études actuel", 'au.niveauPh': 'Choisis ton niveau',
     'au.n1': 'Collège', 'au.n2': 'Lycée', 'au.n3': 'Terminale', 'au.n4': 'Licence / Bachelor en cours', 'au.n5': 'Master en cours', 'au.n6': 'Doctorat', 'au.n7': 'Je travaille', 'au.n8': 'En pause',
-    'au.create': 'Créer mon compte →', 'au.login': 'Se connecter →', 'au.or': 'ou', 'au.google': 'Continuer avec Google', 'au.apple': 'Continuer avec Apple',
+    'au.create': 'Créer mon compte →', 'au.login': 'Se connecter →', 'au.or': 'ou', 'au.orEmail': 'ou avec ton email', 'au.google': 'Continuer avec Google', 'au.apple': 'Continuer avec Apple', 'au.eOauth': 'La connexion avec Google ou Apple n’a pas abouti. Réessaie, ou utilise ton email.',
     'au.avatar': 'Tu es', 'au.avH': 'Étudiant', 'au.avF': 'Étudiante', 'au.avX': 'Autre', 'au.avHelp': 'LERNA accorde ses messages et te montre aussi les bourses réservées aux femmes quand elles te concernent. Modifiable à tout moment.',
     'au.naissance': 'Date de naissance', 'au.naissanceHelp': 'Beaucoup de bourses et de programmes ont une limite d’âge : LERNA ne te montre que ceux qui te concernent.', 'au.eAvatar': 'Choisis une réponse : étudiant, étudiante ou autre.',
     'au.forgot': 'Mot de passe oublié ?', 'au.show': 'Afficher le mot de passe', 'au.hide': 'Masquer le mot de passe',
@@ -98,14 +98,14 @@ Lerna.addStrings({
   en: {
     'au.docTitle': 'Log in — LERNA',
     'au.titleSignup': 'Create your account', 'au.titleLogin': 'Good to see you again',
-    'au.leadSignup': 'Save your results, unlock your 3rd recommendation and find your schools anywhere.',
+    'au.leadSignup': 'Save your results, invite 3 friends to unlock your schools #4 and #5, and find your schools anywhere.',
     'au.leadLogin': 'Log in to get back to your space.',
     'au.tabSignup': 'Sign up', 'au.tabLogin': 'Log in',
     'au.pseudo': 'Nickname', 'au.optional': '(optional)', 'au.pseudoPh': 'What LERNA should call you', 'au.pseudoHelp': 'LERNA uses it to greet you. Otherwise, your first name.',
     'au.prenom': 'First name', 'au.nom': 'Last name', 'au.email': 'Email address', 'au.password': 'Password', 'au.confirm': 'Confirm password',
     'au.pays': 'Country', 'au.paysPh': 'Choose your country', 'au.niveau': 'Current level of study', 'au.niveauPh': 'Choose your level',
     'au.n1': 'Middle school', 'au.n2': 'High school', 'au.n3': 'Final year of high school', 'au.n4': "Bachelor's in progress", 'au.n5': "Master's in progress", 'au.n6': 'PhD', 'au.n7': 'Working', 'au.n8': 'Taking a break',
-    'au.create': 'Create my account →', 'au.login': 'Log in →', 'au.or': 'or', 'au.google': 'Continue with Google', 'au.apple': 'Continue with Apple',
+    'au.create': 'Create my account →', 'au.login': 'Log in →', 'au.or': 'or', 'au.orEmail': 'or with your email', 'au.google': 'Continue with Google', 'au.apple': 'Continue with Apple', 'au.eOauth': 'Signing in with Google or Apple didn’t work. Try again, or use your email.',
     'au.avatar': 'You are', 'au.avH': 'Male student', 'au.avF': 'Female student', 'au.avX': 'Other', 'au.avHelp': 'LERNA adapts its messages and also shows you scholarships reserved for women when they apply to you. Change it any time.',
     'au.naissance': 'Date of birth', 'au.naissanceHelp': 'Many scholarships and programmes have an age limit: LERNA only shows you the ones that apply.', 'au.eAvatar': 'Choose an answer: male student, female student or other.',
     'au.forgot': 'Forgot your password?', 'au.show': 'Show password', 'au.hide': 'Hide password',
@@ -155,8 +155,10 @@ Lerna.addStrings({
   function google() { return '<div id="oauthBox">' + oauthInner() + '</div>'; }
   function oauthInner() {
     if (!appleOn() && !googleOn()) return '';
-    return '<div class="divider-or">' + t('au.or') + '</div>' + (appleOn() ? '<button type="button" class="btn btn-apple" id="appleBtn">' + APPLE_SVG + t('au.apple') + '</button>' : '') +
-      (googleOn() ? '<button type="button" class="btn btn-google" id="googleBtn">' + Lerna.googleIcon + t('au.google') + '</button>' : '');
+    /* En haut du formulaire : un appui suffit, pas besoin de tout remplir */
+    return (appleOn() ? '<button type="button" class="btn btn-apple" id="appleBtn">' + APPLE_SVG + t('au.apple') + '</button>' : '') +
+      (googleOn() ? '<button type="button" class="btn btn-google" id="googleBtn">' + Lerna.googleIcon + t('au.google') + '</button>' : '') +
+      '<div class="divider-or">' + t('au.orEmail') + '</div>';
   }
   function demoNote() { return Lerna.auth.mode === 'demo' ? '<div class="notice" style="margin-top:18px">' + Lerna.icon('info') + '<div class="small">' + t('common.demoNotice') + '</div></div>' : ''; }
 
@@ -180,7 +182,7 @@ Lerna.addStrings({
       var signup = mode === 'signup';
       h = '<h1>' + t(signup ? 'au.titleSignup' : 'au.titleLogin') + '</h1><p class="lead">' + t(signup ? 'au.leadSignup' : 'au.leadLogin') + '</p>' +
         '<div class="au-tabs" role="tablist"><button type="button" role="tab" data-mode="signup" class="' + (signup ? 'active' : '') + '" aria-selected="' + signup + '">' + t('au.tabSignup') + '</button>' +
-        '<button type="button" role="tab" data-mode="login" class="' + (!signup ? 'active' : '') + '" aria-selected="' + !signup + '">' + t('au.tabLogin') + '</button></div>';
+        '<button type="button" role="tab" data-mode="login" class="' + (!signup ? 'active' : '') + '" aria-selected="' + !signup + '">' + t('au.tabLogin') + '</button></div>' + google();
       if (Lerna.param('verified') === '1' && !signup) h += '<div class="notice" style="margin-bottom:14px">' + Lerna.icon('check') + '<div>' + t('au.verified') + '</div></div>';
       if (signup) {
         h += '<form id="signupForm" novalidate><div class="form-err" id="err" role="alert"></div>' +
@@ -197,14 +199,14 @@ Lerna.addStrings({
           pwField('confirm', 'au.confirm', 'new-password') +
           '<div class="field"><label for="pays">' + t('au.pays') + '</label><select class="select" id="pays" required><option value="">' + t('au.paysPh') + '</option>' + window.LERNA_COUNTRY_OPTIONS(Lerna.lang, guessCountry() || Lerna.geoCountry()) + '</select></div>' +
           '<div class="field"><label for="niveau">' + t('au.niveau') + '</label><select class="select" id="niveau" required>' + niveauOptions() + '</select></div>' +
-          '<button type="submit" class="btn btn-primary btn-block">' + t('au.create') + '</button></form>' + google() +
+          '<button type="submit" class="btn btn-primary btn-block">' + t('au.create') + '</button></form>' +
           '<p class="legal">' + t('au.legal') + '</p>';
       } else {
         h += '<form id="loginForm" novalidate><div class="form-err" id="err" role="alert"></div>' +
           '<div class="field"><label for="email">' + t('au.email') + '</label><input class="input" id="email" type="email" autocomplete="email" inputmode="email" required></div>' +
           pwField('password', 'au.password', 'current-password') +
           '<button type="button" class="btn-link forgot" data-mode="reset">' + t('au.forgot') + '</button>' +
-          '<button type="submit" class="btn btn-primary btn-block">' + t('au.login') + '</button></form>' + google();
+          '<button type="submit" class="btn btn-primary btn-block">' + t('au.login') + '</button></form>';
       }
       h += demoNote();
     }
@@ -244,6 +246,8 @@ Lerna.addStrings({
     render();
     Lerna.auth.ready.then(function () {
       if (Lerna.auth.user && mode !== 'recovery') { Lerna.go(redirect, true); return; }
+      /* Retour de Google ou Apple sans session (refus, erreur) : on le dit au lieu de rester muet */
+      if (/[?&#](error|error_description)=/.test(location.search + location.hash)) { Lerna.toast(t('au.eOauth'), 4500); history.replaceState(null, '', location.pathname + '?redirect=' + encodeURIComponent(redirect)); }
       if (Lerna.auth.mode !== 'demo') Lerna.qsa('#card .notice').forEach(function (n) { if (n.textContent.indexOf('Supabase') !== -1) n.remove(); });
     });
     Lerna.on('lerna:recovery', function () { mode = 'recovery'; render(); });

@@ -306,5 +306,7 @@ export function bindRecos(result, cat, lang, count) {
     const last = out.length ? out[out.length - 1].score : 80;
     out.push({ ...e, score: Math.max(50, Math.min(e.score || 70, last - 2)), ref: { k: 'lerna', id: e.id }, niveau: 'lerna' });
   }
+  /* Les 3 premières sont offertes : ce doivent être les meilleures pour l'élève */
+  out.sort((a, b) => (b.score || 0) - (a.score || 0));
   return { ...result, recos: out.slice(0, count) };
 }
