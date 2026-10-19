@@ -35,7 +35,13 @@
     ukvisa: { name: 'Student visa — GOV.UK', url: 'https://www.gov.uk/student-visa' },
     studielink: { name: 'Studielink', url: 'https://www.studielink.nl/' },
     studiekeuze: { name: 'Studiekeuze123', url: 'https://www.studiekeuze123.nl/enrolling-in-a-course-programme-in-the-netherlands' },
-    universitaly: { name: 'Universitaly', url: 'https://www.universitaly.it/' }
+    universitaly: { name: 'Universitaly', url: 'https://www.universitaly.it/' },
+    studyTR: { name: 'Study in Türkiye', url: 'https://www.studyinturkiye.gov.tr/StudyinTurkey/StudyinTurkeyTRYOS' },
+    visaTR: { name: 'Study in Türkiye — visa et séjour', url: 'https://www.studyinturkiye.gov.tr/StudyinTurkey/ShowDetail?rID=Egqvn0o1tiU%3D&cId=PE4Nr0mMoY4%3D' },
+    turkiyeBurslari: { name: 'Türkiye Bursları', url: 'https://turkiyeburslari.gov.tr/' },
+    studyAU: { name: 'Study Australia', url: 'https://www.studyaustralia.gov.au/en/plan-your-move/visa-application-process' },
+    studyES: { name: 'Ministère espagnol de l’Éducation — étudier en Espagne', url: 'https://educacionfpydeportes.gob.es/dam/jcr:d8f69c6a-2c1d-487c-a860-d15c2726e1ae/study-spain-in.pdf' },
+    visaES: { name: 'Visa d’études — ministère espagnol des Affaires étrangères', url: 'https://exteriores.gob.es/es/ServiciosAlCiudadano/Paginas/Servicios-consulares.aspx?scco=Per%25u00fa&scd=174&scca=Visados&scs=Visados+Nacionales+-+Visado+de+estudios' }
   };
   window.LERNA_PLATFORMS = P;
 
@@ -268,6 +274,46 @@
         S('it-preenrol', 'Te pré-inscrire sur Universitaly', 'Pre-enrol on Universitaly', 'Pour une seule formation : après l’envoi, tu ne peux plus changer d’université ni de formation. Les dates sont fixées chaque année.', 'For one programme only: once sent, you cannot change university or programme. Dates are set every year.', P.universitaly.url),
         S('it-visa', 'Demander ton visa d’études (type D)', 'Apply for your study visa (type D)', 'Quand ta pré-inscription est validée, l’ambassade ou le consulat d’Italie de ton pays te contacte. L’admission ne garantit pas le visa.', 'Once your pre-enrolment is validated, the Italian embassy or consulate in your country contacts you. Admission does not guarantee the visa.', ''),
         S('it-enrol', 'Finaliser ton inscription en Italie', 'Complete your enrolment in Italy', 'À ton arrivée, suis les étapes de l’université (inscription définitive, permis de séjour).', 'When you arrive, follow the university’s steps (final enrolment, residence permit).', '')
+      ]
+    },
+    /* Turquie — licence : admission par chaque université (TR-YÖS, YÖS, examens internationaux), bourse Türkiye Bursları à part (studyinturkiye.gov.tr) */
+    tr: {
+      label: T('Turquie — candidature à l’université', 'Türkiye — university application'),
+      who: T('Licence en Turquie : chaque université admet elle-même les étudiants internationaux, avec un examen qu’elle accepte (TR-YÖS, YÖS, SAT…). La bourse du gouvernement (Türkiye Bursları) est une candidature à part.', 'Bachelor’s in Türkiye: each university admits international students itself, with an exam it accepts (TR-YÖS, YÖS, SAT…). The government scholarship (Türkiye Bursları) is a separate application.'),
+      platform: P.studyTR, verifie: '2026-10-19', source: 'studyinturkiye.gov.tr',
+      steps: [
+        S('tr-choose', 'Choisir tes universités et lire leurs conditions', 'Choose your universities and read their requirements', 'Les universités publiques et de fondation ont des places pour les étudiants internationaux (quotas publiés chaque année par le Conseil de l’enseignement supérieur, YÖK). Chaque université dit quels examens elle accepte.', 'Public and foundation universities have places for international students (quotas published every year by the Council of Higher Education, YÖK). Each university says which exams it accepts.', P.studyTR.url),
+        S('tr-exam', 'Passer l’examen demandé', 'Take the required exam', 'TR-YÖS (demandé par les universités publiques et de fondation, deux sessions par an, guide sur le site de l’ÖSYM), YÖS pour certaines universités de fondation, ou un examen international (SAT, Abitur, IB) quand l’université l’accepte. Pas besoin de parler turc pour passer le TR-YÖS.', 'TR-YÖS (required by public and foundation universities, twice a year, guide on the ÖSYM website), YÖS for some foundation universities, or an international exam (SAT, Abitur, IB) when the university accepts it. You do not need Turkish to take TR-YÖS.', P.studyTR.url),
+        S('tr-apply', 'Postuler auprès de chaque université', 'Apply to each university', 'Les candidatures commencent en général en février ou en mars, et certaines universités acceptent jusqu’en mai : vérifie les dates de chacune.', 'Applications usually start in February or March, and some universities accept until May: check each one’s dates.', ''),
+        S('tr-bourse', 'Bourse Türkiye Bursları (facultatif)', 'Türkiye Bursları scholarship (optional)', 'Candidature en ligne, une fois par an : les dates et les conditions sont publiées sur le site officiel.', 'Online application, once a year: dates and conditions are published on the official website.', P.turkiyeBurslari.url),
+        S('tr-visa', 'Demander ton visa étudiant', 'Apply for your student visa', 'Au consulat de Turquie le plus proche, dès que tu as ta lettre d’admission : le délai peut être long. La demande peut se faire en ligne.', 'At the nearest Turkish consulate, as soon as you have your admission letter: it can take time. You can apply online.', P.visaTR.url),
+        S('tr-permit', 'Demander ton permis de séjour étudiant', 'Apply for your student residence permit', 'Remplis le formulaire et dépose les documents demandés au bureau des étudiants internationaux de ton université, le plus tôt possible.', 'Fill in the form and hand in the required documents at your university’s international student office, as soon as possible.', P.visaTR.url)
+      ]
+    },
+    /* Australie — candidature à l'établissement, CoE, OSHC, Student visa subclass 500 (studyaustralia.gov.au) */
+    au: {
+      label: T('Australie — candidature et Student visa (500)', 'Australia — application and Student visa (500)'),
+      who: T('Licence en Australie : candidature directe à l’établissement, puis visa étudiant (subclass 500).', 'Bachelor’s in Australia: apply directly to the institution, then the student visa (subclass 500).'),
+      platform: P.studyAU, verifie: '2026-10-19', source: 'studyaustralia.gov.au',
+      steps: [
+        S('au-apply', 'Postuler à l’établissement', 'Apply to the institution', 'Choisis une formation inscrite au registre CRICOS et postule auprès de l’établissement : sa lettre d’offre indique les conditions et les frais.', 'Choose a programme on the CRICOS register and apply to the institution: its letter of offer states the conditions and fees.', ''),
+        S('au-coe', 'Accepter l’offre et recevoir ta CoE', 'Accept the offer and get your CoE', 'Après avoir accepté la lettre d’offre et payé l’acompte, l’établissement t’envoie ta CoE (confirmation d’inscription) : elle est obligatoire pour le visa.', 'After you accept the letter of offer and pay the deposit, the institution sends your CoE (Confirmation of Enrolment): you need it for the visa.', P.studyAU.url),
+        S('au-oshc', 'Prendre l’assurance santé OSHC', 'Get OSHC health cover', 'Obligatoire pour toute la durée du séjour : sans preuve, la demande de visa est refusée.', 'Required for your whole stay: without proof, the visa application is refused.', P.studyAU.url),
+        S('au-funds', 'Préparer la preuve de tes ressources', 'Prepare proof of your funds', 'Tu dois prouver assez d’argent pour les frais de cours, le voyage et la vie sur place ; la page officielle indique au moins 29 710 AUD pour la vie (octobre 2026).', 'You must show enough money for course fees, travel and living costs; the official page states at least AUD 29,710 for living costs (October 2026).', P.studyAU.url),
+        S('au-visa', 'Demander ton Student visa (subclass 500)', 'Apply for your Student visa (subclass 500)', 'En ligne sur ImmiAccount, avec ta CoE. Le formulaire pose des questions sur ton projet d’études (exigence « Genuine Student ») : réponds avec précision.', 'Online in ImmiAccount, with your CoE. The form asks about your study plans (Genuine Student requirement): answer precisely.', P.studyAU.url)
+      ]
+    },
+    /* Espagne — diplôme hors UE : reconnaissance (homologación / UNEDasiss), candidature aux universités, visa d'études */
+    'eu-es': {
+      label: T('Espagne — accès à l’université', 'Spain — university access'),
+      who: T('Licence (grado) en Espagne avec un diplôme hors UE : reconnaissance du diplôme, candidature à chaque université, puis visa d’études.', 'Bachelor’s (grado) in Spain with a non-EU diploma: diploma recognition, application to each university, then study visa.'),
+      platform: P.studyES, verifie: '2026-10-19', source: 'educacionfpydeportes.gob.es, exteriores.gob.es',
+      steps: [
+        S('es-recognition', 'Faire reconnaître ton diplôme', 'Get your diploma recognised', 'Avec un diplôme de fin de lycée obtenu hors UE, dans un pays sans accord avec l’Espagne, il faut une reconnaissance officielle (homologación). Selon l’université, on te demande aussi l’accréditation UNEDasiss.', 'With a secondary diploma from outside the EU, in a country without an agreement with Spain, you need official recognition (homologación). Depending on the university, you may also need UNEDasiss accreditation.', P.studyES.url),
+        S('es-tests', 'Passer les épreuves demandées', 'Take the required tests', 'Certaines formations demandent des épreuves spécifiques (PCE) pour améliorer ta note d’admission : regarde les notes d’entrée des années passées.', 'Some programmes require specific tests (PCE) to raise your admission score: look at past cut-off scores.', P.studyES.url),
+        S('es-lang', 'Prouver ton niveau d’espagnol si demandé', 'Prove your Spanish level if required', 'Le DELE de l’Institut Cervantes est accepté.', 'The Instituto Cervantes DELE is accepted.', ''),
+        S('es-apply', 'Postuler aux universités', 'Apply to universities', 'Dans les périodes fixées par chaque université : les dates et les critères changent selon la formation.', 'Within the periods set by each university: dates and criteria vary by programme.', ''),
+        S('es-visa', 'Demander ton visa d’études', 'Apply for your study visa', 'Au consulat d’Espagne de ton pays, en général deux mois avant les cours : lettre d’admission, preuve de ressources, assurance santé (pas une assurance voyage), certificat médical, et casier judiciaire pour un séjour de plus de 180 jours. La liste exacte est sur la page de ton consulat.', 'At the Spanish consulate in your country, usually two months before classes: admission letter, proof of funds, health insurance (not travel insurance), medical certificate, and criminal record for stays over 180 days. The exact list is on your consulate’s page.', P.visaES.url)
       ]
     },
     /* Démarches générales : pour une école dont LERNA n'a pas encore vérifié la procédure propre (aucune date ni règle de pays inventée) */
