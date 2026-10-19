@@ -9,19 +9,22 @@ import http from 'node:http';
 export const UA = { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 LERNA-annuaire', 'Accept-Language': 'fr,en;q=0.8' };
 const extra = new Map();   // hôte -> certificat intermédiaire (PEM)
 
-function raw(url, { ca, timeout = 60000, redirects = 5 } = {}) {
+function raw(url, { ca, timeout = 60000, redirects = 5, method = 'GET', body = null, headers = {} } = {}) {
   return new Promise((resolve, reject) => {
     const u = new URL(url); const mod = u.protocol === 'http:' ? http : https;
-    const req = mod.get(u, { headers: UA, ca, timeout }, (res) => {
+    const h = { ...UA, ...headers }; if (body) { h['Content-Type'] = h['Content-Type'] || 'application/x-www-form-urlencoded'; h['Content-Length'] = Buffer.byteLength(body); }
+    const req = mod.request(u, { method, headers: h, ca, timeout }, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location && redirects > 0) {
-        res.resume(); return resolve(raw(new URL(res.headers.location, u).href, { ca: extraFor(new URL(res.headers.location, u).hostname) || ca, timeout, redirects: redirects - 1 }));
+        res.resume(); return resolve(raw(new URL(res.headers.location, u).href, { ca: extraFor(new URL(res.headers.location, u).hostname) || ca, timeout, redirects: redirects - 1, headers: { Cookie: headers.Cookie || '' } }));
       }
       const chunks = []; res.on('data', (c) => chunks.push(c));
-      res.on('end', () => resolve({ status: res.statusCode, type: res.headers['content-type'] || '', url: u.href, buf: Buffer.concat(chunks) }));
+      res.on('end', () => resolve({ status: res.statusCode, type: res.headers['content-type'] || '', url: u.href, buf: Buffer.concat(chunks), cookies: (res.headers['set-cookie'] || []).map((c) => c.split(';')[0]) }));
       res.on('error', reject);
     });
     req.on('timeout', () => req.destroy(new Error('délai dépassé')));
     req.on('error', reject);
+    if (body) req.write(body);
+    req.end();
   });
 }
 const extraFor = (host) => (extra.has(host) ? [...tls.rootCertificates, extra.get(host)] : undefined);

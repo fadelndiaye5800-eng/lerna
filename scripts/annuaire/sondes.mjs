@@ -1,1 +1,1 @@
-export const SONDES = ['https://www.lecames.org/diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17', 'GREP:<form[^>]*>|ajax|url\\s*:|https://www.lecames.org/diplome_cames/web/site/repertoire', 'https://www.lecames.org/diplome_cames/web/site/repertoire-simple?page=52'];
+export const SONDES = ['GREP:depdrop|kvDepdrop|"url":"[^"]+|https://www.lecames.org/diplome_cames/web/site/repertoire'];
