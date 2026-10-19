@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fiche formation — LERNA</title>
+<meta name="description" content="Toutes les informations officielles sur une formation ou un établissement : chiffres d'admission, profil des admis, reconnaissance officielle, coûts publiés.">
+<meta name="theme-color" content="#FBF6EC">
+<meta property="og:title" content="Fiche formation — LERNA">
+<meta property="og:image" content="/assets/icons/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=9">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<style>
+  main { padding-bottom: 90px; }
+  .back { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 600; font-size: .9rem; text-decoration: none; margin: 22px 0 14px; background: none; border: 0; padding: 0; cursor: pointer; }
+  .back:hover { color: var(--orange); }
+  .hero { background: var(--panel-grad, var(--cream-dark)); color: var(--on-panel, var(--brown)); border-radius: 22px; padding: 24px 22px; }
+  .hero .etab { font-weight: 700; opacity: .9; margin-top: 8px; }
+  .hero h1 { font-size: clamp(1.5rem, 4.6vw, 2.3rem); line-height: 1.15; }
+  .hero .loc { margin-top: 8px; font-size: .92rem; opacity: .85; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .badges span { font-size: .74rem; font-weight: 700; border-radius: 99px; padding: 4px 11px; background: var(--white); color: var(--brown); }
+  .badges .pub { background: #E8F3E9; color: #2E7D32; }
+  .badges .ctr { background: #FDEBDD; color: #B84D06; }
+  .badges .bad { background: #FBE3E3; color: #C62828; }
+  .badges .wd { background: #EEE; color: #666; }
+  .sec { margin-top: 18px; }
+  .sec h3 { margin-bottom: 12px; }
+  .kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  @media (min-width: 720px) { .kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .kpi { background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 14px; }
+  .kpi .v { font-family: var(--font-head); font-weight: 800; font-size: 1.45rem; color: var(--brown); line-height: 1.1; }
+  .kpi .l { font-size: .76rem; color: var(--muted); font-weight: 600; margin-top: 6px; line-height: 1.35; }
+  .kpi.hl { background: var(--orange-soft, #FDEBDD); border-color: transparent; }
+  .kpi.hl .v { color: var(--orange-deep, #B84D06); }
+  .fbs { display: grid; gap: 10px; }
+  .fb .top { display: flex; justify-content: space-between; font-size: .86rem; font-weight: 600; margin-bottom: 4px; gap: 10px; }
+  .fb .top b { color: var(--brown); }
+  .fb .trk { height: 10px; border-radius: 99px; background: var(--cream-dark); overflow: hidden; }
+  .fb .fill { height: 100%; border-radius: 99px; background: var(--orange); }
+  .two { display: grid; gap: 14px; }
+  @media (min-width: 768px) { .two { grid-template-columns: 1fr 1fr; } }
+  .rows { display: grid; }
+  .row { display: flex; justify-content: space-between; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--cream-dark); font-size: .92rem; }
+  .row:last-child { border-bottom: 0; }
+  .row .k { color: var(--muted); font-weight: 600; }
+  .row .v { font-weight: 700; color: var(--brown); text-align: right; }
+  .list-dot { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
+  .map { width: 100%; height: 230px; border: 0; border-radius: 16px; background: var(--cream-dark); }
+  .others { display: grid; gap: 8px; }
+  .others a { display: block; padding: 12px 14px; border-radius: 14px; background: var(--white); border: 1.5px solid var(--cream-dark); text-decoration: none; color: var(--brown); font-weight: 600; font-size: .92rem; }
+  .others a small { display: block; color: var(--muted); font-weight: 500; margin-top: 2px; }
+  .others a:hover { border-color: var(--orange); }
+  .acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+  .note { font-size: .82rem; color: var(--muted); line-height: 1.55; }
+  .warn { background: #FBE3E3; color: #8E1C1C; border-radius: 16px; padding: 14px 16px; font-weight: 600; font-size: .92rem; line-height: 1.5; }
+  .accred-steps { margin: 12px 0 0 18px; display: grid; gap: 8px; }
+  .loading { text-align: center; padding: 60px 0; }
+</style>
+</head>
+<body data-page="explorer">
+<div id="lerna-nav"></div>
+<main>
+  <div class="container container-md" id="root"><div class="loading"></div></div>
+</main>
+<div id="lerna-footer"></div>
+
+<script src="assets/js/core.js"></script>
+<script src="assets/js/questions.js"></script>
+<script src="assets/js/accred.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'fi.back': '← Retour', 'fi.nf': 'Fiche introuvable', 'fi.nfSub': 'Cette formation ou cet établissement n’existe pas ou plus dans les données officielles.', 'fi.toEx': 'Explorer →',
+    'fi.err': 'Impossible de charger la fiche pour le moment. Vérifie ta connexion et réessaie.',
+    'fi.pub': 'Public', 'fi.ctr': 'Privé sous contrat', 'fi.priv': 'Privé', 'fi.sel': 'Formation sélective', 'fi.nsel': 'Formation non sélective', 'fi.app': 'En apprentissage possible', 'fi.int': 'Internat',
+    'fi.kTitle': 'Les chiffres de l’admission {y}', 'fi.kSub': 'Données officielles Parcoursup de la dernière session connue pour cette formation.',
+    'fi.kCap': 'places', 'fi.kVoe': 'vœux reçus', 'fi.kAcc': 'taux d’accès', 'fi.kRatio': 'candidats par place', 'fi.kAdm': 'admis', 'fi.kProp': 'candidats ont reçu une proposition',
+    'fi.kRank': 'Rang du dernier appelé', 'fi.kRankSub': 'Plus le rang est élevé par rapport aux places, plus la formation a appelé de candidats.',
+    'fi.noStats': 'Pas encore de chiffres d’admission publiés pour cette formation (nouvelle formation ou code modifié). Les données arrivent après chaque session.',
+    'fi.who': 'Qui est admis ?', 'fi.bac': 'Type de bac des admis', 'fi.bg': 'Bac général', 'fi.bt': 'Bac technologique', 'fi.bp': 'Bac professionnel', 'fi.ment': 'Mention au bac des admis',
+    'fi.m0': 'Sans mention', 'fi.mab': 'Assez bien', 'fi.mb': 'Bien', 'fi.mtb': 'Très bien', 'fi.mtbf': 'Très bien avec félicitations',
+    'fi.prof': 'Profil des admis', 'fi.pf': 'Femmes', 'fi.pbrs': 'Boursiers', 'fi.pneo': 'Néo-bacheliers', 'fi.paca': 'Venant de la même académie',
+    'fi.when': 'Quand arrivent les propositions ?', 'fi.w1': 'Dès l’ouverture de la phase principale', 'fi.w2': 'Avant les résultats du bac', 'fi.w3': 'Avant la fin de la phase principale',
+    'fi.whenSub': 'Part des admis qui avaient reçu leur proposition à chaque date : si le chiffre est bas au début, il faut être patient.',
+    'fi.mod': 'Modalités', 'fi.modNone': 'Aucune modalité particulière publiée.',
+    'fi.where': 'Où se trouve la formation', 'fi.others': 'Autres formations de cet établissement sur Parcoursup', 'fi.moreO': 'Voir toutes les formations →',
+    'fi.apply': 'Candidater sur Parcoursup', 'fi.site': 'Site de l’établissement', 'fi.statsLink': 'Tableau de bord officiel',
+    'fi.applyNote': 'La candidature se fait uniquement sur parcoursup.fr. Tout le reste est ici.',
+    'fi.srcP': 'Sources : ministère de l’Enseignement supérieur — cartographie des formations Parcoursup et statistiques d’admission Parcoursup (Licence Ouverte / Etalab 2.0). Chiffres de la session {y}.',
+    'fi.rec': 'Reconnaissance officielle', 'fi.list': 'Voir la liste officielle', 'fi.reg': 'Voir dans le registre officiel', 'fi.wdLink': 'Fiche Wikidata',
+    'fi.badOff': 'Registre officiel', 'fi.badWd': 'À vérifier', 'fi.badBad': 'Avis défavorable',
+    'fi.offOn': 'Inscrite sur la liste officielle de : {a} — « {l} »',
+    'fi.badRec': 'Décision officielle DÉFAVORABLE publiée par : {a} — « {l} ». Ne paie rien sans une autorisation écrite et récente.',
+    'fi.rDeqar': 'Évaluée par une agence qualité enregistrée en Europe (base officielle DEQAR, tenue par l’EQAR).',
+    'fi.rScore': 'Accréditée par {a}, accréditeur reconnu par le Département de l’Éducation des États-Unis (College Scorecard).',
+    'fi.rOfs': 'Inscrite au registre officiel de l’Office for Students (Angleterre).',
+    'fi.rCricos': 'Autorisée par le gouvernement australien à accueillir des étudiants étrangers (registre CRICOS).',
+    'fi.rWd': 'Établissement présent dans l’annuaire public Wikidata. Sa reconnaissance officielle n’est PAS vérifiée par LERNA : demande les numéros d’autorisation et vérifie auprès du ministère avant de payer.',
+    'fi.status': 'Statut officiel', 'fi.year': 'Année', 'fi.fees': 'Frais publiés', 'fi.city': 'Ville', 'fi.region': 'Région / État', 'fi.alt': 'Autre nom', 'fi.type': 'Statut',
+    'fi.tPub': 'Public', 'fi.tPriv': 'Privé', 'fi.tPrivNl': 'Privé à but non lucratif', 'fi.tPrivL': 'Privé à but lucratif',
+    'fi.money': 'Coûts publiés par la source officielle', 'fi.usOut': 'Frais de scolarité par an (étudiant hors État, cas des étrangers)', 'fi.usIn': 'Frais par an (résident de l’État)', 'fi.usCost': 'Coût moyen d’une année complète (frais, logement, vie)',
+    'fi.usAdm': 'Taux d’admission', 'fi.usUg': 'Étudiants en licence', 'fi.auB': 'Licence (bachelor) : coût total déclaré', 'fi.auM': 'Master : coût total déclaré', 'fi.auN': 'Formations ouvertes aux étudiants étrangers',
+    'fi.moneyNote': 'Montants publiés par la source officielle ; vérifie le tarif de ta formation exacte avant de payer.',
+    'fi.dap': 'Délivre ses propres diplômes', 'fi.dapT': 'licence et master', 'fi.dapR': 'jusqu’au doctorat',
+    'fi.wd': 'Informations publiques (Wikidata)', 'fi.wdFounded': 'Fondé en', 'fi.wdStudents': 'Étudiants', 'fi.wdDesc': 'Description',
+    'fi.near': 'Autres établissements à {c}', 'fi.nearC': 'Autres établissements en {c}',
+    'fi.srcM': 'Sources : {s}. LERNA ne modifie pas ces informations ; en cas de doute, la liste officielle fait foi.',
+    'fi.share': 'Partager'
+  },
+  en: {
+    'fi.back': '← Back', 'fi.nf': 'Profile not found', 'fi.nfSub': 'This programme or institution does not exist (any more) in the official data.', 'fi.toEx': 'Explore →',
+    'fi.err': 'Could not load this profile right now. Check your connection and try again.',
+    'fi.pub': 'Public', 'fi.ctr': 'Private under State contract', 'fi.priv': 'Private', 'fi.sel': 'Selective programme', 'fi.nsel': 'Non-selective programme', 'fi.app': 'Apprenticeship available', 'fi.int': 'Boarding',
+    'fi.kTitle': 'Admission figures {y}', 'fi.kSub': 'Official Parcoursup data from the latest known session for this programme.',
+    'fi.kCap': 'places', 'fi.kVoe': 'applications', 'fi.kAcc': 'access rate', 'fi.kRatio': 'applicants per place', 'fi.kAdm': 'admitted', 'fi.kProp': 'applicants received an offer',
+    'fi.kRank': 'Rank of the last applicant called', 'fi.kRankSub': 'The higher the rank compared with the places, the further down the list the programme went.',
+    'fi.noStats': 'No admission figures published yet for this programme (new programme or new code). Data arrive after each session.',
+    'fi.who': 'Who gets in?', 'fi.bac': 'Baccalaureate type of admitted students', 'fi.bg': 'General bac', 'fi.bt': 'Technological bac', 'fi.bp': 'Vocational bac', 'fi.ment': 'Bac honours of admitted students',
+    'fi.m0': 'No honours', 'fi.mab': 'Fairly good', 'fi.mb': 'Good', 'fi.mtb': 'Very good', 'fi.mtbf': 'Very good with distinction',
+    'fi.prof': 'Profile of admitted students', 'fi.pf': 'Women', 'fi.pbrs': 'Scholarship holders', 'fi.pneo': 'New bac holders', 'fi.paca': 'From the same academic region',
+    'fi.when': 'When do offers arrive?', 'fi.w1': 'From the start of the main phase', 'fi.w2': 'Before bac results', 'fi.w3': 'Before the end of the main phase',
+    'fi.whenSub': 'Share of admitted students who had their offer by each date: if it is low at the start, be patient.',
+    'fi.mod': 'Arrangements', 'fi.modNone': 'No specific arrangement published.',
+    'fi.where': 'Where it is', 'fi.others': 'Other Parcoursup programmes at this institution', 'fi.moreO': 'See all programmes →',
+    'fi.apply': 'Apply on Parcoursup', 'fi.site': 'Institution website', 'fi.statsLink': 'Official dashboard',
+    'fi.applyNote': 'Applications are made only on parcoursup.fr. Everything else is here.',
+    'fi.srcP': 'Sources: French Ministry of Higher Education — Parcoursup programme map and Parcoursup admission statistics (Licence Ouverte / Etalab 2.0). Figures from the {y} session.',
+    'fi.rec': 'Official recognition', 'fi.list': 'See the official list', 'fi.reg': 'See in the official register', 'fi.wdLink': 'Wikidata entry',
+    'fi.badOff': 'Official register', 'fi.badWd': 'To be checked', 'fi.badBad': 'Unfavourable decision',
+    'fi.offOn': 'Listed on the official list of: {a} — “{l}”',
+    'fi.badRec': 'UNFAVOURABLE official decision published by: {a} — “{l}”. Do not pay anything without a recent written authorisation.',
+    'fi.rDeqar': 'Reviewed by a registered European quality-assurance agency (official DEQAR database, run by EQAR).',
+    'fi.rScore': 'Accredited by {a}, an accreditor recognised by the U.S. Department of Education (College Scorecard).',
+    'fi.rOfs': 'Listed on the official register of the Office for Students (England).',
+    'fi.rCricos': 'Authorised by the Australian Government to enrol international students (CRICOS register).',
+    'fi.rWd': 'Institution listed in the public Wikidata directory. Its official recognition is NOT verified by LERNA: ask for the authorisation numbers and check with the ministry before paying.',
+    'fi.status': 'Official status', 'fi.year': 'Year', 'fi.fees': 'Published fees', 'fi.city': 'City', 'fi.region': 'Region / State', 'fi.alt': 'Other name', 'fi.type': 'Status',
+    'fi.tPub': 'Public', 'fi.tPriv': 'Private', 'fi.tPrivNl': 'Private non-profit', 'fi.tPrivL': 'Private for-profit',
+    'fi.money': 'Costs published by the official source', 'fi.usOut': 'Tuition per year (out-of-state, as for international students)', 'fi.usIn': 'Tuition per year (in-state resident)', 'fi.usCost': 'Average cost of a full year (fees, housing, living)',
+    'fi.usAdm': 'Admission rate', 'fi.usUg': 'Undergraduate students', 'fi.auB': 'Bachelor: declared total cost', 'fi.auM': 'Master: declared total cost', 'fi.auN': 'Programmes open to international students',
+    'fi.moneyNote': 'Amounts published by the official source; check the fee for your exact programme before paying.',
+    'fi.dap': 'Awards its own degrees', 'fi.dapT': 'bachelor’s and master’s', 'fi.dapR': 'up to doctorate',
+    'fi.wd': 'Public information (Wikidata)', 'fi.wdFounded': 'Founded', 'fi.wdStudents': 'Students', 'fi.wdDesc': 'Description',
+    'fi.near': 'Other institutions in {c}', 'fi.nearC': 'Other institutions in {c}',
+    'fi.srcM': 'Sources: {s}. LERNA does not change this information; if in doubt, the official list prevails.',
+    'fi.share': 'Share'
+  }
+});
+
+(function () {
+  var t = Lerna.t, esc = Lerna.esc, L = Lerna.L;
+  var $ = function (id) { return document.getElementById(id); };
+  var root = $('root');
+  var PSUP = 'https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/';
+  var CARTO = PSUP + 'fr-esr-cartographie_formations_parcoursup/records';
+  var STATS = PSUP + 'fr-esr-parcoursup/records';
+  var nf = function (n) { return Number(n).toLocaleString(Lerna.lang === 'en' ? 'en-US' : 'fr-FR'); };
+  var pct = function (n) { return Math.round(Number(n)) + ' %'; };
+  var has = function (v) { return v !== null && v !== undefined && v !== '' && !(typeof v === 'number' && isNaN(v)); };
+  var arr = function (v) { return Array.isArray(v) ? v : (v ? [v] : []); };
+  var https = function (u) { return /^https?:\/\//.test(u || '') ? u : ''; };
+  var q = function (v) { return '"' + String(v).replace(/["\\]/g, '') + '"'; };
+  function get(u) { return fetch(u, { headers: { Accept: 'application/json' } }).then(function (r) { if (!r.ok) throw new Error('http ' + r.status); return r.json(); }); }
+  function back() { return '<button type="button" class="back" id="backBtn">' + esc(t('fi.back')) + '</button>'; }
+  function notFound(err) {
+    root.innerHTML = back() + '<div class="empty card" style="margin-top:12px">' + Lerna.icon(err ? 'alert' : 'search') + '<h4>' + esc(t(err ? 'fi.err' : 'fi.nf')) + '</h4>' + (err ? '' : '<p>' + esc(t('fi.nfSub')) + '</p>') + '<p style="margin-top:12px"><a class="btn btn-primary btn-sm" href="explorer.html">' + esc(t('fi.toEx')) + '</a></p></div>';
+  }
+  function kpi(v, l, hl) { return '<div class="kpi' + (hl ? ' hl' : '') + '"><div class="v">' + v + '</div><div class="l">' + esc(l) + '</div></div>'; }
+  function bar(label, p) { if (!has(p)) return ''; var w = Math.max(0, Math.min(100, Number(p))); return '<div class="fb"><div class="top"><span>' + esc(label) + '</span><b>' + pct(p) + '</b></div><div class="trk"><div class="fill" style="width:' + w + '%"></div></div></div>'; }
+  function row(k, v) { return v ? '<div class="row"><span class="k">' + esc(k) + '</span><span class="v">' + v + '</span></div>' : ''; }
+  function mapFrame(lat, lon) {
+    if (!has(lat) || !has(lon)) return '';
+    var d = 0.012, bb = [lon - d, lat - d * 0.6, lon + d, lat + d * 0.6].join(',');
+    return '<iframe class="map" loading="lazy" title="OpenStreetMap" src="https://www.openstreetmap.org/export/embed.html?bbox=' + encodeURIComponent(bb) + '&layer=mapnik&marker=' + lat + ',' + lon + '"></iframe>' +
+      '<p class="note" style="margin-top:6px">© OpenStreetMap contributors</p>';
+  }
+
+  /* ---------------- Formation Parcoursup ---------------- */
+  function psupFiche(gta) {
+    var where = 'gta=' + q(gta);
+    return get(CARTO + '?limit=1&order_by=annee%20desc&where=' + encodeURIComponent(where)).then(function (j) {
+      var f = (j.results || [])[0]; if (!f) return notFound();
+      document.title = (arr(f.nm)[0] || 'Formation') + ' — LERNA';
+      var statsP = get(STATS + '?limit=1&order_by=session%20desc&where=' + encodeURIComponent('cod_aff_form=' + q(gta))).then(function (s) { return (s.results || [])[0] || null; }, function () { return null; });
+      var othersP = f.etab_uai ? get(CARTO + '?limit=40&select=gta,nm,fl,app&order_by=nm&where=' + encodeURIComponent('annee=' + q(f.annee) + ' and etab_uai=' + q(f.etab_uai) + ' and gta!=' + q(gta))).then(function (o) { return o; }, function () { return null; }) : Promise.resolve(null);
+      return Promise.all([statsP, othersP]).then(function (res) { renderPsup(f, res[0], res[1]); });
+    }).catch(function () { notFound(true); });
+  }
+  function renderPsup(f, s, others) {
+    var tc = f.tc || '', h = '';
+    var badges = (/^Public/.test(tc) ? '<span class="pub">' + esc(t('fi.pub')) + '</span>' : /contrat/i.test(tc) ? '<span class="ctr">' + esc(t('fi.ctr')) + '</span>' : tc ? '<span>' + esc(t('fi.priv')) + '</span>' : '') +
+      arr(f.tf).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') +
+      (s && s.select_form ? '<span>' + esc(t(/non/i.test(s.select_form) ? 'fi.nsel' : 'fi.sel')) + '</span>' : '') +
+      (f.app ? '<span>' + esc(t('fi.app')) + '</span>' : '') + (f.int ? '<span>' + esc(t('fi.int')) + '</span>' : '');
+    h += back() + '<div class="hero"><h1>' + esc(arr(f.nm).join(' · ') || arr(f.fl).join(' · ')) + '</h1>' +
+      '<div class="etab">' + esc(f.etab_nom || '') + '</div>' +
+      '<div class="loc">' + Lerna.flag('FR', 'stk-xs') + ' ' + esc([f.commune, f.departement, f.region].filter(Boolean).join(', ')) + '</div>' +
+      '<div class="badges">' + badges + '</div></div>';
+
+    /* Chiffres */
+    if (s) {
+      var ratio = s.capa_fin ? Math.round((s.voe_tot || 0) / s.capa_fin) : null;
+      h += '<div class="card sec"><h3>' + esc(t('fi.kTitle', { y: s.session })) + '</h3><p class="note" style="margin:-4px 0 12px">' + esc(t('fi.kSub')) + '</p><div class="kpis">' +
+        (has(s.taux_acces_ens) ? kpi(pct(s.taux_acces_ens), t('fi.kAcc'), true) : '') +
+        (has(s.capa_fin) ? kpi(nf(s.capa_fin), t('fi.kCap')) : '') +
+        (has(s.voe_tot) ? kpi(nf(s.voe_tot), t('fi.kVoe')) : '') +
+        (ratio ? kpi(nf(ratio), t('fi.kRatio')) : '') +
+        (has(s.prop_tot) ? kpi(nf(s.prop_tot), t('fi.kProp')) : '') +
+        (has(s.acc_tot) ? kpi(nf(s.acc_tot), t('fi.kAdm')) : '') +
+        '</div>';
+      var ranks = [1, 2, 3].map(function (i) { return has(s['ran_grp' + i]) ? row(s['lib_grp' + i] || '—', nf(s['ran_grp' + i])) : ''; }).join('');
+      if (ranks) h += '<h4 style="margin-top:16px">' + esc(t('fi.kRank')) + '</h4><div class="rows">' + ranks + '</div><p class="note">' + esc(t('fi.kRankSub')) + '</p>';
+      h += '</div>';
+
+      h += '<div class="two sec">' +
+        '<div class="card"><h3>' + esc(t('fi.bac')) + '</h3><div class="fbs">' + bar(t('fi.bg'), s.pct_bg) + bar(t('fi.bt'), s.pct_bt) + bar(t('fi.bp'), s.pct_bp) + '</div></div>' +
+        '<div class="card"><h3>' + esc(t('fi.ment')) + '</h3><div class="fbs">' + bar(t('fi.m0'), s.pct_sansmention) + bar(t('fi.mab'), s.pct_ab) + bar(t('fi.mb'), s.pct_b) + bar(t('fi.mtb'), s.pct_tb) + bar(t('fi.mtbf'), s.pct_tbf) + '</div></div>' +
+        '</div>';
+      h += '<div class="two sec">' +
+        '<div class="card"><h3>' + esc(t('fi.prof')) + '</h3><div class="fbs">' + bar(t('fi.pf'), s.pct_f) + bar(t('fi.pbrs'), s.pct_bours) + bar(t('fi.pneo'), s.pct_neobac) + bar(t('fi.paca'), s.pct_aca_orig) + '</div></div>' +
+        '<div class="card"><h3>' + esc(t('fi.when')) + '</h3><div class="fbs">' + bar(t('fi.w1'), s.pct_acc_debutpp) + bar(t('fi.w2'), s.pct_acc_datebac) + bar(t('fi.w3'), s.pct_acc_finpp) + '</div><p class="note" style="margin-top:10px">' + esc(t('fi.whenSub')) + '</p></div>' +
+        '</div>';
+    } else {
+      h += '<div class="card sec"><p class="note">' + esc(t('fi.noStats')) + '</p></div>';
+    }
+
+    /* Modalités */
+    var mods = arr(f.amg).concat(arr(f.aut));
+    h += '<div class="card sec"><h3>' + esc(t('fi.mod')) + '</h3>' + (mods.length ? '<ul class="list-dot">' + mods.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' : '<p class="note">' + esc(t('fi.modNone')) + '</p>') + '</div>';
+
+    /* Reconnaissance */
+    if (window.LERNA_ACCRED) h += '<div class="sec">' + window.LERNA_ACCRED({ pays: 'FR', type: /^Public/.test(tc) ? 'public' : 'private' }) + '</div>';
+
+    /* Carte */
+    var g = f.etab_gps || (s && s.g_olocalisation_des_formations);
+    if (g && has(g.lat)) h += '<div class="card sec"><h3>' + esc(t('fi.where')) + '</h3>' + mapFrame(g.lat, g.lon) + '</div>';
+
+    /* Autres formations */
+    var list = others && others.results || [];
+    if (list.length) {
+      h += '<div class="card sec"><h3>' + esc(t('fi.others')) + '</h3><div class="others">' +
+        list.slice(0, 15).map(function (o) { return '<a href="fiche.html?psup=' + encodeURIComponent(o.gta) + '">' + esc(arr(o.nm).join(' · ') || arr(o.fl).join(' · ')) + (o.app ? '<small>' + esc(t('fi.app')) + '</small>' : '') + '</a>'; }).join('') +
+        '</div>' + (others.total_count > 15 ? '<p style="margin-top:10px"><a class="orange bold" href="explorer.html?src=psup&q=' + encodeURIComponent(f.etab_nom || '') + '">' + esc(t('fi.moreO')) + '</a></p>' : '') + '</div>';
+    }
+
+    /* Actions */
+    h += '<div class="card sec"><p class="note" style="margin-bottom:10px">' + esc(t('fi.applyNote')) + '</p><div class="acts">' +
+      (https(f.fiche) ? '<a class="btn btn-primary btn-sm" href="' + esc(f.fiche) + '" target="_blank" rel="noopener">' + esc(t('fi.apply')) + ' ↗</a>' : '') +
+      (https(f.etab_url) ? '<a class="btn btn-ghost btn-sm" href="' + esc(f.etab_url) + '" target="_blank" rel="noopener nofollow">' + esc(t('fi.site')) + ' ↗</a>' : '') +
+      '<button type="button" class="btn btn-ghost btn-sm" id="shareBtn">' + esc(t('fi.share')) + '</button>' +
+      '</div></div>';
+    h += '<p class="note sec">' + esc(t('fi.srcP', { y: s ? s.session : f.annee })) + '</p>';
+    root.innerHTML = h;
+    Lerna.track('psup_fiche', f.gta);
+  }
+
+  /* ---------------- Établissement de l'annuaire mondial ---------------- */
+  var SRC_NAME = { deqar: 'DEQAR — EQAR (ODC-PDDL)', scorecard: 'College Scorecard — U.S. Department of Education', ofs: 'Office for Students (Open Government Licence v3.0)', cricos: 'CRICOS — Commonwealth of Australia (CC BY 2.5 AU)', wikidata: 'Wikidata (CC0)' };
+  function regLink(r, idx) {
+    var x = r.x || {};
+    if (r.s === 'deqar') return 'https://www.eqar.eu/qa-results/institutions/view/' + encodeURIComponent(String(r.i).split(':')[1]);
+    if (r.s === 'scorecard') return 'https://collegescorecard.ed.gov/school/?' + encodeURIComponent(x.u || '');
+    if (r.s === 'ofs') return 'https://www.officeforstudents.org.uk/for-providers/regulatory-resources/the-ofs-register/';
+    if (r.s === 'cricos') return 'https://cricos.education.gov.au/Institution/InstitutionDetails.aspx?ProviderCode=' + encodeURIComponent(x.code || '');
+    if (r.s === 'wikidata') return 'https://www.wikidata.org/wiki/' + encodeURIComponent(x.q || '');
+    var l = idx.listes && idx.listes[x.l]; return l ? l.url : '';
+  }
+  function mondeFiche(cc, id) {
+    Promise.all([
+      fetch('assets/annuaire/index.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }),
+      fetch('assets/annuaire/' + encodeURIComponent(cc) + '.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error('404'); return r.json(); })
+    ]).then(function (res) {
+      var idx = res[0], rows = res[1];
+      var r = rows.filter(function (x) { return x.i === id; })[0];
+      if (!r) return notFound();
+      document.title = r.n + ' — LERNA';
+      renderMonde(cc, r, rows, idx);
+      if (r.s === 'wikidata' && r.x && /^Q\d+$/.test(r.x.q || '')) wikidata(r.x.q);
+    }).catch(function () { notFound(true); });
+  }
+  function renderMonde(cc, r, rows, idx) {
+    var x = r.x || {}, lst = r.s === 'officiel' && idx.listes ? idx.listes[x.l] : null, wd = r.s === 'wikidata', bad = !!x.warn;
+    var stat = { public: 'fi.tPub', prive: 'fi.tPriv', prive_nl: 'fi.tPrivNl', prive_lucratif: 'fi.tPrivL' }[r.t];
+    var h = back() + '<div class="hero"><h1>' + esc(r.n) + '</h1>' + (r.a ? '<div class="etab">' + esc(r.a) + '</div>' : '') +
+      '<div class="loc">' + Lerna.flag(cc, 'stk-xs') + ' ' + esc([r.v, r.r, window.LERNA_COUNTRY_NAME(cc)].filter(Boolean).join(', ')) + '</div>' +
+      '<div class="badges">' + (wd ? '<span class="wd">' + esc(t('fi.badWd')) + '</span>' : bad ? '<span class="bad">' + esc(t('fi.badBad')) + '</span>' : '<span class="pub">' + esc(t('fi.badOff')) + '</span>') + (stat ? '<span>' + esc(t(stat)) + '</span>' : '') + '</div></div>';
+
+    /* Reconnaissance */
+    var rec = r.s === 'officiel' ? (lst ? t(bad ? 'fi.badRec' : 'fi.offOn', { a: L(lst.autorite), l: L(lst.titre) }) : '') :
+      { deqar: t('fi.rDeqar'), scorecard: t('fi.rScore', { a: x.acc || '' }), ofs: t('fi.rOfs'), cricos: t('fi.rCricos'), wikidata: t('fi.rWd') }[r.s];
+    var link = regLink(r, idx);
+    h += '<div class="card sec"><h3>' + esc(t('fi.rec')) + '</h3>' + (bad || wd ? '<div class="warn">' + esc(rec) + '</div>' : '<p>' + esc(rec) + '</p>') +
+      '<div class="rows" style="margin-top:10px">' +
+      (r.s === 'officiel' && x.acc ? row(t('fi.status'), esc(x.acc)) : '') +
+      (x.y ? row(lst && lst.yLabel ? L(lst.yLabel).replace(/<[^>]+>/g, '').replace('{y}', '').replace(/\s+$/, '') : t('fi.year'), esc(x.y)) : '') +
+      (x.f ? row(lst && lst.fraisLabel ? L(lst.fraisLabel) : t('fi.fees'), esc(x.f)) : '') +
+      (r.s === 'ofs' && x.dap && /taught|research/i.test(x.dap) ? row(t('fi.dap'), esc(t(/research/i.test(x.dap) ? 'fi.dapR' : 'fi.dapT'))) : '') +
+      row(t('fi.city'), esc(r.v || '')) + row(t('fi.region'), esc(r.r || '')) + (r.a ? row(t('fi.alt'), esc(r.a)) : '') +
+      '</div>' + (link ? '<div class="acts" style="margin-top:12px"><a class="btn btn-ghost btn-sm" href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(t(wd ? 'fi.wdLink' : r.s === 'officiel' ? 'fi.list' : 'fi.reg')) + ' ↗</a></div>' : '') + '</div>';
+
+    /* Coûts publiés */
+    var usd = function (n) { var m = Lerna.money(n), d = Lerna.money(n, 'USD'); return m === d ? m : m + ' (' + d + ')'; };
+    var aud = function (n) { return Math.round(n).toLocaleString(Lerna.lang === 'en' ? 'en-AU' : 'fr-FR') + ' AUD'; };
+    var rng = function (p, fn) { return p[0] === p[1] ? fn(p[0]) : fn(p[0]) + ' – ' + fn(p[1]); };
+    var money = '';
+    if (r.s === 'scorecard') money = row(t('fi.usOut'), has(x.fo) ? esc(usd(x.fo)) : '') + row(t('fi.usIn'), has(x.fi) ? esc(usd(x.fi)) : '') + row(t('fi.usCost'), has(x.ca) ? esc(usd(x.ca)) : '') +
+      row(t('fi.usAdm'), has(x.ad) ? Math.round(x.ad * 1000) / 10 + ' %' : '') + row(t('fi.usUg'), has(x.ug) ? nf(x.ug) : '');
+    if (r.s === 'cricos') money = row(t('fi.auB'), x.fb ? esc(rng(x.fb, aud)) : '') + row(t('fi.auM'), x.fm ? esc(rng(x.fm, aud)) : '') + row(t('fi.auN'), x.nb ? nf(x.nb) : '');
+    if (money) h += '<div class="card sec"><h3>' + esc(t('fi.money')) + '</h3><div class="rows">' + money + '</div><p class="note" style="margin-top:8px">' + esc(t('fi.moneyNote')) + ' ' + esc(Lerna.moneyNote ? Lerna.moneyNote() : '') + '</p></div>';
+
+    h += '<div id="wdBox"></div>';
+
+    /* Comment vérifier */
+    if (window.LERNA_ACCRED) h += '<div class="sec">' + window.LERNA_ACCRED({ pays: cc, type: r.t === 'public' ? 'public' : 'private' }) + '</div>';
+
+    /* Site officiel */
+    if (https(r.w)) h += '<div class="card sec"><div class="acts"><a class="btn btn-primary btn-sm" href="' + esc(r.w) + '" target="_blank" rel="noopener nofollow">' + esc(t('fi.site')) + ' ↗</a><button type="button" class="btn btn-ghost btn-sm" id="shareBtn">' + esc(t('fi.share')) + '</button></div></div>';
+
+    /* Autres établissements proches */
+    var near = rows.filter(function (o) { return o.i !== r.i && o.s !== 'wikidata' && (r.v ? o.v === r.v : true); }).slice(0, 12);
+    if (near.length) h += '<div class="card sec"><h3>' + esc(r.v ? t('fi.near', { c: r.v }) : t('fi.nearC', { c: window.LERNA_COUNTRY_NAME(cc) })) + '</h3><div class="others">' +
+      near.map(function (o) { return '<a href="fiche.html?cc=' + encodeURIComponent(cc) + '&id=' + encodeURIComponent(o.i) + '">' + esc(o.n) + '<small>' + esc([o.v, o.x && o.x.acc].filter(Boolean).join(' · ').slice(0, 120)) + '</small></a>'; }).join('') + '</div></div>';
+
+    var srcName = r.s === 'officiel' ? (lst ? L(lst.autorite) : '') : SRC_NAME[r.s] || '';
+    h += '<p class="note sec">' + esc(t('fi.srcM', { s: srcName })) + '</p>';
+    root.innerHTML = h;
+    Lerna.track('monde_fiche', r.i);
+  }
+  /* Wikidata (CC0) : année de fondation, nombre d'étudiants, description, position sur la carte */
+  function wikidata(qid) {
+    var lg = Lerna.lang === 'en' ? 'en' : 'fr';
+    fetch('https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&origin=*&props=claims|descriptions&languages=' + lg + '|en&ids=' + qid).then(function (r) { return r.json(); }).then(function (j) {
+      var e = j.entities && j.entities[qid]; if (!e) return;
+      var c = e.claims || {};
+      var val = function (p) { var s = c[p] && c[p][0] && c[p][0].mainsnak && c[p][0].mainsnak.datavalue; return s ? s.value : null; };
+      var inc = val('P571'), stu = val('P2196'), geo = val('P625');
+      var desc = e.descriptions && (e.descriptions[lg] || e.descriptions.en);
+      var rows = (inc && inc.time ? row(t('fi.wdFounded'), esc(inc.time.slice(1, 5))) : '') + (stu && stu.amount ? row(t('fi.wdStudents'), nf(Math.abs(parseFloat(stu.amount)))) : '') + (desc ? row(t('fi.wdDesc'), esc(desc.value)) : '');
+      var map = geo ? mapFrame(geo.latitude, geo.longitude) : '';
+      if (!rows && !map) return;
+      $('wdBox').innerHTML = '<div class="card sec"><h3>' + esc(t('fi.wd')) + '</h3><div class="rows">' + rows + '</div>' + (map ? '<div style="margin-top:12px">' + map + '</div>' : '') + '</div>';
+    }).catch(function () {});
+  }
+
+  Lerna.ready(function () {
+    var gta = Lerna.param('psup'), cc = (Lerna.param('cc') || '').toUpperCase(), id = Lerna.param('id');
+    root.querySelector('.loading').innerHTML = Lerna.thinking('inline');
+    if (gta && /^\d{1,7}$/.test(gta)) psupFiche(gta);
+    else if (/^[A-Z]{2}$/.test(cc) && id) mondeFiche(cc, id);
+    else notFound();
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('#backBtn')) { if (history.length > 1) history.back(); else location.href = 'explorer.html'; }
+      if (e.target.closest('#shareBtn')) {
+        var d = { title: document.title, url: location.href };
+        if (navigator.share) navigator.share(d).catch(function () {}); else if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(function () { Lerna.toast && Lerna.toast('✓'); });
+      }
+    });
+  });
+})();
+</script>
+</body>
+</html>

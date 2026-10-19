@@ -1,6 +1,1 @@
-export const SONDES = [
-  'GREP:"name": ?"[^"]+"|https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/fr-esr-cartographie_formations_parcoursup',
-  'https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/fr-esr-cartographie_formations_parcoursup/records?limit=1&where=annee%3D%222026%22',
-  'GREP:"name": ?"[^"]+"|https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/fr-esr-parcoursup',
-  'https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/fr-esr-parcoursup/records?limit=1&order_by=session%20desc'
-];
+export const SONDES = ['https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/fr-esr-cartographie_formations_parcoursup/records?limit=3&select=gta,nm&where=annee%3D%222026%22%20and%20etab_uai%3D%220542391F%22%20and%20gta!%3D%225%22'];

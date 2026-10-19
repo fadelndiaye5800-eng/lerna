@@ -92,6 +92,8 @@
   .pcard .facts { display: grid; gap: 4px; font-size: .86rem; }
   .pcard .facts b { color: var(--brown); }
   .pcard .rec { font-size: .82rem; color: var(--muted); }
+  .pcard h3 .plink { color: inherit; text-decoration: none; }
+  .pcard h3 .plink:hover { color: var(--orange); }
   .more-wrap { text-align: center; margin: 26px 0 0; }
   .disclaimer { font-size: .8rem; color: var(--muted); text-align: center; margin: 26px auto 60px; max-width: 560px; }
 </style>
@@ -395,12 +397,11 @@ Lerna.addStrings({
   var arr1 = function (v) { return Array.isArray(v) ? v.join(' · ') : (v || ''); };
   function pCard(r) {
     var https = function (u) { return /^https:\/\//.test(u || '') ? u : ''; };
-    return '<article class="card pcard"><h3>' + esc(arr1(r.nm) || arr1(r.nmc)) + '</h3><div class="etab">' + esc(r.etab_nom || '') + '</div>' +
+    return '<article class="card pcard"><h3>' + (r.gta ? '<a class="plink" href="fiche.html?psup=' + encodeURIComponent(r.gta) + '">' + esc(arr1(r.nm) || arr1(r.nmc)) + '</a>' : esc(arr1(r.nm) || arr1(r.nmc))) + '</h3><div class="etab">' + esc(r.etab_nom || '') + '</div>' +
       '<div class="loc">' + esc([r.commune, r.departement, r.region].filter(Boolean).join(', ')) + '</div>' +
       '<div class="badges">' + tcBadge(r.tc) + (r.tf ? '<span>' + esc(arr1(r.tf)) + '</span>' : '') + (r.app ? '<span>' + esc(t('ex.pAppB')) + '</span>' : '') + '</div>' +
-      '<div class="acts">' + (https(r.fiche) ? '<a class="btn btn-primary btn-sm" href="' + esc(r.fiche) + '" target="_blank" rel="noopener">' + esc(t('ex.pFiche')) + ' ↗</a>' : '') +
-      (https(r.dataviz) ? '<a class="btn btn-ghost btn-sm" href="' + esc(r.dataviz) + '" target="_blank" rel="noopener">' + esc(t('ex.pStats')) + ' ↗</a>' : '') +
-      (https(r.etab_url) ? '<a class="btn btn-ghost btn-sm" href="' + esc(r.etab_url) + '" target="_blank" rel="noopener">' + esc(t('ex.pSite')) + ' ↗</a>' : '') + '</div></article>';
+      '<div class="acts">' + (r.gta ? '<a class="btn btn-primary btn-sm" href="fiche.html?psup=' + encodeURIComponent(r.gta) + '">' + esc(t('ex.see')) + '</a>' : '') +
+      (https(r.fiche) ? '<a class="btn btn-ghost btn-sm" href="' + esc(r.fiche) + '" target="_blank" rel="noopener">' + esc(t('ex.pFiche')) + ' ↗</a>' : '') + '</div></article>';
   }
   function pRender(append) {
     $('count').textContent = t('ex.pCount', { n: P.total.toLocaleString(Lerna.lang === 'en' ? 'en-US' : 'fr-FR') });
@@ -412,7 +413,7 @@ Lerna.addStrings({
     if (!append) { P.offset = 0; P.items = []; $('count').textContent = t('ex.pLoading'); $('grid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px 0">' + Lerna.thinking('inline') + '</div>'; }
     return pInit().then(function () {
       if (!append) pFilters();
-      var q = '/records?limit=' + PPER + '&offset=' + P.offset + '&order_by=etab_nom&select=etab_nom,nm,nmc,tc,tf,app,commune,departement,region,fiche,dataviz,etab_url&where=' + encodeURIComponent(pWhere());
+      var q = '/records?limit=' + PPER + '&offset=' + P.offset + '&order_by=etab_nom&select=gta,etab_nom,nm,nmc,tc,tf,app,commune,departement,region,fiche,dataviz,etab_url&where=' + encodeURIComponent(pWhere());
       return pGet(q);
     }).then(function (j) {
       if (my !== P.seq) return;
@@ -484,12 +485,12 @@ Lerna.addStrings({
     var bad = !!(r.x && r.x.warn);
     if (bad && lst) rec = t('ex.rBad', { a: Lerna.L(lst.autorite), l: Lerna.L(lst.titre) });
     var src = SRC_LINK[r.s] ? SRC_LINK[r.s](r) : '';
-    return '<article class="card pcard"><h3>' + esc(r.n) + '</h3>' + (r.a ? '<div class="loc">' + esc(r.a) + '</div>' : '') +
+    var fiche = 'fiche.html?cc=' + encodeURIComponent(M.cc) + '&id=' + encodeURIComponent(r.i);
+    return '<article class="card pcard"><h3><a class="plink" href="' + fiche + '">' + esc(r.n) + '</a></h3>' + (r.a ? '<div class="loc">' + esc(r.a) + '</div>' : '') +
       '<div class="loc">' + Lerna.flag(M.cc, 'stk-xs') + ' ' + esc([r.v, r.r, window.LERNA_COUNTRY_NAME(M.cc)].filter(Boolean).join(', ')) + '</div>' +
       '<div class="badges">' + (wd ? '<span class="wd">' + esc(t('ex.bWd')) + '</span>' : bad ? '<span class="bad">' + esc(t('ex.bBad')) + '</span>' : '<span class="pub">' + esc(t('ex.bOff')) + '</span>') + mStatut(r) + '</div>' +
       '<p class="rec' + (bad ? ' bad' : '') + '">' + esc(rec) + '</p>' + mFacts(r) +
-      '<div class="acts">' + (https(r.w) ? '<a class="btn btn-primary btn-sm" href="' + esc(r.w) + '" target="_blank" rel="noopener nofollow">' + esc(t('ex.lSite')) + ' ↗</a>' : '') +
-      (src ? '<a class="btn btn-ghost btn-sm" href="' + esc(src) + '" target="_blank" rel="noopener">' + esc(t(wd ? 'ex.lWd' : r.s === 'officiel' ? 'ex.lList' : 'ex.lSrc')) + ' ↗</a>' : '') + '</div></article>';
+      '<div class="acts"><a class="btn btn-primary btn-sm" href="' + fiche + '">' + esc(t('ex.see')) + '</a>' + (https(r.w) ? '<a class="btn btn-ghost btn-sm" href="' + esc(r.w) + '" target="_blank" rel="noopener nofollow">' + esc(t('ex.lSite')) + ' ↗</a>' : '') + '</div></article>';
   }
   function mList() {
     var q = norm(st.q).split(/\s+/).filter(Boolean);
