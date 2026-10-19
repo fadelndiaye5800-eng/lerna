@@ -23,10 +23,10 @@ for (const [k, v] of Object.entries(by)) {
 import * as cheerio from 'cheerio';
 const { SONDES } = await import('./sondes.mjs');
 for (let u of SONDES) {
-  let grep = null, rr = null, txt = null; const m3 = /^TEXT:(.*?)\|(https?:.+)$/.exec(u); if (m3) { txt = m3[1]; u = m3[2]; } const m2 = /^ROWS:(\d+)-(\d+)\|(https?:.+)$/.exec(u); if (m2) { rr = [+m2[1], +m2[2]]; u = m2[3]; } const m = /^GREP:(.+?)\|(https?:.+)$/.exec(u); if (m) { grep = new RegExp(m[1], 'gi'); u = m[2]; }
+  let grep = null, rr = null, txt = null, post = null; const m4 = /^POST:(.*?)\|(https?:.+)$/.exec(u); if (m4) { post = m4[1]; u = m4[2]; } const m3 = /^TEXT:(.*?)\|(https?:.+)$/.exec(u); if (m3) { txt = m3[1]; u = m3[2]; } const m2 = /^ROWS:(\d+)-(\d+)\|(https?:.+)$/.exec(u); if (m2) { rr = [+m2[1], +m2[2]]; u = m2[3]; } const m = /^GREP:(.+?)\|(https?:.+)$/.exec(u); if (m) { grep = new RegExp(m[1], 'gi'); u = m[2]; }
   lines.push('##### ' + u); dump();
   try {
-    const { get } = await import('./net.mjs'); const r0 = await get(u, { timeout: 45000 });
+    const { get } = await import('./net.mjs'); const r0 = await get(u, post != null ? { timeout: 45000, method: 'POST', body: post, headers: { 'X-Requested-With': 'XMLHttpRequest' } } : { timeout: 45000 });
     const r = { status: r0.status, url: r0.url, headers: { get: () => r0.type } }; const ct = r0.type; const buf = r0.buf;
     lines.push('ST ' + r.status + ' ' + ct.slice(0, 40) + ' ' + buf.length + ' ' + r.url.slice(0, 150));
     if (txt != null) { const t = buf.toString('utf8').replace(/<script[\s\S]*?<\/script>|<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' | ').replace(/&nbsp;|&#8217;/g, ' ').replace(/(\s*\|\s*)+/g, ' | '); const k = Math.max(0, t.indexOf(txt)); lines.push('  X ' + t.slice(k, k + 9000)); continue; }

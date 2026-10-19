@@ -1,1 +1,1 @@
-export const SONDES = ['GREP:csrf|https://www.lecames.org/diplome_cames/web/site/repertoire'];
+export const SONDES = ['POST:id=2|https://www.lecames.org/diplome_cames/web/site/ville', 'POST:Pays%5Bid_pays%5D=2&Institution%5Bid_inst%5D=|https://www.lecames.org/diplome_cames/web/site/repertoire'];
