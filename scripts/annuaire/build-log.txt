@@ -1,26 +1,28 @@
-23:43:38 deqar 8038
-23:44:53 scorecard 992
-23:44:55 ofs 425
-23:44:59 cricos 664
-23:45:01 officiel ci-mesrs-prives 618
-23:45:03 officiel cm-minesup-ipes 234
-23:45:05 officiel ae-caa 103
-23:45:07 officiel ng-nuc-public-federal 77
-23:45:08 officiel ng-nuc-public-state 69
-23:45:08 officiel ng-nuc-prive-private 182
-23:45:12 officiel ug-nche 153
+00:02:44 deqar 8038
+00:03:58 scorecard 992
+00:04:00 ofs 425
+00:04:03 cricos 664
+00:04:05 officiel ci-mesrs-prives 618
+00:04:07 officiel cm-minesup-ipes 234
+00:04:08 officiel ae-caa 103
+00:04:10 officiel ng-nuc-public-federal 77
+00:04:11 officiel ng-nuc-public-state 69
+00:04:11 officiel ng-nuc-prive-private 182
+00:04:15 officiel ug-nche 153
 Warning: TT: undefined function: 21
-23:45:15 officiel rw-hec 21
-23:45:17 officiel bw-bqa 68
-23:45:21 officiel zw-zimche 20
+00:04:18 officiel rw-hec 21
+00:04:20 officiel bw-bqa 68
+00:04:25 officiel zw-zimche 20
 Warning: TT: undefined function: 21
-23:45:24 officiel tz-tcu 30
+00:04:27 officiel tz-tcu 30
 clés co-men-snies c_digo_instituci_n,nombre_instituci_n,n_mero_identificaci_n,principal_seccional,naturaleza_jur_dica,sector,car_cter_acad_mico,cod_departamento,departamento_domicilio,municipio_domicilio,direcci_n_domicilio,tel_fono_domicilio,norma_de_creaci_n,fecha_norma_de_creaci_n,acreditada_alta_calidad,fecha_acreditaci_n,resoluci_n_de_la_acreditaci,vigencia_de_la_acreditaci,estado,fecha_actualizacion,p_gina_web
-23:45:24 officiel co-men-snies 300
-clés in-ugc uni_name,address,address1,address2,Zip,state,status,uni_type,ESTD,url,NM_VC,VCPNO,VCPNOR,VCFNO,VCMOB,VCE_ML,NM_REG,RPNO,RPNOR,RFNO,REMOB,RE_ML,UPNO,UPNO1,U_EMAIL,D_J_VC,D_J_REG,college,Is_Registered_paramarsh,AIshe_code,NM_Nodal,Nodal_Mob,Nodal_Phn,Nodal_Email,Nodal_Dept,Nodal_Desg,user_username,user_password,uniportal_id,import_remarks,Is_hindi,ID,Type,created_date,created_user,created_Ip,created_Mac,updated_date,updated_user,updated_Ip,updated_Mac
-23:45:27 officiel in-ugc 1256
-23:45:27 officiel 3131
-23:49:23 wikidata 30192
-23:49:23 fiches Wikidata fusionnées avec une liste officielle : 381
-23:49:23 écartés (pays du site incohérent) 174
-23:49:23 TOTAL 37972 établissements dans 199 pays
+00:04:28 officiel co-men-snies 300
+00:04:31 officiel in-ugc 1256
+00:04:34 officiel jp-mext 1117
+00:04:39 officiel ca-ircc-dli 666
+00:04:40 officiel dz-mesrs 104
+00:04:40 officiel 5018
+00:08:46 wikidata 30192
+00:08:46 fiches Wikidata fusionnées avec une liste officielle : 446
+00:08:46 écartés (pays du site incohérent) 174
+00:08:46 TOTAL 39795 établissements dans 199 pays
