@@ -33,7 +33,7 @@ for (let u of SONDES) {
     const cut = (x) => String(x).replace(/\s+/g, ' ').trim().slice(0, 200);
     if (/pdf/.test(ct) || buf.slice(0, 4).toString() === '%PDF') {
       const pdf = (await import('pdf-parse/lib/pdf-parse.js')).default; const d = await pdf(buf);
-      lines.push('PDF pages ' + d.numpages); d.text.split('\n').filter((l) => l.trim()).slice(0, 30).forEach((l) => lines.push('  ' + cut(l)));
+      lines.push('PDF pages ' + d.numpages); d.text.split('\n').filter((l) => l.trim()).slice(0, 70).forEach((l) => lines.push('  ' + cut(l)));
     } else if (/sheet|excel|octet/.test(ct) || buf.slice(0, 2).toString() === 'PK') {
       const XLSX = (await import('xlsx')).default; const wb = XLSX.read(buf);
       for (const sn of wb.SheetNames.slice(0, 4)) { const rows = XLSX.utils.sheet_to_json(wb.Sheets[sn], { header: 1, defval: '' }); lines.push('SHEET ' + sn + ' rows ' + rows.length); (rr ? rows.slice(rr[0], rr[1]) : rows.slice(0, 12)).forEach((r, k) => lines.push('  R' + ((rr ? rr[0] : 0) + k) + ' ' + cut(r.slice(0, 4).join(' | ') + ' ... ' + r.slice(-6).join(' | ')))); }
