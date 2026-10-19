@@ -195,8 +195,8 @@ export const OFFICIELS = [
     titre: { fr: 'Décisions d’habilitation des établissements (avis favorables et défavorables)', en: 'Institutional approval decisions (favourable and unfavourable)' },
     url: 'https://anaqsup.sn/habilitations/', type: 'html', pages: 40, pageUrl: (p) => 'https://anaqsup.sn/habilitations/' + (p > 1 ? '?sf_paged=' + p : ''),
     parse: ($, clean) => {
-      $('script,style').remove();
-      const toks = $('body').text().split(/\n+/).map((x) => clean(x)).filter(Boolean);
+      $('script,style,noscript').remove();
+      const toks = $('body').html().replace(/<[^>]+>/g, '\u0001').split('\u0001').map((x) => clean(cheerio.load('<p>' + x + '</p>')('p').text())).filter(Boolean);
       const a = toks.indexOf('Rechercher'); const b = toks.findIndex((x, i) => i > a && /^RESTEZ INFORM/i.test(x));
       const out = []; let buf = [];
       for (const t of toks.slice(a + 1, b > 0 ? b : undefined)) {
