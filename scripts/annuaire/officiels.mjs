@@ -189,6 +189,30 @@ export const OFFICIELS = [
     url: 'https://www.mes.tn/annuaire.php?code_menu=22', type: 'html',
     parse: ($, clean) => [...new Set($('option').map((i, o) => clean($(o).text())).get().filter((x) => /^جامعة\s/.test(x)))].map((n) => ({ n }))
   },
+  {
+    cc: 'SN', id: 'sn-anaqsup-hab',
+    autorite: { fr: 'Autorité nationale d’assurance qualité de l’enseignement supérieur (ANAQ-Sup), Sénégal', en: 'National Authority for Quality Assurance in Higher Education (ANAQ-Sup), Senegal' },
+    titre: { fr: 'Décisions d’habilitation des établissements (avis favorables et défavorables)', en: 'Institutional approval decisions (favourable and unfavourable)' },
+    url: 'https://anaqsup.sn/habilitations/', type: 'html', pages: 40, pageUrl: (p) => 'https://anaqsup.sn/habilitations/' + (p > 1 ? '?sf_paged=' + p : ''),
+    parse: ($, clean) => {
+      $('script,style').remove();
+      const toks = $('body').text().split(/\n+/).map((x) => clean(x)).filter(Boolean);
+      const a = toks.indexOf('Rechercher'); const b = toks.findIndex((x, i) => i > a && /^RESTEZ INFORM/i.test(x));
+      const out = []; let buf = [];
+      for (const t of toks.slice(a + 1, b > 0 ? b : undefined)) {
+        const d = /^Avis (favorable|défavorable)$/i.exec(t);
+        if (!d) { if (!/^voir le rapport$/i.test(t)) buf.push(t); continue; }
+        const yi = buf.map((x) => /^\d{4}$/.test(x)).lastIndexOf(true);
+        if (yi > 0 && !/[ée]cole\s+doctorale/i.test(buf[0])) {
+          let n = buf[0]; const m = /^([A-Z0-9][A-Za-z0-9 /'’.&]{1,24}?)\s*[-:]+\s*(.{6,})$/.exec(n); if (m && /[A-Z]{2}/.test(m[1])) n = m[2] + ' (' + m[1].trim() + ')';
+          const nf = yi - 1; const fav = /^favorable$/i.test(d[1]);
+          out.push({ n, y: buf[yi], v: (buf[yi + 1] || '').replace(/\s*\(.*\)$/, ''), r: buf[yi + 1] || '', acc: (fav ? 'Habilitation ANAQ-Sup : avis favorable' : 'ATTENTION — Habilitation ANAQ-Sup : avis défavorable') + ' (' + buf[yi] + ')' + (nf > 0 ? ' · ' + nf + ' formation' + (nf > 1 ? 's' : '') + ' examinée' + (nf > 1 ? 's' : '') : '') });
+        }
+        buf = [];
+      }
+      return out;
+    }
+  },
   ...[
     ['publiques', '%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d8%ad%d9%83%d9%88%d9%85%d9%8a%d8%a9', 'public', 'Universités publiques', 'Public universities'],
     ['ahleya', '%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d8%b5%d8%b1%d9%8a%d8%a9-%d8%a7%d9%84%d8%a3%d9%87%d9%84%d9%8a%d8%a9', '', 'Universités nationales (ahleya, à but non lucratif)', 'National (ahleya, non-profit) universities'],
@@ -335,6 +359,16 @@ async function readXlsx(src) {
 
 /* Page HTML lue par une fonction propre à la liste : src.parse($) renvoie les fiches */
 async function readHtml(src) {
+  if (src.pages) {
+    const all = [], seen = new Set();
+    for (let p = 1; p <= src.pages; p++) {
+      const $ = cheerio.load((await fetchBuf(src.pageUrl(p))).toString('utf8'));
+      const part = src.parse($, clean).filter((r) => r && r.n && !seen.has(r.n + '|' + (r.y || '')));
+      if (!part.length) break;
+      part.forEach((r) => { seen.add(r.n + '|' + (r.y || '')); all.push(r); });
+    }
+    return all.map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
+  }
   const $ = cheerio.load((await fetchBuf(src.url)).toString('utf8'));
   return src.parse($, clean).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
 }
