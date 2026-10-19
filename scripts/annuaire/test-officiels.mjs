@@ -4,6 +4,8 @@ import { readOfficiels } from './officiels.mjs';
 const only = (process.env.ONLY || '').split(',').filter(Boolean);
 const lines = [];
 const dump = () => fs.writeFileSync('scripts/annuaire/rapport-test.txt', new Date().toISOString() + '\n' + lines.join('\n') + '\n');
+const keep = setInterval(() => {}, 1000); setTimeout(() => { lines.push('DÉLAI DÉPASSÉ'); dump(); process.exit(0); }, 9 * 60000).unref();
+process.on('beforeExit', () => { lines.push('SORTIE PRÉMATURÉE'); dump(); });
 process.on('uncaughtException', (e) => { lines.push('CRASH ' + (e.stack || e)); dump(); process.exit(0); });
 process.on('unhandledRejection', (e) => { lines.push('CRASH ' + (e && e.stack || e)); dump(); process.exit(0); });
 const _log = console.log; console.log = (...a) => { lines.push(a.join(' ')); _log(...a); };
@@ -22,7 +24,7 @@ import * as cheerio from 'cheerio';
 const { SONDES } = await import('./sondes.mjs');
 for (let u of SONDES) {
   let grep = null, rr = null; const m2 = /^ROWS:(\d+)-(\d+)\|(https?:.+)$/.exec(u); if (m2) { rr = [+m2[1], +m2[2]]; u = m2[3]; } const m = /^GREP:(.+?)\|(https?:.+)$/.exec(u); if (m) { grep = new RegExp(m[1], 'gi'); u = m[2]; }
-  lines.push('##### ' + u);
+  lines.push('##### ' + u); dump();
   try {
     const ctrl = new AbortController(); setTimeout(() => ctrl.abort(), 45000);
     const r = await fetch(u, { headers: { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36', 'Accept-Language': 'fr,en;q=0.8' }, signal: ctrl.signal });
@@ -49,3 +51,4 @@ for (let u of SONDES) {
   } catch (e) { lines.push('ERR ' + e.message); }
 }
 fs.writeFileSync('scripts/annuaire/rapport-test.txt', new Date().toISOString() + '\n' + lines.join('\n') + '\n');
+clearInterval(keep); process.exit(0);
