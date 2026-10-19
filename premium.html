@@ -9,7 +9,7 @@
 <meta name="theme-color" content="#FBF6EC">
 <meta property="og:title" content="LERNA Premium">
 <meta property="og:description" content="Les infos sont gratuites. Premium t’aide à décrocher ta place : dossier, lettres, entretien, budget et dates limites.">
-<meta property="og:image" content="/assets/icons/og.png">
+<meta property="og:image" content="https://lerna-lilac.vercel.app/assets/icons/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
@@ -496,10 +496,10 @@ Lerna.addStrings({
   /* Vérifie une facture auprès du serveur, toutes les 4 s, pendant 3 min au plus */
   var pollTimer = null;
   var polling = false;
-  function poll(token, onState, max) {
+  function poll(token, onState, max, firstDelay) {
     var n = 0; max = max || 45;
     clearTimeout(pollTimer); polling = true;
-    (function tick() {
+    (function first(tick) { if (firstDelay) pollTimer = setTimeout(tick, firstDelay); else tick(); })(function tick() {
       Lerna.api('/api/pay', { action: 'verify', token: token }, { timeout: 20000 }).then(function (r) {
         var st = r.ok && r.data ? r.data.statut : 'en_attente';
         /* Payé ou refusé : on oublie la facture. Trop lent : on la garde (3 h) pour revérifier au retour de l'appli */
@@ -507,7 +507,7 @@ Lerna.addStrings({
         if (st === 'valide' || st === 'refuse' || ++n >= max) { polling = false; return onState(st === 'en_attente' ? 'lent' : st); }
         pollTimer = setTimeout(tick, 4000);
       });
-    })();
+    });
   }
   /* Retour sur LERNA après Wave / Orange Money (le téléphone a pu mettre la page en pause) : on revérifie tout de suite */
   document.addEventListener('visibilitychange', function () {
@@ -521,14 +521,16 @@ Lerna.addStrings({
     Lerna.sound.play('success'); Lerna.analytics.capture('premium_paid', {});
     refreshUser();
   }
-  function waitModal(html, token) {
+  /* firstDelay : quand la page part vers l'appli ou la page de paiement (Wave, carte), on ne vérifie pas tout de suite —
+     la requête serait coupée par le changement de page. Au retour, la vérification repart toute seule (visibilitychange, ?pay=retour). */
+  function waitModal(html, token, firstDelay) {
     Lerna.modal('<div id="mmBox">' + html + '</div>', function (box, close) {
       var inner = box.querySelector('#mmBox');
       poll(token, function (st) {
         if (st === 'valide') return successView(inner);
         if (st === 'refuse') inner.innerHTML = '<div class="mm-wait"><h3>' + esc(t('mm.cancelTitle')) + '</h3><p>' + esc(t('mm.cancelText')) + '</p><button type="button" class="btn btn-ghost btn-block" style="margin-top:18px" data-close>' + esc(t('mm.close')) + '</button></div>';
         else inner.querySelector('.mm-status').textContent = t('mm.slow');
-      });
+      }, 0, firstDelay);
     });
   }
 
@@ -617,7 +619,7 @@ Lerna.addStrings({
             waitModal('<div class="mm-wait"><div class="mm-spin"></div><h3>' + esc(t('mm.opening', { w: way === 'card' ? t('mm.card') : w })) + '</h3><p>' + esc(t('mm.openHint')) + '</p>' +
               '<a class="btn btn-primary btn-block" style="margin-top:14px" href="' + esc(d.redirect) + '" rel="noopener">' + esc(t('mm.openBtn', { w: way === 'card' ? t('mm.card') : w })) + '</a>' +
               (d.alt ? '<a class="btn btn-ghost btn-block" style="margin-top:8px" href="' + esc(d.alt) + '" rel="noopener">Orange Money</a>' : '') +
-              '<p class="small mm-status" style="margin-top:10px"></p></div>', d.token);
+              '<p class="small mm-status" style="margin-top:10px"></p></div>', d.token, 9000);
             setTimeout(function () { location.href = d.redirect; }, 500);
           });
         });
