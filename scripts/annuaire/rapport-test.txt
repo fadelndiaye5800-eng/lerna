@@ -1,4 +1,4 @@
-2026-10-19T00:20:52.058Z
+2026-10-19T00:30:31.714Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -263,7 +263,7 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Centre universitaire d’El Bayadh – Nour Bachir | public
 == nl-duo : 54
   NHL Stenden Hogeschool | Leeuwarden | Friesland | https://www.nhl.nl | Hogeschool (hbo)
-  Christelijke Hogeschool Ede | EDE | Gelderland | https://www.che.nl | Hogeschool (hbo)
+  Christelijke Hogeschool Ede | Ede | Gelderland | https://www.che.nl | Hogeschool (hbo)
   Aeres Hogeschool | Wageningen | Gelderland | https://www.aereshogeschool.nl | Hogeschool (hbo)
   ArtEZ | Arnhem | Gelderland | https://www.artez.nl | Hogeschool (hbo)
   Hogeschool Van Hall Larenstein | Velp Gld | Gelderland | https://www.vanhall-larenstein.nl | Hogeschool (hbo)
@@ -291,3 +291,17 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   阜康职业技术学院 | 昌吉回族自治州 | public | 专科 (cycle court)
   胡杨河职业技术学院 | 胡杨河市 | public | 专科 (cycle court)
   新疆石河子航空职业学院 | 石河子市 | prive | 专科 (cycle court) · 民办
+##### https://www.cue.or.ke/
+ERR fetch failed UNABLE_TO_VERIFY_LEAF_SIGNATURE unable to verify the first certificate
+##### https://www.enssup.gov.ma/
+ERR fetch failed UND_ERR_CONNECT_TIMEOUT Connect Timeout Error (attempted address: www.enssup.gov.ma:443, timeout: 10000ms)
+##### https://scu.eg/
+ERR fetch failed UNABLE_TO_VERIFY_LEAF_SIGNATURE unable to verify the first certificate
+##### https://www.mes.tn/
+ERR fetch failed UNABLE_TO_VERIFY_LEAF_SIGNATURE unable to verify the first certificate
+##### https://mohe.gov.jo/
+ERR fetch failed UND_ERR_CONNECT_TIMEOUT Connect Timeout Error (attempted address: mohe.gov.jo:443, timeout: 10000ms)
+##### https://www.ched.gov.ph/
+ERR fetch failed ERR_TLS_CERT_ALTNAME_INVALID Hostname/IP does not match certificate's altnames: Host: www.ched.gov.ph. is not in the cert's altnames: DNS:e.gov.ph, DNS:*.e.gov.ph
+##### https://www.ugc.ac.lk/
+DÉLAI DÉPASSÉ
