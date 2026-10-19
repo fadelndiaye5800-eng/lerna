@@ -1,4 +1,4 @@
-2026-10-19T00:48:13.576Z
+2026-10-19T00:50:19.208Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -25,7 +25,19 @@ Warning: TT: undefined function: 32
 Warning: TT: undefined function: 32
 officiel tn-mes-prives 89
 officiel tn-mes-universites 13
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":666,"dz-mesrs":104,"nl-duo":54,"cn-moe":2952,"ke-cue":89,"tn-mes-prives":89,"tn-mes-universites":13}
+officiel eg-scu-publiques 28
+officiel eg-scu-ahleya 33
+officiel eg-scu-privees 39
+officiel eg-scu-techno-publiques 12
+officiel eg-scu-techno-privees 2
+officiel eg-scu-instituts-prives 181
+officiel eg-scu-instituts-publics 13
+officiel eg-scu-etrangeres 15
+officiel eg-scu-branches 10
+officiel eg-scu-speciales 2
+officiel eg-scu-sous-tutelle 4
+officiel eg-scu-accords 9
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":666,"dz-mesrs":104,"nl-duo":54,"cn-moe":2952,"ke-cue":89,"tn-mes-prives":89,"tn-mes-universites":13,"eg-scu-publiques":28,"eg-scu-ahleya":33,"eg-scu-privees":39,"eg-scu-techno-publiques":12,"eg-scu-techno-privees":2,"eg-scu-instituts-prives":181,"eg-scu-instituts-publics":13,"eg-scu-etrangeres":15,"eg-scu-branches":10,"eg-scu-speciales":2,"eg-scu-sous-tutelle":4,"eg-scu-accords":9}
 == ci-mesrs-prives : 618
   Abidjan Bloom University (ABU) | Abidjan | Cocody | prive | 90.000 F
   Abidjan Business School -(ABS) | Abidjan | Cocody | prive | 85000
@@ -340,52 +352,137 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   جامعة قفصة | public
   جامعة قابس | public
   جامعة تونس الإفتراضية | public
-##### https://scu.eg/accredited-private-universities/
-ST 200 text/html; charset=UTF-8 222808 https://scu.eg/accredited-private-universities/
-  G  rel="noopener noreferrer" > جامعة 6 أكتوبر </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة مصر الدولية </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة سيناء </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة المستقبل </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة هليوبوليس </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة بدر بالقاهرة </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة حورس </a> </h4> </div> </figcaption> </figure> </div> 
-  G  <a> جامعة السلام </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة سفنكس </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة بدر بأسيوط </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة ميريت </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة مايو </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة الابتكار </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة الحياة </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة باديا </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة رشيد </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة شرق العاصمة </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة ممفيس </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة مصر الجديدة </a> </h4> </div> </figcaption> </figure> </div> 
-  G  <p> <i class="fas fa-map-marker-alt"></i> مبنى المجلس الأعلى للجامعات، مقر جامعة القاهرة (الحرم الجامعى)،الجيــزة </p> <span> <i class="fas fa-phone-square"></i> 00235704158 </span> <span> <i class="fas fa-phone-sq
-##### https://scu.eg/%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d8%ad%d9%83%d9%88%d9%85%d9%8a%d8%a9/
-ST 200 text/html; charset=UTF-8 199624 https://scu.eg/%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d8%ad%d9%83%d9%88%d9%85%d9%8a%d8%a9/
-  G  rel="noopener noreferrer" > جامعة القاهرة </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة الاسكندرية </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة عين شمس </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة أسيوط </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة طنطا </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة المنصورة </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة الزقازيق </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة المنيا </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة المنوفية </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة قناة السويس </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة بنها </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة الفيوم </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة بنى سويف </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة كفر الشيخ </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة سوهاج </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة بورسعيد </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة دمنهور </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة دمياط </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة أسوان </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة السويس </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة العريش </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة مطروح </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة الأقصر </a> </h4> </div> </figcaption> </figure> </div> 
-  G  rel="noopener noreferrer" > جامعة الغردقة </a> </h4> </div> </figcaption> </figure> </div> 
-  G  <p> <i class="fas fa-map-marker-alt"></i> مبنى المجلس الأعلى للجامعات، مقر جامعة القاهرة (الحرم الجامعى)،الجيــزة </p> <span> <i class="fas fa-phone-square"></i> 00235704158 </span> <span> <i class="fas fa-phone-sq
+== eg-scu-publiques : 28
+  جامعة القاهرة | public | https://cu.edu.eg/ar/Home | Universités publiques
+  جامعة الاسكندرية | public | https://alexu.edu.eg/ | Universités publiques
+  جامعة عين شمس | public | https://www.asu.edu.eg/ar | Universités publiques
+  جامعة أسيوط | public | https://www.aun.edu.eg/main/ar | Universités publiques
+  جامعة طنطا | public | https://tanta.edu.eg/ | Universités publiques
+  جامعة المنصورة | public | https://www.mans.edu.eg/ | Universités publiques
+  جامعة الزقازيق | public | http://www.zu.edu.eg/ | Universités publiques
+  جامعة العاصمة (حلوان سابقاً) | public | https://www.helwan.edu.eg/ | Universités publiques
+  جامعة بنى سويف | public | https://www.bsu.edu.eg// | Universités publiques
+  جامعة كفر الشيخ | public | https://kfs.edu.eg/ | Universités publiques
+  جامعة سوهاج | public | https://www.sohag-univ.edu.eg/ar/ | Universités publiques
+  جامعة الوادى الجديد | public | http://nvu.edu.eg/ | Universités publiques
+  جامعة الأقصر | public | http://www.luxor.edu.eg/ | Universités publiques
+  جامعة الغردقة | public | http://www.hurghada.edu.eg/ | Universités publiques
+== eg-scu-ahleya : 33
+  جامعة الجلالة | https://www.gu.edu.eg/ | Universités nationales (ahleya, à but non lucratif)
+  جامعة الملك سلمان الدولية | https://ksiu.edu.eg/ar/ | Universités nationales (ahleya, à but non lucratif)
+  جامعة العلمين الدولية | https://aiu.edu.eg/ | Universités nationales (ahleya, à but non lucratif)
+  جامعة المنصورة الجديدة | https://www.nmu.edu.eg/ar | Universités nationales (ahleya, à but non lucratif)
+  جامعة الأسكندرية الأهلية | http://anu.alexu.edu.eg/ | Universités nationales (ahleya, à but non lucratif)
+  جامعة حلوان الأهلية | http://www.hnu.edu.eg/ | Universités nationales (ahleya, à but non lucratif)
+  جامعة بنها الأهلية | https://bnu.bu.edu.eg/ | Universités nationales (ahleya, à but non lucratif)
+  جامعة المنصورة الأهلية | https://www.mansnu.edu.eg/ | Universités nationales (ahleya, à but non lucratif)
+  جامعة النيل الأهلية | https://nu.edu.eg/home | Universités nationales (ahleya, à but non lucratif)
+  الجامعة المصرية للتعلم الإلكترونى الأهلية | https://www.eelu.edu.eg/ | Universités nationales (ahleya, à but non lucratif)
+  الجامعة الأهلية الفرنسية في مصر | https://ufe.edu.eg/ | Universités nationales (ahleya, à but non lucratif)
+  جامعة الأقصر الأهلية | https://lnu.luxor.edu.eg/ | Universités nationales (ahleya, à but non lucratif)
+  جامعة مدينة السادات الأهلية | https://nusc.edu.eg/ | Universités nationales (ahleya, à but non lucratif)
+  الجامعة الدولية للعلوم والفنون والتكنولوجيا | Universités nationales (ahleya, à but non lucratif)
+== eg-scu-privees : 39
+  جامعة 6 أكتوبر | prive | https://o6u.edu.eg/default.aspx?id=70 | Universités privées agréées
+  جامعة مصر للعلوم و التكنولوجيا | prive | https://must.edu.eg/ar/ | Universités privées agréées
+  جامعة أكتوبر للعلوم الحديثة و الآداب | prive | https://www.msa.edu.eg/msauniversity/ | Universités privées agréées
+  جامعة مصر الدولية | prive | http://www.miuegypt.edu.eg/ | Universités privées agréées
+  الجامعة الألمانية بالقاهرة | prive | https://www.guc.edu.eg/ | Universités privées agréées
+  الجامعة الحديثة للتكنولوجيا و المعلومات | prive | http://ar.mti.edu.eg/default.aspx | Universités privées agréées
+  جامعة الأهرام الكندية | prive | https://acu.edu.eg/ | Universités privées agréées
+  الجامعة البريطانية فى مصر | prive | https://www.bue.edu.eg/ | Universités privées agréées
+  الجامعة المصرية الصينية | prive | https://ecu.edu.eg/ar// | Universités privées agréées
+  جامعة السلام | prive | Universités privées agréées
+  جامعة الصالحية الجديدة | prive | https://sgu.edu.eg/ | Universités privées agréées
+  جامعة شرق العاصمة | prive | https://www.uec.edu.eg/ | Universités privées agréées
+  جامعة ممفيس | prive | https://www.memphis.edu.eg/ | Universités privées agréées
+  جامعة مصر الجديدة | prive | Universités privées agréées
+== eg-scu-techno-publiques : 12
+  جامعة الدلتا التكنولوجية | public | https://dtu.edu.eg/ | Universités technologiques publiques
+  ⁠جامعة القاهرة الجديدة التكنولوجية | public | https://nctu.edu.eg/ | Universités technologiques publiques
+  جامعة بني سويف التكنولوجية | public | https://btu.edu.eg/ | Universités technologiques publiques
+  جامعة برج العرب التكنولوجية | public | https://batechu.com/ | Universités technologiques publiques
+  جامعة سمنود التكنولوجية | public | Universités technologiques publiques
+  جامعة السادس من أكتوبر التكنولوجية | public | Universités technologiques publiques
+  جامعة أسيوط الجديدة التكنولوجية | public | Universités technologiques publiques
+  جامعة طيبة الجديدة التكنولوجية | public | Universités technologiques publiques
+  ⁠جامعة شرق بورسعيد التكنولوجية | public | https://ept.edu.eg/ | Universités technologiques publiques
+  جامعة الفيوم التكنولوجية الدولية | public | https://sites.google.com/view/itec-fayoum/home | Universités technologiques publiques
+  جامعة أسيوط التكنولوجية الدولية | public | Universités technologiques publiques
+  جامعة مصر الدولية التكنولوجية | public | Universités technologiques publiques
+== eg-scu-techno-privees : 2
+  جامعة السويدي للتكنولوجيا | prive | https://sut.edu.eg | Universités technologiques privées
+  جامعة ساكسونى مصر للعلوم التطبيقية والتكنولوجية | prive | https://seu.edu.eg/ar/ | Universités technologiques privées
+== eg-scu-instituts-prives : 181
+  المعهد العالى للدراسات الإسلامية | prive | http://www.iiss-egypt.org/ | Instituts privés agréés
+  المعهد العالى للحاسبات وتكنولوجيا المعلومات بمدينة الشروق | prive | Instituts privés agréés
+  أكاديمية أخبار اليوم | prive | Instituts privés agréés
+  الأكاديمية الحديثة للهندسة والتكنولوجيا بالمعادى | prive | Instituts privés agréés
+  الأكاديمية الدولية للهندسة وعلوم الإعلام ـ 6أكتوبر | prive | Instituts privés agréés
+  الاكاديمية الحديثة لعلوم الكمبيوتر وتكنولوجيا الادارة بالمعادى | prive | Instituts privés agréés
+  المعهد التكنولوجي العالى ـ بالعاشر من رمضان | prive | Instituts privés agréés
+  المعهد الدولى العالى للإعلام ـ مدينة الشروق | prive | Instituts privés agréés
+  المعهد المصرى لأكاديمية الأسكندرية للادارة والمحاسبة ـ بالاسكندرية | prive | Instituts privés agréés
+  معهد الجزيرة العالى للحاسب الالى ونظم المعلومات الادارية ـ المقطم | prive | Instituts privés agréés
+  معهد الوادى العالى للهندسة والتكنولوجيا بالقليوبية | prive | Instituts privés agréés
+  المعهد العالى للهندسة والتكنولوجيا بالمنوفية | prive | Instituts privés agréés
+  المعهد التكنولوجى العالى للحاسبات والمعلومات بأخميم الجديدة بسوهاج | prive | Instituts privés agréés
+  المعهد التكنولوجى العالى للعلوم الصحية التطبيقية بمدينة السادات بالمنوفية | prive | Instituts privés agréés
+== eg-scu-instituts-publics : 13
+  جامعة القاهرة | public | Instituts publics
+  جامعة الاسكندرية | public | Instituts publics
+  جامعة عين شمس | public | Instituts publics
+  جامعة أسيوط | public | Instituts publics
+  جامعة طنطا | public | Instituts publics
+  جامعة المنصورة | public | Instituts publics
+  جامعة الزقازيق | public | Instituts publics
+  جامعة المنيا | public | Instituts publics
+  جامعة المنوفية | public | Instituts publics
+  جامعة قناة السويس | public | Instituts publics
+  جامعة قنا (جنوب الوادي سابقاً) | public | Instituts publics
+  جامعة الفيوم | public | Instituts publics
+  جامعة بنى سويف | public | Instituts publics
+== eg-scu-etrangeres : 15
+  مؤسسة الجامعات الأوروبية | prive | Universités étrangères autorisées en Égypte
+  لندن | prive | https://www.london.ac.uk/ | Universités étrangères autorisées en Égypte
+  لانكشاير | prive | https://www.uclan.ac.uk/ | Universités étrangères autorisées en Égypte
+  شرق لندن | prive | https://www.uel.ac.uk/ | Universités étrangères autorisées en Égypte
+  مؤسسة جلوبال | prive | Universités étrangères autorisées en Égypte
+  هيرتفوردشاير | prive | https://www.gaf.edu.eg/ | Universités étrangères autorisées en Égypte
+  مؤسسة جامعات المعرفة الدولية | prive | Universités étrangères autorisées en Égypte
+  كوفنتري | prive | https://tkh.edu.eg/coventry-university-degree-egypt/ | Universités étrangères autorisées en Égypte
+  كوفنتري | prive | https://tkh.edu.eg/coventry-university-degree-egypt/ | Universités étrangères autorisées en Égypte
+  نوفا البرتغالية | prive | https://tkh.edu.eg/nova-cairo-at-tkh/ | Universités étrangères autorisées en Égypte
+  مؤسسة التعليم والابتكار | prive | Universités étrangères autorisées en Égypte
+  مؤسسة مودرن جروب الجامعية | prive | Universités étrangères autorisées en Égypte
+  سانت بطرسبرج | prive | https://english.spbu.ru/ | Universités étrangères autorisées en Égypte
+  كازان الفيدرالية | prive | https://eng.kpfu.ru/ | Universités étrangères autorisées en Égypte
+== eg-scu-branches : 10
+  فرع جامعة كوفنتري البريطانية | prive | https://tkh.edu.eg/%D8%AC%D8%A7%D9%85%D8%B9%D8%A7%D8%AA-%D8%A7%D9%84%D9%85%D8%B9%D8%B1%D9%81%D8%A9-%D8%A7%D9%84%D8%AF%D9%88%D9%84%D9%8A%D8%A9-%D8%A7%D9%84%D9%85%D8%B3%D8%AA%D8%B6%D9%8A%D9%81%D8%A9-%D9%81%D8%B1%D8%B9/ | Campus de universités étrangères
+  فرع جامعة جزيرة الأمير إدوارد | prive | https://upei.uofcanada.edu.eg/ | Campus de universités étrangères
+  فرع جامعة هيرتفوردشاير البريطانية | prive | https://www.gaf.edu.eg/ | Campus de universités étrangères
+  فرع جامعة نوفا البرتغالية | prive | Campus de universités étrangères
+  فرع جامعة لندن | prive | Campus de universités étrangères
+  فرع جامعة إيست لندن | prive | Campus de universités étrangères
+  فرع جامعة لانكشاير | prive | Campus de universités étrangères
+  فرع جامعة كازان الروسية | prive | Campus de universités étrangères
+  فرع جامعة سان بطرسبرج الروسية | prive | Campus de universités étrangères
+  جامعة أنجليا روسكين | prive | https://aru-cairo.com/ | Campus de universités étrangères
+== eg-scu-speciales : 2
+  جامعة مدينة زويل للعلوم والتكنولوجيا والابتكار | https://www.zewailcity.edu.eg/main/index.php?lang=ar | Universités à statut particulier
+  الجامعة المصرية اليابانية للعلوم والتكنولوجيا | https://www.ejust.edu.eg/about-ejust | Universités à statut particulier
+== eg-scu-sous-tutelle : 4
+  أكاديمية الفنون | public | Établissements sous tutelle de l’État
+  أكاديمية السادات للعلوم الإدارية | public | http://sams.edu.eg/ | Établissements sous tutelle de l’État
+  معهد التخطيط القومى | public | https://www.inp.edu.eg/ | Établissements sous tutelle de l’État
+  المعهد القومى للإتصالات | public | https://www.nti.sci.eg/ | Établissements sous tutelle de l’État
+== eg-scu-accords : 9
+  الجامعة الأمريكية بالقاهرة | https://www.aucegypt.edu/ar | Établissements créés par accords internationaux
+  جامعة سنجور | https://www.egypte.campusfrance.org/en/senghor-university-in-alexandria | Établissements créés par accords internationaux
+  جامعة برلين | https://www.emonovo.com/en/university/tu-berlin-campus-el-gouna | Établissements créés par accords internationaux
+  الجامعة العربية المفتوحة بالقاهرة | https://www.aou.edu.eg/Pages/default.aspx | Établissements créés par accords internationaux
+  جامعة اسلسكا مصر | https://eslsca.edu.eg/ | Établissements créés par accords internationaux
+  الاكاديمية العربية للعلوم والتكنولوجيا والنقل البحري | https://aast.edu/ar/ | Établissements créés par accords internationaux
+  الاكاديمية العربية للعلوم المالية والمصرفية | https://www.aambfs.org/ar/ | Établissements créés par accords internationaux
+  معهد البحوث والدراسات العربية | https://iars.net/ | Établissements créés par accords internationaux
+  الجامعة الألمانية الدولية | https://www.giu-uni.de/ | Établissements créés par accords internationaux
