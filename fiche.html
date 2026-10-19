@@ -328,7 +328,7 @@ Lerna.addStrings({
   /* Démarches : guide LERNA du pays (vérifié) quand il existe — système du pays : window.LERNA_ADM_FOR (guides.js) */
   function guideHtml(adm) {
     if (!adm || !window.LERNA_GUIDE_FOR) return '';
-    var g = window.LERNA_GUIDE_FOR({ adm: adm }, Lerna.country(), (Lerna.store.get('lerna_profile', null) || {}).answers);
+    var g = window.LERNA_GUIDE_FOR({ adm: adm, pays: F && F.cc }, Lerna.country(), (Lerna.store.get('lerna_profile', null) || {}).answers);
     if (!g) return '';
     return '<p class="small muted" style="margin-top:6px"><strong>' + esc(t('fi.guideFor', { g: L(g.label) })) + '</strong> — ' + esc(L(g.who)) + '</p>' +
       '<ol class="steps" style="margin-top:14px">' + g.steps.map(function (x) {

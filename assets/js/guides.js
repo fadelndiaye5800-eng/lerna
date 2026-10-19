@@ -30,7 +30,12 @@
     permisCa: { name: 'Permis d’études — Canada', url: 'https://www.canada.ca/fr/immigration-refugies-citoyennete/services/etudier-canada/permis-etudes.html' },
     commonapp: { name: 'Common App', url: 'https://www.commonapp.org/' },
     studyStates: { name: 'Study in the States', url: 'https://studyinthestates.dhs.gov/' },
-    campusen: { name: 'Campusen (Sénégal)', url: 'https://campusen.sn' }
+    campusen: { name: 'Campusen (Sénégal)', url: 'https://campusen.sn' },
+    ucas: { name: 'UCAS', url: 'https://www.ucas.com/ucas/undergraduate/getting-started/when-apply' },
+    ukvisa: { name: 'Student visa — GOV.UK', url: 'https://www.gov.uk/student-visa' },
+    studielink: { name: 'Studielink', url: 'https://www.studielink.nl/' },
+    studiekeuze: { name: 'Studiekeuze123', url: 'https://www.studiekeuze123.nl/enrolling-in-a-course-programme-in-the-netherlands' },
+    universitaly: { name: 'Universitaly', url: 'https://www.universitaly.it/' }
   };
   window.LERNA_PLATFORMS = P;
 
@@ -223,6 +228,48 @@
         S('on-start', 'Préparer ton matériel et ton rythme', 'Prepare your equipment and routine', 'Connexion stable, ordinateur, et des créneaux fixes chaque semaine.', 'Stable connection, computer, and fixed weekly slots.', '')
       ]
     },
+    /* Royaume-Uni — licence (undergraduate) : une seule candidature UCAS (dates officielles UCAS pour une entrée en 2027) */
+    uk: {
+      label: T('Royaume-Uni — UCAS', 'United Kingdom — UCAS'),
+      who: T('Licence (undergraduate) au Royaume-Uni : une seule candidature sur UCAS, avec 5 choix au maximum.', 'Undergraduate degree in the UK: one application on UCAS, with up to 5 choices.'),
+      platform: P.ucas, verifie: '2026-10-19', source: 'ucas.com',
+      steps: [
+        S('uk-account', 'Créer ton compte UCAS', 'Create your UCAS account', 'Les candidatures pour une entrée en 2027 sont ouvertes depuis le 12 mai 2026 ; une candidature complète peut être envoyée depuis le 1er septembre 2026.', 'Applications for 2027 entry opened on 12 May 2026; a complete application can be sent from 1 September 2026.', P.ucas.url),
+        S('uk-reference', 'Obtenir ta référence', 'Get your reference', 'Un enseignant écrit ta référence : UCAS l’exige avant l’envoi de ta candidature.', 'A teacher writes your reference: UCAS requires it before you can send your application.', ''),
+        S('uk-choices', 'Choisir tes formations et écrire ta présentation', 'Choose your courses and write your statement', '5 choix au maximum en tout. Ta présentation personnelle (personal statement) sert pour toutes tes formations.', 'Up to 5 choices in total. Your personal statement is used for all your courses.', P.ucas.url),
+        S('uk-send', 'Envoyer ta candidature', 'Send your application', 'Date d’égalité de traitement pour la plupart des formations : 13 janvier 2027, 18 h (heure du Royaume-Uni). Oxford, Cambridge et la plupart des formations de médecine, dentaire et vétérinaire : c’était le 15 octobre 2026. Beaucoup d’universités acceptent les étudiants internationaux plus tard : vérifie la date de chaque formation.', 'Equal consideration date for most courses: 13 January 2027, 18:00 UK time. Oxford, Cambridge and most medicine, dentistry and veterinary courses: it was 15 October 2026. Many universities accept international students later: check each course’s date.', P.ucas.url, '2027-01-13'),
+        S('uk-offers', 'Répondre aux offres', 'Reply to your offers', 'Les universités répondent dans ton espace UCAS. Réponds dans le délai affiché pour chaque offre.', 'Universities reply in your UCAS Hub. Reply within the time shown for each offer.', P.ucas.url),
+        S('uk-cas', 'Recevoir ton CAS', 'Get your CAS', 'Quand ta place est confirmée, l’université te donne ton CAS (confirmation d’acceptation) : il faut ce numéro pour le visa.', 'When your place is confirmed, the university gives you your CAS (confirmation of acceptance for studies): you need it for the visa.', ''),
+        S('uk-visa', 'Demander ton Student visa', 'Apply for your Student visa', 'Sur GOV.UK, avec ton CAS, ton passeport et la preuve de tes ressources.', 'On GOV.UK, with your CAS, your passport and proof of your funds.', P.ukvisa.url)
+      ]
+    },
+    /* Pays-Bas — bachelor : inscription sur Studielink (dates nationales de Studiekeuze123) */
+    'eu-nl': {
+      label: T('Pays-Bas — Studielink', 'Netherlands — Studielink'),
+      who: T('Licence (bachelor) aux Pays-Bas : tu t’inscris sur Studielink, puis l’établissement te dit quels documents envoyer.', 'Bachelor’s degree in the Netherlands: you enrol on Studielink, then the institution tells you which documents to send.'),
+      platform: P.studielink, verifie: '2026-10-19', source: 'studiekeuze123.nl',
+      steps: [
+        S('nl-choose', 'Choisir ta formation et lire ses conditions', 'Choose your programme and read its requirements', 'Sur la page admission de l’établissement : diplôme demandé, niveau d’anglais et sa propre date limite, qui peut être plus tôt que les dates nationales. Les écoles privées fixent leurs propres dates.', 'On the institution’s admission page: required diploma, English level and its own deadline, which can be earlier than the national dates. Private schools set their own dates.', ''),
+        S('nl-studielink', 'T’inscrire sur Studielink', 'Enrol on Studielink', 'Si tu ne vis pas encore aux Pays-Bas, inscris-toi comme étudiant international (sans DigiD).', 'If you do not live in the Netherlands yet, sign up as an international student (without DigiD).', P.studielink.url),
+        S('nl-fixus', 'Formation à places limitées (numerus fixus)', 'Limited-place programme (numerus fixus)', 'Date limite : 15 janvier 2027. La sélection commence ensuite ; résultats le 15 avril.', 'Deadline: 15 January 2027. Selection starts afterwards; results on 15 April.', P.studiekeuze.url, '2027-01-15'),
+        S('nl-may', 'Autres bachelors : avant le 1er mai', 'Other bachelor’s: before 1 May', 'Date limite nationale : 1er mai 2027. Après cette date, l’établissement peut refuser ou ajouter des conditions.', 'National deadline: 1 May 2027. After that date the institution may refuse or add conditions.', P.studiekeuze.url, '2027-05-01'),
+        S('nl-docs', 'Envoyer tes documents à l’établissement', 'Send your documents to the institution', 'Diplômes, relevés de notes, test d’anglais : suis la liste et le portail de l’établissement.', 'Diplomas, transcripts, English test: follow the institution’s list and portal.', ''),
+        S('nl-permit', 'Permis de séjour (hors Union européenne)', 'Residence permit (non-EU)', 'Demande à l’établissement comment se fait la demande auprès de l’IND (service de l’immigration) et jusqu’à quelle date.', 'Ask the institution how the application to the IND (immigration service) works and by which date.', '')
+      ]
+    },
+    /* Italie — étudiants hors UE : université, puis pré-inscription Universitaly, puis visa (procédure décrite par les universités) */
+    'eu-it': {
+      label: T('Italie — Universitaly', 'Italy — Universitaly'),
+      who: T('Études en Italie avec un diplôme hors UE : candidature à l’université, pré-inscription sur Universitaly, puis visa.', 'Studying in Italy with a non-EU diploma: application to the university, pre-enrolment on Universitaly, then visa.'),
+      platform: P.universitaly, verifie: '2026-10-19', source: 'unipi.it, universitaly.it',
+      steps: [
+        S('it-apply', 'Postuler à l’université', 'Apply to the university', 'Chaque université a sa procédure, ses dates et parfois un test d’entrée : commence par sa page pour les étudiants internationaux.', 'Each university has its own procedure, dates and sometimes an entrance test: start with its page for international students.', ''),
+        S('it-lang', 'Préparer ta certification de langue', 'Get your language certificate', 'Souvent un niveau B2 en italien pour un cursus en italien, ou un certificat d’anglais pour un cursus en anglais : vérifie le niveau demandé.', 'Often B2 Italian for a course taught in Italian, or an English certificate for a course taught in English: check the level required.', ''),
+        S('it-preenrol', 'Te pré-inscrire sur Universitaly', 'Pre-enrol on Universitaly', 'Pour une seule formation : après l’envoi, tu ne peux plus changer d’université ni de formation. Les dates sont fixées chaque année.', 'For one programme only: once sent, you cannot change university or programme. Dates are set every year.', P.universitaly.url),
+        S('it-visa', 'Demander ton visa d’études (type D)', 'Apply for your study visa (type D)', 'Quand ta pré-inscription est validée, l’ambassade ou le consulat d’Italie de ton pays te contacte. L’admission ne garantit pas le visa.', 'Once your pre-enrolment is validated, the Italian embassy or consulate in your country contacts you. Admission does not guarantee the visa.', ''),
+        S('it-enrol', 'Finaliser ton inscription en Italie', 'Complete your enrolment in Italy', 'À ton arrivée, suis les étapes de l’université (inscription définitive, permis de séjour).', 'When you arrive, follow the university’s steps (final enrolment, residence permit).', '')
+      ]
+    },
     /* Démarches générales : pour une école dont LERNA n'a pas encore vérifié la procédure propre (aucune date ni règle de pays inventée) */
     generic: {
       label: T('Démarches générales (à confirmer avec l’école)', 'General steps (to confirm with the school)'),
@@ -274,8 +321,13 @@
       var euBac = /^(FR|GP|MQ|GF|RE|YT|NC|PF)$/.test(country || '') || (answers && answers.q3_autre && /bac fran[cç]ais|french bac|bac europ/i.test(answers.q3_autre));
       key = euBac ? 'parcoursup' : (EEF.indexOf(country) !== -1 || !country ? 'eef' : 'dap');
     }
+    if (key === 'eu' && s.pays && window.LERNA_GUIDES['eu-' + String(s.pays).toLowerCase()]) key = 'eu-' + String(s.pays).toLowerCase();   // Europe : guide du pays quand il existe
     var g = window.LERNA_GUIDES[key];
     if (!g) { key = 'generic'; g = window.LERNA_GUIDES.generic; }   // procédure propre pas encore vérifiée par LERNA
+    /* Oxford et Cambridge : date UCAS plus tôt (15 octobre 2026, 18 h heure du Royaume-Uni) */
+    if (key === 'uk' && (s.id === 'oxford' || s.id === 'cambridge')) {
+      g = Object.assign({}, g, { steps: g.steps.map(function (x) { return x.id === 'uk-send' ? Object.assign({}, x, { date: '2026-10-15' }) : x; }) });
+    }
     return Object.assign({ key: key }, g);
   };
   /* Système d'admission habituel d'un pays, d'après les fiches LERNA vérifiées de ce pays (même statut d'abord) */
