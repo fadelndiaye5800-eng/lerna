@@ -162,6 +162,32 @@ export const OFFICIELS = [
       }
       return out;
     }
+  },
+  {
+    cc: 'TN', id: 'tn-mes-prives', statut: 'prive',
+    autorite: { fr: 'Ministère de l’Enseignement supérieur et de la Recherche scientifique (Tunisie), Direction de l’enseignement supérieur privé', en: 'Ministry of Higher Education and Scientific Research (Tunisia), Private Higher Education Directorate' },
+    titre: { fr: 'Établissements privés d’enseignement supérieur autorisés, année universitaire 2025-2026', en: 'Authorised private higher-education institutions, academic year 2025-2026' },
+    page: 'https://www.mes.tn/page.php?code_menu=147&code_menu_parent=54', url: 'https://www.mes.tn/image.php?id=20985', type: 'pdf-fn',
+    parse: (lines) => {
+      const out = []; let block = [];
+      const START = /^(الكلية|كلية|المعهد|معهد|المدرسة|مدرسة|الجامعة|جامعة|الأكاديمية|أكاديمية|المركز|مركز)\s/;
+      for (const l of lines) {
+        if (/^\d{1,3}$/.test(l)) {
+          const i = block.findIndex((x) => START.test(x));
+          if (i >= 0) { const w = (block.find((x) => /www\.|https?:/.test(x)) || '').split(/[\s/]+/).find((x) => /\./.test(x)) || ''; out.push({ n: block.slice(i).join(' '), w: w.replace(/^(https?:)?\/*/, '') }); }
+          block = []; continue;
+        }
+        block.push(l);
+      }
+      return out;
+    }
+  },
+  {
+    cc: 'TN', id: 'tn-mes-universites', statut: 'public',
+    autorite: { fr: 'Ministère de l’Enseignement supérieur et de la Recherche scientifique (Tunisie)', en: 'Ministry of Higher Education and Scientific Research (Tunisia)' },
+    titre: { fr: 'Universités publiques tunisiennes', en: 'Tunisian public universities' },
+    url: 'https://www.mes.tn/annuaire.php?code_menu=22', type: 'html',
+    parse: ($, clean) => $('a[href*="rnu.tn"]').map((i, a) => { const tr = $(a).closest('tr'); const cells = tr.find('td').map((j, c) => clean($(c).text())).get().filter((x) => x && !/rnu\.tn|^\+?[\d\s/.-]+$/.test(x)); return { n: cells.sort((x, y) => y.length - x.length)[0] || '', w: $(a).attr('href') }; }).get()
   }
 ];
 
