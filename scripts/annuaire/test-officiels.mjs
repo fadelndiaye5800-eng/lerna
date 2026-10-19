@@ -38,6 +38,7 @@ for (let u of SONDES) {
     } else if (/sheet|excel|octet/.test(ct) || buf.slice(0, 2).toString() === 'PK') {
       const XLSX = (await import('xlsx')).default; const wb = XLSX.read(buf);
       for (const sn of wb.SheetNames.slice(0, 4)) { const rows = XLSX.utils.sheet_to_json(wb.Sheets[sn], { header: 1, defval: '' }); lines.push('SHEET ' + sn + ' rows ' + rows.length); (rr ? rows.slice(rr[0], rr[1]) : rows.slice(0, 12)).forEach((r, k) => lines.push('  R' + ((rr ? rr[0] : 0) + k) + ' ' + cut(r.slice(0, 4).join(' | ') + ' ... ' + r.slice(-6).join(' | ')))); }
+    } else if (/csv|text\/plain/.test(ct)) { buf.toString('utf8').split(/\r?\n/).slice(0, 12).forEach((l) => lines.push('  C ' + l.slice(0, 400)));
     } else if (/json/.test(ct)) { lines.push('  JSON ' + cut(buf.toString('utf8')).slice(0, 1500)); } else {
       const $ = cheerio.load(buf.toString('utf8'));
       lines.push('TITLE ' + cut($('title').text()) + ' | TABLES ' + $('table').length + ' TR ' + $('tr').length + ' LI ' + $('li').length);
