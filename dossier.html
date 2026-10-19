@@ -310,7 +310,7 @@ Lerna.addStrings({
     var ids = [], res = store.get('lerna_results', null);
     if (res && Array.isArray(res.recos)) res.recos.forEach(function (r, i) {
       if (Lerna.recoAccess(i) !== 'open') return;
-      var s = (r.id && window.LERNA_SCHOOL(r.id)) || window.LERNA_FIND_SCHOOL(r.nom);
+      var s = window.LERNA_RECO_SCHOOL(r);
       if (s && ids.indexOf(s.id) === -1) ids.push(s.id);
     });
     var fav = Lerna.favs.list().filter(function (x) { return window.LERNA_SCHOOL(x) && ids.indexOf(x) === -1; });

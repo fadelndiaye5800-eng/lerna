@@ -189,7 +189,7 @@ Lerna.addStrings({
     'ex.allCountries': 'Tous les pays', 'ex.offOnly': 'Reconnues officiellement', 'ex.bLerna': 'Vérifiée par LERNA',
     'ex.secLerna': 'Fiches complètes vérifiées par LERNA', 'ex.countAll': '{n} fiches complètes dans le monde',
     'ex.noneLerna': 'Pas encore de fiche complète LERNA pour ce pays', 'ex.noneLernaSub': 'Les établissements reconnus de ce pays sont juste en dessous.',
-    'ex.secOthers': 'Autres établissements reconnus — {c}',
+    'ex.secOthers': 'Autres établissements reconnus — {c}', 'ex.secOthersAll': 'Autres établissements reconnus — tous les pays', 'ex.noneLernaQ': 'Pas encore de fiche complète LERNA pour cette recherche. Les établissements reconnus des listes officielles sont juste en dessous.', 'ex.subAll': 'Recherche dans les listes officielles de tous les pays. Les établissements non vérifiés n’y sont pas : choisis un pays pour les voir aussi.',
     'ex.othersFiltered': 'Les autres établissements n’ont pas encore de frais, de durée ni de filières vérifiés.', 'ex.othersFilteredSub': 'Retire les filtres Budget, Domaine, Durée ou Langue pour les voir.',
     'ex.subWorld': 'Listes officielles des ministères et des agences de reconnaissance. Ouvre une fiche pour voir ce qui est vérifié et ce qui reste à compléter.',
     'ex.subFR': 'Formations référencées par l’État, publiées en données ouvertes par le ministère de l’Enseignement supérieur (session {y}), regroupées par établissement.',
@@ -237,7 +237,7 @@ Lerna.addStrings({
     'ex.allCountries': 'All countries', 'ex.offOnly': 'Officially recognised', 'ex.bLerna': 'Checked by LERNA',
     'ex.secLerna': 'Full profiles checked by LERNA', 'ex.countAll': '{n} full profiles worldwide',
     'ex.noneLerna': 'No full LERNA profile for this country yet', 'ex.noneLernaSub': 'This country’s recognised institutions are listed just below.',
-    'ex.secOthers': 'Other recognised institutions — {c}',
+    'ex.secOthers': 'Other recognised institutions — {c}', 'ex.secOthersAll': 'Other recognised institutions — all countries', 'ex.noneLernaQ': 'No full LERNA profile for this search yet. Recognised institutions from the official lists are just below.', 'ex.subAll': 'Search across the official lists of every country. Unverified institutions are not included: pick a country to see them too.',
     'ex.othersFiltered': 'The other institutions do not have checked fees, length or programmes yet.', 'ex.othersFilteredSub': 'Remove the Budget, Field, Length or Language filters to see them.',
     'ex.subWorld': 'Official lists from ministries and recognition agencies. Open a profile to see what is checked and what is still missing.',
     'ex.subFR': 'Programmes listed by the State, published as open data by the French Ministry of Higher Education ({y} session), grouped by institution.',
@@ -349,6 +349,7 @@ Lerna.addStrings({
     $('hA').innerHTML = esc(t('ex.secLerna')) + ' <span class="n">' + nf(list.length) + '</span>';
     var slice = all ? list.slice((st.page - 1) * PER, st.page * PER) : list;
     $('grid').innerHTML = slice.length ? slice.map(card).join('') :
+      all && norm(st.q).replace(/\s+/g, '').length >= 3 && !st.type && !extraFilters() ? '<p class="muted small" style="grid-column:1/-1;margin:0">' + esc(t('ex.noneLernaQ')) + '</p>' :
       '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + t(all ? 'ex.none' : 'ex.noneLerna', { c: window.LERNA_COUNTRY_NAME(st.pays) }) + '</h4><p>' + t(all ? 'ex.noneSub' : 'ex.noneLernaSub') + '</p></div>';
     var p = '';
     if (pages > 1) {
@@ -375,10 +376,38 @@ Lerna.addStrings({
   function bLoading() { $('bGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px 0">' + Lerna.thinking('inline') + '</div>'; $('bMore').hidden = true; $('bHidden').innerHTML = ''; }
   function bEmpty(msg, sub) { $('bGrid').innerHTML = '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + esc(msg) + '</h4>' + (sub ? '<p>' + esc(sub) + '</p>' : '') + '</div>'; $('bMore').hidden = true; }
   var bSeq = 0;
+  /* Tous les pays + une recherche : on cherche aussi dans l'index des listes officielles (noms.json, chargé seulement à ce moment) */
+  function annNoms() {
+    if (A.noms) return Promise.resolve(A.noms);
+    return fetch('assets/annuaire/noms.json').then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (rows) {
+      A.noms = rows.map(function (x) { return { cc: x[0], i: x[1], n: x[2], v: x[3], s: String(x[1]).split(':')[0], x: x[4] ? { warn: 1 } : {}, h: norm(x[2] + ' ' + x[3] + ' ' + window.LERNA_COUNTRY_NAME(x[0], 'fr') + ' ' + window.LERNA_COUNTRY_NAME(x[0], 'en')) }; });
+      return A.noms;
+    });
+  }
+  function globalSearch() {
+    var my = ++bSeq, q = norm(st.q).split(/\s+/).filter(Boolean);
+    $('hB').innerHTML = esc(t('ex.secOthersAll')) + ' <span class="n" id="bN"></span>';
+    $('bSub').textContent = t('ex.subAll');
+    if (A.cc !== '*' + st.q) { A.cc = '*' + st.q; A.show = 30; }
+    bLoading();
+    annNoms().then(function (rows) {
+      if (my !== bSeq) return;
+      var first = q[0] || '';
+      var list = rows.filter(function (r) { return q.every(function (w) { return r.h.indexOf(w) !== -1; }); }).sort(function (a, b) { return (norm(b.n).indexOf(first) === 0) - (norm(a.n).indexOf(first) === 0) || a.n.localeCompare(b.n, Lerna.lang); });
+      A.global = list;
+      if (!list.length && filtered().length) { $('bWrap').hidden = true; return; }   // trouvée dans les fiches LERNA : rien à ajouter
+      $('bN').textContent = nf(list.length);
+      $('bGrid').innerHTML = list.length ? list.slice(0, A.show).map(annCard).join('') : '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + esc(t('ex.mNone')) + '</h4></div>';
+      $('bMore').hidden = list.length <= A.show;
+      $('bHidden').innerHTML = '';
+    }).catch(function () { if (my === bSeq) bEmpty(t('ex.mErr')); });
+  }
   function renderOthers() {
     var cc = st.pays, all = allCountries();
-    $('bWrap').hidden = all || st.type === 'online';
+    var gs = all && norm(st.q).replace(/\s+/g, '').length >= 3 && !st.type && !extraFilters();
+    $('bWrap').hidden = (all && !gs) || st.type === 'online';
     $('frFilters').hidden = cc !== 'FR' || all;
+    if (gs) return globalSearch();
     if (all || st.type === 'online') return;
     $('hB').innerHTML = esc(t('ex.secOthers', { c: window.LERNA_COUNTRY_NAME(cc) })) + ' <span class="n" id="bN"></span>';
     if (extraFilters()) { $('bSub').textContent = ''; $('frFilters').hidden = true; bEmpty(t('ex.othersFiltered'), t('ex.othersFilteredSub')); $('bHidden').innerHTML = ''; return; }
@@ -429,7 +458,7 @@ Lerna.addStrings({
     return k ? '<span>' + esc(t(k)) + '</span>' : '';
   }
   function annCard(r) {
-    var wd = r.s === 'wikidata', rec = annRec(r), cc = A.cc;
+    var wd = r.s === 'wikidata', rec = annRec(r), cc = r.cc || A.cc;
     var fiche = 'fiche.html?cc=' + encodeURIComponent(cc) + '&id=' + encodeURIComponent(r.i);
     return '<article class="card pcard"><h3><a class="plink" href="' + fiche + '">' + esc(r.n) + '</a></h3>' + (r.a ? '<div class="loc">' + esc(r.a) + '</div>' : '') +
       '<div class="loc">' + Lerna.flag(cc, 'stk-xs') + ' ' + esc([r.v, r.r, window.LERNA_COUNTRY_NAME(cc)].filter(Boolean).join(', ')) + '</div>' +
@@ -566,7 +595,9 @@ Lerna.addStrings({
     $('frFilters').addEventListener('click', function (e) { if (!e.target.closest('[data-frapp]')) return; F.app = !F.app; frSearch(); });
     $('bMoreBtn').addEventListener('click', function () {
       if (st.pays === 'FR') { frSearch(true); return; }
-      A.show += 30; if (A.cache[A.cc]) annRender(A.cache[A.cc]);
+      A.show += 30;
+      if (allCountries() && A.global) { $('bGrid').innerHTML = A.global.slice(0, A.show).map(annCard).join(''); $('bMore').hidden = A.global.length <= A.show; return; }
+      if (A.cache[A.cc]) annRender(A.cache[A.cc]);
     });
     $('bHidden').addEventListener('click', function (e) { if (!e.target.closest('[data-mshow]')) return; e.preventDefault(); st.off = false; renderFilters(); if (A.cache[A.cc]) annRender(A.cache[A.cc]); });
     $('sort').addEventListener('change', function (e) { st.sort = e.target.value; render(); });

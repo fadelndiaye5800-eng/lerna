@@ -742,6 +742,20 @@
     return null;
   };
   /* Retrouver une école de la base à partir d'un nom renvoyé par l'IA */
+  /* École LERNA d'une recommandation : par identifiant ; par le nom seulement si le serveur n'a pas relié une autre fiche */
+  window.LERNA_RECO_SCHOOL = function (r) {
+    return r ? ((r.id && window.LERNA_SCHOOL(r.id)) || (r.ref && r.ref.k !== 'lerna' ? null : window.LERNA_FIND_SCHOOL(r.nom))) : null;
+  };
+  /* Pays de la fiche reliée par le serveur (annuaire officiel ou formation française) */
+  window.LERNA_RECO_CC = function (r) { var x = (r && r.ref) || {}; return x.k === 'ann' ? x.cc : x.k === 'fr' ? 'FR' : null; };
+  /* Lien vers la fiche d'une recommandation : fiche LERNA, annuaire officiel, formation française ; sinon la recherche */
+  window.LERNA_RECO_LINK = function (r) {
+    var s = window.LERNA_RECO_SCHOOL(r), x = (r && r.ref) || {}, e = encodeURIComponent;
+    if (s) return 'ecole.html?id=' + s.id;
+    if (x.k === 'ann' && x.cc && x.id) return 'fiche.html?cc=' + e(x.cc) + '&id=' + e(x.id) + '&n=' + e(x.n || r.nom);
+    if (x.k === 'fr' && x.gta) return 'fiche.html?psup=' + e(x.gta);
+    return 'explorer.html?q=' + e((r && r.nom) || '');
+  };
   window.LERNA_FIND_SCHOOL = function (name) {
     if (!name) return null;
     var norm = function (s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9 ]/g, ' ').replace(/\s+/g, ' ').trim(); };

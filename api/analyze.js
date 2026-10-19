@@ -2,6 +2,7 @@
    5 recommandations : 2 visibles par tous, n°3-4 débloquées par 3 amis invités (ou Premium), n°5 Premium.
    Gratuit : 1 analyse complète par jour et par adresse IP (et par compte). Premium : illimité. */
 import { json, fail, sameOrigin, readJson, clientIp, hashKey, getUser, usage, hit, claude, extractJson, str, cleanRaw, saveProfile } from './_lib.js';
+import { buildCandidates, candidatesPrompt, bindRecos } from './_catalogue.js';
 
 const LABELS = {
   q1: 'Âge', q2: 'Niveau scolaire actuel', q3: 'Bac ou diplôme équivalent', q4: 'Pays actuel', q5: 'Langues parlées (avec niveau)',
@@ -62,6 +63,17 @@ FORMAT DE RÉPONSE OBLIGATOIRE :
   "conseil": "Un message final d'encouragement de 1 à 2 phrases, personnalisé, jamais générique"
 }`;
 
+/* Même règles, mais l'IA choisit dans la liste préparée par le moteur LERNA (plus d'établissement inventé) */
+const LIST_RULE = `LISTE DU MOTEUR LERNA : avec les réponses, tu reçois une liste d'établissements RÉELS et reconnus officiellement, préparée pour CET étudiant (pays, langue, budget, domaine), chacun avec un code (C1, C2…).
+- Tu choisis tes ${RECO_COUNT} recommandations UNIQUEMENT dans cette liste et tu recopies leur code dans le champ "code". N'invente aucun établissement et ne change pas leur nom.
+- À adéquation égale, préfère une « FICHE VÉRIFIÉE PAR LERNA ».
+- Si les frais d'un établissement ne sont pas « vérifiés » dans la liste, écris "frais": "À confirmer avec l'établissement" et "frais_usd": null.
+- Les filières, conditions et dates qui ne sont pas dans la liste : appuie-toi sur ce que tu sais, avec prudence, et dis qu'elles sont à confirmer.
+- Si l'étudiant vise une première année d'études supérieures, écarte les établissements qui ne forment qu'en master, MBA ou formation de cadres.`;
+const SYSTEM_LIST = SYSTEM
+  .replace(/Établissements déjà documentés dans LERNA[^\n]*\n/, LIST_RULE + '\n')
+  .replace('"nom": "Nom exact de l\'établissement",', '"code": "C3",\n      "nom": "Nom exact de l\'établissement, recopié de la liste",');
+
 function buildPrompt(answers, lang) {
   const lines = Object.entries(LABELS).map(([key, label]) => {
     const val = answers[key];
@@ -86,7 +98,8 @@ function cleanAnswers(raw) {
 }
 
 function cleanResult(r) {
-  const recos = (Array.isArray(r.recos) ? r.recos : []).slice(0, RECO_COUNT).map((x) => ({
+  const recos = (Array.isArray(r.recos) ? r.recos : []).slice(0, RECO_COUNT + 3).map((x) => ({
+    code: str(x.code, 8),
     nom: str(x.nom, 160),
     pays: str(x.pays, 80),
     ville: str(x.ville, 80),
@@ -119,10 +132,27 @@ export async function POST(request) {
   if (!(user && user.premium) && used >= limit) return fail(429, 'daily_limit', { limit });
   if (user && user.premium && userKey && (await usage(userKey)) >= limit) return fail(429, 'daily_limit', { limit });
 
+  /* Moteur LERNA : liste d'établissements reconnus possibles pour CET élève (fiches LERNA + annuaire officiel + formations françaises).
+     Si elle ne peut pas être construite, l'analyse se fait comme avant (l'IA connaît seulement les noms des fiches LERNA). */
+  const raw = cleanRaw(body.raw);
+  let cat = null;
+  try {
+    const lv = body.raw && body.raw.q5_lvl && typeof body.raw.q5_lvl === 'object' ? body.raw.q5_lvl : {};
+    const q5_lvl = {};
+    for (const k of Object.keys(lv).slice(0, 12)) if (/^[a-z]{2,6}$/.test(k) && /^(aise|inter|deb)$/.test(lv[k])) q5_lvl[k] = lv[k];
+    cat = await Promise.race([
+      buildCandidates({ ...raw, q5_lvl }, lang, new URL(request.url).origin),
+      new Promise((_, no) => setTimeout(() => no(new Error('catalogue_timeout')), 12000))
+    ]);
+    if (!cat || cat.list.length < RECO_COUNT) cat = null;
+  } catch (e) { cat = null; }
+
   let result;
   try {
-    const text = await claude({ mode: 'analyse', system: SYSTEM, messages: [{ role: 'user', content: buildPrompt(answers, lang) }], maxTokens: 3600 });
+    const prompt = buildPrompt(answers, lang) + (cat ? '\n\nLISTE DES ÉTABLISSEMENTS POSSIBLES (préparée par le moteur LERNA ; choisis uniquement dedans et recopie le code) :\n' + candidatesPrompt(cat) : '');
+    const text = await claude({ mode: 'analyse', system: cat ? SYSTEM_LIST : SYSTEM, messages: [{ role: 'user', content: prompt }], maxTokens: 3600 });
     result = cleanResult(extractJson(text));
+    result = cat ? bindRecos(result, cat, lang, RECO_COUNT) : { ...result, recos: result.recos.slice(0, RECO_COUNT).map(({ code, ...x }) => x) };
     if (!result.recos.length) throw new Error('empty');
   } catch (e) {
     return fail(e.status || 502, 'ai_unavailable');
@@ -133,7 +163,7 @@ export async function POST(request) {
 
   // Sauvegarde pour les comptes connectés (profil + recommandations) et validation du parrainage
   if (user) {
-    const id = await saveProfile(user, cleanRaw(body.raw), result, 'ai');
+    const id = await saveProfile(user, raw, result, 'ai');
     if (id) result.id = id;
   }
 

@@ -112,6 +112,21 @@ export function nettoyerPays(rows, schools) {
   return { rows: list, st };
 }
 
+/* Index léger pour la recherche « Tous les pays » de l'Explorer : établissements reconnus officiellement seulement
+   (pas Wikidata, pas ceux qui ont déjà leur fiche LERNA). Ligne : [pays, identifiant, nom, ville, avis défavorable 1/0] */
+export function ecrireNoms(OUT, byCountry) {
+  const rows = [];
+  for (const cc of Object.keys(byCountry).sort()) {
+    for (const r of byCountry[cc]) {
+      const x = r.x || {};
+      if (r.s === 'wikidata' || x.lerna || !r.n) continue;
+      rows.push([cc, r.i, r.n, r.v || '', x.warn || (x.also || []).some((o) => o.warn) ? 1 : 0]);
+    }
+  }
+  fs.writeFileSync(path.join(OUT, 'noms.json'), JSON.stringify(rows));
+  return rows.length;
+}
+
 /* Écoles LERNA (assets/js/data-schools.js), groupées par pays */
 export function lernaSchools(root) {
   const ctx = { window: {}, console }; vm.createContext(ctx);
@@ -129,9 +144,11 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const idx = JSON.parse(fs.readFileSync(path.join(OUT, 'index.json'), 'utf8'));
   const tot = { noms: 0, doublons: 0, sigles: 0, lerna: 0 };
   let total = 0;
+  const all = {};
   for (const f of fs.readdirSync(OUT).filter((x) => /^[A-Z]{2}\.json$/.test(x))) {
     const cc = f.slice(0, 2);
     const { rows, st } = nettoyerPays(JSON.parse(fs.readFileSync(path.join(OUT, f), 'utf8')), schools[cc]);
+    all[cc] = rows;
     rows.sort((a, b) => (a.s === 'wikidata') - (b.s === 'wikidata') || a.n.localeCompare(b.n, 'fr'));
     fs.writeFileSync(path.join(OUT, f), JSON.stringify(rows));
     idx.countries[cc] = { n: rows.length, o: rows.filter((r) => r.s !== 'wikidata').length };
@@ -140,5 +157,6 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   }
   idx.total = total;
   fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify(idx));
+  console.log('index de recherche', ecrireNoms(OUT, all), 'établissements');
   console.log('nettoyage', JSON.stringify(tot), 'total', total);
 }

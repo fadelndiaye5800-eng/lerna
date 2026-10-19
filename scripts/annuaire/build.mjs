@@ -13,7 +13,7 @@ import { execSync } from 'node:child_process';
 import { parse } from 'csv-parse/sync';
 import XLSX from 'xlsx';
 import { readOfficiels, LISTES } from './officiels.mjs';
-import { nettoyerPays, lernaSchools } from './nettoyage.mjs';
+import { nettoyerPays, lernaSchools, ecrireNoms } from './nettoyage.mjs';
 
 const OUT = path.resolve('assets/annuaire');
 const TMP = path.resolve('.annuaire-tmp');
@@ -298,4 +298,5 @@ for (const [cc, rows] of Object.entries(byCountry)) {
 }
 const totalNet = Object.values(countries).reduce((a, c) => a + c.n, 0);
 fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify({ maj: new Date().toISOString().slice(0, 10), sources: stats, erreurs: errors, total: totalNet, countries, listes: LISTES }));
+log('index de recherche', ecrireNoms(OUT, byCountry), 'établissements');
 log('écartés (pays du site incohérent)', dropped); log('TOTAL', totalNet, 'établissements dans', Object.keys(countries).length, 'pays');

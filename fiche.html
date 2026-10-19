@@ -509,6 +509,12 @@ Lerna.addStrings({
       var idx = res[0], rows = res[1];
       /* Une fiche fusionnée garde ses anciens identifiants (x.also, x.ids) : les liens partagés marchent toujours */
       var r = rows.filter(function (x) { return x.i === id || (x.x && ((x.x.also || []).some(function (o) { return o.i === id; }) || (x.x.ids || []).indexOf(id) !== -1)); })[0];
+      /* Lien gardé dans un résultat d'orientation : le nom fait foi si la liste officielle a changé d'ordre depuis */
+      var want = Lerna.param('n'), nk = function (v) { return String(v || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ').trim(); };
+      if (want && (!r || nk(r.n) !== nk(want))) {
+        var byName = rows.filter(function (x) { return nk(x.n) === nk(want) || (x.x && (x.x.also || []).some(function (o) { return o.n && nk(o.n) === nk(want); })); })[0];
+        if (byName) r = byName;
+      }
       if (!r) return notFound();
       if (r.x && r.x.lerna && window.LERNA_SCHOOL && window.LERNA_SCHOOL(r.x.lerna)) { location.replace('ecole.html?id=' + encodeURIComponent(r.x.lerna)); return; }
       renderMonde(cc, r, rows, idx);

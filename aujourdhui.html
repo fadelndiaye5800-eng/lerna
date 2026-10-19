@@ -212,7 +212,7 @@ Lerna.addStrings({
     var r = results(); if (!r || !r.recos) return null;
     for (var i = 0; i < r.recos.length; i++) {
       if (Lerna.recoAccess(i) !== 'open') continue;
-      var s = (r.recos[i].id && window.LERNA_SCHOOL(r.recos[i].id)) || window.LERNA_FIND_SCHOOL(r.recos[i].nom);
+      var s = window.LERNA_RECO_SCHOOL(r.recos[i]);
       if (s) return s;
     }
     return null;
@@ -353,8 +353,8 @@ Lerna.addStrings({
     if (r && r.recos) {
       h += r.recos.slice(0, 5).map(function (x, i) {
         if (Lerna.recoAccess(i) !== 'open') return '<a class="sch lock" href="resultats.html#reco-' + (i + 1) + '"><span class="lk">' + Lerna.icon('lock', 'ic-sm') + '</span><div class="grow"><h4>' + t('td.locked', { n: i + 1 }) + '</h4></div></a>';
-        var s = (x.id && window.LERNA_SCHOOL(x.id)) || window.LERNA_FIND_SCHOOL(x.nom);
-        return '<a class="sch" href="' + (s ? 'ecole.html?id=' + s.id : 'explorer.html?q=' + encodeURIComponent(x.nom)) + '">' + (s ? Lerna.flag(s.pays) : Lerna.sticker('cap', 'flg')) +
+        var s = window.LERNA_RECO_SCHOOL(x), rc = s ? s.pays : window.LERNA_RECO_CC(x);
+        return '<a class="sch" href="' + esc(window.LERNA_RECO_LINK(x)) + '">' + (rc ? Lerna.flag(rc) : Lerna.sticker('cap', 'flg')) +
           '<div class="grow"><h4>' + esc(x.nom) + '</h4><div class="sub">' + esc([x.ville, x.pays].filter(Boolean).join(', ')) + '</div></div><span class="score">' + (parseInt(x.score, 10) || 0) + '%</span></a>';
       }).join('');
       h += '<a class="btn-link" href="resultats.html" style="display:inline-block;margin-top:10px">' + t('td.seeAll') + '</a>';
