@@ -1,1 +1,1 @@
-export const SONDES = ['POST:id=2|https://www.lecames.org/diplome_cames/web/site/ville', 'POST:Pays%5Bid_pays%5D=2&Institution%5Bid_inst%5D=|https://www.lecames.org/diplome_cames/web/site/repertoire'];
+export const SONDES = ['GREP:[Rr]egister[^"<]{0,120}|https://www.dhet.gov.za/SitePages/UniversityEducation.aspx', 'GREP:href="[^"]*[Rr]egist[^"]*"|https://www.dhet.gov.za/Registers_DocLib/Forms/AllItems.aspx'];
