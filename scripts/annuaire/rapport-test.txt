@@ -1,4 +1,4 @@
-2026-10-19T01:46:47.801Z
+2026-10-19T01:50:10.843Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -386,7 +386,7 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   National Institute Of Information Technology Limited (NIIT-LTD) | Dakar | Dakar | Habilitation ANAQ-Sup : avis favorable (2014) · 3 formations examinées
   Ecole Supérieure de Commerce et de Gestion (ESUP) | Dakar | Dakar | Habilitation ANAQ-Sup : avis favorable (2014) · 3 formations examinées
 == cames-pred-bf : 49
-  Université Libre du Burkina (ULB)Ouagadougou | 10 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Université Libre du Burkina (ULB) | Ouagadougou | 10 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
   Université Ouaga 3S | 20 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
   Institut Supérieur des Filières Professionnalisantes de BOBO DIOULASSO | 5 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
   Université privée Notre Dame d'Afrique | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
@@ -406,7 +406,7 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
 == cames-pred-ci : 17
   Agitel-Formation | 9 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
   Institut Supérieur Polytechnique d'Afrique | 3 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
-  Centre Lasalien Africain(CELAF institut)Abidjan | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2025)
+  Centre Lasalien Africain(CELAF institut) | Abidjan | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2025)
   Institut des Sciences et Techniques de la Communication | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
   Faculté Universitaires Privees d'Abidjan(FUPA) | 17 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
   Institut International Polytechnique des Elites d'Abidjan | 16 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
@@ -456,7 +456,7 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Ecole Régionale Post-Universitaire d’Aménagement et de Gestion Intégrés des Forêts et Territoires Tropicaux - Centre de Catégorie 2 de l'UNESCO | 3 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
 == cames-pred-sn : 26
   AFI-Université de l’Entreprise | 10 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
-  Centre Africain d'Etudes Superieures en Gestion(CESAG)Dakar | 35 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Centre Africain d'Etudes Superieures en Gestion(CESAG) | Dakar | 35 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
   Centre Trainmar | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
   Ecole Supérieure de Commerce et de Gestion | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
   Institut Polytechnique de Dakar | 8 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
@@ -480,7 +480,7 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Université HEC | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2020)
 == cames-pred-tg : 12
   Ecole Supérieure des Affaires (ESA) | 22 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
-  Ecole Africaine des Métiers de l'Architecture et d'Urbanisme (E.A.M.A.U)Lome | 5 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
+  Ecole Africaine des Métiers de l'Architecture et d'Urbanisme (E.A.M.A.U) | Lome | 5 diplômes reconnus par le CAMES (dernière reconnaissance : 2025)
   Institut Supérieur de Droit et d'Interprétariat | 11 diplômes reconnus par le CAMES (dernière reconnaissance : 2024)
   Université Catholique de l'Afrique de l'Ouest Unité Universitaire au Togo | 14 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
   Université de Kara | 4 diplômes reconnus par le CAMES (dernière reconnaissance : 2023)
@@ -490,7 +490,7 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Ecole Superieure de Gestion d’Informatique et des Sciences (ESGIS)-Lome | 11 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
   Ecole Supérieure d’Administration et de Gestion Notre Dame de l’Eglise (ESAG-NDE)-LOME. | 23 diplômes reconnus par le CAMES (dernière reconnaissance : 2022)
   Institut Régional d'Enseignement Supérieur et de Recherche en Développement Culturel | 1 diplôme reconnu par le CAMES (dernière reconnaissance : 2022)
-  Institut Africain d'Administration et d'Etudes commerciales(IAEC)Lome | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2021)
+  Institut Africain d'Administration et d'Etudes commerciales(IAEC) | Lome | 2 diplômes reconnus par le CAMES (dernière reconnaissance : 2021)
 == eg-scu-publiques : 28
   جامعة القاهرة | public | https://cu.edu.eg/ar/Home | Universités publiques
   جامعة الاسكندرية | public | https://alexu.edu.eg/ | Universités publiques
