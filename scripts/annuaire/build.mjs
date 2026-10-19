@@ -236,6 +236,18 @@ if (prev && prev.sources) {
   }
 }
 
+/* Une liste officielle en panne ce jour-là (ex. HTTP 500 du ministère) : on garde ses fiches de la dernière fois,
+   sinon tout un pays disparaîtrait de LERNA jusqu'à la prochaine mise à jour */
+const down = Object.keys(errors).filter((k) => k.startsWith('officiel:')).map((k) => k.slice(9));
+if (down.length) {
+  const have = new Set(all.map((r) => r.i));
+  for (const f of fs.readdirSync(OUT).filter((x) => /^[A-Z]{2}\.json$/.test(x))) {
+    const old = JSON.parse(fs.readFileSync(path.join(OUT, f), 'utf8')).filter((r) => r.s === 'officiel' && r.x && down.includes(r.x.l) && !have.has(r.i));
+    if (old.length) log('liste en panne', f.slice(0, 2), ':', old.length, 'fiches de la dernière fois conservées');
+    for (const r of old) all.push({ ...r, p: f.slice(0, 2) });
+  }
+}
+
 /* Contrôles de cohérence :
    - un site dont l'extension désigne un autre pays (ex. .bj pour une fiche classée au Sénégal) est écarté : localisation douteuse
    - doublons (même pays, même site) : on garde la source la plus précise (frais officiels d'abord), Wikidata en dernier */
