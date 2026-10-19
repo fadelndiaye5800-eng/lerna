@@ -1,1 +1,1 @@
-export const SONDES = ['GREP:depdrop|kvDepdrop|"url":"[^"]+|https://www.lecames.org/diplome_cames/web/site/repertoire'];
+export const SONDES = ['GREP:institution-id_inst|id_inst|https://www.lecames.org/diplome_cames/web/site/repertoire'];
