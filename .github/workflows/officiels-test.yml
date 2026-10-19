@@ -22,10 +22,12 @@ jobs:
       - run: npm install --no-save --no-package-lock cheerio@1 pdf-parse@1.1.1 xlsx@0.18.5 csv-parse@5
       - run: node scripts/annuaire/test-officiels.mjs
       - name: Publier le rapport
+        if: always()
         run: |
           git config user.name "lerna-annuaire[bot]"
           git config user.email "annuaire@users.noreply.github.com"
+          cp scripts/annuaire/rapport-test.txt /tmp/r.txt || exit 0
+          git fetch -q origin main && git reset -q --hard origin/main && cp /tmp/r.txt scripts/annuaire/rapport-test.txt
           git add scripts/annuaire/rapport-test.txt
           git commit -m "Test listes officielles : rapport" || exit 0
-          git pull --rebase origin main
           git push origin HEAD:main
