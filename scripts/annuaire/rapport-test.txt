@@ -1,4 +1,4 @@
-2026-10-19T01:25:36.784Z
+2026-10-19T01:28:30.634Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -502,48 +502,88 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   الاكاديمية العربية للعلوم المالية والمصرفية | https://www.aambfs.org/ar/ | Établissements créés par accords internationaux
   معهد البحوث والدراسات العربية | https://iars.net/ | Établissements créés par accords internationaux
   الجامعة الألمانية الدولية | https://www.giu-uni.de/ | Établissements créés par accords internationaux
+##### https://www.lecames.org/diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17
+ST 200 text/html; charset=UTF-8 48726 https://www.lecames.org/diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17
+TITLE Repertoire des diplômes Africains reconnus par le CAMESPlateforme des référentiels qualité, Assurance qualité, Accrédidation, reconnaissance des diplômes en Afrique | TABLES 2 TR 28 LI 24
+  TR # | Sous institution | Diplôme delivré | Reconnu en | Option | Diplôme équivalent | Status
+  TR | | | | | | RAS Provisoire
+  TR 1 | | master en diplomatie et relations internationales | 2025 | Aucune | Master II- BAC+5 | RAS
+  TR 2 | | master en gestion et administration des entreprises | 2025 | Aucune | Master II- BAC+5 | RAS
+  TR 3 | Aucune | licence professionnelle en finance-comptabilité-audit | 2025 | Aucune | Licence- BAC+3 | RAS
+  TR 4 | Aucune | licence sciences économiques et de gestion, mention économie et gestion, parcours monnaie-banque-finance | 2025 | Aucune | Licence- BAC+3 | RAS
+  TR 5 | | licence en assurance banque et finances | 2025 | Aucune | Licence- BAC+3 | RAS
+  TR 6 | | licence en gestion des entreprises | 2025 | Aucune | Licence- BAC+3 | RAS
+  TR 7 | | master en sciences de gestion, spécialité : administration des affaires | 2025 | Aucune | Master II- BAC+5 | RAS
+  TR 8 | Aucune | licence en banque assurance finance | 2025 | Aucune | Licence- BAC+3 | RAS
+  FILES 0
+  A e-Diplômes -> /diplome_cames/web/
+  A Accueil -> /diplome_cames/web/site
+  A Repertoire -> /diplome_cames/web/site/repertoire-simple
+  A Repertoire / filtrer -> /diplome_cames/web/site/repertoire
+  A Etudiants -> /diplome_cames/web/site/#
+  A Contact -> /diplome_cames/web/site/contact
+  A Connectez-vous -> /diplome_cames/web/site/login
+  A  -> /diplome_cames/web/site/genererdiplomes
+  A Sous institution -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&sort=id_sinst
+  A Diplôme delivré -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&sort=Ref_diplomdel
+  A Reconnu en -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&sort=Id_comm
+  A Diplôme équivalent -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&sort=Id_diplomequi
+  A Status -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&sort=status
+  A 1 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=1
+  A 2 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=2
+  A 3 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=3
+  A 4 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=4
+  A 5 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=5
+  A 6 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=6
+  A 7 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=7
+  A 8 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=8
+  A 9 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=9
+  A 10 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=10
+  A  -> Lecames
+  A [email protected] -> /cdn-cgi/l/email-protection
+  A SI CAMES -> https://www.lecames.org
+  JS https://fonts.googleapis.com/css?family=Open
 ##### https://www.lecames.org/diplome_cames/web/site/repertoire
 ST 200 text/html; charset=UTF-8 48284 https://www.lecames.org/diplome_cames/web/site/repertoire
-  G <!DOCTYPE html> <html lang="fr-FR"> <head> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>Repertoire des diplômes Africains reconnus par le CAMES</title> <link href="/diplome_cames/web/assets/2ea3c3de/css/bootstrap.css" rel="stylesheet"> <link href="/diplome_cames/web/css/site.css" rel="stylesheet"> <link href="/diplome_cames/web/assets/595a92f/css/select2
-  G e</title> <meta charset="UTF-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta content="width=device-width, initial-scale=1.0" name="viewport"> <meta content="Accréditation, Reconnaissance, Assurance Qualité, Diplômes Africains, Afrique, Afrique de l'ouest, Afrique central, programme PRED, Africains, Référentiel, formation, offre, universités, établissements privés, étudiants, élèves" name="keywords"> <meta content="Diplômes reconnus par le CAMES en Afrique (ouest, c
-  G Afrique de l'ouest, Afrique central, programme PRED, Africains, Référentiel, formation, offre, universités, établissements privés, étudiants, élèves" name="keywords"> <meta content="Diplômes reconnus par le CAMES en Afrique (ouest, central) Accréditation, Reconnaissance, Assurance Qualité, Certification diplôme, Burkina Faso, Bénin, Côte d'ivoire, UEMOA, CEDAO, CEMAC, CEEAC, union Africaine, Sénégal, Togo, France, Référentiel" name="description"> <meta name="robots" content="all" /> 
-  G lité, Certification diplôme, Burkina Faso, Bénin, Côte d'ivoire, UEMOA, CEDAO, CEMAC, CEEAC, union Africaine, Sénégal, Togo, France, Référentiel" name="description"> <meta name="robots" content="all" /> <meta name="language" content="fr" /> <!-- Favicons --> <link rel="shortcut icon" href="/diplome_cames/web/img/favicon.ico" type="image/x-icon" /> <!-- Google Fonts --> <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,40
-  G  Burkina Faso, Bénin, Côte d'ivoire, UEMOA, CEDAO, CEMAC, CEEAC, union Africaine, Sénégal, Togo, France, Référentiel" name="description"> <meta name="robots" content="all" /> <meta name="language" content="fr" /> <!-- Favicons --> <link rel="shortcut icon" href="/diplome_cames/web/img/favicon.ico" type="image/x-icon" /> <!-- Google Fonts --> <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900" rel=
-  G UEMOA, CEDAO, CEMAC, CEEAC, union Africaine, Sénégal, Togo, France, Référentiel" name="description"> <meta name="robots" content="all" /> <meta name="language" content="fr" /> <!-- Favicons --> <link rel="shortcut icon" href="/diplome_cames/web/img/favicon.ico" type="image/x-icon" /> <!-- Google Fonts --> <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,600,700|Raleway:300,400,400i,500,500i,700,800,900" rel="stylesheet"> <!-- Bootstrap CSS Fi
-  G d_pays"> <label class="control-label" for="pays-id_pays">Séléctionnez le pays</label> <div class="kv-plugin-loading loading-pays-id_pays">&nbsp;</div><select id="pays-id_pays" class="form-control" name="Pays[id_pays]" onchange=" $.get( &quot;/diplome_cames/web/site/ville&quot;, { id: $(this).val() } ) .done(function( data ) { $( &quot;#institution-id_inst&quot; ).html( data ); } 
-  G -id_pays">Séléctionnez le pays</label> <div class="kv-plugin-loading loading-pays-id_pays">&nbsp;</div><select id="pays-id_pays" class="form-control" name="Pays[id_pays]" onchange=" $.get( &quot;/diplome_cames/web/site/ville&quot;, { id: $(this).val() } ) .done(function( data ) { $( &quot;#institution-id_inst&quot; ).html( data ); } ); " data
-  G  " data-s2-options="s2options_3267a624" data-krajee-select2="select2_c897c640" style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Bénin</option> <option value="2">Burkina Faso</option> <option value="3">Cameroun</option> <option value="4">Centrafrique</option> <option value="5">Congo</option> <option value="6">Côte d&#039;Ivoire</option> <option value="7">Egypte</option> <option value="8">Gabon</option> <option 
-  G 267a624" data-krajee-select2="select2_c897c640" style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Bénin</option> <option value="2">Burkina Faso</option> <option value="3">Cameroun</option> <option value="4">Centrafrique</option> <option value="5">Congo</option> <option value="6">Côte d&#039;Ivoire</option> <option value="7">Egypte</option> <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Gu
-  G ect2_c897c640" style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Bénin</option> <option value="2">Burkina Faso</option> <option value="3">Cameroun</option> <option value="4">Centrafrique</option> <option value="5">Congo</option> <option value="6">Côte d&#039;Ivoire</option> <option value="7">Egypte</option> <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option valu
-  G t: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Bénin</option> <option value="2">Burkina Faso</option> <option value="3">Cameroun</option> <option value="4">Centrafrique</option> <option value="5">Congo</option> <option value="6">Côte d&#039;Ivoire</option> <option value="7">Egypte</option> <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value
-  G n value=""> -- Sélectionnez --</option> <option value="1">Bénin</option> <option value="2">Burkina Faso</option> <option value="3">Cameroun</option> <option value="4">Centrafrique</option> <option value="5">Congo</option> <option value="6">Côte d&#039;Ivoire</option> <option value="7">Egypte</option> <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="1
-  G  <option value="1">Bénin</option> <option value="2">Burkina Faso</option> <option value="3">Cameroun</option> <option value="4">Centrafrique</option> <option value="5">Congo</option> <option value="6">Côte d&#039;Ivoire</option> <option value="7">Egypte</option> <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="13">Niger</option> <option value="14">Nig
-  G  <option value="2">Burkina Faso</option> <option value="3">Cameroun</option> <option value="4">Centrafrique</option> <option value="5">Congo</option> <option value="6">Côte d&#039;Ivoire</option> <option value="7">Egypte</option> <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="13">Niger</option> <option value="14">Nigeria</option> <option value="15">
-  G on value="3">Cameroun</option> <option value="4">Centrafrique</option> <option value="5">Congo</option> <option value="6">Côte d&#039;Ivoire</option> <option value="7">Egypte</option> <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="13">Niger</option> <option value="14">Nigeria</option> <option value="15">Republique Democratique du Congo</option> <opt
-  G tion value="4">Centrafrique</option> <option value="5">Congo</option> <option value="6">Côte d&#039;Ivoire</option> <option value="7">Egypte</option> <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="13">Niger</option> <option value="14">Nigeria</option> <option value="15">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <op
-  G on> <option value="5">Congo</option> <option value="6">Côte d&#039;Ivoire</option> <option value="7">Egypte</option> <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="13">Niger</option> <option value="14">Nigeria</option> <option value="15">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> 
-  G n> <option value="6">Côte d&#039;Ivoire</option> <option value="7">Egypte</option> <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="13">Niger</option> <option value="14">Nigeria</option> <option value="15">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> 
-  G ption> <option value="7">Egypte</option> <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="13">Niger</option> <option value="14">Nigeria</option> <option value="15">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> <option value="19">Togo</option> <option v
-  G > <option value="8">Gabon</option> <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="13">Niger</option> <option value="14">Nigeria</option> <option value="15">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> <option value="19">Togo</option> <option value="20">France</option> <option value
-  G > <option value="9">Guinée</option> <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="13">Niger</option> <option value="14">Nigeria</option> <option value="15">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> <option value="19">Togo</option> <option value="20">France</option> <option value="21">Maroc</option> </select> <
-  G > <option value="10">Guinée Bissau</option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="13">Niger</option> <option value="14">Nigeria</option> <option value="15">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> <option value="19">Togo</option> <option value="20">France</option> <option value="21">Maroc</option> </select> <div class="help-block"></div> </di
-  G option> <option value="11">Madagascar</option> <option value="12">Mali</option> <option value="13">Niger</option> <option value="14">Nigeria</option> <option value="15">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> <option value="19">Togo</option> <option value="20">France</option> <option value="21">Maroc</option> </select> <div class="help-block"></div> </div> <div class="form-gr
-  G "12">Mali</option> <option value="13">Niger</option> <option value="14">Nigeria</option> <option value="15">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> <option value="19">Togo</option> <option value="20">France</option> <option value="21">Maroc</option> </select> <div class="help-block"></div> </div> <div class="form-group field-institution-id_inst"> <label class="control-label" 
-  G 3">Niger</option> <option value="14">Nigeria</option> <option value="15">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> <option value="19">Togo</option> <option value="20">France</option> <option value="21">Maroc</option> </select> <div class="help-block"></div> </div> <div class="form-group field-institution-id_inst"> <label class="control-label" for="institution-id_inst">Séléction
-  G >Nigeria</option> <option value="15">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> <option value="19">Togo</option> <option value="20">France</option> <option value="21">Maroc</option> </select> <div class="help-block"></div> </div> <div class="form-group field-institution-id_inst"> <label class="control-label" for="institution-id_inst">Séléctionner l&#039;institution</label> <div 
-  G 5">Republique Democratique du Congo</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> <option value="19">Togo</option> <option value="20">France</option> <option value="21">Maroc</option> </select> <div class="help-block"></div> </div> <div class="form-group field-institution-id_inst"> <label class="control-label" for="institution-id_inst">Séléctionner l&#039;institution</label> <div class="kv-plugin-loading loading-i
-  G go</option> <option value="16">Rwanda</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> <option value="19">Togo</option> <option value="20">France</option> <option value="21">Maroc</option> </select> <div class="help-block"></div> </div> <div class="form-group field-institution-id_inst"> <label class="control-label" for="institution-id_inst">Séléctionner l&#039;institution</label> <div class="kv-plugin-loading loading-institution-id_inst">&nbsp;</div><
-  G da</option> <option value="17">Sénégal</option> <option value="18">Tchad</option> <option value="19">Togo</option> <option value="20">France</option> <option value="21">Maroc</option> </select> <div class="help-block"></div> </div> <div class="form-group field-institution-id_inst"> <label class="control-label" for="institution-id_inst">Séléctionner l&#039;institution</label> <div class="kv-plugin-loading loading-institution-id_inst">&nbsp;</div><select id="institution-id_inst" cla
-  G ntrol-label" for="institution-id_inst">Séléctionner l&#039;institution</label> <div class="kv-plugin-loading loading-institution-id_inst">&nbsp;</div><select id="institution-id_inst" class="form-control" name="Institution[id_inst]" onchange="this.form.submit()" data-s2-options="s2options_3267a624" data-krajee-select2="select2_c897c640" style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Université de Lome</option> <option value=
-  G #039;institution</label> <div class="kv-plugin-loading loading-institution-id_inst">&nbsp;</div><select id="institution-id_inst" class="form-control" name="Institution[id_inst]" onchange="this.form.submit()" data-s2-options="s2options_3267a624" data-krajee-select2="select2_c897c640" style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Université de Lome</option> <option value="2">Université Polytechnique Internationale du Benin(U
-  G his.form.submit()" data-s2-options="s2options_3267a624" data-krajee-select2="select2_c897c640" style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Université de Lome</option> <option value="2">Université Polytechnique Internationale du Benin(UPIB)</option> <option value="3">Université des Sciences et Technologies du Benin</option> <option value="4">Institut supérieur d&#039;informatique et de gestion (ISIG)</option> <option valu
-  G 267a624" data-krajee-select2="select2_c897c640" style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Université de Lome</option> <option value="2">Université Polytechnique Internationale du Benin(UPIB)</option> <option value="3">Université des Sciences et Technologies du Benin</option> <option value="4">Institut supérieur d&#039;informatique et de gestion (ISIG)</option> <option value="5">Institut Supérieur de Genie Electrique(IS
-  G " style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Université de Lome</option> <option value="2">Université Polytechnique Internationale du Benin(UPIB)</option> <option value="3">Université des Sciences et Technologies du Benin</option> <option value="4">Institut supérieur d&#039;informatique et de gestion (ISIG)</option> <option value="5">Institut Supérieur de Genie Electrique(ISGE-BF)</option> <option value="6">AGITEL-FORMA
-  G ctionnez --</option> <option value="1">Université de Lome</option> <option value="2">Université Polytechnique Internationale du Benin(UPIB)</option> <option value="3">Université des Sciences et Technologies du Benin</option> <option value="4">Institut supérieur d&#039;informatique et de gestion (ISIG)</option> <option value="5">Institut Supérieur de Genie Electrique(ISGE-BF)</option> <option value="6">AGITEL-FORMATION</option> <option value="7">Ecole Nouvelle Supérieure d&#039;Ingenieurs et Tec
-  G value="2">Université Polytechnique Internationale du Benin(UPIB)</option> <option value="3">Université des Sciences et Technologies du Benin</option> <option value="4">Institut supérieur d&#039;informatique et de gestion (ISIG)</option> <option value="5">Institut Supérieur de Genie Electrique(ISGE-BF)</option> <option value="6">AGITEL-FORMATION</option> <option value="7">Ecole Nouvelle Supérieure d&#039;Ingenieurs et Technologie (ENSIT)</option> <option value="8">Groupe Ecoles d&#039;Ingenieurs 
-  G ="3">Université des Sciences et Technologies du Benin</option> <option value="4">Institut supérieur d&#039;informatique et de gestion (ISIG)</option> <option value="5">Institut Supérieur de Genie Electrique(ISGE-BF)</option> <option value="6">AGITEL-FORMATION</option> <option value="7">Ecole Nouvelle Supérieure d&#039;Ingenieurs et Technologie (ENSIT)</option> <option value="8">Groupe Ecoles d&#039;Ingenieurs HETEC</option> <option value="9">Pigier Abidjan</option> <option value="10">Groupe Loko
-  G e="4">Institut supérieur d&#039;informatique et de gestion (ISIG)</option> <option value="5">Institut Supérieur de Genie Electrique(ISGE-BF)</option> <option value="6">AGITEL-FORMATION</option> <option value="7">Ecole Nouvelle Supérieure d&#039;Ingenieurs et Technologie (ENSIT)</option> <option value="8">Groupe Ecoles d&#039;Ingenieurs HETEC</option> <option value="9">Pigier Abidjan</option> <option value="10">Groupe Loko Abidjan</option> <option value="11">Ecole Supérieure des Affaires et du Ma
-  G  et de gestion (ISIG)</option> <option value="5">Institut Supérieur de Genie Electrique(ISGE-BF)</option> <option value="6">AGITEL-FORMATION</option> <option value="7">Ecole Nouvelle Supérieure d&#039;Ingenieurs et Technologie (ENSIT)</option> <option value="8">Groupe Ecoles d&#039;Ingenieurs HETEC</option> <option value="9">Pigier Abidjan</option> <option value="10">Groupe Loko Abidjan</option> <option value="11">Ecole Supérieure des Affaires et du Management (ESAM)Abidjan</option> <option valu
-##### https://www.lecames.org/diplome_cames/web/site/repertoire-simple
-ST 200 text/html; charset=UTF-8 23608 https://www.lecames.org/diplome_cames/web/site/repertoire-simple
-  G tainer="" data-pjax-push-state data-pjax-timeout="1000"> </div> </div> <div class="table-responsive"> <div id="w0" class="grid-view"><div class="summary">Affichage de <b>1-20</b> sur <b>1 022</b> éléments.</div> <table class="table table-striped table-bordered table-responsive"><thead> <tr><th>#</th><th><a href="/diplome_cames/web/site/repertoire-simple?sort=avis" data-sort="avis">Institution</a></th><th><a href="/diplome_cames/web/site/repertoire-simple?sort=Ref_diplomdel" data-sort
+  G  <div class="site-index"> <div class="jumbotron"> <div class="panel panel-default"> <div class="panel-body"> <form id="form-diplomes" action="/diplome_cames/web/site/repertoire" method="post"> <div class="form-group field-pays-id_pays"> <label class="control-label" for="pays-id_pays">Séléctionnez le pays</label> <div class="kv-plugin-loading loading-pays-id_pays">&nbsp;</div><select id="pays-id_pays" class="form-control" name="Pays[id_pays]" oncha
+##### https://www.lecames.org/diplome_cames/web/site/repertoire-simple?page=52
+ST 200 text/html; charset=UTF-8 19620 https://www.lecames.org/diplome_cames/web/site/repertoire-simple?page=52
+TITLE Repertoire des diplômes Africains reconnus par le CAMESPlateforme des référentiels qualité, Assurance qualité, Accrédidation, reconnaissance des diplômes en Afrique | TABLES 2 TR 10 LI 24
+  TR # | Institution | Diplôme delivré | Reconnu en | Option | Diplôme équivalent | Status
+  TR | | | | | | RAS Provisoire
+  TR 1021 | Institut Africain de Technologie/IAT-NIAMEY | licence professionnelle en explotation pétroličre | 2020 | Aucune | Licence- BAC+3 | RAS
+  TR 1022 | Ecole Supérieure des Multimédia, Informatique & Réseaux | licence informatique reseaux et multimedia | 2020 | Aucune | Licence- BAC+3 | RAS
+  TR Nom Social | (non défini)
+  TR Teléphone | (non défini)
+  TR Boite postal | (non défini)
+  TR Site web |
+  TR Email | (non défini)
+  TR Ville | (non défini)
+  FILES 0
+  A e-Diplômes -> /diplome_cames/web/
+  A Accueil -> /diplome_cames/web/site
+  A Repertoire -> /diplome_cames/web/site/repertoire-simple
+  A Repertoire / filtrer -> /diplome_cames/web/site/repertoire
+  A Etudiants -> /diplome_cames/web/site/#
+  A Contact -> /diplome_cames/web/site/contact
+  A Connectez-vous -> /diplome_cames/web/site/login
+  A  -> /diplome_cames/web/site/genererdiplomes
+  A Institution -> /diplome_cames/web/site/repertoire-simple?page=52&sort=avis
+  A Diplôme delivré -> /diplome_cames/web/site/repertoire-simple?page=52&sort=Ref_diplomdel
+  A Reconnu en -> /diplome_cames/web/site/repertoire-simple?page=52&sort=Id_comm
+  A Diplôme équivalent -> /diplome_cames/web/site/repertoire-simple?page=52&sort=Id_diplomequi
+  A Status -> /diplome_cames/web/site/repertoire-simple?page=52&sort=status
+  A « -> /diplome_cames/web/site/repertoire-simple?page=51
+  A 43 -> /diplome_cames/web/site/repertoire-simple?page=43
+  A 44 -> /diplome_cames/web/site/repertoire-simple?page=44
+  A 45 -> /diplome_cames/web/site/repertoire-simple?page=45
+  A 46 -> /diplome_cames/web/site/repertoire-simple?page=46
+  A 47 -> /diplome_cames/web/site/repertoire-simple?page=47
+  A 48 -> /diplome_cames/web/site/repertoire-simple?page=48
+  A 49 -> /diplome_cames/web/site/repertoire-simple?page=49
+  A 50 -> /diplome_cames/web/site/repertoire-simple?page=50
+  A 52 -> /diplome_cames/web/site/repertoire-simple?page=52
+  A  -> Lecames
+  A [email protected] -> /cdn-cgi/l/email-protection
+  A SI CAMES -> https://www.lecames.org
+  JS https://fonts.googleapis.com/css?family=Open
