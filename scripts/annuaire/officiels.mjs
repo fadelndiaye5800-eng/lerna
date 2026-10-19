@@ -236,16 +236,20 @@ export const OFFICIELS = [
       const url = 'https://www.lecames.org/diplome_cames/web/site/repertoire';
       const by = new Map(); let prevFirst = '';
       for (let page = 1; page <= 40; page++) {
-        const r = await get(url + '?page=' + page + '&per-page=50', { method: 'POST', body: 'Pays%5Bid_pays%5D=' + id + '&Institution%5Bid_inst%5D=' });
-        if (r.status !== 200) throw new Error('HTTP ' + r.status);
+        let r = null;
+        for (const size of [50, 20, 0]) {
+          r = await get(url + '?page=' + page + (size ? '&per-page=' + size : ''), { method: 'POST', body: 'Pays%5Bid_pays%5D=' + id + '&Institution%5Bid_inst%5D=' });
+          if (r.status === 200) { if (size !== 50) page = page; break; }
+        }
+        if (r.status !== 200) { if (by.size) break; throw new Error('HTTP ' + r.status); }
         const $ = cheerio.load(r.buf.toString('utf8'));
         const head = $('table').first().find('tr').first().find('th,td').map((i, c) => clean($(c).text())).get();
         const ci = head.findIndex((h) => /^Institution$/i.test(h)), yi = head.findIndex((h) => /^Reconnu/i.test(h)), si = head.findIndex((h) => /^Status/i.test(h));
         if (ci < 0) throw new Error('colonne Institution absente');
-        const rows = $('table').first().find('tr').slice(1).map((i, tr) => { const td = $(tr).find('td'); if (td.length < head.length) return null; const parts = (td.eq(ci).html() || '').split(/<br\s*\/?>|<\/?(?:span|small|div|p)[^>]*>/i).map((x) => clean(cheerio.load('<i>' + x + '</i>')('i').text())).filter(Boolean); return { n: parts[0] || '', v: parts[1] || '', y: clean(td.eq(yi).text()), st: clean(td.eq(si).text()) }; }).get().filter((x) => x && x.n);
+        const rows = $('table').first().find('tr').slice(1).map((i, tr) => { const td = $(tr).find('td'); if (td.length < head.length) return null; const parts = (td.eq(ci).html() || '').split(/<br\s*\/?>|<\/?(?:span|small|div|p)[^>]*>/i).map((x) => clean(cheerio.load('<i>' + x + '</i>')('i').text())).filter(Boolean); let nm = parts[0] || '', vv = parts[1] || ''; const g = /^(.*\))([A-ZÀ-Ý][a-zà-ÿ' -]{3,30})$/.exec(nm); if (g && !vv) { nm = g[1]; vv = g[2]; } return { n: nm, v: vv, y: clean(td.eq(yi).text()), st: clean(td.eq(si).text()) }; }).get().filter((x) => x && x.n);
         if (!rows.length || rows[0].n + rows[0].y === prevFirst) break; prevFirst = rows[0].n + rows[0].y;
         for (const x of rows) { const o = by.get(x.n) || { n: x.n, v: x.v, k: 0, y: '' }; o.k++; if (/^\d{4}$/.test(x.y) && x.y > o.y) o.y = x.y; by.set(x.n, o); }
-        if (rows.length < 50) break;
+        if (rows.length < 20) break;
       }
       return [...by.values()].map((o) => ({ n: o.n, v: o.v, acc: o.k + ' diplôme' + (o.k > 1 ? 's' : '') + ' reconnu' + (o.k > 1 ? 's' : '') + ' par le CAMES' + (o.y ? ' (dernière reconnaissance : ' + o.y + ')' : '') }));
     }
