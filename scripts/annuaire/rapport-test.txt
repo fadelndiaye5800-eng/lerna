@@ -1,4 +1,4 @@
-2026-10-19T00:39:02.506Z
+2026-10-19T00:41:01.300Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -21,7 +21,11 @@ officiel dz-mesrs 104
 officiel nl-duo 54
 officiel cn-moe 2952
 officiel ke-cue 89
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":666,"dz-mesrs":104,"nl-duo":54,"cn-moe":2952,"ke-cue":89}
+Warning: TT: undefined function: 32
+Warning: TT: undefined function: 32
+officiel tn-mes-prives 86
+officiel tn-mes-universites 2
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":666,"dz-mesrs":104,"nl-duo":54,"cn-moe":2952,"ke-cue":89,"tn-mes-prives":86,"tn-mes-universites":2}
 == ci-mesrs-prives : 618
   Abidjan Bloom University (ABU) | Abidjan | Cocody | prive | 90.000 F
   Abidjan Business School -(ABS) | Abidjan | Cocody | prive | 85000
@@ -307,172 +311,21 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   The African Talent University | 2026 | Institutions with Letters of Interim Authority
   East Kenya Integrated University | 2026 | Institutions with Letters of Interim Authority
   Kamagambo University | 2026 | Institutions with Letters of Interim Authority
-##### https://www.mes.tn/image.php?id=21192
-ST 200 application/pdf 687453 https://www.mes.tn/image.php?id=21192
-PDF pages 2
-##### https://www.mes.tn/image.php?id=20985
-ST 200 application/pdf 1225336 https://www.mes.tn/image.php?id=20985
-Warning: TT: undefined function: 32
-Warning: TT: undefined function: 32
-PDF pages 9
-  الجمهورية التونسية
-  *****
-  وزارة التعليم العالي والبحث العلمي
-  الإدارة العامة للتعليم العالي
-  إدارة التعليم العالي الخاص والمعادلات
-  1
-  المؤسسات الخاصة للتعليم العالي
-  السنة الجامعية 0205-0206
-  موقع الواب رقم الفاكس رقم الهاتف العنوان اسم المؤسسة ع/ر
-  www.umt.ens.tn
-  71904425 71902323/ 71901660
-  نهج أبو بكر البكري – مونبليزير 3201 تونس الكلية الخاصة بمنبليزير
-  1
-  www.ihet.ens.tn
-  71842747 71841855
-  1 شارع يوغرطة ميتوال فيل – 3220 تونس
-  المعهد الخاص للدراسات العليا
-  بتونس
-  2
-  www.uls.ens.tn/ www.ipsas-ens.net
-  74226918 74225665/ 74227011
-  شارع 5 أوت نهج سعيد أبو بكر عدد07 - 1220
-  صفاقس
-  المعهد العالي الخاص للتقنيات
-  والعلوم المتقدمة بالجنوب
-  3
-  www.ult-tunisie.com
-  71782260 71902811
-  10 مكرر شارع خيرالدين باشا – 3220 تونس
-  الكلية الخاصة للقانون
-  والاقتصاد والتصرف
-  4
-  www.ult-tunisie.com
-  71906960 71902491
-  16 شارع لوي براي – 3220 تونس
-  المعهد العالي الخاص للتقنيات
-  المتعددة
-  5
-  www.utctunisie.com
-  70858125 70858117 /25252825
-  شارع فطومة بورقيبة سكرة 0216 أريانة
-  مدرسة قرطاج العليا الخاصة
-  للعلوم والهندسة
-  6
-  www.utctunisie.com
-  70858125 70858117/25253825
-  شارع فطومة بورقيبة سكرة 0216 أريانة
-  مدرسة قرطاج العليا الخاصة
-  لإدارة الأعمال
-  7
-  www.uas.ens.tn
-  71334897 71335073/ 71336023
-  31 نهج نلسن منديلا - 3220 تونس
-  المدرسة العليا الخاصة
-  للمهندسين والدراسات
-  التكنولوجية بتونس
-  8
-  www.upes-megrine.com
-  71426321
-  71426354
-  300 شارع الجمهورية (قبالة محطة سيدي رزيق)
-  مقرين 0211 - بن عروس
-  الكلية الخاصة لعلوم التصرف
-  والتكنولوجيا بمقرين
-  9
-  الجمهورية التونسية
-  *****
-  وزارة التعليم العالي والبحث العلمي
-  الإدارة العامة للتعليم العالي
-  إدارة التعليم العالي الخاص والمعادلات
-##### https://www.mes.tn/image.php?id=19999
-ST 200 application/pdf 812486 https://www.mes.tn/image.php?id=19999
-PDF pages 2
-##### https://www.mes.tn/annuaire.php?code_menu=22
-ST 200 text/html; charset=UTF-8 78392 https://www.mes.tn/annuaire.php?code_menu=22
-TITLE Ministère de l'Enseignement Supérieur et de la Recherche Scientifique | TABLES 39 TR 145 LI 59
-  TR آخر تحيين في 16-10-2026 الإستقبال روابط مفيدة اتصل بنا Français | آخر تحيين في 16-10-2026 | الإستقبال روابط مفيدة اتصل بنا | Français
-  TR آخر تحيين في 16-10-2026 | الإستقبال روابط مفيدة اتصل بنا | Français
-  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication وزارة التعليم العالي والبحث العلمي أرشيف موقع الوزارة | Ministère de l’
-  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication وزارة التعليم العالي والبحث العلمي | Ministère de l’Enseignement Supéri
-  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication | Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique 
-  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication
-  TR التظاهرات النصوص المنظمة المناشير المطبوعات الترقيمات مناظرات و امتحانات المعادلات
-  TR مستجدات الإدارة المركزية الإحصائيات والمؤشرات الجامعات تكوين البحث العلمي التعاون الدولي التعليم العالي الخاّص | مستجدات الإدارة المركزية الإحصائيات والمؤشرات الجامعات تكوين البحث العلمي التعاون الدول
-  TR مستجدات الإدارة المركزية الإحصائيات والمؤشرات الجامعات تكوين البحث العلمي التعاون الدولي التعليم العالي الخاّص
-  TR 
-  FILES 0
-  A الإستقبال -> index.php?code_menu=6
-  A روابط مفيدة -> lien_utile.php?code_menu=10
-  A اتصل بنا -> page.php?code_menu=500
-  A Français -> langue.php?langue=fr&code=22
-  A Ministère de l’Enseignement Supérieurn, de la Recherche Scie -> index.php
-  A أرشيف موقع الوزارة -> http://www.mesrst.tn
-  A التظاهرات -> agenda.php?code_menu=57
-  A النصوص المنظمة -> cilculaire.php?code_menu=48
-  A المناشير -> cilculaire.php?code_menu=58
-  A المطبوعات -> formulaire.php?code_menu=59
-  A الترقيمات -> flux.php?code_menu=68
-  A مناظرات و امتحانات -> page.php?code_menu=122
-  A المعادلات -> page.php?code_menu=170
-  A مستجدات -> evenement_video.php?code_menu=21
-  A الإدارة المركزية -> page.php?code_menu=12
-  A الإحصائيات والمؤشرات -> page.php?code_menu=13
-  A الجامعات -> annuaire.php?code_menu=22
-  A تكوين -> page.php?code_menu=23
-  A البحث العلمي -> page.php?code_menu=28
-  A التعاون الدولي -> page.php?code_menu=47
-  A التعليم العالي الخاّص -> page.php?code_menu=54
-  A www.uz.rnu.tn -> http://www.uz.rnu.tn
-  A www.utunis.rnu.tn -> http://www.utunis.rnu.tn
-  A www.utm.rnu.tn -> http://www.utm.rnu.tn
-  A www.ucar.rnu.tn -> http://www.ucar.rnu.tn
-  A www.uma.rnu.tn -> http://www.uma.rnu.tn
-  A www.uj.rnu.tn -> http://www.uj.rnu.tn
-  A www.uc.rnu.tn -> http://www.uc.rnu.tn
-  A www.um.rnu.tn -> http://www.um.rnu.tn
-  A www.univ-k.rnu.tn -> http://www.univ-k.rnu.tn
-  A www.uss.rnu.tn -> http://www.uss.rnu.tn
-  A www.ugaf.rnu.tn -> http://www.ugaf.rnu.tn
-  A www.univgb.rnu.tn -> http://www.univgb.rnu.tn
-  A www.uvt.rnu.tn -> http://www.uvt.rnu.tn
-  A  -> http://
-  A  -> page.php?code_menu=537
-  A  -> etudens.php?code_menu=536
-  A  -> contact.php?code_menu=146
-  A  -> page.php?code_menu=7
-  A  -> http://horizon-europe.tn
-  A  -> http://best.rnu.tn
-  A  -> http://www.4c.tn
-  A  -> http://www.orientation.tn/orient/
-  A  -> http://www4.inscription.tn
-  A  -> page.php?code_menu=129
-  A  -> http://parcours-lmd.salima.tn/
-  A  -> http://www.uni-renov.rnu.tn/
-  A  -> http://www.gbo.mes.rnu.tn
-  A  -> http://www.mes.tn/gestion_doc_arch2012/accueil.htm
-  A السيد الوزير -> page.php?code_menu=550&code_menu_parent=12
-  A تنظيم الوزارة -> page.php?code_menu=551&code_menu_parent=12
-  A المهام والمشمولات -> page.php?code_menu=556&code_menu_parent=12
-  A مؤسسات تحت الإشراف -> page.php?code_menu=559&code_menu_parent=12
-  A بوابة الحكومة -> page.php?code_menu=587&code_menu_parent=12
-  A عنوان الوزارة -> page.php?code_menu=588&code_menu_parent=12
-  A النشريات والمطويات -> page.php?code_menu=14&code_menu_parent=13
-  A التعليم العالي حسب الجامعات -> page.php?code_menu=16&code_menu_parent=13
-  A التعليم العالي حسب الولايات -> page.php?code_menu=17&code_menu_parent=13
-  A بيانات إحصائية مختلفة -> page.php?code_menu=18&code_menu_parent=13
-  A التقديم -> page.php?code_menu=24&code_menu_parent=23
-  A اجازة ، ماجستير ، دكتوراه -> http://www.parcours-lmd.salima.tn
-  A الدراسات الهندسية -> page.php?code_menu=26&code_menu_parent=23
-  A الدراسات الطبية -> page.php?code_menu=27&code_menu_parent=23
-  A  -> page.php?code_menu=177&code_menu_parent=28
-  A إعلانات وبرامج -> evenement_video.php?code_menu=113&code_menu_parent=28
-  A مراكز البحث -> page.php?code_menu=33&code_menu_parent=28
-  A التقديم العام -> page.php?code_menu=106&code_menu_parent=47
-  A العروض الدولية -> evenement_video.php?code_menu=105&code_menu_parent=47
-  A الطلبة الدوليين -> page.php?code_menu=114&code_menu_parent=47
-  A المؤسسات الخاصة للتعليم التعليم العالي المرخص لها -> page.php?code_menu=147&code_menu_parent=54
-  A النص القانوني الخاص بالتعليم العالي الخاص -> page.php?code_menu=148&code_menu_parent=54
-  A شروط ومكونـات مطلب الترخيص لإحداث مؤسسـة خـاصة للتعليم العـا -> page.php?code_menu=149&code_menu_parent=54
-  A الوثائق -> page.php?code_menu=71
-  A معرض الصور -> media.php?code_menu=9
+== tn-mes-prives : 86
+  المعهد الخاص للدراسات العليا بتونس | prive | https://www.ihet.ens.tn
+  المعهد العالي الخاص للتقنيات والعلوم المتقدمة بالجنوب | prive | https://www.uls.ens.tn
+  الكلية الخاصة للقانون والاقتصاد والتصرف | prive | https://www.ult-tunisie.com
+  المعهد العالي الخاص للتقنيات المتعددة | prive | https://www.ult-tunisie.com
+  مدرسة قرطاج العليا الخاصة للعلوم والهندسة | prive | https://www.utctunisie.com
+  مدرسة قرطاج العليا الخاصة لإدارة الأعمال | prive | https://www.utctunisie.com
+  المدرسة العليا الخاصة للمهندسين والدراسات التكنولوجية بتونس | prive | https://www.uas.ens.tn
+  الكلية الخاصة لعلوم التصرف والتكنولوجيا بمقرين | prive | https://www.upes-megrine.com
+  المدرسة العليا الدولية الخاصة للتكنولوجيا بصفاقس | prive | https://www.iit-nau.com
+  المدرسة العليا الدولية الخاصة للأعمال بصفاقس | prive | https://www.isb.ens.tn
+  المدرسة العليا الخاصة للإعلامية وإدارة الأعمال | prive | https://www.ebs.tn
+  الكلية الخاصة للأعمال والرقمنة | prive
+  المعهد العالي الخاص للتكنولوجيا والتصرف بالقيروان | prive
+  المدرسة العليا الخاصة للتكنولوجيا الحديثة بصفاقس | prive
+== tn-mes-universites : 2
+  الموقع | public | http://www.uz.rnu.tn
+  الإستقبال | الجامعات الجامعات البحث في الجامعات اختيار الجامعة جامعة الزيتونة جامعة تونس جامعة تونس المنار جامعة قرطاج جامعة منوبة جامعة جندوبة جامعة سوسة جامعة | public | http://best.rnu.tn
