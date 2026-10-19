@@ -1105,7 +1105,7 @@
   Lerna.requireAccount = function (action) {
     if (Auth.user) return true;
     action.t = Date.now();
-    action.back = (location.pathname.split('/').pop() || 'index.html') + location.search + location.hash;
+    action.back = action.go || (location.pathname.split('/').pop() || 'index.html') + location.search + location.hash;
     store.set('lerna_pending', action);
     Sound.play('click');
     Lerna.toast(Lerna.t('acc.needed'), 2200);
@@ -1121,7 +1121,7 @@
     if (Date.now() - (a.t || 0) > 3 * 864e5) return;
     if (a.type === 'oppSave' && !Lerna.oppFavs.has(a.id)) { Lerna.oppFavs.toggle(a.id); Lerna.toast(Lerna.t('acc.doneSave'), 2600); }
     if (a.type === 'fav' && !Lerna.favs.has(a.id)) { Lerna.favs.toggle(a.id); }
-    if (a.type === 'dossier' && Lerna.dossiers && !Lerna.dossiers.get(a.id)) { Lerna.dossiers.save(a.id, { steps: {}, docs: {}, status: 'prep' }); Lerna.toast(Lerna.t('acc.doneDossier'), 2600); }
+    if (a.type === 'dossier' && Lerna.dossiers && (!Lerna.dossiers.get(a.id) || a.voeu)) { Lerna.dossiers.start(a.id, a.init, a.voeu); Lerna.toast(Lerna.t('acc.doneDossier'), 2600); }
     Lerna.emit('lerna:pending', a);
   }
   Lerna.addStrings({
@@ -2051,6 +2051,18 @@
           Auth.sb.from('dossiers').upsert({ user_id: Auth.user.id, school_id: id, data: d, updated_at: d.updated }, { onConflict: 'user_id,school_id' }).then(function () {}, function () {});
         }, 800);
       }
+    },
+    /* Ouvre (ou complète) un dossier pour n'importe quelle école : fiche LERNA, établissement de l'annuaire officiel (init.meta),
+       ou plateforme nationale avec plusieurs vœux (France : un seul dossier, voeu = une formation) */
+    start: function (id, init, voeu) {
+      var d = Lerna.dossiers.get(id) || Object.assign({ steps: {}, docs: {}, status: 'prep' }, init || {});
+      if (init && init.meta && !d.meta) d.meta = init.meta;
+      if (voeu && voeu.k) {
+        d.voeux = d.voeux || [];
+        if (!d.voeux.some(function (v) { return v.k === voeu.k; })) d.voeux.push(voeu);
+      }
+      Lerna.dossiers.save(id, d);
+      return d;
     },
     remove: function (id) {
       var a = Lerna.dossiers.all(); delete a[id]; store.set('lerna_dossiers', a);

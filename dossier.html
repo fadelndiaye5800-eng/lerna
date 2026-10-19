@@ -138,6 +138,12 @@
   .dcard { display: flex; flex-direction: column; gap: 10px; text-decoration: none; }
   .dcard .top { display: flex; gap: 12px; align-items: center; }
   .dcard h3 { font-size: 1.08rem; }
+  .next-date { display: flex; gap: 12px; align-items: center; background: var(--panel); color: var(--on-panel); border-radius: 18px; padding: 14px 16px; margin-bottom: 18px; line-height: 1.45; }
+  .next-date small { display: block; opacity: .8; }
+  .voeu { display: flex; gap: 10px; align-items: center; background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 14px; padding: 10px 12px; }
+  .voeu .vn { width: 26px; height: 26px; border-radius: 9px; background: var(--brown); color: var(--cream); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .8rem; flex-shrink: 0; }
+  .voeu a { flex: 1; text-decoration: none; color: var(--brown); min-width: 0; }
+  .voeu small { display: block; color: var(--muted); }
   .dcard .next { font-size: .88rem; color: var(--muted); }
   .dcard .next strong { color: var(--brown); }
   .pick { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
@@ -171,6 +177,7 @@ Lerna.addStrings({
     'ds.empty': 'Aucun dossier pour l’instant', 'ds.emptySub': 'Choisis une école de tes résultats ou de tes favoris pour commencer.',
     'ds.start': 'Commencer un dossier', 'ds.pickTitle': 'Pour quelle école ?', 'ds.pickFromResults': 'Tes écoles recommandées', 'ds.pickFromFavs': 'Tes favoris', 'ds.pickAll': 'Ou cherche dans toutes les écoles',
     'ds.open': 'Ouvrir le dossier →', 'ds.nextStep': 'Prochaine étape : {s}', 'ds.allDone': 'Toutes les étapes sont faites 🎉',
+    'ds.frTitle': 'Candidature en France', 'ds.voeux': 'Mes vœux', 'ds.nVoeux': '{n} vœu(x)', 'ds.voeuxSub': 'Toutes tes formations en France passent par ce même dossier, sur la même plateforme. Ajoute-les depuis leur fiche.', 'ds.addVoeu': 'Ajouter une formation', 'ds.rmVoeu': 'Retirer ce vœu', 'ds.site': 'Site officiel', 'ds.findSchool': 'Trouver une école →', 'ds.nextDate': '{n} candidature(s) en cours · prochaine date {d}',
     'ds.back': '← Mes dossiers', 'ds.progress': 'Avancement', 'ds.stepsDone': '{n}/{t} étapes',
     'ds.tSteps': 'Étapes', 'ds.tDocs': 'Documents', 'ds.tLetter': 'Lettre', 'ds.tInterview': 'Entretien', 'ds.tCv': 'CV', 'ds.tReco': 'Recommandation', 'ds.tVisa': 'Visa', 'ds.tTrack': 'Suivi', 'ds.tBudget': 'Budget',
     'bg.title': 'Mon budget réel', 'bg.sub': 'Ce que va vraiment coûter ta première année. Les montants de départ viennent de la fiche de l’école : corrige-les avec tes vrais chiffres.',
@@ -223,6 +230,7 @@ Lerna.addStrings({
     'ds.empty': 'No application yet', 'ds.emptySub': 'Pick a school from your results or favourites to start.',
     'ds.start': 'Start an application', 'ds.pickTitle': 'For which school?', 'ds.pickFromResults': 'Your recommended schools', 'ds.pickFromFavs': 'Your favourites', 'ds.pickAll': 'Or search all schools',
     'ds.open': 'Open →', 'ds.nextStep': 'Next step: {s}', 'ds.allDone': 'All steps done 🎉',
+    'ds.frTitle': 'Applying in France', 'ds.voeux': 'My choices', 'ds.nVoeux': '{n} choice(s)', 'ds.voeuxSub': 'All your programmes in France go through this one application, on the same platform. Add them from their profile.', 'ds.addVoeu': 'Add a programme', 'ds.rmVoeu': 'Remove this choice', 'ds.site': 'Official website', 'ds.findSchool': 'Find a school →', 'ds.nextDate': '{n} application(s) in progress · next date {d}',
     'ds.back': '← My applications', 'ds.progress': 'Progress', 'ds.stepsDone': '{n}/{t} steps',
     'ds.tSteps': 'Steps', 'ds.tDocs': 'Documents', 'ds.tLetter': 'Letter', 'ds.tInterview': 'Interview', 'ds.tCv': 'CV', 'ds.tReco': 'Reference', 'ds.tVisa': 'Visa', 'ds.tTrack': 'Tracking', 'ds.tBudget': 'Budget',
     'bg.title': 'My real budget', 'bg.sub': 'What your first year will really cost. Starting amounts come from the school page: correct them with your real figures.',
@@ -279,7 +287,7 @@ Lerna.addStrings({
   var TABS = [['etapes', 'ds.tSteps', 'check'], ['documents', 'ds.tDocs', 'file'], ['lettre', 'ds.tLetter', 'edit'], ['entretien', 'ds.tInterview', 'chat'], ['cv', 'ds.tCv', 'user'], ['reco', 'ds.tReco', 'mail'], ['visa', 'ds.tVisa', 'globe'], ['budget', 'ds.tBudget', 'dollar'], ['suivi', 'ds.tTrack', 'trend']];
   if (!TABS.some(function (x) { return x[0] === tab; })) tab = 'etapes';
   function country() { return Lerna.country(); }
-  function school() { return id ? window.LERNA_SCHOOL(id) : null; }
+  function school() { return id ? window.LERNA_DOSSIER_SCHOOL(id) : null; }
   function dossier() { return Lerna.dossiers.get(id) || { steps: {}, docs: {}, status: 'prep' }; }
   function save(d) { if (!Lerna.isLogged()) return; Lerna.dossiers.save(id, d); }
   function guide(d) {
@@ -307,30 +315,57 @@ Lerna.addStrings({
 
   /* ---------------- Liste des dossiers ---------------- */
   function candidates() {
-    var ids = [], res = store.get('lerna_results', null);
+    var ids = [], others = [], res = store.get('lerna_results', null);
     if (res && Array.isArray(res.recos)) res.recos.forEach(function (r, i) {
       if (Lerna.recoAccess(i) !== 'open') return;
       var s = window.LERNA_RECO_SCHOOL(r);
       if (s && ids.indexOf(s.id) === -1) ids.push(s.id);
+      else if (!s && r.ref && (r.ref.k === 'ann' || r.ref.k === 'fr')) others.push(i);     // école de l'annuaire officiel ou formation française
     });
     var fav = Lerna.favs.list().filter(function (x) { return window.LERNA_SCHOOL(x) && ids.indexOf(x) === -1; });
-    return { results: ids, favs: fav };
+    return { results: ids, others: others, favs: fav };
+  }
+  /* Démarrer un dossier depuis une école recommandée qui n'a pas de fiche LERNA */
+  function fromReco(i) {
+    var res = store.get('lerna_results', null), r = res && res.recos && res.recos[i];
+    if (!r || !r.ref) return null;
+    if (r.ref.k === 'fr') {
+      var parts = String(r.nom).split(' — ');
+      return window.LERNA_DOSSIER_FR({ gta: r.ref.gta, nm: parts[0], etab: parts.slice(1).join(' — '), ville: r.ville }, t('ds.frTitle'));
+    }
+    return window.LERNA_DOSSIER_ANN({ cc: r.ref.cc, nom: r.nom, ville: r.ville, type: /^Publi/i.test(r.type || '') ? 'public' : /^Priv/i.test(r.type || '') ? 'private' : '', link: window.LERNA_RECO_LINK(r) });
+  }
+  function startAny(x) {
+    if (!x) return;
+    if (!Lerna.requireAccount({ type: 'dossier', id: x.id, init: x.init, voeu: x.voeu, go: 'dossier.html?ecole=' + x.id })) return;
+    Lerna.dossiers.start(x.id, x.init, x.voeu);
+    Lerna.track('dossier_start', x.id);
+    Lerna.sound.play('success');
+    location.href = 'dossier.html?ecole=' + encodeURIComponent(x.id);
+  }
+  function recoBtn(i) {
+    var r = store.get('lerna_results', null).recos[i], cc = window.LERNA_RECO_CC(r);
+    return '<button type="button" data-pickreco="' + i + '">' + (cc ? Lerna.flag(cc) : '') + '<span>' + esc(r.nom) + '<small>' + esc([r.ville, r.pays].filter(Boolean).join(', ')) + '</small></span></button>';
   }
   function pickBtn(sid) {
     var s = window.LERNA_SCHOOL(sid);
     return '<button type="button" data-pick="' + s.id + '">' + Lerna.flag(s.pays) + '<span>' + esc(s.nom) + '<small>' + esc(s.ville + ', ' + window.LERNA_COUNTRY_NAME(s.pays)) + '</small></span></button>';
   }
   function renderList() {
-    var ids = Lerna.dossiers.ids().filter(function (x) { return window.LERNA_SCHOOL(x); });
+    var ids = Lerna.dossiers.ids().filter(function (x) { return window.LERNA_DOSSIER_SCHOOL(x); });
     var h = '<p class="muted" style="margin:4px 0 18px;max-width:620px">' + t('ds.listSub') + '</p>';
+    /* Prochaine date de toutes les candidatures (dates officielles et dates notées par la personne) */
+    var today = Lerna.today(), dates = (window.LERNA_DOSSIER_DATES(country(), answers) || []).filter(function (x) { return x.date >= today; }).sort(function (a, b) { return a.date < b.date ? -1 : 1; });
+    if (ids.length && dates.length) h += '<div class="next-date">' + Lerna.icon('calendar') + '<div>' + t('ds.nextDate', { n: ids.length, d: '<strong>' + Lerna.fmtDate(dates[0].date) + '</strong>' }) + '<small>' + esc(dates[0].title) + '</small></div></div>';
     h += window.LERNA_COFFRE.card() + '<p class="small muted mentor-line">' + Lerna.icon('shield', 'ic-sm') + t('cf.mentor') + '</p>';
     if (!Lerna.isLogged()) h += '<div class="notice" style="margin-bottom:18px">' + Lerna.icon('info') + '<div>' + t('ds.loginHint') + ' <a class="orange bold" href="auth.html?redirect=dossier.html">' + t('ds.login') + '</a></div></div>';
     if (ids.length) {
       h += '<div class="dlist">' + ids.map(function (sid) {
-        var s = window.LERNA_SCHOOL(sid), d = Lerna.dossiers.get(sid), g = window.LERNA_GUIDE_FOR(s, country(), answers);
+        var s = window.LERNA_DOSSIER_SCHOOL(sid), d = Lerna.dossiers.get(sid), g = window.LERNA_GUIDE_FOR(s, country(), answers);
         if (d.guide && window.LERNA_GUIDES[d.guide]) g = window.LERNA_GUIDES[d.guide];
         var p = progress(d, g), next = g.steps.filter(function (x) { return !(d.steps && d.steps[x.id] && d.steps[x.id].done); })[0];
-        return '<a class="card card-hover dcard" href="dossier.html?ecole=' + s.id + '"><div class="top">' + Lerna.flag(s.pays) + '<div><h3>' + esc(s.nom) + '</h3><div class="small muted">' + esc(L(g.label)) + '</div></div></div>' +
+        var nv = s.platform ? (d.voeux || []).length : 0;
+        return '<a class="card card-hover dcard" href="dossier.html?ecole=' + encodeURIComponent(s.id) + '"><div class="top">' + Lerna.flag(s.pays) + '<div><h3>' + esc(s.platform ? t('ds.frTitle') : s.nom) + '</h3><div class="small muted">' + esc(L(g.label)) + (s.platform ? ' · ' + t('ds.nVoeux', { n: nv }) : '') + '</div></div></div>' +
           '<div class="ds-prog-top"><span>' + t('ds.stepsDone', { n: p.done, t: p.total }) + '</span><strong>' + p.pct + '%</strong></div><div class="bar"><span style="width:' + p.pct + '%"></span></div>' +
           '<p class="next">' + (next ? t('ds.nextStep', { s: '<strong>' + esc(L(next.title)) + '</strong>' }) : t('ds.allDone')) + '</p><span class="btn-link">' + t('ds.open') + '</span></a>';
       }).join('') + '</div>';
@@ -339,7 +374,8 @@ Lerna.addStrings({
     }
     var c = candidates();
     h += '<section class="card" style="margin-top:22px"><h2 style="font-size:1.3rem">' + t('ds.start') + '</h2>';
-    if (c.results.length) h += '<p class="label" style="margin-top:12px">' + t('ds.pickFromResults') + '</p><div class="pick">' + c.results.filter(function (x) { return !Lerna.dossiers.get(x); }).map(pickBtn).join('') + '</div>';
+    var others = c.others.filter(function (i) { var x = fromReco(i); return x && !(Lerna.dossiers.get(x.id) && (!x.voeu || (Lerna.dossiers.get(x.id).voeux || []).some(function (v) { return v.k === x.voeu.k; }))); });
+    if (c.results.length || others.length) h += '<p class="label" style="margin-top:12px">' + t('ds.pickFromResults') + '</p><div class="pick">' + c.results.filter(function (x) { return !Lerna.dossiers.get(x); }).map(pickBtn).join('') + others.map(recoBtn).join('') + '</div>';
     if (c.favs.length) h += '<p class="label" style="margin-top:12px">' + t('ds.pickFromFavs') + '</p><div class="pick">' + c.favs.filter(function (x) { return !Lerna.dossiers.get(x); }).map(pickBtn).join('') + '</div>';
     h += '<div class="field" style="margin-top:14px"><label for="pickAll">' + t('ds.pickAll') + '</label><select class="select" id="pickAll"><option value="">—</option>' +
       window.LERNA_SCHOOLS.slice().sort(function (a, b) { return a.nom.localeCompare(b.nom, Lerna.lang); }).map(function (s) { return '<option value="' + s.id + '">' + esc(s.nom) + '</option>'; }).join('') + '</select></div></section>';
@@ -357,13 +393,17 @@ Lerna.addStrings({
   /* ---------------- Un dossier ---------------- */
   function renderDossier() {
     var s = school();
-    if (!s) { $('root').innerHTML = '<a class="back" href="dossier.html">' + t('ds.back') + '</a><div class="empty"><h4>' + t('ds.unknown') + '</h4></div>'; return; }
+    if (!s) { $('root').innerHTML = '<a class="back" href="dossier.html">' + t('ds.back') + '</a><div class="empty"><h4>' + t('ds.unknown') + '</h4><p><a class="btn btn-primary btn-sm" href="explorer.html">' + t('ds.findSchool') + '</a></p></div>'; return; }
+    var head = s.platform ? t('ds.frTitle') : s.nom;
+    var see = s.platform ? '<a class="btn btn-ghost btn-sm" href="explorer.html?pays=FR">' + Lerna.icon('plus', 'ic-sm') + t('ds.addVoeu') + '</a>'
+      : s.pseudo ? (s.link ? '<a class="btn btn-ghost btn-sm" href="' + esc(s.link) + '">' + Lerna.icon('school', 'ic-sm') + t('common.seeSchool') + '</a>' : '')
+      : '<a class="btn btn-ghost btn-sm" href="ecole.html?id=' + s.id + '">' + Lerna.icon('school', 'ic-sm') + t('common.seeSchool') + '</a>';
     if (!Lerna.dossiers.get(id) && Lerna.isLogged()) Lerna.dossiers.save(id, { steps: {}, docs: {}, status: 'prep' });
     var d = dossier(), g = guide(d), p = progress(d, g);
-    document.title = s.nom + ' — ' + t('ds.docTitle');
+    document.title = head + ' — ' + t('ds.docTitle');
     $('root').innerHTML = '<a class="back" href="dossier.html">' + t('ds.back') + '</a>' +
-      '<div class="ds-head">' + Lerna.sticker('folder') + '<div style="flex:1;min-width:200px"><h1>' + esc(s.nom) + '</h1><p>' + Lerna.flag(s.pays, 'stk-xs') + ' ' + esc(s.ville + ', ' + window.LERNA_COUNTRY_NAME(s.pays)) + '</p><p class="small" style="margin-top:2px"><strong>' + esc(L(g.label)) + '</strong></p></div>' +
-        '<a class="btn btn-ghost btn-sm" href="ecole.html?id=' + s.id + '">' + Lerna.icon('school', 'ic-sm') + t('common.seeSchool') + '</a></div>' +
+      '<div class="ds-head">' + Lerna.sticker('folder') + '<div style="flex:1;min-width:200px"><h1>' + esc(head) + '</h1><p>' + Lerna.flag(s.pays, 'stk-xs') + ' ' + esc([s.ville, window.LERNA_COUNTRY_NAME(s.pays)].filter(Boolean).join(', ')) + '</p><p class="small" style="margin-top:2px"><strong>' + esc(L(g.label)) + '</strong></p></div>' +
+        see + '</div>' +
       (Lerna.isLogged() ? '' : '<div class="notice" style="margin-top:16px">' + Lerna.icon('lock') + '<div>' + t('ds.guest') + ' <a class="orange bold" href="#" id="guestStart">' + t('ds.guestBtn') + ' →</a></div></div>') +
       '<div class="ds-prog"><div class="ds-prog-top"><span>' + t('ds.progress') + ' · ' + t('ds.stepsDone', { n: p.done, t: p.total }) + '</span><strong>' + p.pct + '%</strong></div><div class="bar"><span style="width:' + p.pct + '%"></span></div></div>' +
       '<div class="tabs-wrap"><div class="tabs" role="tablist">' + TABS.map(function (x) {
@@ -398,11 +438,25 @@ Lerna.addStrings({
         '</div></div></li>';
     }).join('') + '</ol>';
     if (g.verifie) h += '<p class="small muted" style="margin-top:12px">' + t('ds.verified', { d: Lerna.fmtDate(g.verifie), s: g.source || '' }) + '</p>';
+    if (s.platform) return h + voeuxCard(d);
+    if (s.pseudo) return h + (s.link || s.site ? '<section class="card" style="margin-top:18px"><h3>' + t('ds.links') + '</h3><div class="row" style="margin-top:10px">' +
+      (s.link ? '<a class="btn btn-ghost btn-sm" href="' + esc(s.link) + '">' + t('common.seeSchool') + '</a>' : '') +
+      (s.site ? '<a class="btn btn-ghost btn-sm" href="' + esc(s.site) + '" target="_blank" rel="noopener nofollow">' + t('ds.site') + ' ↗</a>' : '') + '</div></section>' : '');
     var links = window.LERNA_SCHOOL_LINKSET(s, Lerna.lang);
     h += '<section class="card" style="margin-top:18px"><h3>' + t('ds.links') + '</h3><div class="row" style="margin-top:10px">' + links.map(function (l) {
       return '<a class="btn btn-ghost btn-sm" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + (l.direct ? '' : '🔎 ') + esc(L(l.label)) + ' ↗</a>';
     }).join('') + '</div><p class="small muted" style="margin-top:10px">' + t('ds.linksNote') + '</p></section>';
     return h;
+  }
+  /* Vœux d'un dossier de plateforme (France) : les formations ajoutées depuis leurs fiches */
+  function voeuxCard(d) {
+    var v = d.voeux || [];
+    return '<section class="card" style="margin-top:18px"><h3>' + t('ds.voeux') + ' <span class="muted small">· ' + t('ds.nVoeux', { n: v.length }) + '</span></h3><p class="small muted" style="margin:6px 0 12px">' + t('ds.voeuxSub') + '</p>' +
+      (v.length ? '<div class="stack">' + v.map(function (x, i) {
+        return '<div class="voeu"><span class="vn">' + (i + 1) + '</span><a href="fiche.html?psup=' + encodeURIComponent(x.gta) + '"><strong>' + esc(x.nm || x.etab) + '</strong><small>' + esc([x.etab, x.ville].filter(Boolean).join(' · ')) + '</small></a>' +
+          '<button type="button" class="btn btn-ghost btn-sm" data-rmvoeu="' + esc(x.k) + '" aria-label="' + esc(t('ds.rmVoeu')) + '">' + Lerna.icon('x', 'ic-sm') + '</button></div>';
+      }).join('') + '</div>' : '') +
+      '<a class="btn btn-ghost btn-sm" style="margin-top:12px" href="explorer.html?pays=FR">' + t('ds.addVoeu') + '</a></section>';
   }
   /* Documents */
   function pDocs() {
@@ -697,6 +751,12 @@ Lerna.addStrings({
     document.addEventListener('click', function (e) {
       var el;
       if ((el = e.target.closest('[data-pick]'))) return startDossier(el.getAttribute('data-pick'));
+      if ((el = e.target.closest('[data-pickreco]'))) return startAny(fromReco(+el.getAttribute('data-pickreco')));
+      if ((el = e.target.closest('[data-rmvoeu]'))) {
+        var dv = dossier(), k = el.getAttribute('data-rmvoeu');
+        dv.voeux = (dv.voeux || []).filter(function (x) { return x.k !== k; }); save(dv);
+        Lerna.sound.play('click'); renderDossier(); return;
+      }
       if (e.target.closest('#guestStart')) { e.preventDefault(); Lerna.requireAccount({ type: 'dossier', id: id }); return; }
       if ((el = e.target.closest('[data-tab]'))) {
         tab = el.getAttribute('data-tab'); history.replaceState(null, '', '#' + tab);

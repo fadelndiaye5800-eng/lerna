@@ -222,6 +222,20 @@
         S('on-docs2', 'Envoyer tes justificatifs', 'Upload your documents', 'Diplôme, pièce d’identité, preuve de langue si demandée.', 'Diploma, ID, language proof if required.', ''),
         S('on-start', 'Préparer ton matériel et ton rythme', 'Prepare your equipment and routine', 'Connexion stable, ordinateur, et des créneaux fixes chaque semaine.', 'Stable connection, computer, and fixed weekly slots.', '')
       ]
+    },
+    /* Démarches générales : pour une école dont LERNA n'a pas encore vérifié la procédure propre (aucune date ni règle de pays inventée) */
+    generic: {
+      label: T('Démarches générales (à confirmer avec l’école)', 'General steps (to confirm with the school)'),
+      who: T('LERNA n’a pas encore vérifié la procédure propre à cette école : voici les étapes communes, à confirmer avec elle.', 'LERNA has not checked this school’s own procedure yet: here are the common steps, to confirm with the school.'),
+      platform: null,
+      steps: [
+        S('gen-check', 'Vérifier la reconnaissance de l’école et du diplôme', 'Check the school and degree are recognised', 'Regarde sa fiche et la liste officielle du pays. Demande l’autorisation ou l’accréditation exacte de TA formation.', 'Look at its profile and the country’s official list. Ask for the exact authorisation or accreditation of YOUR programme.', ''),
+        S('gen-rules', 'Demander les conditions et la date limite', 'Ask for the requirements and the deadline', 'Écris au service des admissions : conditions, documents, frais de dossier et date limite. Note la date ici.', 'Write to the admissions office: requirements, documents, application fee and deadline. Note the date here.', ''),
+        S('gen-docs', 'Rassembler tes documents', 'Gather your documents', 'Diplôme, relevés de notes, pièce d’identité, traductions si demandées : coche-les dans l’onglet Documents.', 'Diploma, transcripts, ID, translations if required: tick them in the Documents tab.', ''),
+        S('gen-apply', 'Déposer ta candidature', 'Submit your application', 'Sur le portail de l’école ou comme elle l’indique. Garde une preuve de dépôt.', 'On the school’s portal or as it says. Keep a proof of submission.', ''),
+        S('gen-answer', 'Recevoir la réponse', 'Receive the answer', 'Réponds dans le délai écrit sur la lettre d’admission.', 'Reply within the time limit written on the admission letter.', ''),
+        S('gen-visa', 'Préparer ton visa si tu pars à l’étranger', 'Prepare your visa if you move abroad', 'Renseigne-toi auprès de l’ambassade du pays : onglet Visa.', 'Check with the country’s embassy: Visa tab.', '')
+      ]
     }
   };
 
@@ -261,7 +275,38 @@
       key = euBac ? 'parcoursup' : (EEF.indexOf(country) !== -1 || !country ? 'eef' : 'dap');
     }
     var g = window.LERNA_GUIDES[key];
-    return g ? Object.assign({ key: key }, g) : null;
+    if (!g) { key = 'generic'; g = window.LERNA_GUIDES.generic; }   // procédure propre pas encore vérifiée par LERNA
+    return Object.assign({ key: key }, g);
+  };
+  /* Système d'admission habituel d'un pays, d'après les fiches LERNA vérifiées de ce pays (même statut d'abord) */
+  window.LERNA_ADM_FOR = function (cc, type) {
+    var S = (window.LERNA_SCHOOLS || []).filter(function (s) { return s.pays === cc && s.adm !== 'online'; });
+    if (type) { var same = S.filter(function (s) { return s.type === type; })[0]; return same ? same.adm : (S[0] ? S[0].adm : null); }
+    /* Statut inconnu : seulement si toutes les fiches du pays suivent la même démarche (sinon on ne devine pas public ou privé) */
+    var adms = S.map(function (s) { return s.adm; }).filter(function (a, i, l) { return l.indexOf(a) === i; });
+    return adms.length === 1 ? adms[0] : null;
+  };
+  /* Dossier pour un établissement de l'annuaire officiel : identifiant court et stable + fiche gardée dans le dossier */
+  window.LERNA_DOSSIER_ANN = function (o) {
+    var h = 0, k = (o.cc || '') + '|' + String(o.nom || '').toLowerCase();
+    for (var i = 0; i < k.length; i++) h = (h * 31 + k.charCodeAt(i)) >>> 0;
+    var type = o.type === 'public' ? 'public' : o.type === 'private' ? 'private' : '';
+    return { id: 'x-' + String(o.cc || 'zz').toLowerCase() + '-' + h.toString(36), init: { meta: {
+      kind: 'ann', nom: o.nom, pays: o.cc, ville: o.ville || '', type: type, adm: window.LERNA_ADM_FOR(o.cc, type), site: o.site || '', link: o.link || '' } } };
+  };
+  /* France : un seul dossier pour toutes les formations (plateforme nationale), chaque formation est un vœu */
+  window.LERNA_DOSSIER_FR = function (o, title) {
+    return { id: 'p-france', init: { meta: { kind: 'platform', nom: title || 'France', pays: 'FR', adm: 'fr-public' } },
+      voeu: { k: String(o.gta), gta: String(o.gta), nm: o.nm || '', etab: o.etab || '', ville: o.ville || '' } };
+  };
+  /* École d'un dossier : fiche LERNA, ou fiche gardée dans le dossier (annuaire officiel, plateforme France avec ses vœux) */
+  window.LERNA_DOSSIER_SCHOOL = function (id) {
+    var s = window.LERNA_SCHOOL && window.LERNA_SCHOOL(id);
+    if (s) return s;
+    var d = window.Lerna && Lerna.dossiers && Lerna.dossiers.get(id), m = d && d.meta;
+    if (!m || !m.nom) return null;
+    return { id: id, pseudo: true, platform: m.kind === 'platform', nom: m.nom, pays: m.pays || '', ville: m.ville || '', type: m.type || '', adm: m.adm || null,
+      site: m.site || '', link: m.link || '', domaines: [], langues: [], filieres: [], forts: [], faibles: [], duree: [0, 0], frais_local: null, frais_etranger: null };
   };
 
   /* Questions fréquentes de l'entretien Campus France (entraînement dans « Mon dossier ») */
@@ -297,7 +342,7 @@
     if (!window.Lerna || !Lerna.dossiers) return null;
     var ids = Lerna.dossiers.ids();
     for (var i = 0; i < ids.length; i++) {
-      var d = Lerna.dossiers.get(ids[i]), s = window.LERNA_SCHOOL && window.LERNA_SCHOOL(ids[i]);
+      var d = Lerna.dossiers.get(ids[i]), s = window.LERNA_DOSSIER_SCHOOL(ids[i]);
       if (!d || !s || d.status === 'accepted' || d.status === 'refused' || d.status === 'archived') continue;
       var g = d.guide && window.LERNA_GUIDES[d.guide] ? Object.assign({ key: d.guide }, window.LERNA_GUIDES[d.guide]) : window.LERNA_GUIDE_FOR(s, country, answers);
       if (!g) continue;
@@ -313,7 +358,7 @@
     if (!window.Lerna || !Lerna.dossiers) return [];
     var out = [], lang = Lerna.lang;
     Lerna.dossiers.ids().forEach(function (id) {
-      var d = Lerna.dossiers.get(id), s = window.LERNA_SCHOOL && window.LERNA_SCHOOL(id);
+      var d = Lerna.dossiers.get(id), s = window.LERNA_DOSSIER_SCHOOL(id);
       if (!d || !s || d.status === 'accepted' || d.status === 'refused') return;
       var g = d.guide && window.LERNA_GUIDES[d.guide] ? window.LERNA_GUIDES[d.guide] : window.LERNA_GUIDE_FOR(s, country, answers);
       var name = s.nom.split(/[—(]/)[0].trim();
