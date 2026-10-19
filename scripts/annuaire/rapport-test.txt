@@ -1,4 +1,4 @@
-2026-10-19T01:37:33.995Z
+2026-10-19T01:40:37.203Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -519,3 +519,5 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   الاكاديمية العربية للعلوم المالية والمصرفية | https://www.aambfs.org/ar/ | Établissements créés par accords internationaux
   معهد البحوث والدراسات العربية | https://iars.net/ | Établissements créés par accords internationaux
   الجامعة الألمانية الدولية | https://www.giu-uni.de/ | Établissements créés par accords internationaux
+##### https://www.lecames.org/diplome_cames/web/site/repertoire
+ST 200 text/html; charset=UTF-8 48284 https://www.lecames.org/diplome_cames/web/site/repertoire
