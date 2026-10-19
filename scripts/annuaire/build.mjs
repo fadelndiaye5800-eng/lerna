@@ -13,6 +13,7 @@ import { execSync } from 'node:child_process';
 import { parse } from 'csv-parse/sync';
 import XLSX from 'xlsx';
 import { readOfficiels, LISTES } from './officiels.mjs';
+import { nettoyerPays, lernaSchools } from './nettoyage.mjs';
 
 const OUT = path.resolve('assets/annuaire');
 const TMP = path.resolve('.annuaire-tmp');
@@ -228,7 +229,7 @@ if (prev && prev.sources) {
       for (const f of fs.readdirSync(OUT).filter((x) => /^[A-Z]{2}\.json$/.test(x))) {
         const old = JSON.parse(fs.readFileSync(path.join(OUT, f), 'utf8')).filter((r) => r.s === src);
         const keep = new Set(all.map((r) => r.i));
-        for (const r of old) if (!keep.has(r.i)) all.push(r);
+        for (const r of old) if (!keep.has(r.i)) all.push({ ...r, p: f.slice(0, 2) });   // le pays vient du nom du fichier (il n'est pas gardé dans les fiches)
       }
       stats[src] = n;
     }
@@ -283,8 +284,11 @@ for (const r of all) {
 }
 if (final.length < 100) { log('Construction trop pauvre (', final.length, ') : rien n’est remplacé'); fs.writeFileSync(path.join(OUT, 'rapport.json'), JSON.stringify({ maj: new Date().toISOString(), sources: stats, erreurs: errors })); process.exit(0); }
 const byCountry = {};
-for (const r of final) (byCountry[r.p] = byCountry[r.p] || []).push(r);
-for (const f of fs.readdirSync(OUT).filter((x) => /^[A-Z]{2}\.json$/.test(x))) fs.unlinkSync(path.join(OUT, f));
+for (const r of final) if (/^[A-Z]{2}$/.test(r.p || '')) (byCountry[r.p] = byCountry[r.p] || []).push(r);   // une fiche sans pays n'est jamais publiée
+/* Nettoyage : doublons fusionnés, noms propres, lien vers les fiches complètes LERNA (voir nettoyage.mjs) */
+const LS = lernaSchools(path.resolve('.'));
+for (const cc of Object.keys(byCountry)) { const { rows, st } = nettoyerPays(byCountry[cc], LS[cc]); byCountry[cc] = rows; if (st.doublons || st.lerna) log('nettoyage', cc, JSON.stringify(st)); }
+for (const f of fs.readdirSync(OUT).filter((x) => /\.json$/.test(x) && !/^(index|rapport)\.json$/.test(x))) fs.unlinkSync(path.join(OUT, f));
 const countries = {};
 for (const [cc, rows] of Object.entries(byCountry)) {
   rows.sort((a, b) => (a.s === 'wikidata') - (b.s === 'wikidata') || a.n.localeCompare(b.n, 'fr'));
@@ -292,5 +296,6 @@ for (const [cc, rows] of Object.entries(byCountry)) {
   fs.writeFileSync(path.join(OUT, cc + '.json'), JSON.stringify(rows));
   countries[cc] = { n: rows.length, o: rows.filter((r) => r.s !== 'wikidata').length };
 }
-fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify({ maj: new Date().toISOString().slice(0, 10), sources: stats, erreurs: errors, total: final.length, countries, listes: LISTES }));
-log('écartés (pays du site incohérent)', dropped); log('TOTAL', final.length, 'établissements dans', Object.keys(countries).length, 'pays');
+const totalNet = Object.values(countries).reduce((a, c) => a + c.n, 0);
+fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify({ maj: new Date().toISOString().slice(0, 10), sources: stats, erreurs: errors, total: totalNet, countries, listes: LISTES }));
+log('écartés (pays du site incohérent)', dropped); log('TOTAL', totalNet, 'établissements dans', Object.keys(countries).length, 'pays');
