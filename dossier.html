@@ -144,6 +144,10 @@
   .voeu .vn { width: 26px; height: 26px; border-radius: 9px; background: var(--brown); color: var(--cream); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: .8rem; flex-shrink: 0; }
   .voeu a { flex: 1; text-decoration: none; color: var(--brown); min-width: 0; }
   .voeu small { display: block; color: var(--muted); }
+  .bcard { margin-top: 18px; }
+  .bitem { display: block; text-decoration: none; color: var(--brown); background: var(--surface, var(--white)); border: 1.5px solid var(--cream-dark); border-radius: 14px; padding: 10px 12px; }
+  .bitem small { display: block; color: var(--muted); margin-top: 2px; }
+  .bitem:hover { border-color: var(--orange); }
   .dcard .next { font-size: .88rem; color: var(--muted); }
   .dcard .next strong { color: var(--brown); }
   .pick { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
@@ -168,6 +172,7 @@
 <script src="assets/js/questions.js"></script>
 <script src="assets/js/data-schools.js"></script>
 <script src="assets/js/guides.js"></script>
+<script src="assets/js/data-opps.js"></script>
 <script src="assets/js/coffre.js"></script>
 <script>
 Lerna.addStrings({
@@ -177,6 +182,7 @@ Lerna.addStrings({
     'ds.empty': 'Aucun dossier pour l’instant', 'ds.emptySub': 'Choisis une école de tes résultats ou de tes favoris pour commencer.',
     'ds.start': 'Commencer un dossier', 'ds.pickTitle': 'Pour quelle école ?', 'ds.pickFromResults': 'Tes écoles recommandées', 'ds.pickFromFavs': 'Tes favoris', 'ds.pickAll': 'Ou cherche dans toutes les écoles',
     'ds.open': 'Ouvrir le dossier →', 'ds.nextStep': 'Prochaine étape : {s}', 'ds.allDone': 'Toutes les étapes sont faites 🎉',
+    'ds.bTitle': 'Bourses pour tes destinations', 'ds.bSub': 'Bourses vérifiées par LERNA, encore ouvertes, pour : {c}, et pour ton niveau quand on le connaît.', 'ds.bDeadline': 'date limite {d}', 'ds.bRolling': 'candidature à tout moment', 'ds.bNone': 'Pas encore de bourse vérifiée qui correspond à ces destinations et à ton niveau. Les nouvelles bourses arrivent dans Opportunités.', 'ds.bAll': 'Toutes les bourses →',
     'ds.frTitle': 'Candidature en France', 'ds.voeux': 'Mes vœux', 'ds.nVoeux': '{n} vœu(x)', 'ds.voeuxSub': 'Toutes tes formations en France passent par ce même dossier, sur la même plateforme. Ajoute-les depuis leur fiche.', 'ds.addVoeu': 'Ajouter une formation', 'ds.rmVoeu': 'Retirer ce vœu', 'ds.site': 'Site officiel', 'ds.findSchool': 'Trouver une école →', 'ds.nextDate': '{n} candidature(s) en cours · prochaine date {d}',
     'ds.back': '← Mes dossiers', 'ds.progress': 'Avancement', 'ds.stepsDone': '{n}/{t} étapes',
     'ds.tSteps': 'Étapes', 'ds.tDocs': 'Documents', 'ds.tLetter': 'Lettre', 'ds.tInterview': 'Entretien', 'ds.tCv': 'CV', 'ds.tReco': 'Recommandation', 'ds.tVisa': 'Visa', 'ds.tTrack': 'Suivi', 'ds.tBudget': 'Budget',
@@ -230,6 +236,7 @@ Lerna.addStrings({
     'ds.empty': 'No application yet', 'ds.emptySub': 'Pick a school from your results or favourites to start.',
     'ds.start': 'Start an application', 'ds.pickTitle': 'For which school?', 'ds.pickFromResults': 'Your recommended schools', 'ds.pickFromFavs': 'Your favourites', 'ds.pickAll': 'Or search all schools',
     'ds.open': 'Open →', 'ds.nextStep': 'Next step: {s}', 'ds.allDone': 'All steps done 🎉',
+    'ds.bTitle': 'Scholarships for your destinations', 'ds.bSub': 'Scholarships checked by LERNA, still open, for: {c}, and for your level when we know it.', 'ds.bDeadline': 'deadline {d}', 'ds.bRolling': 'apply anytime', 'ds.bNone': 'No checked scholarship matches these destinations and your level yet. New scholarships arrive in Opportunities.', 'ds.bAll': 'All scholarships →',
     'ds.frTitle': 'Applying in France', 'ds.voeux': 'My choices', 'ds.nVoeux': '{n} choice(s)', 'ds.voeuxSub': 'All your programmes in France go through this one application, on the same platform. Add them from their profile.', 'ds.addVoeu': 'Add a programme', 'ds.rmVoeu': 'Remove this choice', 'ds.site': 'Official website', 'ds.findSchool': 'Find a school →', 'ds.nextDate': '{n} application(s) in progress · next date {d}',
     'ds.back': '← My applications', 'ds.progress': 'Progress', 'ds.stepsDone': '{n}/{t} steps',
     'ds.tSteps': 'Steps', 'ds.tDocs': 'Documents', 'ds.tLetter': 'Letter', 'ds.tInterview': 'Interview', 'ds.tCv': 'CV', 'ds.tReco': 'Reference', 'ds.tVisa': 'Visa', 'ds.tTrack': 'Tracking', 'ds.tBudget': 'Budget',
@@ -372,6 +379,7 @@ Lerna.addStrings({
     } else {
       h += '<div class="empty">' + Lerna.sticker('folder', 'stk-lg') + '<h4>' + t('ds.empty') + '</h4><p>' + t('ds.emptySub') + '</p></div>';
     }
+    if (ids.length) h += bourseCard(ids.map(function (x) { return window.LERNA_DOSSIER_SCHOOL(x).pays; }));
     var c = candidates();
     h += '<section class="card" style="margin-top:22px"><h2 style="font-size:1.3rem">' + t('ds.start') + '</h2>';
     var others = c.others.filter(function (i) { var x = fromReco(i); return x && !(Lerna.dossiers.get(x.id) && (!x.voeu || (Lerna.dossiers.get(x.id).voeux || []).some(function (v) { return v.k === x.voeu.k; }))); });
@@ -388,6 +396,45 @@ Lerna.addStrings({
     Lerna.track('dossier_start', sid);
     Lerna.sound.play('success');
     location.href = 'dossier.html?ecole=' + encodeURIComponent(sid);
+  }
+
+  /* ---------------- Bourses pour les destinations des dossiers ---------------- */
+  /* Bourses vérifiées et ouvertes (data-opps.js, ou la liste en ligne) : pays du dossier d'abord, puis Europe/Afrique, puis internationales ;
+     seulement celles du niveau de l'élève quand on le connaît. Jamais de bourse inventée : sinon, on le dit. */
+  function levelWanted() {
+    var q2 = answers && answers.q2;
+    if (q2 === 'college' || q2 === 'lycee' || q2 === 'terminale') return ['bac', 'licence', 'tous'];
+    if (q2 === 'superieur') return ['bac2', 'licence', 'master', 'tous'];
+    return null;
+  }
+  function boursesFor(ccs) {
+    ccs = ccs.filter(function (c, i) { return c && ccs.indexOf(c) === i; });
+    var conts = ccs.map(function (c) { return window.LERNA_CONTINENT(c); });
+    var lv = levelWanted();
+    var rank = function (o) {
+      if (ccs.indexOf(o.pays) !== -1) return 3;
+      if ((o.pays === 'EU' && conts.indexOf('europe') !== -1) || (o.pays === 'AFR' && conts.indexOf('afrique') !== -1)) return 2;
+      return o.pays === 'INT' ? 1 : 0;
+    };
+    return (window.LERNA_OPPS || []).filter(function (o) {
+      if (o.type !== 'bourse' || o.masked || !window.LERNA_OPP_VISIBLE(o, false) || !rank(o)) return false;
+      var lvs = window.LERNA_OPP_LEVELS(o);
+      return !lv || !lvs.length || lvs.some(function (k) { return lv.indexOf(k) !== -1; });
+    }).sort(function (a, b) {
+      var da = window.LERNA_OPP_DEADLINE(a) || '9999', db = window.LERNA_OPP_DEADLINE(b) || '9999';
+      return rank(b) - rank(a) || (da < db ? -1 : da > db ? 1 : 0);
+    });
+  }
+  function bourseCard(ccs) {
+    var list = boursesFor(ccs), names = ccs.filter(function (c, i) { return c && ccs.indexOf(c) === i; }).map(function (c) { return window.LERNA_COUNTRY_NAME(c); }).join(', ');
+    var h = '<section class="card bcard"><h2 style="font-size:1.25rem">' + Lerna.icon('award', 'ic-sm') + ' ' + t('ds.bTitle') + '</h2><p class="small muted" style="margin:6px 0 12px">' + t('ds.bSub', { c: esc(names) }) + '</p>';
+    if (list.length) {
+      h += '<div class="stack">' + list.slice(0, 3).map(function (o) {
+        var dl = window.LERNA_OPP_DEADLINE(o);
+        return '<a class="bitem" href="opportunites.html?tab=bourses"><strong>' + esc(o.titre) + '</strong><small>' + esc(o.organisation || '') + (dl ? ' · ' + t('ds.bDeadline', { d: Lerna.fmtDate(dl) }) : o.rolling ? ' · ' + t('ds.bRolling') : '') + '</small></a>';
+      }).join('') + '</div>';
+    } else h += '<p class="small">' + t('ds.bNone') + '</p>';
+    return h + '<a class="btn-link" style="display:inline-block;margin-top:12px" href="opportunites.html?tab=bourses">' + t('ds.bAll') + '</a></section>';
   }
 
   /* ---------------- Un dossier ---------------- */
@@ -438,10 +485,10 @@ Lerna.addStrings({
         '</div></div></li>';
     }).join('') + '</ol>';
     if (g.verifie) h += '<p class="small muted" style="margin-top:12px">' + t('ds.verified', { d: Lerna.fmtDate(g.verifie), s: g.source || '' }) + '</p>';
-    if (s.platform) return h + voeuxCard(d);
+    if (s.platform) return h + voeuxCard(d) + bourseCard([s.pays]);
     if (s.pseudo) return h + (s.link || s.site ? '<section class="card" style="margin-top:18px"><h3>' + t('ds.links') + '</h3><div class="row" style="margin-top:10px">' +
       (s.link ? '<a class="btn btn-ghost btn-sm" href="' + esc(s.link) + '">' + t('common.seeSchool') + '</a>' : '') +
-      (s.site ? '<a class="btn btn-ghost btn-sm" href="' + esc(s.site) + '" target="_blank" rel="noopener nofollow">' + t('ds.site') + ' ↗</a>' : '') + '</div></section>' : '');
+      (s.site ? '<a class="btn btn-ghost btn-sm" href="' + esc(s.site) + '" target="_blank" rel="noopener nofollow">' + t('ds.site') + ' ↗</a>' : '') + '</div></section>' : '') + bourseCard([s.pays]);
     var links = window.LERNA_SCHOOL_LINKSET(s, Lerna.lang);
     h += '<section class="card" style="margin-top:18px"><h3>' + t('ds.links') + '</h3><div class="row" style="margin-top:10px">' + links.map(function (l) {
       return '<a class="btn btn-ghost btn-sm" href="' + esc(l.url) + '" target="_blank" rel="noopener">' + (l.direct ? '' : '🔎 ') + esc(L(l.label)) + ' ↗</a>';
@@ -746,6 +793,7 @@ Lerna.addStrings({
 
   Lerna.ready(function () {
     var coffre = !!Lerna.param('coffre');
+    if (window.LERNA_OPPS_SYNC) window.LERNA_OPPS_SYNC().then(function (changed) { if (changed && !coffre && (!id || tab === 'etapes')) render(); });
     function render() { if (coffre) window.LERNA_COFFRE.open($('root')); else if (id) renderDossier(); else renderList(); }
     render();
     document.addEventListener('click', function (e) {
