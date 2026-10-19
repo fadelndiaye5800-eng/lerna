@@ -87,6 +87,8 @@
   .pcard .badges .ctr { background: rgba(232, 100, 12, .12); color: var(--orange-deep, #B84D06); }
   .pcard .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 6px; }
   .pcard .badges .wd { background: rgba(120, 120, 120, .14); color: var(--muted); }
+  .pcard .badges .bad { background: rgba(198, 40, 40, .14); color: #C62828; }
+  .pcard .rec.bad { color: #C62828; font-weight: 600; }
   .pcard .facts { display: grid; gap: 4px; font-size: .86rem; }
   .pcard .facts b { color: var(--brown); }
   .pcard .rec { font-size: .82rem; color: var(--muted); }
@@ -186,7 +188,7 @@ Lerna.addStrings({
     'ex.rOfs': 'Inscrite au registre officiel de l’Office for Students (Angleterre)',
     'ex.rCricos': 'Autorisée par le gouvernement australien à accueillir des étudiants étrangers (registre CRICOS)',
     'ex.rWd': 'Annuaire public (Wikidata) : reconnaissance officielle NON vérifiée par LERNA. Demande les numéros d’autorisation et vérifie auprès du ministère avant de payer.',
-    'ex.bOff': 'Registre officiel', 'ex.bWd': 'À vérifier', 'ex.bPub': 'Public', 'ex.bPrivNl': 'Privé à but non lucratif', 'ex.bPrivL': 'Privé à but lucratif', 'ex.bPriv': 'Privé',
+    'ex.bOff': 'Registre officiel', 'ex.bBad': 'Avis défavorable', 'ex.rBad': 'Décision officielle DÉFAVORABLE publiée par : {a} — « {l} ». Ne paie rien sans une autorisation écrite et récente.', 'ex.bWd': 'À vérifier', 'ex.bPub': 'Public', 'ex.bPrivNl': 'Privé à but non lucratif', 'ex.bPrivL': 'Privé à but lucratif', 'ex.bPriv': 'Privé',
     'ex.fUs': 'Frais de scolarité : <b>{f}</b> par an pour un étudiant étranger (tarif hors État)', 'ex.fUsCost': 'Coût moyen d’une année complète (frais, logement, vie) : <b>{f}</b>',
     'ex.fAdm': 'Taux d’admission : <b>{p} %</b>', 'ex.fUg': 'Étudiants en licence : <b>{n}</b>',
     'ex.fAuB1': 'Licence (bachelor) : coût total déclaré <b>{a}</b>', 'ex.fAuM1': 'Master : coût total déclaré <b>{a}</b>',
@@ -235,7 +237,7 @@ Lerna.addStrings({
     'ex.rOfs': 'Listed on the official Office for Students register (England)',
     'ex.rCricos': 'Authorised by the Australian Government to enrol international students (CRICOS register)',
     'ex.rWd': 'Public directory (Wikidata): official recognition NOT checked by LERNA. Ask for authorisation numbers and check with the ministry before paying.',
-    'ex.bOff': 'Official register', 'ex.bWd': 'To be checked', 'ex.bPub': 'Public', 'ex.bPrivNl': 'Private non-profit', 'ex.bPrivL': 'Private for-profit', 'ex.bPriv': 'Private',
+    'ex.bOff': 'Official register', 'ex.bBad': 'Unfavourable decision', 'ex.rBad': 'UNFAVOURABLE official decision published by: {a} — “{l}”. Do not pay anything without a recent written authorisation.', 'ex.bWd': 'To be checked', 'ex.bPub': 'Public', 'ex.bPrivNl': 'Private non-profit', 'ex.bPrivL': 'Private for-profit', 'ex.bPriv': 'Private',
     'ex.fUs': 'Tuition: <b>{f}</b> a year for an international student (out-of-state rate)', 'ex.fUsCost': 'Average cost of a full year (fees, housing, living): <b>{f}</b>',
     'ex.fAdm': 'Admission rate: <b>{p}%</b>', 'ex.fUg': 'Undergraduate students: <b>{n}</b>',
     'ex.fAuB1': 'Bachelor: declared total cost <b>{a}</b>', 'ex.fAuM1': 'Master: declared total cost <b>{a}</b>',
@@ -468,7 +470,7 @@ Lerna.addStrings({
       var lst = M.idx.listes && M.idx.listes[x.l];
       if (x.acc) f.push(t('ex.fAcc', { s: esc(x.acc) }));
       if (x.f) f.push(esc(lst && lst.fraisLabel ? Lerna.L(lst.fraisLabel) : t('ex.fFrais')) + ' : <b>' + esc(x.f) + '</b>');
-      if (x.y) f.push(t('ex.fYear', { y: esc(x.y) }));
+      if (x.y) f.push(lst && lst.yLabel ? Lerna.L(lst.yLabel).replace('{y}', esc(x.y)) : t('ex.fYear', { y: esc(x.y) }));
     }
     if (r.s === 'ofs' && x.dap && /taught|research/i.test(x.dap)) f.push(t('ex.fOfsDap', { d: esc(t(/research/i.test(x.dap) ? 'ex.dapResearch' : 'ex.dapTaught')) }));
     if (!f.length) return '';
@@ -479,11 +481,13 @@ Lerna.addStrings({
     var wd = r.s === 'wikidata', https = function (u) { return /^https?:\/\//.test(u || '') ? u : ''; };
     var lst = r.s === 'officiel' && M.idx.listes ? M.idx.listes[r.x && r.x.l] : null;
     var rec = { officiel: lst ? t('ex.rOff', { a: Lerna.L(lst.autorite), l: Lerna.L(lst.titre) }) : '', deqar: t('ex.rDeqar'), scorecard: t('ex.rScore', { a: (r.x && r.x.acc) || '' }), ofs: t('ex.rOfs'), cricos: t('ex.rCricos'), wikidata: t('ex.rWd') }[r.s];
+    var bad = !!(r.x && r.x.warn);
+    if (bad && lst) rec = t('ex.rBad', { a: Lerna.L(lst.autorite), l: Lerna.L(lst.titre) });
     var src = SRC_LINK[r.s] ? SRC_LINK[r.s](r) : '';
     return '<article class="card pcard"><h3>' + esc(r.n) + '</h3>' + (r.a ? '<div class="loc">' + esc(r.a) + '</div>' : '') +
       '<div class="loc">' + Lerna.flag(M.cc, 'stk-xs') + ' ' + esc([r.v, r.r, window.LERNA_COUNTRY_NAME(M.cc)].filter(Boolean).join(', ')) + '</div>' +
-      '<div class="badges">' + (wd ? '<span class="wd">' + esc(t('ex.bWd')) + '</span>' : '<span class="pub">' + esc(t('ex.bOff')) + '</span>') + mStatut(r) + '</div>' +
-      '<p class="rec">' + esc(rec) + '</p>' + mFacts(r) +
+      '<div class="badges">' + (wd ? '<span class="wd">' + esc(t('ex.bWd')) + '</span>' : bad ? '<span class="bad">' + esc(t('ex.bBad')) + '</span>' : '<span class="pub">' + esc(t('ex.bOff')) + '</span>') + mStatut(r) + '</div>' +
+      '<p class="rec' + (bad ? ' bad' : '') + '">' + esc(rec) + '</p>' + mFacts(r) +
       '<div class="acts">' + (https(r.w) ? '<a class="btn btn-primary btn-sm" href="' + esc(r.w) + '" target="_blank" rel="noopener nofollow">' + esc(t('ex.lSite')) + ' ↗</a>' : '') +
       (src ? '<a class="btn btn-ghost btn-sm" href="' + esc(src) + '" target="_blank" rel="noopener">' + esc(t(wd ? 'ex.lWd' : r.s === 'officiel' ? 'ex.lList' : 'ex.lSrc')) + ' ↗</a>' : '') + '</div></article>';
   }

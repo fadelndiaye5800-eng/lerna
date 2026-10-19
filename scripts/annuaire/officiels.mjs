@@ -152,7 +152,7 @@ export const OFFICIELS = [
     autorite: { fr: 'Commission for University Education (CUE), Kenya', en: 'Commission for University Education (CUE), Kenya' },
     titre: { fr: 'Universités autorisées au Kenya (Universities Act, Cap 210)', en: 'Approved universities in Kenya (Universities Act, Cap 210)' },
     page: 'https://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189', url: 'https://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189',
-    discover: { page: 'https://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189', re: /Approved_Universities.*\.pdf$/i }, type: 'pdf-fn',
+    discover: { page: 'https://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189', re: /Approved_Universities.*\.pdf$/i }, type: 'pdf-fn', yLabel: { fr: 'Charte ou autorisation accordée en <b>{y}</b>', en: 'Charter or authority granted in <b>{y}</b>' },
     parse: (lines) => {
       const out = []; let sec = '';
       for (const l of lines) {
@@ -193,7 +193,7 @@ export const OFFICIELS = [
     cc: 'SN', id: 'sn-anaqsup-hab',
     autorite: { fr: 'Autorité nationale d’assurance qualité de l’enseignement supérieur (ANAQ-Sup), Sénégal', en: 'National Authority for Quality Assurance in Higher Education (ANAQ-Sup), Senegal' },
     titre: { fr: 'Décisions d’habilitation des établissements (avis favorables et défavorables)', en: 'Institutional approval decisions (favourable and unfavourable)' },
-    url: 'https://anaqsup.sn/habilitations/', type: 'html', pages: 40, pageUrl: (p) => 'https://anaqsup.sn/habilitations/' + (p > 1 ? '?sf_paged=' + p : ''),
+    url: 'https://anaqsup.sn/habilitations/', type: 'html', pages: 40, noYear: true, pageUrl: (p) => 'https://anaqsup.sn/habilitations/' + (p > 1 ? '?sf_paged=' + p : ''),
     parse: ($, clean) => {
       $('script,style,noscript').remove();
       const toks = $('body').html().replace(/<[^>]+>/g, '\u0001').split('\u0001').map((x) => clean(cheerio.load('<p>' + x + '</p>')('p').text())).filter(Boolean);
@@ -204,9 +204,9 @@ export const OFFICIELS = [
         if (!d) { if (!/^voir le rapport$/i.test(t)) buf.push(t); continue; }
         const yi = buf.map((x) => /^\d{4}$/.test(x)).lastIndexOf(true);
         if (yi > 0 && !/[ée]cole\s+doctorale/i.test(buf[0])) {
-          let n = buf[0]; const m = /^([A-Z0-9][A-Za-z0-9 /'’.&]{1,24}?)\s*[-:]+\s*(.{6,})$/.exec(n); if (m && /[A-Z]{2}/.test(m[1])) n = m[2] + ' (' + m[1].trim() + ')';
+          let n = buf[0]; const m = /^([A-Z0-9][A-Za-z0-9 /'’.&-]{1,24}?)\s*[-:]+\s*([A-ZÉÈÀ][a-zà-ÿ].{4,})$/.exec(n); if (m && /[A-Z]{2}/.test(m[1])) n = m[2] + ' (' + m[1].trim() + ')';
           const nf = yi - 1; const fav = /^favorable$/i.test(d[1]);
-          out.push({ n, y: buf[yi], v: (buf[yi + 1] || '').replace(/\s*\(.*\)$/, ''), r: buf[yi + 1] || '', acc: (fav ? 'Habilitation ANAQ-Sup : avis favorable' : 'ATTENTION — Habilitation ANAQ-Sup : avis défavorable') + ' (' + buf[yi] + ')' + (nf > 0 ? ' · ' + nf + ' formation' + (nf > 1 ? 's' : '') + ' examinée' + (nf > 1 ? 's' : '') : '') });
+          out.push({ n, y: buf[yi], v: (buf[yi + 1] || '').replace(/\s*\(.*\)$/, ''), r: buf[yi + 1] || '', warn: !fav, acc: (fav ? 'Habilitation ANAQ-Sup : avis favorable' : 'Habilitation ANAQ-Sup : avis défavorable') + ' (' + buf[yi] + ')' + (nf > 0 ? ' · ' + nf + ' formation' + (nf > 1 ? 's' : '') + ' examinée' + (nf > 1 ? 's' : '') : '') });
         }
         buf = [];
       }
@@ -367,6 +367,7 @@ async function readHtml(src) {
       if (!part.length) break;
       part.forEach((r) => { seen.add(r.n + '|' + (r.y || '')); all.push(r); });
     }
+    all.sort((a, b) => String(b.y || '').localeCompare(String(a.y || '')));
     return all.map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
   }
   const $ = cheerio.load((await fetchBuf(src.url)).toString('utf8'));
@@ -408,7 +409,7 @@ export async function readOfficiels(log = console.log) {
         const key = r.n.toLowerCase();
         if (seen.has(key)) continue; seen.add(key);
         out.push({ i: 'officiel:' + src.id + ':' + seen.size, s: 'officiel', p: src.cc, n: r.n, a: r.a || '', v: r.v || '', r: r.r || '', w: r.w ? (/^https?:\/\//i.test(r.w) ? r.w : 'https://' + r.w.replace(/^\/+/, '')) : '', t: r.t || src.statut || '',
-          x: { l: src.id, f: r.f && !/^0$/.test(r.f) ? r.f : undefined, y: r.y || undefined, acc: r.acc || undefined } });
+          x: { l: src.id, f: r.f && !/^0$/.test(r.f) ? r.f : undefined, y: (!src.noYear && r.y) || undefined, acc: r.acc || undefined, warn: r.warn ? 1 : undefined } });
       }
       report[src.id] = seen.size; log('officiel', src.id, seen.size);
     } catch (e) { report[src.id] = 'erreur : ' + String(e.message || e).slice(0, 120); log('officiel ÉCHEC', src.id, e.message); }
@@ -417,4 +418,4 @@ export async function readOfficiels(log = console.log) {
 }
 
 /* Métadonnées publiées pour l'appli (nom de l'organisme, titre de la liste, lien) */
-export const LISTES = Object.fromEntries(OFFICIELS.map((s) => [s.id, { cc: s.cc, autorite: s.autorite, titre: s.titre, url: s.page || s.url, fraisLabel: s.fraisLabel }]));
+export const LISTES = Object.fromEntries(OFFICIELS.map((s) => [s.id, { cc: s.cc, autorite: s.autorite, titre: s.titre, url: s.page || s.url, fraisLabel: s.fraisLabel, yLabel: s.yLabel }]));
