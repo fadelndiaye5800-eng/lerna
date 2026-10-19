@@ -113,6 +113,20 @@ export const OFFICIELS = [
       }
       return out;
     }
+  },
+  {
+    cc: 'DZ', id: 'dz-mesrs', statut: 'public',
+    autorite: { fr: 'Ministère de l’Enseignement supérieur et de la Recherche scientifique (Algérie)', en: 'Ministry of Higher Education and Scientific Research (Algeria)' },
+    titre: { fr: 'Réseau universitaire public : universités, centres universitaires, écoles nationales supérieures', en: 'Public university network: universities, university centres, national higher schools' },
+    url: 'https://www.mesrs.dz/fr/reseau-universitaire/', type: 'html',
+    parse: ($, clean) => {
+      const out = [];
+      $('table').each((i, t) => {
+        const head = clean($(t).prevAll('h1,h2,h3,h4,h5,h6,p,strong').first().text(), 80);
+        $(t).find('tr').each((j, tr) => { const c = clean($(tr).find('td,th').first().text(), 200); const m = /^\d{1,3}\s*[.)-]\s*(.{4,})$/.exec(c); if (m) out.push({ n: m[1], acc: head }); });
+      });
+      return out;
+    }
   }
 ];
 
@@ -239,6 +253,12 @@ async function readXlsx(src) {
   return rows.slice(src.skip || 0).filter(src.filter || (() => true)).map(src.map).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
 }
 
+/* Page HTML lue par une fonction propre à la liste : src.parse($) renvoie les fiches */
+async function readHtml(src) {
+  const $ = cheerio.load((await fetchBuf(src.url)).toString('utf8'));
+  return src.parse($, clean).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
+}
+
 /* PDF dont la table des matières liste les établissements : « NOM DE L'UNIVERSITÉ ........ 12 » */
 async function readPdfToc(src) {
   const pdf = (await import('pdf-parse/lib/pdf-parse.js')).default;
@@ -261,7 +281,7 @@ export async function readOfficiels(log = console.log) {
   const out = [], report = {};
   for (const src of OFFICIELS) {
     try {
-      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : src.type === 'pdf-acr' ? await readPdfAcr(src) : src.type === 'pdf-tz' ? await readPdfTz(src) : src.type === 'pdf-toc' ? await readPdfToc(src) : src.type === 'json' ? await readJson(src) : src.type === 'xlsx' ? await readXlsx(src) : await readList(src);
+      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : src.type === 'pdf-acr' ? await readPdfAcr(src) : src.type === 'pdf-tz' ? await readPdfTz(src) : src.type === 'pdf-toc' ? await readPdfToc(src) : src.type === 'json' ? await readJson(src) : src.type === 'xlsx' ? await readXlsx(src) : src.type === 'html' ? await readHtml(src) : await readList(src);
       const seen = new Set();
       for (const r of rows) {
         const key = r.n.toLowerCase();
