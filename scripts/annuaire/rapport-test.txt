@@ -1,4 +1,4 @@
-2026-10-19T00:01:01.724Z
+2026-10-19T00:16:59.114Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -259,3 +259,22 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Centre universitaire d’Aflou | public
   Centre Universitaire de Barika – Si El Haouès | public
   Centre universitaire d’El Bayadh – Nour Bachir | public
+##### https://data.overheid.nl/data/api/3/action/package_show?id=adressen_ho
+ST 200 application/json;charset=utf-8 4801 https://data.overheid.nl/data/api/3/action/package_show?id=adressen_ho
+  G uage": ["http://publications.europa.eu/resource/authority/language/NLD"], "format": "http://publications.europa.eu/resource/authority/file-type/CSV", "url": "https://onderwijsdata.duo.nl/dataset/37051cda-b681-43eb-a385-efa18e99cdd2/resource/a521ddc2-b8d9-43d5-97df-1e700ee9f8c5/download/besturenho.csv", "created": "2026-10-05T08:14:32.116456", "state": "active", "package_id": "86bee4b2-25f0-4c2a-a38c-ddad3729b403", "last_modified": null, "metadata_language": "http://publications.europa.eu/resourc
+  G uage": ["http://publications.europa.eu/resource/authority/language/NLD"], "format": "http://publications.europa.eu/resource/authority/file-type/CSV", "url": "https://onderwijsdata.duo.nl/dataset/37051cda-b681-43eb-a385-efa18e99cdd2/resource/bf1da9c6-c688-4873-91b1-b12c9ac2c132/download/instellingenho.csv", "created": "2026-10-05T08:14:32.116511", "state": "active", "package_id": "86bee4b2-25f0-4c2a-a38c-ddad3729b403", "last_modified": null, "metadata_language": "http://publications.europa.eu/res
+  G .overheid.nl/owms/terms/Dienst_Uitvoering_Onderwijs", "isopen": false, "language": ["http://publications.europa.eu/resource/authority/language/NLD"], "url": "https://onderwijsdata.duo.nl/datasets/adressen_ho", "changetype": ":updated", "license_title": "CC-BY (4.0)", "modified": "2026-10-02T16:30:44", "private": false, "license_url": "http://creativecommons.org/licenses/by/4.0/deed.nl", "organization": {"description": "", "title": "DUO", "created": "2020-04-01T09:48:41.129089", "approval_status"
+##### https://dati-ustat.mur.gov.it/api/3/action/package_show?id=metadati
+ERR fetch failed
+##### http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/
+ST 200 text/html 27811 http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/
+  G 名单</a><span>2026-07-06</span></li> <li class="moe_list_group_line"><a href="./202606/t20260618_1441074.html" target="_blank" title="全国高等学校名单">全国高等学校名单</a><span>2026-06-18</span></li> <li><a href="./202604/t20260414_1433557.html" target="_blank" title="关于公布2025年教育部“基础教育精品课”名单的公告">关于公布2025年教育部“基础教育精品课”名单的公告</a><span>2026-04-14</span></li> <li><a href="./202602/t20260214_1428891.html" target="_blank" title="联合国教科文组织启动2026年度教席/姊妹大学网络项目申报工作">联合国教科文组织启动2
+  G n>2026-07-06</span></li> <li class="moe_list_group_line"><a href="./202606/t20260618_1441074.html" target="_blank" title="全国高等学校名单">全国高等学校名单</a><span>2026-06-18</span></li> <li><a href="./202604/t20260414_1433557.html" target="_blank" title="关于公布2025年教育部“基础教育精品课”名单的公告">关于公布2025年教育部“基础教育精品课”名单的公告</a><span>2026-04-14</span></li> <li><a href="./202602/t20260214_1428891.html" target="_blank" title="联合国教科文组织启动2026年度教席/姊妹大学网络项目申报工作">联合国教科文组织启动2026年度教席/姊妹
+  G 助力乡村振兴”全国大学生暑期社会实践志愿服务活动入选团队名单</a><span>2025-07-03</span></li> <li><a href="./202506/t20250627_1195683.html" target="_blank" title="全国高等学校名单">全国高等学校名单</a><span>2025-06-27</span></li> <li><a href="./202506/t20250624_1195385.html" target="_blank" title="关于公布2024年教育部 “基础教育精品课”名单的公告">关于公布2024年教育部 “基础教育精品课”名单的公告</a><span>2025-06-24</span></li> <li><a href="./202506/t20250606_1193209.html" target="_blank" title="关于开展军队文职人员考试培训专项整治的通告">关于开展军队文职人员考试培训专项整治的
+  G 学生暑期社会实践志愿服务活动入选团队名单</a><span>2025-07-03</span></li> <li><a href="./202506/t20250627_1195683.html" target="_blank" title="全国高等学校名单">全国高等学校名单</a><span>2025-06-27</span></li> <li><a href="./202506/t20250624_1195385.html" target="_blank" title="关于公布2024年教育部 “基础教育精品课”名单的公告">关于公布2024年教育部 “基础教育精品课”名单的公告</a><span>2025-06-24</span></li> <li><a href="./202506/t20250606_1193209.html" target="_blank" title="关于开展军队文职人员考试培训专项整治的通告">关于开展军队文职人员考试培训专项整治的通告</a><spa
+##### https://ugc.gov.bd/
+ST 200 text/html; charset=utf-8 62211 https://ugc.gov.bd/
+TITLE হোম | বাংলাদেশ বিশ্ববিদ্যালয় মঞ্জুরী কমিশন | TABLES 0 TR 0 LI 0
+  FILES 0
+##### https://www.ugc.ac.lk/
+DÉLAI DÉPASSÉ
