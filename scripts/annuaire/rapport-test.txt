@@ -1,4 +1,4 @@
-2026-10-19T00:50:19.208Z
+2026-10-19T00:52:18.696Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -486,3 +486,89 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   الاكاديمية العربية للعلوم المالية والمصرفية | https://www.aambfs.org/ar/ | Établissements créés par accords internationaux
   معهد البحوث والدراسات العربية | https://iars.net/ | Établissements créés par accords internationaux
   الجامعة الألمانية الدولية | https://www.giu-uni.de/ | Établissements créés par accords internationaux
+##### https://anaqsup.sn/habilitations/
+ST 200 text/html; charset=UTF-8 128827 https://anaqsup.sn/habilitations/
+TITLE HABILITATION - ANAQSUP | TABLES 0 TR 0 LI 109
+  FILES 8
+   https://anaqsup.sn/wp-content/uploads/2026/07/STI_UAZ.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/ARCIV.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/Rapport_evaluation_externe_ISEG_V2.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/REE_UID_HEC_habilitation_VF.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/REE_IPAF_Sante%CC%81_VF.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/PCSTUI.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/05/ETHOS.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/04/REE-ECPI-Habilitation-20-21-04-26.pdf
+  A  -> https://anaqsup.sn
+  A REFERENTIELS -> https://anaqsup.sn/referentiels/
+  A HABILITATION -> https://anaqsup.sn/habilitations/
+  A ACCREDITATIONS -> https://anaqsup.sn/acreditations/
+  A PUBLICATIONS -> https://anaqsup.sn/publications/
+  A TEXTES REGLEMENTAIRES -> https://anaqsup.sn/textes-reglementaires/
+  A ORGANE DE GOUVERNANCE -> https://anaqsup.sn/organe-de-gouvernance/
+  A MISSIONS -> https://anaqsup.sn/missions/
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/STI_UAZ.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/ARCIV.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/Rapport_evaluation_externe_ISEG_V2.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/REE_UID_HEC_habilitation_VF.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/REE_IPAF_Sante%CC%81_VF.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/PCSTUI.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/05/ETHOS.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/04/REE-ECPI-Habilitation-20-21-04-26.pdf
+  A  -> https://anaqsup.sn/contact/
+  A MESRI -> http://www.mesr.gouv.sn/
+  A CAMES -> https://www.lecames.org/
+  A CAMPUSEN -> http://www.campusen.sn/
+  A  -> https://www.unesco.org/fr/fieldoffice/dakar
+  A Banque mondiale -> https://www.banquemondiale.org/fr/home
+  A Visite de travail de l’INPG à l’ANAQ-Sup -> https://anaqsup.sn/visite-de-travail-de-linpg-a-lanaq-sup/
+  A Troisième session ordinaire du Conseil d’administration de l -> https://anaqsup.sn/troisieme-session-ordinaire-du-conseil-dadministration-de-lanaq-sup/
+  A Coopération sous-régionale : L'ANAQ-SUP accueille une déléga -> https://anaqsup.sn/cooperation-sous-regionale-lanaq-sup-accueille-une-delegation-de-haut-niveau-de-la-naqaa-de-gambie/
+  A L’ANAQ-Sup porte la voix du Sénégal au Séminaire FrAQ-Sup 20 -> https://anaqsup.sn/lanaq-sup-porte-la-voix-du-senegal-au-seminaire-fraq-sup-2026/
+  JS /json
+  JS https://anaqsup.sn/wp-json/oembed/1.0/embed?url=https
+  JS https://fonts.googleapis.com/css?family=Roboto
+  JS https://anaqsup.sn/wp-admin/admin-ajax.php
+  JS https://anaqsup.sn/wp-json/
+  JS https://anaqsup.sn/wp-json/elementskit/v1/
+  JS /wp-admin/admin-ajax.php
+##### https://anaqsup.sn/acreditations/
+ST 200 text/html; charset=UTF-8 130232 https://anaqsup.sn/acreditations/
+TITLE ACCREDITATIONS - ANAQSUP | TABLES 0 TR 0 LI 23
+  FILES 6
+   https://anaqsup.sn/wp-content/uploads/2026/08/Rapport-de%CC%81valuation-externe-Licence-Assistanat-Juridique-UGB.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/08/Rapport-de%CC%81valuation-externe-Master-SIC-_Inge%CC%81nierie-Documentaire_EBAD_UCAD.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/Rapport-de%CC%81valuation-externe-Master-Droit-prive%CC%81_UNCHK.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/Rapport-de%CC%81valuation-externe-Master-AFECA_UCAD.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/Rapport-de%CC%81valuation-externe-du-TS-GIPA-de-LISEP-de-Matam.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/Rapport_de%CC%81valuation-externe-Tech-Sup-en-PSP_ISEP_Matam.pdf
+  A  -> https://anaqsup.sn
+  A REFERENTIELS -> https://anaqsup.sn/referentiels/
+  A HABILITATION -> https://anaqsup.sn/habilitations/
+  A ACCREDITATIONS -> https://anaqsup.sn/acreditations/
+  A PUBLICATIONS -> https://anaqsup.sn/publications/
+  A TEXTES REGLEMENTAIRES -> https://anaqsup.sn/textes-reglementaires/
+  A ORGANE DE GOUVERNANCE -> https://anaqsup.sn/organe-de-gouvernance/
+  A MISSIONS -> https://anaqsup.sn/missions/
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/08/Rapport-de%CC%81valuation-externe-Licence-Assistanat-Juridique-UGB.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/08/Rapport-de%CC%81valuation-externe-Master-SIC-_Inge%CC%81nierie-Documentaire_EBAD_UCAD.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/Rapport-de%CC%81valuation-externe-Master-Droit-prive%CC%81_UNCHK.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/Rapport-de%CC%81valuation-externe-Master-AFECA_UCAD.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/Rapport-de%CC%81valuation-externe-du-TS-GIPA-de-LISEP-de-Matam.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/Rapport_de%CC%81valuation-externe-Tech-Sup-en-PSP_ISEP_Matam.pdf
+  A  -> https://anaqsup.sn/contact/
+  A MESRI -> http://www.mesr.gouv.sn/
+  A CAMES -> https://www.lecames.org/
+  A CAMPUSEN -> http://www.campusen.sn/
+  A  -> https://www.unesco.org/fr/fieldoffice/dakar
+  A Banque mondiale -> https://www.banquemondiale.org/fr/home
+  A Visite de travail de l’INPG à l’ANAQ-Sup -> https://anaqsup.sn/visite-de-travail-de-linpg-a-lanaq-sup/
+  A Troisième session ordinaire du Conseil d’administration de l -> https://anaqsup.sn/troisieme-session-ordinaire-du-conseil-dadministration-de-lanaq-sup/
+  A Coopération sous-régionale : L'ANAQ-SUP accueille une déléga -> https://anaqsup.sn/cooperation-sous-regionale-lanaq-sup-accueille-une-delegation-de-haut-niveau-de-la-naqaa-de-gambie/
+  A L’ANAQ-Sup porte la voix du Sénégal au Séminaire FrAQ-Sup 20 -> https://anaqsup.sn/lanaq-sup-porte-la-voix-du-senegal-au-seminaire-fraq-sup-2026/
+  JS /json
+  JS https://anaqsup.sn/wp-json/oembed/1.0/embed?url=https
+  JS https://fonts.googleapis.com/css?family=Roboto
+  JS https://anaqsup.sn/wp-admin/admin-ajax.php
+  JS https://anaqsup.sn/wp-json/
+  JS https://anaqsup.sn/wp-json/elementskit/v1/
+  JS /wp-admin/admin-ajax.php
