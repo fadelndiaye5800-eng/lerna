@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Fiche formation — LERNA</title>
+<title>Fiche école — LERNA</title>
 <meta name="description" content="Toutes les informations officielles sur une formation ou un établissement : chiffres d'admission, profil des admis, reconnaissance officielle, coûts publiés.">
 <meta name="theme-color" content="#FBF6EC">
-<meta property="og:title" content="Fiche formation — LERNA">
+<meta property="og:title" content="Fiche école — LERNA">
 <meta property="og:image" content="/assets/icons/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.json">
@@ -21,18 +21,32 @@
   main { padding-bottom: 90px; }
   .back { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 600; font-size: .9rem; text-decoration: none; margin: 22px 0 14px; background: none; border: 0; padding: 0; cursor: pointer; }
   .back:hover { color: var(--orange); }
-  .hero { background: var(--panel-grad, var(--cream-dark)); color: var(--on-panel, var(--brown)); border-radius: 22px; padding: 24px 22px; }
-  .hero .etab { font-weight: 700; opacity: .9; margin-top: 8px; }
-  .hero h1 { font-size: clamp(1.5rem, 4.6vw, 2.3rem); line-height: 1.15; }
-  .hero .loc { margin-top: 8px; font-size: .92rem; opacity: .85; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
-  .badges span { font-size: .74rem; font-weight: 700; border-radius: 99px; padding: 4px 11px; background: var(--white); color: var(--brown); }
-  .badges .pub { background: #E8F3E9; color: #2E7D32; }
-  .badges .ctr { background: #FDEBDD; color: #B84D06; }
-  .badges .bad { background: #FBE3E3; color: #C62828; }
-  .badges .wd { background: #EEE; color: #666; }
-  .sec { margin-top: 18px; }
-  .sec h3 { margin-bottom: 12px; }
+  /* En-tête : le même que les fiches LERNA */
+  .banner { height: 150px; border-radius: 22px; background: var(--cream-dark); position: relative; overflow: hidden; }
+  .banner .flg { position: absolute; right: 18px; top: 14px; width: 54px; height: 54px; }
+  .id-row { display: flex; gap: 18px; align-items: flex-end; margin-top: -46px; padding: 0 22px; position: relative; }
+  .s-logo { width: 92px; height: 92px; border-radius: 22px; background: var(--panel); color: var(--on-panel); border: 4px solid var(--bg); display: flex; align-items: center; justify-content: center; font-family: var(--font-head); font-weight: 800; font-size: 1.4rem; flex-shrink: 0; text-align: center; line-height: 1; padding: 6px; word-break: break-all; }
+  .s-title { padding: 18px 0 6px; }
+  .s-title h1 { font-size: clamp(1.6rem, 4.6vw, 2.5rem); line-height: 1.15; margin-top: 8px; }
+  .s-sub { margin-top: 6px; font-weight: 700; color: var(--muted); }
+  .s-sub a { color: var(--orange); text-decoration: none; }
+  .s-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .s-meta .tag { background: var(--white); border: 1.5px solid var(--cream-dark); }
+  .lvl { display: inline-flex; align-items: center; gap: 6px; font-size: .74rem; font-weight: 800; border-radius: 99px; padding: 4px 11px; }
+  .lvl-off { background: #E8F3E9; color: #2E7D32; }
+  .lvl-bad { background: #FBE3E3; color: #C62828; }
+  .lvl-wd { background: #EEE; color: #666; }
+  .tabs-wrap { position: sticky; top: var(--nav-h); z-index: 40; background: var(--bg); margin-top: 22px; }
+  .panel { padding: 24px 0 30px; }
+  .panel h3 { margin-bottom: 12px; }
+  .two { display: grid; gap: 14px; }
+  @media (min-width: 768px) { .two { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 768px) {
+    .banner { height: 120px; border-radius: 0; margin: 0 -20px; }
+    .id-row { padding: 0 4px; }
+    .s-logo { width: 78px; height: 78px; font-size: 1.15rem; }
+  }
+  /* Chiffres */
   .kpis { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
   @media (min-width: 720px) { .kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
   .kpi { background: var(--white); border: 1.5px solid var(--cream-dark); border-radius: 16px; padding: 14px; }
@@ -45,23 +59,41 @@
   .fb .top b { color: var(--brown); }
   .fb .trk { height: 10px; border-radius: 99px; background: var(--cream-dark); overflow: hidden; }
   .fb .fill { height: 100%; border-radius: 99px; background: var(--orange); }
-  .two { display: grid; gap: 14px; }
-  @media (min-width: 768px) { .two { grid-template-columns: 1fr 1fr; } }
   .rows { display: grid; }
   .row { display: flex; justify-content: space-between; gap: 14px; padding: 11px 0; border-bottom: 1px solid var(--cream-dark); font-size: .92rem; }
   .row:last-child { border-bottom: 0; }
   .row .k { color: var(--muted); font-weight: 600; }
   .row .v { font-weight: 700; color: var(--brown); text-align: right; }
+  .row.col { flex-direction: column; gap: 4px; align-items: stretch; }
+  .row.col .v { text-align: left; font-weight: 600; line-height: 1.5; }
   .list-dot { margin: 0; padding-left: 18px; display: grid; gap: 6px; }
   .map { width: 100%; height: 230px; border: 0; border-radius: 16px; background: var(--cream-dark); }
   .others { display: grid; gap: 8px; }
   .others a { display: block; padding: 12px 14px; border-radius: 14px; background: var(--white); border: 1.5px solid var(--cream-dark); text-decoration: none; color: var(--brown); font-weight: 600; font-size: .92rem; }
   .others a small { display: block; color: var(--muted); font-weight: 500; margin-top: 2px; }
   .others a:hover { border-color: var(--orange); }
+  .fgroup { margin-top: 18px; }
+  .fgroup h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 8px; }
+  .fitem { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .fitem .k { font-size: .74rem; font-weight: 800; color: #2E7D32; background: #E8F3E9; border-radius: 8px; padding: 3px 8px; white-space: nowrap; flex-shrink: 0; }
   .acts { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
   .note { font-size: .82rem; color: var(--muted); line-height: 1.55; }
   .warn { background: #FBE3E3; color: #8E1C1C; border-radius: 16px; padding: 14px 16px; font-weight: 600; font-size: .92rem; line-height: 1.5; }
   .accred-steps { margin: 12px 0 0 18px; display: grid; gap: 8px; }
+  .steps { list-style: none; counter-reset: st; display: flex; flex-direction: column; gap: 14px; padding: 0; }
+  .steps li { counter-increment: st; display: flex; gap: 14px; align-items: flex-start; }
+  .steps li::before { content: counter(st); width: 30px; height: 30px; border-radius: 50%; background: var(--orange); color: #fff; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: .86rem; }
+  .steps li span { padding-top: 4px; line-height: 1.5; }
+  .todo { border: 1.5px dashed var(--cream-darker, #c9b391); border-radius: 18px; padding: 16px 18px; background: var(--surface); line-height: 1.55; }
+  .todo b { color: var(--brown); }
+  .asked { display: inline-flex; gap: 6px; align-items: center; font-weight: 700; color: #2E7D32; font-size: .9rem; }
+  .fee-warn { display: flex; gap: 10px; align-items: flex-start; background: var(--cream); border-radius: 14px; padding: 14px 16px; font-size: .88rem; color: var(--brown); line-height: 1.55; }
+  .fee-warn .ic { width: 18px; height: 18px; color: var(--orange); flex-shrink: 0; margin-top: 2px; }
+  .rate-grid { display: grid; gap: 12px; }
+  .rate-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .star-input { display: inline-flex; gap: 2px; }
+  .star-input button { font-size: 1.6rem; color: var(--cream-darker); line-height: 1; padding: 2px; }
+  .star-input button.on { color: var(--orange); }
   .loading { text-align: center; padding: 60px 0; }
 </style>
 </head>
@@ -74,84 +106,120 @@
 
 <script src="assets/js/core.js"></script>
 <script src="assets/js/questions.js"></script>
+<script src="assets/js/data-schools.js"></script>
+<script src="assets/js/guides.js"></script>
 <script src="assets/js/accred.js"></script>
 <script>
 Lerna.addStrings({
   fr: {
     'fi.back': '← Retour', 'fi.nf': 'Fiche introuvable', 'fi.nfSub': 'Cette formation ou cet établissement n’existe pas ou plus dans les données officielles.', 'fi.toEx': 'Explorer →',
     'fi.err': 'Impossible de charger la fiche pour le moment. Vérifie ta connexion et réessaie.',
+    'fi.tPres': 'Présentation', 'fi.tFil': 'Filières', 'fi.tAdm': 'Admission', 'fi.tCost': 'Coûts', 'fi.tLife': 'Vie étudiante', 'fi.tRev': 'Avis',
+    'fi.lvlOff': 'Reconnue officiellement', 'fi.lvlState': 'Reconnue par l’État', 'fi.lvlBad': 'Avis officiel défavorable', 'fi.lvlWd': 'Reconnaissance à vérifier',
     'fi.pub': 'Public', 'fi.ctr': 'Privé sous contrat', 'fi.priv': 'Privé', 'fi.sel': 'Formation sélective', 'fi.nsel': 'Formation non sélective', 'fi.app': 'En apprentissage possible', 'fi.int': 'Internat',
-    'fi.kTitle': 'Les chiffres de l’admission {y}', 'fi.kSub': 'Données officielles Parcoursup de la dernière session connue pour cette formation.',
+    'fi.founded': 'Fondé en {y}',
+    'fi.kTitle': 'Les chiffres de l’admission {y}', 'fi.kSub': 'Données officielles de la dernière session connue pour cette formation.',
     'fi.kCap': 'places', 'fi.kVoe': 'vœux reçus', 'fi.kAcc': 'taux d’accès', 'fi.kRatio': 'candidats par place', 'fi.kAdm': 'admis', 'fi.kProp': 'candidats ont reçu une proposition',
     'fi.kRank': 'Rang du dernier appelé', 'fi.kRankSub': 'Plus le rang est élevé par rapport aux places, plus la formation a appelé de candidats.',
     'fi.noStats': 'Pas encore de chiffres d’admission publiés pour cette formation (nouvelle formation ou code modifié). Les données arrivent après chaque session.',
-    'fi.who': 'Qui est admis ?', 'fi.bac': 'Type de bac des admis', 'fi.bg': 'Bac général', 'fi.bt': 'Bac technologique', 'fi.bp': 'Bac professionnel', 'fi.ment': 'Mention au bac des admis',
+    'fi.bac': 'Type de bac des admis', 'fi.bg': 'Bac général', 'fi.bt': 'Bac technologique', 'fi.bp': 'Bac professionnel', 'fi.ment': 'Mention au bac des admis',
     'fi.m0': 'Sans mention', 'fi.mab': 'Assez bien', 'fi.mb': 'Bien', 'fi.mtb': 'Très bien', 'fi.mtbf': 'Très bien avec félicitations',
     'fi.prof': 'Profil des admis', 'fi.pf': 'Femmes', 'fi.pbrs': 'Boursiers', 'fi.pneo': 'Néo-bacheliers', 'fi.paca': 'Venant de la même académie',
     'fi.when': 'Quand arrivent les propositions ?', 'fi.w1': 'Dès l’ouverture de la phase principale', 'fi.w2': 'Avant les résultats du bac', 'fi.w3': 'Avant la fin de la phase principale',
     'fi.whenSub': 'Part des admis qui avaient reçu leur proposition à chaque date : si le chiffre est bas au début, il faut être patient.',
     'fi.mod': 'Modalités', 'fi.modNone': 'Aucune modalité particulière publiée.',
-    'fi.where': 'Où se trouve la formation', 'fi.others': 'Autres formations de cet établissement sur Parcoursup', 'fi.moreO': 'Voir toutes les formations →',
-    'fi.apply': 'Candidater sur Parcoursup', 'fi.site': 'Site de l’établissement', 'fi.statsLink': 'Tableau de bord officiel',
-    'fi.applyNote': 'La candidature se fait uniquement sur parcoursup.fr. Tout le reste est ici.',
-    'fi.srcP': 'Sources : ministère de l’Enseignement supérieur — cartographie des formations Parcoursup et statistiques d’admission Parcoursup (Licence Ouverte / Etalab 2.0). Chiffres de la session {y}.',
+    'fi.where': 'Où se trouve l’établissement', 'fi.others': 'Les autres formations de cet établissement', 'fi.seeEtab': 'Voir la fiche de l’établissement →',
+    'fi.site': 'Site de l’établissement', 'fi.share': 'Partager', 'fi.seeForm': 'Voir la formation',
+    'fi.howTitle': 'Comment candidater', 'fi.applyFR': 'Pour une 1re année, la candidature se fait sur la plateforme nationale Parcoursup. LERNA t’aide à préparer ton dossier : lettre, pièces et dates.',
+    'fi.platform': 'Page de la formation sur la plateforme nationale', 'fi.selN': '{a} formation(s) sélective(s) sur {b} : dossier, et parfois épreuves ou entretien.',
+    'fi.guideFor': 'Selon ton profil : {g}', 'fi.howVerified': 'Dates officielles vérifiées le {d} ({s}).', 'fi.officialPage': 'Page officielle',
+    'fi.srcFR': 'Sources : ministère de l’Enseignement supérieur — données ouvertes sur les formations et l’admission (Licence Ouverte / Etalab 2.0), session {y}. LERNA peut se tromper : en cas de doute, la source officielle fait foi.',
     'fi.rec': 'Reconnaissance officielle', 'fi.list': 'Voir la liste officielle', 'fi.reg': 'Voir dans le registre officiel', 'fi.wdLink': 'Fiche Wikidata',
-    'fi.badOff': 'Registre officiel', 'fi.badWd': 'À vérifier', 'fi.badBad': 'Avis défavorable',
     'fi.offOn': 'Inscrite sur la liste officielle de : {a} — « {l} »',
     'fi.badRec': 'Décision officielle DÉFAVORABLE publiée par : {a} — « {l} ». Ne paie rien sans une autorisation écrite et récente.',
+    'fi.recFR': 'Formations référencées par l’État : leurs données d’admission sont publiées par le ministère de l’Enseignement supérieur. Vérifie toujours le diplôme exact (diplôme national, visé ou titre RNCP) de ta formation.',
     'fi.rDeqar': 'Évaluée par une agence qualité enregistrée en Europe (base officielle DEQAR, tenue par l’EQAR).',
     'fi.rScore': 'Accréditée par {a}, accréditeur reconnu par le Département de l’Éducation des États-Unis (College Scorecard).',
     'fi.rOfs': 'Inscrite au registre officiel de l’Office for Students (Angleterre).',
     'fi.rCricos': 'Autorisée par le gouvernement australien à accueillir des étudiants étrangers (registre CRICOS).',
     'fi.rWd': 'Établissement présent dans l’annuaire public Wikidata. Sa reconnaissance officielle n’est PAS vérifiée par LERNA : demande les numéros d’autorisation et vérifie auprès du ministère avant de payer.',
-    'fi.status': 'Statut officiel', 'fi.year': 'Année', 'fi.fees': 'Frais publiés', 'fi.city': 'Ville', 'fi.region': 'Région / État', 'fi.alt': 'Autre nom', 'fi.type': 'Statut',
+    'fi.status': 'Statut officiel', 'fi.year': 'Année', 'fi.fees': 'Frais publiés', 'fi.city': 'Ville', 'fi.region': 'Région / État', 'fi.alt': 'Autre nom', 'fi.alsoT': 'Aussi sur : {a} — « {l} »',
     'fi.tPub': 'Public', 'fi.tPriv': 'Privé', 'fi.tPrivNl': 'Privé à but non lucratif', 'fi.tPrivL': 'Privé à but lucratif',
+    'fi.brief': 'En bref', 'fi.nForm': 'Formations', 'fi.nApp': 'Dont en apprentissage', 'fi.nInt': 'Avec internat', 'fi.types': 'Types de formation',
     'fi.money': 'Coûts publiés par la source officielle', 'fi.usOut': 'Frais de scolarité par an (étudiant hors État, cas des étrangers)', 'fi.usIn': 'Frais par an (résident de l’État)', 'fi.usCost': 'Coût moyen d’une année complète (frais, logement, vie)',
     'fi.usAdm': 'Taux d’admission', 'fi.usUg': 'Étudiants en licence', 'fi.auB': 'Licence (bachelor) : coût total déclaré', 'fi.auM': 'Master : coût total déclaré', 'fi.auN': 'Formations ouvertes aux étudiants étrangers',
     'fi.moneyNote': 'Montants publiés par la source officielle ; vérifie le tarif de ta formation exacte avant de payer.',
+    'fi.feeWarn': 'LERNA peut se tromper. Avant de payer, demande toujours le tarif exact de ta formation à l’établissement, par écrit.',
     'fi.dap': 'Délivre ses propres diplômes', 'fi.dapT': 'licence et master', 'fi.dapR': 'jusqu’au doctorat',
-    'fi.wd': 'Informations publiques (Wikidata)', 'fi.wdFounded': 'Fondé en', 'fi.wdStudents': 'Étudiants', 'fi.wdDesc': 'Description',
+    'fi.wdFounded': 'Fondé en', 'fi.wdStudents': 'Étudiants', 'fi.wdDesc': 'Description',
     'fi.near': 'Autres établissements à {c}', 'fi.nearC': 'Autres établissements en {c}',
     'fi.srcM': 'Sources : {s}. LERNA ne modifie pas ces informations ; en cas de doute, la liste officielle fait foi.',
-    'fi.share': 'Partager'
+    'fi.todo_fil': 'Les filières de cet établissement ne sont pas encore vérifiées par LERNA.', 'fi.todo_adm': 'Les conditions propres à cet établissement ne sont pas encore vérifiées par LERNA.',
+    'fi.todo_cout': 'Les frais de cet établissement ne sont pas encore vérifiés par LERNA.', 'fi.todo_vie': 'La vie étudiante (logement, restauration, associations) n’est pas encore vérifiée par LERNA.',
+    'fi.todoWhy': 'On n’affiche rien plutôt que de deviner.', 'fi.ask': 'Demander à LERNA de compléter cette fiche', 'fi.asked': 'Demande envoyée : les fiches les plus demandées sont complétées en premier.',
+    'fi.askThanks': 'Merci ! LERNA complète d’abord les fiches les plus demandées.',
+    'fi.admGen': 'Démarches habituelles dans ce pays', 'fi.admGenSub': 'Règles générales du pays, à confirmer avec l’établissement.', 'fi.conditions': 'Conditions', 'fi.documents': 'Documents', 'fi.deadlines': 'Calendrier',
+    'fi.cricosN': '{n} formations du supérieur ouvertes aux étudiants étrangers (registre CRICOS).',
+    'fi.rCourses': 'Cours', 'fi.rCampus': 'Campus', 'fi.rValue': 'Rapport qualité-prix', 'fi.rJobs': 'Insertion pro',
+    'fi.revCount': '{n} avis vérifié(s)', 'fi.noReviews': 'Pas encore d’avis', 'fi.noReviewsSub': 'Tu y as étudié ? Donne ton avis : il sera publié après vérification.',
+    'fi.google': 'Voir les avis Google', 'fi.googleSub': 'Les avis Google sont écrits par n’importe qui.', 'fi.verified': 'Avis vérifié',
+    'fi.loginToReview': 'Connecte-toi pour donner ton avis.', 'fi.login': 'Se connecter', 'fi.leave': 'Donner mon avis', 'fi.comment': 'Ton commentaire (facultatif)',
+    'fi.commentPh': 'Ce qui t’a plu, ce qui t’a déçu…', 'fi.send': 'Envoyer', 'fi.needStars': 'Donne une note à chaque critère.', 'fi.thanks': 'Merci ! Ton avis sera publié après vérification.', 'fi.yourReview': 'Ton avis'
   },
   en: {
     'fi.back': '← Back', 'fi.nf': 'Profile not found', 'fi.nfSub': 'This programme or institution does not exist (any more) in the official data.', 'fi.toEx': 'Explore →',
     'fi.err': 'Could not load this profile right now. Check your connection and try again.',
+    'fi.tPres': 'Overview', 'fi.tFil': 'Programmes', 'fi.tAdm': 'Admission', 'fi.tCost': 'Costs', 'fi.tLife': 'Student life', 'fi.tRev': 'Reviews',
+    'fi.lvlOff': 'Officially recognised', 'fi.lvlState': 'Recognised by the State', 'fi.lvlBad': 'Unfavourable official decision', 'fi.lvlWd': 'Recognition to be checked',
     'fi.pub': 'Public', 'fi.ctr': 'Private under State contract', 'fi.priv': 'Private', 'fi.sel': 'Selective programme', 'fi.nsel': 'Non-selective programme', 'fi.app': 'Apprenticeship available', 'fi.int': 'Boarding',
-    'fi.kTitle': 'Admission figures {y}', 'fi.kSub': 'Official Parcoursup data from the latest known session for this programme.',
+    'fi.founded': 'Founded in {y}',
+    'fi.kTitle': 'Admission figures {y}', 'fi.kSub': 'Official data from the latest known session for this programme.',
     'fi.kCap': 'places', 'fi.kVoe': 'applications', 'fi.kAcc': 'access rate', 'fi.kRatio': 'applicants per place', 'fi.kAdm': 'admitted', 'fi.kProp': 'applicants received an offer',
     'fi.kRank': 'Rank of the last applicant called', 'fi.kRankSub': 'The higher the rank compared with the places, the further down the list the programme went.',
     'fi.noStats': 'No admission figures published yet for this programme (new programme or new code). Data arrive after each session.',
-    'fi.who': 'Who gets in?', 'fi.bac': 'Baccalaureate type of admitted students', 'fi.bg': 'General bac', 'fi.bt': 'Technological bac', 'fi.bp': 'Vocational bac', 'fi.ment': 'Bac honours of admitted students',
+    'fi.bac': 'Baccalaureate type of admitted students', 'fi.bg': 'General bac', 'fi.bt': 'Technological bac', 'fi.bp': 'Vocational bac', 'fi.ment': 'Bac honours of admitted students',
     'fi.m0': 'No honours', 'fi.mab': 'Fairly good', 'fi.mb': 'Good', 'fi.mtb': 'Very good', 'fi.mtbf': 'Very good with distinction',
     'fi.prof': 'Profile of admitted students', 'fi.pf': 'Women', 'fi.pbrs': 'Scholarship holders', 'fi.pneo': 'New bac holders', 'fi.paca': 'From the same academic region',
     'fi.when': 'When do offers arrive?', 'fi.w1': 'From the start of the main phase', 'fi.w2': 'Before bac results', 'fi.w3': 'Before the end of the main phase',
     'fi.whenSub': 'Share of admitted students who had their offer by each date: if it is low at the start, be patient.',
     'fi.mod': 'Arrangements', 'fi.modNone': 'No specific arrangement published.',
-    'fi.where': 'Where it is', 'fi.others': 'Other Parcoursup programmes at this institution', 'fi.moreO': 'See all programmes →',
-    'fi.apply': 'Apply on Parcoursup', 'fi.site': 'Institution website', 'fi.statsLink': 'Official dashboard',
-    'fi.applyNote': 'Applications are made only on parcoursup.fr. Everything else is here.',
-    'fi.srcP': 'Sources: French Ministry of Higher Education — Parcoursup programme map and Parcoursup admission statistics (Licence Ouverte / Etalab 2.0). Figures from the {y} session.',
+    'fi.where': 'Where it is', 'fi.others': 'Other programmes at this institution', 'fi.seeEtab': 'See the institution’s profile →',
+    'fi.site': 'Institution website', 'fi.share': 'Share', 'fi.seeForm': 'See the programme',
+    'fi.howTitle': 'How to apply', 'fi.applyFR': 'For a first year, applications go through the national platform Parcoursup. LERNA helps you prepare your file: letter, documents and dates.',
+    'fi.platform': 'Programme page on the national platform', 'fi.selN': '{a} selective programme(s) out of {b}: application file, sometimes tests or an interview.',
+    'fi.guideFor': 'For your profile: {g}', 'fi.howVerified': 'Official dates checked on {d} ({s}).', 'fi.officialPage': 'Official page',
+    'fi.srcFR': 'Sources: French Ministry of Higher Education — open data on programmes and admission (Licence Ouverte / Etalab 2.0), {y} session. LERNA can be wrong: if in doubt, the official source prevails.',
     'fi.rec': 'Official recognition', 'fi.list': 'See the official list', 'fi.reg': 'See in the official register', 'fi.wdLink': 'Wikidata entry',
-    'fi.badOff': 'Official register', 'fi.badWd': 'To be checked', 'fi.badBad': 'Unfavourable decision',
     'fi.offOn': 'Listed on the official list of: {a} — “{l}”',
     'fi.badRec': 'UNFAVOURABLE official decision published by: {a} — “{l}”. Do not pay anything without a recent written authorisation.',
+    'fi.recFR': 'Programmes listed by the State: their admission data are published by the French Ministry of Higher Education. Always check the exact degree (national diploma, State-endorsed or RNCP title) of your programme.',
     'fi.rDeqar': 'Reviewed by a registered European quality-assurance agency (official DEQAR database, run by EQAR).',
     'fi.rScore': 'Accredited by {a}, an accreditor recognised by the U.S. Department of Education (College Scorecard).',
     'fi.rOfs': 'Listed on the official register of the Office for Students (England).',
     'fi.rCricos': 'Authorised by the Australian Government to enrol international students (CRICOS register).',
     'fi.rWd': 'Institution listed in the public Wikidata directory. Its official recognition is NOT verified by LERNA: ask for the authorisation numbers and check with the ministry before paying.',
-    'fi.status': 'Official status', 'fi.year': 'Year', 'fi.fees': 'Published fees', 'fi.city': 'City', 'fi.region': 'Region / State', 'fi.alt': 'Other name', 'fi.type': 'Status',
+    'fi.status': 'Official status', 'fi.year': 'Year', 'fi.fees': 'Published fees', 'fi.city': 'City', 'fi.region': 'Region / State', 'fi.alt': 'Other name', 'fi.alsoT': 'Also on: {a} — “{l}”',
     'fi.tPub': 'Public', 'fi.tPriv': 'Private', 'fi.tPrivNl': 'Private non-profit', 'fi.tPrivL': 'Private for-profit',
+    'fi.brief': 'At a glance', 'fi.nForm': 'Programmes', 'fi.nApp': 'Of which work-study', 'fi.nInt': 'With boarding', 'fi.types': 'Programme types',
     'fi.money': 'Costs published by the official source', 'fi.usOut': 'Tuition per year (out-of-state, as for international students)', 'fi.usIn': 'Tuition per year (in-state resident)', 'fi.usCost': 'Average cost of a full year (fees, housing, living)',
     'fi.usAdm': 'Admission rate', 'fi.usUg': 'Undergraduate students', 'fi.auB': 'Bachelor: declared total cost', 'fi.auM': 'Master: declared total cost', 'fi.auN': 'Programmes open to international students',
     'fi.moneyNote': 'Amounts published by the official source; check the fee for your exact programme before paying.',
+    'fi.feeWarn': 'LERNA can be wrong. Before paying, always ask the institution for the exact fee of your programme, in writing.',
     'fi.dap': 'Awards its own degrees', 'fi.dapT': 'bachelor’s and master’s', 'fi.dapR': 'up to doctorate',
-    'fi.wd': 'Public information (Wikidata)', 'fi.wdFounded': 'Founded', 'fi.wdStudents': 'Students', 'fi.wdDesc': 'Description',
+    'fi.wdFounded': 'Founded', 'fi.wdStudents': 'Students', 'fi.wdDesc': 'Description',
     'fi.near': 'Other institutions in {c}', 'fi.nearC': 'Other institutions in {c}',
     'fi.srcM': 'Sources: {s}. LERNA does not change this information; if in doubt, the official list prevails.',
-    'fi.share': 'Share'
+    'fi.todo_fil': 'This institution’s programmes are not checked by LERNA yet.', 'fi.todo_adm': 'This institution’s own requirements are not checked by LERNA yet.',
+    'fi.todo_cout': 'This institution’s fees are not checked by LERNA yet.', 'fi.todo_vie': 'Student life (housing, food, clubs) is not checked by LERNA yet.',
+    'fi.todoWhy': 'We show nothing rather than guess.', 'fi.ask': 'Ask LERNA to complete this profile', 'fi.asked': 'Request sent: the most requested profiles are completed first.',
+    'fi.askThanks': 'Thank you! LERNA completes the most requested profiles first.',
+    'fi.admGen': 'Usual steps in this country', 'fi.admGenSub': 'General rules for the country, to be confirmed with the institution.', 'fi.conditions': 'Requirements', 'fi.documents': 'Documents', 'fi.deadlines': 'Timeline',
+    'fi.cricosN': '{n} higher-education programmes open to international students (CRICOS register).',
+    'fi.rCourses': 'Courses', 'fi.rCampus': 'Campus', 'fi.rValue': 'Value for money', 'fi.rJobs': 'Job prospects',
+    'fi.revCount': '{n} verified review(s)', 'fi.noReviews': 'No reviews yet', 'fi.noReviewsSub': 'Did you study here? Leave a review: it will be published after checking.',
+    'fi.google': 'See Google reviews', 'fi.googleSub': 'Google reviews can be written by anyone.', 'fi.verified': 'Verified review',
+    'fi.loginToReview': 'Log in to leave a review.', 'fi.login': 'Log in', 'fi.leave': 'Leave a review', 'fi.comment': 'Your comment (optional)',
+    'fi.commentPh': 'What you liked, what disappointed you…', 'fi.send': 'Send', 'fi.needStars': 'Rate each criterion.', 'fi.thanks': 'Thank you! Your review will be published after checking.', 'fi.yourReview': 'Your review'
   }
 });
 
@@ -159,9 +227,9 @@ Lerna.addStrings({
   var t = Lerna.t, esc = Lerna.esc, L = Lerna.L;
   var $ = function (id) { return document.getElementById(id); };
   var root = $('root');
-  var PSUP = 'https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/';
-  var CARTO = PSUP + 'fr-esr-cartographie_formations_parcoursup/records';
-  var STATS = PSUP + 'fr-esr-parcoursup/records';
+  var DSB = 'https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/';
+  var CARTO = DSB + 'fr-esr-cartographie_formations_parcoursup/records';
+  var STATS = DSB + 'fr-esr-parcoursup/records';
   var nf = function (n) { return Number(n).toLocaleString(Lerna.lang === 'en' ? 'en-US' : 'fr-FR'); };
   var pct = function (n) { return Math.round(Number(n)) + ' %'; };
   var has = function (v) { return v !== null && v !== undefined && v !== '' && !(typeof v === 'number' && isNaN(v)); };
@@ -175,94 +243,254 @@ Lerna.addStrings({
   }
   function kpi(v, l, hl) { return '<div class="kpi' + (hl ? ' hl' : '') + '"><div class="v">' + v + '</div><div class="l">' + esc(l) + '</div></div>'; }
   function bar(label, p) { if (!has(p)) return ''; var w = Math.max(0, Math.min(100, Number(p))); return '<div class="fb"><div class="top"><span>' + esc(label) + '</span><b>' + pct(p) + '</b></div><div class="trk"><div class="fill" style="width:' + w + '%"></div></div></div>'; }
-  function row(k, v) { return v ? '<div class="row"><span class="k">' + esc(k) + '</span><span class="v">' + v + '</span></div>' : ''; }
+  /* Valeur longue (une phrase) : sous le libellé, pas serrée à droite */
+  function row(k, v) { return v ? '<div class="row' + (String(v).replace(/<[^>]+>/g, '').length > 48 ? ' col' : '') + '"><span class="k">' + esc(k) + '</span><span class="v">' + v + '</span></div>' : ''; }
+  function card(title, body) { return '<div class="card">' + (title ? '<h3>' + esc(title) + '</h3>' : '') + body + '</div>'; }
   function mapFrame(lat, lon) {
     if (!has(lat) || !has(lon)) return '';
     var d = 0.012, bb = [lon - d, lat - d * 0.6, lon + d, lat + d * 0.6].join(',');
     return '<iframe class="map" loading="lazy" title="OpenStreetMap" src="https://www.openstreetmap.org/export/embed.html?bbox=' + encodeURIComponent(bb) + '&layer=mapnik&marker=' + lat + ',' + lon + '"></iframe>' +
       '<p class="note" style="margin-top:6px">© OpenStreetMap contributors</p>';
   }
+  var SKIPW = /^(de|des|du|la|le|les|l|d|and|the|of|et|en|pour|sur|a|au|aux|in|for)$/i;
+  function sigleOf(name) {
+    var a = (String(name).match(/\(([A-Za-z0-9 .\-]{2,12})\)/) || [])[1];
+    if (a && /^[A-Z0-9][A-Z0-9 .\-]{1,11}$/.test(a.trim())) return a.replace(/[\s.\-]/g, '').slice(0, 6).toUpperCase();
+    var w = String(name).replace(/\([^)]*\)/g, ' ').split(/[\s\-'’]+/).filter(function (x) { return x.length > 1 && !SKIPW.test(x); });
+    return w.slice(0, 3).map(function (x) { return x[0]; }).join('').toUpperCase() || '·';
+  }
 
-  /* ---------------- Formation Parcoursup ---------------- */
-  function psupFiche(gta) {
-    var where = 'gta=' + q(gta);
-    return get(CARTO + '?limit=1&order_by=annee%20desc&where=' + encodeURIComponent(where)).then(function (j) {
+  /* ================== La fiche (même présentation que les fiches LERNA) ================== */
+  var TABS = [['pres', 'fi.tPres'], ['fil', 'fi.tFil'], ['adm', 'fi.tAdm'], ['cout', 'fi.tCost'], ['vie', 'fi.tLife'], ['avis', 'fi.tRev']];
+  var F = null;
+  function typeTag() {
+    if (F.type === 'public') return '<span class="badge badge-olive">' + esc(t('fi.pub')) + '</span>';
+    if (F.type === 'ctr') return '<span class="badge badge-soft">' + esc(t('fi.ctr')) + '</span>';
+    if (F.type === 'private') return '<span class="badge badge-soft">' + esc(F.typeLabel || t('fi.priv')) + '</span>';
+    return '';
+  }
+  function shell() {
+    document.title = F.title + ' — LERNA';
+    var site = https(F.site);
+    root.innerHTML = back() +
+      '<div class="banner" aria-hidden="true">' + Lerna.flag(F.cc) + '</div>' +
+      '<div class="id-row"><div class="s-logo" aria-hidden="true">' + esc(F.sigle) + '</div></div>' +
+      '<div class="s-title"><span class="lvl lvl-' + F.level.k + '">' + Lerna.icon(F.level.k === 'off' ? 'check' : 'info', 'ic-sm') + esc(F.level.txt) + '</span>' +
+        '<h1>' + esc(F.title) + '</h1>' +
+        (F.sub ? '<div class="s-sub">' + (F.subHref ? '<a href="' + esc(F.subHref) + '">' + esc(F.sub) + ' →</a>' : esc(F.sub)) + '</div>' : '') +
+        '<div class="s-meta">' + typeTag() +
+          (F.loc ? '<span class="tag">' + Lerna.icon('pin', 'ic-sm') + esc(F.loc) + '</span>' : '') +
+          '<span id="fFounded">' + (F.founded ? '<span class="tag">' + Lerna.icon('calendar', 'ic-sm') + esc(t('fi.founded', { y: F.founded })) + '</span>' : '') + '</span>' +
+          (site ? '<a class="tag" href="' + esc(site) + '" target="_blank" rel="noopener nofollow" style="text-decoration:none">' + Lerna.icon('globe', 'ic-sm') + esc(site.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')) + '</a>' : '') +
+        '</div></div>' +
+      '<div class="tabs-wrap"><div class="tabs" role="tablist">' + TABS.map(function (x) {
+        return '<button type="button" class="tab" role="tab" data-tab="' + x[0] + '" aria-controls="panel">' + esc(t(x[1])) + '</button>';
+      }).join('') + '</div></div>' +
+      '<section class="panel tab-panel active" id="panel" role="tabpanel"></section>';
+    renderPanel();
+  }
+  function renderPanel() {
+    if (!F.tabs[F.tab]) F.tab = 'pres';
+    Lerna.qsa('.tab').forEach(function (b) { var on = b.getAttribute('data-tab') === F.tab; b.classList.toggle('active', on); b.setAttribute('aria-selected', String(on)); });
+    var p = $('panel');
+    p.innerHTML = '<div class="stack">' + F.tabs[F.tab]() + '</div>' + (F.src ? '<p class="note" style="margin-top:18px">' + esc(F.src) + '</p>' : '');
+    p.classList.remove('active'); void p.offsetWidth; p.classList.add('active');
+    if (F.tab === 'avis') loadReviews();
+  }
+
+  /* « À compléter » : jamais de chiffre inventé ; la demande des élèves dit quelles fiches compléter en premier */
+  function asked() { return Lerna.store.get('lerna_asked', {}) || {}; }
+  function todo(kind) {
+    var done = asked()[F.key];
+    return '<div class="todo"><b>' + esc(t('fi.todo_' + kind)) + '</b> ' + esc(t('fi.todoWhy')) +
+      '<div style="margin-top:12px">' + (done ? '<span class="asked">' + Lerna.icon('check', 'ic-sm') + esc(t('fi.asked')) + '</span>' : '<button type="button" class="btn btn-primary btn-sm" data-ask>' + esc(t('fi.ask')) + '</button>') + '</div></div>';
+  }
+  function feeWarn() { return '<div class="fee-warn">' + Lerna.icon('info') + '<span>' + esc(t('fi.feeWarn')) + '</span></div>'; }
+
+  /* Démarches : guide LERNA du pays (vérifié) quand il existe */
+  function admKeyFor(cc, type) {
+    var S = window.LERNA_SCHOOLS || [], same = S.filter(function (s) { return s.pays === cc && s.type === type && s.adm !== 'online'; })[0];
+    var any = same || S.filter(function (s) { return s.pays === cc && s.adm !== 'online'; })[0];
+    return any ? any.adm : null;
+  }
+  function guideHtml(adm) {
+    if (!adm || !window.LERNA_GUIDE_FOR) return '';
+    var g = window.LERNA_GUIDE_FOR({ adm: adm }, Lerna.country(), (Lerna.store.get('lerna_profile', null) || {}).answers);
+    if (!g) return '';
+    return '<p class="small muted" style="margin-top:6px"><strong>' + esc(t('fi.guideFor', { g: L(g.label) })) + '</strong> — ' + esc(L(g.who)) + '</p>' +
+      '<ol class="steps" style="margin-top:14px">' + g.steps.map(function (x) {
+        return '<li><span><strong>' + esc(L(x.title)) + '</strong>' + (L(x.desc) ? '<br><span class="muted small">' + esc(L(x.desc)) + '</span>' : '') +
+          (x.link ? '<br><a class="orange small bold" href="' + esc(x.link) + '" target="_blank" rel="noopener">' + esc(t('fi.officialPage')) + ' ↗</a>' : '') + '</span></li>';
+      }).join('') + '</ol>' + (g.verifie ? '<p class="note">' + esc(t('fi.howVerified', { d: Lerna.fmtDate(g.verifie), s: g.source || '' })) + '</p>' : '');
+  }
+  function admGeneral(cc, adm) {
+    var a = adm && window.LERNA_ADMISSION && window.LERNA_ADMISSION[adm];
+    if (!a) return '';
+    return '<div class="card"><h3>' + esc(t('fi.admGen')) + '</h3><p class="note" style="margin:-6px 0 12px">' + esc(t('fi.admGenSub')) + '</p>' +
+      '<div class="rows">' + row(t('fi.conditions'), esc(L(a.conditions))) + row(t('fi.deadlines'), esc(L(a.dates))) + '</div>' +
+      (a.documents && a.documents.length ? '<h4 style="margin-top:14px">' + esc(t('fi.documents')) + '</h4><ul class="list-check" style="margin-top:8px">' + a.documents.map(function (d) { return '<li>' + esc(L(d)) + '</li>'; }).join('') + '</ul>' : '') +
+      guideHtml(adm) + '</div>';
+  }
+
+  /* ---------------- Avis (table « avis » : même système que les fiches LERNA) ---------------- */
+  var CATS = [['cours', 'fi.rCourses'], ['campus', 'fi.rCampus'], ['prix', 'fi.rValue'], ['insertion', 'fi.rJobs']];
+  var REV = { key: null, list: null }, draft = {};
+  function stars(n) { var h = ''; for (var i = 1; i <= 5; i++) h += i <= n ? '★' : '<span class="off">★</span>'; return '<span class="stars">' + h + '</span>'; }
+  function loadReviews() {
+    var A = Lerna.auth;
+    if (REV.key === F.key || A.mode !== 'supabase' || !A.sb) return;
+    REV.key = F.key;
+    A.sb.from('avis').select('note_cours,note_campus,note_prix,note_insertion,commentaire,date_publication').eq('ecole_id', F.key).eq('valide', true)
+      .order('date_publication', { ascending: false }).limit(30)
+      .then(function (r) { if (!r.error) { REV.list = r.data || []; if (F.tab === 'avis') renderPanel(); } }, function () {});
+  }
+  function avg(k) { var v = REV.list || []; if (!v.length) return 0; return Math.round(v.reduce(function (a, x) { return a + (x[k] || 0); }, 0) / v.length); }
+  function panelRev() {
+    var mine = (Lerna.store.get('lerna_reviews', {}) || {})[F.key], list = REV.key === F.key ? REV.list || [] : [], hasR = list.length;
+    var g = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(F.title + ' ' + (F.city || ''));
+    var h = '<div class="card">' + (hasR ? '<p class="bold" style="margin-bottom:10px">' + esc(t('fi.revCount', { n: list.length })) + '</p>' : '') + '<div class="rate-grid">' + CATS.map(function (c) {
+      return '<div class="rate-row"><span class="bold">' + esc(t(c[1])) + '</span>' + stars(hasR ? avg('note_' + c[0]) : 0) + '</div>';
+    }).join('') + '</div></div>';
+    h += hasR ? list.filter(function (x) { return x.commentaire; }).map(function (x) {
+      var m = Math.round(((x.note_cours || 0) + (x.note_campus || 0) + (x.note_prix || 0) + (x.note_insertion || 0)) / 4);
+      return '<div class="card"><div class="row" style="justify-content:space-between;border:0;padding:0"><strong>' + esc(t('fi.verified')) + '</strong>' + stars(m) + '</div><p style="margin-top:8px">' + esc(x.commentaire) + '</p><p class="xsmall muted" style="margin-top:6px">' + Lerna.fmtDate(String(x.date_publication).slice(0, 10)) + '</p></div>';
+    }).join('') : '<div class="empty">' + Lerna.icon('chat') + '<h4>' + esc(t('fi.noReviews')) + '</h4><p>' + esc(t('fi.noReviewsSub')) + '</p></div>';
+    h += '<div class="card" style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><span class="small muted">' + esc(t('fi.googleSub')) + '</span><a class="btn btn-white btn-sm" href="' + g + '" target="_blank" rel="noopener">' + (Lerna.googleIcon || '') + esc(t('fi.google')) + '</a></div>';
+    if (mine) {
+      h += '<div class="card"><h4>' + esc(t('fi.yourReview')) + '</h4><div class="rate-grid" style="margin:12px 0">' + CATS.map(function (c) { return '<div class="rate-row"><span>' + esc(t(c[1])) + '</span>' + stars(mine[c[0]]) + '</div>'; }).join('') + '</div><p>' + esc(mine.commentaire || '') + '</p></div>';
+    } else if (!Lerna.isLogged()) {
+      h += '<div class="card" style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><span>' + esc(t('fi.loginToReview')) + '</span><a class="btn btn-brown btn-sm" href="auth.html?mode=login&redirect=' + encodeURIComponent(location.pathname.split('/').pop() + location.search) + '">' + esc(t('fi.login')) + '</a></div>';
+    } else {
+      h += '<form class="card" id="revForm" novalidate><h3>' + esc(t('fi.leave')) + '</h3><div class="rate-grid" style="margin:8px 0 18px">' + CATS.map(function (c) {
+        var b = ''; for (var i = 1; i <= 5; i++) b += '<button type="button" data-cat="' + c[0] + '" data-v="' + i + '" class="' + (draft[c[0]] >= i ? 'on' : '') + '" aria-label="' + i + '/5">★</button>';
+        return '<div class="rate-row"><span class="bold">' + esc(t(c[1])) + '</span><span class="star-input" role="group" aria-label="' + esc(t(c[1])) + '">' + b + '</span></div>';
+      }).join('') + '</div>' +
+        '<div class="field"><label for="revTxt">' + esc(t('fi.comment')) + '</label><textarea class="textarea" id="revTxt" maxlength="1500" placeholder="' + esc(t('fi.commentPh')) + '"></textarea></div>' +
+        '<p class="field-error" id="revErr" style="margin-top:8px"></p>' +
+        '<button type="submit" class="btn btn-primary" style="margin-top:8px">' + esc(t('fi.send')) + '</button></form>';
+    }
+    return h;
+  }
+
+  /* ================== 1. Formation (données ouvertes du ministère, France) ================== */
+  function statsHtml(s) {
+    if (!s) return '<div class="card"><p class="note">' + esc(t('fi.noStats')) + '</p></div>';
+    var ratio = s.capa_fin ? Math.round((s.voe_tot || 0) / s.capa_fin) : null;
+    var h = '<div class="card"><h3>' + esc(t('fi.kTitle', { y: s.session })) + '</h3><p class="note" style="margin:-4px 0 12px">' + esc(t('fi.kSub')) + '</p><div class="kpis">' +
+      (has(s.taux_acces_ens) ? kpi(pct(s.taux_acces_ens), t('fi.kAcc'), true) : '') + (has(s.capa_fin) ? kpi(nf(s.capa_fin), t('fi.kCap')) : '') +
+      (has(s.voe_tot) ? kpi(nf(s.voe_tot), t('fi.kVoe')) : '') + (ratio ? kpi(nf(ratio), t('fi.kRatio')) : '') +
+      (has(s.prop_tot) ? kpi(nf(s.prop_tot), t('fi.kProp')) : '') + (has(s.acc_tot) ? kpi(nf(s.acc_tot), t('fi.kAdm')) : '') + '</div>';
+    var ranks = [1, 2, 3].map(function (i) { return has(s['ran_grp' + i]) ? row(s['lib_grp' + i] || '—', nf(s['ran_grp' + i])) : ''; }).join('');
+    if (ranks) h += '<h4 style="margin-top:16px">' + esc(t('fi.kRank')) + '</h4><div class="rows">' + ranks + '</div><p class="note">' + esc(t('fi.kRankSub')) + '</p>';
+    h += '</div><div class="two">' +
+      card(t('fi.bac'), '<div class="fbs">' + bar(t('fi.bg'), s.pct_bg) + bar(t('fi.bt'), s.pct_bt) + bar(t('fi.bp'), s.pct_bp) + '</div>') +
+      card(t('fi.ment'), '<div class="fbs">' + bar(t('fi.m0'), s.pct_sansmention) + bar(t('fi.mab'), s.pct_ab) + bar(t('fi.mb'), s.pct_b) + bar(t('fi.mtb'), s.pct_tb) + bar(t('fi.mtbf'), s.pct_tbf) + '</div>') +
+      '</div><div class="two">' +
+      card(t('fi.prof'), '<div class="fbs">' + bar(t('fi.pf'), s.pct_f) + bar(t('fi.pbrs'), s.pct_bours) + bar(t('fi.pneo'), s.pct_neobac) + bar(t('fi.paca'), s.pct_aca_orig) + '</div>') +
+      card(t('fi.when'), '<div class="fbs">' + bar(t('fi.w1'), s.pct_acc_debutpp) + bar(t('fi.w2'), s.pct_acc_datebac) + bar(t('fi.w3'), s.pct_acc_finpp) + '</div><p class="note" style="margin-top:10px">' + esc(t('fi.whenSub')) + '</p>') +
+      '</div>';
+    return h;
+  }
+  function applyFR(link) {
+    return '<div class="card"><h3>' + esc(t('fi.howTitle')) + '</h3><p>' + esc(t('fi.applyFR')) + '</p>' + guideHtml('fr-public') +
+      (https(link) ? '<div class="acts" style="margin-top:14px"><a class="btn btn-ghost btn-sm" href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(t('fi.platform')) + ' ↗</a></div>' : '') + '</div>';
+  }
+  function accredFR(tc) { return window.LERNA_ACCRED ? window.LERNA_ACCRED({ pays: 'FR', type: /^Public/.test(tc || '') ? 'public' : 'private' }) : ''; }
+  function tcType(tc) { return /^Public/.test(tc || '') ? 'public' : /contrat/i.test(tc || '') ? 'ctr' : tc ? 'private' : ''; }
+
+  function formationFiche(gta) {
+    return get(CARTO + '?limit=1&order_by=annee%20desc&where=' + encodeURIComponent('gta=' + q(gta))).then(function (j) {
       var f = (j.results || [])[0]; if (!f) return notFound();
-      document.title = (arr(f.nm)[0] || 'Formation') + ' — LERNA';
       var statsP = get(STATS + '?limit=1&order_by=session%20desc&where=' + encodeURIComponent('cod_aff_form=' + q(gta))).then(function (s) { return (s.results || [])[0] || null; }, function () { return null; });
       var othersP = f.etab_uai ? get(CARTO + '?limit=40&select=gta,nm,fl,app&order_by=nm&where=' + encodeURIComponent('annee=' + q(f.annee) + ' and etab_uai=' + q(f.etab_uai) + ' and gta!=' + q(gta))).then(function (o) { return o; }, function () { return null; }) : Promise.resolve(null);
-      return Promise.all([statsP, othersP]).then(function (res) { renderPsup(f, res[0], res[1]); });
+      return Promise.all([statsP, othersP]).then(function (res) {
+        var s = res[0], others = res[1], g = f.etab_gps || (s && s.g_olocalisation_des_formations);
+        var name = arr(f.nm).join(' · ') || arr(f.fl).join(' · ');
+        F = { key: 'fr-uai:' + (f.etab_uai || gta), cc: 'FR', title: name, sub: f.etab_nom || '', subHref: f.etab_uai ? 'fiche.html?uai=' + encodeURIComponent(f.etab_uai) : '',
+          type: tcType(f.tc), loc: [f.commune, f.departement !== f.commune ? f.departement : ''].filter(Boolean).join(', '), city: f.commune, site: f.etab_url, sigle: sigleOf(f.etab_nom || name),
+          level: { k: 'off', txt: t('fi.lvlState') }, tab: Lerna.param('tab') || 'pres', src: t('fi.srcFR', { y: s ? s.session : f.annee }) };
+        var mods = arr(f.amg).concat(arr(f.aut));
+        F.tabs = {
+          pres: function () {
+            var k = s ? '<div class="kpis">' + (has(s.taux_acces_ens) ? kpi(pct(s.taux_acces_ens), t('fi.kAcc'), true) : '') + (has(s.capa_fin) ? kpi(nf(s.capa_fin), t('fi.kCap')) : '') + (has(s.voe_tot) ? kpi(nf(s.voe_tot), t('fi.kVoe')) : '') + (has(s.acc_tot) ? kpi(nf(s.acc_tot), t('fi.kAdm')) : '') + '</div>' : '';
+            var tags = arr(f.tf).concat(s && s.select_form ? [t(/non/i.test(s.select_form) ? 'fi.nsel' : 'fi.sel')] : []).concat(f.app ? [t('fi.app')] : []).concat(f.int ? [t('fi.int')] : []);
+            return (k ? card(t('fi.kTitle', { y: s.session }), k) : '') +
+              card(t('fi.brief'), '<div class="s-meta" style="margin-top:0">' + tags.map(function (x) { return '<span class="tag">' + esc(x) + '</span>'; }).join('') + '</div>') +
+              card(t('fi.mod'), mods.length ? '<ul class="list-dot">' + mods.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' : '<p class="note">' + esc(t('fi.modNone')) + '</p>') +
+              card(t('fi.rec'), '<p>' + esc(t('fi.recFR')) + '</p>') +
+              (g && has(g.lat) ? card(t('fi.where'), mapFrame(g.lat, g.lon)) : '');
+          },
+          fil: function () {
+            var list = others && others.results || [];
+            return card(t('fi.others'), (list.length ? '<div class="others">' + list.map(function (o) { return '<a href="fiche.html?psup=' + encodeURIComponent(o.gta) + '">' + esc(arr(o.nm).join(' · ') || arr(o.fl).join(' · ')) + (o.app ? '<small>' + esc(t('fi.app')) + '</small>' : '') + '</a>'; }).join('') + '</div>' : '') +
+              (F.subHref ? '<p style="margin-top:12px"><a class="orange bold" href="' + esc(F.subHref) + '">' + esc(t('fi.seeEtab')) + '</a></p>' : ''));
+          },
+          adm: function () { return statsHtml(s) + applyFR(f.fiche) + accredFR(f.tc); },
+          cout: function () { return todo('cout') + feeWarn(); },
+          vie: function () { return todo('vie'); },
+          avis: panelRev
+        };
+        shell(); Lerna.track('fr_formation', gta);
+      });
     }).catch(function () { notFound(true); });
   }
-  function renderPsup(f, s, others) {
-    var tc = f.tc || '', h = '';
-    var badges = (/^Public/.test(tc) ? '<span class="pub">' + esc(t('fi.pub')) + '</span>' : /contrat/i.test(tc) ? '<span class="ctr">' + esc(t('fi.ctr')) + '</span>' : tc ? '<span>' + esc(t('fi.priv')) + '</span>' : '') +
-      arr(f.tf).map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') +
-      (s && s.select_form ? '<span>' + esc(t(/non/i.test(s.select_form) ? 'fi.nsel' : 'fi.sel')) + '</span>' : '') +
-      (f.app ? '<span>' + esc(t('fi.app')) + '</span>' : '') + (f.int ? '<span>' + esc(t('fi.int')) + '</span>' : '');
-    h += back() + '<div class="hero"><h1>' + esc(arr(f.nm).join(' · ') || arr(f.fl).join(' · ')) + '</h1>' +
-      '<div class="etab">' + esc(f.etab_nom || '') + '</div>' +
-      '<div class="loc">' + Lerna.flag('FR', 'stk-xs') + ' ' + esc([f.commune, f.departement, f.region].filter(Boolean).join(', ')) + '</div>' +
-      '<div class="badges">' + badges + '</div></div>';
 
-    /* Chiffres */
-    if (s) {
-      var ratio = s.capa_fin ? Math.round((s.voe_tot || 0) / s.capa_fin) : null;
-      h += '<div class="card sec"><h3>' + esc(t('fi.kTitle', { y: s.session })) + '</h3><p class="note" style="margin:-4px 0 12px">' + esc(t('fi.kSub')) + '</p><div class="kpis">' +
-        (has(s.taux_acces_ens) ? kpi(pct(s.taux_acces_ens), t('fi.kAcc'), true) : '') +
-        (has(s.capa_fin) ? kpi(nf(s.capa_fin), t('fi.kCap')) : '') +
-        (has(s.voe_tot) ? kpi(nf(s.voe_tot), t('fi.kVoe')) : '') +
-        (ratio ? kpi(nf(ratio), t('fi.kRatio')) : '') +
-        (has(s.prop_tot) ? kpi(nf(s.prop_tot), t('fi.kProp')) : '') +
-        (has(s.acc_tot) ? kpi(nf(s.acc_tot), t('fi.kAdm')) : '') +
-        '</div>';
-      var ranks = [1, 2, 3].map(function (i) { return has(s['ran_grp' + i]) ? row(s['lib_grp' + i] || '—', nf(s['ran_grp' + i])) : ''; }).join('');
-      if (ranks) h += '<h4 style="margin-top:16px">' + esc(t('fi.kRank')) + '</h4><div class="rows">' + ranks + '</div><p class="note">' + esc(t('fi.kRankSub')) + '</p>';
-      h += '</div>';
-
-      h += '<div class="two sec">' +
-        '<div class="card"><h3>' + esc(t('fi.bac')) + '</h3><div class="fbs">' + bar(t('fi.bg'), s.pct_bg) + bar(t('fi.bt'), s.pct_bt) + bar(t('fi.bp'), s.pct_bp) + '</div></div>' +
-        '<div class="card"><h3>' + esc(t('fi.ment')) + '</h3><div class="fbs">' + bar(t('fi.m0'), s.pct_sansmention) + bar(t('fi.mab'), s.pct_ab) + bar(t('fi.mb'), s.pct_b) + bar(t('fi.mtb'), s.pct_tb) + bar(t('fi.mtbf'), s.pct_tbf) + '</div></div>' +
-        '</div>';
-      h += '<div class="two sec">' +
-        '<div class="card"><h3>' + esc(t('fi.prof')) + '</h3><div class="fbs">' + bar(t('fi.pf'), s.pct_f) + bar(t('fi.pbrs'), s.pct_bours) + bar(t('fi.pneo'), s.pct_neobac) + bar(t('fi.paca'), s.pct_aca_orig) + '</div></div>' +
-        '<div class="card"><h3>' + esc(t('fi.when')) + '</h3><div class="fbs">' + bar(t('fi.w1'), s.pct_acc_debutpp) + bar(t('fi.w2'), s.pct_acc_datebac) + bar(t('fi.w3'), s.pct_acc_finpp) + '</div><p class="note" style="margin-top:10px">' + esc(t('fi.whenSub')) + '</p></div>' +
-        '</div>';
-    } else {
-      h += '<div class="card sec"><p class="note">' + esc(t('fi.noStats')) + '</p></div>';
-    }
-
-    /* Modalités */
-    var mods = arr(f.amg).concat(arr(f.aut));
-    h += '<div class="card sec"><h3>' + esc(t('fi.mod')) + '</h3>' + (mods.length ? '<ul class="list-dot">' + mods.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' : '<p class="note">' + esc(t('fi.modNone')) + '</p>') + '</div>';
-
-    /* Reconnaissance */
-    if (window.LERNA_ACCRED) h += '<div class="sec">' + window.LERNA_ACCRED({ pays: 'FR', type: /^Public/.test(tc) ? 'public' : 'private' }) + '</div>';
-
-    /* Carte */
-    var g = f.etab_gps || (s && s.g_olocalisation_des_formations);
-    if (g && has(g.lat)) h += '<div class="card sec"><h3>' + esc(t('fi.where')) + '</h3>' + mapFrame(g.lat, g.lon) + '</div>';
-
-    /* Autres formations */
-    var list = others && others.results || [];
-    if (list.length) {
-      h += '<div class="card sec"><h3>' + esc(t('fi.others')) + '</h3><div class="others">' +
-        list.slice(0, 15).map(function (o) { return '<a href="fiche.html?psup=' + encodeURIComponent(o.gta) + '">' + esc(arr(o.nm).join(' · ') || arr(o.fl).join(' · ')) + (o.app ? '<small>' + esc(t('fi.app')) + '</small>' : '') + '</a>'; }).join('') +
-        '</div>' + (others.total_count > 15 ? '<p style="margin-top:10px"><a class="orange bold" href="explorer.html?src=psup&q=' + encodeURIComponent(f.etab_nom || '') + '">' + esc(t('fi.moreO')) + '</a></p>' : '') + '</div>';
-    }
-
-    /* Actions */
-    h += '<div class="card sec"><p class="note" style="margin-bottom:10px">' + esc(t('fi.applyNote')) + '</p><div class="acts">' +
-      (https(f.fiche) ? '<a class="btn btn-primary btn-sm" href="' + esc(f.fiche) + '" target="_blank" rel="noopener">' + esc(t('fi.apply')) + ' ↗</a>' : '') +
-      (https(f.etab_url) ? '<a class="btn btn-ghost btn-sm" href="' + esc(f.etab_url) + '" target="_blank" rel="noopener nofollow">' + esc(t('fi.site')) + ' ↗</a>' : '') +
-      '<button type="button" class="btn btn-ghost btn-sm" id="shareBtn">' + esc(t('fi.share')) + '</button>' +
-      '</div></div>';
-    h += '<p class="note sec">' + esc(t('fi.srcP', { y: s ? s.session : f.annee })) + '</p>';
-    root.innerHTML = h;
-    Lerna.track('psup_fiche', f.gta);
+  /* ================== 2. Établissement français : toutes ses formations ================== */
+  function etabFiche(uai) {
+    var w0 = 'etab_uai=' + q(uai);
+    return get(CARTO + '?limit=1&select=annee&order_by=annee%20desc&where=' + encodeURIComponent(w0)).then(function (j) {
+      var y = ((j.results || [])[0] || {}).annee; if (!y) return notFound();
+      var where = encodeURIComponent(w0 + ' and annee=' + q(y));
+      var page = function (o) { return get(CARTO + '?limit=100&offset=' + o + '&order_by=nm&where=' + where); };
+      return page(0).then(function (p0) {
+        var total = p0.total_count || 0, more = [];
+        for (var o = 100; o < Math.min(total, 400); o += 100) more.push(page(o));
+        return Promise.all(more).then(function (ps) { return [p0].concat(ps).reduce(function (a, p) { return a.concat(p.results || []); }, []); });
+      }).then(function (forms) {
+        var statsP = get(STATS + '?limit=100&order_by=session%20desc&select=cod_aff_form,session,capa_fin,voe_tot,taux_acces_ens,select_form&where=' + encodeURIComponent('cod_uai=' + q(uai))).then(function (s) {
+          var by = {}, last = null; (s.results || []).forEach(function (r) { last = last || r.session; if (r.session === last && !by[r.cod_aff_form]) by[r.cod_aff_form] = r; }); return { by: by, session: last };
+        }, function () { return { by: {}, session: null }; });
+        return statsP.then(function (st) { renderEtab(uai, y, forms, st); });
+      });
+    }).catch(function () { notFound(true); });
+  }
+  function renderEtab(uai, year, forms, st) {
+    if (!forms.length) return notFound();
+    var f0 = forms[0], g = (forms.filter(function (f) { return f.etab_gps && has(f.etab_gps.lat); })[0] || {}).etab_gps;
+    var types = {}, nApp = 0, nInt = 0, nSel = 0, nStat = 0;
+    forms.forEach(function (f) {
+      var k = arr(f.tf)[0] || '—'; (types[k] = types[k] || []).push(f);
+      if (f.app) nApp++; if (f.int) nInt++;
+      var s = st.by[f.gta]; if (s) { nStat++; if (s.select_form && !/non/i.test(s.select_form)) nSel++; }
+    });
+    var tkeys = Object.keys(types).sort(function (a, b) { return types[b].length - types[a].length; });
+    F = { key: 'fr-uai:' + uai, cc: 'FR', title: f0.etab_nom || '', type: tcType(f0.tc), loc: [f0.commune, f0.departement !== f0.commune ? f0.departement : ''].filter(Boolean).join(', '), city: f0.commune, site: f0.etab_url,
+      sigle: sigleOf(f0.etab_nom || ''), level: { k: 'off', txt: t('fi.lvlState') }, tab: Lerna.param('tab') || 'pres', src: t('fi.srcFR', { y: st.session || year }) };
+    F.tabs = {
+      pres: function () {
+        return card(t('fi.brief'), '<div class="rows">' + row(t('fi.nForm'), nf(forms.length)) + (nApp ? row(t('fi.nApp'), nf(nApp)) : '') + (nInt ? row(t('fi.nInt'), nf(nInt)) : '') +
+            row(t('fi.types'), esc(tkeys.slice(0, 6).join(' · '))) + row(t('fi.region'), esc(f0.region || '')) + '</div>') +
+          card(t('fi.rec'), '<p>' + esc(t('fi.recFR')) + '</p>') +
+          (g ? card(t('fi.where'), mapFrame(g.lat, g.lon)) : '');
+      },
+      fil: function () {
+        return tkeys.map(function (k) {
+          return '<div class="fgroup"><h4>' + esc(k) + ' · ' + types[k].length + '</h4><div class="others">' + types[k].map(function (f) {
+            var s = st.by[f.gta];
+            var info = [s && has(s.taux_acces_ens) ? t('fi.kAcc') + ' : ' + pct(s.taux_acces_ens) : '', f.app ? t('fi.app') : ''].filter(Boolean).join(' · ');
+            return '<a href="fiche.html?psup=' + encodeURIComponent(f.gta) + '"><span class="fitem"><span>' + esc(arr(f.nm).join(' · ') || arr(f.fl).join(' · ')) + '</span>' + (s && has(s.capa_fin) ? '<span class="k">' + nf(s.capa_fin) + ' ' + esc(t('fi.kCap')) + '</span>' : '') + '</span>' + (info ? '<small>' + esc(info) + '</small>' : '') + '</a>';
+          }).join('') + '</div></div>';
+        }).join('');
+      },
+      adm: function () { return (nStat ? card('', '<p>' + esc(t('fi.selN', { a: nSel, b: nStat })) + '</p>') : '') + applyFR('') + accredFR(f0.tc); },
+      cout: function () { return todo('cout') + feeWarn(); },
+      vie: function () { return todo('vie'); },
+      avis: panelRev
+    };
+    shell(); Lerna.track('fr_etab', uai);
   }
 
-  /* ---------------- Établissement de l'annuaire mondial ---------------- */
+  /* ================== 3. Établissement de l'annuaire mondial (registres officiels) ================== */
   var SRC_NAME = { deqar: 'DEQAR — EQAR (ODC-PDDL)', scorecard: 'College Scorecard — U.S. Department of Education', ofs: 'Office for Students (Open Government Licence v3.0)', cricos: 'CRICOS — Commonwealth of Australia (CC BY 2.5 AU)', wikidata: 'Wikidata (CC0)' };
   function regLink(r, idx) {
     var x = r.x || {};
@@ -276,93 +504,130 @@ Lerna.addStrings({
   function mondeFiche(cc, id) {
     Promise.all([
       fetch('assets/annuaire/index.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }),
-      fetch('assets/annuaire/' + encodeURIComponent(cc) + '.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error('404'); return r.json(); })
+      fetch('assets/annuaire/' + encodeURIComponent(cc) + '.json').then(function (r) { if (!r.ok) throw new Error('404'); return r.json(); })
     ]).then(function (res) {
       var idx = res[0], rows = res[1];
-      var r = rows.filter(function (x) { return x.i === id; })[0];
+      /* Une fiche fusionnée garde ses anciens identifiants (x.also, x.ids) : les liens partagés marchent toujours */
+      var r = rows.filter(function (x) { return x.i === id || (x.x && ((x.x.also || []).some(function (o) { return o.i === id; }) || (x.x.ids || []).indexOf(id) !== -1)); })[0];
       if (!r) return notFound();
-      document.title = r.n + ' — LERNA';
+      if (r.x && r.x.lerna && window.LERNA_SCHOOL && window.LERNA_SCHOOL(r.x.lerna)) { location.replace('ecole.html?id=' + encodeURIComponent(r.x.lerna)); return; }
       renderMonde(cc, r, rows, idx);
-      if (r.s === 'wikidata' && r.x && /^Q\d+$/.test(r.x.q || '')) wikidata(r.x.q);
+      var qid = r.s === 'wikidata' ? r.x && r.x.q : ((r.x && r.x.ids) || []).map(function (i) { return String(i).replace(/^wikidata:/, ''); })[0];
+      if (/^Q\d+$/.test(qid || '')) wikidata(qid);
     }).catch(function () { notFound(true); });
   }
   function renderMonde(cc, r, rows, idx) {
-    var x = r.x || {}, lst = r.s === 'officiel' && idx.listes ? idx.listes[x.l] : null, wd = r.s === 'wikidata', bad = !!x.warn;
+    var x = r.x || {}, lst = r.s === 'officiel' && idx.listes ? idx.listes[x.l] : null, wd = r.s === 'wikidata';
+    var bad = !!x.warn || (x.also || []).some(function (o) { return o.warn; });
     var stat = { public: 'fi.tPub', prive: 'fi.tPriv', prive_nl: 'fi.tPrivNl', prive_lucratif: 'fi.tPrivL' }[r.t];
-    var h = back() + '<div class="hero"><h1>' + esc(r.n) + '</h1>' + (r.a ? '<div class="etab">' + esc(r.a) + '</div>' : '') +
-      '<div class="loc">' + Lerna.flag(cc, 'stk-xs') + ' ' + esc([r.v, r.r, window.LERNA_COUNTRY_NAME(cc)].filter(Boolean).join(', ')) + '</div>' +
-      '<div class="badges">' + (wd ? '<span class="wd">' + esc(t('fi.badWd')) + '</span>' : bad ? '<span class="bad">' + esc(t('fi.badBad')) + '</span>' : '<span class="pub">' + esc(t('fi.badOff')) + '</span>') + (stat ? '<span>' + esc(t(stat)) + '</span>' : '') + '</div></div>';
-
-    /* Reconnaissance */
-    var rec = r.s === 'officiel' ? (lst ? t(bad ? 'fi.badRec' : 'fi.offOn', { a: L(lst.autorite), l: L(lst.titre) }) : '') :
-      { deqar: t('fi.rDeqar'), scorecard: t('fi.rScore', { a: x.acc || '' }), ofs: t('fi.rOfs'), cricos: t('fi.rCricos'), wikidata: t('fi.rWd') }[r.s];
-    var link = regLink(r, idx);
-    h += '<div class="card sec"><h3>' + esc(t('fi.rec')) + '</h3>' + (bad || wd ? '<div class="warn">' + esc(rec) + '</div>' : '<p>' + esc(rec) + '</p>') +
-      '<div class="rows" style="margin-top:10px">' +
-      (r.s === 'officiel' && x.acc ? row(t('fi.status'), esc(x.acc)) : '') +
-      (x.y ? row(lst && lst.yLabel ? L(lst.yLabel).replace(/<[^>]+>/g, '').replace('{y}', '').replace(/\s+$/, '') : t('fi.year'), esc(x.y)) : '') +
-      (x.f ? row(lst && lst.fraisLabel ? L(lst.fraisLabel) : t('fi.fees'), esc(x.f)) : '') +
-      (r.s === 'ofs' && x.dap && /taught|research/i.test(x.dap) ? row(t('fi.dap'), esc(t(/research/i.test(x.dap) ? 'fi.dapR' : 'fi.dapT'))) : '') +
-      row(t('fi.city'), esc(r.v || '')) + row(t('fi.region'), esc(r.r || '')) + (r.a ? row(t('fi.alt'), esc(r.a)) : '') +
-      '</div>' + (link ? '<div class="acts" style="margin-top:12px"><a class="btn btn-ghost btn-sm" href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(t(wd ? 'fi.wdLink' : r.s === 'officiel' ? 'fi.list' : 'fi.reg')) + ' ↗</a></div>' : '') + '</div>';
-
-    /* Coûts publiés */
+    var type = r.t === 'public' ? 'public' : /^prive/.test(r.t || '') ? 'private' : '';
+    var srcName = r.s === 'officiel' ? (lst ? L(lst.autorite) : '') : SRC_NAME[r.s] || '';
+    F = { key: r.i, cc: cc, title: r.n, sub: r.a || '', type: type, typeLabel: stat ? t(stat) : '', loc: [r.v, r.r && r.r !== r.v ? r.r : '', window.LERNA_COUNTRY_NAME(cc)].filter(Boolean).join(', '), city: r.v, site: r.w,
+      sigle: sigleOf(r.a && /^[A-Z0-9]{2,8}$/.test(r.a) ? '(' + r.a + ') ' + r.n : r.n), level: wd ? { k: 'wd', txt: t('fi.lvlWd') } : bad ? { k: 'bad', txt: t('fi.lvlBad') } : { k: 'off', txt: t('fi.lvlOff') },
+      tab: Lerna.param('tab') || 'pres', src: t('fi.srcM', { s: srcName }) };
+    var adm = admKeyFor(cc, type || 'public');
     var usd = function (n) { var m = Lerna.money(n), d = Lerna.money(n, 'USD'); return m === d ? m : m + ' (' + d + ')'; };
     var aud = function (n) { return Math.round(n).toLocaleString(Lerna.lang === 'en' ? 'en-AU' : 'fr-FR') + ' AUD'; };
     var rng = function (p, fn) { return p[0] === p[1] ? fn(p[0]) : fn(p[0]) + ' – ' + fn(p[1]); };
-    var money = '';
-    if (r.s === 'scorecard') money = row(t('fi.usOut'), has(x.fo) ? esc(usd(x.fo)) : '') + row(t('fi.usIn'), has(x.fi) ? esc(usd(x.fi)) : '') + row(t('fi.usCost'), has(x.ca) ? esc(usd(x.ca)) : '') +
-      row(t('fi.usAdm'), has(x.ad) ? Math.round(x.ad * 1000) / 10 + ' %' : '') + row(t('fi.usUg'), has(x.ug) ? nf(x.ug) : '');
-    if (r.s === 'cricos') money = row(t('fi.auB'), x.fb ? esc(rng(x.fb, aud)) : '') + row(t('fi.auM'), x.fm ? esc(rng(x.fm, aud)) : '') + row(t('fi.auN'), x.nb ? nf(x.nb) : '');
-    if (money) h += '<div class="card sec"><h3>' + esc(t('fi.money')) + '</h3><div class="rows">' + money + '</div><p class="note" style="margin-top:8px">' + esc(t('fi.moneyNote')) + ' ' + esc(Lerna.moneyNote ? Lerna.moneyNote() : '') + '</p></div>';
-
-    h += '<div id="wdBox"></div>';
-
-    /* Comment vérifier */
-    if (window.LERNA_ACCRED) h += '<div class="sec">' + window.LERNA_ACCRED({ pays: cc, type: r.t === 'public' ? 'public' : 'private' }) + '</div>';
-
-    /* Site officiel */
-    if (https(r.w)) h += '<div class="card sec"><div class="acts"><a class="btn btn-primary btn-sm" href="' + esc(r.w) + '" target="_blank" rel="noopener nofollow">' + esc(t('fi.site')) + ' ↗</a><button type="button" class="btn btn-ghost btn-sm" id="shareBtn">' + esc(t('fi.share')) + '</button></div></div>';
-
-    /* Autres établissements proches */
-    var near = rows.filter(function (o) { return o.i !== r.i && o.s !== 'wikidata' && (r.v ? o.v === r.v : true); }).slice(0, 12);
-    if (near.length) h += '<div class="card sec"><h3>' + esc(r.v ? t('fi.near', { c: r.v }) : t('fi.nearC', { c: window.LERNA_COUNTRY_NAME(cc) })) + '</h3><div class="others">' +
-      near.map(function (o) { return '<a href="fiche.html?cc=' + encodeURIComponent(cc) + '&id=' + encodeURIComponent(o.i) + '">' + esc(o.n) + '<small>' + esc([o.v, o.x && o.x.acc].filter(Boolean).join(' · ').slice(0, 120)) + '</small></a>'; }).join('') + '</div></div>';
-
-    var srcName = r.s === 'officiel' ? (lst ? L(lst.autorite) : '') : SRC_NAME[r.s] || '';
-    h += '<p class="note sec">' + esc(t('fi.srcM', { s: srcName })) + '</p>';
-    root.innerHTML = h;
-    Lerna.track('monde_fiche', r.i);
+    F.tabs = {
+      pres: function () {
+        var rec = r.s === 'officiel' ? (lst ? t(x.warn ? 'fi.badRec' : 'fi.offOn', { a: L(lst.autorite), l: L(lst.titre) }) : '') :
+          { deqar: t('fi.rDeqar'), scorecard: t('fi.rScore', { a: x.acc || '' }), ofs: t('fi.rOfs'), cricos: t('fi.rCricos'), wikidata: t('fi.rWd') }[r.s];
+        var link = regLink(r, idx);
+        var also = (x.also || []).map(function (o) {
+          var l2 = idx.listes && idx.listes[o.l]; if (!l2) return '';
+          return '<div class="' + (o.warn ? 'warn' : '') + '" style="margin-top:10px">' + esc(t(o.warn ? 'fi.badRec' : 'fi.alsoT', { a: L(l2.autorite), l: L(l2.titre) })) + (o.acc ? ' — ' + esc(o.acc) : '') + '</div>';
+        }).join('');
+        var h = '<div class="card"><h3>' + esc(t('fi.rec')) + '</h3>' + (x.warn || wd ? '<div class="warn">' + esc(rec) + '</div>' : '<p>' + esc(rec) + '</p>') + also +
+          '<div class="rows" style="margin-top:10px">' + (r.s === 'officiel' && x.acc ? row(t('fi.status'), esc(x.acc)) : '') +
+          (x.y ? row(lst && lst.yLabel ? L(lst.yLabel).replace(/<[^>]+>/g, '').replace('{y}', '').replace(/\s+$/, '') : t('fi.year'), esc(x.y)) : '') +
+          (r.s === 'ofs' && x.dap && /taught|research/i.test(x.dap) ? row(t('fi.dap'), esc(t(/research/i.test(x.dap) ? 'fi.dapR' : 'fi.dapT'))) : '') +
+          row(t('fi.city'), esc(r.v || '')) + row(t('fi.region'), esc(r.r || '')) + (r.a ? row(t('fi.alt'), esc(r.a)) : '') + '</div>' +
+          (link ? '<div class="acts" style="margin-top:12px"><a class="btn btn-ghost btn-sm" href="' + esc(link) + '" target="_blank" rel="noopener">' + esc(t(wd ? 'fi.wdLink' : r.s === 'officiel' ? 'fi.list' : 'fi.reg')) + ' ↗</a></div>' : '') + '</div>';
+        h += '<div id="wdBox">' + (F.wd || '') + '</div>';
+        var near = rows.filter(function (o) { return o.i !== r.i && o.s !== 'wikidata' && !(o.x && o.x.lerna) && (r.v ? o.v === r.v : true); }).slice(0, 10);
+        if (near.length) h += card(r.v ? t('fi.near', { c: r.v }) : t('fi.nearC', { c: window.LERNA_COUNTRY_NAME(cc) }), '<div class="others">' +
+          near.map(function (o) { return '<a href="fiche.html?cc=' + encodeURIComponent(cc) + '&id=' + encodeURIComponent(o.i) + '">' + esc(o.n) + '<small>' + esc([o.v, o.x && o.x.acc].filter(Boolean).join(' · ').slice(0, 120)) + '</small></a>'; }).join('') + '</div>');
+        return h;
+      },
+      fil: function () {
+        var h = '';
+        if (r.s === 'cricos' && x.nb) h += card('', '<p>' + esc(t('fi.cricosN', { n: nf(x.nb) })) + '</p>');
+        if (r.s === 'ofs' && x.dap && /taught|research/i.test(x.dap)) h += card('', '<div class="rows">' + row(t('fi.dap'), esc(t(/research/i.test(x.dap) ? 'fi.dapR' : 'fi.dapT'))) + '</div>');
+        return h + todo('fil');
+      },
+      adm: function () {
+        var h = '';
+        if (r.s === 'scorecard' && has(x.ad)) h += card('', '<div class="rows">' + row(t('fi.usAdm'), Math.round(x.ad * 1000) / 10 + ' %') + (has(x.ug) ? row(t('fi.usUg'), nf(x.ug)) : '') + '</div>');
+        h += admGeneral(cc, adm);
+        if (window.LERNA_ACCRED) h += window.LERNA_ACCRED({ pays: cc, type: type === 'public' ? 'public' : 'private' });
+        return h + todo('adm');
+      },
+      cout: function () {
+        var money = '';
+        if (r.s === 'scorecard') money = row(t('fi.usOut'), has(x.fo) ? esc(usd(x.fo)) : '') + row(t('fi.usIn'), has(x.fi) ? esc(usd(x.fi)) : '') + row(t('fi.usCost'), has(x.ca) ? esc(usd(x.ca)) : '');
+        if (r.s === 'cricos') money = row(t('fi.auB'), x.fb ? esc(rng(x.fb, aud)) : '') + row(t('fi.auM'), x.fm ? esc(rng(x.fm, aud)) : '');
+        if (x.f) money += row(lst && lst.fraisLabel ? L(lst.fraisLabel) : t('fi.fees'), esc(x.f));
+        return (money ? card(t('fi.money'), '<div class="rows">' + money + '</div><p class="note" style="margin-top:8px">' + esc(t('fi.moneyNote')) + ' ' + esc(Lerna.moneyNote ? Lerna.moneyNote() : '') + '</p>') : todo('cout')) + feeWarn();
+      },
+      vie: function () { return todo('vie'); },
+      avis: panelRev
+    };
+    shell(); Lerna.track('monde_fiche', r.i);
   }
-  /* Wikidata (CC0) : année de fondation, nombre d'étudiants, description, position sur la carte */
+  /* Wikidata (CC0) : année de fondation, nombre d'étudiants, description, carte */
   function wikidata(qid) {
     var lg = Lerna.lang === 'en' ? 'en' : 'fr';
     fetch('https://www.wikidata.org/w/api.php?action=wbgetentities&format=json&origin=*&props=claims|descriptions&languages=' + lg + '|en&ids=' + qid).then(function (r) { return r.json(); }).then(function (j) {
-      var e = j.entities && j.entities[qid]; if (!e) return;
+      var e = j.entities && j.entities[qid]; if (!e || !F) return;
       var c = e.claims || {};
       var val = function (p) { var s = c[p] && c[p][0] && c[p][0].mainsnak && c[p][0].mainsnak.datavalue; return s ? s.value : null; };
       var inc = val('P571'), stu = val('P2196'), geo = val('P625');
       var desc = e.descriptions && (e.descriptions[lg] || e.descriptions.en);
-      var rows = (inc && inc.time ? row(t('fi.wdFounded'), esc(inc.time.slice(1, 5))) : '') + (stu && stu.amount ? row(t('fi.wdStudents'), nf(Math.abs(parseFloat(stu.amount)))) : '') + (desc ? row(t('fi.wdDesc'), esc(desc.value)) : '');
+      var y = inc && inc.time ? inc.time.slice(1, 5).replace(/^0+/, '') : '';
+      if (y && !F.founded) { F.founded = y; var fb = $('fFounded'); if (fb) fb.innerHTML = '<span class="tag">' + Lerna.icon('calendar', 'ic-sm') + esc(t('fi.founded', { y: y })) + '</span>'; }
+      var rows = (y ? row(t('fi.wdFounded'), esc(y)) : '') + (stu && stu.amount ? row(t('fi.wdStudents'), nf(Math.abs(parseFloat(stu.amount)))) : '') + (desc ? row(t('fi.wdDesc'), esc(desc.value)) : '');
       var map = geo ? mapFrame(geo.latitude, geo.longitude) : '';
       if (!rows && !map) return;
-      $('wdBox').innerHTML = '<div class="card sec"><h3>' + esc(t('fi.wd')) + '</h3><div class="rows">' + rows + '</div>' + (map ? '<div style="margin-top:12px">' + map + '</div>' : '') + '</div>';
+      F.wd = card(t('fi.brief'), '<div class="rows">' + rows + '</div>' + (map ? '<div style="margin-top:12px">' + map + '</div>' : '') + '<p class="note" style="margin-top:8px">Wikidata (CC0)</p>');
+      var box = $('wdBox'); if (box) box.innerHTML = F.wd;
     }).catch(function () {});
   }
 
   Lerna.ready(function () {
-    var gta = Lerna.param('psup'), cc = (Lerna.param('cc') || '').toUpperCase(), id = Lerna.param('id');
+    var gta = Lerna.param('psup'), uai = Lerna.param('uai'), cc = (Lerna.param('cc') || '').toUpperCase(), id = Lerna.param('id');
     root.querySelector('.loading').innerHTML = Lerna.thinking('inline');
-    if (gta && /^\d{1,7}$/.test(gta)) psupFiche(gta);
+    if (gta && /^\d{1,7}$/.test(gta)) formationFiche(gta);
+    else if (uai && /^[0-9A-Za-z]{6,10}$/.test(uai)) etabFiche(uai);
     else if (/^[A-Z]{2}$/.test(cc) && id) mondeFiche(cc, id);
     else notFound();
     document.addEventListener('click', function (e) {
-      if (e.target.closest('#backBtn')) { if (history.length > 1) history.back(); else location.href = 'explorer.html'; }
+      var tb = e.target.closest('.tab[data-tab]');
+      if (tb && F) { F.tab = tb.getAttribute('data-tab'); renderPanel(); Lerna.sound.play('click'); return; }
+      if (e.target.closest('#backBtn')) { if (history.length > 1) history.back(); else location.href = 'explorer.html'; return; }
+      if (e.target.closest('[data-ask]') && F) {
+        var a = asked(); a[F.key] = Date.now(); Lerna.store.set('lerna_asked', a);
+        try { Lerna.stats.log('fiche_ask', { k: String(F.key).slice(0, 80), n: String(F.title).slice(0, 90), cc: F.cc }); } catch (er) {}
+        Lerna.toast(t('fi.askThanks'), 3000); Lerna.sound.play('success'); renderPanel(); return;
+      }
+      var st = e.target.closest('[data-cat]');
+      if (st) { draft[st.getAttribute('data-cat')] = parseInt(st.getAttribute('data-v'), 10); renderPanel(); return; }
       if (e.target.closest('#shareBtn')) {
         var d = { title: document.title, url: location.href };
         if (navigator.share) navigator.share(d).catch(function () {}); else if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(function () { Lerna.toast && Lerna.toast('✓'); });
       }
     });
+    document.addEventListener('submit', function (e) {
+      if (!F || e.target.id !== 'revForm') return;
+      e.preventDefault();
+      if (CATS.some(function (c) { return !draft[c[0]]; })) { $('revErr').textContent = t('fi.needStars'); Lerna.sound.play('error'); return; }
+      var rev = { cours: draft.cours, campus: draft.campus, prix: draft.prix, insertion: draft.insertion, commentaire: $('revTxt').value.trim().slice(0, 1500), date: new Date().toISOString() };
+      var all = Lerna.store.get('lerna_reviews', {}) || {}; all[F.key] = rev; Lerna.store.set('lerna_reviews', all);
+      var A = Lerna.auth;
+      if (A.mode === 'supabase' && A.user) A.sb.from('avis').insert({ user_id: A.user.id, ecole_id: F.key, note_cours: rev.cours, note_campus: rev.campus, note_prix: rev.prix, note_insertion: rev.insertion, commentaire: rev.commentaire }).then(function () {}, function () {});
+      Lerna.toast(t('fi.thanks'), 3500); Lerna.sound.play('success'); renderPanel();
+    });
+    Lerna.onLang(function () { if (F) shell(); });
   });
 })();
 </script>
