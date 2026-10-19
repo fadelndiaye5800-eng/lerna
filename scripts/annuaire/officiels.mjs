@@ -134,7 +134,7 @@ export const OFFICIELS = [
     titre: { fr: 'Établissements d’enseignement supérieur financés par l’État (hogescholen et universités)', en: 'Government-funded higher-education institutions (universities of applied sciences and research universities)' },
     page: 'https://onderwijsdata.duo.nl/datasets/adressen_ho', url: 'https://onderwijsdata.duo.nl/dataset/37051cda-b681-43eb-a385-efa18e99cdd2/resource/bf1da9c6-c688-4873-91b1-b12c9ac2c132/download/instellingenho.csv',
     type: 'xlsx', csv: true, skip: 1,
-    map: (r) => ({ n: r[4], v: r[8], r: r[1], w: r[13] || '', acc: /^wo/i.test(r[0]) ? 'Universiteit (wo)' : /^hbo/i.test(r[0]) ? 'Hogeschool (hbo)' : '' })
+    map: (r) => ({ n: r[4], v: String(r[8]).toLowerCase().replace(/(^|[\s-])\p{L}/gu, (c) => c.toUpperCase()), r: r[1], w: r[13] || '', acc: /^wo/i.test(r[0]) ? 'Universiteit (wo)' : /^hbo/i.test(r[0]) ? 'Hogeschool (hbo)' : '' })
   },
   {
     cc: 'CN', id: 'cn-moe',

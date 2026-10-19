@@ -49,7 +49,7 @@ for (let u of SONDES) {
       const js = buf.toString('utf8').match(/(https?:)?\/\/?[\w\-./]*(api|ajax|json|wp-json|datatable|admin-ajax)[\w\-./?=&]*/gi) || []; [...new Set(js)].slice(0, 25).forEach((x) => lines.push('  JS ' + x.slice(0, 180)));
       if (!$('tr').length && seen.size < 15) $('h2,h3,h4,li a,p').slice(0, 90).each((i, e) => { const t = cut($(e).text()); if (t.length > 4) lines.push('  T ' + t); });
     }
-  } catch (e) { lines.push('ERR ' + e.message); }
+  } catch (e) { lines.push('ERR ' + e.message + ' ' + (e.cause ? (e.cause.code || '') + ' ' + (e.cause.message || '') : '')); }
 }
 fs.writeFileSync('scripts/annuaire/rapport-test.txt', new Date().toISOString() + '\n' + lines.join('\n') + '\n');
 clearInterval(keep); process.exit(0);
