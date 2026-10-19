@@ -1,4 +1,4 @@
-2026-10-19T00:19:24.003Z
+2026-10-19T00:20:52.058Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -18,7 +18,9 @@ officiel in-ugc 1256
 officiel jp-mext 1117
 officiel ca-ircc-dli 666
 officiel dz-mesrs 104
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":666,"dz-mesrs":104}
+officiel nl-duo 54
+officiel cn-moe 2952
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":666,"dz-mesrs":104,"nl-duo":54,"cn-moe":2952}
 == ci-mesrs-prives : 618
   Abidjan Bloom University (ABU) | Abidjan | Cocody | prive | 90.000 F
   Abidjan Business School -(ABS) | Abidjan | Cocody | prive | 85000
@@ -259,38 +261,33 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   Centre universitaire d’Aflou | public
   Centre Universitaire de Barika – Si El Haouès | public
   Centre universitaire d’El Bayadh – Nour Bachir | public
-##### https://onderwijsdata.duo.nl/dataset/37051cda-b681-43eb-a385-efa18e99cdd2/resource/bf1da9c6-c688-4873-91b1-b12c9ac2c132/download/instellingenho.csv
-ST 200 text/csv 18956 https://onderwijsdata.duo.nl/dataset/37051cda-b681-43eb-a385-efa18e99cdd2/resource/bf1da9c6-c688-4873-91b1-b12c9ac2c132/download/instellingenho.csv
-  C "SOORT HO","PROVINCIE","BEVOEGD GEZAG NUMMER","INSTELLINGSCODE","INSTELLINGSNAAM","STRAATNAAM","HUISNUMMER-TOEVOEGING","POSTCODE","PLAATSNAAM","GEMEENTENUMMER","GEMEENTENAAM","DENOMINATIE","TELEFOONNUMMER","INTERNETADRES","STRAATNAAM CORRESPONDENTIEADRES","HUISNUMMER-TOEVOEGING CORRESPONDENTIEADRES","POSTCODE CORRESPONDENTIEADRES","PLAATSNAAM CORRESPONDENTIEADRES","NODAAL GEBIED CODE","NODAAL GEBI
-  C "hbo","Friesland","30156","31FR","NHL Stenden Hogeschool","Rengerslaan","10","8917DD","LEEUWARDEN","0080","LEEUWARDEN","Overige","0582512345","www.nhl.nl","Postbus","1080","8900CB","LEEUWARDEN","10","Leeuwarden","04","Fryslân","04","Friesland-Noord","04","Noord-Friesland","03","Friesland","04","Friesland Noord"
-  C "hbo","Gelderland","40235","25BA","Christelijke Hogeschool Ede","Oude Kerkweg","100","6717JS","EDE","0228","EDE","Protestants-Christelijk","0318696300","www.che.nl","Postbus","80","6710BB","EDE","29","Ede","10","De Vallei","16","Eem en Vallei","13","Veluwe","09","Arnhem en omstreken","16","Eem en Vallei"
-  C "hbo","Gelderland","40687","30TX","Aeres Hogeschool","Mansholtlaan","18","6708PA","WAGENINGEN","0289","WAGENINGEN","Overige","0880207000","www.aereshogeschool.nl","Postbus","245","6710BE","EDE","29","Ede","10","De Vallei","16","Eem en Vallei","13","Veluwe","09","Arnhem en omstreken","16","Eem en Vallei"
-  C "hbo","Gelderland","41292","27NF","ArtEZ","Onderlangs","9","6812CE","ARNHEM","0202","ARNHEM","Algemeen bijzonder","0263535600","www.artez.nl","Postbus","49","6800AA","ARNHEM","26","Arnhem","11","IJssel en Rijn","14","Arnhem/Nijmegen","15","Arnhem/Nijmegen","09","Arnhem en omstreken","41","Arnhem"
-  C "hbo","Gelderland","41344","30HD","Hogeschool Van Hall Larenstein","Larensteinselaan","26-A","6882CT","VELP GLD","0275","RHEDEN","Algemeen bijzonder","0263695695","www.vanhall-larenstein.nl","Postbus","9001","6880GB","VELP GLD","26","Arnhem","11","IJssel en Rijn","14","Arnhem/Nijmegen","15","Arnhem/Nijmegen","09","Arnhem en omstreken","41","Arnhem"
-  C "hbo","Gelderland","41618","09OT","Iselinge Hogeschool","Bachlaan","11","7002MZ","DOETINCHEM","0222","DOETINCHEM","Samenwerking Opb., PC, RK, Alg","0880931000","www.iselingehogeschool.nl","Postbus","277","7000AG","DOETINCHEM","25","Doetinchem","12","Achterhoek","13","Oost-Gelderland","14","Achterhoek","08","Zuidelijke Achterhoek","13","Achterhoek"
-  C "hbo","Gelderland","72243","25KB","Hogeschool van Arnhem en Nijmegen","Ruitenberglaan","31","6826CC","ARNHEM","0202","ARNHEM","Algemeen bijzonder","0263691555","www.han.nl/","Postbus","5375","6802EJ","ARNHEM","26","Arnhem","11","IJssel en Rijn","14","Arnhem/Nijmegen","15","Arnhem/Nijmegen","09","Arnhem en omstreken","41","Arnhem"
-  C "hbo","Groningen","40169","25BE","Hanzehogeschool Groningen","Zernikeplein","1","9747AS","GRONINGEN","0014","GRONINGEN","Algemeen bijzonder","0505955610","www.hanze.nl/","Postbus","30030","9700RM","GRONINGEN","01","Groningen","03","Centraal-Groningen","03","Centraal en westelijk Groningen","03","Overig Groningen","01","Groningen en omstreken","03","Centraal en Westelijk Groningen"
-  C "hbo","Limburg","41128","25JX","Zuyd Hogeschool","Nieuw-Eyckholt","300","6419DJ","HEERLEN","0917","HEERLEN","Algemeen bijzonder","0454006060","www.hszuyd.nl/","Postbus","550","6400AN","HEERLEN","79","Heerlen","33","Parkstad Limburg","41","Oostelijk Zuid-Limburg","39","Zuid-Limburg","25","Zuid-Limburg","39","Gewest Zuid-Limburg"
-  C "hbo","Noord-Brabant","30183","07GR","Avans Hogeschool","Prof Cobbenhagenlaan","13","5037DA","TILBURG","0855","TILBURG","Rooms-Katholiek","0135958100","www.avans.nl","Postbus","90116","4800RA","BREDA","68","Tilburg","26","Midden-Brabant","35","Midden-Brabant","34","Midden-Noord-Brabant","21","Tilburg en omstreken","35","Midden-Brabant"
-  C "hbo","Noord-Brabant","30332","21UI","Breda University of Applied Sciences","Mgr. Hopmansstraat","2","4817JS","BREDA","0758","BREDA","Algemeen bijzonder","0765332203","www.buas.nl","Postbus","3917","4800DX","BREDA","66","Breda","25","West-Brabant","34","West-Brabant","33","West-Noord-Brabant","20","West-Noord-Brabant","34","West-Brabant"
-##### http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/202606/W020260618416094865984.xls
-ST 200 application/vnd.ms-excel 464896 http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/202606/W020260618416094865984.xls
-SHEET 全国普通高等学校名单 rows 2986
-  R0 附件1： | | | ... | | | | |
-  R1 全国普通高等学校名单 （截至2026年6月17日） | | | ... | | | | |
-  R2 序号 | 学校名称 | 学校标识码 | 主管部门 ... 学校名称 | 学校标识码 | 主管部门 | 所在地 | 办学层次 | 备注
-  R3 北京市（92所） | | | ... | | | | |
-  R4 1 | 北京大学 | 4111010001 | 教育部 ... 北京大学 | 4111010001 | 教育部 | 北京市 | 本科 |
-  R5 2 | 中国人民大学 | 4111010002 | 教育部 ... 中国人民大学 | 4111010002 | 教育部 | 北京市 | 本科 |
-  R6 3 | 清华大学 | 4111010003 | 教育部 ... 清华大学 | 4111010003 | 教育部 | 北京市 | 本科 |
-  R7 4 | 北京交通大学 | 4111010004 | 教育部 ... 北京交通大学 | 4111010004 | 教育部 | 北京市 | 本科 |
-  R8 5 | 北京工业大学 | 4111010005 | 北京市 ... 北京工业大学 | 4111010005 | 北京市 | 北京市 | 本科 |
-  R9 6 | 北京航空航天大学 | 4111010006 | 工业和信息化部 ... 北京航空航天大学 | 4111010006 | 工业和信息化部 | 北京市 | 本科 |
-  R10 7 | 北京理工大学 | 4111010007 | 工业和信息化部 ... 北京理工大学 | 4111010007 | 工业和信息化部 | 北京市 | 本科 |
-  R11 8 | 北京科技大学 | 4111010008 | 教育部 ... 北京科技大学 | 4111010008 | 教育部 | 北京市 | 本科 |
-##### http://www.moe.gov.cn/jyb_sy/s3634/201005/t20100504_87292.html
-ST 200 text/html 13181 http://www.moe.gov.cn/jyb_sy/s3634/201005/t20100504_87292.html
-  G  <h1>网站声明</h1> <div class=TRS_Editor><p> 本网站内容由教育部直属机关、单位网站以及相关单位提供。任何媒体、互联网站和商业机构不得利用本网站发布的内容进行商业性的原版原式地转载，也不得歪曲和篡改本网站所发布的内容。</p> <p> 本网站提供的资料如与相关纸质文本不符，以纸质文本为准。</p> <p> 本网站转载其他媒体的作品，均会注明来源，转载目的在于传递更多信息，并不代表本网观点。</p> <p style="text-align: right"> 教育部门户网站编辑部</p></div> <p id="moe-detail-page-set"><script language="javascript">createContPageHTML(1, 0, "t20100504_87292", "html","moe-detail-page-set");</script></p> <div id="moeCode" class="mhid
-  G RS_Editor><p> 本网站内容由教育部直属机关、单位网站以及相关单位提供。任何媒体、互联网站和商业机构不得利用本网站发布的内容进行商业性的原版原式地转载，也不得歪曲和篡改本网站所发布的内容。</p> <p> 本网站提供的资料如与相关纸质文本不符，以纸质文本为准。</p> <p> 本网站转载其他媒体的作品，均会注明来源，转载目的在于传递更多信息，并不代表本网观点。</p> <p style="text-align: right"> 教育部门户网站编辑部</p></div> <p id="moe-detail-page-set"><script language="javascript">createContPageHTML(1, 0, "t20100504_87292", "html","moe-detail-page-set");</script></p> <div id="moeCode" class="mhide"></div> <div class="moe-detail-shuxing"> <div id="detail-da
-  G 站内容由教育部直属机关、单位网站以及相关单位提供。任何媒体、互联网站和商业机构不得利用本网站发布的内容进行商业性的原版原式地转载，也不得歪曲和篡改本网站所发布的内容。</p> <p> 本网站提供的资料如与相关纸质文本不符，以纸质文本为准。</p> <p> 本网站转载其他媒体的作品，均会注明来源，转载目的在于传递更多信息，并不代表本网观点。</p> <p style="text-align: right"> 教育部门户网站编辑部</p></div> <p id="moe-detail-page-set"><script language="javascript">createContPageHTML(1, 0, "t20100504_87292", "html","moe-detail-page-set");</script></p> <div id="moeCode" class="mhide"></div> <div class="moe-detail-shuxing"> <div id="detail-date-source"><span 
-  G http://www.moe.gov.cn/jyb_sy/s3635/201611/t20161129_290403.html" target="_blank">联系我们</a></li> </ul> </div> <div class="scy-foot-xia"> <p>版权所有：中华人民共和国教育部&nbsp;中文域名：教育部.政务</p> <p><a class="outMoeLink" href="https://beian.miit.gov.cn/" target="_blank" rel="nofollow">京ICP备10028400号-1</a>&nbsp;<a class="outMoeLink" target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010202007625" rel="nofollow" id="moe_gonganbeian">京公网安备11010202007625号</a>&nbsp;<spa
+== nl-duo : 54
+  NHL Stenden Hogeschool | Leeuwarden | Friesland | https://www.nhl.nl | Hogeschool (hbo)
+  Christelijke Hogeschool Ede | EDE | Gelderland | https://www.che.nl | Hogeschool (hbo)
+  Aeres Hogeschool | Wageningen | Gelderland | https://www.aereshogeschool.nl | Hogeschool (hbo)
+  ArtEZ | Arnhem | Gelderland | https://www.artez.nl | Hogeschool (hbo)
+  Hogeschool Van Hall Larenstein | Velp Gld | Gelderland | https://www.vanhall-larenstein.nl | Hogeschool (hbo)
+  Iselinge Hogeschool | Doetinchem | Gelderland | https://www.iselingehogeschool.nl | Hogeschool (hbo)
+  Hogeschool van Arnhem en Nijmegen | Arnhem | Gelderland | https://www.han.nl/ | Hogeschool (hbo)
+  Hanzehogeschool Groningen | Groningen | Groningen | https://www.hanze.nl/ | Hogeschool (hbo)
+  Codarts, Hogeschool voor de Kunsten | Rotterdam | Zuid-Holland | https://www.codarts.nl | Hogeschool (hbo)
+  Hogeschool Leiden | Leiden | Zuid-Holland | https://www.hsleiden.nl/ | Hogeschool (hbo)
+  Hogeschool Rotterdam | Rotterdam | Zuid-Holland | https://www.hogeschoolrotterdam.nl | Hogeschool (hbo)
+  Erasmus Universiteit Rotterdam | Rotterdam | Zuid-Holland | https://www.eur.nl | Universiteit (wo)
+  Technische Universiteit Delft | Delft | Zuid-Holland | https://www.tudelft.nl | Universiteit (wo)
+  Universiteit Leiden | Leiden | Zuid-Holland | https://www.leidenuniv.nl | Universiteit (wo)
+== cn-moe : 2952
+  北京大学 | 北京市 | public | 本科 (licence et plus)
+  中国人民大学 | 北京市 | public | 本科 (licence et plus)
+  清华大学 | 北京市 | public | 本科 (licence et plus)
+  北京交通大学 | 北京市 | public | 本科 (licence et plus)
+  北京工业大学 | 北京市 | public | 本科 (licence et plus)
+  北京航空航天大学 | 北京市 | public | 本科 (licence et plus)
+  北京理工大学 | 北京市 | public | 本科 (licence et plus)
+  北京科技大学 | 北京市 | public | 本科 (licence et plus)
+  山东信息职业技术学院 | 潍坊市 | public | 专科 (cycle court)
+  青岛港湾职业技术学院 | 青岛市 | public | 专科 (cycle court)
+  山东胜利职业学院 | 东营市 | public | 专科 (cycle court)
+  阜康职业技术学院 | 昌吉回族自治州 | public | 专科 (cycle court)
+  胡杨河职业技术学院 | 胡杨河市 | public | 专科 (cycle court)
+  新疆石河子航空职业学院 | 石河子市 | prive | 专科 (cycle court) · 民办
