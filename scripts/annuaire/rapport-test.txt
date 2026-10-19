@@ -1,4 +1,4 @@
-2026-10-19T01:19:52.376Z
+2026-10-19T01:22:43.303Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -502,9 +502,19 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   الاكاديمية العربية للعلوم المالية والمصرفية | https://www.aambfs.org/ar/ | Établissements créés par accords internationaux
   معهد البحوث والدراسات العربية | https://iars.net/ | Établissements créés par accords internationaux
   الجامعة الألمانية الدولية | https://www.giu-uni.de/ | Établissements créés par accords internationaux
-##### https://www.lecames.org/diplome_cames/
-ST 200 text/html; charset=UTF-8 24849 https://www.lecames.org/diplome_cames/
-TITLE Plateforme des diplômes Africains reconnus par le CAMES, référentiels qualité, Assurance qualité, Accrédidation, reconnaissance en AfriquePlateforme des référentiels qualité, Assurance qualité, Accréd | TABLES 0 TR 0 LI 15
+##### https://www.lecames.org/diplome_cames/web/site/repertoire-simple
+ST 200 text/html; charset=UTF-8 23608 https://www.lecames.org/diplome_cames/web/site/repertoire-simple
+TITLE Repertoire des diplômes Africains reconnus par le CAMESPlateforme des référentiels qualité, Assurance qualité, Accrédidation, reconnaissance des diplômes en Afrique | TABLES 2 TR 28 LI 24
+  TR # | Institution | Diplôme delivré | Reconnu en | Option | Diplôme équivalent | Status
+  TR | | | | | | RAS Provisoire
+  TR 1 | Université Libre du Burkina (ULB)Ouagadougou | master en diplomatie et relations internationales | 2025 | Aucune | Master II- BAC+5 | RAS
+  TR 2 | Université Libre du Burkina (ULB)Ouagadougou | master en gestion et administration des entreprises | 2025 | Aucune | Master II- BAC+5 | RAS
+  TR 3 | Université Ouaga 3S | licence professionnelle en finance-comptabilité-audit | 2025 | Aucune | Licence- BAC+3 | RAS
+  TR 4 | Université Ouaga 3S | licence sciences économiques et de gestion, mention économie et gestion, parcours monnaie-banque-finance | 2025 | Aucune | Licence- BAC+3 | RAS
+  TR 5 | Institut Supérieur des Filières Professionnalisantes de BOBO DIOULASSO | licence en assurance banque et finances | 2025 | Aucune | Licence- BAC+3 | RAS
+  TR 6 | Université privée Notre Dame d'Afrique | licence en gestion des entreprises | 2025 | Aucune | Licence- BAC+3 | RAS
+  TR 7 | Université Saint Thomas d'Acquin | master en sciences de gestion, spécialité : administration des affaires | 2025 | Aucune | Master II- BAC+5 | RAS
+  TR 8 | AFI-Université de l’Entreprise | licence en banque assurance finance | 2025 | Aucune | Licence- BAC+3 | RAS
   FILES 0
   A e-Diplômes -> /diplome_cames/web/
   A Accueil -> /diplome_cames/web/site
@@ -513,90 +523,183 @@ TITLE Plateforme des diplômes Africains reconnus par le CAMES, référentiels q
   A Etudiants -> /diplome_cames/web/site/#
   A Contact -> /diplome_cames/web/site/contact
   A Connectez-vous -> /diplome_cames/web/site/login
-  A Télécharger le mnauel -> /diplome_cames/web/site/telecharger-manuel
-  A A propos -> /diplome_cames/web/site/about
-  A  -> https://www.lecames.org/index.php/component/content/article/95-documents/146-referentiels
-  A  -> https://www.lecames.org/index.php/reconnaissance-et-equivalence-des-diplomes
+  A  -> /diplome_cames/web/site/genererdiplomes
+  A Institution -> /diplome_cames/web/site/repertoire-simple?sort=avis
+  A Diplôme delivré -> /diplome_cames/web/site/repertoire-simple?sort=Ref_diplomdel
+  A Reconnu en -> /diplome_cames/web/site/repertoire-simple?sort=Id_comm
+  A Diplôme équivalent -> /diplome_cames/web/site/repertoire-simple?sort=Id_diplomequi
+  A Status -> /diplome_cames/web/site/repertoire-simple?sort=status
+  A 1 -> /diplome_cames/web/site/repertoire-simple?page=1
+  A 2 -> /diplome_cames/web/site/repertoire-simple?page=2
+  A 3 -> /diplome_cames/web/site/repertoire-simple?page=3
+  A 4 -> /diplome_cames/web/site/repertoire-simple?page=4
+  A 5 -> /diplome_cames/web/site/repertoire-simple?page=5
+  A 6 -> /diplome_cames/web/site/repertoire-simple?page=6
+  A 7 -> /diplome_cames/web/site/repertoire-simple?page=7
+  A 8 -> /diplome_cames/web/site/repertoire-simple?page=8
+  A 9 -> /diplome_cames/web/site/repertoire-simple?page=9
+  A 10 -> /diplome_cames/web/site/repertoire-simple?page=10
   A  -> Lecames
   A [email protected] -> /cdn-cgi/l/email-protection
   A SI CAMES -> https://www.lecames.org
   JS https://fonts.googleapis.com/css?family=Open
-  T Accueil
-  T Repertoire
-  T Repertoire / filtrer
-  T Etudiants
-  T Contact
-  T Connectez-vous
-  T Notre Quotidien, l’Enseignement Supérieur
-  T Notre Quotidien, l’Enseignement Supérieur
-  T Notre Quotidien, l’Enseignement Supérieur
-  T A propos
-  T Projet
-  T Cette vitrine a été pensée par le Secrétariat Général du CAMES afin de donner du contenu dédié au métier de l’enseignement supérieur aux acteurs de ce milieu. Elle s’adresse principalement entre autre
-  T Nos services
-  T Référentiels agiles
-  T Au nombre de sept (07), ces référentiels sont l'œuvre des experts de l'espace CAMES. Ils ont été pensés afin de s'adapter à l’évolution et aux changements continuels de nos sociétés.
-  T Formation en Assurance Qualité
-  T Nous assurons chaque année au moins un atelier de formation en Assurance Qualité(AQ) pour une amélioration continue des ressources humaines des institutions.
-  T Accompagenment
-  T Le CAMES met à votre disposition une équipe d’expert pour toute consultation dans le cadre du renforcement de vos procédures académiques, pédagogiques et dans la constitution de vos dossiers de candid
-  T Accréditation Présentiel
-  T Le CAMES dispose d’une expérience solide et avéré dans le domaine de la reconnaissance et l’accréditation des offres de formation en présentiel depuis 1972.
-  T Accréditation FOAD
-  T Au vu de l'avènement des formations proposées en ligne, le CAMES a pris le pari de renforcer les institutions offrant des offres de formation à distance.
-  T Label CAMES
-  T Le Label CAMES en construction, permettra à terme aux établissements de bénéficier d’une certification (Statut), leur octroyant un niveau de performance au niveau institutionnel, participant au renfor
-  T Doctorats
-  T Masters
-  T Licence
-  T e-Diplômes
-  T Amorcer le dévéloppement durable de l'Afrique à travers l'Enseignement Supérieur,la Recherche Scientifique et l'innovation en Afrique
-  T information
-  T Pour de plus amples informations, prenez attache avec les services du CAMES.
-  T Tel: +226 25 368146
-  T Email: [email protected]/[email protected]
-  T Heure d'ouverture: 7h30-17h30pm
-  T Partenaires
-  T e-Diplômes. Tous droits réservés
-##### https://www.lecames.org/wp-json/wp/v2/pages?per_page=100&_fields=link,title
-ST 200 application/json; charset=UTF-8 3688 https://www.lecames.org/wp-json/wp/v2/pages?per_page=100&_fields=link,title
-  G [{"link":"https:\/\/www.lecames.org\/lundi-cames\/","title":{"rendered":"Lundi CAMES"}},{"link":"https:\/\/www.lecames.org\/newsletter\/","title":{"rendered":"Newsletter"}},{"link":"https:\/\/www.lecames.org\/phototheque\/","title":{"rendered":"Phototh\u00e8que"}},{"link":"https:\/\/www.lecames.org\/documents\/documents-cames\/","title":{"rendered":"
-  G [{"link":"https:\/\/www.lecames.org\/lundi-cames\/","title":{"rendered":"Lundi CAMES"}},{"link":"https:\/\/www.lecames.org\/newsletter\/","title":{"rendered":"Newsletter"}},{"link":"https:\/\/www.lecames.org\/phototheque\/","title":{"rendered":"Phototh\u00e8que"}},{"link":"https:\/\/www.lecames.org\/documents\/documents-cames\/","title":{"rendered":"Documents CAMES"}},{"link":"https:\/\/www.lecames.org\/les-
-  G [{"link":"https:\/\/www.lecames.org\/lundi-cames\/","title":{"rendered":"Lundi CAMES"}},{"link":"https:\/\/www.lecames.org\/newsletter\/","title":{"rendered":"Newsletter"}},{"link":"https:\/\/www.lecames.org\/phototheque\/","title":{"rendered":"Phototh\u00e8que"}},{"link":"https:\/\/www.lecames.org\/documents\/documents-cames\/","title":{"rendered":"Documents CAMES"}},{"link":"https:\/\/www.lecames.org\/les-anciens-secretaires-generaux
-  G [{"link":"https:\/\/www.lecames.org\/lundi-cames\/","title":{"rendered":"Lundi CAMES"}},{"link":"https:\/\/www.lecames.org\/newsletter\/","title":{"rendered":"Newsletter"}},{"link":"https:\/\/www.lecames.org\/phototheque\/","title":{"rendered":"Phototh\u00e8que"}},{"link":"https:\/\/www.lecames.org\/documents\/documents-cames\/","title":{"rendered":"Documents CAMES"}},{"link":"https:\/\/www.lecames.org\/les-anciens-secretaires-generaux\/","title":{"rendered":"Les anciens Secr\u00e9taires g\u0
-  G lecames.org\/lundi-cames\/","title":{"rendered":"Lundi CAMES"}},{"link":"https:\/\/www.lecames.org\/newsletter\/","title":{"rendered":"Newsletter"}},{"link":"https:\/\/www.lecames.org\/phototheque\/","title":{"rendered":"Phototh\u00e8que"}},{"link":"https:\/\/www.lecames.org\/documents\/documents-cames\/","title":{"rendered":"Documents CAMES"}},{"link":"https:\/\/www.lecames.org\/les-anciens-secretaires-generaux\/","title":{"rendered":"Les anciens Secr\u00e9taires g\u00e9n\u00e9raux"}},{"link":"
-  G S"}},{"link":"https:\/\/www.lecames.org\/newsletter\/","title":{"rendered":"Newsletter"}},{"link":"https:\/\/www.lecames.org\/phototheque\/","title":{"rendered":"Phototh\u00e8que"}},{"link":"https:\/\/www.lecames.org\/documents\/documents-cames\/","title":{"rendered":"Documents CAMES"}},{"link":"https:\/\/www.lecames.org\/les-anciens-secretaires-generaux\/","title":{"rendered":"Les anciens Secr\u00e9taires g\u00e9n\u00e9raux"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-jsdc\/","
-  G es.org\/newsletter\/","title":{"rendered":"Newsletter"}},{"link":"https:\/\/www.lecames.org\/phototheque\/","title":{"rendered":"Phototh\u00e8que"}},{"link":"https:\/\/www.lecames.org\/documents\/documents-cames\/","title":{"rendered":"Documents CAMES"}},{"link":"https:\/\/www.lecames.org\/les-anciens-secretaires-generaux\/","title":{"rendered":"Les anciens Secr\u00e9taires g\u00e9n\u00e9raux"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-jsdc\/","title":{"rendered":"Journ\u00e9es
-  G \/www.lecames.org\/phototheque\/","title":{"rendered":"Phototh\u00e8que"}},{"link":"https:\/\/www.lecames.org\/documents\/documents-cames\/","title":{"rendered":"Documents CAMES"}},{"link":"https:\/\/www.lecames.org\/les-anciens-secretaires-generaux\/","title":{"rendered":"Les anciens Secr\u00e9taires g\u00e9n\u00e9raux"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-jsdc\/","title":{"rendered":"Journ\u00e9es Scientifiques du CAMES"}},{"link":"https:\/\/www.lecames.org\/e-cames\/",
-  G ","title":{"rendered":"Phototh\u00e8que"}},{"link":"https:\/\/www.lecames.org\/documents\/documents-cames\/","title":{"rendered":"Documents CAMES"}},{"link":"https:\/\/www.lecames.org\/les-anciens-secretaires-generaux\/","title":{"rendered":"Les anciens Secr\u00e9taires g\u00e9n\u00e9raux"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-jsdc\/","title":{"rendered":"Journ\u00e9es Scientifiques du CAMES"}},{"link":"https:\/\/www.lecames.org\/e-cames\/","title":{"rendered":"e-CAMES"}},
-  G ocuments\/documents-cames\/","title":{"rendered":"Documents CAMES"}},{"link":"https:\/\/www.lecames.org\/les-anciens-secretaires-generaux\/","title":{"rendered":"Les anciens Secr\u00e9taires g\u00e9n\u00e9raux"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-jsdc\/","title":{"rendered":"Journ\u00e9es Scientifiques du CAMES"}},{"link":"https:\/\/www.lecames.org\/e-cames\/","title":{"rendered":"e-CAMES"}},{"link":"https:\/\/www.lecames.org\/code-dethique-et-de-deontologie-du-cames\/",
-  G S"}},{"link":"https:\/\/www.lecames.org\/les-anciens-secretaires-generaux\/","title":{"rendered":"Les anciens Secr\u00e9taires g\u00e9n\u00e9raux"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-jsdc\/","title":{"rendered":"Journ\u00e9es Scientifiques du CAMES"}},{"link":"https:\/\/www.lecames.org\/e-cames\/","title":{"rendered":"e-CAMES"}},{"link":"https:\/\/www.lecames.org\/code-dethique-et-de-deontologie-du-cames\/","title":{"rendered":"Code d\u2019\u00c9thique et de D\u00e9ontol
-  G ","title":{"rendered":"Les anciens Secr\u00e9taires g\u00e9n\u00e9raux"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-jsdc\/","title":{"rendered":"Journ\u00e9es Scientifiques du CAMES"}},{"link":"https:\/\/www.lecames.org\/e-cames\/","title":{"rendered":"e-CAMES"}},{"link":"https:\/\/www.lecames.org\/code-dethique-et-de-deontologie-du-cames\/","title":{"rendered":"Code d\u2019\u00c9thique et de D\u00e9ontologie du CAMES"}},{"link":"https:\/\/www.lecames.org\/palmares-des-concours-
-  G \u00e9n\u00e9raux"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-jsdc\/","title":{"rendered":"Journ\u00e9es Scientifiques du CAMES"}},{"link":"https:\/\/www.lecames.org\/e-cames\/","title":{"rendered":"e-CAMES"}},{"link":"https:\/\/www.lecames.org\/code-dethique-et-de-deontologie-du-cames\/","title":{"rendered":"Code d\u2019\u00c9thique et de D\u00e9ontologie du CAMES"}},{"link":"https:\/\/www.lecames.org\/palmares-des-concours-dagregation\/","title":{"rendered":"Palmar\u00e8s des
-  G \/documents-relatifs-aux-jsdc\/","title":{"rendered":"Journ\u00e9es Scientifiques du CAMES"}},{"link":"https:\/\/www.lecames.org\/e-cames\/","title":{"rendered":"e-CAMES"}},{"link":"https:\/\/www.lecames.org\/code-dethique-et-de-deontologie-du-cames\/","title":{"rendered":"Code d\u2019\u00c9thique et de D\u00e9ontologie du CAMES"}},{"link":"https:\/\/www.lecames.org\/palmares-des-concours-dagregation\/","title":{"rendered":"Palmar\u00e8s des Concours d&rsquo;Agr\u00e9gation"}},{"link":"https:\/\
-  G -jsdc\/","title":{"rendered":"Journ\u00e9es Scientifiques du CAMES"}},{"link":"https:\/\/www.lecames.org\/e-cames\/","title":{"rendered":"e-CAMES"}},{"link":"https:\/\/www.lecames.org\/code-dethique-et-de-deontologie-du-cames\/","title":{"rendered":"Code d\u2019\u00c9thique et de D\u00e9ontologie du CAMES"}},{"link":"https:\/\/www.lecames.org\/palmares-des-concours-dagregation\/","title":{"rendered":"Palmar\u00e8s des Concours d&rsquo;Agr\u00e9gation"}},{"link":"https:\/\/www.lecames.org\/docume
-  G /www.lecames.org\/e-cames\/","title":{"rendered":"e-CAMES"}},{"link":"https:\/\/www.lecames.org\/code-dethique-et-de-deontologie-du-cames\/","title":{"rendered":"Code d\u2019\u00c9thique et de D\u00e9ontologie du CAMES"}},{"link":"https:\/\/www.lecames.org\/palmares-des-concours-dagregation\/","title":{"rendered":"Palmar\u00e8s des Concours d&rsquo;Agr\u00e9gation"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-ouc-et-aux-jsdc\/","title":{"rendered":"Olympiades universitaires du CA
-  G ps:\/\/www.lecames.org\/code-dethique-et-de-deontologie-du-cames\/","title":{"rendered":"Code d\u2019\u00c9thique et de D\u00e9ontologie du CAMES"}},{"link":"https:\/\/www.lecames.org\/palmares-des-concours-dagregation\/","title":{"rendered":"Palmar\u00e8s des Concours d&rsquo;Agr\u00e9gation"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-ouc-et-aux-jsdc\/","title":{"rendered":"Olympiades universitaires du CAMES"}},{"link":"https:\/\/www.lecames.org\/documents-pred-du-cames\/","ti
-  G dered":"Code d\u2019\u00c9thique et de D\u00e9ontologie du CAMES"}},{"link":"https:\/\/www.lecames.org\/palmares-des-concours-dagregation\/","title":{"rendered":"Palmar\u00e8s des Concours d&rsquo;Agr\u00e9gation"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-ouc-et-aux-jsdc\/","title":{"rendered":"Olympiades universitaires du CAMES"}},{"link":"https:\/\/www.lecames.org\/documents-pred-du-cames\/","title":{"rendered":"Programme Reconnaissance et \u00c9quivalence des Dipl\u00f4mes"
-  G ,{"link":"https:\/\/www.lecames.org\/palmares-des-concours-dagregation\/","title":{"rendered":"Palmar\u00e8s des Concours d&rsquo;Agr\u00e9gation"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-ouc-et-aux-jsdc\/","title":{"rendered":"Olympiades universitaires du CAMES"}},{"link":"https:\/\/www.lecames.org\/documents-pred-du-cames\/","title":{"rendered":"Programme Reconnaissance et \u00c9quivalence des Dipl\u00f4mes"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregati
-  G ndered":"Palmar\u00e8s des Concours d&rsquo;Agr\u00e9gation"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-ouc-et-aux-jsdc\/","title":{"rendered":"Olympiades universitaires du CAMES"}},{"link":"https:\/\/www.lecames.org\/documents-pred-du-cames\/","title":{"rendered":"Programme Reconnaissance et \u00c9quivalence des Dipl\u00f4mes"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-mpomv\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation MPOMV"}},{"link":"ht
-  G e9gation"}},{"link":"https:\/\/www.lecames.org\/documents-relatifs-aux-ouc-et-aux-jsdc\/","title":{"rendered":"Olympiades universitaires du CAMES"}},{"link":"https:\/\/www.lecames.org\/documents-pred-du-cames\/","title":{"rendered":"Programme Reconnaissance et \u00c9quivalence des Dipl\u00f4mes"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-mpomv\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation MPOMV"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagrega
-  G ouc-et-aux-jsdc\/","title":{"rendered":"Olympiades universitaires du CAMES"}},{"link":"https:\/\/www.lecames.org\/documents-pred-du-cames\/","title":{"rendered":"Programme Reconnaissance et \u00c9quivalence des Dipl\u00f4mes"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-mpomv\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation MPOMV"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-sjpeg\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation SJP
-  G "link":"https:\/\/www.lecames.org\/documents-pred-du-cames\/","title":{"rendered":"Programme Reconnaissance et \u00c9quivalence des Dipl\u00f4mes"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-mpomv\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation MPOMV"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-sjpeg\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation SJPEG"}},{"link":"https:\/\/www.lecames.org\/documents\/dossiers-cci\/","title":{"
-  G rogramme Reconnaissance et \u00c9quivalence des Dipl\u00f4mes"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-mpomv\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation MPOMV"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-sjpeg\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation SJPEG"}},{"link":"https:\/\/www.lecames.org\/documents\/dossiers-cci\/","title":{"rendered":"Comit\u00e9s Consultatifs interafricains (CCI) du CAMES"}},{"link":"https
-  G 0f4mes"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-mpomv\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation MPOMV"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-sjpeg\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation SJPEG"}},{"link":"https:\/\/www.lecames.org\/documents\/dossiers-cci\/","title":{"rendered":"Comit\u00e9s Consultatifs interafricains (CCI) du CAMES"}},{"link":"https:\/\/www.lecames.org\/reseaux\/alumni-cames\/","title":
-  G ","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation MPOMV"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-sjpeg\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation SJPEG"}},{"link":"https:\/\/www.lecames.org\/documents\/dossiers-cci\/","title":{"rendered":"Comit\u00e9s Consultatifs interafricains (CCI) du CAMES"}},{"link":"https:\/\/www.lecames.org\/reseaux\/alumni-cames\/","title":{"rendered":"ALUMNI CAMES"}},{"link":"https:\/\/www.lecames.org\/concours-dagregatio
-  G  MPOMV"}},{"link":"https:\/\/www.lecames.org\/documents-concours-dagregation-sjpeg\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation SJPEG"}},{"link":"https:\/\/www.lecames.org\/documents\/dossiers-cci\/","title":{"rendered":"Comit\u00e9s Consultatifs interafricains (CCI) du CAMES"}},{"link":"https:\/\/www.lecames.org\/reseaux\/alumni-cames\/","title":{"rendered":"ALUMNI CAMES"}},{"link":"https:\/\/www.lecames.org\/concours-dagregation-de-medecine-pharmacie-odontostomatologie-medecine-vet
-  G ation-sjpeg\/","title":{"rendered":"Concours d&rsquo;Agr\u00e9gation SJPEG"}},{"link":"https:\/\/www.lecames.org\/documents\/dossiers-cci\/","title":{"rendered":"Comit\u00e9s Consultatifs interafricains (CCI) du CAMES"}},{"link":"https:\/\/www.lecames.org\/reseaux\/alumni-cames\/","title":{"rendered":"ALUMNI CAMES"}},{"link":"https:\/\/www.lecames.org\/concours-dagregation-de-medecine-pharmacie-odontostomatologie-medecine-veterinaire-et-productions-animales\/","title":{"rendered":"Concours d\u20
-  G EG"}},{"link":"https:\/\/www.lecames.org\/documents\/dossiers-cci\/","title":{"rendered":"Comit\u00e9s Consultatifs interafricains (CCI) du CAMES"}},{"link":"https:\/\/www.lecames.org\/reseaux\/alumni-cames\/","title":{"rendered":"ALUMNI CAMES"}},{"link":"https:\/\/www.lecames.org\/concours-dagregation-de-medecine-pharmacie-odontostomatologie-medecine-veterinaire-et-productions-animales\/","title":{"rendered":"Concours d\u2019Agr\u00e9gation de M\u00e9decine, Pharmacie, Odontostomatologie, M\u00
-  G "title":{"rendered":"Comit\u00e9s Consultatifs interafricains (CCI) du CAMES"}},{"link":"https:\/\/www.lecames.org\/reseaux\/alumni-cames\/","title":{"rendered":"ALUMNI CAMES"}},{"link":"https:\/\/www.lecames.org\/concours-dagregation-de-medecine-pharmacie-odontostomatologie-medecine-veterinaire-et-productions-animales\/","title":{"rendered":"Concours d\u2019Agr\u00e9gation de M\u00e9decine, Pharmacie, Odontostomatologie, M\u00e9decine V\u00e9t\u00e9rinaire et Productions Animales"}},{"link":"ht
-  G 0e9s Consultatifs interafricains (CCI) du CAMES"}},{"link":"https:\/\/www.lecames.org\/reseaux\/alumni-cames\/","title":{"rendered":"ALUMNI CAMES"}},{"link":"https:\/\/www.lecames.org\/concours-dagregation-de-medecine-pharmacie-odontostomatologie-medecine-veterinaire-et-productions-animales\/","title":{"rendered":"Concours d\u2019Agr\u00e9gation de M\u00e9decine, Pharmacie, Odontostomatologie, M\u00e9decine V\u00e9t\u00e9rinaire et Productions Animales"}},{"link":"https:\/\/www.lecames.org\/came
-  G k":"https:\/\/www.lecames.org\/concours-dagregation-de-medecine-pharmacie-odontostomatologie-medecine-veterinaire-et-productions-animales\/","title":{"rendered":"Concours d\u2019Agr\u00e9gation de M\u00e9decine, Pharmacie, Odontostomatologie, M\u00e9decine V\u00e9t\u00e9rinaire et Productions Animales"}},{"link":"https:\/\/www.lecames.org\/cames-info\/","title":{"rendered":"CAMES INFO"}},{"link":"https:\/\/www.lecames.org\/formations-accreditees\/","title":{"rendered":"Formations accr\u00e9dit\u
-  G ed":"Concours d\u2019Agr\u00e9gation de M\u00e9decine, Pharmacie, Odontostomatologie, M\u00e9decine V\u00e9t\u00e9rinaire et Productions Animales"}},{"link":"https:\/\/www.lecames.org\/cames-info\/","title":{"rendered":"CAMES INFO"}},{"link":"https:\/\/www.lecames.org\/formations-accreditees\/","title":{"rendered":"Formations accr\u00e9dit\u00e9es"}},{"link":"https:\/\/www.lecames.org\/equipes\/","title":{"rendered":"\u00c9quipes"}},{"link":"https:\/\/www.lecames.org\/le-secretaire-general\/","t
-  G rmacie, Odontostomatologie, M\u00e9decine V\u00e9t\u00e9rinaire et Productions Animales"}},{"link":"https:\/\/www.lecames.org\/cames-info\/","title":{"rendered":"CAMES INFO"}},{"link":"https:\/\/www.lecames.org\/formations-accreditees\/","title":{"rendered":"Formations accr\u00e9dit\u00e9es"}},{"link":"https:\/\/www.lecames.org\/equipes\/","title":{"rendered":"\u00c9quipes"}},{"link":"https:\/\/www.lecames.org\/le-secretaire-general\/","title":{"rendered":"Le Secr\u00e9taire G\u00e9n\u00e9ral"}}
-  G  M\u00e9decine V\u00e9t\u00e9rinaire et Productions Animales"}},{"link":"https:\/\/www.lecames.org\/cames-info\/","title":{"rendered":"CAMES INFO"}},{"link":"https:\/\/www.lecames.org\/formations-accreditees\/","title":{"rendered":"Formations accr\u00e9dit\u00e9es"}},{"link":"https:\/\/www.lecames.org\/equipes\/","title":{"rendered":"\u00c9quipes"}},{"link":"https:\/\/www.lecames.org\/le-secretaire-general\/","title":{"rendered":"Le Secr\u00e9taire G\u00e9n\u00e9ral"}},{"link":"https:\/\/www.lec
-  G ":"https:\/\/www.lecames.org\/cames-info\/","title":{"rendered":"CAMES INFO"}},{"link":"https:\/\/www.lecames.org\/formations-accreditees\/","title":{"rendered":"Formations accr\u00e9dit\u00e9es"}},{"link":"https:\/\/www.lecames.org\/equipes\/","title":{"rendered":"\u00c9quipes"}},{"link":"https:\/\/www.lecames.org\/le-secretaire-general\/","title":{"rendered":"Le Secr\u00e9taire G\u00e9n\u00e9ral"}},{"link":"https:\/\/www.lecames.org\/plan-strategique\/","title":{"rendered":"Plans strat\u00e9gi
-  G e":{"rendered":"CAMES INFO"}},{"link":"https:\/\/www.lecames.org\/formations-accreditees\/","title":{"rendered":"Formations accr\u00e9dit\u00e9es"}},{"link":"https:\/\/www.lecames.org\/equipes\/","title":{"rendered":"\u00c9quipes"}},{"link":"https:\/\/www.lecames.org\/le-secretaire-general\/","title":{"rendered":"Le Secr\u00e9taire G\u00e9n\u00e9ral"}},{"link":"https:\/\/www.lecames.org\/plan-strategique\/","title":{"rendered":"Plans strat\u00e9giques du CAMES"}},{"link":"https:\/\/www.lecames.o
-  G cames.org\/formations-accreditees\/","title":{"rendered":"Formations accr\u00e9dit\u00e9es"}},{"link":"https:\/\/www.lecames.org\/equipes\/","title":{"rendered":"\u00c9quipes"}},{"link":"https:\/\/www.lecames.org\/le-secretaire-general\/","title":{"rendered":"Le Secr\u00e9taire G\u00e9n\u00e9ral"}},{"link":"https:\/\/www.lecames.org\/plan-strategique\/","title":{"rendered":"Plans strat\u00e9giques du CAMES"}},{"link":"https:\/\/www.lecames.org\/pays-membres\/","title":{"rendered":"Pays membres"}
-  G tees\/","title":{"rendered":"Formations accr\u00e9dit\u00e9es"}},{"link":"https:\/\/www.lecames.org\/equipes\/","title":{"rendered":"\u00c9quipes"}},{"link":"https:\/\/www.lecames.org\/le-secretaire-general\/","title":{"rendered":"Le Secr\u00e9taire G\u00e9n\u00e9ral"}},{"link":"https:\/\/www.lecames.org\/plan-strategique\/","title":{"rendered":"Plans strat\u00e9giques du CAMES"}},{"link":"https:\/\/www.lecames.org\/pays-membres\/","title":{"rendered":"Pays membres"}},{"link":"https:\/\/www.leca
-  G nk":"https:\/\/www.lecames.org\/equipes\/","title":{"rendered":"\u00c9quipes"}},{"link":"https:\/\/www.lecames.org\/le-secretaire-general\/","title":{"rendered":"Le Secr\u00e9taire G\u00e9n\u00e9ral"}},{"link":"https:\/\/www.lecames.org\/plan-strategique\/","title":{"rendered":"Plans strat\u00e9giques du CAMES"}},{"link":"https:\/\/www.lecames.org\/pays-membres\/","title":{"rendered":"Pays membres"}},{"link":"https:\/\/www.lecames.org\/institutions-membres\/","title":{"rendered":"Institutions me
+##### https://www.lecames.org/institutions-membres/
+ST 200 text/html; charset=UTF-8 82518 https://www.lecames.org/institutions-membres/
+TITLE Institutions membres - CAMES | TABLES 0 TR 0 LI 20
+  FILES 0
+  A  -> https://www.lecames.org
+  A Boite à idées -> http://boiteidee.lecames.org/
+  A Accueil -> /
+  A Le Secrétaire Général -> https://www.lecames.org/le-secretaire-general/
+  A Historique -> https://www.lecames.org/historique/
+  A Missions -> https://www.lecames.org/missions/
+  A Instances -> https://www.lecames.org/instances/
+  A Institutions membres -> https://www.lecames.org/institutions-membres/
+  A Pays membres -> https://www.lecames.org/pays-membres/
+  A Les anciens Secrétaires généraux -> https://www.lecames.org/les-anciens-secretaires-generaux/
+  A Programmes -> https://www.lecames.org/programmes/
+  A e-CAMES -> https://www.lecames.org/e-cames/
+  A Aide aux candidats -> https://www.lecames.org/category/aide-aux-candidats/
+  A Plateforme CCI & Agrégation -> https://www.cames.online/
+  A Plateforme e-PRED -> https://pred.cames.online/
+  A Plateforme des OUC -> https://olympiades.cames.online/
+  A Plateforme OIPA/CAMES -> https://imap.lecames.org/oipa/web
+  A Actualités -> https://www.lecames.org/category/actualites/
+  A CAMESPACE -> https://www.lecames.org/category/camespace/
+  A Opportunités -> https://www.lecames.org/category/opportunites/
+  A Photothèque -> https://www.lecames.org/phototheque/
+  A CAMES WebTV -> https://www.lecames.org/category/cames-webtv/
+  A Magazine CAMES INFO -> https://www.lecames.org/cames-info/
+  A Newsletter Lundi CAMES -> https://www.lecames.org/lundi-cames/
+  A S’abonner à Lundi CAMES -> https://alumni.lecames.org/newsletters
+  A Publications -> https://www.lecames.org/publications/
+  A Documents -> https://www.lecames.org/documents/
+  A Comités Consultatifs Interafricains -> https://www.lecames.org/documents/dossiers-cci/
+  A Concours d’Agrégation SJPEG -> https://www.lecames.org/documents-concours-dagregation-sjpeg/
+  A Concours d’Agrégation MPOMV -> https://www.lecames.org/documents-concours-dagregation-mpomv/
+  A Palmarès des Concours -> https://www.lecames.org/palmares-des-concours-dagregation/
+  A Accréditation PRED -> https://www.lecames.org/documents-pred-du-cames/
+  A Olympiades Universitaires -> https://www.lecames.org/documents-relatifs-aux-ouc-et-aux-jsdc/
+  A Journées Scientifiques -> https://www.lecames.org/documents-relatifs-aux-jsdc/
+  A Code d’Éthique et de Déontologie -> https://www.lecames.org/code-dethique-et-de-deontologie-du-cames/
+  A Documents CAMES -> https://www.lecames.org/documents/documents-cames/
+  A Équipe -> https://www.lecames.org/equipes/
+  A Contact -> https://www.lecames.org/contact/
+  A En savoir plus -> http://www.2ie-edu.org/index.php/fr/
+  A En savoir plus -> http://www.cirdes.org/
+  A En savoir plus -> http://u-auben.com/
+  A En savoir plus -> http://www.ws-africa.org/index.php/fr/
+  A En savoir plus -> http://www.usta.bf/
+  A En savoir plus -> http://www.iiayaounde.com/
+  A En savoir plus -> http://ucao.org/
+  A En savoir plus -> http://www.usenghor-francophonie.org/
+  A En savoir plus -> http://www.cirmf.ga/
+  A En savoir plus -> https://www.cermel.org/
+  A En savoir plus -> http://insah.cilss.int/
+  A En savoir plus -> http://agrhymet.cilss.int/
+  A En savoir plus -> http://www.rectas.org/
+  A En savoir plus -> http://www.eismv.org/
+  A En savoir plus -> http://www.esmt.sn/
+  A En savoir plus -> http://www.cesag.sn/
+  A En savoir plus -> https://www.ista-cemac.org
+  A Espace documentaire -> http://greenstone.lecames.org/cgi-bin/library
+  A DICAMES -> https://dicames.online/jspui/
+  A CAMES Info -> https://www.lecames.org/cames-info
+  A Journal Officiel -> 
+  A E-Formation CAMES -> http://eformation.cames.online/
+  A Formations accrèditées -> https://www.lecames.org/diplome_cames/
+  A Le Secrétaire Général -> /lecames.org/le-secretaire-general/
+  A Équipe -> /lecames.org/equipes/
+  A Plan stratégique de développement (PSDC) -> /lecames.org/plan-strategique/
+  JS https://fonts.googleapis.com/css?family=Roboto
+  JS https://www.lecames.org/wp-content/themes/lecames/assets/img/favicon/manifest.json
+  JS /json
+  JS https://www.lecames.org/wp-json/oembed/1.0/embed?url=https
+  JS https://api.w.org/
+  JS https://www.lecames.org/wp-json/
+  JS https://www.lecames.org/wp-json/wp/v2/pages/103
+  JS https://www.lecames.org/wp-admin/admin-ajax.php
+  JS /wp-json
+##### https://www.lecames.org/formations-accreditees/
+ST 200 text/html; charset=UTF-8 82095 https://www.lecames.org/formations-accreditees/
+TITLE Formations accréditées - CAMES | TABLES 1 TR 11 LI 20
+  TR # | Institution | Diplôme | Année | Option | Equivalent | Statut
+  TR 796 | | master de recherche en philosophie | 2013 | philosophie du Développement | Master II - philosophie - BAC+5 | RAS
+  TR 795 | | master professionnel en science de l’éducation | 2013 | Conception, Gestion et Évaluation des Projets Éducatifs pour les pays en Développement | Master II - sciences de l'education - BAC+5 | R
+  TR 794 | | diplôme universitaire de technologie mention informatique de gestion | 2014 | aucune | DUT - informatique de gestion - BAC+2 | RAS
+  TR 793 | | diplôme universitaire de technologie mention génie civil | 2014 | aucune | DUT - génie civil - BAC+2 | RAS
+  TR 792 | | diplôme universitaire de technologie, mention : génie des télécommunications et ntic | 2014 | aucune | DUT - génie des télécommunications et ntic - BAC+2 | RAS
+  TR 791 | | diplôme universitaire de technologie, mention : génie electrique, parcours : automatisme | 2014 | aucune | DUT - génie électrique - BAC+2 | RAS
+  TR 790 | | licence développeur d’applications | 2014 | aucune | Licence - développeur d’applications - BAC+3 | RAS
+  TR 789 | | licence mathématiques et informatiques | 2014 | aucune | Licence - mathématiques et informatiques - BAC+3 | RAS
+  TR 788 | | licence réseaux informatiques et télécommunications | 2014 | aucune | Licence - réseaux informatiques et télécommunications - BAC+3 | RAS
+  FILES 0
+  A  -> https://www.lecames.org
+  A Boite à idées -> http://boiteidee.lecames.org/
+  A Accueil -> /
+  A Le Secrétaire Général -> https://www.lecames.org/le-secretaire-general/
+  A Historique -> https://www.lecames.org/historique/
+  A Missions -> https://www.lecames.org/missions/
+  A Instances -> https://www.lecames.org/instances/
+  A Institutions membres -> https://www.lecames.org/institutions-membres/
+  A Pays membres -> https://www.lecames.org/pays-membres/
+  A Les anciens Secrétaires généraux -> https://www.lecames.org/les-anciens-secretaires-generaux/
+  A Programmes -> https://www.lecames.org/programmes/
+  A e-CAMES -> https://www.lecames.org/e-cames/
+  A Aide aux candidats -> https://www.lecames.org/category/aide-aux-candidats/
+  A Plateforme CCI & Agrégation -> https://www.cames.online/
+  A Plateforme e-PRED -> https://pred.cames.online/
+  A Plateforme des OUC -> https://olympiades.cames.online/
+  A Plateforme OIPA/CAMES -> https://imap.lecames.org/oipa/web
+  A Actualités -> https://www.lecames.org/category/actualites/
+  A CAMESPACE -> https://www.lecames.org/category/camespace/
+  A Opportunités -> https://www.lecames.org/category/opportunites/
+  A Photothèque -> https://www.lecames.org/phototheque/
+  A CAMES WebTV -> https://www.lecames.org/category/cames-webtv/
+  A Magazine CAMES INFO -> https://www.lecames.org/cames-info/
+  A Newsletter Lundi CAMES -> https://www.lecames.org/lundi-cames/
+  A S’abonner à Lundi CAMES -> https://alumni.lecames.org/newsletters
+  A Publications -> https://www.lecames.org/publications/
+  A Documents -> https://www.lecames.org/documents/
+  A Comités Consultatifs Interafricains -> https://www.lecames.org/documents/dossiers-cci/
+  A Concours d’Agrégation SJPEG -> https://www.lecames.org/documents-concours-dagregation-sjpeg/
+  A Concours d’Agrégation MPOMV -> https://www.lecames.org/documents-concours-dagregation-mpomv/
+  A Palmarès des Concours -> https://www.lecames.org/palmares-des-concours-dagregation/
+  A Accréditation PRED -> https://www.lecames.org/documents-pred-du-cames/
+  A Olympiades Universitaires -> https://www.lecames.org/documents-relatifs-aux-ouc-et-aux-jsdc/
+  A Journées Scientifiques -> https://www.lecames.org/documents-relatifs-aux-jsdc/
+  A Code d’Éthique et de Déontologie -> https://www.lecames.org/code-dethique-et-de-deontologie-du-cames/
+  A Documents CAMES -> https://www.lecames.org/documents/documents-cames/
+  A Équipe -> https://www.lecames.org/equipes/
+  A Contact -> https://www.lecames.org/contact/
+  A 2 -> https://www.lecames.org/formations-accreditees/page/2/
+  A 3 -> https://www.lecames.org/formations-accreditees/page/3/
+  A 4 -> https://www.lecames.org/formations-accreditees/page/4/
+  A 5 -> https://www.lecames.org/formations-accreditees/page/5/
+  A 44 -> https://www.lecames.org/formations-accreditees/page/44/
+  A 45 -> https://www.lecames.org/formations-accreditees/page/45/
+  A 46 -> https://www.lecames.org/formations-accreditees/page/46/
+  A 47 -> https://www.lecames.org/formations-accreditees/page/47/
+  A 48 -> https://www.lecames.org/formations-accreditees/page/48/
+  A Espace documentaire -> http://greenstone.lecames.org/cgi-bin/library
+  A DICAMES -> https://dicames.online/jspui/
+  A CAMES Info -> https://www.lecames.org/cames-info
+  A Journal Officiel -> 
+  A E-Formation CAMES -> http://eformation.cames.online/
+  A Formations accrèditées -> https://www.lecames.org/diplome_cames/
+  A Le Secrétaire Général -> /lecames.org/le-secretaire-general/
+  A Équipe -> /lecames.org/equipes/
+  A Plan stratégique de développement (PSDC) -> /lecames.org/plan-strategique/
+  JS https://fonts.googleapis.com/css?family=Roboto
+  JS https://www.lecames.org/wp-content/themes/lecames/assets/img/favicon/manifest.json
+  JS /json
+  JS https://www.lecames.org/wp-json/oembed/1.0/embed?url=https
+  JS https://www.lecames.org/wp-content/themes/lecames/assets/css/dataTable/datatables.min.css?ver=7.1.3
+  JS https://www.lecames.org/wp-content/themes/lecames/assets/js/dataTable/datatables.min.js?ver=7.1.3
+  JS https://www.lecames.org/wp-content/themes/lecames/assets/js/dataTable/jquery.dataTables.min.js?ver=7.1.3
+  JS https://www.lecames.org/wp-content/themes/lecames/assets/js/dataTable/dataTable.app.js?ver=7.1.3
+  JS https://api.w.org/
+  JS https://www.lecames.org/wp-json/
+  JS https://www.lecames.org/wp-json/wp/v2/pages/211
+  JS https://www.lecames.org/wp-admin/admin-ajax.php
+  JS /wp-json
