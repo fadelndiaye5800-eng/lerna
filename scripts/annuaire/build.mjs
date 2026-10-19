@@ -274,8 +274,9 @@ for (const r of all) {
   if (r.w) { try { const u = new URL(/^https?:\/\//i.test(r.w) ? r.w : 'https://' + r.w); r.w = u.hostname.includes('.') ? u.href : ''; } catch { r.w = ''; } }
   if (r.w && ccMismatch(r)) { dropped++; continue; }
   const key = r.w ? r.p + '|' + domain(r.w) + '|' + (new URL(r.w).pathname.split('/')[1] || '') : '';
-  if (key && seenDom.has(key)) continue;
-  if (key) seenDom.add(key);
+  const bare = r.w ? r.p + '|' + domain(r.w) + '|' : '';
+  if (key && (seenDom.has(key) || (r.s === 'wikidata' && seenDom.has(bare + '*')))) continue;
+  if (key) { seenDom.add(key); if (r.s !== 'wikidata') seenDom.add(bare + '*'); }
   ids.add(r.i);
   for (const k of Object.keys(r)) if (r[k] === '' || r[k] == null) delete r[k];
   final.push(r);
