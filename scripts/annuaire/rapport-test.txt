@@ -1,4 +1,4 @@
-2026-10-19T00:34:01.993Z
+2026-10-19T00:35:29.719Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -291,190 +291,81 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   阜康职业技术学院 | 昌吉回族自治州 | public | 专科 (cycle court)
   胡杨河职业技术学院 | 胡杨河市 | public | 专科 (cycle court)
   新疆石河子航空职业学院 | 石河子市 | prive | 专科 (cycle court) · 民办
-##### https://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189
-ST 200 text/html; charset=utf-8 47990 https://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189
-TITLE Commission for University Education - Status of Universities | TABLES 1 TR 10 LI 96
-  TR Foreign University | Local Institution | Programme offered under collaboration | Date of Grant of Authority to collaborate
-  TR California Miramar University, USA | The East Africa University, Kitengela, Kenya | 1. Master of Business Administration (MBA) 2. Doctor of Business Administration (DBA) | 19th October 2015
-  TR University of Northampton, United Kingdom ( UK) | Edulink International College, Nairobi, Kenya | Bachelor of Business Administration (BBA) | 14th April 2016
-  TR University of Greenwich, United Kingdom(UK) | Oshwal College, Nairobi, Kenya | Bachelor of Science (Hons) Computing` | 18th October 2018
-  TR University of Hertfordshire, United Kingdom (UK) | Oshwal College, Nairobi, Kenya | Bachelor of Arts(Hons) Business Administration | 21st November 2019
-  TR Beulah Heights University, USA | Daystar University, Athi River, Kenya | Master of Arts in Leadership | 27th January 2022
-  TR Lincoln University College, Malasya | Simon Page College of Marketing, Nairobi | Bachelor (Hons) of Business Management | 24th June 2024
-  TR International Business, Science & Technology (ISBAT) University, Uganda | East Africa Institute of Certified Studies, Nairobi | Bachelor of Business Administration | 4th August 2025
-  TR Bachelor of Hotel Management | 3rd February 2026
-  TR Pontifical Urbaniana University, Holy See | Tangaza University | 1. Baccalaureate in Sacred Theology/Bachelor of Theology 2. Baccalaureate in Philosophy/Bachelor of Philosophy | 4th August 2025
-  FILES 1
-   /images/2026/Institutional_Accreditation/Approved_Universities_15th_September_2026.pdf
-  A FAQS -> /index.php?option=com_content&view=article&id=16&Itemid=141
-  A Careers -> https://imis.cue.or.ke/eRecruitment/
-  A Bids and Tenders -> /index.php?option=com_phocadownload&view=category&id=60&Itemid=512
-  A Staff Mail -> https://www.office.com/
-  A  -> https://mail.cue.or.ke/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fmail.cue.or.ke%2fowa
-  A  -> /index.php?option=com_content&view=category&layout=blog&id=23&Itemid=101
-  A About Us -> /index.php?option=com_content&view=category&layout=blog&id=8&Itemid=129
-  A Who we are -> /index.php?option=com_content&view=article&id=2&Itemid=125
-  A Organisational Structure -> /index.php?option=com_content&view=article&id=4&Itemid=127
-  A Commissioners -> /index.php?option=com_content&view=article&id=5&Itemid=128
-  A Management Team -> /index.php?option=com_content&view=article&id=166&Itemid=513
-  A Corporate Social Responsibility -> /index.php?option=com_content&view=article&id=6&Itemid=130
-  A Service Charter -> /index.php?option=com_content&view=article&id=7&Itemid=131
-  A Strategic Plan -> /index.php?option=com_content&view=article&id=8&Itemid=132
-  A Related Links -> /index.php?option=com_content&view=article&id=59&Itemid=251
-  A News and Events -> /index.php?option=com_content&view=article&id=206&Itemid=634
-  A Photo Gallery -> /index.php?option=com_phocagallery&view=categories&Itemid=211
-  A Press Releases -> /index.php?option=com_phocadownload&view=category&id=66&Itemid=511
-  A Services -> /index.php?option=com_content&view=category&layout=blog&id=9&Itemid=133
-  A Accreditation -> /index.php?option=com_content&view=category&layout=blog&id=13&Itemid=134
-  A Introduction to Accreditation -> /index.php?option=com_content&view=article&id=66&Itemid=258
-  A Status of Universities -> /index.php?option=com_content&view=article&id=21&Itemid=475
-  A Application for Programme Accreditation -> https://imis.cue.or.ke/Accreditation.aspx
-  A Establishment of Universities -> /index.php?option=com_content&view=article&id=9&Itemid=257
-  A Academic Programmes Offered in Universities in Kenya -> /index.php?option=com_content&view=article&id=22&Itemid=253
-  A Recognition and Equation of Qualifications -> /index.php?option=com_content&view=article&id=10&Itemid=135
-  A Universities Education Management Information System -> https://imis.cue.or.ke
-  A Licensing of Student Recruitment Agencies -> https://imis.cue.or.ke/LicensingPortal/
-  A Peer Reviewers Portal -> https://imis.cue.or.ke/PeerReviewersPortal
-  A Legal Services -> https://imis.cue.or.ke/CaseManagement/Login
-  A Universities Collaboration Portal -> https://imis.cue.or.ke/collaborationportal/
-  A eProcurement -> https://imis.cue.or.ke/eProcurement
-  A Employee Service Portal -> https://imis.cue.or.ke/EmployeeSelfService
-  A Library Information Services -> /index.php?option=com_content&view=article&id=56&Itemid=136
-  A E-Publications -> https://www.cue.or.ke/members/members.php
-  A Online Public Access Catalogue -> http://library.cue.or.ke/
-  A Open Access Resources -> /index.php?option=com_content&view=article&id=140&Itemid=311
-  A Digital Repository -> http://repository.cue.or.ke:8080/xmlui/
-  A Digital Repositories of Universities in Kenya -> /index.php?option=com_content&view=article&id=202&Itemid=620
-  A MyLOFT eResources -> https://app.myloft.xyz/browse/home
-  A Public Advisory -> /index.php?option=com_content&view=article&id=14&Itemid=139
-  A Public Advisory on Campuses and Qualifications -> /index.php?option=com_phocadownload&view=file&id=1&Itemid=272
-  A Planning and Research -> /index.php?option=com_content&view=article&id=13&Itemid=138
-  A Downloads -> /index.php?option=com_phocadownload&view=category&id=11&Itemid=187
-  A Contact Us -> /index.php?option=com_content&view=article&id=141&Itemid=166
-  A CONFERENCES -> https://cue.or.ke/biennial/
-  A Information Services -> /index.php?option=com_content&view=article&id=56&Itemid=472
-  A Downloads -> /index.php?option=com_phocadownload&view=category&id=11&Itemid=496
-  A Accreditation -> /index.php/accredited-universities
-  A Customer Care -> /index.php?option=com_content&view=article&id=23&Itemid=477
-  A Public Advisory -> /index.php?option=com_content&view=article&id=14&Itemid=479
-  A Print -> /index.php?option=com_content&view=article&id=21:status-of-universities&catid=13&tmpl=component&print=1&layout=default&Itemid=189
-  A Email -> /index.php?option=com_mailto&tmpl=component&template=protostar&link=8c32e28d8e0b88d03cb3b65c9b1af27837eec978
-  A Public -> /index.php?option=com_tags&view=tag&id=2-public
-  A here -> /images/2026/Institutional_Accreditation/Approved_Universities_15th_September_2026.pdf
-  A Online application for Recognition and Equation of Qualifica -> https://imis.cue.or.ke/RecognitionAndEquationforQualifications/
-  A Accreditation -> /index.php?option=com_content&view=category&layout=blog&id=13&Itemid=471
-  A Programmes Offered in Universities in Kenya -> /index.php?option=com_content&view=article&layout=edit&id=22&Itemid=473
-  A Recognition and Equation of Qualifications -> /index.php?option=com_content&view=article&id=10&Itemid=474
-  A Online Services -> /index.php?option=com_content&view=article&id=63&Itemid=476
-  A Sensitization Youth, Women and PWD -> http://www.cue.or.ke/index.php/bids-and-tenders1/category/67-procurement-sensitization?download=182:sensitization-youth-women-and-pwd-june-2019
-  A Frequently Asked Questions -> /index.php?option=com_content&view=article&id=16&Itemid=478
-  A Bids and Tender Notices -> /index.php?option=com_phocadownload&view=category&id=60&Itemid=480
-  A Related Links -> /index.php?option=com_content&view=article&id=59&Itemid=481
-  A The Universities Act, 2012 -> /index.php?option=com_phocadownload&view=category&id=4&Itemid=482
-  A Ministry of Education -> https://www.education.go.ke/
-  A Kenya Universities and Colleges Central Placement Service (K -> http://kuccps.net/
-  A Higher Education Loans Board (HELB) -> http://www.helb.co.ke/
-  A Kenya National Examination Council (KNEC) -> https://www.knec.ac.ke/
-  A TVET Authority -> https://www.tveta.go.ke/
-  A SAR tool for ODEL Programmes and institutions in Kenya -> /index.php?option=com_phocadownload&view=category&id=73&Itemid=529
-  A Accredited Campuses of Universities in Kenya - 2016 -> /index.php?option=com_phocadownload&view=category&id=5&Itemid=491
-  A Status Of Universities (Universities Authorized to Operate i -> /index.php?option=com_phocadownload&view=category&id=6&Itemid=492
-  A Newsletter March 2019 -> /index.php?option=com_phocadownload&view=file&id=180&Itemid=493
-  A University Standards & Guidelines -> /index.php?option=com_phocadownload&view=category&id=8&Itemid=494
-  A Universities Regulations 2014 -> /index.php?option=com_phocadownload&view=category&id=9&Itemid=495
-  A Customer Relationship Portal -> https://imis.cue.or.ke/CustomerRelationshipManagement/
-  A crocothemes.net -> https://www.crocothemes.net
-  A Joomla! -> https://www.joomla.org
-  A GNU General Public License. -> https://www.gnu.org/licenses/gpl-2.0.html
-  JS //ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/smoothness/jquery-ui.css
-  JS https://fonts.googleapis.com/css?family=Open
-  JS /json
-  JS //ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js
-  JS /components/com_uniform/assets/js/libs/json-2.3.min.js
-  JS https://maps.googleapis.com/maps/api/js?v=3.23&libraries=places
-  JS https://fonts.googleapis.com/css?family=Lato
-##### https://www.cue.or.ke/index.php/accredited-universities
-ST 200 text/html; charset=utf-8 43910 https://www.cue.or.ke/index.php/accredited-universities
-TITLE Commission for University Education - Home | TABLES 0 TR 0 LI 64
-  FILES 0
-  A FAQS -> /index.php?option=com_content&view=article&id=16&Itemid=141
-  A Careers -> https://imis.cue.or.ke/eRecruitment/
-  A Bids and Tenders -> /index.php?option=com_phocadownload&view=category&id=60&Itemid=512
-  A Staff Mail -> https://www.office.com/
-  A  -> https://mail.cue.or.ke/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fmail.cue.or.ke%2fowa
-  A  -> /index.php?option=com_content&view=category&layout=blog&id=23&Itemid=101
-  A About Us -> /index.php?option=com_content&view=category&layout=blog&id=8&Itemid=129
-  A Who we are -> /index.php?option=com_content&view=article&id=2&Itemid=125
-  A Organisational Structure -> /index.php?option=com_content&view=article&id=4&Itemid=127
-  A Commissioners -> /index.php?option=com_content&view=article&id=5&Itemid=128
-  A Management Team -> /index.php?option=com_content&view=article&id=166&Itemid=513
-  A Corporate Social Responsibility -> /index.php?option=com_content&view=article&id=6&Itemid=130
-  A Service Charter -> /index.php?option=com_content&view=article&id=7&Itemid=131
-  A Strategic Plan -> /index.php?option=com_content&view=article&id=8&Itemid=132
-  A Related Links -> /index.php?option=com_content&view=article&id=59&Itemid=251
-  A News and Events -> /index.php?option=com_content&view=article&id=206&Itemid=634
-  A Photo Gallery -> /index.php?option=com_phocagallery&view=categories&Itemid=211
-  A Press Releases -> /index.php?option=com_phocadownload&view=category&id=66&Itemid=511
-  A Services -> /index.php?option=com_content&view=category&layout=blog&id=9&Itemid=133
-  A Accreditation -> /index.php?option=com_content&view=category&layout=blog&id=13&Itemid=134
-  A Introduction to Accreditation -> /index.php?option=com_content&view=article&id=66&Itemid=258
-  A Status of Universities -> /index.php?option=com_content&view=article&id=21&Itemid=189
-  A Application for Programme Accreditation -> https://imis.cue.or.ke/Accreditation.aspx
-  A Establishment of Universities -> /index.php?option=com_content&view=article&id=9&Itemid=257
-  A Academic Programmes Offered in Universities in Kenya -> /index.php?option=com_content&view=article&id=22&Itemid=253
-  A Recognition and Equation of Qualifications -> /index.php?option=com_content&view=article&id=10&Itemid=135
-  A Universities Education Management Information System -> https://imis.cue.or.ke
-  A Licensing of Student Recruitment Agencies -> https://imis.cue.or.ke/LicensingPortal/
-  A Peer Reviewers Portal -> https://imis.cue.or.ke/PeerReviewersPortal
-  A Legal Services -> https://imis.cue.or.ke/CaseManagement/Login
-  A Universities Collaboration Portal -> https://imis.cue.or.ke/collaborationportal/
-  A eProcurement -> https://imis.cue.or.ke/eProcurement
-  A Employee Service Portal -> https://imis.cue.or.ke/EmployeeSelfService
-  A Library Information Services -> /index.php?option=com_content&view=article&id=56&Itemid=136
-  A E-Publications -> https://www.cue.or.ke/members/members.php
-  A Online Public Access Catalogue -> http://library.cue.or.ke/
-  A Open Access Resources -> /index.php?option=com_content&view=article&id=140&Itemid=311
-  A Digital Repository -> http://repository.cue.or.ke:8080/xmlui/
-  A Digital Repositories of Universities in Kenya -> /index.php?option=com_content&view=article&id=202&Itemid=620
-  A MyLOFT eResources -> https://app.myloft.xyz/browse/home
-  A Public Advisory -> /index.php?option=com_content&view=article&id=14&Itemid=139
-  A Public Advisory on Campuses and Qualifications -> /index.php?option=com_phocadownload&view=file&id=1&Itemid=272
-  A Planning and Research -> /index.php?option=com_content&view=article&id=13&Itemid=138
-  A Downloads -> /index.php?option=com_phocadownload&view=category&id=11&Itemid=187
-  A Contact Us -> /index.php?option=com_content&view=article&id=141&Itemid=166
-  A CONFERENCES -> https://cue.or.ke/biennial/
-  A joomla drop down menu module -> http://joomlartwork.com/responsive-joomla-menu/
-  A Information Services -> /index.php?option=com_content&view=article&id=56&Itemid=472
-  A Downloads -> /index.php?option=com_phocadownload&view=category&id=11&Itemid=496
-  A Accreditation -> /index.php/accredited-universities
-  A Customer Care -> /index.php?option=com_content&view=article&id=23&Itemid=477
-  A Public Advisory -> /index.php?option=com_content&view=article&id=14&Itemid=479
-  A More About CUE -> https://www.cue.or.ke/index.php?option=com_content&view=article&id=2&Itemid=125
-  A Status of Universities -> /index.php?option=com_content&view=article&id=21&Itemid=475
-  A Programmes Offered in Universities in Kenya -> /index.php?option=com_content&view=article&layout=edit&id=22
-  A Online Services -> /index.php?option=com_content&view=article&id=63&Itemid=476
-  A Recognition and Equation of Qualifications -> /index.php?option=com_content&view=article&id=10&Itemid=474
-  A  -> /index.php?option=com_content&view=article&id=244:education-cabinet-secretary-cue-and-partners-launch-heri-africa-to-boost-african-research&catid=10:news-updates&Itemid=140
-  A  -> /index.php?option=com_content&view=article&id=245:inside-the-national-dialogue-championing-university-competency-based-education-framework&catid=10:news-updates&Itemid=140
-  A  -> /index.php?option=com_content&view=article&id=247:2nd-edition-of-the-varsity-digest-magazine&catid=10:news-updates&Itemid=140
-  A Ministry of Education -> https://www.education.go.ke/
-  A Kenya Universities and Colleges Central Placement Service (K -> http://kuccps.net/
-  A Higher Education Loans Board (HELB) -> http://www.helb.co.ke/
-  A Kenya National Examination Council (KNEC) -> https://www.knec.ac.ke/
-  A TVET Authority -> https://www.tveta.go.ke/
-  A Customer Relationship Portal -> https://imis.cue.or.ke/CustomerRelationshipManagement/
-  A crocothemes.net -> https://www.crocothemes.net
-  A Joomla! -> https://www.joomla.org
-  A GNU General Public License. -> https://www.gnu.org/licenses/gpl-2.0.html
-  JS //ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/smoothness/jquery-ui.css
-  JS https://fonts.googleapis.com/css?family=Open
-  JS /json
-  JS //ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js
-  JS /components/com_uniform/assets/js/libs/json-2.3.min.js
-  JS https://maps.googleapis.com/maps/api/js?v=3.23&libraries=places
-  JS https://fonts.googleapis.com/css?family=Lato
-##### https://www.mes.tn/page.php?code_menu=54
-ST 200 text/html; charset=UTF-8 33763 https://www.mes.tn/page.php?code_menu=54
+##### https://www.cue.or.ke/images/2026/Institutional_Accreditation/Approved_Universities_15th_September_2026.pdf
+ST 200 application/pdf 175241 https://www.cue.or.ke/images/2026/Institutional_Accreditation/Approved_Universities_15th_September_2026.pdf
+PDF pages 3
+  Approved Universities in Kenya as at 15
+  th
+  September 2026 Page 1
+  COMMISSION FOR UNIVERSITY EDUCATION, KENYA
+  APPROVED UNIVERSITIES IN KENYA IN ACCORDANCE WITH THE
+  UNIVERSITIES ACT CAP 210, AS AT 15
+  TH
+  SEPTEMBER 2026
+  S. No. Public Chartered Universities YEAR
+  1 University of Nairobi 2013
+  2 Moi University 2013
+  3 Kenyatta University 2013
+  4 Egerton University 2013
+  5 Jomo Kenyatta University of Agriculture and Technology 2013
+  6 Maseno University 2013
+  7 Masinde Muliro University of Science and Technology 2013
+  8 Dedan Kimathi University of Technology 2012
+  9 Chuka University 2013
+  10 Technical University of Kenya 2013
+  11 Technical University of Mombasa 2013
+  12 Pwani University 2013
+  13 Kisii University 2013
+  14 University of Eldoret 2013
+  15 Masaai Mara University 2013
+  16 Jaramogi Oginga Odinga University of Science and Technology 2013
+  17 Laikipia University 2013
+  18 South Eastern Kenya University 2013
+  19 Meru University of Science and Technology 2013
+  20 Multimedia University of Kenya 2013
+  21 University of Kabianga 2013
+  22 Karatina University 2013
+  23 Kibabii University 2015
+  24 Rongo University 2016
+  25 The Co-operative University of Kenya 2016
+  26 Taita Taveta University 2016
+  27 Murang’a University of Technology 2016
+  28 University of Embu 2016
+  29 Machakos University 2016
+  30 Kirinyaga University 2016
+  31 Garissa University 2017
+  32 Alupe University 2022
+  33 Kaimosi Friends University 2022
+  34 Tom Mboya University 2022
+  35 Tharaka University 2022
+  36 Bomet University 2026
+  Approved Universities in Kenya as at 15
+  th
+  September 2026 Page 2
+  COMMISSION FOR UNIVERSITY EDUCATION, KENYA
+  APPROVED UNIVERSITIES IN KENYA IN ACCORDANCE WITH THE
+  UNIVERSITIES ACT CAP 210, AS AT 15
+  TH
+  SEPTEMBER 2026
+  S. No. Private Chartered Universities YEAR
+  1 University of Eastern Africa, Baraton 1991
+  2 Catholic University of Eastern Africa (CUEA) 1992
+  3 Daystar University 1994
+  4 Scott Christian University 1997
+  5 United States International University 1999
+  6 Africa Nazarene University 2002
+  7 Kenya Methodist University 2006
+  8 St. Paul’s University 2007
+  9 Pan Africa Christian University 2008
+  10 Strathmore University 2008
+  11 Kabarak University 2008
+  12 Mount Kenya University 2011
+  13 Africa International University 2011
+  14 Kenya Highlands Evangelical University 2011
+  15 Great Lakes University of Kisumu 2012
+  16 KCA University 2013
+##### https://www.mes.tn/page.php?code_menu=147&code_menu_parent=54
+ST 200 text/html; charset=UTF-8 33991 https://www.mes.tn/page.php?code_menu=147&code_menu_parent=54
 TITLE Ministère de l'Enseignement Supérieur et de la Recherche Scientifique | TABLES 9 TR 16 LI 74
   TR آخر تحيين في 16-10-2026 الإستقبال روابط مفيدة اتصل بنا Français | آخر تحيين في 16-10-2026 | الإستقبال روابط مفيدة اتصل بنا | Français
   TR آخر تحيين في 16-10-2026 | الإستقبال روابط مفيدة اتصل بنا | Français
@@ -490,7 +381,7 @@ TITLE Ministère de l'Enseignement Supérieur et de la Recherche Scientifique | 
   A الإستقبال -> index.php?code_menu=6
   A روابط مفيدة -> lien_utile.php?code_menu=10
   A اتصل بنا -> page.php?code_menu=500
-  A Français -> langue.php?langue=fr&code=54
+  A Français -> langue.php?langue=fr&code=147
   A Ministère de l’Enseignement Supérieurn, de la Recherche Scie -> index.php
   A أرشيف موقع الوزارة -> http://www.mesrst.tn
   A التظاهرات -> agenda.php?code_menu=57
@@ -559,94 +450,10 @@ TITLE Ministère de l'Enseignement Supérieur et de la Recherche Scientifique | 
   A الطلبة الدوليين -> page.php?code_menu=114&code_menu_parent=47
   A الوثائق -> page.php?code_menu=71
   A معرض الصور -> media.php?code_menu=9
-##### https://www.mes.tn/annuaire.php?code_menu=22
-ST 200 text/html; charset=UTF-8 78392 https://www.mes.tn/annuaire.php?code_menu=22
-TITLE Ministère de l'Enseignement Supérieur et de la Recherche Scientifique | TABLES 39 TR 145 LI 59
-  TR آخر تحيين في 16-10-2026 الإستقبال روابط مفيدة اتصل بنا Français | آخر تحيين في 16-10-2026 | الإستقبال روابط مفيدة اتصل بنا | Français
-  TR آخر تحيين في 16-10-2026 | الإستقبال روابط مفيدة اتصل بنا | Français
-  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication وزارة التعليم العالي والبحث العلمي أرشيف موقع الوزارة | Ministère de l’
-  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication وزارة التعليم العالي والبحث العلمي | Ministère de l’Enseignement Supéri
-  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication | Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique 
-  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication
-  TR التظاهرات النصوص المنظمة المناشير المطبوعات الترقيمات مناظرات و امتحانات المعادلات
-  TR مستجدات الإدارة المركزية الإحصائيات والمؤشرات الجامعات تكوين البحث العلمي التعاون الدولي التعليم العالي الخاّص | مستجدات الإدارة المركزية الإحصائيات والمؤشرات الجامعات تكوين البحث العلمي التعاون الدول
-  TR مستجدات الإدارة المركزية الإحصائيات والمؤشرات الجامعات تكوين البحث العلمي التعاون الدولي التعليم العالي الخاّص
-  TR 
+##### https://www.mes.tn/langue.php?langue=fr&code=147
+ST 302 text/html; charset=UTF-8 0 https://www.mes.tn/langue.php?langue=fr&code=147
+TITLE  | TABLES 0 TR 0 LI 0
   FILES 0
-  A الإستقبال -> index.php?code_menu=6
-  A روابط مفيدة -> lien_utile.php?code_menu=10
-  A اتصل بنا -> page.php?code_menu=500
-  A Français -> langue.php?langue=fr&code=22
-  A Ministère de l’Enseignement Supérieurn, de la Recherche Scie -> index.php
-  A أرشيف موقع الوزارة -> http://www.mesrst.tn
-  A التظاهرات -> agenda.php?code_menu=57
-  A النصوص المنظمة -> cilculaire.php?code_menu=48
-  A المناشير -> cilculaire.php?code_menu=58
-  A المطبوعات -> formulaire.php?code_menu=59
-  A الترقيمات -> flux.php?code_menu=68
-  A مناظرات و امتحانات -> page.php?code_menu=122
-  A المعادلات -> page.php?code_menu=170
-  A مستجدات -> evenement_video.php?code_menu=21
-  A الإدارة المركزية -> page.php?code_menu=12
-  A الإحصائيات والمؤشرات -> page.php?code_menu=13
-  A الجامعات -> annuaire.php?code_menu=22
-  A تكوين -> page.php?code_menu=23
-  A البحث العلمي -> page.php?code_menu=28
-  A التعاون الدولي -> page.php?code_menu=47
-  A التعليم العالي الخاّص -> page.php?code_menu=54
-  A www.uz.rnu.tn -> http://www.uz.rnu.tn
-  A www.utunis.rnu.tn -> http://www.utunis.rnu.tn
-  A www.utm.rnu.tn -> http://www.utm.rnu.tn
-  A www.ucar.rnu.tn -> http://www.ucar.rnu.tn
-  A www.uma.rnu.tn -> http://www.uma.rnu.tn
-  A www.uj.rnu.tn -> http://www.uj.rnu.tn
-  A www.uc.rnu.tn -> http://www.uc.rnu.tn
-  A www.um.rnu.tn -> http://www.um.rnu.tn
-  A www.univ-k.rnu.tn -> http://www.univ-k.rnu.tn
-  A www.uss.rnu.tn -> http://www.uss.rnu.tn
-  A www.ugaf.rnu.tn -> http://www.ugaf.rnu.tn
-  A www.univgb.rnu.tn -> http://www.univgb.rnu.tn
-  A www.uvt.rnu.tn -> http://www.uvt.rnu.tn
-  A  -> http://
-  A  -> page.php?code_menu=537
-  A  -> etudens.php?code_menu=536
-  A  -> contact.php?code_menu=146
-  A  -> page.php?code_menu=7
-  A  -> http://horizon-europe.tn
-  A  -> http://best.rnu.tn
-  A  -> http://www.4c.tn
-  A  -> http://www.orientation.tn/orient/
-  A  -> http://www4.inscription.tn
-  A  -> page.php?code_menu=129
-  A  -> http://parcours-lmd.salima.tn/
-  A  -> http://www.uni-renov.rnu.tn/
-  A  -> http://www.gbo.mes.rnu.tn
-  A  -> http://www.mes.tn/gestion_doc_arch2012/accueil.htm
-  A السيد الوزير -> page.php?code_menu=550&code_menu_parent=12
-  A تنظيم الوزارة -> page.php?code_menu=551&code_menu_parent=12
-  A المهام والمشمولات -> page.php?code_menu=556&code_menu_parent=12
-  A مؤسسات تحت الإشراف -> page.php?code_menu=559&code_menu_parent=12
-  A بوابة الحكومة -> page.php?code_menu=587&code_menu_parent=12
-  A عنوان الوزارة -> page.php?code_menu=588&code_menu_parent=12
-  A النشريات والمطويات -> page.php?code_menu=14&code_menu_parent=13
-  A التعليم العالي حسب الجامعات -> page.php?code_menu=16&code_menu_parent=13
-  A التعليم العالي حسب الولايات -> page.php?code_menu=17&code_menu_parent=13
-  A بيانات إحصائية مختلفة -> page.php?code_menu=18&code_menu_parent=13
-  A التقديم -> page.php?code_menu=24&code_menu_parent=23
-  A اجازة ، ماجستير ، دكتوراه -> http://www.parcours-lmd.salima.tn
-  A الدراسات الهندسية -> page.php?code_menu=26&code_menu_parent=23
-  A الدراسات الطبية -> page.php?code_menu=27&code_menu_parent=23
-  A  -> page.php?code_menu=177&code_menu_parent=28
-  A إعلانات وبرامج -> evenement_video.php?code_menu=113&code_menu_parent=28
-  A مراكز البحث -> page.php?code_menu=33&code_menu_parent=28
-  A التقديم العام -> page.php?code_menu=106&code_menu_parent=47
-  A العروض الدولية -> evenement_video.php?code_menu=105&code_menu_parent=47
-  A الطلبة الدوليين -> page.php?code_menu=114&code_menu_parent=47
-  A المؤسسات الخاصة للتعليم التعليم العالي المرخص لها -> page.php?code_menu=147&code_menu_parent=54
-  A النص القانوني الخاص بالتعليم العالي الخاص -> page.php?code_menu=148&code_menu_parent=54
-  A شروط ومكونـات مطلب الترخيص لإحداث مؤسسـة خـاصة للتعليم العـا -> page.php?code_menu=149&code_menu_parent=54
-  A الوثائق -> page.php?code_menu=71
-  A معرض الصور -> media.php?code_menu=9
 ##### https://scu.eg/home/
 ST 200 text/html; charset=UTF-8 196080 https://scu.eg/home/
 TITLE الرئيسية - SCU - المجلس الأعلى للجامعات أدوات الوصولزيادة النصتقليل النصتدرج الرماديتباين عاليالتباين السلبيضوء الخلفيةتسطير الروابطالخط المقروءResetSitemapHelpFeedback | TABLES 1 TR 1 LI 131
