@@ -193,7 +193,19 @@ export const OFFICIELS = [
     cc: 'SN', id: 'sn-anaqsup-hab',
     autorite: { fr: 'Autorité nationale d’assurance qualité de l’enseignement supérieur (ANAQ-Sup), Sénégal', en: 'National Authority for Quality Assurance in Higher Education (ANAQ-Sup), Senegal' },
     titre: { fr: 'Décisions d’habilitation des établissements (avis favorables et défavorables)', en: 'Institutional approval decisions (favourable and unfavourable)' },
-    url: 'https://anaqsup.sn/habilitations/', type: 'html', pages: 40, noYear: true, pageUrl: (p) => 'https://anaqsup.sn/habilitations/' + (p > 1 ? '?sf_paged=' + p : ''),
+    url: 'https://anaqsup.sn/habilitations/', type: 'html', pages: 40, noYear: true,
+    /* Une seule décision par établissement : la plus récente (même sigle ou même nom). Une décision défavorable de plus
+       de 3 ans n'est pas affichée : l'établissement a pu être réévalué depuis sous un autre nom. */
+    post: (all) => {
+      const seen = new Set(), out = [], now = new Date().getFullYear();
+      const keys = (r) => { const k = []; const a = /\(([^()]+)\)\s*$/.exec(r.n); if (a) k.push('a:' + a[1].toUpperCase().replace(/[^A-Z0-9]/g, '')); k.push('n:' + r.n.toLowerCase().replace(/\([^)]*\)/g, '').normalize('NFD').replace(/[^a-z]/g, '')); return k; };
+      for (const r of all) {
+        const k = keys(r); if (k.some((x) => seen.has(x))) continue; k.forEach((x) => seen.add(x));
+        if (r.warn && now - Number(r.y) > 3) continue;
+        out.push(r);
+      }
+      return out;
+    }, pageUrl: (p) => 'https://anaqsup.sn/habilitations/' + (p > 1 ? '?sf_paged=' + p : ''),
     parse: ($, clean) => {
       $('script,style,noscript').remove();
       const toks = $('body').html().replace(/<[^>]+>/g, '\u0001').split('\u0001').map((x) => clean(cheerio.load('<p>' + x + '</p>')('p').text())).filter(Boolean);
@@ -204,7 +216,7 @@ export const OFFICIELS = [
         if (!d) { if (!/^voir le rapport$/i.test(t)) buf.push(t); continue; }
         const yi = buf.map((x) => /^\d{4}$/.test(x)).lastIndexOf(true);
         if (yi > 0 && !/[ée]cole\s+doctorale/i.test(buf[0])) {
-          let n = buf[0]; const m = /^([A-Z0-9][A-Za-z0-9 /'’.&-]{1,24}?)\s*[-:]+\s*([A-ZÉÈÀ][a-zà-ÿ].{4,})$/.exec(n); if (m && /[A-Z]{2}/.test(m[1])) n = m[2] + ' (' + m[1].trim() + ')';
+          let n = buf[0]; const m = /^([A-Z0-9][A-Za-z0-9 /'’.&-]{1,24}?)\s*[-:]+\s*([A-ZÉÈÀ][^\s-]+\s.{3,})$/.exec(n); if (m && /[A-Z]{2}/.test(m[1])) n = m[2] + ' (' + m[1].trim() + ')';
           const nf = yi - 1; const fav = /^favorable$/i.test(d[1]);
           out.push({ n, y: buf[yi], v: (buf[yi + 1] || '').replace(/\s*\(.*\)$/, ''), r: buf[yi + 1] || '', warn: !fav, acc: (fav ? 'Habilitation ANAQ-Sup : avis favorable' : 'Habilitation ANAQ-Sup : avis défavorable') + ' (' + buf[yi] + ')' + (nf > 0 ? ' · ' + nf + ' formation' + (nf > 1 ? 's' : '') + ' examinée' + (nf > 1 ? 's' : '') : '') });
         }
@@ -368,6 +380,7 @@ async function readHtml(src) {
       part.forEach((r) => { seen.add(r.n + '|' + (r.y || '')); all.push(r); });
     }
     all.sort((a, b) => String(b.y || '').localeCompare(String(a.y || '')));
+    if (src.post) return src.post(all).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
     return all.map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
   }
   const $ = cheerio.load((await fetchBuf(src.url)).toString('utf8'));
