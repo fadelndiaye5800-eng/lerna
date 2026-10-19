@@ -1,4 +1,4 @@
-2026-10-19T01:34:20.573Z
+2026-10-19T01:37:33.995Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -26,6 +26,23 @@ Warning: TT: undefined function: 32
 officiel tn-mes-prives 89
 officiel tn-mes-universites 13
 officiel sn-anaqsup-hab 146
+officiel ÉCHEC cames-pred-bj HTTP 400
+officiel ÉCHEC cames-pred-bf HTTP 400
+officiel ÉCHEC cames-pred-cm HTTP 400
+officiel ÉCHEC cames-pred-cf HTTP 400
+officiel ÉCHEC cames-pred-cg HTTP 400
+officiel ÉCHEC cames-pred-ci HTTP 400
+officiel ÉCHEC cames-pred-ga HTTP 400
+officiel ÉCHEC cames-pred-gn HTTP 400
+officiel ÉCHEC cames-pred-gw HTTP 400
+officiel ÉCHEC cames-pred-mg HTTP 400
+officiel ÉCHEC cames-pred-ml HTTP 400
+officiel ÉCHEC cames-pred-ne HTTP 400
+officiel ÉCHEC cames-pred-cd HTTP 400
+officiel ÉCHEC cames-pred-rw HTTP 400
+officiel ÉCHEC cames-pred-sn HTTP 400
+officiel ÉCHEC cames-pred-td HTTP 400
+officiel ÉCHEC cames-pred-tg HTTP 400
 officiel eg-scu-publiques 28
 officiel eg-scu-ahleya 33
 officiel eg-scu-privees 39
@@ -38,7 +55,7 @@ officiel eg-scu-branches 10
 officiel eg-scu-speciales 2
 officiel eg-scu-sous-tutelle 4
 officiel eg-scu-accords 9
-RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":666,"dz-mesrs":104,"nl-duo":54,"cn-moe":2952,"ke-cue":89,"tn-mes-prives":89,"tn-mes-universites":13,"sn-anaqsup-hab":146,"eg-scu-publiques":28,"eg-scu-ahleya":33,"eg-scu-privees":39,"eg-scu-techno-publiques":12,"eg-scu-techno-privees":2,"eg-scu-instituts-prives":181,"eg-scu-instituts-publics":13,"eg-scu-etrangeres":15,"eg-scu-branches":10,"eg-scu-speciales":2,"eg-scu-sous-tutelle":4,"eg-scu-accords":9}
+RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public-federal":77,"ng-nuc-public-state":69,"ng-nuc-prive-private":182,"ug-nche":153,"rw-hec":21,"bw-bqa":68,"zw-zimche":20,"tz-tcu":30,"co-men-snies":300,"in-ugc":1256,"jp-mext":1117,"ca-ircc-dli":666,"dz-mesrs":104,"nl-duo":54,"cn-moe":2952,"ke-cue":89,"tn-mes-prives":89,"tn-mes-universites":13,"sn-anaqsup-hab":146,"cames-pred-bj":"erreur : HTTP 400","cames-pred-bf":"erreur : HTTP 400","cames-pred-cm":"erreur : HTTP 400","cames-pred-cf":"erreur : HTTP 400","cames-pred-cg":"erreur : HTTP 400","cames-pred-ci":"erreur : HTTP 400","cames-pred-ga":"erreur : HTTP 400","cames-pred-gn":"erreur : HTTP 400","cames-pred-gw":"erreur : HTTP 400","cames-pred-mg":"erreur : HTTP 400","cames-pred-ml":"erreur : HTTP 400","cames-pred-ne":"erreur : HTTP 400","cames-pred-cd":"erreur : HTTP 400","cames-pred-rw":"erreur : HTTP 400","cames-pred-sn":"erreur : HTTP 400","cames-pred-td":"erreur : HTTP 400","cames-pred-tg":"erreur : HTTP 400","eg-scu-publiques":28,"eg-scu-ahleya":33,"eg-scu-privees":39,"eg-scu-techno-publiques":12,"eg-scu-techno-privees":2,"eg-scu-instituts-prives":181,"eg-scu-instituts-publics":13,"eg-scu-etrangeres":15,"eg-scu-branches":10,"eg-scu-speciales":2,"eg-scu-sous-tutelle":4,"eg-scu-accords":9}
 == ci-mesrs-prives : 618
   Abidjan Bloom University (ABU) | Abidjan | Cocody | prive | 90.000 F
   Abidjan Business School -(ABS) | Abidjan | Cocody | prive | 85000
@@ -502,15 +519,3 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   الاكاديمية العربية للعلوم المالية والمصرفية | https://www.aambfs.org/ar/ | Établissements créés par accords internationaux
   معهد البحوث والدراسات العربية | https://iars.net/ | Établissements créés par accords internationaux
   الجامعة الألمانية الدولية | https://www.giu-uni.de/ | Établissements créés par accords internationaux
-##### https://www.lecames.org/diplome_cames/web/site/repertoire
-ST 200 text/html; charset=UTF-8 48284 https://www.lecames.org/diplome_cames/web/site/repertoire
-  G me_cames/web/site/ville&quot;, { id: $(this).val() } ) .done(function( data ) { $( &quot;#institution-id_inst&quot; ).html( data ); } ); " data-s2-options="s2options_3267a624" data-krajee-select2="select2_c897c640" style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Bénin</option> <option value="2">
-  G ue="20">France</option> <option value="21">Maroc</option> </select> <div class="help-block"></div> </div> <div class="form-group field-institution-id_inst"> <label class="control-label" for="institution-id_inst">Séléctionner l&#039;institution</label> <div class="kv-plugin-loading loading-institution-id_inst">&nbsp;</div><select id="institution-id_inst" class="form-control" name="Institution[id_inst]" onchange="this.form.submit()" data-s2-options="s2options_3267a624" data-krajee-s
-  G > </select> <div class="help-block"></div> </div> <div class="form-group field-institution-id_inst"> <label class="control-label" for="institution-id_inst">Séléctionner l&#039;institution</label> <div class="kv-plugin-loading loading-institution-id_inst">&nbsp;</div><select id="institution-id_inst" class="form-control" name="Institution[id_inst]" onchange="this.form.submit()" data-s2-options="s2options_3267a624" data-krajee-select2="select2_c897c640" style="width: 100%; height: 1p
-  G tution-id_inst"> <label class="control-label" for="institution-id_inst">Séléctionner l&#039;institution</label> <div class="kv-plugin-loading loading-institution-id_inst">&nbsp;</div><select id="institution-id_inst" class="form-control" name="Institution[id_inst]" onchange="this.form.submit()" data-s2-options="s2options_3267a624" data-krajee-select2="select2_c897c640" style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Universit
-  G  for="institution-id_inst">Séléctionner l&#039;institution</label> <div class="kv-plugin-loading loading-institution-id_inst">&nbsp;</div><select id="institution-id_inst" class="form-control" name="Institution[id_inst]" onchange="this.form.submit()" data-s2-options="s2options_3267a624" data-krajee-select2="select2_c897c640" style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Université de Lome</option> <option value="2">Universi
-  G label> <div class="kv-plugin-loading loading-institution-id_inst">&nbsp;</div><select id="institution-id_inst" class="form-control" name="Institution[id_inst]" onchange="this.form.submit()" data-s2-options="s2options_3267a624" data-krajee-select2="select2_c897c640" style="width: 100%; height: 1px; visibility: hidden;"> <option value=""> -- Sélectionnez --</option> <option value="1">Université de Lome</option> <option value="2">Université Polytechnique Internationale du Benin(UPIB)</option> <opt
-  G ('destroy'); } jQuery.when(jQuery('#pays-id_pays').select2(select2_c897c640)).done(initS2Loading('pays-id_pays','s2options_3267a624')); if (jQuery('#institution-id_inst').data('select2')) { jQuery('#institution-id_inst').select2('destroy'); } jQuery.when(jQuery('#institution-id_inst').select2(select2_c897c640)).done(initS2Loading('institution-id_inst','s2options_3267a624')); jQuery('#form-diplomes').yiiActiveForm([], []); jQuery('#w0').yiiGridView({"filterUrl":"\/diplome_cames\/web\/site\/repe
-  G .select2(select2_c897c640)).done(initS2Loading('pays-id_pays','s2options_3267a624')); if (jQuery('#institution-id_inst').data('select2')) { jQuery('#institution-id_inst').select2('destroy'); } jQuery.when(jQuery('#institution-id_inst').select2(select2_c897c640)).done(initS2Loading('institution-id_inst','s2options_3267a624')); jQuery('#form-diplomes').yiiActiveForm([], []); jQuery('#w0').yiiGridView({"filterUrl":"\/diplome_cames\/web\/site\/repertoire","filterSelector":"#w0-filters input, #w0-f
-  G options_3267a624')); if (jQuery('#institution-id_inst').data('select2')) { jQuery('#institution-id_inst').select2('destroy'); } jQuery.when(jQuery('#institution-id_inst').select2(select2_c897c640)).done(initS2Loading('institution-id_inst','s2options_3267a624')); jQuery('#form-diplomes').yiiActiveForm([], []); jQuery('#w0').yiiGridView({"filterUrl":"\/diplome_cames\/web\/site\/repertoire","filterSelector":"#w0-filters input, #w0-filters select","filterOnFocusOut":true}); jQuery(document).pjax("
-  G 2')) { jQuery('#institution-id_inst').select2('destroy'); } jQuery.when(jQuery('#institution-id_inst').select2(select2_c897c640)).done(initS2Loading('institution-id_inst','s2options_3267a624')); jQuery('#form-diplomes').yiiActiveForm([], []); jQuery('#w0').yiiGridView({"filterUrl":"\/diplome_cames\/web\/site\/repertoire","filterSelector":"#w0-filters input, #w0-filters select","filterOnFocusOut":true}); jQuery(document).pjax("#p0 a", {"push":true,"replace":false,"timeout":1000,"scrollTo":false,
