@@ -1,4 +1,4 @@
-2026-10-19T00:42:30.201Z
+2026-10-19T00:44:35.764Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -340,3 +340,242 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   جامعة قفصة | public
   جامعة قابس | public
   جامعة تونس الإفتراضية | public
+##### https://www.dhet.gov.za/
+ST 200 text/html; charset=utf-8 217258 https://www.dhet.gov.za/
+TITLE Department of Higher Education and Training | TABLES 34 TR 43 LI 16
+  TR ​Latest NewsOpening Remarks by the Minister of Higher Education and Training, Hon. Buti Manamela MP. Briefing on the 2025/26 Annual Reports and Progress Under Administrator of the Construction SETA an
+  TR ​Latest NewsOpening Remarks by the Minister of Higher Education and Training, Hon. Buti Manamela MP. Briefing on the 2025/26 Annual Reports and Progress Under Administrator of the Construction SETA an
+  TR ​Latest News
+  TR 
+  TR ​Click below for: 1. Gazette: The 2024 National List of Occupations in High Demand2. The 2024 National List of Occupations in High Demand: A Technical Report3. A Technical Report for the 2020 Critical
+  TR ​SA's COVID-19 epidemic: Trends & Next steps - SA Corona Virus Online Portal https://sacoronavirus.co.za/2020/04/13/sas-covid-19-epidemic-trends-next-steps/
+  TR The Ministry
+  TR Deputy Minister Dr N Dube-Ncube Profile | ​​ Minister Mr B Manamela Profile | ​ Deputy Minister Mr Y Cassim Profile
+  TR Useful Links
+  TR Call for Nomination​
+  FILES 160
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister_Remarks_CETA_ServicesSETA_14Oct2026.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/Intellectual_Directions_HE_Webinar_Keynote_12_October_2026.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/NSFAS%20DRIVE%20MTUBATUBA%20KZN.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/NSFAS%20INSPECTIONS%20OF%20POOR-QUALITY%20AND%20NON-COMPLIANT%20STUDENT%20RESIDENCES%20TO%20BEGIN%20NEXT%20WEEK.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/ANNUAL%20MASS%20PRAYER%20FOR%20GRADE%2012%20LEARNERS%20AT%20uMGUNGUNDLOVU%20DISTRICT%20MEDIA%20ADVISORY.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/MINISTERS%20SPEECH%20ON%204th%20USAF%20HIGHER%20EDUCATION%20CONFERENCE.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Speech%20on%20DHET%202025-26%20Annual%20Report.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/DEPUTY%20MINISTER%20YUSUF%20CASSIM%20UNDERTAKES%20OFFICIAL%20VISIT%20TO%20THE%20UNIVERSITY%20OF%20FORT%20HARE.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/DEPUTY%20MINISTER%20CASSIM%20DRIVES%20PROGRESS%20ON%20OUTSTANDING%20STUDENT%20SETA%20BURSARY%20PAYMENTS.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEDIA%20STATEMENT%20Minister%20Congradulates%20UCT.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Speech%20on%20NSFAS%202027%20Applicationn.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20to%20launch%20the%20NSFAS%20Application%20Cycle%20for%202027.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEDIA%20STATEMENT%20%20-%20SETA%20Board%20Appoint%20ment%20matters%2014-09-2026.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/182%20TUT%20STUDENTS%20HAVE%20FUNDING%20RESTORED%20AFTER%20QUALIFICATION%20CODE%20CORRECTIONS.pdf
+   /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20Receives%20SIU%20Briefing%20on%20Investigations%20Across%20the%20PSET%20Sector.pdf
+  A  -> _catalogs/masterpage/#
+  A Sign In -> https://www.dhet.gov.za/_layouts/15/Authenticate.aspx?Source=%2F
+  A HomeCurrently selected -> http://www.dhet.gov.za/
+  A About Us -> /SitePages/AboutUsNew.aspx
+  A Minister -> /SitePages/LeadershipDepMinister.aspx
+  A Deputy Ministers -> https://www.dhet.gov.za:443/deputyministersprofiles
+  A Director-General -> /SitePages/LeadershipDG.aspx
+  A Office of the CFO -> /SitePages/CFO.aspx
+  A Corporate Services -> /SitePages/CorpServAdmin.aspx
+  A Planning, Policy & Strategy -> /SitePages/HRDPlanningNew.aspx
+  A Universities -> /SitePages/UniversityEducation.aspx
+  A Vocational Education -> /SitePages/TVETColleges.aspx
+  A Community Education -> /SitePages/CommunityCollege.aspx
+  A SETAs -> http://www.dhet.gov.za/SitePages/SETAlinks.aspx
+  A Skills Development -> /SitePages/SkillsDevelopmentNew.aspx
+  A Media Room -> /SitePages/MediaNew.aspx
+  A Resources -> /SitePages/Resources.aspx
+  A Contact Us -> /SitePages/contactusnew.aspx
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister_Remarks_CETA_ServicesSETA_14Oct2026.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Intellectual_Directions_HE_Webinar_Keynote_12_October_2026.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/NSFAS%20DRIVE%20MTUBATUBA%20KZN.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/NSFAS%20INSPECTIONS%20OF%20POOR-QUALITY%20AND%20NON-COMPLIANT%20STUDENT%20RESIDENCES%20TO%20BEGIN%20NEXT%20WEEK.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/ANNUAL%20MASS%20PRAYER%20FOR%20GRADE%2012%20LEARNERS%20AT%20uMGUNGUNDLOVU%20DISTRICT%20MEDIA%20ADVISORY.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MINISTERS%20SPEECH%20ON%204th%20USAF%20HIGHER%20EDUCATION%20CONFERENCE.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Speech%20on%20DHET%202025-26%20Annual%20Report.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/DEPUTY%20MINISTER%20YUSUF%20CASSIM%20UNDERTAKES%20OFFICIAL%20VISIT%20TO%20THE%20UNIVERSITY%20OF%20FORT%20HARE.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/DEPUTY%20MINISTER%20CASSIM%20DRIVES%20PROGRESS%20ON%20OUTSTANDING%20STUDENT%20SETA%20BURSARY%20PAYMENTS.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEDIA%20STATEMENT%20Minister%20Congradulates%20UCT.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Speech%20on%20NSFAS%202027%20Applicationn.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20to%20launch%20the%20NSFAS%20Application%20Cycle%20for%202027.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEDIA%20STATEMENT%20%20-%20SETA%20Board%20Appoint%20ment%20matters%2014-09-2026.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/182%20TUT%20STUDENTS%20HAVE%20FUNDING%20RESTORED%20AFTER%20QUALIFICATION%20CODE%20CORRECTIONS.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20Receives%20SIU%20Briefing%20on%20Investigations%20Across%20the%20PSET%20Sector.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEDIA%20STATEMENT-%20Minister%20Manamela%20calls%20on%20young%20people%20to%20apply%20early%20to%20TVET%20Colleges.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/OPENING%20ADDRESS%20BY%20MR%20BUTI%20MANAMELA.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/SAASSP%20Media%20Advisory%20.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/KEYNOTE%20ADDRESS%20BY%20MR%20BUTI%20MANAMELA%20PARLIAMENTARY%20QOLLOQUIUM%20ON%20STUDENT%20ACCOMMODATION.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20to%20deliver%20a%20keynote%20address%20at%20the%20McDonalds%20and%20CATHSSETA%20engagement.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/DEPUTY%20MINISTER%20YUSUF%20CASSIM%20TO%20VISIT%20NSFAS%20OVER%20FUNZA%20LUSHAKA%20BURSARY%20PROGRAMME%20PAYMENT%20DELAYS.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/KU%20GOMPO%20MEDIA%20ADVISORY%20.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/INAUGURAL%20PSET%20RESEARCH%20CONFERENCE%20MEDIA%20ADVISORY.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Media%20Advisorry%20Ngqungqushe%20and%20Renewable%20Energy%20Training%20Centre%20Launch.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/SPEECH%20FOR%20THE%20PUBLIC%20SECTOR%20LEADERS%20SUMMT.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/REMARKS%20BY%20DM%20Dr%20DUBE-NCUBE%20-THEME%20FROM%20SKILLS%20TO%20JOBS%20STRENGTHENING%20INDUSTRY%e2%80%93EDUCATION%20PARTNERSHIPS.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/LATEST%20SPEECH%20FOR%20THE%20LAUNCH%20OF%20HIGHER%20HEALTHS%20FIRST%20COMFORT%20ROOM.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/21.08.2026_Deputy%20Minister%27s%20Keynote%20Address.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MINISTER%20MANAMELA%20TO%20LEAD%20HANDOVER%20OF%20CELLPHONE%20REPAIR%20CONTAINERS%20TO%20TOWNSHIP%20ENTREPRENEURS.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEDIA%20STATEMENT%20SOUTH%20AFRICA%20AND%20FINLAND%20STRENGHTHEN%20EDUCATION%20COOPERATION%20THROUGH%20HIGH-LEVEL%20MINISTERIAL%20ENGAGEMENTS.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Higher%20Health%20Comfort%20Room%20Launch%20Advisory%20by%20Deputy%20Minister%20Dube-Ncube.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/ADeputy%20Minister%20Dube-Ncube%20to%20address%20the%20Inaugural%20Student%20Leaders%20Dialogue.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20directs%20Departmentald%20Team%20to%20facilitate%20resolution%20at%20CPUT.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20welcomes%20Public%20Protector%20report%20on%20NSFAS.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Deputy%20Minister%20Dube-Ncube%20to%20meet%20Finnish%20Minister%20of%20Education.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/STATEMENT%20BY%20THE%20MINISTER%20OF%20HIGHER%20EDUCATION%20AND%20TRAINING%20ON%20THE%20PRETORIA%20HIGH%20COURT%20JUDGMENT.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/DEPUTY%20MINISTER%20YUSUF%20CASSIM%20LEADS%20DHET%20DELEGATION%20TO%20LOVEDALE%20TVET%20COLLEGE%20TO%20ENGAGE%20WITH%20STUDENTS.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Opening%20remarks%20by%20Minister%20Manamela%20to%20the%20Portfolio%20Committee.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20appoints%20Prof%20Norman%20Duncan%20as%20an%20Independent%20Assesssor%20at%20the%20University%20of%20Venda.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20to%20launch%20TVET%20Month.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/CUT%20TO%20URGENTLY%20PAY%20STUDENT%20ACCOMMODATION%20ALLOWANCES%20FOLLOWING%20DEPUTY%20MINISTER%20YUSUF%20CASSIM%20INTERVENTION%20final.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Media_Advisory_Mahikeng_Reminder.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Speech%20at%20CETAWaterfront%206%20Aug%2026.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20to%20deliver%20an%20addresss%20at%20the%20skills%20and%20Infrastructure%20investment%20partnership%20breakfast.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Deputy%20Minister%20Yusuf%20Cassim%20welcomes%20TETA%27s%20commitment%20to%20clear%20outstanding%20student%20bursary%20allowances.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/THENSA%20ADVISORY%201.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/KEYNOTE%20ADDRESS%20BY%20MR%20BUTI%20MANAMELA%20AT%20THE%20SETA%20ACCOUNTING%20AUTHORITIES%20AND%20CHIEF%20EXECUTIVE%20OFFICERS.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/VUT%2060th%20Media%20Advisory.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MINISTER%20MANAMELA%20CONCERNED%20ABOUT%20THE%20DEVELOPMENTS%20AT%20THE%20UNIVERSITY%20OF%20VENDA.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20refers%20MICT%20SETA%20governance%20matters%20to%20the%20National%20Skills%20Authority.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Deputy%20Minister%20Yusuf%20Cassim%20steps%20in%20to%20assist%20students%20facing%20NSFAS%20challenges%20SS.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/1MEDIA%20STATEMENT.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/South%20Cape%20TVET%20College%20Media%20Advisory%20%5b13%20July%202026%5d.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/SHUKELA%20TRAINING%20CENTRE%e2%80%99S%20GRADUATION%20CEREMONY%20Media%20Advisory.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/DEPUTY%20MINISTER%20YUSUF%20CASSIM%20CONDUCTS%20FIRST%20PUBLIC%20ENGAGEMENT%20AT%20UNISA.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Media%20Advisory%20Esayidi%20and%20Shukela%20Graduations.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20to%20address%20the%202026%20SAUS%20National%20Student%20Accomodation%20Indaba.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/3Address%20by%20the%20Minister%20of%20Higher%20Education%20and%20Training%20at%20the%20NCOP.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Media%20Statement%20Minister%20Manamela%20commits%20to%20upholding%20the%20law%20and%20protecting%20workers%20while%20not%20closing%20the%20door%2
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/FUZE%20AIRSHOW%20and%20FOCUS%20AIR%20GRADUATION%20.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Zululand%20Chamber%20of%20Commerce%20Media%20Advisory.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/1KEYNOTE%20ADDRESS%20BY%20MR%20BUTI%20MANAMELA.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/STATEMENT%20BY%20OUTGOING%20DEPUTY%20MINISTER%20DR%20MIMMY%20GONDWE.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/NDWENDWE%20MEDIA%20ADVISORY%20updated.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/ETVET%20Media%20Advisory%20Artisan%20Skills%20Centre%20Launch.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/KOKSTAD%20MEDIA%20ADVISORY%20updated.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/DEPUTY%20MINISTER%20DR%20MIMMY%20GONDWE%20TO%20LEAD%20THE%20BRIDGING%20THE%20GAP%20TO%20HIGHER%20EDUCATION%20YOUTH%20DAY%20EVENT%20IN%20THE%20WEST
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEDIA%20STATEMENT%20DEPUTY%20MINISTER%20DR.%20MIMMY%20GONDWE%20ANNOUNCES%20PLANS%20FOR%20A%20PRIVATE-SECTOR-FUNDED%20BURSARY%20SCHEME_.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20brief%20media%20on%20developments%20regarding%20modernising%20qualifications.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MINISTER%20MANAMELA%20ISSUES%20DIRECTIVE%20ON%20GOVERNANCE%20AND%20OPERATIONAL%20INTERVENTIONS%20AT%20INSETA.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MINISTER%20MANAMELA%20UPDATES%20PARLIAMENT%20ON%20GOVERNANCE%20INTERVENTIONS%20AND%20SYSTEM%20DEVELOPMENT%20ACROSS%20THE%20POST.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Deputy%20Minister%20Dr%20Dube-Ncube%27s%20Remarks%20on%20UCT_PCHET%20meeting%2010%20June%202026.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Media%20Advisory%204IR%20Centre%20%20at%20Brickfields%20Campus_.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MINISTER%20MANAMELA%20TO%20BRIEF%20THE%20MEDIA%20ON%20THE%20PHASING%20OUT%20OF%20PRE.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEDIA%20BRIEFING%20BY%20THE%20MINISTER%20OF%20DHET%20MR%20BUTI%20K.B.%20MANAMELA%20MP%20ON%20THE%20APPOINTMENT%20OF%20AN%20DMINISTRATOR%20FOR%20TH
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Aircraft%20Maintenance%20Academy%20launch%20%28002%29.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/NMU%20MEDIA%20STATEMENT%20%20%20.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/REGENESYS%20HEALTH%20SCIENCES%20LAUNCH%20.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/UKZN%20MEDIA%20ADVISORY%20%20.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Opening%20statement%20by%20Minister%20Manamela%20to%20the%20joint%20sitting%20of%20committees%2018%20February%202026MANAMELA.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Speech%20by%20%20Minister%20Manamela%20during%20the%20SONA%20Debate%20speech%2017%20February%202026.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20appoints%20an%20Administrator%20at%20College%20of%20Cape%20Town.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Deputy%20Minister%20Dr%20Mimmy%20Gondwe%20partners%20with%20the%20City%20of%20Johannesburg%20to%20crack%20down%20on%20illegal%20colleges%20in%20th
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEETING%20OF%20CHAIRPERSONS%20AND%20CHIEF%20EXECUTIVE%20OFFICERS%20OF%20SETAS%2c%20CPUT%2012%20FEBRUARY%202026.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Deputy%20Minister%20Dube%20Ncube%20to%20visit%20Northlink%20TVET%20College%20and%20Western%20Cape%20CET%20College.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Deputy%20Minister%20Dr%20Mimmy%20Gondwe%20concludes%20North%20West%20State%20of%20Readiness%20Visits%20and%20moves%20to%20the%20Free%20State%20pro
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20receioves%20report%20of%20the%20stabilisation%20and%20governancensupport%20team%20on%20the%20college%20of%20Cape%20Town.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Chief%20Albert%20CET%20and%20UZ%20MEDIA%20ADVISORY.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/INQAAHE%20speech%20by%20Minister%20Manamela.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEDIA%20ADVISORY%20Deputy%20Minister%20Dr%20Mimmy%20Gondwe%20continues%20State%20of%20Readiness%20visits%20to%20Gauteng%20higher%20education%20ins
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/CJC%20AND%20UP%20MEDIA%20ADVISORY.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/LETABA%20TVET%20MEDIA%20ADVISORY%20%20%20%281%29.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/SASCA%20MEDIA%20STATEMENT%20.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Richmond%20and%20Moses%20Kotane%20MEDIA%20ADVISORY_.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/STATEMENT%20BY%20THE%20MINISTER%20OF%20HIGHER%20EDUCATION%20AND%20TRAINING.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Minister%20Manamela%20to%20brief%20media%20on%20strategic%20plans%20for%20the%20PSET%20sector%20and%202026%20Academic%20year.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Mnambithi%20%20MEDIA%20ADVISORY_.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEDIA%20ADVISORY%202026.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/MEDIA%20STATEMENT.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202026/Back%20To%20School%20Programme%20MEDIA%20ADVISORY%20.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202025/MINISTER%20BUTI%20MANAMELA%20ISSUES%20NOTICE%20OF%20INTENT%20TO%20CANCEL%20REGISTRATION%20OF%20DAMELIN%2c%20CITY%20VARSITY%2c%20AND%20ICESA%20CITY
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202025/KEYNOTE%20ADDRESS%20BY%20BUTI%20MANAMELA%20SATVETSA%202025%20CONFERENCE.pdf
+  A read more -> /SiteAssets/Media%20Advisory%20and%20Statement%202025/DM%20Gondwe%20Newsltter%20Dec%202025.pdf
+##### https://anaqsup.sn/wp-json/wp/v2/pages?per_page=50&_fields=link,title
+ST 401 application/json; charset=UTF-8 118 https://anaqsup.sn/wp-json/wp/v2/pages?per_page=50&_fields=link,title
+##### https://scu.eg/wp-json/wp/v2/pages?per_page=50&_fields=link,title
+ST 200 application/json; charset=UTF-8 12234 https://scu.eg/wp-json/wp/v2/pages?per_page=50&_fields=link,title
+  G [{"link":"https:\/\/scu.eg\/scu-monthly-harvest\/","title":{"rendered":"\u0645\u0648\u062c\u0632 \u0627\u0644\u0646\u0634\u0627\u0637 \u0627\u0644\u0634\u0647\u0631\u064a"}},{"link":"https:\/\/scu.eg\/private-institutes\/","title":{"rendered":"\u0627\u0644\u0645\u0639\u0627\u0647\u062f \u0627\u0644\u062e\u0627\u0635\u0629 \u0627\u0644\u0645\u0639\u06
+  G [{"link":"https:\/\/scu.eg\/scu-monthly-harvest\/","title":{"rendered":"\u0645\u0648\u062c\u0632 \u0627\u0644\u0646\u0634\u0627\u0637 \u0627\u0644\u0634\u0647\u0631\u064a"}},{"link":"https:\/\/scu.eg\/private-institutes\/","title":{"rendered":"\u0627\u0644\u0645\u0639\u0627\u0647\u062f \u0627\u0644\u062e\u0627\u0635\u0629 \u0627\u0644\u0645\u0639\u062a\u0645\u062f\u0629"}},{"link":"https:\/\/scu.eg\/governm
+  G g\/scu-monthly-harvest\/","title":{"rendered":"\u0645\u0648\u062c\u0632 \u0627\u0644\u0646\u0634\u0627\u0637 \u0627\u0644\u0634\u0647\u0631\u064a"}},{"link":"https:\/\/scu.eg\/private-institutes\/","title":{"rendered":"\u0627\u0644\u0645\u0639\u0627\u0647\u062f \u0627\u0644\u062e\u0627\u0635\u0629 \u0627\u0644\u0645\u0639\u062a\u0645\u062f\u0629"}},{"link":"https:\/\/scu.eg\/government-technological-universities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u062a\u0643\u0646\u064
+  G 48\u062c\u0632 \u0627\u0644\u0646\u0634\u0627\u0637 \u0627\u0644\u0634\u0647\u0631\u064a"}},{"link":"https:\/\/scu.eg\/private-institutes\/","title":{"rendered":"\u0627\u0644\u0645\u0639\u0627\u0647\u062f \u0627\u0644\u062e\u0627\u0635\u0629 \u0627\u0644\u0645\u0639\u062a\u0645\u062f\u0629"}},{"link":"https:\/\/scu.eg\/government-technological-universities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0629 \u062d\u0643\u0648\u0645\
+  G le":{"rendered":"\u0627\u0644\u0645\u0639\u0627\u0647\u062f \u0627\u0644\u062e\u0627\u0635\u0629 \u0627\u0644\u0645\u0639\u062a\u0645\u062f\u0629"}},{"link":"https:\/\/scu.eg\/government-technological-universities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0629 \u062d\u0643\u0648\u0645\u064a\u0629"}},{"link":"https:\/\/scu.eg\/periodical-news\/%d8%a7%d9%84%d9%86%d8%b4%d8%b1%d8%a9-%d8%a7%d9%84%d8%af%d9%88%d8%b1%d9%8a%d8%a9-%d9%84
+  G 2e\u0627\u0635\u0629 \u0627\u0644\u0645\u0639\u062a\u0645\u062f\u0629"}},{"link":"https:\/\/scu.eg\/government-technological-universities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0629 \u062d\u0643\u0648\u0645\u064a\u0629"}},{"link":"https:\/\/scu.eg\/periodical-news\/%d8%a7%d9%84%d9%86%d8%b4%d8%b1%d8%a9-%d8%a7%d9%84%d8%af%d9%88%d8%b1%d9%8a%d8%a9-%d9%84%d8%b4%d9%87%d8%b1-%d8%b3%d8%a8%d8%aa%d9%85%d8%a8%d8%b1\/","title":{"rendere
+  G le":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0629 \u062d\u0643\u0648\u0645\u064a\u0629"}},{"link":"https:\/\/scu.eg\/periodical-news\/%d8%a7%d9%84%d9%86%d8%b4%d8%b1%d8%a9-%d8%a7%d9%84%d8%af%d9%88%d8%b1%d9%8a%d8%a9-%d9%84%d8%b4%d9%87%d8%b1-%d8%b3%d8%a8%d8%aa%d9%85%d8%a8%d8%b1\/","title":{"rendered":"\u0627\u0644\u0646\u0634\u0631\u0629 \u0627\u0644\u062f\u0648\u0631\u064a\u0629 \u0644\u0634\u0647\u0631 \u0633\u0628\u062a\u0645\u0628\u0631
+  G a7%d9%84%d9%86%d8%b4%d8%b1%d8%a9-%d8%a7%d9%84%d8%af%d9%88%d8%b1%d9%8a%d8%a9-%d9%84%d8%b4%d9%87%d8%b1-%d8%b3%d8%a8%d8%aa%d9%85%d8%a8%d8%b1\/","title":{"rendered":"\u0627\u0644\u0646\u0634\u0631\u0629 \u0627\u0644\u062f\u0648\u0631\u064a\u0629 \u0644\u0634\u0647\u0631 \u0633\u0628\u062a\u0645\u0628\u0631"}},{"link":"https:\/\/scu.eg\/foreign-universities-in-egypt\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u0623\u062c\u0646\u0628\u064a\u0629 \u0635\u062f\u0631 \u0644\u0647\u0627 
+  G d":"\u0627\u0644\u0646\u0634\u0631\u0629 \u0627\u0644\u062f\u0648\u0631\u064a\u0629 \u0644\u0634\u0647\u0631 \u0633\u0628\u062a\u0645\u0628\u0631"}},{"link":"https:\/\/scu.eg\/foreign-universities-in-egypt\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u0623\u062c\u0646\u0628\u064a\u0629 \u0635\u062f\u0631 \u0644\u0647\u0627 \u0642\u0631\u0627\u0631"}},{"link":"https:\/\/scu.eg\/private-technological-universities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u062a\
+  G 631\u064a\u0629 \u0644\u0634\u0647\u0631 \u0633\u0628\u062a\u0645\u0628\u0631"}},{"link":"https:\/\/scu.eg\/foreign-universities-in-egypt\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u0623\u062c\u0646\u0628\u064a\u0629 \u0635\u062f\u0631 \u0644\u0647\u0627 \u0642\u0631\u0627\u0631"}},{"link":"https:\/\/scu.eg\/private-technological-universities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0629 \u062e\u0627\u0635\u
+  G ndered":"\u062c\u0627\u0645\u0639\u0627\u062a \u0623\u062c\u0646\u0628\u064a\u0629 \u0635\u062f\u0631 \u0644\u0647\u0627 \u0642\u0631\u0627\u0631"}},{"link":"https:\/\/scu.eg\/private-technological-universities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0629 \u062e\u0627\u0635\u0629"}},{"link":"https:\/\/scu.eg\/","title":{"rendered":"\u0627\u0644\u0627\u0641\u062a\u062a\u0627\u062d\u064a\u0629"}},{"link":"https:\/\/scu.eg\/accr
+  G 64a\u0629 \u0635\u062f\u0631 \u0644\u0647\u0627 \u0642\u0631\u0627\u0631"}},{"link":"https:\/\/scu.eg\/private-technological-universities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0629 \u062e\u0627\u0635\u0629"}},{"link":"https:\/\/scu.eg\/","title":{"rendered":"\u0627\u0644\u0627\u0641\u062a\u062a\u0627\u062d\u064a\u0629"}},{"link":"https:\/\/scu.eg\/accredited-military-colleges\/","title":{"rendered":"\u0643\u0644\u064a\u0627
+  G ties\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0629 \u062e\u0627\u0635\u0629"}},{"link":"https:\/\/scu.eg\/","title":{"rendered":"\u0627\u0644\u0627\u0641\u062a\u062a\u0627\u062d\u064a\u0629"}},{"link":"https:\/\/scu.eg\/accredited-military-colleges\/","title":{"rendered":"\u0643\u0644\u064a\u0627\u062a \u0639\u0633\u0643\u0631\u064a\u0629 \u0645\u0639\u062a\u0645\u062f\u0629"}},{"link":"https:\/\/scu.eg\/universities-instituti
+  G 0627\u0645\u0639\u0627\u062a \u062a\u0643\u0646\u0648\u0644\u0648\u062c\u064a\u0629 \u062e\u0627\u0635\u0629"}},{"link":"https:\/\/scu.eg\/","title":{"rendered":"\u0627\u0644\u0627\u0641\u062a\u062a\u0627\u062d\u064a\u0629"}},{"link":"https:\/\/scu.eg\/accredited-military-colleges\/","title":{"rendered":"\u0643\u0644\u064a\u0627\u062a \u0639\u0633\u0643\u0631\u064a\u0629 \u0645\u0639\u062a\u0645\u062f\u0629"}},{"link":"https:\/\/scu.eg\/universities-institution\/","title":{"rendered":"\u0627\u06
+  G \u0629 \u062e\u0627\u0635\u0629"}},{"link":"https:\/\/scu.eg\/","title":{"rendered":"\u0627\u0644\u0627\u0641\u062a\u062a\u0627\u062d\u064a\u0629"}},{"link":"https:\/\/scu.eg\/accredited-military-colleges\/","title":{"rendered":"\u0643\u0644\u064a\u0627\u062a \u0639\u0633\u0643\u0631\u064a\u0629 \u0645\u0639\u062a\u0645\u062f\u0629"}},{"link":"https:\/\/scu.eg\/universities-institution\/","title":{"rendered":"\u0627\u0644\u062c\u0627\u0645\u0639\u0627\u062a \u0648 \u0627\u0644\u0645\u0624\u0633\
+  G tle":{"rendered":"\u0627\u0644\u0627\u0641\u062a\u062a\u0627\u062d\u064a\u0629"}},{"link":"https:\/\/scu.eg\/accredited-military-colleges\/","title":{"rendered":"\u0643\u0644\u064a\u0627\u062a \u0639\u0633\u0643\u0631\u064a\u0629 \u0645\u0639\u062a\u0645\u062f\u0629"}},{"link":"https:\/\/scu.eg\/universities-institution\/","title":{"rendered":"\u0627\u0644\u062c\u0627\u0645\u0639\u0627\u062a \u0648 \u0627\u0644\u0645\u0624\u0633\u0633\u0627\u062a"}},{"link":"https:\/\/scu.eg\/teaching-staff\/","
+  G ilitary-colleges\/","title":{"rendered":"\u0643\u0644\u064a\u0627\u062a \u0639\u0633\u0643\u0631\u064a\u0629 \u0645\u0639\u062a\u0645\u062f\u0629"}},{"link":"https:\/\/scu.eg\/universities-institution\/","title":{"rendered":"\u0627\u0644\u062c\u0627\u0645\u0639\u0627\u062a \u0648 \u0627\u0644\u0645\u0624\u0633\u0633\u0627\u062a"}},{"link":"https:\/\/scu.eg\/teaching-staff\/","title":{"rendered":"\u0623\u0639\u0636\u0627\u0621 \u0647\u064a\u0626\u0629 \u0627\u0644\u062a\u062f\u0631\u064a\u0633"}}
+  G 27\u062a \u0639\u0633\u0643\u0631\u064a\u0629 \u0645\u0639\u062a\u0645\u062f\u0629"}},{"link":"https:\/\/scu.eg\/universities-institution\/","title":{"rendered":"\u0627\u0644\u062c\u0627\u0645\u0639\u0627\u062a \u0648 \u0627\u0644\u0645\u0624\u0633\u0633\u0627\u062a"}},{"link":"https:\/\/scu.eg\/teaching-staff\/","title":{"rendered":"\u0623\u0639\u0636\u0627\u0621 \u0647\u064a\u0626\u0629 \u0627\u0644\u062a\u062f\u0631\u064a\u0633"}},{"link":"https:\/\/scu.eg\/students\/","title":{"rendered":"\u
+  G ties-institution\/","title":{"rendered":"\u0627\u0644\u062c\u0627\u0645\u0639\u0627\u062a \u0648 \u0627\u0644\u0645\u0624\u0633\u0633\u0627\u062a"}},{"link":"https:\/\/scu.eg\/teaching-staff\/","title":{"rendered":"\u0623\u0639\u0636\u0627\u0621 \u0647\u064a\u0626\u0629 \u0627\u0644\u062a\u062f\u0631\u064a\u0633"}},{"link":"https:\/\/scu.eg\/students\/","title":{"rendered":"\u0627\u0644\u0637\u0644\u0627\u0628"}},{"link":"https:\/\/scu.eg\/government-sponsored-educational-institutions\/","title"
+  G \u062c\u0627\u0645\u0639\u0627\u062a \u0648 \u0627\u0644\u0645\u0624\u0633\u0633\u0627\u062a"}},{"link":"https:\/\/scu.eg\/teaching-staff\/","title":{"rendered":"\u0623\u0639\u0636\u0627\u0621 \u0647\u064a\u0626\u0629 \u0627\u0644\u062a\u062f\u0631\u064a\u0633"}},{"link":"https:\/\/scu.eg\/students\/","title":{"rendered":"\u0627\u0644\u0637\u0644\u0627\u0628"}},{"link":"https:\/\/scu.eg\/government-sponsored-educational-institutions\/","title":{"rendered":"\u0645\u0624\u0633\u0633\u0627\u062a \u
+  G scu.eg\/teaching-staff\/","title":{"rendered":"\u0623\u0639\u0636\u0627\u0621 \u0647\u064a\u0626\u0629 \u0627\u0644\u062a\u062f\u0631\u064a\u0633"}},{"link":"https:\/\/scu.eg\/students\/","title":{"rendered":"\u0627\u0644\u0637\u0644\u0627\u0628"}},{"link":"https:\/\/scu.eg\/government-sponsored-educational-institutions\/","title":{"rendered":"\u0645\u0624\u0633\u0633\u0627\u062a \u062a\u0639\u0644\u064a\u0645\u064a\u0629 \u062a\u062d\u062a \u0625\u0634\u0631\u0627\u0641 \u062d\u0643\u0648\u0645
+  G \u0623\u0639\u0636\u0627\u0621 \u0647\u064a\u0626\u0629 \u0627\u0644\u062a\u062f\u0631\u064a\u0633"}},{"link":"https:\/\/scu.eg\/students\/","title":{"rendered":"\u0627\u0644\u0637\u0644\u0627\u0628"}},{"link":"https:\/\/scu.eg\/government-sponsored-educational-institutions\/","title":{"rendered":"\u0645\u0624\u0633\u0633\u0627\u062a \u062a\u0639\u0644\u064a\u0645\u064a\u0629 \u062a\u062d\u062a \u0625\u0634\u0631\u0627\u0641 \u062d\u0643\u0648\u0645\u064a"}},{"link":"https:\/\/scu.eg\/educationa
+  G 29 \u0627\u0644\u062a\u062f\u0631\u064a\u0633"}},{"link":"https:\/\/scu.eg\/students\/","title":{"rendered":"\u0627\u0644\u0637\u0644\u0627\u0628"}},{"link":"https:\/\/scu.eg\/government-sponsored-educational-institutions\/","title":{"rendered":"\u0645\u0624\u0633\u0633\u0627\u062a \u062a\u0639\u0644\u064a\u0645\u064a\u0629 \u062a\u062d\u062a \u0625\u0634\u0631\u0627\u0641 \u062d\u0643\u0648\u0645\u064a"}},{"link":"https:\/\/scu.eg\/educational-institutions-with-international-and-framework-agree
+  G \/","title":{"rendered":"\u0627\u0644\u0637\u0644\u0627\u0628"}},{"link":"https:\/\/scu.eg\/government-sponsored-educational-institutions\/","title":{"rendered":"\u0645\u0624\u0633\u0633\u0627\u062a \u062a\u0639\u0644\u064a\u0645\u064a\u0629 \u062a\u062d\u062a \u0625\u0634\u0631\u0627\u0641 \u062d\u0643\u0648\u0645\u064a"}},{"link":"https:\/\/scu.eg\/educational-institutions-with-international-and-framework-agreements\/","title":{"rendered":"\u0645\u0624\u0633\u0633\u0627\u062a \u062a\u0639\u064
+  G 633\u0633\u0627\u062a \u062a\u0639\u0644\u064a\u0645\u064a\u0629 \u062a\u062d\u062a \u0625\u0634\u0631\u0627\u0641 \u062d\u0643\u0648\u0645\u064a"}},{"link":"https:\/\/scu.eg\/educational-institutions-with-international-and-framework-agreements\/","title":{"rendered":"\u0645\u0624\u0633\u0633\u0627\u062a \u062a\u0639\u0644\u064a\u0645\u064a\u0629 \u0628\u0627\u062a\u0641\u0627\u0642\u064a\u0627\u062a \u062f\u0648\u0644\u064a\u0629 \u0648 \u0625\u0637\u0627\u0631\u064a\u0629"}},{"link":"https:\/\
+  G 7\u0641 \u062d\u0643\u0648\u0645\u064a"}},{"link":"https:\/\/scu.eg\/educational-institutions-with-international-and-framework-agreements\/","title":{"rendered":"\u0645\u0624\u0633\u0633\u0627\u062a \u062a\u0639\u0644\u064a\u0645\u064a\u0629 \u0628\u0627\u062a\u0641\u0627\u0642\u064a\u0627\u062a \u062f\u0648\u0644\u064a\u0629 \u0648 \u0625\u0637\u0627\u0631\u064a\u0629"}},{"link":"https:\/\/scu.eg\/specialty-universities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u0630\u0627\u
+  G 645\u064a\u0629 \u0628\u0627\u062a\u0641\u0627\u0642\u064a\u0627\u062a \u062f\u0648\u0644\u064a\u0629 \u0648 \u0625\u0637\u0627\u0631\u064a\u0629"}},{"link":"https:\/\/scu.eg\/specialty-universities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u0630\u0627\u062a \u0637\u0628\u064a\u0639\u0629 \u062e\u0627\u0635\u0629"}},{"link":"https:\/\/scu.eg\/branches-of-international-universities\/","title":{"rendered":"\u0641\u0631\u0648\u0639 \u0644\u062c\u0627\u0645\u0639\u0627\u062a \u06
+  G 627\u062a \u062f\u0648\u0644\u064a\u0629 \u0648 \u0625\u0637\u0627\u0631\u064a\u0629"}},{"link":"https:\/\/scu.eg\/specialty-universities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u0630\u0627\u062a \u0637\u0628\u064a\u0639\u0629 \u062e\u0627\u0635\u0629"}},{"link":"https:\/\/scu.eg\/branches-of-international-universities\/","title":{"rendered":"\u0641\u0631\u0648\u0639 \u0644\u062c\u0627\u0645\u0639\u0627\u062a \u0623\u062c\u0646\u0628\u064a\u0629"}},{"link":"https:\/\/scu.eg
+  G versities\/","title":{"rendered":"\u062c\u0627\u0645\u0639\u0627\u062a \u0630\u0627\u062a \u0637\u0628\u064a\u0639\u0629 \u062e\u0627\u0635\u0629"}},{"link":"https:\/\/scu.eg\/branches-of-international-universities\/","title":{"rendered":"\u0641\u0631\u0648\u0639 \u0644\u062c\u0627\u0645\u0639\u0627\u062a \u0623\u062c\u0646\u0628\u064a\u0629"}},{"link":"https:\/\/scu.eg\/esse\/","title":{"rendered":"\u0627\u0644\u0627\u0633\u062a\u0628\u064a\u0627\u0646 \u0627\u0644\u0645\u0635\u0631\u064a \u064
+  G \u0627\u062a \u0637\u0628\u064a\u0639\u0629 \u062e\u0627\u0635\u0629"}},{"link":"https:\/\/scu.eg\/branches-of-international-universities\/","title":{"rendered":"\u0641\u0631\u0648\u0639 \u0644\u062c\u0627\u0645\u0639\u0627\u062a \u0623\u062c\u0646\u0628\u064a\u0629"}},{"link":"https:\/\/scu.eg\/esse\/","title":{"rendered":"\u0627\u0644\u0627\u0633\u062a\u0628\u064a\u0627\u0646 \u0627\u0644\u0645\u0635\u0631\u064a \u0644\u0644\u0645\u0634\u0627\u0631\u0643\u0627\u062a \u0627\u0644\u0637\u0644\u0
+  G nal-universities\/","title":{"rendered":"\u0641\u0631\u0648\u0639 \u0644\u062c\u0627\u0645\u0639\u0627\u062a \u0623\u062c\u0646\u0628\u064a\u0629"}},{"link":"https:\/\/scu.eg\/esse\/","title":{"rendered":"\u0627\u0644\u0627\u0633\u062a\u0628\u064a\u0627\u0646 \u0627\u0644\u0645\u0635\u0631\u064a \u0644\u0644\u0645\u0634\u0627\u0631\u0643\u0627\u062a \u0627\u0644\u0637\u0644\u0627\u0628\u064a\u0629 &#8211; Egyptian Survey of Student Engagement (ESSE)"}},{"link":"https:\/\/scu.eg\/cuit-e-books\/",
+  G 0641\u0631\u0648\u0639 \u0644\u062c\u0627\u0645\u0639\u0627\u062a \u0623\u062c\u0646\u0628\u064a\u0629"}},{"link":"https:\/\/scu.eg\/esse\/","title":{"rendered":"\u0627\u0644\u0627\u0633\u062a\u0628\u064a\u0627\u0646 \u0627\u0644\u0645\u0635\u0631\u064a \u0644\u0644\u0645\u0634\u0627\u0631\u0643\u0627\u062a \u0627\u0644\u0637\u0644\u0627\u0628\u064a\u0629 &#8211; Egyptian Survey of Student Engagement (ESSE)"}},{"link":"https:\/\/scu.eg\/cuit-e-books\/","title":{"rendered":"\u0627\u0644\u0648\u06
+  G 4\u0645\u0634\u0627\u0631\u0643\u0627\u062a \u0627\u0644\u0637\u0644\u0627\u0628\u064a\u0629 &#8211; Egyptian Survey of Student Engagement (ESSE)"}},{"link":"https:\/\/scu.eg\/cuit-e-books\/","title":{"rendered":"\u0627\u0644\u0648\u062d\u062f\u0629 \u0627\u0644\u0645\u0631\u0643\u0632\u064a\u0629 \u0644\u0644\u062a\u062f\u0631\u064a\u0628 &#8211; \u0627\u0644\u0643\u062a\u0627\u0628 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a"}},{"link":"https:\/\/scu.eg\/activity\/","title":{"
+  G u0644\u0637\u0644\u0627\u0628\u064a\u0629 &#8211; Egyptian Survey of Student Engagement (ESSE)"}},{"link":"https:\/\/scu.eg\/cuit-e-books\/","title":{"rendered":"\u0627\u0644\u0648\u062d\u062f\u0629 \u0627\u0644\u0645\u0631\u0643\u0632\u064a\u0629 \u0644\u0644\u062a\u062f\u0631\u064a\u0628 &#8211; \u0627\u0644\u0643\u062a\u0627\u0628 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a"}},{"link":"https:\/\/scu.eg\/activity\/","title":{"rendered":"Activity"}},{"link":"https:\/\/scu.eg\/s
+  G 644\u0644\u062a\u062f\u0631\u064a\u0628 &#8211; \u0627\u0644\u0643\u062a\u0627\u0628 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a"}},{"link":"https:\/\/scu.eg\/activity\/","title":{"rendered":"Activity"}},{"link":"https:\/\/scu.eg\/scu-blogging\/","title":{"rendered":"\u0627\u0644\u0645\u062f\u0648\u0646\u0627\u062a"}},{"link":"https:\/\/scu.eg\/ebooks\/studentguide2023\/","title":{"rendered":"\u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0627\u0644\u0642\u062f\u0631\u0627\u
+  G  \u0627\u0644\u0643\u062a\u0627\u0628 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a"}},{"link":"https:\/\/scu.eg\/activity\/","title":{"rendered":"Activity"}},{"link":"https:\/\/scu.eg\/scu-blogging\/","title":{"rendered":"\u0627\u0644\u0645\u062f\u0648\u0646\u0627\u062a"}},{"link":"https:\/\/scu.eg\/ebooks\/studentguide2023\/","title":{"rendered":"\u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0627\u0644\u0642\u062f\u0631\u0627\u062a"}},{"link":"https:\/\/scu.eg\/ebooks\/","t
+  G \u0627\u0628 \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a"}},{"link":"https:\/\/scu.eg\/activity\/","title":{"rendered":"Activity"}},{"link":"https:\/\/scu.eg\/scu-blogging\/","title":{"rendered":"\u0627\u0644\u0645\u062f\u0648\u0646\u0627\u062a"}},{"link":"https:\/\/scu.eg\/ebooks\/studentguide2023\/","title":{"rendered":"\u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0627\u0644\u0642\u062f\u0631\u0627\u062a"}},{"link":"https:\/\/scu.eg\/ebooks\/","title":{"rendered":"ebooks
+  G 0631\u0648\u0646\u064a"}},{"link":"https:\/\/scu.eg\/activity\/","title":{"rendered":"Activity"}},{"link":"https:\/\/scu.eg\/scu-blogging\/","title":{"rendered":"\u0627\u0644\u0645\u062f\u0648\u0646\u0627\u062a"}},{"link":"https:\/\/scu.eg\/ebooks\/studentguide2023\/","title":{"rendered":"\u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0627\u0644\u0642\u062f\u0631\u0627\u062a"}},{"link":"https:\/\/scu.eg\/ebooks\/","title":{"rendered":"ebooks"}},{"link":"https:\/\/scu.eg\/system-login\/","tit
+  G "title":{"rendered":"Activity"}},{"link":"https:\/\/scu.eg\/scu-blogging\/","title":{"rendered":"\u0627\u0644\u0645\u062f\u0648\u0646\u0627\u062a"}},{"link":"https:\/\/scu.eg\/ebooks\/studentguide2023\/","title":{"rendered":"\u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0627\u0644\u0642\u062f\u0631\u0627\u062a"}},{"link":"https:\/\/scu.eg\/ebooks\/","title":{"rendered":"ebooks"}},{"link":"https:\/\/scu.eg\/system-login\/","title":{"rendered":"\u0627\u0644\u062f\u062e\u0648\u0644 \u0625\u064
+  G -blogging\/","title":{"rendered":"\u0627\u0644\u0645\u062f\u0648\u0646\u0627\u062a"}},{"link":"https:\/\/scu.eg\/ebooks\/studentguide2023\/","title":{"rendered":"\u0627\u062e\u062a\u0628\u0627\u0631\u0627\u062a \u0627\u0644\u0642\u062f\u0631\u0627\u062a"}},{"link":"https:\/\/scu.eg\/ebooks\/","title":{"rendered":"ebooks"}},{"link":"https:\/\/scu.eg\/system-login\/","title":{"rendered":"\u0627\u0644\u062f\u062e\u0648\u0644 \u0625\u0644\u064a \u0646\u0638\u0627\u0645 \u0627\u0644\u062c\u0644\u0633
+##### https://anaqsup.sn/habilitations/
+ST 200 text/html; charset=UTF-8 128827 https://anaqsup.sn/habilitations/
+TITLE HABILITATION - ANAQSUP | TABLES 0 TR 0 LI 109
+  FILES 8
+   https://anaqsup.sn/wp-content/uploads/2026/07/STI_UAZ.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/ARCIV.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/Rapport_evaluation_externe_ISEG_V2.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/REE_UID_HEC_habilitation_VF.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/REE_IPAF_Sante%CC%81_VF.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/07/PCSTUI.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/05/ETHOS.pdf
+   https://anaqsup.sn/wp-content/uploads/2026/04/REE-ECPI-Habilitation-20-21-04-26.pdf
+  A  -> https://anaqsup.sn
+  A REFERENTIELS -> https://anaqsup.sn/referentiels/
+  A HABILITATION -> https://anaqsup.sn/habilitations/
+  A ACCREDITATIONS -> https://anaqsup.sn/acreditations/
+  A PUBLICATIONS -> https://anaqsup.sn/publications/
+  A TEXTES REGLEMENTAIRES -> https://anaqsup.sn/textes-reglementaires/
+  A ORGANE DE GOUVERNANCE -> https://anaqsup.sn/organe-de-gouvernance/
+  A MISSIONS -> https://anaqsup.sn/missions/
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/STI_UAZ.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/ARCIV.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/Rapport_evaluation_externe_ISEG_V2.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/REE_UID_HEC_habilitation_VF.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/REE_IPAF_Sante%CC%81_VF.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/07/PCSTUI.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/05/ETHOS.pdf
+  A voir le rapport -> https://anaqsup.sn/wp-content/uploads/2026/04/REE-ECPI-Habilitation-20-21-04-26.pdf
+  A  -> https://anaqsup.sn/contact/
+  A MESRI -> http://www.mesr.gouv.sn/
+  A CAMES -> https://www.lecames.org/
+  A CAMPUSEN -> http://www.campusen.sn/
+  A  -> https://www.unesco.org/fr/fieldoffice/dakar
+  A Banque mondiale -> https://www.banquemondiale.org/fr/home
+  A Visite de travail de l’INPG à l’ANAQ-Sup -> https://anaqsup.sn/visite-de-travail-de-linpg-a-lanaq-sup/
+  A Troisième session ordinaire du Conseil d’administration de l -> https://anaqsup.sn/troisieme-session-ordinaire-du-conseil-dadministration-de-lanaq-sup/
+  A Coopération sous-régionale : L'ANAQ-SUP accueille une déléga -> https://anaqsup.sn/cooperation-sous-regionale-lanaq-sup-accueille-une-delegation-de-haut-niveau-de-la-naqaa-de-gambie/
+  A L’ANAQ-Sup porte la voix du Sénégal au Séminaire FrAQ-Sup 20 -> https://anaqsup.sn/lanaq-sup-porte-la-voix-du-senegal-au-seminaire-fraq-sup-2026/
+  JS /json
+  JS https://anaqsup.sn/wp-json/oembed/1.0/embed?url=https
+  JS https://fonts.googleapis.com/css?family=Roboto
+  JS https://anaqsup.sn/wp-admin/admin-ajax.php
+  JS https://anaqsup.sn/wp-json/
+  JS https://anaqsup.sn/wp-json/elementskit/v1/
+  JS /wp-admin/admin-ajax.php
