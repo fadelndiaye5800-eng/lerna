@@ -127,6 +127,24 @@ export const OFFICIELS = [
       });
       return out;
     }
+  },
+  {
+    cc: 'NL', id: 'nl-duo',
+    autorite: { fr: 'DUO, ministère néerlandais de l’Enseignement (données ouvertes, CC0)', en: 'DUO, Dutch Ministry of Education (open data, CC0)' },
+    titre: { fr: 'Établissements d’enseignement supérieur financés par l’État (hogescholen et universités)', en: 'Government-funded higher-education institutions (universities of applied sciences and research universities)' },
+    page: 'https://onderwijsdata.duo.nl/datasets/adressen_ho', url: 'https://onderwijsdata.duo.nl/dataset/37051cda-b681-43eb-a385-efa18e99cdd2/resource/bf1da9c6-c688-4873-91b1-b12c9ac2c132/download/instellingenho.csv',
+    type: 'xlsx', csv: true, skip: 1,
+    map: (r) => ({ n: r[4], v: r[8], r: r[1], w: r[13] || '', acc: /^wo/i.test(r[0]) ? 'Universiteit (wo)' : /^hbo/i.test(r[0]) ? 'Hogeschool (hbo)' : '' })
+  },
+  {
+    cc: 'CN', id: 'cn-moe',
+    autorite: { fr: 'Ministère de l’Éducation de la République populaire de Chine', en: 'Ministry of Education of the People’s Republic of China' },
+    titre: { fr: 'Liste nationale des établissements d’enseignement supérieur ordinaires (全国普通高等学校名单)', en: 'National list of regular higher-education institutions' },
+    page: 'http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/', url: 'http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/',
+    discover: { page: 'http://www.moe.gov.cn/jyb_xxgk/s5743/s5744/', re: /t\d{8}_\d+\.html$/, text: /^全国高等学校名单$/, then: /\.xlsx?$/, thenText: /普通高等学校/ },
+    type: 'xlsx', skip: 3,
+    filter: (r) => /^\d+$/.test(String(r[0]).trim()) && String(r[1]).trim(),
+    map: (r) => ({ n: r[1], v: r[4], t: /民办/.test(String(r[6])) ? 'prive' : /中外合作/.test(String(r[6])) ? '' : 'public', acc: [String(r[5]).trim() === '本科' ? '本科 (licence et plus)' : String(r[5]).trim() === '专科' ? '专科 (cycle court)' : String(r[5]).trim(), String(r[6]).trim()].filter(Boolean).join(' · ') })
   }
 ];
 
@@ -240,10 +258,15 @@ async function readJson(src) {
 /* Classeur Excel ou CSV officiel. discover : { page, re } trouve le fichier le plus récent sur la page de l'organisme */
 async function resolveUrl(src) {
   if (!src.discover) return src.url;
-  const $ = cheerio.load((await fetchBuf(src.discover.page)).toString('utf8'));
-  const h = $('a[href]').map((i, a) => $(a).attr('href')).get().find((x) => src.discover.re.test(x));
-  if (!h) throw new Error('fichier introuvable sur ' + src.discover.page);
-  return new URL(h, src.discover.page).href;
+  const D = src.discover;
+  const pick = async (page, re, txt) => {
+    const $ = cheerio.load((await fetchBuf(page)).toString('utf8'));
+    const h = $('a[href]').filter((i, a) => re.test($(a).attr('href')) && (!txt || txt.test(($(a).attr('title') || $(a).text()).trim()))).first().attr('href');
+    if (!h) throw new Error('lien introuvable sur ' + page);
+    return new URL(h, page).href;
+  };
+  const first = await pick(D.page, D.re, D.text);
+  return D.then ? pick(first, D.then, D.thenText) : first;
 }
 async function readXlsx(src) {
   const XLSX = (await import('xlsx')).default;
