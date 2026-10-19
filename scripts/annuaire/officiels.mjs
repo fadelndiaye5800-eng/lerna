@@ -8,7 +8,7 @@
      si besoin) ; les lignes « Région … » donnent la région
    - list : éléments HTML choisis par un sélecteur CSS */
 import * as cheerio from 'cheerio';
-import { fetchBuf } from './net.mjs';
+import { fetchBuf, get } from './net.mjs';
 
 export const OFFICIELS = [
   {
@@ -225,6 +225,24 @@ export const OFFICIELS = [
       return out;
     }
   },
+  /* CAMES : répertoire des diplômes reconnus (PRED). Pour chaque pays membre, le formulaire public du CAMES donne la liste
+     des établissements qui ont au moins un diplôme reconnu ; on lit cette liste (une requête par pays, comme le site lui-même). */
+  ...[['BJ', 1], ['BF', 2], ['CM', 3], ['CF', 4], ['CG', 5], ['CI', 6], ['GA', 8], ['GN', 9], ['GW', 10], ['MG', 11], ['ML', 12], ['NE', 13], ['CD', 15], ['RW', 16], ['SN', 17], ['TD', 18], ['TG', 19]].map(([cc, id]) => ({
+    cc, id: 'cames-pred-' + cc.toLowerCase(),
+    autorite: { fr: 'Conseil africain et malgache pour l’enseignement supérieur (CAMES)', en: 'African and Malagasy Council for Higher Education (CAMES)' },
+    titre: { fr: 'Établissements ayant au moins un diplôme reconnu par le CAMES (répertoire PRED)', en: 'Institutions with at least one CAMES-recognised degree (PRED register)' },
+    url: 'https://www.lecames.org/diplome_cames/web/site/repertoire', type: 'custom',
+    run: async ({ get, cheerio, clean }) => {
+      const base = 'https://www.lecames.org/diplome_cames/web/site/';
+      const p = await get(base + 'repertoire'); const $ = cheerio.load(p.buf.toString('utf8'));
+      const param = $('meta[name="csrf-param"]').attr('content') || '_csrf', token = $('meta[name="csrf-token"]').attr('content') || '';
+      const cookie = p.cookies.join('; ');
+      const r = await get(base + 'ville', { method: 'POST', body: 'id=' + id + '&' + encodeURIComponent(param) + '=' + encodeURIComponent(token), headers: { Cookie: cookie, 'X-CSRF-Token': token, 'X-Requested-With': 'XMLHttpRequest', Referer: base + 'repertoire' } });
+      if (r.status !== 200) throw new Error('HTTP ' + r.status);
+      const $o = cheerio.load('<select>' + r.buf.toString('utf8') + '</select>');
+      return $o('option').map((i, o) => ({ n: clean($o(o).text()), acc: 'Diplôme(s) reconnu(s) par le CAMES' })).get().filter((x) => x.n && !/s[ée]lectionnez/i.test(x.n));
+    }
+  })),
   ...[
     ['publiques', '%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d8%ad%d9%83%d9%88%d9%85%d9%8a%d8%a9', 'public', 'Universités publiques', 'Public universities'],
     ['ahleya', '%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d8%b5%d8%b1%d9%8a%d8%a9-%d8%a7%d9%84%d8%a3%d9%87%d9%84%d9%8a%d8%a9', '', 'Universités nationales (ahleya, à but non lucratif)', 'National (ahleya, non-profit) universities'],
@@ -416,7 +434,7 @@ export async function readOfficiels(log = console.log) {
   const out = [], report = {};
   for (const src of OFFICIELS) {
     try {
-      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : src.type === 'pdf-acr' ? await readPdfAcr(src) : src.type === 'pdf-tz' ? await readPdfTz(src) : src.type === 'pdf-toc' ? await readPdfToc(src) : src.type === 'json' ? await readJson(src) : src.type === 'xlsx' ? await readXlsx(src) : src.type === 'html' ? await readHtml(src) : src.type === 'pdf-fn' ? await readPdfFn(src) : await readList(src);
+      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : src.type === 'pdf-acr' ? await readPdfAcr(src) : src.type === 'pdf-tz' ? await readPdfTz(src) : src.type === 'pdf-toc' ? await readPdfToc(src) : src.type === 'json' ? await readJson(src) : src.type === 'xlsx' ? await readXlsx(src) : src.type === 'html' ? await readHtml(src) : src.type === 'pdf-fn' ? await readPdfFn(src) : src.type === 'custom' ? (await src.run({ get, cheerio, clean })).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || '') })) : await readList(src);
       const seen = new Set();
       for (const r of rows) {
         const key = r.n.toLowerCase();
