@@ -1,4 +1,4 @@
-2026-10-19T00:32:34.611Z
+2026-10-19T00:34:01.993Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -291,8 +291,110 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   阜康职业技术学院 | 昌吉回族自治州 | public | 专科 (cycle court)
   胡杨河职业技术学院 | 胡杨河市 | public | 专科 (cycle court)
   新疆石河子航空职业学院 | 石河子市 | prive | 专科 (cycle court) · 民办
-##### https://www.cue.or.ke/
-ST 200 text/html; charset=utf-8 43910 https://www.cue.or.ke/
+##### https://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189
+ST 200 text/html; charset=utf-8 47990 https://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189
+TITLE Commission for University Education - Status of Universities | TABLES 1 TR 10 LI 96
+  TR Foreign University | Local Institution | Programme offered under collaboration | Date of Grant of Authority to collaborate
+  TR California Miramar University, USA | The East Africa University, Kitengela, Kenya | 1. Master of Business Administration (MBA) 2. Doctor of Business Administration (DBA) | 19th October 2015
+  TR University of Northampton, United Kingdom ( UK) | Edulink International College, Nairobi, Kenya | Bachelor of Business Administration (BBA) | 14th April 2016
+  TR University of Greenwich, United Kingdom(UK) | Oshwal College, Nairobi, Kenya | Bachelor of Science (Hons) Computing` | 18th October 2018
+  TR University of Hertfordshire, United Kingdom (UK) | Oshwal College, Nairobi, Kenya | Bachelor of Arts(Hons) Business Administration | 21st November 2019
+  TR Beulah Heights University, USA | Daystar University, Athi River, Kenya | Master of Arts in Leadership | 27th January 2022
+  TR Lincoln University College, Malasya | Simon Page College of Marketing, Nairobi | Bachelor (Hons) of Business Management | 24th June 2024
+  TR International Business, Science & Technology (ISBAT) University, Uganda | East Africa Institute of Certified Studies, Nairobi | Bachelor of Business Administration | 4th August 2025
+  TR Bachelor of Hotel Management | 3rd February 2026
+  TR Pontifical Urbaniana University, Holy See | Tangaza University | 1. Baccalaureate in Sacred Theology/Bachelor of Theology 2. Baccalaureate in Philosophy/Bachelor of Philosophy | 4th August 2025
+  FILES 1
+   /images/2026/Institutional_Accreditation/Approved_Universities_15th_September_2026.pdf
+  A FAQS -> /index.php?option=com_content&view=article&id=16&Itemid=141
+  A Careers -> https://imis.cue.or.ke/eRecruitment/
+  A Bids and Tenders -> /index.php?option=com_phocadownload&view=category&id=60&Itemid=512
+  A Staff Mail -> https://www.office.com/
+  A  -> https://mail.cue.or.ke/owa/auth/logon.aspx?replaceCurrent=1&url=https%3a%2f%2fmail.cue.or.ke%2fowa
+  A  -> /index.php?option=com_content&view=category&layout=blog&id=23&Itemid=101
+  A About Us -> /index.php?option=com_content&view=category&layout=blog&id=8&Itemid=129
+  A Who we are -> /index.php?option=com_content&view=article&id=2&Itemid=125
+  A Organisational Structure -> /index.php?option=com_content&view=article&id=4&Itemid=127
+  A Commissioners -> /index.php?option=com_content&view=article&id=5&Itemid=128
+  A Management Team -> /index.php?option=com_content&view=article&id=166&Itemid=513
+  A Corporate Social Responsibility -> /index.php?option=com_content&view=article&id=6&Itemid=130
+  A Service Charter -> /index.php?option=com_content&view=article&id=7&Itemid=131
+  A Strategic Plan -> /index.php?option=com_content&view=article&id=8&Itemid=132
+  A Related Links -> /index.php?option=com_content&view=article&id=59&Itemid=251
+  A News and Events -> /index.php?option=com_content&view=article&id=206&Itemid=634
+  A Photo Gallery -> /index.php?option=com_phocagallery&view=categories&Itemid=211
+  A Press Releases -> /index.php?option=com_phocadownload&view=category&id=66&Itemid=511
+  A Services -> /index.php?option=com_content&view=category&layout=blog&id=9&Itemid=133
+  A Accreditation -> /index.php?option=com_content&view=category&layout=blog&id=13&Itemid=134
+  A Introduction to Accreditation -> /index.php?option=com_content&view=article&id=66&Itemid=258
+  A Status of Universities -> /index.php?option=com_content&view=article&id=21&Itemid=475
+  A Application for Programme Accreditation -> https://imis.cue.or.ke/Accreditation.aspx
+  A Establishment of Universities -> /index.php?option=com_content&view=article&id=9&Itemid=257
+  A Academic Programmes Offered in Universities in Kenya -> /index.php?option=com_content&view=article&id=22&Itemid=253
+  A Recognition and Equation of Qualifications -> /index.php?option=com_content&view=article&id=10&Itemid=135
+  A Universities Education Management Information System -> https://imis.cue.or.ke
+  A Licensing of Student Recruitment Agencies -> https://imis.cue.or.ke/LicensingPortal/
+  A Peer Reviewers Portal -> https://imis.cue.or.ke/PeerReviewersPortal
+  A Legal Services -> https://imis.cue.or.ke/CaseManagement/Login
+  A Universities Collaboration Portal -> https://imis.cue.or.ke/collaborationportal/
+  A eProcurement -> https://imis.cue.or.ke/eProcurement
+  A Employee Service Portal -> https://imis.cue.or.ke/EmployeeSelfService
+  A Library Information Services -> /index.php?option=com_content&view=article&id=56&Itemid=136
+  A E-Publications -> https://www.cue.or.ke/members/members.php
+  A Online Public Access Catalogue -> http://library.cue.or.ke/
+  A Open Access Resources -> /index.php?option=com_content&view=article&id=140&Itemid=311
+  A Digital Repository -> http://repository.cue.or.ke:8080/xmlui/
+  A Digital Repositories of Universities in Kenya -> /index.php?option=com_content&view=article&id=202&Itemid=620
+  A MyLOFT eResources -> https://app.myloft.xyz/browse/home
+  A Public Advisory -> /index.php?option=com_content&view=article&id=14&Itemid=139
+  A Public Advisory on Campuses and Qualifications -> /index.php?option=com_phocadownload&view=file&id=1&Itemid=272
+  A Planning and Research -> /index.php?option=com_content&view=article&id=13&Itemid=138
+  A Downloads -> /index.php?option=com_phocadownload&view=category&id=11&Itemid=187
+  A Contact Us -> /index.php?option=com_content&view=article&id=141&Itemid=166
+  A CONFERENCES -> https://cue.or.ke/biennial/
+  A Information Services -> /index.php?option=com_content&view=article&id=56&Itemid=472
+  A Downloads -> /index.php?option=com_phocadownload&view=category&id=11&Itemid=496
+  A Accreditation -> /index.php/accredited-universities
+  A Customer Care -> /index.php?option=com_content&view=article&id=23&Itemid=477
+  A Public Advisory -> /index.php?option=com_content&view=article&id=14&Itemid=479
+  A Print -> /index.php?option=com_content&view=article&id=21:status-of-universities&catid=13&tmpl=component&print=1&layout=default&Itemid=189
+  A Email -> /index.php?option=com_mailto&tmpl=component&template=protostar&link=8c32e28d8e0b88d03cb3b65c9b1af27837eec978
+  A Public -> /index.php?option=com_tags&view=tag&id=2-public
+  A here -> /images/2026/Institutional_Accreditation/Approved_Universities_15th_September_2026.pdf
+  A Online application for Recognition and Equation of Qualifica -> https://imis.cue.or.ke/RecognitionAndEquationforQualifications/
+  A Accreditation -> /index.php?option=com_content&view=category&layout=blog&id=13&Itemid=471
+  A Programmes Offered in Universities in Kenya -> /index.php?option=com_content&view=article&layout=edit&id=22&Itemid=473
+  A Recognition and Equation of Qualifications -> /index.php?option=com_content&view=article&id=10&Itemid=474
+  A Online Services -> /index.php?option=com_content&view=article&id=63&Itemid=476
+  A Sensitization Youth, Women and PWD -> http://www.cue.or.ke/index.php/bids-and-tenders1/category/67-procurement-sensitization?download=182:sensitization-youth-women-and-pwd-june-2019
+  A Frequently Asked Questions -> /index.php?option=com_content&view=article&id=16&Itemid=478
+  A Bids and Tender Notices -> /index.php?option=com_phocadownload&view=category&id=60&Itemid=480
+  A Related Links -> /index.php?option=com_content&view=article&id=59&Itemid=481
+  A The Universities Act, 2012 -> /index.php?option=com_phocadownload&view=category&id=4&Itemid=482
+  A Ministry of Education -> https://www.education.go.ke/
+  A Kenya Universities and Colleges Central Placement Service (K -> http://kuccps.net/
+  A Higher Education Loans Board (HELB) -> http://www.helb.co.ke/
+  A Kenya National Examination Council (KNEC) -> https://www.knec.ac.ke/
+  A TVET Authority -> https://www.tveta.go.ke/
+  A SAR tool for ODEL Programmes and institutions in Kenya -> /index.php?option=com_phocadownload&view=category&id=73&Itemid=529
+  A Accredited Campuses of Universities in Kenya - 2016 -> /index.php?option=com_phocadownload&view=category&id=5&Itemid=491
+  A Status Of Universities (Universities Authorized to Operate i -> /index.php?option=com_phocadownload&view=category&id=6&Itemid=492
+  A Newsletter March 2019 -> /index.php?option=com_phocadownload&view=file&id=180&Itemid=493
+  A University Standards & Guidelines -> /index.php?option=com_phocadownload&view=category&id=8&Itemid=494
+  A Universities Regulations 2014 -> /index.php?option=com_phocadownload&view=category&id=9&Itemid=495
+  A Customer Relationship Portal -> https://imis.cue.or.ke/CustomerRelationshipManagement/
+  A crocothemes.net -> https://www.crocothemes.net
+  A Joomla! -> https://www.joomla.org
+  A GNU General Public License. -> https://www.gnu.org/licenses/gpl-2.0.html
+  JS //ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/smoothness/jquery-ui.css
+  JS https://fonts.googleapis.com/css?family=Open
+  JS /json
+  JS //ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js
+  JS /components/com_uniform/assets/js/libs/json-2.3.min.js
+  JS https://maps.googleapis.com/maps/api/js?v=3.23&libraries=places
+  JS https://fonts.googleapis.com/css?family=Lato
+##### https://www.cue.or.ke/index.php/accredited-universities
+ST 200 text/html; charset=utf-8 43910 https://www.cue.or.ke/index.php/accredited-universities
 TITLE Commission for University Education - Home | TABLES 0 TR 0 LI 64
   FILES 0
   A FAQS -> /index.php?option=com_content&view=article&id=16&Itemid=141
@@ -371,15 +473,9 @@ TITLE Commission for University Education - Home | TABLES 0 TR 0 LI 64
   JS /components/com_uniform/assets/js/libs/json-2.3.min.js
   JS https://maps.googleapis.com/maps/api/js?v=3.23&libraries=places
   JS https://fonts.googleapis.com/css?family=Lato
-##### https://scu.eg/
-ST 200 text/html; charset=UTF-8 9642 https://scu.eg/
-TITLE المجلس الأعلى للجامعات | TABLES 0 TR 0 LI 0
-  FILES 0
-  A المجلس الأعلى للجامعات -> https://scu.eg/home/
-  T © جميع الحقوق محفوظة - المجلس الأعلى للجامعات - 2026
-##### https://www.mes.tn/
-ST 200 text/html; charset=UTF-8 49286 https://www.mes.tn/
-TITLE وزارة التعليم العالي والبحث العلمي | TABLES 25 TR 41 LI 87
+##### https://www.mes.tn/page.php?code_menu=54
+ST 200 text/html; charset=UTF-8 33763 https://www.mes.tn/page.php?code_menu=54
+TITLE Ministère de l'Enseignement Supérieur et de la Recherche Scientifique | TABLES 9 TR 16 LI 74
   TR آخر تحيين في 16-10-2026 الإستقبال روابط مفيدة اتصل بنا Français | آخر تحيين في 16-10-2026 | الإستقبال روابط مفيدة اتصل بنا | Français
   TR آخر تحيين في 16-10-2026 | الإستقبال روابط مفيدة اتصل بنا | Français
   TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication وزارة التعليم العالي والبحث العلمي أرشيف موقع الوزارة | Ministère de l’
@@ -394,7 +490,7 @@ TITLE وزارة التعليم العالي والبحث العلمي | TABLES 
   A الإستقبال -> index.php?code_menu=6
   A روابط مفيدة -> lien_utile.php?code_menu=10
   A اتصل بنا -> page.php?code_menu=500
-  A Français -> langue.php?langue=fr
+  A Français -> langue.php?langue=fr&code=54
   A Ministère de l’Enseignement Supérieurn, de la Recherche Scie -> index.php
   A أرشيف موقع الوزارة -> http://www.mesrst.tn
   A التظاهرات -> agenda.php?code_menu=57
@@ -412,31 +508,106 @@ TITLE وزارة التعليم العالي والبحث العلمي | TABLES 
   A البحث العلمي -> page.php?code_menu=28
   A التعاون الدولي -> page.php?code_menu=47
   A التعليم العالي الخاّص -> page.php?code_menu=54
-  A  -> 
-  A اضغط هنا -> image.php?id=21355
-  A اضغط هنا -> image.php?id=21356
-  A المنشور عدد 48 (PDF) -> image.php?id=21354
-  A المنشور عدد 47 (PDF) -> image.php?id=21345
-  A المنشور عدد 46 (PDF) -> image.php?id=21343
-  A مطلب الترشح -> image.php?id=21344
-  A بلاغ -> image.php?id=21349
-  A بلاغ -> image.php?id=21350
-  A بلاغ -> image.php?id=21336
-  A اضغط هنا -> image.php?id=21352
-  A اضغط هنا -> image.php?id=21353
-  A اضغط هنا -> image.php?id=21346
-  A بلاغ -> image.php?id=21330
-  A مطلب الترشح -> image.php?id=21331
-  A اضغط هنا -> image.php?id=21310
-  A بلاغ -> image.php?id=21306
-  A قرار فتح المناظرة -> image.php?id=21307
-  A قرار تحديد الخطط -> image.php?id=21308
-  A برنامج المناظرة -> image.php?id=21309
-  A اضغط هنا -> image.php?id=21302
-  A وزير التعليم العالي والبحث العلمي يشرف على موكب إحياء يوم ال -> detail_evennement.php?code_menu=548&code_evennement=4560
-  A وزير التعليم العالي والبحث العلمي يلتقي وفدا عن البنك الدولي -> detail_evennement.php?code_menu=548&code_evennement=4553
-  A وزير التعليم العالي والبحث العلمي يشارك في أشغال الدورة السب -> detail_evennement.php?code_menu=548&code_evennement=4548
-  A الاطلاع على جميع أنشطة الوزارة >> -> cilculaire.php?code_menu=548
+  A المؤسسات الخاصة للتعليم التعليم العالي المرخص لها -> page.php?code_menu=147&code_menu_parent=54
+  A النص القانوني الخاص بالتعليم العالي الخاص -> page.php?code_menu=148&code_menu_parent=54
+  A شروط ومكونـات مطلب الترخيص لإحداث مؤسسـة خـاصة للتعليم العـا -> page.php?code_menu=149&code_menu_parent=54
+  A اضغط هنا -> image.php?id=21192
+  A اضغط هنا -> image.php?id=20985
+  A اضغط هنا -> image.php?id=19999
+  A بلاغ -> image.php?id=17266
+  A بلاغ -> image.php?id=17230
+  A بلاغ -> image.php?id=15809
+  A بلاغ -> image.php?id=15417
+  A بلاغ -> image.php?id=15366
+  A اضغط هنا -> image.php?id=14498
+  A بلاغ -> image.php?id=13989
+  A بلاغ -> image.php?id=13940
+  A بلاغ -> image.php?id=12623
+  A  -> page.php?code_menu=537
+  A  -> etudens.php?code_menu=536
+  A  -> contact.php?code_menu=146
+  A  -> page.php?code_menu=7
+  A  -> http://horizon-europe.tn
+  A  -> http://best.rnu.tn
+  A  -> http://www.4c.tn
+  A  -> http://www.orientation.tn/orient/
+  A  -> http://www4.inscription.tn
+  A  -> page.php?code_menu=129
+  A  -> http://parcours-lmd.salima.tn/
+  A  -> http://www.uni-renov.rnu.tn/
+  A  -> http://www.gbo.mes.rnu.tn
+  A  -> http://www.mes.tn/gestion_doc_arch2012/accueil.htm
+  A السيد الوزير -> page.php?code_menu=550&code_menu_parent=12
+  A تنظيم الوزارة -> page.php?code_menu=551&code_menu_parent=12
+  A المهام والمشمولات -> page.php?code_menu=556&code_menu_parent=12
+  A مؤسسات تحت الإشراف -> page.php?code_menu=559&code_menu_parent=12
+  A بوابة الحكومة -> page.php?code_menu=587&code_menu_parent=12
+  A عنوان الوزارة -> page.php?code_menu=588&code_menu_parent=12
+  A النشريات والمطويات -> page.php?code_menu=14&code_menu_parent=13
+  A التعليم العالي حسب الجامعات -> page.php?code_menu=16&code_menu_parent=13
+  A التعليم العالي حسب الولايات -> page.php?code_menu=17&code_menu_parent=13
+  A بيانات إحصائية مختلفة -> page.php?code_menu=18&code_menu_parent=13
+  A التقديم -> page.php?code_menu=24&code_menu_parent=23
+  A اجازة ، ماجستير ، دكتوراه -> http://www.parcours-lmd.salima.tn
+  A الدراسات الهندسية -> page.php?code_menu=26&code_menu_parent=23
+  A الدراسات الطبية -> page.php?code_menu=27&code_menu_parent=23
+  A  -> page.php?code_menu=177&code_menu_parent=28
+  A إعلانات وبرامج -> evenement_video.php?code_menu=113&code_menu_parent=28
+  A مراكز البحث -> page.php?code_menu=33&code_menu_parent=28
+  A التقديم العام -> page.php?code_menu=106&code_menu_parent=47
+  A العروض الدولية -> evenement_video.php?code_menu=105&code_menu_parent=47
+  A الطلبة الدوليين -> page.php?code_menu=114&code_menu_parent=47
+  A الوثائق -> page.php?code_menu=71
+  A معرض الصور -> media.php?code_menu=9
+##### https://www.mes.tn/annuaire.php?code_menu=22
+ST 200 text/html; charset=UTF-8 78392 https://www.mes.tn/annuaire.php?code_menu=22
+TITLE Ministère de l'Enseignement Supérieur et de la Recherche Scientifique | TABLES 39 TR 145 LI 59
+  TR آخر تحيين في 16-10-2026 الإستقبال روابط مفيدة اتصل بنا Français | آخر تحيين في 16-10-2026 | الإستقبال روابط مفيدة اتصل بنا | Français
+  TR آخر تحيين في 16-10-2026 | الإستقبال روابط مفيدة اتصل بنا | Français
+  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication وزارة التعليم العالي والبحث العلمي أرشيف موقع الوزارة | Ministère de l’
+  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication وزارة التعليم العالي والبحث العلمي | Ministère de l’Enseignement Supéri
+  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication | Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique 
+  TR Ministère de l’Enseignement Supérieurn, de la Recherche Scientifique et des Technologies de l'Information et de la Communication
+  TR التظاهرات النصوص المنظمة المناشير المطبوعات الترقيمات مناظرات و امتحانات المعادلات
+  TR مستجدات الإدارة المركزية الإحصائيات والمؤشرات الجامعات تكوين البحث العلمي التعاون الدولي التعليم العالي الخاّص | مستجدات الإدارة المركزية الإحصائيات والمؤشرات الجامعات تكوين البحث العلمي التعاون الدول
+  TR مستجدات الإدارة المركزية الإحصائيات والمؤشرات الجامعات تكوين البحث العلمي التعاون الدولي التعليم العالي الخاّص
+  TR 
+  FILES 0
+  A الإستقبال -> index.php?code_menu=6
+  A روابط مفيدة -> lien_utile.php?code_menu=10
+  A اتصل بنا -> page.php?code_menu=500
+  A Français -> langue.php?langue=fr&code=22
+  A Ministère de l’Enseignement Supérieurn, de la Recherche Scie -> index.php
+  A أرشيف موقع الوزارة -> http://www.mesrst.tn
+  A التظاهرات -> agenda.php?code_menu=57
+  A النصوص المنظمة -> cilculaire.php?code_menu=48
+  A المناشير -> cilculaire.php?code_menu=58
+  A المطبوعات -> formulaire.php?code_menu=59
+  A الترقيمات -> flux.php?code_menu=68
+  A مناظرات و امتحانات -> page.php?code_menu=122
+  A المعادلات -> page.php?code_menu=170
+  A مستجدات -> evenement_video.php?code_menu=21
+  A الإدارة المركزية -> page.php?code_menu=12
+  A الإحصائيات والمؤشرات -> page.php?code_menu=13
+  A الجامعات -> annuaire.php?code_menu=22
+  A تكوين -> page.php?code_menu=23
+  A البحث العلمي -> page.php?code_menu=28
+  A التعاون الدولي -> page.php?code_menu=47
+  A التعليم العالي الخاّص -> page.php?code_menu=54
+  A www.uz.rnu.tn -> http://www.uz.rnu.tn
+  A www.utunis.rnu.tn -> http://www.utunis.rnu.tn
+  A www.utm.rnu.tn -> http://www.utm.rnu.tn
+  A www.ucar.rnu.tn -> http://www.ucar.rnu.tn
+  A www.uma.rnu.tn -> http://www.uma.rnu.tn
+  A www.uj.rnu.tn -> http://www.uj.rnu.tn
+  A www.uc.rnu.tn -> http://www.uc.rnu.tn
+  A www.um.rnu.tn -> http://www.um.rnu.tn
+  A www.univ-k.rnu.tn -> http://www.univ-k.rnu.tn
+  A www.uss.rnu.tn -> http://www.uss.rnu.tn
+  A www.ugaf.rnu.tn -> http://www.ugaf.rnu.tn
+  A www.univgb.rnu.tn -> http://www.univgb.rnu.tn
+  A www.uvt.rnu.tn -> http://www.uvt.rnu.tn
+  A  -> http://
   A  -> page.php?code_menu=537
   A  -> etudens.php?code_menu=536
   A  -> contact.php?code_menu=146
@@ -476,3 +647,126 @@ TITLE وزارة التعليم العالي والبحث العلمي | TABLES 
   A شروط ومكونـات مطلب الترخيص لإحداث مؤسسـة خـاصة للتعليم العـا -> page.php?code_menu=149&code_menu_parent=54
   A الوثائق -> page.php?code_menu=71
   A معرض الصور -> media.php?code_menu=9
+##### https://scu.eg/home/
+ST 200 text/html; charset=UTF-8 196080 https://scu.eg/home/
+TITLE الرئيسية - SCU - المجلس الأعلى للجامعات أدوات الوصولزيادة النصتقليل النصتدرج الرماديتباين عاليالتباين السلبيضوء الخلفيةتسطير الروابطالخط المقروءResetSitemapHelpFeedback | TABLES 1 TR 1 LI 131
+  TR | | Please enable the javascript to submit this form اشترك الآن
+  FILES 0
+  A scu@scu.eg -> mailto:scu@scu.eg
+  A English -> https://scu.eg/en/home/
+  A تواصل معنا -> https://scu.eg/contact/
+  A الأسئلة الشائعة -> https://scu.eg/scu-faqs/
+  A  -> tel:00235704158
+  A  -> https://scu.eg/
+  A الرئيسية -> https://scu.eg/home/
+  A نبذة تاريخية عن المجلس -> https://scu.eg/%d9%86%d8%a8%d8%b0%d8%a9-%d8%aa%d8%a7%d8%b1%d9%8a%d8%ae%d9%8a%d8%a9-%d8%b9%d9%86-%d8%a7%d9%84%d9%85%d8%ac%d9%84%d8%b3/
+  A الرؤية و الرسالة -> https://scu.eg/%d8%a7%d9%84%d8%b1%d8%a4%d9%8a%d8%a9-%d9%88-%d8%a7%d9%84%d8%b1%d8%b3%d8%a7%d9%84%d8%a9/
+  A إختصاصات المجلس -> https://scu.eg/%d8%a5%d8%ae%d8%aa%d8%b5%d8%a7%d8%b5%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d8%ac%d9%84%d8%b3/
+  A أمناء المجلس السابقين -> https://scu.eg/%d8%a3%d9%85%d9%86%d8%a7%d8%a1-%d8%a7%d9%84%d9%85%d8%ac%d9%84%d8%b3-%d8%a7%d9%84%d8%b3%d8%a7%d8%a8%d9%82%d9%8a%d9%86/
+  A كلمة أمين المجلس -> https://scu.eg/%d9%83%d9%84%d9%85%d8%a9-%d8%a3%d9%85%d9%8a%d9%86-%d8%a7%d9%84%d9%85%d8%ac%d9%84%d8%b3/
+  A أمناء المجلس المساعدين -> https://scu.eg/%d8%a3%d9%85%d9%86%d8%a7%d8%a1-%d8%a7%d9%84%d9%85%d8%ac%d9%84%d8%b3-%d8%a7%d9%84%d9%85%d8%b3%d8%a7%d8%b9%d8%af%d9%8a%d9%86/
+  A أعضاء المجلس الأعلى للجامعات -> https://scu.eg/%d8%a3%d8%b9%d8%b6%d8%a7%d8%a1-%d8%a7%d9%84%d9%85%d8%ac%d9%84%d8%b3-%d8%a7%d9%84%d8%ad%d8%a7%d9%84%d9%89/
+  A لجنة المعادلات -> https://scu.eg/%d9%84%d8%ac%d9%86%d8%a9-%d8%a7%d9%84%d9%85%d8%b9%d8%a7%d8%af%d9%84%d8%a7%d8%aa/
+  A لجنة العلاقات الثقافية -> https://scu.eg/%d9%84%d8%ac%d9%86%d8%a9-%d8%a7%d9%84%d8%b9%d9%84%d8%a7%d9%82%d8%a7%d8%aa-%d8%a7%d9%84%d8%ab%d9%82%d8%a7%d9%81%d9%8a%d8%a9/
+  A لجان التخطيط لقطاعات التعليم الجامعى -> https://scu.eg/%d9%84%d8%ac%d8%a7%d9%86-%d8%a7%d9%84%d8%aa%d8%ae%d8%b7%d9%8a%d8%b7-%d9%84%d9%82%d8%b7%d8%a7%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d8%aa%d8%b9%d9%84%d9%8a%d9%85-%d8%a7%d9%84%d8%ac%d8%a7%d9%85%
+  A لجان ترقيات أعضاء هيئة التدريس -> https://scu.eg/%d9%84%d8%ac%d8%a7%d9%86-%d8%aa%d8%b1%d9%82%d9%8a%d8%a7%d8%aa-%d8%a3%d8%b9%d8%b6%d8%a7%d8%a1-%d9%87%d9%8a%d8%a6%d8%a9-%d8%a7%d9%84%d8%aa%d8%af%d8%b1%d9%8a%d8%b3/
+  A المجلس الأعلى لشئون التعليم و الطلاب -> https://scu.eg/%d9%86%d9%88%d8%a7%d8%a8-%d8%b1%d8%a4%d8%b3%d8%a7%d8%a1-%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d9%84%d8%b4%d8%a6%d9%88%d9%86-%d8%a7%d9%84%d8%aa%d8%b9%d9%84%d9%8a%d9%85-%d9%88
+  A المجلس الأعلى لشئون الدراسات العليا والبحوث -> https://scu.eg/%d8%a7%d9%84%d9%85%d8%ac%d9%84%d8%b3-%d8%a7%d9%84%d8%a3%d8%b9%d9%84%d9%89-%d9%84%d8%b4%d8%a6%d9%88%d9%86-%d8%a7%d9%84%d8%af%d8%b1%d8%a7%d8%b3%d8%a7%d8%aa-%d8%a7%d9%84%d8%b9%d9%84%d9%8a%
+  A المجلس الأعلى لشئون خدمة المجتمع وتنمية البيئة -> https://scu.eg/%d8%a7%d9%84%d9%85%d8%ac%d9%84%d8%b3-%d8%a7%d9%84%d8%a3%d8%b9%d9%84%d9%89-%d9%84%d8%b4%d8%a6%d9%88%d9%86-%d8%ae%d8%af%d9%85%d8%a9-%d8%a7%d9%84%d9%85%d8%ac%d8%aa%d9%85%d8%b9-%d9%88%d8%aa
+  A الأخبار -> https://scu.eg/%d8%a7%d9%84%d8%a3%d8%ae%d8%a8%d8%a7%d8%b1/
+  A مطبوعات المجلس الإلكترونية -> https://scu.eg/%d9%85%d8%b7%d8%a8%d9%88%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d8%ac%d9%84%d8%b3-%d8%a7%d9%84%d8%a5%d9%84%d9%83%d8%aa%d8%b1%d9%88%d9%86%d9%8a%d8%a9/
+  A النشرة الدورية -> https://scu.eg/periodical-news/
+  A الأعلى للجامعات فى عيون الصحافة -> https://scu.eg/%d8%a7%d9%84%d8%a3%d8%b9%d9%84%d9%89-%d9%84%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d9%81%d9%89-%d8%b9%d9%8a%d9%88%d9%86-%d8%a7%d9%84%d8%b5%d8%ad%d8%a7%d9%81%d8%a9/
+  A موجز النشاط الشهري -> https://scu.eg/scu-monthly-harvest/
+  A ألبوم صور -> https://scu.eg/%d8%a3%d9%84%d8%a8%d9%88%d9%85-%d8%b5%d9%88%d8%b1/
+  A المدونات -> https://scu.eg/scu-blogging/
+  A الإدارة العامة لشئون أعضاء هيئة التدريس -> https://scu.eg/administrations/%d8%a7%d9%84%d8%a5%d8%af%d8%a7%d8%b1%d8%a9-%d8%a7%d9%84%d8%b9%d8%a7%d9%85%d8%a9-%d9%84%d8%b4%d8%a6%d9%88%d9%86-%d8%a3%d8%b9%d8%b6%d8%a7%d8%a1-%d9%87%d9%8a%d8%a6%d8%a9-%d
+  A الإدارة العامة لشئون التعليم و الطلاب -> https://scu.eg/administrations/%d8%a5%d8%af%d8%a7%d8%b1%d8%a9-%d8%b4%d8%a6%d9%88%d9%86-%d8%a7%d9%84%d8%aa%d8%b9%d9%84%d9%8a%d9%85-%d9%88-%d8%a7%d9%84%d8%b7%d9%84%d8%a7%d8%a8/
+  A الإدارة العامة لمعادلة الدرجات العلمية -> https://scu.eg/administrations/%d8%a7%d9%84%d8%a5%d8%af%d8%a7%d8%b1%d8%a9-%d8%a7%d9%84%d8%b9%d8%a7%d9%85%d8%a9-%d9%84%d9%85%d8%b9%d8%a7%d8%af%d9%84%d8%a9-%d8%a7%d9%84%d8%af%d8%b1%d8%ac%d8%a7%d8%aa-%d8
+  A الإدارة العامة لمعادلة الجامعات الخاصة و الأهلية -> https://scu.eg/administrations/%d8%a5%d8%af%d8%a7%d8%b1%d8%a9-%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d9%88%d8%a7%d9%84%d9%85%d8%b9%d8%a7%d9%87%d8%af-%d8%a7%d9%84%d8%ae%d8%a7%d8%b5%d8%a9/
+  A الإدارة العامة لشئون لجان قطاعات التعليم -> https://scu.eg/administrations/%d8%a7%d9%84%d8%a5%d8%af%d8%a7%d8%b1%d8%a9-%d8%a7%d9%84%d8%b9%d8%a7%d9%85%d8%a9-%d9%84%d8%b4%d8%a6%d9%88%d9%86-%d9%84%d8%ac%d8%a7%d9%86-%d9%82%d8%b7%d8%a7%d8%b9%d8%a7%d8
+  A الإدارة العامة لشئون العلاقات الثقافية -> https://scu.eg/administrations/%d8%a7%d9%84%d8%a5%d8%af%d8%a7%d8%b1%d8%a9-%d8%a7%d9%84%d8%b9%d8%a7%d9%85%d8%a9-%d9%84%d8%b4%d8%a6%d9%88%d9%86-%d8%a7%d9%84%d8%b9%d9%84%d8%a7%d9%82%d8%a7%d8%aa-%d8%a7%d9
+  A الإدارة العامة لشئون مكتب أمين المجلس -> https://scu.eg/administrations/general-administration-of-scu-secretary-office/
+  A الإدارة العامة للشئون المالية و التعاقدات -> https://scu.eg/administrations/%d8%a7%d9%84%d8%a5%d8%af%d8%a7%d8%b1%d8%a9-%d8%a7%d9%84%d8%b9%d8%a7%d9%85%d8%a9-%d9%84%d9%84%d8%b4%d8%a6%d9%88%d9%86-%d8%a7%d9%84%d9%85%d8%a7%d9%84%d9%8a%d8%a9-%d9%88-%d
+  A الإدارة العامة للموارد البشرية -> https://scu.eg/administrations/%d8%a7%d9%84%d8%a5%d8%af%d8%a7%d8%b1%d8%a9-%d8%a7%d9%84%d8%b9%d8%a7%d9%85%d8%a9-%d9%84%d9%84%d9%85%d9%88%d8%a7%d8%b1%d8%af-%d8%a7%d9%84%d8%a8%d8%b4%d8%b1%d9%8a%d8%a9/
+  A إدارة الشئون القانونية -> https://scu.eg/administrations/%d8%a5%d8%af%d8%a7%d8%b1%d8%a9-%d8%a7%d9%84%d8%b4%d8%a6%d9%88%d9%86-%d8%a7%d9%84%d9%82%d8%a7%d9%86%d9%88%d9%86%d9%8a%d8%a9/
+  A إدارة الجودة -> https://scu.eg/administrations/quality-management/
+  A إدارة المراجعة الداخلية والحوكمة -> https://scu.eg/administrations/internal-audit-and-governance-management/
+  A عن المركز -> https://scu.eg/%d8%b9%d9%86-%d8%a7%d9%84%d9%85%d8%b1%d9%83%d8%b2/
+  A الهيكل التنظيمى للمركز -> https://scu.eg/%d9%85%d8%af%d9%8a%d8%b1%d9%89-%d9%88%d8%ad%d8%af%d8%a7%d8%aa-%d9%85%d8%b1%d9%83%d8%b2-%d8%a7%d9%84%d8%ae%d8%af%d9%85%d8%a7%d8%aa/
+  A مديرين المركز السابقين -> https://scu.eg/%d9%85%d8%af%d9%8a%d8%b1%d9%8a%d9%86-%d8%a7%d9%84%d9%85%d8%b1%d9%83%d8%b2-%d8%a7%d9%84%d8%b3%d8%a7%d8%a8%d9%82%d9%8a%d9%86/
+  A شبكة الجامعات المصرية -> https://scu.eg/eksc_units/%d8%b4%d8%a8%d9%83%d8%a9-%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d8%b5%d8%b1%d9%8a%d9%87/
+  A وحدة نظم المعلومات الإدارية و دعم اتخاذ القرار -> https://scu.eg/eksc_units/%d9%88%d8%ad%d8%af%d8%a9-%d9%86%d8%b8%d9%85-%d8%a7%d9%84%d9%85%d8%b9%d9%84%d9%88%d9%85%d8%a7%d8%aa-%d8%a7%d9%84%d8%a5%d8%af%d8%a7%d8%b1%d9%8a%d9%87-%d9%88-%d8%af%d8%b9%d9%85-
+  A وحدة المكتبات الرقمية -> https://scu.eg/eksc_units/%d9%88%d8%ad%d8%af%d8%a9-%d8%a7%d9%84%d9%85%d9%83%d8%aa%d8%a8%d8%a9-%d8%a7%d9%84%d8%b1%d9%82%d9%85%d9%8a%d8%a9/
+  A الوحدة المركزية للتدريب -> https://scu.eg/eksc_units/%d8%a7%d9%84%d9%88%d8%ad%d8%af%d9%87-%d8%a7%d9%84%d9%85%d8%b1%d9%83%d8%b2%d9%8a%d9%87-%d9%84%d9%84%d8%aa%d8%af%d8%b1%d9%8a%d8%a8/
+  A المركز القومى للتعلم الإلكترونى -> https://scu.eg/eksc_units/%d8%a7%d9%84%d9%85%d8%b1%d9%83%d8%b2-%d8%a7%d9%84%d9%82%d9%88%d9%85%d9%89-%d9%84%d9%84%d8%aa%d8%b9%d9%84%d9%85-%d8%a7%d9%84%d8%a5%d9%84%d9%83%d8%aa%d8%b1%d9%88%d9%86%d9%89/
+  A البنك القومى للمعامل و الأجهزة العلمية -> https://scu.eg/eksc_units/%d8%a7%d9%84%d8%a8%d9%86%d9%83-%d8%a7%d9%84%d9%82%d9%88%d9%85%d9%89-%d9%84%d9%84%d9%85%d8%b9%d8%a7%d9%85%d9%84-%d9%88-%d8%a7%d9%84%d8%a3%d8%ac%d9%87%d8%b2%d8%a9-%d8%a7%d9%84%
+  A وحدة الاختبارات الإلكترونية -> https://scu.eg/eksc_units/%d9%85%d8%b1%d9%83%d8%b2-%d8%a7%d9%84%d8%a7%d8%ae%d8%aa%d8%a8%d8%a7%d8%b1%d8%a7%d8%aa-%d8%a7%d9%84%d8%a5%d9%84%d9%83%d8%aa%d8%b1%d9%88%d9%86%d9%8a%d8%a9/
+  A المركز القومي للتدريب وإعداد القيادات -> https://scu.eg/eksc_units/nctl/
+  A خدمات المركز -> https://scu.eg/%d8%ae%d8%af%d9%85%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d8%b1%d9%83%d8%b2/
+  A بوابة خدمات أعضاء هيئة التدريس -> https://sso.scu.eg
+  A ترقية أعضاء هيئة التدريس -> https://comeval.scu.eg/auth/logins.php
+  A البحث فى المجلات المصرية والمحلية -> https://egjournal.scu.eg/Home.php
+  A عضوية اللجان العلمية والمحكمين -> https://scicom.scu.eg/
+  A البحث فى قوائم المحكمين -> https://scicom.scu.eg/show/showCommitteeJudges.aspx
+  A البحث فى قوائم اللجان العلمية -> https://scicom.scu.eg/show/showCommitteeMembers.aspx
+  A معادلة الدرجات العلمية -> https://equ.scu.eg/
+  A البحث فى معادلة الجامعات والمعاهد الخاصة -> https://univeq.scu.eg/Home.php
+  A امتحانات الدبلومات والمعاهد الفنية -> https://ucce.scu.eg/
+  A البنك القومى للمعامل والأجهزة العلمية -> https://nbsle.scu.eg/
+  A منصة الأنشطة الطلابية -> https://studentact.scu.eg
+  A منصة أبحاث التنمية المستدامة -> https://reposd.scu.eg/
+  A المركز القومي للتدريب واعداد القيادات -> https://nctl.scu.eg/
+  A منصة التعلم الإلكتروني -> http://egymoocs.nelc.edu.eg/
+  A خدمة تسجيل النطاقات -> https://domain.eg/
+  A تحميل حزمة شهادات التوقيع الالكتروني -> https://eunfiles.eg/files/Chain2026.p7b
+  A نظام التقارير الإحصائية بالجامعات المصرية -> https://unistatistics.scu.eg/Home.php
+  A الدخول إلي نظام الجلسات -> https://scu.eg/system-login/
+  A الطلاب -> https://scu.eg/students/
+  A أعضاء هيئة التدريس -> https://scu.eg/teaching-staff/
+  A الجامعات والمؤسسات -> https://scu.eg/universities-institution/
+  A الهوية البصرية -> https://scu.eg/download/visual-identity-guide-supreme-council-universities/?wpdmdl=47411&masterkey=GCM2F6BGY0zvXL8fowh2zyjBuUbKM06VV92JELdwXh5b2JpEnmU-h8aRkIXqdK_k19YsWk-LjoeFOKbN_hCNgji5KgVd6GXfjJOn_
+  A  -> https://studentact.scu.eg/
+  A  -> https://sso.scu.eg/applicant/member
+  A للحصول على رؤية قطاعات التعليم الجامعي اضغط هنا -> https://scu.eg/download/vision-university-education-sectors/?wpdmdl=43961&masterkey=27-R5Zcg24E0DJyICwXWIHMmOq068wyNO148DAgqWCai1Pj_lNeVuxJpfqcFoMAN6iLCPWcS--WJxO8p4jSzKejve5zpIZfQL2zb5Wxbzok
+  A للحصول على صيغة PDF من الإطار المرجعي الاسترشادي باللغة العر -> https://scu.eg/download/indicative-terms-of-reference-1/?wpdmdl=43959&masterkey=GtHk2SvAeELOX1J3gb3a2O9_HfyZVdMFPx2ILtf__vu4PFbFTwM8GuuTbKxV-IpY6Vn913MIrBIWQeCdQ4NceafS5lEb1xZufBC52fYI6mg
+  A للحصول على صيغة PDF من الإطار المرجعي الاسترشادي باللغة الإن -> https://scu.eg/download/guidance-framework-pdf-in-english/?wpdmdl=56777&masterkey=1TAK-E5msexXRiKJ8xRHfH48hPV7XASi9l_n68a2-mCSbjOerAeVKo5QPkJp9nqynqjwRVa23gxvCH2EXZAdj9nfZnysek_wceS7F20IZG4
+  A للحصول على صيغة WORD من الإطار المرجعي الاسترشادي باللغة الع -> https://scu.eg/download/indicative-terms-of-reference-2/?wpdmdl=43960&masterkey=ATC2P8izxOVtHlDrK0bOdzjEeVRYM3xrnAVrsjtyyEZBa7awlEaP_r5JtIgpkMfi0WfyGvaaDIODZeQI9gwI8Ashlcj4aXwPiP9O2dtt-vU
+  A للحصول على صيغة WORD من الإطار المرجعي الاسترشادي باللغة الإ -> https://scu.eg/download/guidance-framework-word-in-english/?wpdmdl=56776&masterkey=K-D4C1Lk84-3h4k1p98epsubWZZ8FGCLOg-yKhSOXakxdkCAFtyl7vUnGMcjKr9Xmx3jMSsJdayNDQgN6Yd_9GSNNQhH4en8hFp3V47aX_0
+  A لمشاهدة شرح الإطار المرجعي الاسترشادي اضغط هنا أو افحص رمز Q -> https://bit.ly/43DRMEF
+  A  -> https://scu.eg/news/menoufia-university-president-preliminary-applicants-2026/
+  A  -> https://scu.eg/news/%d8%a7%d9%84%d9%84%d8%ac%d9%86%d8%a9-%d8%a7%d9%84%d9%85%d8%ae%d8%aa%d8%b5%d8%a9-%d8%a8%d8%aa%d8%b1%d8%b4%d9%8a%d8%ad-%d8%a7%d9%84%d8%b3%d8%a7%d8%af%d8%a9-%d8%b1%d8%a4%d8%b3%d8%a7%d
+  A  -> https://scu.eg/news/%d9%88%d8%b2%d9%8a%d8%b1-%d8%a7%d9%84%d8%aa%d8%b9%d9%84%d9%8a%d9%85-%d8%a7%d9%84%d8%b9%d8%a7%d9%84%d9%8a-%d9%88%d9%85%d8%ad%d8%a7%d9%81%d8%b8-%d8%a7%d9%84%d9%85%d9%86%d9%8a%d8%a7-%
+  A (تحميل قواعد الدورة 15) -> https://bit.ly/45U1mmY
+  A هنا -> https://dlumis.scu.eg/
+  A هنا -> http://univeq.scu.eg/Home.php
+  A رئاسة الجمهورية -> https://www.presidency.eg/
+  A رئاسة مجلس الوزراء -> https://www.cabinet.gov.eg/
+  A وزارة التعليم العالي -> https://mohesr.gov.eg/ar-eg/Pages/Home.aspx
+  A بنك المعرفة المصري -> https://www.ekb.eg/
+  A أكاديمية البحث العلمي -> http://www.asrt.sci.eg/
+  A وزارة التربية والتعليم -> https://moe.gov.eg/
+  A مصر الرقمية -> https://digital.gov.eg/
+  A مبادرة التسهيلات الضريبية -> https://ssp.eta.gov.eg/
+  A معادلة الدرجات العلميه -> http://equ.scu.eg
+  A ترقية أعضاء هيئة التدريس -> http://comeval.scu.eg
+  A عضوية اللجان العلمية و المحكمين -> http://scicom.scu.eg
+  A البحث فى المجلات المصرية و المحلية -> http://egjournal.scu.eg
+  A البحث فى معادلة الجامعات و المعاهد الخاصة -> http://univeq.scu.eg
+  A امتحانات الدبلومات و المعاهد الفنية -> https://sso.scu.eg/applicant/exams
+  A الشروط والأحكام -> https://scu.eg/%d8%a7%d9%84%d8%b4%d8%b1%d9%88%d8%b7-%d9%88%d8%a7%d9%84%d8%a3%d8%ad%d9%83%d8%a7%d9%85/
+  A SitemapSitemap -> https://scu.eg/contact
+  JS https://fonts.googleapis.com/css?family=Rubik
+  JS https://fonts.googleapis.com/css?family=Poppins
+  JS https://fonts.googleapis.com/css?family=Roboto
+  JS /json
+  JS https://scu.eg/wp-json/oembed/1.0/embed?url=https
+  JS https://scu.eg/wp-admin/admin-ajax.php
+  JS https://api.w.org/
+  JS https://scu.eg/wp-json/
+  JS https://scu.eg/wp-json/wp/v2/pages/14
+  JS https://scu.eg/wp-json/wpdm/
+  JS /wp-admin/admin-ajax.php
+  JS /admin-ajax.php
+  JS /wp-json
+  JS https://www.google.com/recaptcha/api.js?render=6Le6wgUtAAAAADHG3_SV4nPkAG6DZ5xrDaEnBe6S
