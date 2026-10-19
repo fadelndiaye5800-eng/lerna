@@ -1,4 +1,4 @@
-2026-10-19T01:28:30.634Z
+2026-10-19T01:31:46.828Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -502,88 +502,5 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   الاكاديمية العربية للعلوم المالية والمصرفية | https://www.aambfs.org/ar/ | Établissements créés par accords internationaux
   معهد البحوث والدراسات العربية | https://iars.net/ | Établissements créés par accords internationaux
   الجامعة الألمانية الدولية | https://www.giu-uni.de/ | Établissements créés par accords internationaux
-##### https://www.lecames.org/diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17
-ST 200 text/html; charset=UTF-8 48726 https://www.lecames.org/diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17
-TITLE Repertoire des diplômes Africains reconnus par le CAMESPlateforme des référentiels qualité, Assurance qualité, Accrédidation, reconnaissance des diplômes en Afrique | TABLES 2 TR 28 LI 24
-  TR # | Sous institution | Diplôme delivré | Reconnu en | Option | Diplôme équivalent | Status
-  TR | | | | | | RAS Provisoire
-  TR 1 | | master en diplomatie et relations internationales | 2025 | Aucune | Master II- BAC+5 | RAS
-  TR 2 | | master en gestion et administration des entreprises | 2025 | Aucune | Master II- BAC+5 | RAS
-  TR 3 | Aucune | licence professionnelle en finance-comptabilité-audit | 2025 | Aucune | Licence- BAC+3 | RAS
-  TR 4 | Aucune | licence sciences économiques et de gestion, mention économie et gestion, parcours monnaie-banque-finance | 2025 | Aucune | Licence- BAC+3 | RAS
-  TR 5 | | licence en assurance banque et finances | 2025 | Aucune | Licence- BAC+3 | RAS
-  TR 6 | | licence en gestion des entreprises | 2025 | Aucune | Licence- BAC+3 | RAS
-  TR 7 | | master en sciences de gestion, spécialité : administration des affaires | 2025 | Aucune | Master II- BAC+5 | RAS
-  TR 8 | Aucune | licence en banque assurance finance | 2025 | Aucune | Licence- BAC+3 | RAS
-  FILES 0
-  A e-Diplômes -> /diplome_cames/web/
-  A Accueil -> /diplome_cames/web/site
-  A Repertoire -> /diplome_cames/web/site/repertoire-simple
-  A Repertoire / filtrer -> /diplome_cames/web/site/repertoire
-  A Etudiants -> /diplome_cames/web/site/#
-  A Contact -> /diplome_cames/web/site/contact
-  A Connectez-vous -> /diplome_cames/web/site/login
-  A  -> /diplome_cames/web/site/genererdiplomes
-  A Sous institution -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&sort=id_sinst
-  A Diplôme delivré -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&sort=Ref_diplomdel
-  A Reconnu en -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&sort=Id_comm
-  A Diplôme équivalent -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&sort=Id_diplomequi
-  A Status -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&sort=status
-  A 1 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=1
-  A 2 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=2
-  A 3 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=3
-  A 4 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=4
-  A 5 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=5
-  A 6 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=6
-  A 7 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=7
-  A 8 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=8
-  A 9 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=9
-  A 10 -> /diplome_cames/web/site/repertoire?Pays%5Bid_pays%5D=17&page=10
-  A  -> Lecames
-  A [email protected] -> /cdn-cgi/l/email-protection
-  A SI CAMES -> https://www.lecames.org
-  JS https://fonts.googleapis.com/css?family=Open
 ##### https://www.lecames.org/diplome_cames/web/site/repertoire
 ST 200 text/html; charset=UTF-8 48284 https://www.lecames.org/diplome_cames/web/site/repertoire
-  G  <div class="site-index"> <div class="jumbotron"> <div class="panel panel-default"> <div class="panel-body"> <form id="form-diplomes" action="/diplome_cames/web/site/repertoire" method="post"> <div class="form-group field-pays-id_pays"> <label class="control-label" for="pays-id_pays">Séléctionnez le pays</label> <div class="kv-plugin-loading loading-pays-id_pays">&nbsp;</div><select id="pays-id_pays" class="form-control" name="Pays[id_pays]" oncha
-##### https://www.lecames.org/diplome_cames/web/site/repertoire-simple?page=52
-ST 200 text/html; charset=UTF-8 19620 https://www.lecames.org/diplome_cames/web/site/repertoire-simple?page=52
-TITLE Repertoire des diplômes Africains reconnus par le CAMESPlateforme des référentiels qualité, Assurance qualité, Accrédidation, reconnaissance des diplômes en Afrique | TABLES 2 TR 10 LI 24
-  TR # | Institution | Diplôme delivré | Reconnu en | Option | Diplôme équivalent | Status
-  TR | | | | | | RAS Provisoire
-  TR 1021 | Institut Africain de Technologie/IAT-NIAMEY | licence professionnelle en explotation pétroličre | 2020 | Aucune | Licence- BAC+3 | RAS
-  TR 1022 | Ecole Supérieure des Multimédia, Informatique & Réseaux | licence informatique reseaux et multimedia | 2020 | Aucune | Licence- BAC+3 | RAS
-  TR Nom Social | (non défini)
-  TR Teléphone | (non défini)
-  TR Boite postal | (non défini)
-  TR Site web |
-  TR Email | (non défini)
-  TR Ville | (non défini)
-  FILES 0
-  A e-Diplômes -> /diplome_cames/web/
-  A Accueil -> /diplome_cames/web/site
-  A Repertoire -> /diplome_cames/web/site/repertoire-simple
-  A Repertoire / filtrer -> /diplome_cames/web/site/repertoire
-  A Etudiants -> /diplome_cames/web/site/#
-  A Contact -> /diplome_cames/web/site/contact
-  A Connectez-vous -> /diplome_cames/web/site/login
-  A  -> /diplome_cames/web/site/genererdiplomes
-  A Institution -> /diplome_cames/web/site/repertoire-simple?page=52&sort=avis
-  A Diplôme delivré -> /diplome_cames/web/site/repertoire-simple?page=52&sort=Ref_diplomdel
-  A Reconnu en -> /diplome_cames/web/site/repertoire-simple?page=52&sort=Id_comm
-  A Diplôme équivalent -> /diplome_cames/web/site/repertoire-simple?page=52&sort=Id_diplomequi
-  A Status -> /diplome_cames/web/site/repertoire-simple?page=52&sort=status
-  A « -> /diplome_cames/web/site/repertoire-simple?page=51
-  A 43 -> /diplome_cames/web/site/repertoire-simple?page=43
-  A 44 -> /diplome_cames/web/site/repertoire-simple?page=44
-  A 45 -> /diplome_cames/web/site/repertoire-simple?page=45
-  A 46 -> /diplome_cames/web/site/repertoire-simple?page=46
-  A 47 -> /diplome_cames/web/site/repertoire-simple?page=47
-  A 48 -> /diplome_cames/web/site/repertoire-simple?page=48
-  A 49 -> /diplome_cames/web/site/repertoire-simple?page=49
-  A 50 -> /diplome_cames/web/site/repertoire-simple?page=50
-  A 52 -> /diplome_cames/web/site/repertoire-simple?page=52
-  A  -> Lecames
-  A [email protected] -> /cdn-cgi/l/email-protection
-  A SI CAMES -> https://www.lecames.org
-  JS https://fonts.googleapis.com/css?family=Open
