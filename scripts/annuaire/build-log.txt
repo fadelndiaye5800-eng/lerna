@@ -1,47 +1,65 @@
-00:57:37 deqar 8038
-00:58:52 scorecard 992
-00:58:54 ofs 425
-00:58:59 cricos 664
-00:59:01 officiel ci-mesrs-prives 618
-00:59:05 officiel cm-minesup-ipes 234
-00:59:07 officiel ae-caa 103
-00:59:08 officiel ng-nuc-public-federal 77
-00:59:09 officiel ng-nuc-public-state 69
-00:59:10 officiel ng-nuc-prive-private 182
-00:59:13 officiel ug-nche 153
+01:51:05 deqar 8038
+01:52:20 scorecard 992
+01:52:21 ofs 425
+01:52:24 cricos 664
+01:52:25 officiel ci-mesrs-prives 618
+01:52:27 officiel cm-minesup-ipes 234
+01:52:30 officiel ae-caa 103
+01:52:31 officiel ng-nuc-public-federal 77
+01:52:32 officiel ng-nuc-public-state 69
+01:52:33 officiel ng-nuc-prive-private 182
+01:52:36 officiel ug-nche 153
 Warning: TT: undefined function: 21
-00:59:16 officiel rw-hec 21
-00:59:18 officiel bw-bqa 68
-00:59:22 officiel zw-zimche 20
+01:52:39 officiel rw-hec 21
+01:52:41 officiel bw-bqa 68
+01:52:44 officiel zw-zimche 20
 Warning: TT: undefined function: 21
-00:59:24 officiel tz-tcu 30
+01:52:46 officiel tz-tcu 30
 clés co-men-snies c_digo_instituci_n,nombre_instituci_n,n_mero_identificaci_n,principal_seccional,naturaleza_jur_dica,sector,car_cter_acad_mico,cod_departamento,departamento_domicilio,municipio_domicilio,direcci_n_domicilio,tel_fono_domicilio,norma_de_creaci_n,fecha_norma_de_creaci_n,acreditada_alta_calidad,fecha_acreditaci_n,resoluci_n_de_la_acreditaci,vigencia_de_la_acreditaci,estado,fecha_actualizacion,p_gina_web
-00:59:25 officiel co-men-snies 300
-00:59:27 officiel in-ugc 1256
-00:59:30 officiel jp-mext 1117
-00:59:34 officiel ca-ircc-dli 666
-00:59:36 officiel dz-mesrs 104
-00:59:37 officiel nl-duo 54
-00:59:41 officiel cn-moe 2952
-00:59:48 officiel ke-cue 89
+01:52:47 officiel co-men-snies 300
+01:52:48 officiel in-ugc 1256
+01:52:54 officiel jp-mext 1117
+01:52:57 officiel ca-ircc-dli 666
+01:53:04 officiel dz-mesrs 104
+01:53:05 officiel nl-duo 54
+01:53:10 officiel cn-moe 2952
+01:53:17 officiel ke-cue 89
 Warning: TT: undefined function: 32
 Warning: TT: undefined function: 32
-00:59:53 officiel tn-mes-prives 89
-00:59:54 officiel tn-mes-universites 13
-00:59:56 officiel eg-scu-publiques 28
-00:59:56 officiel eg-scu-ahleya 33
-00:59:56 officiel eg-scu-privees 39
-00:59:57 officiel eg-scu-techno-publiques 12
-00:59:57 officiel eg-scu-techno-privees 2
-00:59:57 officiel eg-scu-instituts-prives 181
-00:59:57 officiel eg-scu-instituts-publics 13
-00:59:57 officiel eg-scu-etrangeres 15
-00:59:58 officiel eg-scu-branches 10
-00:59:58 officiel eg-scu-speciales 2
-00:59:58 officiel eg-scu-sous-tutelle 4
-00:59:58 officiel eg-scu-accords 9
-00:59:58 officiel 8563
-01:10:29 wikidata 30193
-01:10:29 fiches Wikidata fusionnées avec une liste officielle : 495
-01:10:29 écartés (pays du site incohérent) 182
-01:10:29 TOTAL 42569 établissements dans 199 pays
+01:53:22 officiel tn-mes-prives 89
+01:53:23 officiel tn-mes-universites 13
+01:54:23 officiel sn-anaqsup-hab 146
+01:54:24 officiel ÉCHEC cames-pred-bj HTTP 500
+01:54:27 officiel cames-pred-bf 49
+01:54:27 officiel ÉCHEC cames-pred-cm HTTP 500
+01:54:28 officiel ÉCHEC cames-pred-cf HTTP 500
+01:54:28 officiel cames-pred-cg 2
+01:54:30 officiel cames-pred-ci 17
+01:54:30 officiel cames-pred-ga 4
+01:54:30 officiel cames-pred-gn 2
+01:54:31 officiel ÉCHEC cames-pred-gw HTTP 500
+01:54:31 officiel ÉCHEC cames-pred-mg HTTP 500
+01:54:32 officiel cames-pred-ml 20
+01:54:33 officiel cames-pred-ne 10
+01:54:33 officiel cames-pred-cd 1
+01:54:34 officiel ÉCHEC cames-pred-rw HTTP 500
+01:54:35 officiel cames-pred-sn 26
+01:54:35 officiel cames-pred-td 8
+01:54:36 officiel cames-pred-tg 12
+01:54:38 officiel eg-scu-publiques 28
+01:54:38 officiel eg-scu-ahleya 33
+01:54:39 officiel eg-scu-privees 39
+01:54:39 officiel eg-scu-techno-publiques 12
+01:54:39 officiel eg-scu-techno-privees 2
+01:54:43 officiel eg-scu-instituts-prives 181
+01:54:43 officiel eg-scu-instituts-publics 13
+01:54:43 officiel eg-scu-etrangeres 15
+01:54:47 officiel eg-scu-branches 10
+01:54:47 officiel eg-scu-speciales 2
+01:54:47 officiel eg-scu-sous-tutelle 4
+01:54:47 officiel eg-scu-accords 9
+01:54:47 officiel 8860
+02:06:03 wikidata 30194
+02:06:03 fiches Wikidata fusionnées avec une liste officielle : 528
+02:06:03 écartés (pays du site incohérent) 183
+02:06:03 TOTAL 42834 établissements dans 199 pays
