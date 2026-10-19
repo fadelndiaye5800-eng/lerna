@@ -188,7 +188,27 @@ export const OFFICIELS = [
     titre: { fr: 'Universités publiques tunisiennes', en: 'Tunisian public universities' },
     url: 'https://www.mes.tn/annuaire.php?code_menu=22', type: 'html',
     parse: ($, clean) => [...new Set($('option').map((i, o) => clean($(o).text())).get().filter((x) => /^جامعة\s/.test(x)))].map((n) => ({ n }))
-  }
+  },
+  ...[
+    ['publiques', '%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d8%ad%d9%83%d9%88%d9%85%d9%8a%d8%a9', 'public', 'Universités publiques', 'Public universities'],
+    ['ahleya', '%d8%a7%d9%84%d8%ac%d8%a7%d9%85%d8%b9%d8%a7%d8%aa-%d8%a7%d9%84%d9%85%d8%b5%d8%b1%d9%8a%d8%a9-%d8%a7%d9%84%d8%a3%d9%87%d9%84%d9%8a%d8%a9', '', 'Universités nationales (ahleya, à but non lucratif)', 'National (ahleya, non-profit) universities'],
+    ['privees', 'accredited-private-universities', 'prive', 'Universités privées agréées', 'Accredited private universities'],
+    ['techno-publiques', 'government-technological-universities', 'public', 'Universités technologiques publiques', 'Public technological universities'],
+    ['techno-privees', 'private-technological-universities', 'prive', 'Universités technologiques privées', 'Private technological universities'],
+    ['instituts-prives', 'private-institutes', 'prive', 'Instituts privés agréés', 'Accredited private institutes'],
+    ['instituts-publics', 'government-institutes', 'public', 'Instituts publics', 'Public institutes'],
+    ['etrangeres', 'foreign-universities-in-egypt', 'prive', 'Universités étrangères autorisées en Égypte', 'Foreign universities authorised in Egypt'],
+    ['branches', 'branches-of-international-universities', 'prive', 'Campus de universités étrangères', 'Branch campuses of international universities'],
+    ['speciales', 'specialty-universities', '', 'Universités à statut particulier', 'Universities with special status'],
+    ['sous-tutelle', 'government-sponsored-educational-institutions', 'public', 'Établissements sous tutelle de l’État', 'Government-sponsored institutions'],
+    ['accords', 'educational-institutions-with-international-and-framework-agreements', '', 'Établissements créés par accords internationaux', 'Institutions under international agreements']
+  ].map(([k, slug, st, fr, en]) => ({
+    cc: 'EG', id: 'eg-scu-' + k, statut: st,
+    autorite: { fr: 'Conseil suprême des universités (SCU), Égypte', en: 'Supreme Council of Universities (SCU), Egypt' },
+    titre: { fr: fr + ' — liste du Conseil suprême des universités', en: en + ' — Supreme Council of Universities list' },
+    url: 'https://scu.eg/' + slug + '/', type: 'html',
+    parse: ($, clean) => $('figcaption h4').map((i, h) => { const a = $(h).find('a'); const w = a.attr('href') || ''; return { n: clean($(h).text()), w: /^https?:\/\/(?!scu\.eg)/.test(w) ? w : '', acc: fr }; }).get()
+  }))
 ];
 
 const clean = (s, n = 160) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim().slice(0, n);
