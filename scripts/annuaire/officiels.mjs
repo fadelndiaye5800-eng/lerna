@@ -146,6 +146,22 @@ export const OFFICIELS = [
     type: 'xlsx', skip: 3,
     filter: (r) => /^\d+$/.test(String(r[0]).trim()) && String(r[1]).trim(),
     map: (r) => ({ n: r[1], v: r[4], t: /民办/.test(String(r[6])) ? 'prive' : /中外合作/.test(String(r[6])) ? '' : 'public', acc: [String(r[5]).trim() === '本科' ? '本科 (licence et plus)' : String(r[5]).trim() === '专科' ? '专科 (cycle court)' : String(r[5]).trim(), String(r[6]).trim()].filter(Boolean).join(' · ') })
+  },
+  {
+    cc: 'KE', id: 'ke-cue',
+    autorite: { fr: 'Commission for University Education (CUE), Kenya', en: 'Commission for University Education (CUE), Kenya' },
+    titre: { fr: 'Universités autorisées au Kenya (Universities Act, Cap 210)', en: 'Approved universities in Kenya (Universities Act, Cap 210)' },
+    page: 'https://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189', url: 'https://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189',
+    discover: { page: 'https://www.cue.or.ke/index.php?option=com_content&view=article&id=21&Itemid=189', re: /Approved_Universities.*\.pdf$/i }, type: 'pdf-fn',
+    parse: (lines) => {
+      const out = []; let sec = '';
+      for (const l of lines) {
+        const h = /^S\.?\s*No\.?\s+(.+?)(\s+YEAR)?$/i.exec(l); if (h) { sec = h[1].trim(); continue; }
+        const m = /^(\d{1,3})\s+(.+?)(?:\s+(\d{4}))?$/.exec(l); if (!m || !sec || /^page\b/i.test(m[2])) continue;
+        out.push({ n: m[2], y: m[3] || '', t: /public/i.test(sec) ? 'public' : /private/i.test(sec) ? 'prive' : '', acc: sec });
+      }
+      return out;
+    }
   }
 ];
 
@@ -277,6 +293,13 @@ async function readHtml(src) {
   return src.parse($, clean).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
 }
 
+/* PDF lu par une fonction propre à la liste : src.parse(lignes) renvoie les fiches */
+async function readPdfFn(src) {
+  const pdf = (await import('pdf-parse/lib/pdf-parse.js')).default;
+  const lines = (await pdf(await fetchBuf(await resolveUrl(src)))).text.split(/\r?\n/).map((l) => clean(l, 300)).filter(Boolean);
+  return src.parse(lines).filter((r) => r && r.n).map((r) => ({ ...r, n: title(r.n), v: title(r.v || ''), r: title(r.r || '') }));
+}
+
 /* PDF dont la table des matières liste les établissements : « NOM DE L'UNIVERSITÉ ........ 12 » */
 async function readPdfToc(src) {
   const pdf = (await import('pdf-parse/lib/pdf-parse.js')).default;
@@ -299,7 +322,7 @@ export async function readOfficiels(log = console.log) {
   const out = [], report = {};
   for (const src of OFFICIELS) {
     try {
-      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : src.type === 'pdf-acr' ? await readPdfAcr(src) : src.type === 'pdf-tz' ? await readPdfTz(src) : src.type === 'pdf-toc' ? await readPdfToc(src) : src.type === 'json' ? await readJson(src) : src.type === 'xlsx' ? await readXlsx(src) : src.type === 'html' ? await readHtml(src) : await readList(src);
+      const rows = src.type === 'table' ? await readTable(src) : src.type === 'pdf-num' ? await readPdfNum(src) : src.type === 'pdf-acr' ? await readPdfAcr(src) : src.type === 'pdf-tz' ? await readPdfTz(src) : src.type === 'pdf-toc' ? await readPdfToc(src) : src.type === 'json' ? await readJson(src) : src.type === 'xlsx' ? await readXlsx(src) : src.type === 'html' ? await readHtml(src) : src.type === 'pdf-fn' ? await readPdfFn(src) : await readList(src);
       const seen = new Set();
       for (const r of rows) {
         const key = r.n.toLowerCase();
