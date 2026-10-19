@@ -8,6 +8,7 @@
      si besoin) ; les lignes « Région … » donnent la région
    - list : éléments HTML choisis par un sélecteur CSS */
 import * as cheerio from 'cheerio';
+import { fetchBuf } from './net.mjs';
 
 export const OFFICIELS = [
   {
@@ -148,15 +149,9 @@ export const OFFICIELS = [
   }
 ];
 
-const UA = { 'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0 Safari/537.36 LERNA-annuaire', 'Accept-Language': 'fr,en;q=0.8' };
 const clean = (s, n = 160) => String(s == null ? '' : s).replace(/\s+/g, ' ').trim().slice(0, n);
 const title = (s) => { const t = clean(s); return t === t.toUpperCase() && /[A-Z]{4}/.test(t) ? t.toLowerCase().replace(/(^|[\s(\-'’/])([a-zà-ÿ])/g, (m, a, b) => a + b.toUpperCase()).replace(/\b(De|Du|Des|La|Le|Les|Et|En|D’|L’|Pour|Au|Aux)\b/g, (m) => m.toLowerCase()).replace(/\(([^)]+)\)/g, (m, a) => '(' + a.toUpperCase() + ')') : t; };
 
-async function fetchBuf(url) {
-  const ctrl = new AbortController(); const timer = setTimeout(() => ctrl.abort(), 60000);
-  try { const r = await fetch(url, { headers: UA, signal: ctrl.signal, redirect: 'follow' }); if (!r.ok) throw new Error('HTTP ' + r.status); return Buffer.from(await r.arrayBuffer()); }
-  finally { clearTimeout(timer); }
-}
 
 async function readTable(src) {
   if (src.pageParam) {
