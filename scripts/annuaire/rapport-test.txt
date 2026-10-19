@@ -1,4 +1,4 @@
-2026-10-19T01:12:58.228Z
+2026-10-19T01:16:46.543Z
 officiel ci-mesrs-prives 618
 officiel cm-minesup-ipes 234
 officiel ae-caa 103
@@ -502,69 +502,37 @@ RAPPORT {"ci-mesrs-prives":618,"cm-minesup-ipes":234,"ae-caa":103,"ng-nuc-public
   الاكاديمية العربية للعلوم المالية والمصرفية | https://www.aambfs.org/ar/ | Établissements créés par accords internationaux
   معهد البحوث والدراسات العربية | https://iars.net/ | Établissements créés par accords internationaux
   الجامعة الألمانية الدولية | https://www.giu-uni.de/ | Établissements créés par accords internationaux
-##### https://amis.gtec.edu.gh/
-ST 200 text/html;charset=UTF-8 3997 https://amis.gtec.edu.gh/login
-TITLE User Login | AMIS | TABLES 0 TR 0 LI 0
-  FILES 0
-  A Register Now! -> /register-2
-  A Forgot password ? -> /forgot-password
-  JS https://fonts.googleapis.com/icon?family=Material
-  T Remember Me
-  T Register Now!
-  T Forgot password ?
-##### https://gtec.edu.gh/publications/
-ST 200 text/html; charset=UTF-8 239577 https://gtec.edu.gh/publications/
-TITLE Publications - GTEC Email Email | TABLES 0 TR 0 LI 35
-  FILES 5
-   https://gtec.edu.gh/wp-content/uploads/2026/10/GTEC-Criteria-for-Establishment-of-Teaching-Units.pdf
-   https://gtec.edu.gh/wp-content/uploads/2026/10/GTEC-Criteria-for-Establishment-of-Non-Teaching-Units.pdf
-   https://gtec.edu.gh/wp-content/uploads/2026/10/GTEC_Newsletter-September-2026.pdf
-   /wp-content/uploads/2026/04/GTEC-Policy-on-Honorary-Degree.pdf
-   /wp-content/uploads/2026/04/GTEC-Policy-on-Mature-Students-1.pdf
-  A  -> https://gtec.edu.gh/
-  A Email -> mailto:info@gtec.edu.gh
-  A  -> https://www.tiktok.com/@gtec.official?_r=1&_t=ZS-95MpTdrFZO0
-  A  -> https://x.com/gtec___?s=21
-  A About Us -> https://gtec.edu.gh/about/
-  A Contact Us -> https://gtec.edu.gh/contact-us/
-  A News & Events -> https://gtec.edu.gh/news/
-  A Accreditation -> https://gtec.edu.gh/accreditation/
-  A Credential Evaluation -> https://cems.gtec.edu.gh/
-  A Assessors -> https://gtec.edu.gh/assessors/
-  A Status Check -> https://gtec.edu.gh/status-check/
-  A Book Conference Facility -> https://gtec.edu.gh/book-conference-facility/
-  A Book Guest House -> https://gtec.edu.gh/guest-house-facility/
-  A Publications -> https://gtec.edu.gh/publications/
-  A AMIS -> https://amis.gtec.edu.gh/
-  A Accreditation -> /accreditation
-  A  -> https://gtec.edu.gh/book/gtec-criteria-for-establishment-of-teaching-units/
-  A GTEC -> https://gtec.edu.gh/book-author/gtec/
-  A Download -> https://gtec.edu.gh/wp-content/uploads/2026/10/GTEC-Criteria-for-Establishment-of-Teaching-Units.pdf
-  A  -> https://gtec.edu.gh/book/gtec-criteria-for-establishment-of-non-teaching-units/
-  A Download -> https://gtec.edu.gh/wp-content/uploads/2026/10/GTEC-Criteria-for-Establishment-of-Non-Teaching-Units.pdf
-  A  -> https://gtec.edu.gh/book/gtec-newsletter-september-2026/
-  A Download -> https://gtec.edu.gh/wp-content/uploads/2026/10/GTEC_Newsletter-September-2026.pdf
-  A  -> https://gtec.edu.gh/book/gtec-policy-on-honorary-degree-2/
-  A Download Now -> /wp-content/uploads/2026/04/GTEC-Policy-on-Honorary-Degree.pdf
-  A  -> https://gtec.edu.gh/book/gtec-policy-on-mature-students-3/
-  A Download Now -> /wp-content/uploads/2026/04/GTEC-Policy-on-Mature-Students-1.pdf
-  A  -> https://gtec.edu.gh/book/gtec-annual-report-2025/
-  A Download Now -> /wp-content/uploads/2026/04/2025-GTEC-Annual-Report-Draft-130326.docx
-  A  -> https://gtec.edu.gh/book/guidelines-for-joint-awards/
-  A Download Now -> https://gtec.edu.gh/wp-content/uploads/2026/09/GHANA-TERTIARY-EDUCATION-COMMISSION-Joint-Awards-document-September-3-2026.docx
-  A  -> https://gtec.edu.gh/book/gtec-distance-learning-programme-accreditation/
-  A Download Now -> /wp-content/uploads/2026/03/GTEC-DISTANCE-LEARNING-PROG-ACCRED.-2025.zip
-  A 2 -> https://gtec.edu.gh/publications/page/2/
-  A 3 -> https://gtec.edu.gh/publications/page/3/
-  A Right to Information -> https://gtec.edu.gh/right-to-information/
-  A Service Charges -> https://gtec.edu.gh/service-charge/
-  A Email -> mailto:
-  JS //fonts.googleapis.com
-  JS /json
-  JS https://gtec.edu.gh/wp-json/oembed/1.0/embed?url=https
-  JS https://api.w.org/
-  JS https://gtec.edu.gh/wp-json/
-  JS https://gtec.edu.gh/wp-json/wp/v2/pages/1592
-  JS https://api.whatsapp.com/send?phone=https
-  JS https://gtec.edu.gh/wp-admin/admin-ajax.php
-  JS /admin-ajax.php
+##### https://datos.gob.cl/api/3/action/package_search?q=instituciones%20vigentes&rows=5
+ST 200 application/json;charset=utf-8 35217 https://datos.gob.cl/api/3/action/package_search?q=instituciones%20vigentes&rows=5
+  G 021.\r\n", "num_resources": 11, "num_tags": 3, "organization": {"id": "a6756acd-bdeb-45c1-bd91-8131fcb98ff4", "name": "division-de-gobierno-digital", "title": "Secretar\u00eda de Gobierno Digital", "type": "organization", "description": "Transformamos digitalmente la relaci\u00f3n del Estado con la ciudadan\u00eda", "image_url": "2024-10-03-183346.198588gobdigital.jpg", "created": "2018-03-13T11:07:00.981143", "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org
+  G ": true, "approval_status": "approved", "state": "active"}, "owner_org": "a6756acd-bdeb-45c1-bd91-8131fcb98ff4", "private": false, "state": "active", "title": "Registro Nacional de Tr\u00e1mites", "type": "dataset", "url": "https://tramites.gob.cl/", "version": "1.0", "resources": [{"cache_last_updated": null, "cache_url": null, "ckan_url": "https://datos.gob.cl", "created": "2022-05-09T17:26:20.092532", "datastore_active": true, "datastore_contains_all_records_of_source_file": true, "descriptio
+  G _org": "a6756acd-bdeb-45c1-bd91-8131fcb98ff4", "private": false, "state": "active", "title": "Registro Nacional de Tr\u00e1mites", "type": "dataset", "url": "https://tramites.gob.cl/", "version": "1.0", "resources": [{"cache_last_updated": null, "cache_url": null, "ckan_url": "https://datos.gob.cl", "created": "2022-05-09T17:26:20.092532", "datastore_active": true, "datastore_contains_all_records_of_source_file": true, "description": "Detalla los compromisos institucionales adquiridos por tr\u00
+  G -bf31-0e9799e69fe6", "resource_type": null, "set_url_type": "False", "size": 438480, "state": "active", "task_created": "2022-07-27 20:49:49.101262", "url": "https://datos.gob.cl/dataset/c4a6c464-ea4f-4352-9917-8c59d2c2549a/resource/e62a3f92-e9ff-4caf-bf31-0e9799e69fe6/download/planes-de-accion-2019-2021.xlsx", "url_type": "upload"}, {"cache_last_updated": null, "cache_url": null, "created": "2022-05-09T17:30:39.994367", "datastore_active": false, "datastore_contains_all_records_of_source_file":
+  G les y respuestas.xlsx", "package_id": "c4a6c464-ea4f-4352-9917-8c59d2c2549a", "position": 1, "resource_type": null, "size": 15358, "state": "active", "url": "https://datos.gob.cl/dataset/c4a6c464-ea4f-4352-9917-8c59d2c2549a/resource/be4c4216-dc9a-4c18-a52c-d85a99664981/download/diccionario-de-variables-y-respuestas.xlsx", "url_type": "upload"}, {"cache_last_updated": null, "cache_url": null, "ckan_url": "https://datos.gob.cl", "created": "2022-05-09T17:32:49.525677", "datastore_active": true, "d
+  G -bb36-4b26dd0f8bde", "resource_type": null, "set_url_type": "False", "size": 419026, "state": "active", "task_created": "2023-04-03 20:22:18.360389", "url": "https://datos.gob.cl/dataset/c4a6c464-ea4f-4352-9917-8c59d2c2549a/resource/915454cb-90f7-46dd-bb36-4b26dd0f8bde/download/transacciones-rnt-2020-1.xlsx", "url_type": "upload"}, {"cache_last_updated": null, "cache_url": null, "ckan_url": "https://datos.gob.cl", "created": "2022-05-09T17:33:35.370920", "datastore_active": true, "datastore_cont
+  G -a8ac-194c93c374cc", "resource_type": null, "set_url_type": "False", "size": 495328, "state": "active", "task_created": "2022-07-28 19:06:01.293667", "url": "https://datos.gob.cl/dataset/c4a6c464-ea4f-4352-9917-8c59d2c2549a/resource/46afa3a5-1ffc-400e-a8ac-194c93c374cc/download/transacciones-rnt-2021-1.xlsx", "url_type": "upload"}, {"cache_last_updated": null, "cache_url": null, "ckan_url": "https://datos.gob.cl", "created": "2022-05-09T20:59:44.128542", "datastore_active": true, "datastore_cont
+  G 4-b89a-80eb03ce1814", "resource_type": null, "set_url_type": false, "size": 1057764, "state": "active", "task_created": "2024-11-14 23:10:16.687149", "url": "https://datos.gob.cl/dataset/c4a6c464-ea4f-4352-9917-8c59d2c2549a/resource/d7caeeaf-1be1-4334-b89a-80eb03ce1814/download/nomina-de-tramites-vigente-a-2021.xlsx", "url_type": "upload"}, {"cache_last_updated": null, "cache_url": null, "created": "2022-10-17T14:45:49.245781", "datastore_active": false, "datastore_contains_all_records_of_source
+  G gentes a julio 2022", "package_id": "c4a6c464-ea4f-4352-9917-8c59d2c2549a", "position": 5, "resource_type": null, "size": 1189727, "state": "active", "url": "https://datos.gob.cl/dataset/c4a6c464-ea4f-4352-9917-8c59d2c2549a/resource/4cf3aa51-9c53-4182-bafb-d7837b6d677f/download/nomina-de-tramites-vigentes-a-julio-2022.xlsx", "url_type": "upload"}, {"cache_last_updated": null, "cache_url": null, "ckan_url": "https://datos.gob.cl", "created": "2023-03-31T14:48:29.523232", "datastore_active": true,
+  G -b1f5-6d566e76e9d9", "resource_type": null, "set_url_type": "False", "size": 535021, "state": "active", "task_created": "2023-03-31 15:01:21.764185", "url": "https://datos.gob.cl/dataset/c4a6c464-ea4f-4352-9917-8c59d2c2549a/resource/0b231435-026a-41f7-b1f5-6d566e76e9d9/download/transacciones-rnt-2022.xlsx", "url_type": "upload"}, {"cache_last_updated": null, "cache_url": null, "ckan_url": "https://datos.gob.cl", "created": "2023-03-31T15:01:21.107658", "datastore_active": true, "datastore_contai
+  G 4-b880-bd2fb5872fa5", "resource_type": null, "set_url_type": false, "size": 1211107, "state": "active", "task_created": "2024-11-14 23:10:26.755774", "url": "https://datos.gob.cl/dataset/c4a6c464-ea4f-4352-9917-8c59d2c2549a/resource/e329d43a-2ea8-4ca4-b880-bd2fb5872fa5/download/nomina-de-tramites-vigentes-a-2022.xlsx", "url_type": "upload"}, {"cache_last_updated": null, "cache_url": null, "created": "2023-04-03T20:21:27.801118", "datastore_active": false, "datastore_contains_all_records_of_sourc
+  G mites vigente a 2020", "package_id": "c4a6c464-ea4f-4352-9917-8c59d2c2549a", "position": 8, "resource_type": null, "size": 608793, "state": "active", "url": "https://datos.gob.cl/dataset/c4a6c464-ea4f-4352-9917-8c59d2c2549a/resource/80b0b603-2b7b-4f6b-964e-6ca54b03a38c/download/nomina-de-tramites-vigente-a-2020.xlsx", "url_type": "upload"}, {"cache_last_updated": null, "cache_url": null, "created": "2023-09-08T20:10:47.699910", "datastore_active": true, "datastore_contains_all_records_of_source_
+  G tes a Julio de 2023", "package_id": "c4a6c464-ea4f-4352-9917-8c59d2c2549a", "position": 9, "resource_type": null, "size": 4008478, "state": "active", "url": "https://datos.gob.cl/dataset/c4a6c464-ea4f-4352-9917-8c59d2c2549a/resource/6a0619e4-f7ee-46e5-9b3f-29ac07adab1f/download/nomina-de-tramites-vigentes-a-julio-2023.xlsx", "url_type": "upload"}, {"cache_last_updated": null, "cache_url": null, "ckan_url": "https://datos.gob.cl", "created": "2023-11-13T20:39:45.761897", "datastore_active": true,
+  G ca-aa01-4f09ae50910d", "resource_type": null, "set_url_type": false, "size": 427707, "state": "active", "task_created": "2023-11-13 20:39:46.167755", "url": "https://datos.gob.cl/dataset/c4a6c464-ea4f-4352-9917-8c59d2c2549a/resource/bec43360-3baf-42ca-aa01-4f09ae50910d/download/transacciones-rnt-2023_datosgob.xlsx", "url_type": "upload"}], "tags": [{"display_name": "digitalizaci\u00f3n de tr\u00e1mites", "id": "bf94c662-0a94-487d-9914-194ced0e7590", "name": "digitalizaci\u00f3n de tr\u00e1mites"
+  G formatos podr\u00edan tener alguna variaci\u00f3n.**", "num_resources": 2, "num_tags": 3, "organization": {"id": "AO", "name": "ministerio_de_salud", "title": "Ministerio de Salud", "type": "organization", "description": "La misi\u00f3n de este ministerio es construir un modelo de salud sobre la base de una atenci\u00f3n primaria fortalecida e integrada, que pone al paciente en el centro, con \u00e9nfasis en el cuidado de poblaciones durante todo el ciclo de vida, y que adem\u00e1s estimule la p
+  G "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org": "AO", "period": "2026", "private": false, "state": "active", "title": "Establecimientos de Salud", "type": "dataset", "url": "", "version": "1.0", "groups": [{"description": "Participa en el desaf\u00edo de uso de datos para un Estado Abierto\r\nInvitamos a estudiantes de universidad, centros de formaci\u00f3n t\u00e9cnica o institutos profesionales a explorar su creatividad y visualizar de manera atractiva 
+  G  "image_display_url": "https://datos.gob.cl/uploads/group/2025-08-28-210741.267119bannertransparenta25-celular.png", "name": "concurso-transparenta", "title": "Concurso Transparenta 2025"}], "resources": [{"cache_last_updated": null, "cache_url": null, "ckan_url": "https://datos.gob.cl", "created": "2024-01-12T14:59:55.932320", "datastore_active": true, "datastore_contains_all_records_of_source_file": true, "description": "Archivo que contiene los datos", "format": "csv", "hash": "0c19a80485850e
+  G 3-aefb-2c8b8363a1bc", "resource_type": null, "set_url_type": false, "size": 2524897, "state": "active", "task_created": "2026-09-23 02:00:08.479234", "url": "https://datos.gob.cl/dataset/3bf4cf7c-f638-4735-9a01-f65faae4beca/resource/2c44d782-3365-44e3-aefb-2c8b8363a1bc/download/establecimientos_20261014.csv", "url_type": "upload"}, {"cache_last_updated": null, "cache_url": null, "created": "2024-01-12T12:49:51.233659", "datastore_active": true, "datastore_contains_all_records_of_source_file": fa
+  G Diccionario de datos", "package_id": "3bf4cf7c-f638-4735-9a01-f65faae4beca", "position": 1, "resource_type": null, "size": 696208, "state": "active", "url": "https://datos.gob.cl/dataset/3bf4cf7c-f638-4735-9a01-f65faae4beca/resource/7127fc99-b858-4e74-8971-51413e484fb1/download/diccionario-de-datos.pdf", "url_type": "upload"}], "tags": [{"display_name": "DEIS", "id": "e080251e-b9e4-4fee-9aab-717650dcc5c0", "name": "DEIS", "state": "active", "vocabulary_id": null}, {"display_name": "Establecimien
+  G s pol\u00edtico-administrativos.", "num_resources": 1, "num_tags": 6, "organization": {"id": "AB002", "name": "subsecretaria_de_desarrollo_regional", "title": "Subsecretar\u00eda de Desarrollo Regional y Administrativo", "type": "organization", "description": "", "image_url": "", "created": "2015-10-30T12:31:24.306543", "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org": "AB002", "private": false, "state": "active", "title": "L\u00ednea Digital de los L\u00ed
+  G 31:24.306543", "is_organization": true, "approval_status": "approved", "state": "active"}, "owner_org": "AB002", "private": false, "state": "active", "title": "L\u00ednea Digital de los L\u00edmites Interiores de la Divisi\u00f3n Pol\u00edtica Administrativa", "type": "dataset", "url": "SUBDERE", "version": "0702", "extras": [{"key": "Coordenadas", "value": "-76.2866,-66.96,-56.3275,-16.5947"}], "groups": [{"description": "Informaci\u00f3n geoespacial, mapas, territorios y datos sobre caracter\u
+  G  "state": "active", "title": "L\u00ednea Digital de los L\u00edmites Interiores de la Divisi\u00f3n Pol\u00edtica Administrativa", "type": "dataset", "url": "SUBDERE", "version": "0702", "extras": [{"key": "Coordenadas", "value": "-76.2866,-66.96,-56.3275,-16.5947"}], "groups": [{"description": "Informaci\u00f3n geoespacial, mapas, territorios y datos sobre caracter\u00edsticas f\u00edsicas y humanas del entorno.", "display_name": "Geograf\u00eda", "id": "9", "image_display_url": "https://datos.
+  G ": "Geograf\u00eda", "id": "9", "image_display_url": "https://datos.gob.cl/uploads/group/2024-10-04-094611.691972geografia.png", "name": "geografia", "title": "Geograf\u00eda"}], "resources": [{"cache_last_updated": null, "cache_url": null, "created": "2016-03-18T16:00:37.863508", "datastore_active": false, "datastore_contains_all_records_of_source_file": false, "description": "Historial de cambios en versiones:\r\nV01 \u2013 09/09/2013: Revisi\u00f3n de las cartas que consideran la mayor cantid
+  G va, versi\u00f3n 07.02", "package_id": "518b81c4-3efb-49d0-9018-7841e3b7b8ae", "position": 0, "resource_type": null, "size": null, "state": "active", "url": "https://www.ide.cl/descargas/capas/subdere/limites_dpa_v0702_sirgaschile_gcs.rar", "url_type": null}], "tags": [{"display_name": "DPA", "id": "523e6623-b091-4082-971c-0d930a1697ea", "name": "DPA", "state": "active", "vocabulary_id": null}, {"display_name": "L\u00edmites", "id": "e0561ffe-d6fe-4340-b673-32315cc14ddb", "name": "L\u00edmites",
+##### https://datos.gob.ar/api/3/action/package_search?q=instituciones%20universitarias&rows=5
+ST 502 text/plain; charset=UTF-8 16 https://datos.gob.ar/api/3/action/package_search?q=instituciones%20universitarias&rows=5
+##### https://www.datosabiertos.gob.pe/api/3/action/package_search?q=sunedu&rows=5
+ST 404 text/html; charset=utf-8 22099 https://www.datosabiertos.gob.pe/sunedu?rows=5
+##### https://dati-ustat.mur.gov.it/
+ERR délai dépassé 
+##### https://datos.gob.es/apidata/catalog/dataset/title/universidades.json?_pageSize=5
+ST 200 application/json 16345 https://datos.gob.es/apidata/catalog/dataset/title/universidades.json?_pageSize=5
