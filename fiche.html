@@ -128,7 +128,7 @@ Lerna.addStrings({
     'fi.back': '← Retour', 'fi.nf': 'Fiche introuvable', 'fi.nfSub': 'Cette formation ou cet établissement n’existe pas ou plus dans les données officielles.', 'fi.toEx': 'Explorer →',
     'fi.err': 'Impossible de charger la fiche pour le moment. Vérifie ta connexion et réessaie.',
     'fi.tPres': 'Présentation', 'fi.tFil': 'Filières', 'fi.tAdm': 'Admission', 'fi.tCost': 'Coûts', 'fi.tLife': 'Vie étudiante', 'fi.tRev': 'Avis',
-    'fi.lvlOff': 'Reconnue officiellement', 'fi.lvlState': 'Reconnue par l’État', 'fi.lvlBad': 'Avis officiel défavorable', 'fi.lvlWd': 'Reconnaissance à vérifier',
+    'fi.lvlOff': 'Reconnue officiellement', 'fi.lvlState': 'Reconnue officiellement', 'fi.lvlBad': 'Avis officiel défavorable',
     'fi.pub': 'Public', 'fi.ctr': 'Privé sous contrat', 'fi.priv': 'Privé', 'fi.sel': 'Formation sélective', 'fi.nsel': 'Formation non sélective', 'fi.app': 'En apprentissage possible', 'fi.int': 'Internat',
     'fi.founded': 'Fondé en {y}',
     'fi.kTitle': 'Les chiffres de l’admission {y}', 'fi.kSub': 'Données officielles de la dernière session connue pour cette formation.',
@@ -155,7 +155,6 @@ Lerna.addStrings({
     'fi.rScore': 'Accréditée par {a}, accréditeur reconnu par le Département de l’Éducation des États-Unis (College Scorecard).',
     'fi.rOfs': 'Inscrite au registre officiel de l’Office for Students (Angleterre).',
     'fi.rCricos': 'Autorisée par le gouvernement australien à accueillir des étudiants étrangers (registre CRICOS).',
-    'fi.rWd': 'Établissement présent dans l’annuaire public Wikidata. Sa reconnaissance officielle n’est PAS vérifiée par LERNA : demande les numéros d’autorisation et vérifie auprès du ministère avant de payer.',
     'fi.status': 'Statut officiel', 'fi.year': 'Année', 'fi.fees': 'Frais publiés', 'fi.city': 'Ville', 'fi.region': 'Région / État', 'fi.alt': 'Autre nom', 'fi.alsoT': 'Aussi sur : {a} — « {l} »',
     'fi.tPub': 'Public', 'fi.tPriv': 'Privé', 'fi.tPrivNl': 'Privé à but non lucratif', 'fi.tPrivL': 'Privé à but lucratif',
     'fi.brief': 'En bref', 'fi.nForm': 'Formations', 'fi.nApp': 'Dont en apprentissage', 'fi.nInt': 'Avec internat', 'fi.types': 'Types de formation',
@@ -167,9 +166,12 @@ Lerna.addStrings({
     'fi.wdFounded': 'Fondé en', 'fi.wdStudents': 'Étudiants', 'fi.wdDesc': 'Description',
     'fi.near': 'Autres établissements à {c}', 'fi.nearC': 'Autres établissements en {c}',
     'fi.srcM': 'Sources : {s}. LERNA ne modifie pas ces informations ; en cas de doute, la liste officielle fait foi.',
-    'fi.todo_fil': 'Les filières de cet établissement ne sont pas encore vérifiées par LERNA.', 'fi.todo_adm': 'Les conditions propres à cet établissement ne sont pas encore vérifiées par LERNA.',
-    'fi.todo_cout': 'Les frais de cet établissement ne sont pas encore vérifiés par LERNA.', 'fi.todo_vie': 'La vie étudiante (logement, restauration, associations) n’est pas encore vérifiée par LERNA.',
-    'fi.todoWhy': 'On n’affiche rien plutôt que de deviner.', 'fi.ask': 'Demander à LERNA de compléter cette fiche', 'fi.asked': 'Demande envoyée : les fiches les plus demandées sont complétées en premier.',
+    'fi.todoHead': 'À demander à l’école', 'fi.todoQ': 'Les questions à lui poser :',
+    'fi.todo_fil': 'Quelles filières proposez-vous en 1re année ?|Quel diplôme obtient-on à la fin (licence, master, BTS…) ?|Les cours sont-ils en français, en anglais ou dans une autre langue ?',
+    'fi.todo_adm': 'Quels documents faut-il pour s’inscrire ?|Quelle est la date limite ?|Y a-t-il un concours, un test ou un entretien ?',
+    'fi.todo_cout': 'Combien coûte l’inscription ?|Combien coûte l’année pour ma filière ?|Y a-t-il d’autres frais (examens, dossier, assurance) ?|Peut-on payer en plusieurs fois ?',
+    'fi.todo_vie': 'Y a-t-il un logement étudiant, et à quel prix ?|Y a-t-il une cantine ?|Quels clubs ou associations existent ?',
+    'fi.todoWhy': 'LERNA n’affiche que ce qui est publié officiellement : le reste, demande-le directement à l’école.', 'fi.ask': 'Demander à LERNA de compléter cette fiche', 'fi.asked': 'Demande envoyée : les fiches les plus demandées sont complétées en premier.',
     'fi.askThanks': 'Merci ! LERNA complète d’abord les fiches les plus demandées.',
     'fi.admGen': 'Démarches habituelles dans ce pays', 'fi.admGenSub': 'Règles générales du pays, à confirmer avec l’établissement.', 'fi.conditions': 'Conditions', 'fi.documents': 'Documents', 'fi.deadlines': 'Calendrier',
     'fi.cricosN': '{n} formations du supérieur ouvertes aux étudiants étrangers (registre CRICOS).',
@@ -187,7 +189,7 @@ Lerna.addStrings({
     'fi.back': '← Back', 'fi.nf': 'Profile not found', 'fi.nfSub': 'This programme or institution does not exist (any more) in the official data.', 'fi.toEx': 'Explore →',
     'fi.err': 'Could not load this profile right now. Check your connection and try again.',
     'fi.tPres': 'Overview', 'fi.tFil': 'Programmes', 'fi.tAdm': 'Admission', 'fi.tCost': 'Costs', 'fi.tLife': 'Student life', 'fi.tRev': 'Reviews',
-    'fi.lvlOff': 'Officially recognised', 'fi.lvlState': 'Recognised by the State', 'fi.lvlBad': 'Unfavourable official decision', 'fi.lvlWd': 'Recognition to be checked',
+    'fi.lvlOff': 'Officially recognised', 'fi.lvlState': 'Officially recognised', 'fi.lvlBad': 'Unfavourable official decision',
     'fi.pub': 'Public', 'fi.ctr': 'Private under State contract', 'fi.priv': 'Private', 'fi.sel': 'Selective programme', 'fi.nsel': 'Non-selective programme', 'fi.app': 'Apprenticeship available', 'fi.int': 'Boarding',
     'fi.founded': 'Founded in {y}',
     'fi.kTitle': 'Admission figures {y}', 'fi.kSub': 'Official data from the latest known session for this programme.',
@@ -214,7 +216,6 @@ Lerna.addStrings({
     'fi.rScore': 'Accredited by {a}, an accreditor recognised by the U.S. Department of Education (College Scorecard).',
     'fi.rOfs': 'Listed on the official register of the Office for Students (England).',
     'fi.rCricos': 'Authorised by the Australian Government to enrol international students (CRICOS register).',
-    'fi.rWd': 'Institution listed in the public Wikidata directory. Its official recognition is NOT verified by LERNA: ask for the authorisation numbers and check with the ministry before paying.',
     'fi.status': 'Official status', 'fi.year': 'Year', 'fi.fees': 'Published fees', 'fi.city': 'City', 'fi.region': 'Region / State', 'fi.alt': 'Other name', 'fi.alsoT': 'Also on: {a} — “{l}”',
     'fi.tPub': 'Public', 'fi.tPriv': 'Private', 'fi.tPrivNl': 'Private non-profit', 'fi.tPrivL': 'Private for-profit',
     'fi.brief': 'At a glance', 'fi.nForm': 'Programmes', 'fi.nApp': 'Of which work-study', 'fi.nInt': 'With boarding', 'fi.types': 'Programme types',
@@ -226,9 +227,12 @@ Lerna.addStrings({
     'fi.wdFounded': 'Founded', 'fi.wdStudents': 'Students', 'fi.wdDesc': 'Description',
     'fi.near': 'Other institutions in {c}', 'fi.nearC': 'Other institutions in {c}',
     'fi.srcM': 'Sources: {s}. LERNA does not change this information; if in doubt, the official list prevails.',
-    'fi.todo_fil': 'This institution’s programmes are not checked by LERNA yet.', 'fi.todo_adm': 'This institution’s own requirements are not checked by LERNA yet.',
-    'fi.todo_cout': 'This institution’s fees are not checked by LERNA yet.', 'fi.todo_vie': 'Student life (housing, food, clubs) is not checked by LERNA yet.',
-    'fi.todoWhy': 'We show nothing rather than guess.', 'fi.ask': 'Ask LERNA to complete this profile', 'fi.asked': 'Request sent: the most requested profiles are completed first.',
+    'fi.todoHead': 'Ask the school', 'fi.todoQ': 'Questions to ask:',
+    'fi.todo_fil': 'Which programmes do you offer in first year?|Which degree do you get at the end (bachelor, master, diploma…)?|Are classes taught in French, English or another language?',
+    'fi.todo_adm': 'Which documents do I need to apply?|What is the deadline?|Is there an entrance exam, a test or an interview?',
+    'fi.todo_cout': 'How much is registration?|How much is one year of my programme?|Are there other fees (exams, application, insurance)?|Can I pay in instalments?',
+    'fi.todo_vie': 'Is there student housing, and at what price?|Is there a canteen?|Which clubs or student groups exist?',
+    'fi.todoWhy': 'LERNA only shows what is officially published: ask the school directly for the rest.', 'fi.ask': 'Ask LERNA to complete this profile', 'fi.asked': 'Request sent: the most requested profiles are completed first.',
     'fi.askThanks': 'Thank you! LERNA completes the most requested profiles first.',
     'fi.admGen': 'Usual steps in this country', 'fi.admGenSub': 'General rules for the country, to be confirmed with the institution.', 'fi.conditions': 'Requirements', 'fi.documents': 'Documents', 'fi.deadlines': 'Timeline',
     'fi.cricosN': '{n} higher-education programmes open to international students (CRICOS register).',
@@ -320,7 +324,8 @@ Lerna.addStrings({
   function asked() { return Lerna.store.get('lerna_asked', {}) || {}; }
   function todo(kind) {
     var done = asked()[F.key];
-    return '<div class="todo"><b>' + esc(t('fi.todo_' + kind)) + '</b> ' + esc(t('fi.todoWhy')) +
+    return '<div class="todo"><b>' + esc(t('fi.todoHead')) + '</b> — ' + esc(t('fi.todoWhy')) +
+      '<p style="margin-top:8px">' + esc(t('fi.todoQ')) + '</p><ul style="margin:6px 0 0 18px">' + t('fi.todo_' + kind).split('|').map(function (q) { return '<li>' + esc(q) + '</li>'; }).join('') + '</ul>' +
       '<div style="margin-top:12px">' + (done ? '<span class="asked">' + Lerna.icon('check', 'ic-sm') + esc(t('fi.asked')) + '</span>' : '<button type="button" class="btn btn-primary btn-sm" data-ask>' + esc(t('fi.ask')) + '</button>') + '</div></div>';
   }
   function feeWarn() { return '<div class="fee-warn">' + Lerna.icon('info') + '<span>' + esc(t('fi.feeWarn')) + '</span></div>'; }
@@ -544,7 +549,7 @@ Lerna.addStrings({
     var type = r.t === 'public' ? 'public' : /^prive/.test(r.t || '') ? 'private' : '';
     var srcName = r.s === 'officiel' ? (lst ? L(lst.autorite) : '') : SRC_NAME[r.s] || '';
     F = { key: r.i, cc: cc, title: r.n, sub: r.a || '', type: type, typeLabel: stat ? t(stat) : '', loc: [r.v, r.r && r.r !== r.v ? r.r : '', window.LERNA_COUNTRY_NAME(cc)].filter(Boolean).join(', '), city: r.v, site: r.w,
-      sigle: sigleOf(r.a && /^[A-Z0-9]{2,8}$/.test(r.a) ? '(' + r.a + ') ' + r.n : r.n), level: wd ? { k: 'wd', txt: t('fi.lvlWd') } : bad ? { k: 'bad', txt: t('fi.lvlBad') } : { k: 'off', txt: t('fi.lvlOff') },
+      sigle: sigleOf(r.a && /^[A-Z0-9]{2,8}$/.test(r.a) ? '(' + r.a + ') ' + r.n : r.n), level: bad ? { k: 'bad', txt: t('fi.lvlBad') } : { k: 'off', txt: t('fi.lvlOff') },
       tab: Lerna.param('tab') || 'pres', src: t('fi.srcM', { s: srcName }) };
     /* Pas de bouton de candidature pour un établissement visé par un avis officiel défavorable */
     if (!bad) F.apply = { kind: 'ann', cc: cc, nom: r.n, ville: r.v || '', type: type, site: https(r.w), link: 'fiche.html?cc=' + encodeURIComponent(cc) + '&id=' + encodeURIComponent(r.i) + '&n=' + encodeURIComponent(r.n) };
@@ -555,7 +560,7 @@ Lerna.addStrings({
     F.tabs = {
       pres: function () {
         var rec = r.s === 'officiel' ? (lst ? t(x.warn ? 'fi.badRec' : 'fi.offOn', { a: L(lst.autorite), l: L(lst.titre) }) : '') :
-          { deqar: t('fi.rDeqar'), scorecard: t('fi.rScore', { a: x.acc || '' }), ofs: t('fi.rOfs'), cricos: t('fi.rCricos'), wikidata: t('fi.rWd') }[r.s];
+          { deqar: t('fi.rDeqar'), scorecard: t('fi.rScore', { a: x.acc || '' }), ofs: t('fi.rOfs'), cricos: t('fi.rCricos') }[r.s];
         var link = regLink(r, idx);
         var also = (x.also || []).map(function (o) {
           var l2 = idx.listes && idx.listes[o.l]; if (!l2) return '';

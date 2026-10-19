@@ -316,10 +316,10 @@
         S('es-visa', 'Demander ton visa d’études', 'Apply for your study visa', 'Au consulat d’Espagne de ton pays, en général deux mois avant les cours : lettre d’admission, preuve de ressources, assurance santé (pas une assurance voyage), certificat médical, et casier judiciaire pour un séjour de plus de 180 jours. La liste exacte est sur la page de ton consulat.', 'At the Spanish consulate in your country, usually two months before classes: admission letter, proof of funds, health insurance (not travel insurance), medical certificate, and criminal record for stays over 180 days. The exact list is on your consulate’s page.', P.visaES.url)
       ]
     },
-    /* Démarches générales : pour une école dont LERNA n'a pas encore vérifié la procédure propre (aucune date ni règle de pays inventée) */
+    /* Démarches générales : pour une école dont la procédure propre n'est pas publiée dans LERNA (aucune date ni règle de pays inventée) */
     generic: {
       label: T('Démarches générales (à confirmer avec l’école)', 'General steps (to confirm with the school)'),
-      who: T('LERNA n’a pas encore vérifié la procédure propre à cette école : voici les étapes communes, à confirmer avec elle.', 'LERNA has not checked this school’s own procedure yet: here are the common steps, to confirm with the school.'),
+      who: T('Voici les étapes communes à presque toutes les écoles. Les règles propres à cette école (dates, documents, frais) sont à lui demander.', 'Here are the steps common to almost every school. Ask the school for its own rules (dates, documents, fees).'),
       platform: null,
       steps: [
         S('gen-check', 'Vérifier la reconnaissance de l’école et du diplôme', 'Check the school and degree are recognised', 'Regarde sa fiche et la liste officielle du pays. Demande l’autorisation ou l’accréditation exacte de TA formation.', 'Look at its profile and the country’s official list. Ask for the exact authorisation or accreditation of YOUR programme.', ''),
@@ -369,7 +369,7 @@
     }
     if (key === 'eu' && s.pays && window.LERNA_GUIDES['eu-' + String(s.pays).toLowerCase()]) key = 'eu-' + String(s.pays).toLowerCase();   // Europe : guide du pays quand il existe
     var g = window.LERNA_GUIDES[key];
-    if (!g) { key = 'generic'; g = window.LERNA_GUIDES.generic; }   // procédure propre pas encore vérifiée par LERNA
+    if (!g) { key = 'generic'; g = window.LERNA_GUIDES.generic; }   // procédure propre de l'école : à lui demander
     /* Oxford et Cambridge : date UCAS plus tôt (15 octobre 2026, 18 h heure du Royaume-Uni) */
     if (key === 'uk' && (s.id === 'oxford' || s.id === 'cambridge')) {
       g = Object.assign({}, g, { steps: g.steps.map(function (x) { return x.id === 'uk-send' ? Object.assign({}, x, { date: '2026-10-15' }) : x; }) });

@@ -44,7 +44,7 @@ function absorb(keep, other) {
 
 /* rows : fiches d'un pays (même format que assets/annuaire/XX.json) ; schools : écoles LERNA du même pays */
 export function nettoyerPays(rows, schools) {
-  const st = { noms: 0, doublons: 0, sigles: 0, lerna: 0 };
+  const st = { noms: 0, doublons: 0, sigles: 0, lerna: 0, retires: 0 };
   for (const r of rows) {
     const n = String(r.n || '').replace(/^[\s:;,.\-–—_*·]+/, '').replace(/\s+/g, ' ').trim();
     if (n !== r.n) { r.n = n; st.noms++; }
@@ -109,18 +109,24 @@ export function nettoyerPays(rows, schools) {
     }
     for (const r of hit) { r.x = r.x || {}; r.x.lerna = s.id; st.lerna++; }
   }
+  /* 4. LERNA ne garde que les établissements reconnus officiellement (État, organisme officiel, agence d'accréditation) :
+        pas l'annuaire public non vérifié (Wikidata, ses identifiants restent dans x.ids des fiches fusionnées),
+        pas d'établissement visé par un avis officiel défavorable. */
+  const avant = list.length;
+  list = list.filter((r) => r.s !== 'wikidata' && !(r.x && (r.x.warn || (r.x.also || []).some((o) => o.warn))));
+  st.retires = avant - list.length;
   return { rows: list, st };
 }
 
-/* Index léger pour la recherche « Tous les pays » de l'Explorer : établissements reconnus officiellement seulement
-   (pas Wikidata, pas ceux qui ont déjà leur fiche LERNA). Ligne : [pays, identifiant, nom, ville, avis défavorable 1/0] */
+/* Index léger pour l'Explorer « Tous les pays » : établissements reconnus officiellement seulement
+   (pas Wikidata, pas d'avis défavorable, pas ceux qui ont déjà leur fiche LERNA). Ligne : [pays, identifiant, nom, ville, statut p|v|''] */
 export function ecrireNoms(OUT, byCountry) {
   const rows = [];
   for (const cc of Object.keys(byCountry).sort()) {
     for (const r of byCountry[cc]) {
       const x = r.x || {};
-      if (r.s === 'wikidata' || x.lerna || !r.n) continue;
-      rows.push([cc, r.i, r.n, r.v || '', x.warn || (x.also || []).some((o) => o.warn) ? 1 : 0]);
+      if (r.s === 'wikidata' || x.lerna || !r.n || x.warn || (x.also || []).some((o) => o.warn)) continue;
+      rows.push([cc, r.i, r.n, r.v || '', r.t === 'public' ? 'p' : /^prive/.test(r.t || '') ? 'v' : '']);
     }
   }
   fs.writeFileSync(path.join(OUT, 'noms.json'), JSON.stringify(rows));
@@ -142,18 +148,19 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   const OUT = path.join(root, 'assets/annuaire');
   const schools = lernaSchools(root);
   const idx = JSON.parse(fs.readFileSync(path.join(OUT, 'index.json'), 'utf8'));
-  const tot = { noms: 0, doublons: 0, sigles: 0, lerna: 0 };
+  const tot = { noms: 0, doublons: 0, sigles: 0, lerna: 0, retires: 0 };
   let total = 0;
   const all = {};
   for (const f of fs.readdirSync(OUT).filter((x) => /^[A-Z]{2}\.json$/.test(x))) {
     const cc = f.slice(0, 2);
     const { rows, st } = nettoyerPays(JSON.parse(fs.readFileSync(path.join(OUT, f), 'utf8')), schools[cc]);
+    for (const k of Object.keys(tot)) tot[k] += st[k];
+    if (!rows.length) { fs.unlinkSync(path.join(OUT, f)); delete idx.countries[cc]; continue; }   // plus aucun établissement reconnu dans ce pays
     all[cc] = rows;
     rows.sort((a, b) => (a.s === 'wikidata') - (b.s === 'wikidata') || a.n.localeCompare(b.n, 'fr'));
     fs.writeFileSync(path.join(OUT, f), JSON.stringify(rows));
     idx.countries[cc] = { n: rows.length, o: rows.filter((r) => r.s !== 'wikidata').length };
     total += rows.length;
-    for (const k of Object.keys(tot)) tot[k] += st[k];
   }
   idx.total = total;
   fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify(idx));

@@ -66,8 +66,9 @@ FORMAT DE RÉPONSE OBLIGATOIRE :
 /* Même règles, mais l'IA choisit dans la liste préparée par le moteur LERNA (plus d'établissement inventé) */
 const LIST_RULE = `LISTE DU MOTEUR LERNA : avec les réponses, tu reçois une liste d'établissements RÉELS et reconnus officiellement, préparée pour CET étudiant (pays, langue, budget, domaine), chacun avec un code (C1, C2…).
 - Tu choisis tes ${RECO_COUNT} recommandations UNIQUEMENT dans cette liste et tu recopies leur code dans le champ "code". N'invente aucun établissement et ne change pas leur nom.
-- À adéquation égale, préfère une « FICHE VÉRIFIÉE PAR LERNA ».
-- Si les frais d'un établissement ne sont pas « vérifiés » dans la liste, écris "frais": "À confirmer avec l'établissement" et "frais_usd": null.
+- À adéquation égale, préfère une « FICHE COMPLÈTE » (plus d'informations pour l'étudiant).
+- Si les frais d'un établissement ne sont pas « publiés sur le site officiel » dans la liste, écris "frais": "Frais à demander à l'école" et "frais_usd": null.
+- N'écris jamais « vérifiée par LERNA », « non vérifié » ni « pas vérifié » : tous ces établissements sont reconnus officiellement. Une information qui manque est « à demander à l'école ».
 - Les filières, conditions et dates qui ne sont pas dans la liste : appuie-toi sur ce que tu sais, avec prudence, et dis qu'elles sont à confirmer.
 - Si l'étudiant vise une première année d'études supérieures, écarte les établissements qui ne forment qu'en master, MBA ou formation de cadres.`;
 const SYSTEM_LIST = SYSTEM

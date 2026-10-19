@@ -143,8 +143,8 @@ Lerna.addStrings({
     'ec.filNote': "Sélection de filières représentatives. La liste complète est sur le site officiel.",
     'ec.conditions': "Conditions d'accès", 'ec.documents': 'Documents requis', 'ec.deadlines': 'Dates limites', 'ec.process': 'Processus étape par étape',
     'ec.official': 'Site officiel de l’établissement',
-    'ec.feeTitle': 'Frais de scolarité par an', 'ec.feeOk': 'Vérifié sur le site officiel · {y}', 'ec.feeTodo': 'Pas encore vérifié par LERNA',
-    'ec.feeTodoSub': "LERNA n'affiche que des montants vérifiés sur le site officiel de l'école. Pour cette école, la vérification n'est pas terminée : consulte la page officielle pour connaître le prix exact de ta filière.",
+    'ec.feeTitle': 'Frais de scolarité par an', 'ec.feeOk': 'Vérifié sur le site officiel · {y}', 'ec.feeTodo': 'À demander à l’école',
+    'ec.feeTodoSub': "LERNA n'affiche que les montants publiés sur le site officiel de l'école. Ici, demande à l'école : combien coûte l'inscription, combien coûte l'année pour ta filière, et s'il y a d'autres frais (examens, dossier). Tu peux aussi regarder sa page officielle.",
     'ec.feeLocal': 'Étudiant du pays ({c})', 'ec.feeIntl': 'Étudiant étranger', 'ec.feeEU': 'Étudiant UE / EEE', 'ec.feeNonEU': 'Étudiant hors UE (Afrique…)',
     'ec.feeUnknown': 'Non publié — demande à l’école', 'ec.feeByFil': 'Par filière (tarifs publiés)', 'ec.feeAsk': 'Prix à demander à l’école',
     'ec.feeSource': 'Voir la page officielle des frais', 'ec.feeOfficial': 'Voir les frais sur le site officiel', 'ec.filFee': 'Frais par an',
@@ -162,7 +162,7 @@ Lerna.addStrings({
     'ec.dossierTitle': 'Prépare ta candidature avec LERNA', 'ec.dossierOpen': 'Ton dossier pour cette école', 'ec.dossierSub': 'Étapes, documents, lettre, entretien, visa : on avance ensemble, un peu chaque jour.',
     'ec.dossierStart': 'Commencer mon dossier', 'ec.dossierGo': 'Continuer mon dossier →',
     'ec.lAssos': 'Associations et clubs', 'ec.lHousing': 'Logement étudiant', 'ec.lFood': 'Restauration', 'ec.lTransport': 'Transport', 'ec.lSport': 'Sport et culture',
-    'ec.pending': 'Vérification en cours',
+    'ec.pending': 'À demander à l’école',
     'ec.rCourses': 'Qualité des cours', 'ec.rCampus': 'Vie de campus', 'ec.rValue': 'Rapport qualité-prix', 'ec.rJobs': 'Insertion professionnelle',
     'ec.noReviews': 'Pas encore d’avis vérifiés', 'ec.noReviewsSub': 'Les avis sont publiés après vérification. Tu as étudié ici ? Sois le premier à partager ton expérience.',
     'ec.leave': 'Laisser un avis', 'ec.comment': 'Ton expérience', 'ec.commentPh': 'Ce qui t’a plu, ce qui pourrait être mieux, conseils pour les futurs étudiants…',
@@ -183,8 +183,8 @@ Lerna.addStrings({
     'ec.filNote': 'A selection of representative programmes. The full list is on the official website.',
     'ec.conditions': 'Entry requirements', 'ec.documents': 'Required documents', 'ec.deadlines': 'Deadlines', 'ec.process': 'Step-by-step process',
     'ec.official': 'Official website',
-    'ec.feeTitle': 'Tuition fees per year', 'ec.feeOk': 'Verified on the official website · {y}', 'ec.feeTodo': 'Not yet verified by LERNA',
-    'ec.feeTodoSub': 'LERNA only shows amounts verified on the school’s official website. For this school, verification is not finished: check the official page for the exact price of your programme.',
+    'ec.feeTitle': 'Tuition fees per year', 'ec.feeOk': 'Verified on the official website · {y}', 'ec.feeTodo': 'Ask the school',
+    'ec.feeTodoSub': 'LERNA only shows amounts published on the school’s official website. Here, ask the school: how much registration costs, how much one year of your programme costs, and whether there are other fees (exams, application). You can also check its official page.',
     'ec.feeLocal': 'Home student ({c})', 'ec.feeIntl': 'International student', 'ec.feeEU': 'EU / EEA student', 'ec.feeNonEU': 'Non-EU student (Africa…)',
     'ec.feeUnknown': 'Not published — ask the school', 'ec.feeByFil': 'By programme (published fees)', 'ec.feeAsk': 'Ask the school for the price',
     'ec.feeSource': 'See the official fees page', 'ec.feeOfficial': 'See fees on the official website', 'ec.filFee': 'Fees per year',
@@ -202,7 +202,7 @@ Lerna.addStrings({
     'ec.dossierTitle': 'Prepare your application with LERNA', 'ec.dossierOpen': 'Your application for this school', 'ec.dossierSub': 'Steps, documents, letter, interview, visa: we move forward together, a bit every day.',
     'ec.dossierStart': 'Start my application', 'ec.dossierGo': 'Continue my application →',
     'ec.lAssos': 'Clubs and societies', 'ec.lHousing': 'Student housing', 'ec.lFood': 'Food', 'ec.lTransport': 'Transport', 'ec.lSport': 'Sport and culture',
-    'ec.pending': 'Being verified',
+    'ec.pending': 'Ask the school',
     'ec.rCourses': 'Teaching quality', 'ec.rCampus': 'Campus life', 'ec.rValue': 'Value for money', 'ec.rJobs': 'Career outcomes',
     'ec.noReviews': 'No verified reviews yet', 'ec.noReviewsSub': 'Reviews are published after verification. Did you study here? Be the first to share your experience.',
     'ec.leave': 'Leave a review', 'ec.comment': 'Your experience', 'ec.commentPh': 'What you liked, what could be better, tips for future students…',
@@ -284,7 +284,7 @@ Lerna.addStrings({
   /* Frais d'une filière : tarif officiel publié, sinon on renvoie vers l'école (jamais de chiffre inventé) */
   function filFee(f) {
     var F = s.fees, lang = Lerna.lang;
-    if (!f.frais || !F) return '<span class="pending">' + t('ec.feeAsk') + '</span>';
+    if (!f.frais || !F || !s.frais_verifie) return '<span class="pending">' + t('ec.feeAsk') + '</span>';   // jamais d'estimation : seulement les tarifs publiés
     var local = userCountry && userCountry === s.pays;
     /* Étudiant étranger : jamais le tarif local à la place d'un tarif étranger inconnu */
     var r = local ? (f.frais.local || f.frais.etranger) : f.frais.etranger;

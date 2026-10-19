@@ -122,9 +122,9 @@
 
     // Budget — variable n°1
     var bs = ph('q17s', a.q17, lang);
-    /* Frais pas encore vérifiés sur le site officiel : on n'exclut pas l'école, on le dit franchement */
+    /* Frais non publiés sur le site officiel : on n'exclut pas l'école, on le dit franchement */
     if (fee === null || fee === undefined) {
-      add(4, 'Ses frais ne sont pas encore vérifiés par LERNA : confirme-les sur le site officiel avant de décider.', 'Its fees are not yet verified by LERNA: confirm them on the official website before deciding.');
+      add(4, 'Ses frais sont à demander à l’école : confirme-les avec elle avant de décider.', 'Ask the school for its fees: confirm them with the school before deciding.');
     } else if (fee <= max) {
       add(30, fee === 0 ? 'Pas de frais de scolarité : ça colle avec ton budget ' + bs + '.' : 'Ses frais (à partir de ≈ ' + money(fee, 'fr') + ' par an pour toi, selon la filière) entrent dans ton budget ' + bs + '.',
         fee === 0 ? 'No tuition fees: it fits your ' + bs + ' budget.' : 'Its fees (from ≈ ' + money(fee, 'en') + ' a year for you, depending on the programme) fit your ' + bs + ' budget.');

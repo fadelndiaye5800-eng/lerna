@@ -25,7 +25,6 @@
   .reco { padding: 30px; }
   .reco h2 { font-size: clamp(1.45rem, 4vw, 2rem); margin: 14px 0 12px; }
   .reco .lvl-b { display: inline-flex; align-items: center; gap: 5px; font-size: .76rem; font-weight: 800; border-radius: 99px; padding: 4px 11px; margin: -4px 0 12px; }
-  .reco .lvl-b.lerna { background: var(--orange); color: #fff; }
   .reco .lvl-b.off { background: #E8F3E9; color: #2E7D32; }
   .reco .meta-row .tag { background: var(--cream); border: 1.5px solid var(--cream-dark); font-weight: 600; }
   .compat { margin: 22px 0; }
@@ -113,7 +112,7 @@ Lerna.addStrings({
     'rs.why': 'Pourquoi LERNA te recommande ça :',
     'rs.strengths': 'Points forts',
     'rs.attention': 'Point à considérer',
-    'rs.seeSchool': 'Voir la fiche →', 'rs.lvlLerna': 'Vérifiée par LERNA', 'rs.lvlOff': 'Reconnue officiellement', 'rs.lvlState': 'Formation publiée par l’État',
+    'rs.seeSchool': 'Voir la fiche →', 'rs.lvlOff': 'Reconnue officiellement',
     'rs.search': 'Chercher cette école →',
     'rs.fav': 'Sauvegarder', 'rs.faved': 'Sauvegardée',
     'rs.lockTitle': 'Tes écoles {list} t’attendent',
@@ -161,7 +160,7 @@ Lerna.addStrings({
     'rs.why': 'Why LERNA recommends it:',
     'rs.strengths': 'Strengths',
     'rs.attention': 'Something to consider',
-    'rs.seeSchool': 'View profile →', 'rs.lvlLerna': 'Checked by LERNA', 'rs.lvlOff': 'Officially recognised', 'rs.lvlState': 'Programme listed by the State',
+    'rs.seeSchool': 'View profile →', 'rs.lvlOff': 'Officially recognised',
     'rs.search': 'Search this school →',
     'rs.fav': 'Save', 'rs.faved': 'Saved',
     'rs.lockTitle': 'Your schools {list} are waiting',
@@ -219,7 +218,7 @@ Lerna.addStrings({
     var en = Lerna.lang === 'en';
     var school = lernaOf(r);
     var f = school ? window.LERNA_FEE_FOR(school, Lerna.country()) : null;
-    if (f === null || f === undefined) return en ? 'Fees to confirm on the official website' : 'Frais à confirmer sur le site officiel';
+    if (f === null || f === undefined) return en ? 'Ask the school for the fees' : 'Frais à demander à l’école';
     if (f === 0) return t('common.free');
     return (en ? 'From ≈ ' : 'À partir de ≈ ') + Lerna.money(f) + (en ? ' / year · by programme' : ' / an · selon la filière');
   }
@@ -227,8 +226,8 @@ Lerna.addStrings({
   function refLink(r) { return r.ref && r.ref.k !== 'lerna' ? window.LERNA_RECO_LINK(r) : ''; }
   function levelBadge(r, school) {
     var k = r.niveau || (school ? 'lerna' : '');
-    if (k === 'lerna') return '<span class="lvl-b lerna">' + Lerna.icon('check', 'ic-sm') + esc(t('rs.lvlLerna')) + '</span>';
-    if (k === 'officiel' || k === 'etat') return '<span class="lvl-b off">' + Lerna.icon('check', 'ic-sm') + esc(t(k === 'etat' ? 'rs.lvlState' : 'rs.lvlOff')) + '</span>';
+    /* Une seule étiquette pour toutes les écoles ; la source est sur la fiche */
+    if (k === 'lerna' || k === 'officiel' || k === 'etat') return '<span class="lvl-b off">' + Lerna.icon('check', 'ic-sm') + esc(t('rs.lvlOff')) + '</span>';
     return '';
   }
   function recoCard(r, i) {

@@ -287,10 +287,11 @@ const byCountry = {};
 for (const r of final) if (/^[A-Z]{2}$/.test(r.p || '')) (byCountry[r.p] = byCountry[r.p] || []).push(r);   // une fiche sans pays n'est jamais publiée
 /* Nettoyage : doublons fusionnés, noms propres, lien vers les fiches complètes LERNA (voir nettoyage.mjs) */
 const LS = lernaSchools(path.resolve('.'));
-for (const cc of Object.keys(byCountry)) { const { rows, st } = nettoyerPays(byCountry[cc], LS[cc]); byCountry[cc] = rows; if (st.doublons || st.lerna) log('nettoyage', cc, JSON.stringify(st)); }
+for (const cc of Object.keys(byCountry)) { const { rows, st } = nettoyerPays(byCountry[cc], LS[cc]); byCountry[cc] = rows; if (st.doublons || st.lerna || st.retires) log('nettoyage', cc, JSON.stringify(st)); }
 for (const f of fs.readdirSync(OUT).filter((x) => /\.json$/.test(x) && !/^(index|rapport)\.json$/.test(x))) fs.unlinkSync(path.join(OUT, f));
 const countries = {};
 for (const [cc, rows] of Object.entries(byCountry)) {
+  if (!rows.length) continue;   // aucun établissement reconnu officiellement dans ce pays
   rows.sort((a, b) => (a.s === 'wikidata') - (b.s === 'wikidata') || a.n.localeCompare(b.n, 'fr'));
   rows.forEach((r) => delete r.p);
   fs.writeFileSync(path.join(OUT, cc + '.json'), JSON.stringify(rows));

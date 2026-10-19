@@ -1,9 +1,9 @@
 /* LERNA — moteur côté serveur pour l'analyse d'orientation (/api/analyze).
    Avant l'IA, il prépare une liste d'environ 40 établissements possibles pour CET élève :
-   1. les fiches vérifiées par LERNA (data-schools.js), triées par le moteur LERNA (engine.js) ;
+   1. les fiches complètes de LERNA (data-schools.js), triées par le moteur LERNA (engine.js) ;
    2. l'annuaire des établissements reconnus officiellement (assets/annuaire), selon le pays, la langue, le budget et le domaine ;
    3. les formations françaises publiées par le ministère de l'Enseignement supérieur (données ouvertes), si la France est possible.
-   Jamais d'établissement non vérifié (Wikidata) ni d'établissement visé par un avis officiel défavorable.
+   Seulement des établissements reconnus officiellement : jamais Wikidata, jamais d'établissement visé par un avis officiel défavorable.
    L'IA choisit ensuite ses recommandations UNIQUEMENT dans cette liste (code C1, C2…), puis on vérifie son choix. */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -139,7 +139,7 @@ function langFit(cc, L) {
 /* Note d'un établissement de l'annuaire pour ce profil (null = écarté) */
 function rowScore(r, ctx) {
   const x = r.x || {};
-  if (!r.n || r.s === 'wikidata' || x.lerna) return null;                       // non vérifié, ou déjà dans les fiches LERNA
+  if (!r.n || r.s === 'wikidata' || x.lerna) return null;                       // pas une liste officielle, ou déjà dans les fiches complètes
   if (x.warn || (x.also || []).some((o) => o.warn)) return null;               // avis officiel défavorable
   const hay = norm(r.n + ' ' + (r.a || ''));
   if (SKIP_NAME.test(hay) && !ctx.sectors.includes('education')) return null;
@@ -223,7 +223,7 @@ export async function buildCandidates(raw, lang, origin) {
     push({
       kind: 'lerna', name: s.nom, cc: s.pays, city: s.ville, type: s.type,
       line: s.nom + ' — ' + s.ville + ', ' + cname(s.pays) + ' · ' + (s.type === 'public' ? 'public' : s.type === 'private' ? 'privé' : 'en ligne') +
-        ' · FICHE VÉRIFIÉE PAR LERNA · domaines : ' + s.domaines.join(', ') + ' · langues : ' + s.langues.map((l) => LANG_FR[l] || l).join(', ') + (verified ? ' · frais vérifiés par LERNA : ' + r.frais : ' · frais : à confirmer'),
+        ' · FICHE COMPLÈTE · domaines : ' + s.domaines.join(', ') + ' · langues : ' + s.langues.map((l) => LANG_FR[l] || l).join(', ') + (verified ? ' · frais publiés sur le site officiel : ' + r.frais : ' · frais : à demander à l’école'),
       fix: { id: s.id, ref: { k: 'lerna', id: s.id }, niveau: 'lerna' }
     });
   }
@@ -256,11 +256,11 @@ export async function buildCandidates(raw, lang, origin) {
   }));
   picks.sort((a, b) => b.s - a.s).slice(0, CAP.annTotal).forEach(({ cc, r }) => {
     const x = r.x || {};
-    const fees = r.s === 'scorecard' && x.fo !== null && x.fo !== undefined ? ' · frais publiés (étudiant hors État) : ≈ ' + Math.round(x.fo) + ' $/an' : ' · frais : non vérifiés';
+    const fees = r.s === 'scorecard' && x.fo !== null && x.fo !== undefined ? ' · frais publiés (étudiant hors État) : ≈ ' + Math.round(x.fo) + ' $/an' : ' · frais : à demander à l’école';
     push({
       kind: 'ann', name: r.n, cc, city: r.v || '', type: r.t === 'public' ? 'public' : /^prive/.test(r.t || '') ? 'private' : '',
       line: r.n + ' — ' + [r.v, cname(cc)].filter(Boolean).join(', ') + (TYPE_FR[r.t] ? ' · ' + TYPE_FR[r.t] : '') + ' · ' + recLabel(r, idx) +
-        ' · langue principale du pays : ' + ((LANG_OF[cc] || '').split(' ').filter(Boolean).map((l) => LANG_FR[l] || l).join(' / ') || 'à vérifier') + fees + ' · filières : non vérifiées par LERNA',
+        ' · langue principale du pays : ' + ((LANG_OF[cc] || '').split(' ').filter(Boolean).map((l) => LANG_FR[l] || l).join(' / ') || 'à vérifier') + fees + ' · filières : à demander à l’école',
       fix: { ref: { k: 'ann', cc, id: r.i, n: r.n }, niveau: 'officiel' }
     });
   });
@@ -271,7 +271,7 @@ export async function buildCandidates(raw, lang, origin) {
     push({
       kind: 'fr', name: nm + ' — ' + f.etab_nom, cc: 'FR', city: f.commune || '', type: /^Public/.test(f.tc || '') ? 'public' : 'private',
       line: 'Formation « ' + nm + ' » — ' + f.etab_nom + ' — ' + (f.commune ? f.commune + ', ' : '') + 'France · ' + (/^Public/.test(f.tc || '') ? 'public' : 'privé') +
-        ' · formation publiée par l’État français (type : ' + join(f.tf) + ')' + (f.app ? ' · apprentissage possible' : '') + ' · frais : non vérifiés',
+        ' · formation publiée par l’État français (type : ' + join(f.tf) + ')' + (f.app ? ' · apprentissage possible' : '') + ' · frais : à demander à l’école',
       fix: { ref: { k: 'fr', gta: String(f.gta), uai: f.etab_uai || '' }, niveau: 'etat' }
     });
   }
@@ -295,7 +295,7 @@ export function bindRecos(result, cat, lang, count) {
     used.add(c.code);
     const typeTxt = c.type === 'public' ? (en ? 'Public' : 'Publique') : c.type === 'private' ? (en ? 'Private' : 'Privée') : c.type === 'online' ? (en ? 'Online' : 'En ligne') : '';   // statut inconnu : on ne devine pas
     const o = { ...r, nom: c.name, pays: cat.cname(c.cc), ville: c.city || r.ville, type: typeTxt, ...c.fix };
-    if (c.kind !== 'lerna') { o.frais = en ? 'Fees to confirm with the institution' : 'Frais à confirmer avec l’établissement'; o.frais_usd = null; }
+    if (c.kind !== 'lerna') { o.frais = en ? 'Ask the school for the fees' : 'Frais à demander à l’école'; o.frais_usd = null; }
     delete o.code;
     out.push(o);
   }

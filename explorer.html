@@ -5,10 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Explorer les écoles — LERNA</title>
 <meta name="lerna-title" content="ex.docTitle">
-<meta name="description" content="Explore des universités et écoles du monde entier : frais réels, filières, conditions d'admission, points forts et points de vigilance.">
+<meta name="description" content="Toutes les écoles et universités reconnues officiellement dans le monde, et les formations françaises de l’État : frais, filières, démarches et candidature suivie.">
 <meta name="theme-color" content="#FBF6EC">
 <meta property="og:title" content="Explorer les écoles — LERNA">
-<meta property="og:description" content="Des écoles du monde entier, avec leurs vrais coûts et leurs points de vigilance.">
+<meta property="og:description" content="Les écoles et universités reconnues officiellement, partout dans le monde.">
 <meta property="og:image" content="https://lerna-lilac.vercel.app/assets/icons/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="manifest" href="manifest.json">
@@ -20,13 +20,17 @@
 <script src="assets/js/boot.js"></script>
 <link rel="stylesheet" href="assets/css/lerna.css">
 <style>
-  .ex-head { padding: 44px 0 22px; }
+  .ex-head { padding: 40px 0 18px; }
   .ex-head h1 { font-size: clamp(2rem, 5vw, 3rem); }
   .ex-head p { color: var(--muted); margin-top: 8px; }
-  .search { position: relative; margin-top: 22px; }
+  /* Les deux parties de l'Explorer */
+  .seg { display: flex; gap: 4px; background: var(--cream-dark); border-radius: 16px; padding: 4px; margin-top: 20px; max-width: 520px; }
+  .seg button { flex: 1; border-radius: 12px; padding: 11px 10px; font-weight: 800; font-size: .9rem; color: var(--muted); line-height: 1.2; }
+  .seg button.on { background: var(--white); color: var(--brown); box-shadow: 0 2px 8px rgba(61,31,0,.12); }
+  .search { position: relative; margin-top: 16px; }
   .search .input { padding: 17px 56px 17px 20px; font-size: 1.05rem; border-radius: 18px; }
   .search .ic { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--brown); width: 22px; height: 22px; }
-  .filters { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 16px 0 6px; -webkit-overflow-scrolling: touch; align-items: center; }
+  .filters { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 14px 0 6px; -webkit-overflow-scrolling: touch; align-items: center; }
   .filters::-webkit-scrollbar { display: none; }
   .fsel {
     flex-shrink: 0;
@@ -36,65 +40,40 @@
     -webkit-appearance: none; appearance: none; cursor: pointer;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%233D1F00' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat; background-position: right 12px center;
-    max-width: 220px;
+    max-width: 240px;
   }
   .fsel.on { border-color: var(--orange); background-color: var(--orange-soft); color: var(--brown); }
   .fsel:focus { outline: none; border-color: var(--orange); }
+  .fsel.btnf { padding-right: 16px; background-image: none; }
   .reset { flex-shrink: 0; color: var(--orange); font-weight: 700; font-size: .88rem; padding: 10px 6px; white-space: nowrap; }
-  .count-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 14px 0 18px; color: var(--muted); font-size: .9rem; flex-wrap: wrap; }
+  .count-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 12px 0 16px; color: var(--muted); font-size: .9rem; flex-wrap: wrap; }
   .sort { border: none; background: transparent; font-weight: 600; color: var(--brown); font-size: .88rem; cursor: pointer; }
+  .note-line { font-size: .84rem; color: var(--muted); background: var(--cream); border-radius: 14px; padding: 10px 14px; margin: 0 0 14px; line-height: 1.5; }
+  .fr-info { background: var(--orange-soft); border-radius: 18px; padding: 14px 16px; margin: 4px 0 6px; line-height: 1.55; font-size: .92rem; color: var(--brown); }
+  .fr-info a { color: var(--orange-deep, #B84D06); font-weight: 800; }
 
-  .sgrid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-  @media (min-width: 768px) { .sgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .scard { padding: 0; display: flex; flex-direction: column; }
-  .scard-img {
-    position: relative; height: 128px;
-    background: var(--cream-dark);
-    display: flex; align-items: flex-end; padding: 16px 20px;
-  }
-  .scard-img .ini { font-family: var(--font-head); font-weight: 800; font-size: 2.6rem; color: rgba(255, 255, 255, 0.75); letter-spacing: -0.02em; line-height: 1; }
-  .scard-img .flg { position: absolute; top: 10px; left: 12px; width: 40px; height: 40px; }
-  .scard-fav { position: absolute; top: 12px; right: 12px; width: 40px; height: 40px; border-radius: 50%; background: rgba(250, 243, 224, 0.92); display: flex; align-items: center; justify-content: center; color: var(--c-brown); }
-  .scard-fav.on { color: var(--orange); }
-  .scard-fav.on .ic { fill: var(--orange); }
-  .scard-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
-  .scard h3 { font-size: 1.22rem; }
-  .scard .loc { font-size: .88rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
-  .scard .loc .ic { width: 15px; height: 15px; color: var(--orange); }
-  .scard .doms { display: flex; flex-wrap: wrap; gap: 6px; }
-  .scard .doms .tag { background: var(--cream-dark); color: var(--brown); font-size: .72rem; padding: 3px 10px; }
-  .fee-row { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: auto; padding-top: 6px; }
-  .fee { font-family: var(--font-head); font-weight: 800; font-size: 1.35rem; color: var(--brown); }
-  .fee small { font-family: var(--font-body); font-size: .76rem; font-weight: 600; color: var(--muted); }
-  .rating { font-size: .82rem; color: var(--muted); display: flex; align-items: center; gap: 6px; }
-  .pager { display: flex; justify-content: center; gap: 8px; margin: 34px 0 10px; flex-wrap: wrap; }
-  .pager button { min-width: 44px; height: 44px; border-radius: 12px; background: var(--cream-dark); font-weight: 700; color: var(--brown); padding: 0 12px; }
-  .pager button.active { background: var(--orange); color: #fff; }
-  .pager button:disabled { opacity: .4; cursor: default; }
-  .sec-h { font-size: 1.15rem; margin: 6px 0 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-  .sec-h .n { font-family: var(--font-body); font-size: .8rem; font-weight: 700; color: var(--muted); background: var(--cream-dark); border-radius: 99px; padding: 3px 10px; }
-  #bWrap { margin-top: 34px; }
-  .sec-sub { color: var(--muted); font-size: .88rem; margin: -6px 0 6px; line-height: 1.55; }
-  .scard .vbadge { display: inline-flex; align-items: center; gap: 5px; font-size: .72rem; font-weight: 800; border-radius: 99px; padding: 3px 10px; background: var(--orange); color: #fff; }
-  .fsel.cc { max-width: 240px; }
-  .psup-note { display: flex; gap: 10px; align-items: flex-start; font-size: .86rem; color: var(--muted); margin-top: 12px; }
-  .pcard { padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
-  .pcard h3 { font-size: 1.05rem; line-height: 1.3; }
-  .pcard .etab { font-weight: 700; color: var(--brown); font-size: .92rem; }
-  .pcard .loc { font-size: .85rem; color: var(--muted); }
-  .pcard .badges { display: flex; flex-wrap: wrap; gap: 6px; }
-  .pcard .badges span { font-size: .72rem; font-weight: 700; border-radius: 99px; padding: 3px 10px; background: var(--cream-dark); color: var(--brown); }
-  .pcard .badges .pub { background: rgba(46, 125, 50, .12); color: #2E7D32; }
-  .pcard .badges .ctr { background: rgba(232, 100, 12, .12); color: var(--orange-deep, #B84D06); }
-  .pcard .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 6px; }
-  .pcard .badges .wd { background: rgba(120, 120, 120, .14); color: var(--muted); }
-  .pcard .badges .bad { background: rgba(198, 40, 40, .14); color: #C62828; }
-  .pcard .rec.bad { color: #C62828; font-weight: 600; }
-  .pcard .facts { display: grid; gap: 4px; font-size: .86rem; }
-  .pcard .facts b { color: var(--brown); }
-  .pcard .rec { font-size: .82rem; color: var(--muted); }
-  .pcard h3 .plink { color: inherit; text-decoration: none; }
-  .pcard h3 .plink:hover { color: var(--orange); }
+  /* Une seule carte pour toutes les écoles */
+  .ugrid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 768px) { .ugrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .ucard { padding: 18px 18px 16px; display: flex; flex-direction: column; gap: 10px; }
+  .u-top { display: flex; gap: 12px; align-items: flex-start; }
+  .u-av { width: 52px; height: 52px; border-radius: 14px; background: var(--panel, var(--cream-dark)); color: var(--on-panel, var(--brown)); font-family: var(--font-head); font-weight: 800; font-size: .95rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; position: relative; text-align: center; line-height: 1; padding: 4px; }
+  .u-av.sm { font-size: .74rem; letter-spacing: -.02em; }
+  .u-av .flg { position: absolute; right: -6px; bottom: -6px; width: 22px; height: 22px; }
+  .u-id { flex: 1; min-width: 0; }
+  .u-id h3 { font-size: 1.05rem; line-height: 1.3; }
+  .u-id h3 a { color: inherit; text-decoration: none; }
+  .u-id h3 a:hover { color: var(--orange); }
+  .u-id .loc { font-size: .85rem; color: var(--muted); margin-top: 3px; }
+  .u-fav { width: 38px; height: 38px; border-radius: 50%; background: var(--cream); display: flex; align-items: center; justify-content: center; color: var(--muted); flex-shrink: 0; }
+  .u-fav.on { color: var(--orange); }
+  .u-fav.on .ic { fill: var(--orange); }
+  .u-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .u-tags span { font-size: .74rem; font-weight: 700; border-radius: 99px; padding: 3px 10px; background: var(--cream-dark); color: var(--brown); }
+  .u-tags .ok { background: rgba(46, 125, 50, .12); color: #2E7D32; }
+  .u-tags .fee { background: var(--orange-soft); color: var(--orange-deep, #B84D06); }
+  .u-src { font-size: .8rem; color: var(--muted); line-height: 1.45; }
+  .ucard .acts { margin-top: auto; padding-top: 2px; }
   .more-wrap { text-align: center; margin: 26px 0 0; }
   .disclaimer { font-size: .8rem; color: var(--muted); text-align: center; margin: 26px auto 60px; max-width: 560px; }
 </style>
@@ -105,19 +84,25 @@
 <main>
   <section class="ex-head">
     <div class="container">
-      <span class="eyebrow" data-i18n="ex.eyebrow">Base d'établissements</span>
+      <span class="eyebrow" data-i18n="ex.eyebrow">Écoles et universités</span>
       <h1 data-i18n="ex.title">Explorer les écoles</h1>
-      <p data-i18n="ex.sub">Partout dans le monde, avec des coûts réels dans ta devise et leurs points de vigilance — LERNA ne cache rien.</p>
+      <p data-i18n="ex.sub">Toutes les écoles et universités reconnues officiellement, partout dans le monde.</p>
+      <div class="seg" id="seg" role="tablist">
+        <button type="button" role="tab" data-vue="ecoles" class="on" aria-selected="true" data-i18n="ex.tabEcoles">Écoles et universités</button>
+        <button type="button" role="tab" data-vue="france" aria-selected="false" data-i18n="ex.tabFrance">Formations en France</button>
+      </div>
       <div class="search">
-        <label class="sr-only" for="q" data-i18n="ex.searchPh">Recherche une école, une ville, un pays…</label>
-        <input class="input" id="q" type="search" autocomplete="off" data-i18n-ph="ex.searchPh" placeholder="Recherche une école, une ville, un pays…">
+        <label class="sr-only" for="q" id="qLbl">Recherche</label>
+        <input class="input" id="q" type="search" autocomplete="off">
         <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       </div>
       <div class="filters" id="filters" role="group" aria-label="Filtres"></div>
+      <div class="filters" id="frFilters" role="group" aria-label="Filtres France" hidden></div>
     </div>
   </section>
 
   <section class="container">
+    <div id="frInfo" class="fr-info" hidden></div>
     <div class="count-row">
       <span id="count" aria-live="polite"></span>
       <label id="sortWrap"><span class="sr-only" data-i18n="ex.sort">Trier</span>
@@ -128,158 +113,234 @@
         </select>
       </label>
     </div>
-    <h2 class="sec-h" id="hA"></h2>
-    <div class="sgrid" id="grid"></div>
-    <nav class="pager" id="pager" aria-label="Pagination"></nav>
-    <div id="bWrap" hidden>
-      <h2 class="sec-h" id="hB"></h2>
-      <p class="sec-sub" id="bSub"></p>
-      <div class="filters" id="frFilters" role="group" aria-label="Filtres France" hidden></div>
-      <div class="sgrid" id="bGrid"></div>
-      <div class="more-wrap" id="bMore" hidden><button type="button" class="btn btn-ghost" id="bMoreBtn" data-i18n="ex.pMore">Voir plus</button></div>
-      <div id="bHidden"></div>
-    </div>
-    <p class="disclaimer" id="fxNote">Frais indicatifs en USD — vérifie toujours sur le site officiel de l’établissement.</p>
+    <p class="note-line" id="note" hidden></p>
+    <div class="ugrid" id="grid"></div>
+    <div class="more-wrap" id="more" hidden><button type="button" class="btn btn-ghost" id="moreBtn" data-i18n="ex.more">Voir plus</button></div>
+    <p class="disclaimer" id="fxNote"></p>
     <p class="disclaimer" id="credit"></p>
   </section>
 </main>
-
 <div id="lerna-footer"></div>
 
 <script src="assets/js/core.js"></script>
 <script src="assets/js/questions.js"></script>
 <script src="assets/js/data-schools.js"></script>
+<script src="assets/js/guides.js"></script>
 <script>
 Lerna.addStrings({
   fr: {
     'ex.docTitle': 'Explorer les écoles — LERNA',
-    'ex.eyebrow': "Base d'établissements", 'ex.title': 'Explorer les écoles',
-    'ex.sub': 'Partout dans le monde, avec des coûts réels dans ta devise et leurs points de vigilance — LERNA ne cache rien.',
-    'ex.searchPh': 'Recherche une école, une ville, un pays…',
-    'ex.fCountry': 'Pays', 'ex.fBudget': 'Budget', 'ex.fDomain': 'Domaine', 'ex.fType': 'Type', 'ex.fDuration': 'Durée', 'ex.fLang': 'Langue',
+    'ex.eyebrow': 'Écoles et universités', 'ex.title': 'Explorer les écoles',
+    'ex.sub': 'Toutes les écoles et universités reconnues officiellement, partout dans le monde.',
+    'ex.tabEcoles': 'Écoles et universités', 'ex.tabFrance': 'Formations en France',
+    'ex.searchPh': 'École, ville, pays ou filière…', 'ex.searchPhFr': 'Formation ou ville…',
+    'ex.fCountry': 'Pays', 'ex.allCountries': 'Tous les pays', 'ex.fBudget': 'Budget', 'ex.fDomain': 'Domaine', 'ex.fType': 'Type', 'ex.fDuration': 'Durée', 'ex.fLang': 'Langue',
     'ex.b1': 'Moins de 500 $', 'ex.b2': '500 – 2 000 $', 'ex.b3': '2 000 – 5 000 $', 'ex.b4': '5 000 – 15 000 $', 'ex.b5': 'Plus de 15 000 $',
     'ex.d2': '2 ans', 'ex.d3': '3 ans', 'ex.d4': '4 ans', 'ex.d5': '5 ans', 'ex.d6': '6 ans et +',
     'ex.lFr': 'Français', 'ex.lEn': 'Anglais', 'ex.lAr': 'Arabe', 'ex.lOther': 'Autre',
     'ex.reset': 'Réinitialiser',
-    'ex.count': '{n} établissement(s)', 'ex.none': 'Aucune école ne correspond à ces filtres.', 'ex.noneSub': 'Essaie d’élargir le budget ou de retirer un filtre.',
+    'ex.countN': '{n} écoles et universités', 'ex.countNc': '{n} écoles et universités — {c}',
+    'ex.none': 'Aucune école ne correspond à ta recherche.', 'ex.noneSub': 'Essaie un autre mot, un autre pays, ou retire un filtre.',
     'ex.sort': 'Trier', 'ex.sortFee': 'Frais croissants', 'ex.sortName': 'Nom A → Z', 'ex.sortIntl': 'Reconnaissance internationale',
-    'ex.from': 'Dès', 'ex.feeTodo': 'Frais à confirmer sur le site officiel', 'ex.forYou': '/ an pour toi', 'ex.intl': '/ an (étranger)', 'ex.see': 'Voir la fiche →', 'ex.fav': 'Ajouter aux favoris',
-    'ex.prev': 'Page précédente', 'ex.next': 'Page suivante',
-    'ex.pAllTf': 'Type de formation', 'ex.pAllReg': 'Région', 'ex.pApp': 'En apprentissage',
-    'ex.pNone': 'Aucune formation trouvée.', 'ex.pNoneSub': 'Essaie un mot plus simple (ex. « droit », « commerce ») ou retire un filtre.', 'ex.pMore': 'Voir plus de formations',
-    'ex.pPub': 'Public', 'ex.pPriv': 'Privé',
-    'ex.mHidden': '{n} autre(s) établissement(s) dans l’annuaire public de ce pays, dont la reconnaissance officielle n’est pas vérifiée.', 'ex.mShowAll': 'Les afficher →', 'ex.mErr': 'L’annuaire n’a pas pu être chargé. Réessaie dans un instant.',
-    'ex.mNone': 'Aucun établissement trouvé.',
-    'ex.rOff': 'Inscrite sur la liste officielle de : {a} — « {l} »',
-    'ex.fAcc': 'Statut officiel : <b>{s}</b>', 'ex.fFrais': 'Frais (liste officielle)', 'ex.fYear': 'Créée en <b>{y}</b>', 'ex.lList': 'Voir la liste officielle',
-    'ex.rDeqar': 'Évaluée par une agence qualité enregistrée en Europe (base DEQAR)',
-    'ex.rScore': 'Accréditée par {a}, accréditeur reconnu par le Département de l’Éducation des États-Unis',
-    'ex.rOfs': 'Inscrite au registre officiel de l’Office for Students (Angleterre)',
-    'ex.rCricos': 'Autorisée par le gouvernement australien à accueillir des étudiants étrangers (registre CRICOS)',
-    'ex.rWd': 'Annuaire public (Wikidata) : reconnaissance officielle NON vérifiée par LERNA. Demande les numéros d’autorisation et vérifie auprès du ministère avant de payer.',
-    'ex.bOff': 'Reconnue officiellement', 'ex.bBad': 'Avis défavorable', 'ex.rBad': 'Décision officielle DÉFAVORABLE publiée par : {a} — « {l} ». Ne paie rien sans une autorisation écrite et récente.', 'ex.bWd': 'À vérifier', 'ex.bPub': 'Public', 'ex.bPrivNl': 'Privé à but non lucratif', 'ex.bPrivL': 'Privé à but lucratif', 'ex.bPriv': 'Privé',
-    'ex.fUs': 'Frais de scolarité : <b>{f}</b> par an pour un étudiant étranger (tarif hors État)', 'ex.fUsCost': 'Coût moyen d’une année complète (frais, logement, vie) : <b>{f}</b>',
-    'ex.fAdm': 'Taux d’admission : <b>{p} %</b>', 'ex.fUg': 'Étudiants en licence : <b>{n}</b>',
-    'ex.fAuB1': 'Licence (bachelor) : coût total déclaré <b>{a}</b>', 'ex.fAuM1': 'Master : coût total déclaré <b>{a}</b>',
-    'ex.fAuB': 'Licence (bachelor) : coût total déclaré de <b>{a}</b> à <b>{b}</b> selon la formation', 'ex.fAuM': 'Master : coût total déclaré de <b>{a}</b> à <b>{b}</b> selon la formation',
-    'ex.fOfsDap': 'Délivre ses propres diplômes : <b>{d}</b>', 'ex.dapTaught': 'licence et master', 'ex.dapResearch': 'jusqu’au doctorat',
-    'ex.fSrc': 'Montants publiés par la source officielle ; vérifie le tarif de ta formation sur le site de l’école.',
-    'ex.lSite': 'Site officiel', 'ex.lSrc': 'Voir dans le registre', 'ex.lWd': 'Fiche Wikidata',
-    'ex.pCtr': 'Privé sous contrat avec l’État', 'ex.pAppB': 'Apprentissage',
-    'ex.allCountries': 'Tous les pays', 'ex.offOnly': 'Reconnues officiellement', 'ex.bLerna': 'Vérifiée par LERNA',
-    'ex.secLerna': 'Fiches complètes vérifiées par LERNA', 'ex.countAll': '{n} fiches complètes dans le monde',
-    'ex.noneLerna': 'Pas encore de fiche complète LERNA pour ce pays', 'ex.noneLernaSub': 'Les établissements reconnus de ce pays sont juste en dessous.',
-    'ex.secOthers': 'Autres établissements reconnus — {c}', 'ex.secOthersAll': 'Autres établissements reconnus — tous les pays', 'ex.noneLernaQ': 'Pas encore de fiche complète LERNA pour cette recherche. Les établissements reconnus des listes officielles sont juste en dessous.', 'ex.subAll': 'Recherche dans les listes officielles de tous les pays. Les établissements non vérifiés n’y sont pas : choisis un pays pour les voir aussi.',
-    'ex.othersFiltered': 'Les autres établissements n’ont pas encore de frais, de durée ni de filières vérifiés.', 'ex.othersFilteredSub': 'Retire les filtres Budget, Domaine, Durée ou Langue pour les voir.',
-    'ex.subWorld': 'Listes officielles des ministères et des agences de reconnaissance. Ouvre une fiche pour voir ce qui est vérifié et ce qui reste à compléter.',
-    'ex.subFR': 'Formations référencées par l’État, publiées en données ouvertes par le ministère de l’Enseignement supérieur (session {y}), regroupées par établissement.',
-    'ex.noReg': 'Pas encore de liste officielle ouverte pour ce pays dans LERNA', 'ex.noRegSub': 'Si une école t’intéresse, demande-lui ses numéros d’autorisation et vérifie-les auprès du ministère avant de payer.',
-    'ex.mNoneOff2': 'Aucun établissement d’une liste officielle ne correspond. Il en reste dans l’annuaire public, non vérifié.',
-    'ex.alsoN': '(+ {n} autre(s) liste(s) officielle(s))', 'ex.bState': 'Reconnue par l’État', 'ex.frForm': '{n} formation(s)', 'ex.frCount': '{n} formations',
-    'ex.frErr': 'Les données officielles de la France ne répondent pas pour le moment. Réessaie dans un instant.',
-    'ex.credit': 'Sources : listes officielles des ministères et agences nationales (citées sur chaque fiche), CAMES, DEQAR — EQAR (ODC-PDDL), College Scorecard — U.S. Department of Education, Office for Students (OGL v3.0), CRICOS — Commonwealth of Australia (CC BY 2.5 AU), ministère de l’Enseignement supérieur français (Licence Ouverte 2.0), Wikidata (CC0). Mise à jour chaque mois — dernière : {d}. LERNA peut se tromper : en cas de doute, la liste officielle fait foi.'
+    'ex.from': 'Dès {f} / an', 'ex.see': 'Voir la fiche →', 'ex.fav': 'Ajouter aux favoris', 'ex.more': 'Voir plus',
+    'ex.ok': '✓ Reconnue officiellement', 'ex.bPub': 'Public', 'ex.bPriv': 'Privé', 'ex.bOnline': 'En ligne',
+    'ex.detailNote': 'Budget, domaine, durée et langue : seules les écoles dont LERNA connaît ces informations sont affichées.',
+    'ex.src': 'Source : {s}',
+    'ex.sDeqar': 'agence qualité européenne enregistrée (DEQAR)', 'ex.sScore': 'accréditeur reconnu aux États-Unis', 'ex.sOfs': 'Office for Students (Angleterre)', 'ex.sCricos': 'registre CRICOS (Australie)',
+    'ex.mErr': 'La liste n’a pas pu être chargée. Réessaie dans un instant.',
+    'ex.pAllTf': 'Type de formation', 'ex.pAllReg': 'Région', 'ex.pApp': 'En apprentissage', 'ex.pPub': 'Public', 'ex.pPriv': 'Privé', 'ex.pCtr': 'Privé sous contrat avec l’État', 'ex.pAppB': 'Apprentissage',
+    'ex.pNone': 'Aucune formation trouvée.', 'ex.pNoneSub': 'Essaie un mot plus simple (ex. « droit », « commerce ») ou retire un filtre.',
+    'ex.frForm': '{n} formation(s)', 'ex.frCount': '{n} formations en France', 'ex.frErr': 'Les données officielles de la France ne répondent pas pour le moment. Réessaie dans un instant.',
+    'ex.frInfo': '<strong>Pour toi :</strong> ta candidature en France passe par <strong>{g}</strong>. Toutes tes formations françaises vont dans un seul dossier LERNA : ouvre la fiche d’une formation et appuie sur « Préparer ma candidature ».',
+    'ex.frDossier': 'Ouvrir ma candidature en France ({n} vœu(x)) →',
+    'ex.fxNote': 'Frais indicatifs en USD — vérifie toujours le tarif de ta formation auprès de l’établissement.',
+    'ex.credit': 'Sources : listes officielles des ministères et agences nationales (citées sur chaque fiche), CAMES, DEQAR — EQAR (ODC-PDDL), College Scorecard — U.S. Department of Education, Office for Students (OGL v3.0), CRICOS — Commonwealth of Australia (CC BY 2.5 AU), ministère de l’Enseignement supérieur français (Licence Ouverte 2.0). Mise à jour chaque mois — dernière : {d}. LERNA peut se tromper : en cas de doute, la liste officielle fait foi.'
   },
   en: {
     'ex.docTitle': 'Explore schools — LERNA',
-    'ex.eyebrow': 'Institution database', 'ex.title': 'Explore schools',
-    'ex.sub': 'All over the world, with real costs in your currency and points to consider — LERNA hides nothing.',
-    'ex.searchPh': 'Search a school, a city, a country…',
-    'ex.fCountry': 'Country', 'ex.fBudget': 'Budget', 'ex.fDomain': 'Field', 'ex.fType': 'Type', 'ex.fDuration': 'Length', 'ex.fLang': 'Language',
+    'ex.eyebrow': 'Schools and universities', 'ex.title': 'Explore schools',
+    'ex.sub': 'Every officially recognised school and university, all over the world.',
+    'ex.tabEcoles': 'Schools and universities', 'ex.tabFrance': 'Programmes in France',
+    'ex.searchPh': 'School, city, country or field…', 'ex.searchPhFr': 'Programme or city…',
+    'ex.fCountry': 'Country', 'ex.allCountries': 'All countries', 'ex.fBudget': 'Budget', 'ex.fDomain': 'Field', 'ex.fType': 'Type', 'ex.fDuration': 'Length', 'ex.fLang': 'Language',
     'ex.b1': 'Under $500', 'ex.b2': '$500 – 2,000', 'ex.b3': '$2,000 – 5,000', 'ex.b4': '$5,000 – 15,000', 'ex.b5': 'Over $15,000',
     'ex.d2': '2 years', 'ex.d3': '3 years', 'ex.d4': '4 years', 'ex.d5': '5 years', 'ex.d6': '6+ years',
     'ex.lFr': 'French', 'ex.lEn': 'English', 'ex.lAr': 'Arabic', 'ex.lOther': 'Other',
     'ex.reset': 'Reset',
-    'ex.count': '{n} institution(s)', 'ex.none': 'No school matches these filters.', 'ex.noneSub': 'Try widening the budget or removing a filter.',
+    'ex.countN': '{n} schools and universities', 'ex.countNc': '{n} schools and universities — {c}',
+    'ex.none': 'No school matches your search.', 'ex.noneSub': 'Try another word, another country, or remove a filter.',
     'ex.sort': 'Sort', 'ex.sortFee': 'Lowest fees', 'ex.sortName': 'Name A → Z', 'ex.sortIntl': 'International recognition',
-    'ex.from': 'From', 'ex.feeTodo': 'Fees to confirm on the official website', 'ex.forYou': '/ year for you', 'ex.intl': '/ year (international)', 'ex.see': 'View profile →', 'ex.fav': 'Add to favourites',
-    'ex.prev': 'Previous page', 'ex.next': 'Next page',
-    'ex.pAllTf': 'Programme type', 'ex.pAllReg': 'Region', 'ex.pApp': 'Work-study',
-    'ex.pNone': 'No programme found.', 'ex.pNoneSub': 'Try a simpler word (e.g. “law”, “business”) or remove a filter.', 'ex.pMore': 'See more programmes',
-    'ex.pPub': 'Public', 'ex.pPriv': 'Private',
-    'ex.mHidden': '{n} more institution(s) in this country’s public directory, with unverified official recognition.', 'ex.mShowAll': 'Show them →', 'ex.mErr': 'The directory could not be loaded. Try again in a moment.',
-    'ex.mNone': 'No institution found.',
-    'ex.rOff': 'Listed on the official list of: {a} — “{l}”',
-    'ex.fAcc': 'Official status: <b>{s}</b>', 'ex.fFrais': 'Fees (official list)', 'ex.fYear': 'Founded in <b>{y}</b>', 'ex.lList': 'See the official list',
-    'ex.rDeqar': 'Reviewed by a registered European quality-assurance agency (DEQAR database)',
-    'ex.rScore': 'Accredited by {a}, an accreditor recognised by the U.S. Department of Education',
-    'ex.rOfs': 'Listed on the official Office for Students register (England)',
-    'ex.rCricos': 'Authorised by the Australian Government to enrol international students (CRICOS register)',
-    'ex.rWd': 'Public directory (Wikidata): official recognition NOT checked by LERNA. Ask for authorisation numbers and check with the ministry before paying.',
-    'ex.bOff': 'Officially recognised', 'ex.bBad': 'Unfavourable decision', 'ex.rBad': 'UNFAVOURABLE official decision published by: {a} — “{l}”. Do not pay anything without a recent written authorisation.', 'ex.bWd': 'To be checked', 'ex.bPub': 'Public', 'ex.bPrivNl': 'Private non-profit', 'ex.bPrivL': 'Private for-profit', 'ex.bPriv': 'Private',
-    'ex.fUs': 'Tuition: <b>{f}</b> a year for an international student (out-of-state rate)', 'ex.fUsCost': 'Average cost of a full year (fees, housing, living): <b>{f}</b>',
-    'ex.fAdm': 'Admission rate: <b>{p}%</b>', 'ex.fUg': 'Undergraduate students: <b>{n}</b>',
-    'ex.fAuB1': 'Bachelor: declared total cost <b>{a}</b>', 'ex.fAuM1': 'Master: declared total cost <b>{a}</b>',
-    'ex.fAuB': 'Bachelor: declared total cost from <b>{a}</b> to <b>{b}</b> depending on the programme', 'ex.fAuM': 'Master: declared total cost from <b>{a}</b> to <b>{b}</b> depending on the programme',
-    'ex.fOfsDap': 'Awards its own degrees: <b>{d}</b>', 'ex.dapTaught': 'bachelor’s and master’s', 'ex.dapResearch': 'up to doctorate',
-    'ex.fSrc': 'Amounts published by the official source; check your programme’s fee on the school’s website.',
-    'ex.lSite': 'Official website', 'ex.lSrc': 'See in the register', 'ex.lWd': 'Wikidata record',
-    'ex.pCtr': 'Private, under contract with the State', 'ex.pAppB': 'Work-study',
-    'ex.allCountries': 'All countries', 'ex.offOnly': 'Officially recognised', 'ex.bLerna': 'Checked by LERNA',
-    'ex.secLerna': 'Full profiles checked by LERNA', 'ex.countAll': '{n} full profiles worldwide',
-    'ex.noneLerna': 'No full LERNA profile for this country yet', 'ex.noneLernaSub': 'This country’s recognised institutions are listed just below.',
-    'ex.secOthers': 'Other recognised institutions — {c}', 'ex.secOthersAll': 'Other recognised institutions — all countries', 'ex.noneLernaQ': 'No full LERNA profile for this search yet. Recognised institutions from the official lists are just below.', 'ex.subAll': 'Search across the official lists of every country. Unverified institutions are not included: pick a country to see them too.',
-    'ex.othersFiltered': 'The other institutions do not have checked fees, length or programmes yet.', 'ex.othersFilteredSub': 'Remove the Budget, Field, Length or Language filters to see them.',
-    'ex.subWorld': 'Official lists from ministries and recognition agencies. Open a profile to see what is checked and what is still missing.',
-    'ex.subFR': 'Programmes listed by the State, published as open data by the French Ministry of Higher Education ({y} session), grouped by institution.',
-    'ex.noReg': 'LERNA has no open official list for this country yet', 'ex.noRegSub': 'If a school interests you, ask for its authorisation numbers and check them with the ministry before paying.',
-    'ex.mNoneOff2': 'No institution from an official list matches. Some remain in the public directory, unverified.',
-    'ex.alsoN': '(+ {n} other official list(s))', 'ex.bState': 'Recognised by the State', 'ex.frForm': '{n} programme(s)', 'ex.frCount': '{n} programmes',
-    'ex.frErr': 'France’s official data is not responding right now. Try again in a moment.',
-    'ex.credit': 'Sources: official lists from national ministries and agencies (cited on each profile), CAMES, DEQAR — EQAR (ODC-PDDL), College Scorecard — U.S. Department of Education, Office for Students (OGL v3.0), CRICOS — Commonwealth of Australia (CC BY 2.5 AU), French Ministry of Higher Education (Licence Ouverte 2.0), Wikidata (CC0). Updated every month — last: {d}. LERNA can be wrong: if in doubt, the official list prevails.'
+    'ex.from': 'From {f} / year', 'ex.see': 'View profile →', 'ex.fav': 'Add to favourites', 'ex.more': 'See more',
+    'ex.ok': '✓ Officially recognised', 'ex.bPub': 'Public', 'ex.bPriv': 'Private', 'ex.bOnline': 'Online',
+    'ex.detailNote': 'Budget, field, length and language: only schools for which LERNA has this information are shown.',
+    'ex.src': 'Source: {s}',
+    'ex.sDeqar': 'registered European quality agency (DEQAR)', 'ex.sScore': 'accreditor recognised in the United States', 'ex.sOfs': 'Office for Students (England)', 'ex.sCricos': 'CRICOS register (Australia)',
+    'ex.mErr': 'The list could not be loaded. Try again in a moment.',
+    'ex.pAllTf': 'Programme type', 'ex.pAllReg': 'Region', 'ex.pApp': 'Work-study', 'ex.pPub': 'Public', 'ex.pPriv': 'Private', 'ex.pCtr': 'Private, under contract with the State', 'ex.pAppB': 'Work-study',
+    'ex.pNone': 'No programme found.', 'ex.pNoneSub': 'Try a simpler word (e.g. “law”, “business”) or remove a filter.',
+    'ex.frForm': '{n} programme(s)', 'ex.frCount': '{n} programmes in France', 'ex.frErr': 'France’s official data is not responding right now. Try again in a moment.',
+    'ex.frInfo': '<strong>For you:</strong> applying in France goes through <strong>{g}</strong>. All your French programmes go into one LERNA application: open a programme and tap “Prepare my application”.',
+    'ex.frDossier': 'Open my application in France ({n} choice(s)) →',
+    'ex.fxNote': 'Indicative fees in USD — always check your programme’s fee with the institution.',
+    'ex.credit': 'Sources: official lists from national ministries and agencies (cited on each profile), CAMES, DEQAR — EQAR (ODC-PDDL), College Scorecard — U.S. Department of Education, Office for Students (OGL v3.0), CRICOS — Commonwealth of Australia (CC BY 2.5 AU), French Ministry of Higher Education (Licence Ouverte 2.0). Updated every month — last: {d}. LERNA can be wrong: if in doubt, the official list prevails.'
   }
 });
 
 (function () {
-  var S = window.LERNA_SCHOOLS, PER = 8;
+  var t = Lerna.t, esc = Lerna.esc, L = Lerna.L;
   var $ = function (id) { return document.getElementById(id); };
-  var t = Lerna.t, esc = Lerna.esc;
-  var profile = Lerna.store.get('lerna_profile', null);
-  var userCountry = profile && profile.answers ? profile.answers.q4 : null;
-  var srcP = Lerna.param('src');
-  var st = { q: Lerna.param('q') || '', pays: '', budget: '', dom: Lerna.param('domaine') || '', type: '', duree: '', lang: '', sort: 'fee', page: 1, off: true };
+  var S = window.LERNA_SCHOOLS || [];
+  var PER = 24;
+  var profile = Lerna.store.get('lerna_profile', null), answers = profile && profile.answers;
+  var userCountry = answers ? answers.q4 : null;
+  var src = Lerna.param('src'), vue = Lerna.param('vue');
+  var want = (Lerna.param('pays') || '').toUpperCase();
+  var st = {
+    vue: vue === 'france' || src === 'psup' ? 'france' : 'ecoles',
+    q: Lerna.param('q') || '', pays: /^[A-Z]{2}$/.test(want) ? want : 'ALL',
+    budget: '', dom: Lerna.param('domaine') || '', type: '', duree: '', lang: '', sort: 'fee', show: PER
+  };
   var BUD = { b1: [0, 499], b2: [500, 2000], b3: [2000, 5000], b4: [5000, 15000], b5: [15000, Infinity] };
   var nf = function (n) { return Number(n).toLocaleString(Lerna.lang === 'en' ? 'en-US' : 'fr-FR'); };
-
   function norm(s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
   var STOP = { de: 1, du: 1, des: 1, la: 1, le: 1, les: 1, l: 1, d: 1, of: 1, the: 1, and: 1, et: 1, en: 1, a: 1, school: 1, ecole: 1, groupe: 1, group: 1 };
   function nkey(s) { return norm(s).replace(/\([^)]*\)/g, ' ').replace(/[^a-z0-9]+/g, ' ').split(' ').filter(function (w) { return w && !STOP[w]; }).join(' '); }
   function host(u) { try { return new URL(/^https?:\/\//i.test(u) ? u : 'https://' + u).hostname.replace(/^www\d?\./, '').toLowerCase(); } catch (e) { return ''; } }
   function fee(s) { return window.LERNA_FEE_FOR(s, userCountry); }
-  var allCountries = function () { return st.pays === 'ALL' || !st.pays; };
-  var extraFilters = function () { return !!(st.budget || st.dom || st.duree || st.lang); };
+  var detailFilters = function () { return !!(st.budget || st.dom || st.duree || st.lang); };
+  var words = function () { return norm(st.q).split(/\s+/).filter(Boolean); };
+  var SKIPW = /^(de|des|du|la|le|les|l|d|and|the|of|et|en|pour|sur|a|au|aux|in|for)$/i;
+  function sigleOf(name) {
+    var a = (String(name).match(/\(([A-Za-z0-9 .\-]{2,12})\)/) || [])[1];
+    if (a && /^[A-Z0-9][A-Z0-9 .\-]{1,11}$/.test(a.trim())) { var w0 = a.trim().split(/[\s.\-]+/)[0]; return (w0.length >= 2 ? w0 : a.replace(/[\s.\-]/g, '')).slice(0, 5).toUpperCase(); }
+    var w = String(name).replace(/\([^)]*\)/g, ' ').split(/[\s\-'’]+/).filter(function (x) { return x.length > 1 && !SKIPW.test(x); });
+    return w.slice(0, 3).map(function (x) { return x[0]; }).join('').toUpperCase() || '·';
+  }
 
-  /* Tranches de budget dans la devise de la personne (les seuils restent en dollars) */
+  /* ---------- Données : fiches complètes (data-schools.js) + listes officielles (assets/annuaire) ---------- */
+  var A = { idx: null, cache: {}, noms: null, seq: 0, items: [] };
+  function annIdx() {
+    if (A.idx) return Promise.resolve(A.idx);
+    return fetch('assets/annuaire/index.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error('404'); return r.json(); }).then(function (j) { A.idx = j; return j; });
+  }
+  function annRows(cc) {
+    if (A.cache[cc]) return Promise.resolve(A.cache[cc]);
+    if (!A.idx || !A.idx.countries[cc]) return Promise.resolve([]);
+    return fetch('assets/annuaire/' + cc + '.json').then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (rows) {
+      A.cache[cc] = rows.filter(function (r) { return !(r.x && r.x.lerna); });   // déjà dans les fiches complètes
+      return A.cache[cc];
+    });
+  }
+  /* Tous les pays : index léger des listes officielles (chargé une seule fois) */
+  function annNoms() {
+    if (A.noms) return Promise.resolve(A.noms);
+    return fetch('assets/annuaire/noms.json').then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (rows) {
+      A.noms = rows.map(function (x) { var id = String(x[1]).split(':'); return { cc: x[0], i: x[1], n: x[2], v: x[3], t: x[4] === 'p' ? 'public' : x[4] === 'v' ? 'prive' : '', s: id[0], x: id[0] === 'officiel' ? { l: id[1] } : {} }; });
+      return A.noms;
+    });
+  }
+
+  function lernaList() {
+    var q = words();
+    var list = S.filter(function (s) {
+      if (q.length) {
+        var hay = norm([s.nom, s.ville, window.LERNA_COUNTRY_NAME(s.pays, 'fr'), window.LERNA_COUNTRY_NAME(s.pays, 'en'), s.domaines.join(' ')].join(' '));
+        if (q.some(function (w) { return hay.indexOf(w) === -1; })) return false;
+      }
+      if (st.pays !== 'ALL' && (s.pays !== st.pays || s.type === 'online')) return false;
+      if (st.budget) { var b = BUD[st.budget], f = fee(s); if (f === null || f < b[0] || f > b[1]) return false; }
+      if (st.dom && s.domaines.indexOf(st.dom) === -1) return false;
+      if (st.type && s.type !== st.type) return false;
+      if (st.duree) { var d = parseInt(st.duree, 10); if (d === 6 ? s.duree[1] < 6 : (s.duree[0] > d || s.duree[1] < d)) return false; }
+      if (st.lang) { if (st.lang === 'other' ? s.langues.every(function (l) { return ['fr', 'en', 'ar'].indexOf(l) !== -1; }) : s.langues.indexOf(st.lang) === -1) return false; }
+      return true;
+    });
+    var feeOf = function (s) { var f = fee(s); return f === null ? Infinity : f; };
+    list.sort(function (a, b) {
+      if (st.sort === 'name') return a.nom.localeCompare(b.nom, Lerna.lang);
+      if (st.sort === 'intl') return b.intl - a.intl || feeOf(a) - feeOf(b);
+      return feeOf(a) - feeOf(b);
+    });
+    return list.map(function (s) { return { k: 'L', s: s }; });
+  }
+  /* Établissements des listes officielles : pas de frais, durée ni filières connus → seulement sans ces filtres */
+  function annList() {
+    if (detailFilters() || st.type === 'online') return Promise.resolve([]);
+    var src = st.pays === 'ALL' ? annNoms() : annIdx().then(function () { return annRows(st.pays); }).then(function (rows) { return rows.map(function (r) { return Object.assign({ cc: st.pays }, r); }); });
+    return src.then(function (rows) {
+      var q = words(), first = q[0] || '';
+      var list = rows.filter(function (r) {
+        if (st.type === 'public' && r.t !== 'public') return false;
+        if (st.type === 'private' && !/^prive/.test(r.t || '')) return false;
+        if (!q.length) return true;
+        var hay = r.h || (r.h = norm([r.n, r.a, r.v, r.r, window.LERNA_COUNTRY_NAME(r.cc, 'fr'), window.LERNA_COUNTRY_NAME(r.cc, 'en')].join(' ')));
+        return q.every(function (w) { return hay.indexOf(w) !== -1; });
+      });
+      if (first) list.sort(function (a, b) { return (norm(b.n).indexOf(first) === 0) - (norm(a.n).indexOf(first) === 0); });
+      return list.map(function (r) { return { k: 'A', r: r }; });
+    });
+  }
+
+  /* ---------- Cartes ---------- */
+  function avatar(sg, cc) { sg = String(sg || '·').slice(0, 5); return '<span class="u-av' + (sg.length > 3 ? ' sm' : '') + '" aria-hidden="true">' + esc(sg) + Lerna.flag(cc) + '</span>'; }
+  function lernaCard(s) {
+    var f = fee(s), fav = Lerna.favs.has(s.id), link = 'ecole.html?id=' + encodeURIComponent(s.id);
+    var typeTxt = s.type === 'public' ? t('ex.bPub') : s.type === 'private' ? t('ex.bPriv') : t('ex.bOnline');
+    var doms = s.domaines.slice(0, 3).map(function (d) { var x = window.LERNA_DOMAINS.filter(function (o) { return o.id === d; })[0]; return '<span>' + esc(x ? L(x.label) : d) + '</span>'; }).join('');
+    return '<article class="card ucard"><div class="u-top">' + avatar(window.LERNA_SIGLE(s), s.pays) +
+      '<div class="u-id"><h3><a href="' + link + '">' + esc(s.nom) + '</a></h3><div class="loc">' + esc(s.ville + (s.type === 'online' ? '' : ', ' + window.LERNA_COUNTRY_NAME(s.pays))) + '</div></div>' +
+      '<button type="button" class="u-fav' + (fav ? ' on' : '') + '" data-fav="' + s.id + '" aria-pressed="' + fav + '" aria-label="' + esc(t('ex.fav')) + '">' + Lerna.icon('heart') + '</button></div>' +
+      '<div class="u-tags"><span class="ok">' + esc(t('ex.ok')) + '</span><span>' + esc(typeTxt) + '</span>' + (f !== null ? '<span class="fee">' + esc(f === 0 ? t('common.free') : t('ex.from', { f: Lerna.money(f) })) + '</span>' : '') + doms + '</div>' +
+      '<div class="acts"><a class="btn btn-brown btn-sm" href="' + link + '">' + esc(t('ex.see')) + '</a></div></article>';
+  }
+  function srcOf(r) {
+    var x = r.x || {};
+    if (r.s === 'officiel') { var l = A.idx && A.idx.listes && A.idx.listes[x.l]; return l ? L(l.autorite) : ''; }
+    return { deqar: t('ex.sDeqar'), scorecard: x.acc ? x.acc : t('ex.sScore'), ofs: t('ex.sOfs'), cricos: t('ex.sCricos') }[r.s] || '';
+  }
+  function annCard(r) {
+    var link = 'fiche.html?cc=' + encodeURIComponent(r.cc) + '&id=' + encodeURIComponent(r.i) + '&n=' + encodeURIComponent(r.n);
+    var typeTxt = r.t === 'public' ? t('ex.bPub') : /^prive/.test(r.t || '') ? t('ex.bPriv') : '';
+    var s = srcOf(r);
+    return '<article class="card ucard"><div class="u-top">' + avatar(sigleOf(r.n), r.cc) +
+      '<div class="u-id"><h3><a href="' + link + '">' + esc(r.n) + '</a></h3><div class="loc">' + esc([r.v, window.LERNA_COUNTRY_NAME(r.cc)].filter(Boolean).join(', ')) + '</div></div></div>' +
+      '<div class="u-tags"><span class="ok">' + esc(t('ex.ok')) + '</span>' + (typeTxt ? '<span>' + esc(typeTxt) + '</span>' : '') + '</div>' +
+      (s ? '<p class="u-src">' + esc(t('ex.src', { s: s })) + '</p>' : '') +
+      '<div class="acts"><a class="btn btn-brown btn-sm" href="' + link + '">' + esc(t('ex.see')) + '</a></div></article>';
+  }
+
+  /* ---------- Partie 1 : écoles et universités (une seule liste ; les fiches les plus complètes d'abord) ---------- */
+  function renderEcoles() {
+    var my = ++A.seq;
+    var lerna = lernaList();
+    A.items = lerna;
+    paintEcoles();
+    annList().then(function (ann) {
+      if (my !== A.seq) return;
+      A.items = lerna.concat(ann);
+      paintEcoles();
+    }).catch(function () { if (my === A.seq && !lerna.length) $('grid').innerHTML = '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('alert') + '<h4>' + esc(t('ex.mErr')) + '</h4></div>'; });
+  }
+  function paintEcoles() {
+    var items = A.items, n = items.length;
+    $('count').textContent = st.pays === 'ALL' ? t('ex.countN', { n: nf(n) }) : t('ex.countNc', { n: nf(n), c: window.LERNA_COUNTRY_NAME(st.pays) });
+    $('note').hidden = !detailFilters();
+    $('note').textContent = t('ex.detailNote');
+    $('grid').innerHTML = n ? items.slice(0, st.show).map(function (it) { return it.k === 'L' ? lernaCard(it.s) : annCard(it.r); }).join('') :
+      '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + esc(t('ex.none')) + '</h4><p>' + esc(t('ex.noneSub')) + '</p></div>';
+    $('more').hidden = n <= st.show;
+  }
+  function sel(id, label, opts) {
+    var v = st[id];
+    return '<select class="fsel' + (v ? ' on' : '') + '" data-f="' + id + '" aria-label="' + esc(label) + '"><option value="">' + esc(label) + '</option>' +
+      opts.map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === v ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>';
+  }
   function budgetOpts() {
     if (Lerna.currency() === 'USD') return [['b1', t('ex.b1')], ['b2', t('ex.b2')], ['b3', t('ex.b3')], ['b4', t('ex.b4')], ['b5', t('ex.b5')]];
     var m = function (n) { return Lerna.money(n); }, en = Lerna.lang === 'en';
     return [['b1', (en ? 'Under ' : 'Moins de ') + m(500)], ['b2', m(500) + ' – ' + m(2000)], ['b3', m(2000) + ' – ' + m(5000)], ['b4', m(5000) + ' – ' + m(15000)], ['b5', (en ? 'Over ' : 'Plus de ') + m(15000)]];
   }
-  function sel(id, label, opts, cls) {
-    var v = st[id];
-    return '<select class="fsel' + (v ? ' on' : '') + (cls ? ' ' + cls : '') + '" data-f="' + id + '" aria-label="' + esc(label) + '"><option value="">' + esc(label) + '</option>' +
-      opts.map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === v ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>';
-  }
-  /* Pays : écoles LERNA + annuaire officiel + France ; le pays de la personne en premier */
+  /* Pays : fiches complètes + listes officielles ; le pays de la personne juste après « Tous les pays » */
   function countryOpts() {
     var set = { FR: 1 };
     S.forEach(function (s) { if (s.type !== 'online') set[s.pays] = 1; });
@@ -292,189 +353,24 @@ Lerna.addStrings({
   function renderFilters() {
     var c = countryOpts();
     $('filters').innerHTML =
-      '<select class="fsel on cc" data-f="pays" aria-label="' + esc(t('ex.fCountry')) + '">' + c.map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === (st.pays || 'ALL') ? ' selected' : '') + '>' + esc(o[1]) + '</option>'; }).join('') + '</select>' +
+      '<select class="fsel on" data-f="pays" aria-label="' + esc(t('ex.fCountry')) + '">' + c.map(function (o) { return '<option value="' + o[0] + '"' + (o[0] === st.pays ? ' selected' : '') + '>' + esc((o[0] === 'ALL' ? '🌍 ' : '') + o[1]) + '</option>'; }).join('') + '</select>' +
       sel('type', t('ex.fType'), [['public', t('common.public')], ['private', t('common.private')], ['online', t('common.online')]]) +
-      sel('dom', t('ex.fDomain'), window.LERNA_DOMAINS.map(function (d) { return [d.id, Lerna.L(d.label)]; })) +
+      sel('dom', t('ex.fDomain'), window.LERNA_DOMAINS.map(function (d) { return [d.id, L(d.label)]; })) +
       sel('budget', t('ex.fBudget'), budgetOpts()) +
       sel('duree', t('ex.fDuration'), [['2', t('ex.d2')], ['3', t('ex.d3')], ['4', t('ex.d4')], ['5', t('ex.d5')], ['6', t('ex.d6')]]) +
       sel('lang', t('ex.fLang'), [['fr', t('ex.lFr')], ['en', t('ex.lEn')], ['ar', t('ex.lAr')], ['other', t('ex.lOther')]]) +
-      '<button type="button" class="fsel' + (st.off ? ' on' : '') + '" data-off style="padding-right:16px;background-image:none">✓ ' + esc(t('ex.offOnly')) + '</button>' +
       '<button type="button" class="reset" id="reset">' + t('ex.reset') + '</button>';
   }
 
-  /* ---------- 1. Fiches complètes vérifiées par LERNA ---------- */
-  function filtered() {
-    var q = norm(st.q);
-    var list = S.filter(function (s) {
-      if (q) {
-        var hay = norm([s.nom, s.ville, window.LERNA_COUNTRY_NAME(s.pays, 'fr'), window.LERNA_COUNTRY_NAME(s.pays, 'en'), s.domaines.join(' ')].join(' '));
-        if (q.split(/\s+/).some(function (w) { return hay.indexOf(w) === -1; })) return false;
-      }
-      if (!allCountries() && (s.pays !== st.pays || s.type === 'online')) return false;
-      if (st.budget) { var b = BUD[st.budget], f = fee(s); if (f === null || f < b[0] || f > b[1]) return false; }
-      if (st.dom && s.domaines.indexOf(st.dom) === -1) return false;
-      if (st.type && s.type !== st.type) return false;
-      if (st.duree) { var d = parseInt(st.duree, 10); if (d === 6 ? s.duree[1] < 6 : (s.duree[0] > d || s.duree[1] < d)) return false; }
-      if (st.lang) { if (st.lang === 'other' ? s.langues.every(function (l) { return ['fr', 'en', 'ar'].indexOf(l) !== -1; }) : s.langues.indexOf(st.lang) === -1) return false; }
-      return true;
-    });
-    list.sort(function (a, b) {
-      if (st.sort === 'name') return a.nom.localeCompare(b.nom, Lerna.lang);
-      if (st.sort === 'intl') return b.intl - a.intl || fee(a) - fee(b);
-      return fee(a) - fee(b);
-    });
-    return list;
-  }
-  function card(s, i) {
-    var f = fee(s), local = userCountry && userCountry === s.pays;
-    var typeBadge = s.type === 'public' ? '<span class="badge badge-olive">' + t('common.public') + '</span>' : s.type === 'private' ? '<span class="badge badge-soft">' + t('common.private') + '</span>' : '<span class="badge badge-cream">' + t('common.online') + '</span>';
-    var fav = Lerna.favs.has(s.id);
-    var doms = s.domaines.slice(0, 4).map(function (d) { var x = window.LERNA_DOMAINS.filter(function (o) { return o.id === d; })[0]; return '<span class="tag">' + esc(x ? Lerna.L(x.label) : d) + '</span>'; }).join('');
-    return '<article class="card card-hover scard reveal" style="--i:' + (i % 4) + '">' +
-      '<div class="scard-img">' + Lerna.flag(s.pays) + '<span class="ini" aria-hidden="true">' + esc(window.LERNA_SIGLE(s)) + '</span>' +
-        '<button type="button" class="scard-fav' + (fav ? ' on' : '') + '" data-fav="' + s.id + '" aria-pressed="' + fav + '" aria-label="' + esc(t('ex.fav')) + '">' + Lerna.icon('heart') + '</button></div>' +
-      '<div class="scard-body">' +
-        '<div class="row" style="justify-content:space-between;gap:8px">' + typeBadge + '<span class="vbadge">' + Lerna.icon('check', 'ic-sm') + esc(t('ex.bLerna')) + '</span></div>' +
-        '<h3>' + esc(s.nom) + '</h3>' +
-        '<div class="loc">' + Lerna.icon('pin') + esc(s.ville + (s.type === 'online' ? '' : ', ' + window.LERNA_COUNTRY_NAME(s.pays))) + '</div>' +
-        '<div class="doms">' + doms + '</div>' +
-        '<div class="fee-row"><span class="fee">' + (f === null ? '<small>' + t('ex.feeTodo') + '</small>' : (f === 0 ? t('common.free') : t('ex.from') + ' ' + Lerna.money(f)) + ' <small>' + (local ? t('ex.forYou') : t('ex.intl')) + '</small>') + '</span></div>' +
-        '<a class="btn btn-brown btn-block" href="ecole.html?id=' + s.id + '">' + t('ex.see') + '</a>' +
-      '</div></article>';
-  }
-  function render() {
-    var list = filtered(), all = allCountries();
-    var pages = all ? Math.max(1, Math.ceil(list.length / PER)) : 1;
-    st.page = Math.min(st.page, pages);
-    $('hA').innerHTML = esc(t('ex.secLerna')) + ' <span class="n">' + nf(list.length) + '</span>';
-    var slice = all ? list.slice((st.page - 1) * PER, st.page * PER) : list;
-    $('grid').innerHTML = slice.length ? slice.map(card).join('') :
-      all && norm(st.q).replace(/\s+/g, '').length >= 3 && !st.type && !extraFilters() ? '<p class="muted small" style="grid-column:1/-1;margin:0">' + esc(t('ex.noneLernaQ')) + '</p>' :
-      '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + t(all ? 'ex.none' : 'ex.noneLerna', { c: window.LERNA_COUNTRY_NAME(st.pays) }) + '</h4><p>' + t(all ? 'ex.noneSub' : 'ex.noneLernaSub') + '</p></div>';
-    var p = '';
-    if (pages > 1) {
-      p += '<button type="button" data-page="' + (st.page - 1) + '"' + (st.page === 1 ? ' disabled' : '') + ' aria-label="' + t('ex.prev') + '">‹</button>';
-      for (var i = 1; i <= pages; i++) p += '<button type="button" data-page="' + i + '" class="' + (i === st.page ? 'active' : '') + '"' + (i === st.page ? ' aria-current="page"' : '') + '>' + i + '</button>';
-      p += '<button type="button" data-page="' + (st.page + 1) + '"' + (st.page === pages ? ' disabled' : '') + ' aria-label="' + t('ex.next') + '">›</button>';
-    }
-    $('pager').innerHTML = p;
-    $('count').textContent = all ? t('ex.countAll', { n: nf(list.length) }) : window.LERNA_COUNTRY_NAME(st.pays);
-    Lerna.initReveal();
-    renderOthers();
-  }
-
-  /* ---------- 2. Les autres établissements reconnus du pays choisi ---------- */
-  var A = { idx: null, cache: {}, show: 30, cc: '' };
-  function annIdx() {
-    if (A.idx) return Promise.resolve(A.idx);
-    return fetch('assets/annuaire/index.json', { cache: 'no-cache' }).then(function (r) { if (!r.ok) throw new Error('404'); return r.json(); }).then(function (j) { A.idx = j; return j; });
-  }
-  function annRows(cc) {
-    if (A.cache[cc]) return Promise.resolve(A.cache[cc]);
-    return fetch('assets/annuaire/' + cc + '.json').then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (rows) { A.cache[cc] = rows; return rows; });
-  }
-  function bLoading() { $('bGrid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px 0">' + Lerna.thinking('inline') + '</div>'; $('bMore').hidden = true; $('bHidden').innerHTML = ''; }
-  function bEmpty(msg, sub) { $('bGrid').innerHTML = '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + esc(msg) + '</h4>' + (sub ? '<p>' + esc(sub) + '</p>' : '') + '</div>'; $('bMore').hidden = true; }
-  var bSeq = 0;
-  /* Tous les pays + une recherche : on cherche aussi dans l'index des listes officielles (noms.json, chargé seulement à ce moment) */
-  function annNoms() {
-    if (A.noms) return Promise.resolve(A.noms);
-    return fetch('assets/annuaire/noms.json').then(function (r) { if (!r.ok) throw new Error(); return r.json(); }).then(function (rows) {
-      A.noms = rows.map(function (x) { return { cc: x[0], i: x[1], n: x[2], v: x[3], s: String(x[1]).split(':')[0], x: x[4] ? { warn: 1 } : {}, h: norm(x[2] + ' ' + x[3] + ' ' + window.LERNA_COUNTRY_NAME(x[0], 'fr') + ' ' + window.LERNA_COUNTRY_NAME(x[0], 'en')) }; });
-      return A.noms;
-    });
-  }
-  function globalSearch() {
-    var my = ++bSeq, q = norm(st.q).split(/\s+/).filter(Boolean);
-    $('hB').innerHTML = esc(t('ex.secOthersAll')) + ' <span class="n" id="bN"></span>';
-    $('bSub').textContent = t('ex.subAll');
-    if (A.cc !== '*' + st.q) { A.cc = '*' + st.q; A.show = 30; }
-    bLoading();
-    annNoms().then(function (rows) {
-      if (my !== bSeq) return;
-      var first = q[0] || '';
-      var list = rows.filter(function (r) { return q.every(function (w) { return r.h.indexOf(w) !== -1; }); }).sort(function (a, b) { return (norm(b.n).indexOf(first) === 0) - (norm(a.n).indexOf(first) === 0) || a.n.localeCompare(b.n, Lerna.lang); });
-      A.global = list;
-      if (!list.length && filtered().length) { $('bWrap').hidden = true; return; }   // trouvée dans les fiches LERNA : rien à ajouter
-      $('bN').textContent = nf(list.length);
-      $('bGrid').innerHTML = list.length ? list.slice(0, A.show).map(annCard).join('') : '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + esc(t('ex.mNone')) + '</h4></div>';
-      $('bMore').hidden = list.length <= A.show;
-      $('bHidden').innerHTML = '';
-    }).catch(function () { if (my === bSeq) bEmpty(t('ex.mErr')); });
-  }
-  function renderOthers() {
-    var cc = st.pays, all = allCountries();
-    var gs = all && norm(st.q).replace(/\s+/g, '').length >= 3 && !st.type && !extraFilters();
-    $('bWrap').hidden = (all && !gs) || st.type === 'online';
-    $('frFilters').hidden = cc !== 'FR' || all;
-    if (gs) return globalSearch();
-    if (all || st.type === 'online') return;
-    $('hB').innerHTML = esc(t('ex.secOthers', { c: window.LERNA_COUNTRY_NAME(cc) })) + ' <span class="n" id="bN"></span>';
-    if (extraFilters()) { $('bSub').textContent = ''; $('frFilters').hidden = true; bEmpty(t('ex.othersFiltered'), t('ex.othersFilteredSub')); $('bHidden').innerHTML = ''; return; }
-    if (cc === 'FR') return frSearch();
-    var my = ++bSeq;
-    $('bSub').textContent = t('ex.subWorld');
-    if (A.cc !== cc) { A.cc = cc; A.show = 30; }
-    bLoading();
-    annIdx().then(function (idx) {
-      if (!idx.countries[cc]) return null;
-      return annRows(cc);
-    }).then(function (rows) {
-      if (my !== bSeq) return;
-      if (!rows) { $('bN').textContent = ''; return bEmpty(t('ex.noReg', { c: window.LERNA_COUNTRY_NAME(cc) }), t('ex.noRegSub')); }
-      annRender(rows); Lerna.track('annuaire_pays', cc);
-    }).catch(function () { if (my === bSeq) bEmpty(t('ex.mErr')); });
-  }
-  function annFilter(rows) {
-    var q = norm(st.q).split(/\s+/).filter(Boolean);
-    return rows.filter(function (r) {
-      if (r.x && r.x.lerna) return false;                      // déjà montrée plus haut avec sa fiche complète
-      if (st.type === 'public' && r.t && r.t !== 'public') return false;
-      if (st.type === 'private' && r.t && !/^prive/.test(r.t)) return false;
-      if (!q.length) return true;
-      var hay = norm([r.n, r.a, r.v, r.r].join(' '));
-      return q.every(function (w) { return hay.indexOf(w) !== -1; });
-    });
-  }
-  function annRender(rows) {
-    var list = annFilter(rows);
-    var off = list.filter(function (r) { return r.s !== 'wikidata'; }), wd = list.filter(function (r) { return r.s === 'wikidata'; });
-    var show = st.off ? off : off.concat(wd);
-    $('bN').textContent = nf(show.length);
-    $('bGrid').innerHTML = show.length ? show.slice(0, A.show).map(annCard).join('') :
-      '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + esc(t(off.length || !wd.length ? 'ex.mNone' : 'ex.mNoneOff2')) + '</h4></div>';
-    $('bMore').hidden = show.length <= A.show;
-    $('bHidden').innerHTML = st.off && wd.length ? '<div class="notice" style="margin-top:14px">' + Lerna.icon('info') + '<div>' + esc(t('ex.mHidden', { n: nf(wd.length) })) + ' <a href="#" class="orange bold" data-mshow>' + esc(t('ex.mShowAll')) + '</a></div></div>' : '';
-  }
-  function annRec(r) {
-    var x = r.x || {}, lst = r.s === 'officiel' && A.idx && A.idx.listes ? A.idx.listes[x.l] : null;
-    if (x.warn && lst) return { bad: true, txt: t('ex.rBad', { a: Lerna.L(lst.autorite), l: Lerna.L(lst.titre) }) };
-    var txt = { officiel: lst ? t('ex.rOff', { a: Lerna.L(lst.autorite), l: Lerna.L(lst.titre) }) : '', deqar: t('ex.rDeqar'), scorecard: t('ex.rScore', { a: x.acc || '' }), ofs: t('ex.rOfs'), cricos: t('ex.rCricos'), wikidata: t('ex.rWd') }[r.s] || '';
-    var also = (x.also || []).length;
-    return { bad: (x.also || []).some(function (o) { return o.warn; }), txt: txt + (also ? ' ' + t('ex.alsoN', { n: also }) : '') };
-  }
-  function annStatut(r) {
-    var k = { public: 'ex.bPub', prive_nl: 'ex.bPrivNl', prive_lucratif: 'ex.bPrivL', prive: 'ex.bPriv' }[r.t];
-    return k ? '<span>' + esc(t(k)) + '</span>' : '';
-  }
-  function annCard(r) {
-    var wd = r.s === 'wikidata', rec = annRec(r), cc = r.cc || A.cc;
-    var fiche = 'fiche.html?cc=' + encodeURIComponent(cc) + '&id=' + encodeURIComponent(r.i);
-    return '<article class="card pcard"><h3><a class="plink" href="' + fiche + '">' + esc(r.n) + '</a></h3>' + (r.a ? '<div class="loc">' + esc(r.a) + '</div>' : '') +
-      '<div class="loc">' + Lerna.flag(cc, 'stk-xs') + ' ' + esc([r.v, r.r, window.LERNA_COUNTRY_NAME(cc)].filter(Boolean).join(', ')) + '</div>' +
-      '<div class="badges">' + (wd ? '<span class="wd">' + esc(t('ex.bWd')) + '</span>' : rec.bad ? '<span class="bad">' + esc(t('ex.bBad')) + '</span>' : '<span class="pub">' + esc(t('ex.bOff')) + '</span>') + annStatut(r) + '</div>' +
-      '<p class="rec' + (rec.bad ? ' bad' : '') + '">' + esc(rec.txt) + '</p>' +
-      '<div class="acts"><a class="btn btn-primary btn-sm" href="' + fiche + '">' + esc(t('ex.see')) + '</a></div></article>';
-  }
-
-  /* France : formations publiées en données ouvertes par le ministère de l'Enseignement supérieur, regroupées par établissement */
+  /* ---------- Partie 2 : formations en France (données ouvertes du ministère de l'Enseignement supérieur) ---------- */
   var DS = 'https://data.enseignementsup-recherche.gouv.fr/api/explore/v2.1/catalog/datasets/fr-esr-cartographie_formations_parcoursup';
   var F = { year: null, tf: '', reg: '', app: false, offset: 0, total: 0, facets: null, seq: 0, groups: [] };
   var FPER = 100;
+  /* Établissement français qui a déjà sa fiche complète LERNA : on ouvre cette fiche-là */
   var lernaFR = (function () {
     var k = {}, h = {};
-    S.forEach(function (s) { if (s.pays !== 'FR') return; String(s.nom).split(/\s+[—–-]\s+/).forEach(function (p) { var x = nkey(p); if (x.length >= 4) k[x] = 1; }); var d = host(s.site); if (d) h[d] = 1; });
-    return function (g) { return k[nkey(g.n)] || (g.w && h[host(g.w)]); };
+    S.forEach(function (s) { if (s.pays !== 'FR') return; String(s.nom).split(/\s+[—–-]\s+/).forEach(function (p) { var x = nkey(p); if (x.length >= 4) k[x] = s.id; }); var d = host(s.site); if (d) h[d] = s.id; });
+    return function (g) { return k[nkey(g.n)] || (g.w && h[host(g.w)]) || null; };
   })();
   function odsq(v) { return '"' + String(v).replace(/\\/g, '').replace(/"/g, '') + '"'; }
   function fWhere() {
@@ -504,8 +400,15 @@ Lerna.addStrings({
         (list || []).map(function (v) { return '<option value="' + esc(v) + '"' + (F[k] === v ? ' selected' : '') + '>' + esc(v) + '</option>'; }).join('') + '</select>';
     };
     $('frFilters').innerHTML = opt('tf', 'ex.pAllTf', (f.tf || []).slice().sort(function (a, b) { return a.localeCompare(b, 'fr'); })) + opt('reg', 'ex.pAllReg', f.region) +
-      '<button type="button" class="fsel' + (F.app ? ' on' : '') + '" data-frapp style="padding-right:16px;background-image:none">' + esc(t('ex.pApp')) + '</button>';
-    $('bSub').textContent = t('ex.subFR', { y: F.year || '' });
+      '<button type="button" class="fsel btnf' + (F.app ? ' on' : '') + '" data-frapp>' + esc(t('ex.pApp')) + '</button>';
+  }
+  function frInfo() {
+    var g = window.LERNA_GUIDE_FOR && window.LERNA_GUIDE_FOR({ adm: 'fr-public' }, Lerna.country(), answers);
+    var d = Lerna.dossiers && Lerna.dossiers.get('p-france');
+    if (d && d.guide && window.LERNA_GUIDES[d.guide]) g = window.LERNA_GUIDES[d.guide];
+    var n = d ? (d.voeux || []).length : 0;
+    $('frInfo').innerHTML = (g ? t('ex.frInfo', { g: esc(L(g.label).replace(/^France — /, '')) }) : '') +
+      (d ? '<div style="margin-top:8px"><a href="dossier.html?ecole=p-france">' + esc(t('ex.frDossier', { n: n })) + '</a></div>' : '');
   }
   var arr1 = function (v) { return Array.isArray(v) ? v.join(' · ') : (v || ''); };
   function tcKind(tc) { return !tc ? '' : /^Public/.test(tc) ? 'public' : /contrat/i.test(tc) ? 'ctr' : 'prive'; }
@@ -513,99 +416,83 @@ Lerna.addStrings({
     rows.forEach(function (r) {
       var key = r.etab_uai || r.etab_nom, last = F.groups[F.groups.length - 1];
       if (last && last.k === key) { last.f++; if (r.tf) last.tf[arr1(r.tf)] = 1; if (r.app) last.app = 1; return; }
-      var g = { k: key, uai: r.etab_uai, n: r.etab_nom || '', v: [r.commune, r.departement].filter(Boolean).join(', '), tc: r.tc, w: r.etab_url, f: 1, tf: {}, app: r.app ? 1 : 0 };
+      var g = { k: key, uai: r.etab_uai, n: r.etab_nom || '', v: [r.commune, r.departement !== r.commune ? r.departement : ''].filter(Boolean).join(', '), tc: r.tc, w: r.etab_url, f: 1, tf: {}, app: r.app ? 1 : 0 };
       if (r.tf) g.tf[arr1(r.tf)] = 1;
       F.groups.push(g);
     });
   }
   function frCard(g) {
-    var kind = tcKind(g.tc), fiche = g.uai ? 'fiche.html?uai=' + encodeURIComponent(g.uai) : '';
+    var kind = tcKind(g.tc), lid = lernaFR(g);
+    var link = g.uai ? 'fiche.html?uai=' + encodeURIComponent(g.uai) : lid ? 'ecole.html?id=' + encodeURIComponent(lid) : '';   // la fiche « formations » permet d'ajouter des vœux
     var tfs = Object.keys(g.tf).slice(0, 3);
-    return '<article class="card pcard"><h3>' + (fiche ? '<a class="plink" href="' + fiche + '">' + esc(g.n) + '</a>' : esc(g.n)) + '</h3>' +
-      '<div class="loc">' + Lerna.flag('FR', 'stk-xs') + ' ' + esc(g.v) + '</div>' +
-      '<div class="badges"><span class="pub">' + esc(t('ex.bState')) + '</span>' + (kind === 'public' ? '<span>' + esc(t('ex.pPub')) + '</span>' : kind === 'ctr' ? '<span class="ctr">' + esc(t('ex.pCtr')) + '</span>' : kind ? '<span>' + esc(t('ex.pPriv')) + '</span>' : '') +
+    return '<article class="card ucard"><div class="u-top">' + avatar(sigleOf(g.n), 'FR') +
+      '<div class="u-id"><h3>' + (link ? '<a href="' + link + '">' + esc(g.n) + '</a>' : esc(g.n)) + '</h3><div class="loc">' + esc(g.v) + '</div></div></div>' +
+      '<div class="u-tags"><span class="ok">' + esc(t('ex.ok')) + '</span>' + (kind === 'public' ? '<span>' + esc(t('ex.pPub')) + '</span>' : kind === 'ctr' ? '<span>' + esc(t('ex.pCtr')) + '</span>' : kind ? '<span>' + esc(t('ex.pPriv')) + '</span>' : '') +
         tfs.map(function (x) { return '<span>' + esc(x) + '</span>'; }).join('') + (g.app ? '<span>' + esc(t('ex.pAppB')) + '</span>' : '') + '</div>' +
-      '<p class="rec">' + esc(t('ex.frForm', { n: g.f })) + '</p>' +
-      (fiche ? '<div class="acts"><a class="btn btn-primary btn-sm" href="' + fiche + '">' + esc(t('ex.see')) + '</a></div>' : '') + '</article>';
+      '<p class="u-src">' + esc(t('ex.frForm', { n: g.f })) + '</p>' +
+      (link ? '<div class="acts"><a class="btn btn-brown btn-sm" href="' + link + '">' + esc(t('ex.see')) + '</a></div>' : '') + '</article>';
   }
   function frRender() {
-    var list = F.groups.filter(function (g) {
-      if (lernaFR(g)) return false;
-      if (st.type === 'public') return tcKind(g.tc) === 'public';
-      if (st.type === 'private') return tcKind(g.tc) !== 'public';
-      return true;
-    });
-    $('bN').textContent = t('ex.frCount', { n: nf(F.total) });
-    $('bGrid').innerHTML = list.length ? list.map(frCard).join('') : '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + t('ex.pNone') + '</h4><p>' + t('ex.pNoneSub') + '</p></div>';
-    $('bMore').hidden = F.offset >= F.total;
-    $('bHidden').innerHTML = '';
+    $('count').textContent = t('ex.frCount', { n: nf(F.total) });
+    $('grid').innerHTML = F.groups.length ? F.groups.map(frCard).join('') : '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + t('ex.pNone') + '</h4><p>' + t('ex.pNoneSub') + '</p></div>';
+    $('more').hidden = F.offset >= F.total;
   }
   function frSearch(append) {
     var my = ++F.seq;
-    if (!append) { F.offset = 0; F.groups = []; bLoading(); }
+    if (!append) { F.offset = 0; F.groups = []; $('grid').innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:30px 0">' + Lerna.thinking('inline') + '</div>'; $('more').hidden = true; }
     return fInit().then(function () {
       if (!append) frFilters();
       return fGet('/records?limit=' + FPER + '&offset=' + F.offset + '&order_by=etab_nom,etab_uai&select=etab_uai,etab_nom,tc,tf,app,commune,departement,etab_url&where=' + encodeURIComponent(fWhere()));
     }).then(function (j) {
-      if (my !== F.seq) return;
+      if (my !== F.seq || st.vue !== 'france') return;
       F.total = j.total_count || 0; F.offset += (j.results || []).length;
       frGroup(j.results || []); frRender(); Lerna.track('fr_search');
     }).catch(function () {
-      if (my !== F.seq) return;
-      bEmpty(t('ex.frErr'));
+      if (my !== F.seq || st.vue !== 'france') return;
+      $('grid').innerHTML = '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('alert') + '<h4>' + esc(t('ex.frErr')) + '</h4></div>';
     });
   }
 
-  function credit() {
-    $('credit').textContent = t('ex.credit', { d: A.idx && A.idx.maj ? Lerna.fmtDate(A.idx.maj) : '—' });
+  /* ---------- Affichage selon la partie choisie ---------- */
+  function render() {
+    var fr = st.vue === 'france';
+    Lerna.qsa('#seg [data-vue]').forEach(function (b) { var on = b.getAttribute('data-vue') === st.vue; b.classList.toggle('on', on); b.setAttribute('aria-selected', String(on)); });
+    $('q').placeholder = t(fr ? 'ex.searchPhFr' : 'ex.searchPh');
+    $('qLbl').textContent = t(fr ? 'ex.searchPhFr' : 'ex.searchPh');
+    $('filters').hidden = fr; $('frFilters').hidden = !fr; $('frInfo').hidden = !fr; $('sortWrap').hidden = fr;
+    if (fr) { $('note').hidden = true; frInfo(); return frSearch(); }
+    st.show = PER;
+    renderEcoles();
   }
-  function refresh() { st.page = 1; renderFilters(); render(); }
+  function credit() { $('credit').textContent = t('ex.credit', { d: A.idx && A.idx.maj ? Lerna.fmtDate(A.idx.maj) : '—' }); $('fxNote').textContent = t('ex.fxNote') + ' ' + (Lerna.moneyNote ? Lerna.moneyNote() : ''); }
 
   Lerna.ready(function () {
     $('q').value = st.q;
-    /* Pays de départ : celui demandé, sinon la France si on vient d'un ancien lien, sinon tous les pays pour une recherche, sinon le pays de la personne */
-    var want = (Lerna.param('pays') || '').toUpperCase();
-    st.pays = /^[A-Z]{2}$|^ALL$/.test(want) ? want : srcP === 'psup' ? 'FR' : st.q ? 'ALL' : '';
     renderFilters(); render(); credit();
-    annIdx().then(function () {
-      if (!st.pays) {
-        var me = Lerna.country(), ok = me && (me === 'FR' || A.idx.countries[me] || S.some(function (s) { return s.pays === me; }));
-        st.pays = ok ? me : 'SN';
-      }
-      renderFilters(); render(); credit();
-    }).catch(function () { if (!st.pays) { st.pays = 'ALL'; renderFilters(); render(); } });
-
-    $('q').addEventListener('input', Lerna.debounce(function (e) { st.q = e.target.value; st.page = 1; A.show = 30; render(); }, 280));
+    annIdx().then(function () { renderFilters(); credit(); }).catch(function () {});
+    $('seg').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-vue]'); if (!b || b.getAttribute('data-vue') === st.vue) return;
+      st.vue = b.getAttribute('data-vue'); Lerna.sound.play('click'); render();
+    });
+    $('q').addEventListener('input', Lerna.debounce(function (e) { st.q = e.target.value; render(); }, 300));
     $('filters').addEventListener('change', function (e) {
       var s = e.target.closest('[data-f]'); if (!s) return;
-      st[s.getAttribute('data-f')] = s.value || (s.getAttribute('data-f') === 'pays' ? 'ALL' : '');
-      st.page = 1; A.show = 30;
-      if (s.getAttribute('data-f') === 'pays') { F.tf = ''; F.reg = ''; F.app = false; }
-      s.classList.toggle('on', !!s.value);
-      Lerna.sound.play('click');
-      render();
+      var k = s.getAttribute('data-f'); st[k] = s.value || (k === 'pays' ? 'ALL' : '');
+      s.classList.toggle('on', k === 'pays' || !!s.value);
+      Lerna.sound.play('click'); render();
     });
     $('filters').addEventListener('click', function (e) {
-      if (e.target.closest('[data-off]')) { st.off = !st.off; renderFilters(); render(); return; }
       if (!e.target.closest('#reset')) return;
       ['budget', 'dom', 'type', 'duree', 'lang'].forEach(function (k) { st[k] = ''; });
-      st.q = ''; $('q').value = ''; st.off = true; refresh();
+      st.q = ''; $('q').value = ''; st.pays = 'ALL'; renderFilters(); render();
     });
     $('frFilters').addEventListener('change', function (e) { var s = e.target.closest('[data-fr]'); if (!s) return; F[s.getAttribute('data-fr')] = s.value; frSearch(); });
     $('frFilters').addEventListener('click', function (e) { if (!e.target.closest('[data-frapp]')) return; F.app = !F.app; frSearch(); });
-    $('bMoreBtn').addEventListener('click', function () {
-      if (st.pays === 'FR') { frSearch(true); return; }
-      A.show += 30;
-      if (allCountries() && A.global) { $('bGrid').innerHTML = A.global.slice(0, A.show).map(annCard).join(''); $('bMore').hidden = A.global.length <= A.show; return; }
-      if (A.cache[A.cc]) annRender(A.cache[A.cc]);
+    $('moreBtn').addEventListener('click', function () {
+      if (st.vue === 'france') { frSearch(true); return; }
+      st.show += PER; paintEcoles();
     });
-    $('bHidden').addEventListener('click', function (e) { if (!e.target.closest('[data-mshow]')) return; e.preventDefault(); st.off = false; renderFilters(); if (A.cache[A.cc]) annRender(A.cache[A.cc]); });
     $('sort').addEventListener('change', function (e) { st.sort = e.target.value; render(); });
-    $('pager').addEventListener('click', function (e) {
-      var b = e.target.closest('[data-page]'); if (!b || b.disabled) return;
-      st.page = parseInt(b.getAttribute('data-page'), 10); render();
-      window.scrollTo({ top: $('grid').getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
-    });
     $('grid').addEventListener('click', function (e) {
       var f = e.target.closest('[data-fav]'); if (!f) return;
       var on = Lerna.favs.toggle(f.getAttribute('data-fav'));
@@ -613,9 +500,7 @@ Lerna.addStrings({
       if (on) Lerna.pop(f);
       f.classList.toggle('on', on); f.setAttribute('aria-pressed', String(on));
     });
-    var fxNote = function () { $('fxNote').textContent = Lerna.moneyNote(); };
-    fxNote();
-    Lerna.onLang(function () { renderFilters(); render(); fxNote(); credit(); });
+    Lerna.onLang(function () { renderFilters(); render(); credit(); });
   });
 })();
 </script>
