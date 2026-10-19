@@ -1,1 +1,1 @@
-export const SONDES = ['GREP:جامعة|Universit|https://www.mes.tn/page.php?code_menu=147&code_menu_parent=54'];
+export const SONDES = ['https://www.mes.tn/image.php?id=21192', 'https://www.mes.tn/image.php?id=20985', 'https://www.mes.tn/image.php?id=19999', 'https://www.mes.tn/annuaire.php?code_menu=22'];
