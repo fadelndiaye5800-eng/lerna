@@ -1,1 +1,1 @@
-export const SONDES = ['https://www.lecames.org/diplome_cames/web/site/repertoire-simple', 'https://www.lecames.org/institutions-membres/', 'https://www.lecames.org/formations-accreditees/'];
+export const SONDES = ['GREP:<select|<option[^>]*>[^<]{2,40}|name="[^"]+"|https://www.lecames.org/diplome_cames/web/site/repertoire', 'GREP:class="summary"[^<]*<|Affichage[^<]{0,80}|https://www.lecames.org/diplome_cames/web/site/repertoire-simple'];
