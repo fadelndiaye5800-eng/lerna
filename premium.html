@@ -227,7 +227,7 @@ Lerna.addStrings({
     'pr.f3': 'Fiches écoles : frais, admission et liens officiels',
     'pr.f4': 'Toutes les bourses, stages, emplois et financements',
     'pr.f5': 'Nouvelle analyse de ton profil', 'pr.f12': 'Assistant IA',
-    'pr.f14': 'Mon dossier : étapes, documents et suivi',
+    'pr.f14': 'Mon dossier : les étapes et les dates officielles', 'pr.f20': 'Copilote pas à pas sur chaque plateforme, coffre prêt à copier, documents, CV, visa et suivi',
     'pr.f16': 'Correction de lettre et entraînement à l’entretien',
     'pr.f17': 'Mon budget réel et plan B', 'pr.f18': 'Alerte dès qu’une offre de ton domaine est ajoutée',
     'pr.f19': '« Est-ce pour moi ? » sur chaque offre',
@@ -309,7 +309,7 @@ Lerna.addStrings({
     'pr.f3': 'School pages: fees, admission and official links',
     'pr.f4': 'All scholarships, internships, jobs and funding',
     'pr.f5': 'New analysis of your profile', 'pr.f12': 'AI assistant',
-    'pr.f14': 'My application file: steps, documents and tracking',
+    'pr.f14': 'My application: steps and official dates', 'pr.f20': 'Step-by-step copilot on each platform, copy-ready vault, documents, CV, visa and tracking',
     'pr.f16': 'Cover-letter review and interview practice',
     'pr.f17': 'My real budget and plan B', 'pr.f18': 'Alert as soon as an offer in your field is added',
     'pr.f19': '“Is this for me?” on every offer',
@@ -378,7 +378,7 @@ Lerna.addStrings({
   /* Gratuit : tout ce qui est information (écoles, frais, toutes les offres) + Mon dossier.
      Premium : ce qui fait gagner du temps et réduit le risque (IA sans limite, budget et plan B, alertes ciblées, 5 écoles).
      Un nombre = limite par jour en gratuit. */
-  var ROWS = [[1, 1, 1], [2, 1, 1], [3, 1, 1], [4, 1, 1], [14, 1, 1], [16, 3, 1], [19, 3, 1], [12, 5, 1], [5, 1, 1], [6, 0, 1], [17, 0, 1], [18, 0, 1], [7, 0, 1], [15, 0, 1]];
+  var ROWS = [[1, 1, 1], [2, 1, 1], [3, 1, 1], [4, 1, 1], [14, 1, 1], [20, 0, 1], [16, 0, 1], [19, 3, 1], [12, 5, 1], [5, 1, 1], [6, 0, 1], [17, 0, 1], [18, 0, 1], [7, 0, 1], [15, 0, 1]];
   var WHY = [['w1', 'folder'], ['w2', 'memo'], ['w3', 'money-bag'], ['w4', 'bell']];
 
   var M = function () { return Lerna.config.pay || null; };                          // paiement FCFA (Wave, Orange Money, Yas, carte)

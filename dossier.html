@@ -66,6 +66,22 @@
   .cf-ro .k { color: var(--muted); }
   .cf-ro .v { white-space: pre-line; word-break: break-word; font-weight: 600; }
   @media (max-width: 560px) { .cf-ro { grid-template-columns: 1fr auto; } .cf-ro .k { grid-column: 1 / -1; } }
+  .how { margin-top: 12px; border-top: 1px dashed var(--cream-darker); padding-top: 10px; }
+  .how summary { cursor: pointer; font-weight: 800; font-size: .88rem; color: var(--orange-deep, #B84D06); list-style: none; display: flex; align-items: center; gap: 6px; }
+  .how summary::-webkit-details-marker { display: none; }
+  .how ol, .how ul { margin: 10px 0 0 18px; display: grid; gap: 7px; font-size: .88rem; color: var(--brown); }
+  .how .mis { margin-top: 12px; background: #FBE3E3; color: #8E1C1C; border-radius: 12px; padding: 10px 12px; font-size: .84rem; }
+  .how .mis ul { color: #8E1C1C; margin-top: 6px; }
+  .how-lock { margin-top: 12px; display: flex; gap: 8px; align-items: center; font-size: .84rem; font-weight: 700; color: var(--muted); text-decoration: none; }
+  .how-lock:hover { color: var(--orange); }
+  .go-btn { display: inline-flex; align-items: center; gap: 6px; }
+  .ret { background: var(--orange-soft, #FDEBDD); border-radius: 18px; padding: 16px; margin-bottom: 14px; }
+  .ret h3 { font-size: 1rem; }
+  .ret .row { margin-top: 10px; display: flex; gap: 8px; flex-wrap: wrap; }
+  .lockwrap { position: relative; }
+  .lockwrap .lk-prev { filter: blur(6px); user-select: none; pointer-events: none; max-height: 420px; overflow: hidden; -webkit-mask-image: linear-gradient(#000 55%, transparent); mask-image: linear-gradient(#000 55%, transparent); }
+  .lockwrap .lk-card { position: relative; margin-top: -120px; z-index: 2; text-align: center; }
+  .lk-list { text-align: left; margin: 12px auto 0; max-width: 420px; display: grid; gap: 6px; font-size: .9rem; }
   .ds-wrap { padding-top: 26px; padding-bottom: 70px; }
   .back { display: inline-flex; align-items: center; gap: 6px; color: var(--muted); font-weight: 600; font-size: .9rem; text-decoration: none; margin-bottom: 14px; }
   .back:hover { color: var(--orange); }
@@ -172,6 +188,7 @@
 <script src="assets/js/questions.js"></script>
 <script src="assets/js/data-schools.js"></script>
 <script src="assets/js/guides.js"></script>
+<script src="assets/js/copilote.js"></script>
 <script src="assets/js/data-opps.js"></script>
 <script src="assets/js/coffre.js"></script>
 <script>
@@ -197,6 +214,15 @@ Lerna.addStrings({
     'bg.from': 'à partir de {m} la 1re année', 'bg.see': 'Voir la fiche', 'bg.noPlanB': 'Pas d’école moins chère dans ton domaine pour l’instant.',
     'bg.lockTitle': 'Ton budget réel et ton plan B sont dans Premium', 'bg.lockText': 'Calcule le coût complet de ta première année (scolarité, logement, vie, visa, billet) et découvre des écoles de secours qui rentrent dans ton budget.',
     'bg.lockBtn': 'Débloquer avec le Pack Candidature',
+    'cp.how': 'Comment faire, écran par écran', 'cp.mis': 'Les erreurs qui font échouer un dossier', 'cp.lock': 'Le copilote pas à pas de cette étape est dans le Pack Candidature',
+    'cp.go': 'Ouvrir {p}', 'cp.goNote': 'Garde LERNA ouvert à côté : fais une ligne à la fois et coche-la ici.',
+    'cp.retTitle': 'Tu reviens de {p}', 'cp.retSub': 'Étape : « {s} ». Tout s’est bien passé ?', 'cp.retDone': 'Oui, c’est fait', 'cp.retBlock': 'J’ai bloqué', 'cp.retLater': 'Pas encore',
+    'cp.retHelp': 'Relis les lignes ci-dessous, une par une, et vérifie les erreurs fréquentes. Toujours bloqué ? Écris à l’Espace Campus France depuis ton compte ou à l’établissement : ce sont eux qui décident.',
+    'cp.src': 'Copilote vérifié le {d} sur les sources officielles ({s}). En cas de différence, la plateforme officielle fait foi.',
+    'cp.never': 'LERNA ne te demande jamais tes mots de passe et ne dépose rien à ta place : tu restes maître de ta candidature.',
+    'lk.title': 'Cette partie de ton dossier est dans le Premium', 'lk.sub': 'Pack Candidature : tout ton dossier, pas à pas, pour toute la saison des candidatures (6 mois, paiement unique).',
+    'lk.b1': 'Le copilote écran par écran de chaque plateforme officielle', 'lk.b2': 'Ton coffre : tes infos et documents prêts à copier', 'lk.b3': 'Lettres de motivation, CV et recommandations avec l’avis de LERNA', 'lk.b4': 'Entraînement à l’entretien, visa, budget réel et suivi avec rappels',
+    'lk.btn': 'Débloquer avec le Pack Candidature', 'lk.month': 'ou Premium au mois',
     'ds.who': 'Ce guide est pour toi si :', 'ds.notYou': 'Ce n’est pas ta situation ?', 'ds.officialPage': 'Page officielle', 'ds.officialDate': 'Date officielle : {d}',
     'ds.myDate': 'Ma date limite', 'ds.markDone': 'Marquer comme fait', 'ds.markUndo': 'Annuler',
     'ds.links': 'Liens de l’école', 'ds.linksNote': 'Les liens marqués 🔎 lancent une recherche sur le site officiel de l’école.',
@@ -251,6 +277,15 @@ Lerna.addStrings({
     'bg.from': 'from {m} for the 1st year', 'bg.see': 'See the page', 'bg.noPlanB': 'No cheaper school in your field for now.',
     'bg.lockTitle': 'Your real budget and plan B are in Premium', 'bg.lockText': 'Work out the full cost of your first year (tuition, housing, living, visa, flight) and discover back-up schools that fit your budget.',
     'bg.lockBtn': 'Unlock with the Application Pack',
+    'cp.how': 'How to do it, screen by screen', 'cp.mis': 'Mistakes that sink an application', 'cp.lock': 'The step-by-step copilot for this step is in the Application Pack',
+    'cp.go': 'Open {p}', 'cp.goNote': 'Keep LERNA open alongside: do one line at a time and tick it here.',
+    'cp.retTitle': 'You’re back from {p}', 'cp.retSub': 'Step: “{s}”. Did it go well?', 'cp.retDone': 'Yes, done', 'cp.retBlock': 'I got stuck', 'cp.retLater': 'Not yet',
+    'cp.retHelp': 'Reread the lines below one by one and check the common mistakes. Still stuck? Write to the Campus France office from your account or to the institution: they are the ones who decide.',
+    'cp.src': 'Copilot checked on {d} against official sources ({s}). If anything differs, the official platform prevails.',
+    'cp.never': 'LERNA never asks for your passwords and never submits anything for you: you stay in control of your application.',
+    'lk.title': 'This part of your application is in Premium', 'lk.sub': 'Application Pack: your whole application, step by step, for the whole application season (6 months, one-off payment).',
+    'lk.b1': 'The screen-by-screen copilot for each official platform', 'lk.b2': 'Your vault: your details and documents ready to copy', 'lk.b3': 'Motivation letters, CV and references with LERNA’s feedback', 'lk.b4': 'Interview practice, visa, real budget and tracking with reminders',
+    'lk.btn': 'Unlock with the Application Pack', 'lk.month': 'or monthly Premium',
     'ds.who': 'This guide is for you if:', 'ds.notYou': 'Not your situation?', 'ds.officialPage': 'Official page', 'ds.officialDate': 'Official date: {d}',
     'ds.myDate': 'My deadline', 'ds.markDone': 'Mark as done', 'ds.markUndo': 'Undo',
     'ds.links': 'School links', 'ds.linksNote': 'Links marked 🔎 run a search on the school’s official website.',
@@ -301,6 +336,41 @@ Lerna.addStrings({
     var s = school(); d = d || dossier();
     if (d.guide && window.LERNA_GUIDES[d.guide]) return Object.assign({ key: d.guide }, window.LERNA_GUIDES[d.guide]);
     return window.LERNA_GUIDE_FOR(s, country(), answers);
+  }
+  /* ---------- Premium : presque tout « Mon dossier » est réservé ---------- */
+  function lockCard(src) {
+    return '<section class="card lk-card">' + Lerna.sticker('lock', 'stk-sm') + '<h3 style="margin-top:8px">' + t('lk.title') + '</h3><p class="muted" style="margin:6px 0 4px">' + t('lk.sub') + '</p>' +
+      '<ul class="lk-list list-check">' + ['lk.b1', 'lk.b2', 'lk.b3', 'lk.b4'].map(function (k) { return '<li>' + t(k) + '</li>'; }).join('') + '</ul>' +
+      '<a class="btn btn-primary" style="margin-top:16px" href="premium.html?src=' + encodeURIComponent(src || 'dossier') + '&plan=pack">' + t('lk.btn') + ' →</a>' +
+      '<p style="margin-top:8px"><a class="small muted" href="premium.html?src=' + encodeURIComponent(src || 'dossier') + '">' + t('lk.month') + '</a></p></section>';
+  }
+  function locked(html, src) { return '<div class="lockwrap"><div class="lk-prev" aria-hidden="true" inert>' + html + '</div>' + lockCard(src) + '</div>'; }
+
+  /* ---------- Copilote : mission avant d'aller sur la plateforme officielle, bilan au retour ---------- */
+  var GO_KEY = 'lerna_copilote_go';
+  function goGet() { var g = store.get(GO_KEY, null); return g && g.d === id && Date.now() - g.t < 12 * 3600e3 ? g : null; }
+  function howHTML(x, i, prem, open) {
+    var hw = window.LERNA_HOW && window.LERNA_HOW(x.id, country());
+    if (!hw) return '';
+    if (!prem && i > 0) return '<a class="how-lock" href="premium.html?src=copilote&plan=pack">' + Lerna.icon('lock', 'ic-sm') + t('cp.lock') + ' →</a>';
+    return '<details class="how"' + (open ? ' open' : '') + ' data-how="' + x.id + '"><summary>' + Lerna.icon('check', 'ic-sm') + t('cp.how') + '</summary>' +
+      '<ol>' + hw.todo.map(function (l) { return '<li>' + esc(L(l)) + '</li>'; }).join('') + '</ol>' +
+      (hw.mistakes.length ? '<div class="mis"><strong>' + t('cp.mis') + '</strong><ul>' + hw.mistakes.map(function (l) { return '<li>' + esc(L(l)) + '</li>'; }).join('') + '</ul></div>' : '') +
+      (x.link ? '<p style="margin-top:12px"><a class="btn btn-primary btn-sm go-btn" data-go="' + x.id + '" href="' + esc(x.link) + '" target="_blank" rel="noopener">' + t('cp.go', { p: esc(platName(x.link)) }) + ' ↗</a></p><p class="small muted" style="margin-top:6px">' + t('cp.goNote') + '</p>' : '') +
+      '</details>';
+  }
+  function platName(u) {
+    var P = window.LERNA_PLATFORMS || {}, k = Object.keys(P).filter(function (k) { return P[k].url === u; })[0];
+    if (k) return P[k].name;
+    try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return u; }
+  }
+  function returnHTML(g) {
+    var go = goGet(); if (!go) return '';
+    var x = g.steps.filter(function (s) { return s.id === go.s; })[0]; if (!x) return '';
+    if ((dossier().steps || {})[x.id] && dossier().steps[x.id].done) return '';
+    return '<section class="ret" id="retBox"><h3>' + t('cp.retTitle', { p: esc(go.p) }) + '</h3><p class="small" style="margin-top:4px">' + t('cp.retSub', { s: esc(L(x.title)) }) + '</p>' +
+      '<div class="row"><button type="button" class="btn btn-primary btn-sm" data-ret="done">' + t('cp.retDone') + '</button><button type="button" class="btn btn-ghost btn-sm" data-ret="block">' + t('cp.retBlock') + '</button><button type="button" class="btn btn-ghost btn-sm" data-ret="later">' + t('cp.retLater') + '</button></div>' +
+      '<p class="small" id="retHelp" hidden style="margin-top:10px">' + t('cp.retHelp') + '</p></section>';
   }
   function progress(d, g) {
     var st = d.steps || {}, done = g.steps.filter(function (x) { return st[x.id] && st[x.id].done; }).length;
@@ -460,6 +530,7 @@ Lerna.addStrings({
   }
   function renderPanel() {
     var fn = { etapes: pSteps, documents: pDocs, lettre: pLetter, entretien: pInterview, cv: pCv, reco: pReco, visa: pVisa, budget: pBudget, suivi: pTrack }[tab];
+    if (tab !== 'etapes' && !Lerna.isPremium()) { $('panel').innerHTML = locked(fn(), 'dossier-' + tab); return; }
     $('panel').innerHTML = fn();
     bindPanel();
   }
@@ -473,18 +544,22 @@ Lerna.addStrings({
       h += '<div class="guide-switch"><span class="muted">' + t('ds.notYou') + '</span><select class="select" id="guideSel" style="width:auto;padding:8px 40px 8px 12px;font-size:.86rem">' +
         ['parcoursup', 'eef', 'dap'].map(function (k) { return '<option value="' + k + '"' + (g.key === k ? ' selected' : '') + '>' + esc(L(window.LERNA_GUIDES[k].label)) + '</option>'; }).join('') + '</select></div>';
     }
-    h += '<ol class="steps-list">' + g.steps.map(function (x) {
+    var prem = Lerna.isPremium(), go = goGet(), firstTodo = -1;
+    g.steps.forEach(function (x, i) { if (firstTodo < 0 && !(st[x.id] && st[x.id].done)) firstTodo = i; });
+    h = returnHTML(g) + h;
+    h += '<ol class="steps-list">' + g.steps.map(function (x, i) {
       var me = st[x.id] || {}, done = !!me.done;
       var dl = x.date ? Lerna.daysUntil(x.date) : null;
       return '<li class="step' + (done ? ' done' : '') + '"><button type="button" class="step-ck" data-step="' + x.id + '" aria-pressed="' + done + '" aria-label="' + esc(t(done ? 'ds.markUndo' : 'ds.markDone')) + '">' + (done ? Lerna.icon('check') : '') + '</button>' +
         '<div class="step-body"><h3>' + esc(L(x.title)) + '</h3>' + (L(x.desc) ? '<p>' + esc(L(x.desc)) + '</p>' : '') +
         '<div class="step-meta">' +
           (x.date ? '<span class="official">' + Lerna.icon('calendar', 'ic-sm') + ' ' + t('ds.officialDate', { d: Lerna.fmtDate(x.date) }) + (dl !== null && dl >= 0 && dl <= 60 ? ' · J-' + dl : '') + '</span>' : '') +
-          (x.link ? '<a class="orange bold" href="' + esc(x.link) + '" target="_blank" rel="noopener">' + t('ds.officialPage') + ' ↗</a>' : '') +
+          (x.link ? '<a class="orange bold" data-go="' + x.id + '" href="' + esc(x.link) + '" target="_blank" rel="noopener">' + t('ds.officialPage') + ' ↗</a>' : '') +
           (!x.date ? '<label>' + t('ds.myDate') + ' <input type="date" data-mydate="' + x.id + '" value="' + esc(me.date || '') + '"></label>' : '') +
-        '</div></div></li>';
+        '</div>' + howHTML(x, i, prem, !done && (i === firstTodo || (go && go.s === x.id))) + '</div></li>';
     }).join('') + '</ol>';
     if (g.verifie) h += '<p class="small muted" style="margin-top:12px">' + t('ds.verified', { d: Lerna.fmtDate(g.verifie), s: g.source || '' }) + '</p>';
+    if (window.LERNA_HOW && g.steps.some(function (x) { return window.LERNA_HOW(x.id, country()); })) h += '<p class="small muted" style="margin-top:6px">' + t('cp.src', { d: Lerna.fmtDate(window.LERNA_HOW_VERIFIED), s: window.LERNA_HOW_SOURCES }) + ' ' + t('cp.never') + '</p>';
     if (s.platform) return h + voeuxCard(d) + bourseCard([s.pays]);
     if (s.pseudo) return h + (s.link || s.site ? '<section class="card" style="margin-top:18px"><h3>' + t('ds.links') + '</h3><div class="row" style="margin-top:10px">' +
       (s.link ? '<a class="btn btn-ghost btn-sm" href="' + esc(s.link) + '">' + t('common.seeSchool') + '</a>' : '') +
@@ -794,10 +869,27 @@ Lerna.addStrings({
   Lerna.ready(function () {
     var coffre = !!Lerna.param('coffre');
     if (window.LERNA_OPPS_SYNC) window.LERNA_OPPS_SYNC().then(function (changed) { if (changed && !coffre && (!id || tab === 'etapes')) render(); });
-    function render() { if (coffre) window.LERNA_COFFRE.open($('root')); else if (id) renderDossier(); else renderList(); }
+    function render() {
+      if (coffre && !Lerna.isPremium()) { window.LERNA_COFFRE.open($('root')); var r = $('root'); r.innerHTML = '<a class="back" href="dossier.html">' + t('ds.back') + '</a>' + locked(r.innerHTML, 'coffre'); return; }
+      if (coffre) window.LERNA_COFFRE.open($('root')); else if (id) renderDossier(); else renderList();
+    }
     render();
     document.addEventListener('click', function (e) {
       var el;
+      if ((el = e.target.closest('[data-go]')) && id) {
+        store.set(GO_KEY, { d: id, s: el.getAttribute('data-go'), p: platName(el.getAttribute('href')), t: Date.now() });
+        Lerna.track('copilote_go', id + ':' + el.getAttribute('data-go'));
+        return;
+      }
+      if ((el = e.target.closest('[data-ret]'))) {
+        var act = el.getAttribute('data-ret'), go = goGet();
+        if (act === 'block') { var hp = $('retHelp'); if (hp) hp.hidden = false; var dt = go && document.querySelector('[data-how="' + go.s + '"]'); if (dt) { dt.open = true; dt.scrollIntoView({ behavior: 'smooth', block: 'center' }); } Lerna.track('copilote_block', id + ':' + (go && go.s)); return; }
+        if (act === 'done' && go) {
+          var dd = dossier(); dd.steps = dd.steps || {}; dd.steps[go.s] = Object.assign(dd.steps[go.s] || {}, { done: true, at: new Date().toISOString() }); save(dd);
+          Lerna.sound.play('success'); Lerna.track('copilote_done', id + ':' + go.s);
+        }
+        store.set(GO_KEY, null); renderDossier(); return;
+      }
       if ((el = e.target.closest('[data-pick]'))) return startDossier(el.getAttribute('data-pick'));
       if ((el = e.target.closest('[data-pickreco]'))) return startAny(fromReco(+el.getAttribute('data-pickreco')));
       if ((el = e.target.closest('[data-rmvoeu]'))) {
@@ -845,6 +937,7 @@ Lerna.addStrings({
     });
     Lerna.onLang(render);
     Lerna.on('lerna:dossier', Lerna.debounce(function () { if (!id && !coffre) renderList(); }, 200));
+    document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && id && !coffre && tab === 'etapes' && goGet() && !$('retBox')) renderPanel(); });
   });
 })();
 </script>
