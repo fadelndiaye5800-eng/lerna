@@ -62,6 +62,7 @@ export async function GET(request) {
     socials,                                              // réseaux sociaux (codés, affichés seulement si SHOW_SOCIALS=true)
     showSocials: env('SHOW_SOCIALS', 'false') === 'true',
     premiumEnabled: !(await premiumOpen()),
+    build: (env('VERCEL_GIT_COMMIT_SHA') || env('VERCEL_DEPLOYMENT_ID') || '').slice(0, 40),   // version en ligne : le service worker se met à jour quand elle change
     appleLogin: env('APPLE_LOGIN_ENABLED', 'false') === 'true',   // bouton « Continuer avec Apple » (après la configuration chez Apple)
     ab: cleanAb(cfg.ab),
     fx: cleanFx(cfg.fx),

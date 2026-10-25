@@ -9,7 +9,8 @@
 
   var Lerna = window.Lerna = window.Lerna || {};
   var doc = document;
-  var SUPABASE_CDN = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js';
+  /* Bibliothèque Supabase servie par LERNA lui-même (gardée par le service worker) : plus d'attente d'un CDN extérieur */
+  var SUPABASE_CDN = '/assets/vendor/supabase-2.45.4.js';
 
   /* ------------------------------------------------------------------ */
   /* Stockage sûr (navigation privée, quotas…)                           */
@@ -605,32 +606,34 @@
   /* ------------------------------------------------------------------ */
   Lerna.config = { premiumEnabled: true, live: false };
   (function () { var c = store.sget('lerna_cfg', null); if (c && c.c) Object.assign(Lerna.config, c.c); })();
+  function fetchConfig(ms) {
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, ms);
+    return fetch('/api/config', { signal: ctrl ? ctrl.signal : undefined, headers: { Accept: 'application/json' } })
+      .then(function (r) { clearTimeout(timer); if (!r.ok) throw new Error('no config'); return r.json(); })
+      .then(function (c) {
+        c.live = true; Object.assign(Lerna.config, c); store.set('lerna_ab_ovr', c.ab || {});
+        store.sset('lerna_cfg', { t: Date.now(), c: Lerna.config });
+        if (Lerna.config.supabaseUrl) store.set('lerna_cfg_last', Lerna.config);
+        return Lerna.config;
+      }, function (e) { clearTimeout(timer); throw e; });
+  }
   function loadConfig() {
     var cached = store.sget('lerna_cfg', null);
     if (cached && cached.t && Date.now() - cached.t < 10 * 60 * 1000) {
       Object.assign(Lerna.config, cached.c);
       return Promise.resolve(Lerna.config);
     }
-    var ctrl = window.AbortController ? new AbortController() : null;
-    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 9000);   // le serveur Vercel peut mettre quelques secondes à se réveiller
-    return fetch('/api/config', { signal: ctrl ? ctrl.signal : undefined, headers: { Accept: 'application/json' } })
-      .then(function (r) { if (!r.ok) throw new Error('no config'); return r.json(); })
-      .then(function (c) { c.live = true; Object.assign(Lerna.config, c); store.set('lerna_ab_ovr', c.ab || {}); })
-      .catch(function () {
-        Lerna.config.live = false;
-        /* Serveur lent ou hors ligne : on reprend la dernière config connue (URL Supabase + clé publique),
-           pour rester connecté au lieu de basculer en « mode aperçu » */
-        var last = store.get('lerna_cfg_last', null);
-        if (last && last.supabaseUrl && last.supabaseAnonKey) Object.assign(Lerna.config, last, { live: false });
-      })
-      .then(function () {
-        clearTimeout(timer);
-        if (Lerna.config.live) {
-          store.sset('lerna_cfg', { t: Date.now(), c: Lerna.config });
-          if (Lerna.config.supabaseUrl) store.set('lerna_cfg_last', Lerna.config);
-        }
-        return Lerna.config;
-      });   // un échec n'est jamais gardé pour la session : la page suivante réessaie
+    /* Connexion lente : on démarre TOUT DE SUITE avec la dernière configuration connue (URL Supabase, clé publique,
+       prix…) et on la met à jour en arrière-plan. Avant, chaque ouverture attendait le serveur jusqu'à 9 secondes. */
+    var last = store.get('lerna_cfg_last', null);
+    if (last && last.supabaseUrl && last.supabaseAnonKey) {
+      Object.assign(Lerna.config, last, { live: true });
+      fetchConfig(15000).then(function () { Lerna.emit('lerna:config', Lerna.config); }, function () {});
+      return Promise.resolve(Lerna.config);
+    }
+    /* Toute première visite : il faut la configuration une fois (le serveur peut mettre quelques secondes à se réveiller) */
+    return fetchConfig(9000).catch(function () { Lerna.config.live = false; return Lerna.config; });   // un échec n'est jamais gardé : la page suivante réessaie
   }
 
   /* ------------------------------------------------------------------ */
@@ -921,15 +924,28 @@
       };
     },
     _load: function (u) {
-      return Auth.sb.from('users').select('*').eq('id', u.id).maybeSingle()
-        .then(function (r) { Auth.user = Auth._fromDb(u, r.data); })
-        .catch(function () { Auth.user = Auth._fromDb(u, null); })
-        .then(function () { store.set('lerna_user_cache', Auth.user); });
+      /* Connexion lente : au bout de 4 s on continue avec le profil gardé sur le téléphone ; le vrai profil remplace ensuite */
+      var cached = store.get('lerna_user_cache', null);
+      var settled = false;
+      var real = Auth.sb.from('users').select('*').eq('id', u.id).maybeSingle()
+        .then(function (r) { return Auth._fromDb(u, r.data); }, function () { return null; })
+        .then(function (fresh) {
+          if (!fresh) fresh = cached && cached.id === u.id ? cached : Auth._fromDb(u, null);
+          if (settled) { Auth.user = fresh; store.set('lerna_user_cache', fresh); renderChrome(); Lerna.emit('lerna:auth', fresh); }
+          return fresh;
+        });
+      var slow = new Promise(function (res) { setTimeout(function () { res(cached && cached.id === u.id ? cached : null); }, 4000); });
+      return Promise.race([real, slow]).then(function (x) {
+        settled = true;
+        Auth.user = x || Auth._fromDb(u, null);
+        store.set('lerna_user_cache', Auth.user);
+      });
     },
     init: function () {
       return loadConfig().then(function (cfg) {
         if (cfg.supabaseUrl && cfg.supabaseAnonKey) {
-          return Lerna.loadScript(SUPABASE_CDN).then(function () {
+          var lib = function () { return Lerna.loadScript(SUPABASE_CDN); };
+          return lib().catch(function () { return new Promise(function (r) { setTimeout(r, 1500); }).then(lib); }).then(function () {
             Auth.sb = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
               auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, flowType: 'pkce' }
             });
@@ -943,10 +959,24 @@
               if (event === 'PASSWORD_RECOVERY') Lerna.emit('lerna:recovery');
               if (event === 'SIGNED_OUT') { Auth.user = null; store.del('lerna_user_cache'); renderChrome(); Lerna.emit('lerna:auth', null); }
             });
-            return Auth.sb.auth.getSession().then(function (r) {
+            /* Session : lue sur le téléphone, mais Supabase peut vouloir la renouveler en ligne. Connexion lente :
+               au bout de 4 s on continue avec le compte gardé sur le téléphone, et on met à jour dès que la réponse arrive.
+               (Sauf au retour de Google ou d'un lien email : là il faut attendre la vraie session.) */
+            var fromLink = /[?&#](code|access_token|token_hash|type)=/.test(location.search + location.hash);
+            var done = false;
+            var real = Auth.sb.auth.getSession().then(function (r) {
               var s = r.data && r.data.session;
-              if (s && s.user) return Auth._load(s.user);
-              Auth.user = null;
+              if (s && s.user) return Auth._load(s.user).then(function () { return 'ok'; });
+              Auth.user = null; return 'ok';
+            }, function () { return 'err'; }).then(function (x) {
+              if (done) { store.set('lerna_user_cache', Auth.user); renderChrome(); Lerna.emit('lerna:auth', Auth.user); }
+              return x;
+            });
+            if (fromLink) return real;
+            var slow = new Promise(function (res) { setTimeout(function () { res('slow'); }, 4000); });
+            return Promise.race([real, slow]).then(function (x) {
+              done = true;
+              if (x === 'slow' || x === 'err') Auth.user = store.get('lerna_user_cache', null);
             });
           }).catch(function () {
             Auth.mode = 'demo';
@@ -2231,8 +2261,13 @@
     var v = Daily.visits();
     A.capture('app_open', { page: page(), days_since_first: v.first ? Math.floor((Date.now() - new Date(v.first).getTime()) / 864e5) : 0, visit_days: v.days.length });
     Lerna.detectCountry();
-    if ('serviceWorker' in navigator && Lerna.config.live && location.protocol === 'https:') {
-      navigator.serviceWorker.register('/sw.js' + (Lerna.config.onesignalAppId ? '?os=1' : '')).catch(function () {});
+    /* Service worker : garde toute l'application sur le téléphone, pour qu'elle s'ouvre vite même en connexion faible */
+    if ('serviceWorker' in navigator && Lerna.config.live && (location.protocol === 'https:' || location.hostname === 'localhost')) {
+      var reg = function () { navigator.serviceWorker.register('/sw.js' + (Lerna.config.onesignalAppId ? '?os=1' : ''), { updateViaCache: 'none' }).catch(function () {}); };
+      /* Première visite : on attend que la page soit affichée, pour ne pas lui voler la connexion */
+      if (navigator.serviceWorker.controller) reg();
+      else if (doc.readyState === 'complete') setTimeout(reg, 2500);
+      else window.addEventListener('load', function () { setTimeout(reg, 2500); });
     }
     if (Lerna.notify.granted()) Lerna.notify.tags();
   });

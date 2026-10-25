@@ -67,6 +67,15 @@
       ]
     },
     {
+      "source": "/assets/(fonts|vendor)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=2592000, stale-while-revalidate=31536000"
+        }
+      ]
+    },
+    {
       "source": "/admin(.*)",
       "headers": [
         {
