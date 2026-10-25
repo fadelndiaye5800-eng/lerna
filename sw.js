@@ -10,7 +10,7 @@
 if (new URL(self.location.href).searchParams.get('os') === '1') {
   try { importScripts('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js'); } catch (e) {}
 }
-const VERSION = 'lerna-v9.0.0';
+const VERSION = 'lerna-v9.0.1';
 const SHELL = [
   '/', '/index.html', '/aujourdhui.html', '/questionnaire.html', '/loading.html', '/resultats.html', '/explorer.html', '/ecole.html',
   '/fiche.html', '/opportunites.html', '/espace.html', '/premium.html', '/auth.html', '/dossier.html', '/parametres.html', '/contact.html',
@@ -68,19 +68,27 @@ async function activeShell() {
   }
   return null;
 }
-/* Nouvelle version en ligne ? (comparaison du « build » de /api/config) */
+/* Version en ligne : le « build » de /api/config ; en secours, l'empreinte (ETag) de quelques fichiers clés */
+async function siteBuild() {
+  try {
+    const r = await withTimeout(fetch('/api/config', { cache: 'no-store', headers: { Accept: 'application/json' } }), 15000);
+    if (r.ok) { const b = (await r.json()).build; if (b) return b; }
+  } catch (e) { /* on essaie l'empreinte */ }
+  const tags = await Promise.all(['/index.html', '/assets/js/core.js', '/assets/css/lerna.css'].map((u) =>
+    withTimeout(fetch(u, { method: 'HEAD', cache: 'no-store' }), 15000).then((r) => (r.ok && (r.headers.get('etag') || r.headers.get('last-modified'))) || '').catch(() => '')));
+  return tags.every(Boolean) ? 'etag:' + tags.join('|') : '';
+}
+/* Nouvelle version en ligne ? Alors toute l'app est retéléchargée d'un bloc, en arrière-plan */
 async function maybeUpdate() {
   if (Date.now() - lastCheck < CHECK_EVERY) return;
   lastCheck = Date.now();
   try {
     const shell = await activeShell();
-    const r = await withTimeout(fetch('/api/config', { cache: 'no-store', headers: { Accept: 'application/json' } }), 15000);
-    if (!r.ok) return;
-    const build = (await r.json()).build || '';
+    const build = await siteBuild();
     if (!shell) { await buildShell(build); return; }
+    if (!build) return;                    // hors connexion : on réessaiera plus tard
     const markRes = await shell.match(MARK);
     const info = markRes ? await markRes.json() : {};
-    if (!build) return;
     if (!info.build) {                     // cache tout juste installé : on note la version, sans tout retélécharger
       await shell.put(MARK, new Response(JSON.stringify({ t: info.t || Date.now(), build }), { headers: { 'Content-Type': 'application/json' } }));
       return;
