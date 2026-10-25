@@ -127,10 +127,17 @@ export async function POST(request) {
   const user = await getUser(request);
   const ipKey = 'analyze:ip:' + hashKey(clientIp(request));
   const userKey = user ? 'analyze:user:' + user.id : null;
+  /* Gratuit : 1 analyse par jour et par téléphone (et par compte). Sur les réseaux mobiles, beaucoup de téléphones
+     partagent la même adresse : l'adresse ne sert donc que de garde-fou (100 par jour). */
+  const did = /^[a-f0-9]{32}$/.test(String(body.did || '')) ? String(body.did) : '';
+  const devKey = did ? 'analyze:dev:' + hashKey(did) : null;
+  const IP_FREE = 100;
   const limit = user && user.premium ? 200 : 1; // "illimité" côté Premium, avec garde-fou anti-abus
 
-  const used = Math.max(await usage(ipKey), userKey ? await usage(userKey) : 0);
-  if (!(user && user.premium) && used >= limit) return fail(429, 'daily_limit', { limit });
+  if (!(user && user.premium)) {
+    const perPerson = Math.max(devKey ? await usage(devKey) : 0, userKey ? await usage(userKey) : 0);
+    if (perPerson >= limit || (await usage(ipKey)) >= IP_FREE) return fail(429, 'daily_limit', { limit });
+  }
   if (user && user.premium && userKey && (await usage(userKey)) >= limit) return fail(429, 'daily_limit', { limit });
 
   /* Moteur LERNA : liste d'établissements reconnus possibles pour CET élève (fiches LERNA + annuaire officiel + formations françaises).
@@ -160,6 +167,7 @@ export async function POST(request) {
   }
 
   await hit(ipKey);
+  if (devKey) await hit(devKey);
   if (userKey) await hit(userKey);
 
   // Sauvegarde pour les comptes connectés (profil + recommandations) et validation du parrainage

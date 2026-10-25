@@ -76,7 +76,7 @@ Lerna.addStrings({
     'au.prenom': 'Prénom', 'au.nom': 'Nom de famille', 'au.email': 'Adresse email', 'au.password': 'Mot de passe', 'au.confirm': 'Confirmer le mot de passe',
     'au.pays': 'Pays', 'au.paysPh': 'Choisis ton pays', 'au.niveau': "Niveau d'études actuel", 'au.niveauPh': 'Choisis ton niveau',
     'au.n1': 'Collège', 'au.n2': 'Lycée', 'au.n3': 'Terminale', 'au.n4': 'Licence / Bachelor en cours', 'au.n5': 'Master en cours', 'au.n6': 'Doctorat', 'au.n7': 'Je travaille', 'au.n8': 'En pause',
-    'au.create': 'Créer mon compte →', 'au.login': 'Se connecter →', 'au.or': 'ou', 'au.orEmail': 'ou avec ton email', 'au.google': 'Continuer avec Google', 'au.apple': 'Continuer avec Apple', 'au.eOauth': 'La connexion avec Google ou Apple n’a pas abouti. Réessaie, ou utilise ton email.',
+    'au.create': 'Créer mon compte →', 'au.login': 'Se connecter →', 'au.or': 'ou', 'au.orEmail': 'ou avec ton email', 'au.inappT': 'Tu es dans le navigateur de l’appli {app}.', 'au.inappTg': 'Tu es dans le navigateur d’une application.', 'au.inapp': 'Google n’y autorise pas la connexion. Inscris-toi avec ton email juste en dessous, ou ouvre LERNA dans ton navigateur : appuie sur « ⋯ » en haut à droite, puis « Ouvrir dans le navigateur ».', 'au.openChrome': 'Ouvrir dans Chrome', 'au.copyLink': 'Copier le lien', 'au.copied': 'Lien copié : colle-le dans ton navigateur.', 'au.google': 'Continuer avec Google', 'au.apple': 'Continuer avec Apple', 'au.eOauth': 'La connexion avec Google ou Apple n’a pas abouti. Réessaie, ou utilise ton email.',
     'au.avatar': 'Tu es', 'au.avH': 'Étudiant', 'au.avF': 'Étudiante', 'au.avX': 'Autre', 'au.avHelp': 'LERNA accorde ses messages et te montre aussi les bourses réservées aux femmes quand elles te concernent. Modifiable à tout moment.',
     'au.naissance': 'Date de naissance', 'au.naissanceHelp': 'Beaucoup de bourses et de programmes ont une limite d’âge : LERNA ne te montre que ceux qui te concernent.', 'au.eAvatar': 'Choisis une réponse : étudiant, étudiante ou autre.',
     'au.forgot': 'Mot de passe oublié ?', 'au.show': 'Afficher le mot de passe', 'au.hide': 'Masquer le mot de passe',
@@ -105,7 +105,7 @@ Lerna.addStrings({
     'au.prenom': 'First name', 'au.nom': 'Last name', 'au.email': 'Email address', 'au.password': 'Password', 'au.confirm': 'Confirm password',
     'au.pays': 'Country', 'au.paysPh': 'Choose your country', 'au.niveau': 'Current level of study', 'au.niveauPh': 'Choose your level',
     'au.n1': 'Middle school', 'au.n2': 'High school', 'au.n3': 'Final year of high school', 'au.n4': "Bachelor's in progress", 'au.n5': "Master's in progress", 'au.n6': 'PhD', 'au.n7': 'Working', 'au.n8': 'Taking a break',
-    'au.create': 'Create my account →', 'au.login': 'Log in →', 'au.or': 'or', 'au.orEmail': 'or with your email', 'au.google': 'Continue with Google', 'au.apple': 'Continue with Apple', 'au.eOauth': 'Signing in with Google or Apple didn’t work. Try again, or use your email.',
+    'au.create': 'Create my account →', 'au.login': 'Log in →', 'au.or': 'or', 'au.orEmail': 'or with your email', 'au.inappT': 'You are in the {app} app browser.', 'au.inappTg': 'You are in an app’s built-in browser.', 'au.inapp': 'Google does not allow sign-in there. Sign up with your email just below, or open LERNA in your browser: tap “⋯” at the top right, then “Open in browser”.', 'au.openChrome': 'Open in Chrome', 'au.copyLink': 'Copy link', 'au.copied': 'Link copied: paste it in your browser.', 'au.google': 'Continue with Google', 'au.apple': 'Continue with Apple', 'au.eOauth': 'Signing in with Google or Apple didn’t work. Try again, or use your email.',
     'au.avatar': 'You are', 'au.avH': 'Male student', 'au.avF': 'Female student', 'au.avX': 'Other', 'au.avHelp': 'LERNA adapts its messages and also shows you scholarships reserved for women when they apply to you. Change it any time.',
     'au.naissance': 'Date of birth', 'au.naissanceHelp': 'Many scholarships and programmes have an age limit: LERNA only shows you the ones that apply.', 'au.eAvatar': 'Choose an answer: male student, female student or other.',
     'au.forgot': 'Forgot your password?', 'au.show': 'Show password', 'au.hide': 'Hide password',
@@ -156,9 +156,21 @@ Lerna.addStrings({
   function oauthInner() {
     if (!appleOn() && !googleOn()) return '';
     /* En haut du formulaire : un appui suffit, pas besoin de tout remplir */
+    var app = Lerna.inApp ? Lerna.inApp() : null;
     return (appleOn() ? '<button type="button" class="btn btn-apple" id="appleBtn">' + APPLE_SVG + t('au.apple') + '</button>' : '') +
-      (googleOn() ? '<button type="button" class="btn btn-google" id="googleBtn">' + Lerna.googleIcon + t('au.google') + '</button>' : '') +
+      (googleOn() && !app ? '<button type="button" class="btn btn-google" id="googleBtn">' + Lerna.googleIcon + t('au.google') + '</button>' : '') +
+      (googleOn() && app ? inAppHelp(app) : '') +
       '<div class="divider-or">' + t('au.orEmail') + '</div>';
+  }
+  /* Navigateur intégré (TikTok, Instagram…) : Google y bloque la connexion, on explique quoi faire */
+  function inAppHelp(app) {
+    var android = /Android/i.test(navigator.userAgent || '');
+    var here = location.host + location.pathname + location.search;
+    return '<div class="notice" id="inAppHelp" style="text-align:left;margin-bottom:6px">' + Lerna.icon('info') + '<div class="small"><strong>' + esc(app === 'app' ? t('au.inappTg') : t('au.inappT', { app: app })) + '</strong> ' + esc(t('au.inapp')) +
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">' +
+        (android ? '<a class="btn btn-ghost btn-sm" href="' + esc('intent://' + here + '#Intent;scheme=https;package=com.android.chrome;end') + '">' + esc(t('au.openChrome')) + '</a>' : '') +
+        '<button type="button" class="btn btn-ghost btn-sm" id="copyLinkBtn">' + esc(t('au.copyLink')) + '</button></div>' +
+      '<input class="input" id="copyLinkTxt" readonly hidden style="margin-top:8px" value="' + esc(location.href) + '"></div></div>';
   }
   function demoNote() { return Lerna.auth.mode === 'demo' ? '<div class="notice" style="margin-top:18px">' + Lerna.icon('info') + '<div class="small">' + t('common.demoNotice') + '</div></div>' : ''; }
 
@@ -271,6 +283,14 @@ Lerna.addStrings({
       }
       if (e.target.closest('#appleBtn')) {
         Lerna.auth.apple(redirect).catch(function (er) { Lerna.toast(mapErr(er), 3500); });
+        return;
+      }
+      if (e.target.closest('#copyLinkBtn')) {
+        var shown = function () { var i = $('copyLinkTxt'); if (i) { i.hidden = false; i.focus(); i.select(); } };
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(location.href).then(function () { Lerna.toast(t('au.copied'), 3500); }, shown);
+          else shown();
+        } catch (er) { shown(); }
         return;
       }
       if (e.target.closest('#googleBtn')) {

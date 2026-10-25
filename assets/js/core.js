@@ -1076,6 +1076,28 @@
   });
 
   Lerna.isLogged = function () { return !!Auth.user; };
+  /* Identifiant de ce téléphone (aléatoire, sans donnée personnelle) : la limite d'analyses gratuites
+     se compte par appareil, car beaucoup de téléphones partagent la même adresse sur les réseaux mobiles */
+  Lerna.deviceId = function () {
+    var id = store.get('lerna_did', null);
+    if (typeof id === 'string' && /^[a-f0-9]{32}$/.test(id)) return id;
+    id = '';
+    try { var a = new Uint8Array(16); window.crypto.getRandomValues(a); for (var i = 0; i < a.length; i++) id += ('0' + a[i].toString(16)).slice(-2); }
+    catch (e) { for (var j = 0; j < 32; j++) id += Math.floor(Math.random() * 16).toString(16); }
+    store.set('lerna_did', id);
+    return id;
+  };
+  /* Navigateur intégré d'une appli (TikTok, Instagram, Facebook, Snapchat…) : Google y refuse la connexion */
+  Lerna.inApp = function () {
+    var ua = navigator.userAgent || '';
+    if (/musical_ly|Bytedance|TikTok/i.test(ua)) return 'TikTok';
+    if (/Instagram/i.test(ua)) return 'Instagram';
+    if (/FBAN|FBAV|FB_IAB|FBIOS/i.test(ua)) return 'Facebook';
+    if (/Snapchat/i.test(ua)) return 'Snapchat';
+    if (/LinkedInApp/i.test(ua)) return 'LinkedIn';
+    if (/Android/i.test(ua) && /; wv\)/.test(ua)) return 'app';
+    return null;
+  };
   Lerna.isPremium = function () {
     if (!Lerna.config.premiumEnabled) return true;     // Premium pas encore lancé : tout est ouvert
     var u = Auth.user;

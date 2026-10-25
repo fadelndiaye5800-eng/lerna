@@ -170,7 +170,7 @@ Lerna.addStrings({
   Lerna.auth.ready.then(function () {
     setMsg();
     var call = Lerna.config.live
-      ? Lerna.api('/api/analyze', { answers: labelled(), raw: answers, lang: Lerna.lang }, { timeout: 60000 })
+      ? Lerna.api('/api/analyze', { answers: labelled(), raw: answers, lang: Lerna.lang, did: Lerna.deviceId ? Lerna.deviceId() : '' }, { timeout: 60000 })
       : Promise.resolve({ ok: false, status: 404, data: null });
 
     Promise.all([call, minWait]).then(function (arr) {
