@@ -284,7 +284,7 @@ Lerna.addStrings({
     'pr.needLogin': 'Crée ton compte (ou connecte-toi) pour relier Premium à ton profil.',
     'pr.soon': 'Le paiement en ligne s’ouvre très bientôt. Ton compte gratuit te donne déjà accès à l’essentiel.',
     'pr.thanks': 'Merci ! Ton paiement est confirmé, ton accès Premium s’active dans quelques instants.',
-    'pr.allOpen': 'Pendant la phase de lancement, toutes les fonctions sont ouvertes gratuitement.'
+    'pr.allOpen': 'Pendant la phase de lancement, toutes les fonctions sont ouvertes gratuitement.', 'pr.launchGo': 'Commencer mon orientation →', 'pr.launchBadge': 'Gratuit pendant le lancement'
   },
   en: {
     'pr.docTitle': 'LERNA Premium', 'pr.badge': 'LERNA Premium',
@@ -366,7 +366,7 @@ Lerna.addStrings({
     'pr.needLogin': 'Create your account (or log in) to link Premium to your profile.',
     'pr.soon': 'Online payment opens very soon. Your free account already gives you the essentials.',
     'pr.thanks': 'Thank you! Your payment is confirmed; Premium activates in a few moments.',
-    'pr.allOpen': 'During the launch phase, every feature is open for free.'
+    'pr.allOpen': 'During the launch phase, every feature is open for free.', 'pr.launchGo': 'Start my orientation →', 'pr.launchBadge': 'Free during launch'
   }
 });
 
@@ -466,7 +466,15 @@ Lerna.addStrings({
       $('alreadyTxt').textContent = u.premium_expiry && u.role !== 'admin' ? t('pr.until', { d: Lerna.fmtDate(u.premium_expiry) }) : t('pr.active');
       if (u.portal_url) { $('manageBtn').href = u.portal_url; $('manageBtn').target = '_blank'; $('manageBtn').rel = 'noopener'; }
     }
-    if (!Lerna.config.premiumEnabled) Lerna.toast(t('pr.allOpen'), 4000);
+    /* Mode lancement : rien n'est payant, on n'affiche pas les formules */
+    if (!Lerna.config.premiumEnabled) {
+      $('buyBox').style.display = 'none';
+      $('already').classList.add('show');
+      $('alreadyTxt').textContent = t('pr.allOpen');
+      var bd = document.querySelector('#already .badge'); if (bd) bd.textContent = t('pr.launchBadge');
+      $('manageBtn').href = 'questionnaire.html'; $('manageBtn').removeAttribute('target');
+      $('manageBtn').textContent = t('pr.launchGo');
+    }
   }
   function needAccount() {
     if (Lerna.auth.user) return false;

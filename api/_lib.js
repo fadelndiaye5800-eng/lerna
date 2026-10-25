@@ -93,7 +93,7 @@ export async function getUser(request) {
       if (r && r.role === 'admin') { premium = true; admin = true; } // le propriétaire a tout Premium
     }
     const paid = premium;
-    if (premiumOpen()) premium = true; // phase de lancement : tout est ouvert
+    if (await premiumOpen()) premium = true; // phase de lancement : tout est ouvert
     return { id: u.id, email: u.email, premium, paid, admin, verified: !!u.email_confirmed_at, created: u.created_at };
   } catch { return null; }
 }
@@ -110,8 +110,22 @@ export const payProvider = () => {
   return saspayReady() ? 'saspay' : paydunyaReady() ? 'paydunya' : '';
 };
 
-/* Premium pas encore lancé : tout est ouvert (PREMIUM_ENABLED=false) */
-export const premiumOpen = () => env('PREMIUM_ENABLED', 'true') === 'false';
+/* Mode lancement (Premium pas encore en vente) : tout est ouvert et rien n'est payant.
+   Deux interrupteurs : la variable PREMIUM_ENABLED=false sur Vercel, ou la ligne « launch » de la table app_config
+   ({"gratuit": true}), modifiable sans redéployer (relue au plus toutes les 60 secondes). */
+let launchCache = { t: 0, v: false };
+export async function premiumOpen() {
+  if (env('PREMIUM_ENABLED', 'true') === 'false') return true;
+  if (!supabaseReady()) return false;
+  if (Date.now() - launchCache.t < 60000) return launchCache.v;
+  let v = false;
+  try {
+    const r = await sbFetch('/rest/v1/app_config?select=value&key=eq.launch');
+    v = !!(r.ok && Array.isArray(r.data) && r.data[0] && r.data[0].value && r.data[0].value.gratuit === true);
+  } catch { v = launchCache.v; }
+  launchCache = { t: Date.now(), v };
+  return v;
+}
 
 /* ---------- Réponses au questionnaire ---------- */
 export const QUESTION_KEYS = ['q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'q13', 'q14', 'q15', 'q16', 'q17', 'q18', 'q19', 'q20', 'q21', 'q22', 'q23', 'q24', 'q25'];

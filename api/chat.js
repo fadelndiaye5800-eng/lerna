@@ -98,7 +98,7 @@ const APP_FACTS = `CE QUE TU SAIS SUR L'APPLICATION LERNA. Réponds directement 
 - Pour les conditions d'utilisation, de paiement ou de confidentialité : menu ☰, puis Informations légales.`;
 
 async function premiumFacts() {
-  if (premiumOpen()) return "- Premium : pendant le lancement, tout LERNA est gratuit et l'assistant n'a pas de limite. Il n'y a rien à payer pour le moment.";
+  if (await premiumOpen()) return "- Premium : pendant le lancement, tout LERNA est gratuit et l'assistant n'a pas de limite. Il n'y a rien à payer pour le moment.";
   let m = null;
   try {
     if (supabaseReady()) {
@@ -179,7 +179,7 @@ export async function POST(request) {
   const who = user ? 'user:' + user.id : 'ip:' + hashKey(clientIp(request));
   const key = (mode === 'chat' ? 'chat:' : 'coach:' + mode + ':') + who;
   /* Avant le lancement du Premium, tout est ouvert (garde-fou anti-abus seulement) */
-  const limit = (user && user.premium) || premiumOpen() ? 300 : FREE_BY_MODE[mode];
+  const limit = (user && user.premium) || (await premiumOpen()) ? 300 : FREE_BY_MODE[mode];
   if ((await usage(key)) >= limit) return fail(429, 'daily_limit', { limit });
 
   try {

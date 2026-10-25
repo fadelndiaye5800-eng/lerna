@@ -16,7 +16,7 @@
    (Le plan Vercel gratuit limite à 12 fonctions : démarrage, vérification et IPN sont réunis ici.) */
 import { createHash, timingSafeEqual } from 'node:crypto';
 import { randomUUID } from 'node:crypto';
-import { json, fail, env, sameOrigin, readJson, getUser, sbFetch, supabaseReady, usage, hit, paydunyaReady, saspayReady, payProvider } from './_lib.js';
+import { json, fail, env, sameOrigin, readJson, getUser, sbFetch, supabaseReady, usage, hit, paydunyaReady, saspayReady, payProvider, premiumOpen } from './_lib.js';
 
 /* Clés collées : on enlève guillemets, espaces et caractères invisibles copiés avec (une page traduite peut en ajouter) */
 const tidy = (v) => String(v || '').replace(/[\s​-‍⁠﻿"'«»“”‘’`]/g, '');
@@ -322,6 +322,7 @@ export async function POST(request) {
 
   /* ---------- Démarrer un paiement ---------- */
   if (body.action !== 'start') return fail(400, 'unknown_action');
+  if (await premiumOpen()) return fail(409, 'premium_closed');   // mode lancement : tout est gratuit, aucun paiement
   const plan = body.plan === 'an' ? 'an' : body.plan === 'mois' ? 'mois' : body.plan === 'pack' ? 'pack' : null;
   const method = METHODS.includes(body.method) ? body.method : null;
   if (!plan || !method) return fail(400, 'bad_request');

@@ -6,7 +6,7 @@
    et le pays deviné par l'adresse internet (en-tête Vercel x-vercel-ip-country).
    (Une seule fonction pour tout cela : le plan Vercel gratuit limite le nombre de fonctions à 12.)
    Aucune clé secrète (Anthropic, service_role, webhook, OneSignal REST, Resend) n'est jamais renvoyée. */
-import { json, env, sbFetch, supabaseReady, payProvider, MODEL } from './_lib.js';
+import { json, env, sbFetch, supabaseReady, payProvider, MODEL, premiumOpen } from './_lib.js';
 
 /* Réglages modifiables depuis /admin (table app_config, lue avec la clé serveur) */
 async function appConfig() {
@@ -61,7 +61,7 @@ export async function GET(request) {
     contactEmail: env('CONTACT_PUBLIC_EMAIL'),            // affiché sur la page Contact une fois le domaine acheté
     socials,                                              // réseaux sociaux (codés, affichés seulement si SHOW_SOCIALS=true)
     showSocials: env('SHOW_SOCIALS', 'false') === 'true',
-    premiumEnabled: env('PREMIUM_ENABLED', 'true') !== 'false',
+    premiumEnabled: !(await premiumOpen()),
     appleLogin: env('APPLE_LOGIN_ENABLED', 'false') === 'true',   // bouton « Continuer avec Apple » (après la configuration chez Apple)
     ab: cleanAb(cfg.ab),
     fx: cleanFx(cfg.fx),

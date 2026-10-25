@@ -6,7 +6,7 @@ import { json, fail, sameOrigin, getUser, sbFetch, supabaseReady, premiumOpen } 
 export async function POST(request) {
   if (!sameOrigin(request)) return fail(403, 'forbidden_origin');
   const user = await getUser(request);
-  if (!premiumOpen() && !(user && user.paid)) return fail(402, 'premium_required');
+  if (!(await premiumOpen()) && !(user && user.paid)) return fail(402, 'premium_required');
   if (!supabaseReady()) return fail(503, 'supabase_not_configured');
   const r = await sbFetch('/rest/v1/opportunites?is_premium=eq.true&active=eq.true&select=slug,data');
   if (!r.ok || !Array.isArray(r.data)) return fail(500, 'read_failed');
