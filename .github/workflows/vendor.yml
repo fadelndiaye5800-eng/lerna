@@ -1,0 +1,62 @@
+# Fichiers tiers hébergés par LERNA lui-même (au lieu d'un CDN) : l'app s'ouvre plus vite et marche en connexion faible.
+# Téléchargés depuis le registre npm officiel (npm vérifie l'empreinte de chaque paquet), puis publiés dans assets/.
+#  - assets/vendor/supabase-<version>.js : la bibliothèque Supabase (connexion, base de données)
+#  - assets/fonts/*.woff2 : les polices Inter et Playfair Display (licence SIL OFL), alphabets latin et latin étendu
+name: Fichiers tiers (Supabase, polices)
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['.github/workflows/vendor.yml']
+permissions:
+  contents: write
+concurrency:
+  group: vendor
+  cancel-in-progress: false
+jobs:
+  vendor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Télécharger les paquets npm
+        run: |
+          set -e
+          mkdir -p /tmp/pk && cd /tmp/pk
+          npm pack @supabase/supabase-js@2.45.4 @fontsource-variable/inter@5 @fontsource-variable/playfair-display@5
+          for t in *.tgz; do mkdir -p "${t%.tgz}"; tar -xzf "$t" -C "${t%.tgz}"; done
+          ls
+      - name: Copier dans assets
+        run: |
+          set -e
+          mkdir -p assets/vendor assets/fonts
+          cp /tmp/pk/supabase-supabase-js-2.45.4/package/dist/umd/supabase.js assets/vendor/supabase-2.45.4.js
+          INTER=$(ls -d /tmp/pk/fontsource-variable-inter-*/package)
+          PLAY=$(ls -d /tmp/pk/fontsource-variable-playfair-display-*/package)
+          cp "$INTER/files/inter-latin-wght-normal.woff2" assets/fonts/inter-latin.woff2
+          cp "$INTER/files/inter-latin-ext-wght-normal.woff2" assets/fonts/inter-latin-ext.woff2
+          cp "$PLAY/files/playfair-display-latin-wght-normal.woff2" assets/fonts/playfair-latin.woff2
+          cp "$PLAY/files/playfair-display-latin-ext-wght-normal.woff2" assets/fonts/playfair-latin-ext.woff2
+          cp "$INTER/LICENSE" assets/fonts/LICENSE-inter.txt 2>/dev/null || true
+          cp "$PLAY/LICENSE" assets/fonts/LICENSE-playfair.txt 2>/dev/null || true
+          {
+            echo "Fichiers tiers publiés par .github/workflows/vendor.yml ($(date -u +%Y-%m-%d))"
+            echo "supabase-js $(node -p "require('/tmp/pk/supabase-supabase-js-2.45.4/package/package.json').version")"
+            echo "@fontsource-variable/inter $(node -p "require('$INTER/package.json').version")"
+            echo "@fontsource-variable/playfair-display $(node -p "require('$PLAY/package.json').version")"
+          } > assets/vendor/VERSIONS.txt
+          ls -la assets/vendor assets/fonts
+      - name: Publier
+        run: |
+          git config user.name "lerna-vendor[bot]"
+          git config user.email "vendor@users.noreply.github.com"
+          mkdir -p /tmp/out && cp -r assets/vendor assets/fonts /tmp/out/
+          git fetch -q origin main && git reset -q --hard origin/main
+          mkdir -p assets && rm -rf assets/vendor assets/fonts && cp -r /tmp/out/vendor /tmp/out/fonts assets/
+          git add -A assets/vendor assets/fonts
+          if git diff --cached --quiet; then echo "Rien de nouveau"; exit 0; fi
+          git commit -m "Fichiers tiers hébergés par LERNA : Supabase et polices (pour la connexion faible)"
+          git push origin HEAD:main
