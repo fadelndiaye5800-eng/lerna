@@ -609,6 +609,8 @@ p { line-height: 1.65; }
 .list-check, .list-arrow, .list-cross { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 .list-check li, .list-arrow li, .list-cross li { display: flex; gap: 10px; align-items: flex-start; line-height: 1.55; }
 .list-check li::before { content: '✓'; color: var(--orange); font-weight: 800; flex-shrink: 0; }
+.list-check li > *, .list-arrow li > *, .list-cross li > * { min-width: 0; overflow-wrap: anywhere; }
+.card p a, .card li a { overflow-wrap: anywhere; }
 .list-arrow li::before { content: '→'; color: var(--orange); font-weight: 800; flex-shrink: 0; }
 .list-cross li::before { content: '–'; color: var(--muted); font-weight: 800; flex-shrink: 0; }
 

@@ -684,7 +684,14 @@ Lerna.addStrings({
         Lerna.toast(t('fi.askThanks'), 3000); Lerna.sound.play('success'); renderPanel(); return;
       }
       var st = e.target.closest('[data-cat]');
-      if (st) { draft[st.getAttribute('data-cat')] = parseInt(st.getAttribute('data-v'), 10); renderPanel(); return; }
+      if (st) {
+        /* Toucher encore la même étoile annule la note ; on ne redessine que les étoiles (le texte déjà écrit reste) */
+        var cat = st.getAttribute('data-cat'), v = parseInt(st.getAttribute('data-v'), 10);
+        draft[cat] = draft[cat] === v ? 0 : v;
+        Lerna.qsa('[data-cat="' + cat + '"]').forEach(function (b) { b.classList.toggle('on', parseInt(b.getAttribute('data-v'), 10) <= draft[cat]); });
+        if (Lerna.sound) Lerna.sound.play('select');
+        return;
+      }
       if (e.target.closest('#shareBtn')) {
         var d = { title: document.title, url: location.href };
         if (navigator.share) navigator.share(d).catch(function () {}); else if (navigator.clipboard) navigator.clipboard.writeText(location.href).then(function () { Lerna.toast && Lerna.toast('✓'); });

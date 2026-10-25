@@ -1864,7 +1864,7 @@
         var paint = function () { Lerna.qsa('.rate-star', m).forEach(function (b) { b.classList.toggle('on', +b.getAttribute('data-n') <= note); }); };
         m.addEventListener('click', function (e) {
           var s = e.target.closest('.rate-star');
-          if (s) { note = +s.getAttribute('data-n'); paint(); m.querySelector('.rate-more').classList.remove('hidden'); Sound.play('select'); return; }
+          if (s) { note = note === +s.getAttribute('data-n') ? 0 : +s.getAttribute('data-n'); paint(); m.querySelector('.rate-more').classList.remove('hidden'); Sound.play('select'); return; }
           if (e.target.closest('#rateLater')) { store.set('lerna_rating', { later: Date.now() }); Lerna._ratingOpen = false; return; }
           if (e.target.closest('#rateSend')) {
             if (!note) { m.querySelector('#rateErr').textContent = t('rate.pick'); return; }

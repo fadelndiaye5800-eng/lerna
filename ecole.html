@@ -304,7 +304,12 @@ Lerna.addStrings({
     var fee = window.LERNA_FEE_FOR(s, userCountry);
     var reg = s.inscription || 0;
     var rng = function (r) { return r[0] === r[1] ? Lerna.money(r[0]) : Lerna.money(r[0]) + ' – ' + Lerna.money(r[1]); };
-    var opps = window.LERNA_OPPS.filter(function (o) { return o.type === 'bourse' && window.LERNA_OPP_VISIBLE(o, false) && (o.pays === s.pays || (o.organisation && o.organisation.indexOf(s.nom.split(' ')[0]) !== -1)); });
+    /* Bourses de cette école : celles de son pays, ou celles qui citent son nom propre (jamais un mot commun comme « Université ») */
+    var nk = function (v) { return ' ' + String(v || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, ' ') + ' '; };
+    var GEN = ' universite university ecole school institut institute college national nationale superieure superieur polytechnique sciences science technology technologie studies etudes business management faculte faculty campus international internationale paris dakar '.split(' ');
+    var own = s.nom.replace(/\([^)]*\)/g, ' ').split(/[\s\-—–'’,&]+/).filter(function (w) { return (w.length >= 4 || /^[A-Z0-9]{3,}$/.test(w)) && GEN.indexOf(nk(w).trim()) === -1; }).map(function (w) { return nk(w); });
+    var mine = function (o) { var org = nk((o.organisation || '') + ' ' + (o.titre || '')); return own.some(function (w) { return org.indexOf(w) !== -1; }); };
+    var opps = window.LERNA_OPPS.filter(function (o) { return o.type === 'bourse' && window.LERNA_OPP_VISIBLE(o, false) && (o.pays === s.pays || mine(o)); });
     var srcLink = ok && F.source ? F.source : s.site;
     var h = '<div class="stack">';
     /* 1. Frais de scolarité : vérifiés (fourchette + par filière) ou « à confirmer », sans chiffre */
@@ -343,13 +348,15 @@ Lerna.addStrings({
     h += '<div class="card"><h3>' + t('ec.scholarships') + '</h3>' +
         (opps.length ? '<ul class="list-arrow">' + opps.map(function (o) {
           if (o.masked) return '<li><span><a href="opportunites.html?tab=bourses" class="orange"><strong>' + esc(window.LERNA_OPP_TITLE(o)) + '</strong></a></span></li>';
-          return '<li><span><strong>' + esc(o.titre) + '</strong> — ' + esc(L(o.montant)) + (o.lien ? ' · <a href="' + esc(o.lien) + '" target="_blank" rel="noopener" class="orange">' + esc(o.lien.replace(/^https?:\/\/(www\.)?/, '')) + '</a>' : '') + '</span></li>';
+          return '<li><span><strong>' + esc(o.titre) + '</strong> — ' + esc(L(o.montant)) + (o.lien ? ' · <a href="' + esc(o.lien) + '" target="_blank" rel="noopener" class="orange">' + esc(siteOf(o.lien)) + ' ↗</a>' : '') + '</span></li>';
         }).join('') + '</ul>'
           : '<p class="muted">' + t('ec.scholarshipsNone') + '</p>') +
         '<a class="btn-link" style="display:inline-block;margin-top:14px" href="opportunites.html?tab=bourses">' + t('ec.seeOpps') + '</a></div>' +
       '</div>';
     return h;
   }
+  /* Lien affiché : seulement le nom du site (le lien complet reste derrière) */
+  function siteOf(u) { try { return new URL(u).hostname.replace(/^www\./, ''); } catch (e) { return String(u).replace(/^https?:\/\/(www\.)?/, '').split('/')[0]; } }
   function panelLife() {
     var v = s.etu || {};
     var items = [['users', 'ec.lAssos', v.assos], ['bed', 'ec.lHousing', v.logement], ['utensils', 'ec.lFood', v.resto], ['bus', 'ec.lTransport', v.transport], ['activity', 'ec.lSport', v.sport]];
@@ -454,7 +461,9 @@ Lerna.addStrings({
       }
       var st = e.target.closest('[data-cat]');
       if (st) {
-        draft[st.getAttribute('data-cat')] = parseInt(st.getAttribute('data-v'), 10);
+        var cat = st.getAttribute('data-cat'), v = parseInt(st.getAttribute('data-v'), 10);
+        draft[cat] = draft[cat] === v ? 0 : v;   // toucher encore la même étoile annule la note
+        Lerna.sound.play('select');
         Lerna.qsa('[data-cat="' + st.getAttribute('data-cat') + '"]').forEach(function (b) { b.classList.toggle('on', parseInt(b.getAttribute('data-v'), 10) <= draft[st.getAttribute('data-cat')]); });
       }
     });

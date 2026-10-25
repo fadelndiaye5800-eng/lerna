@@ -277,8 +277,8 @@ Lerna.addStrings({
       }
       var av = e.target.closest('[data-av]');
       if (av) {
-        genre = av.getAttribute('data-av'); genreTouched = true;
-        Array.prototype.forEach.call(document.querySelectorAll('[data-av]'), function (b) { var on = b === av; b.classList.toggle('on', on); b.setAttribute('aria-checked', String(on)); });
+        genre = genre === av.getAttribute('data-av') ? '' : av.getAttribute('data-av'); genreTouched = true;   // 2e appui : choix enlevé
+        Array.prototype.forEach.call(document.querySelectorAll('[data-av]'), function (b) { var on = b.getAttribute('data-av') === genre; b.classList.toggle('on', on); b.setAttribute('aria-checked', String(on)); });
         Lerna.pop(av); Lerna.sound.play('select'); return;
       }
       if (e.target.closest('#appleBtn')) {

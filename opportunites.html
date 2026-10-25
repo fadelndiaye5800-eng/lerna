@@ -521,7 +521,7 @@ Lerna.addStrings({
     $('guide').addEventListener('click', function (e) {
       if (e.target.closest('#projOpen')) { G.proj = true; G.open = true; $('guide').innerHTML = guideHTML(); var f = $('pq1'); if (f) f.focus(); return; }
       var sb = e.target.closest('[data-stade]');
-      if (sb) { G.stade = sb.getAttribute('data-stade'); Array.prototype.forEach.call(document.querySelectorAll('[data-stade]'), function (x) { x.classList.toggle('on', x === sb); }); Lerna.sound.play('select'); return; }
+      if (sb) { G.stade = G.stade === sb.getAttribute('data-stade') ? '' : sb.getAttribute('data-stade'); Array.prototype.forEach.call(document.querySelectorAll('[data-stade]'), function (x) { x.classList.toggle('on', x.getAttribute('data-stade') === G.stade); }); Lerna.sound.play('select'); return; }
       if (e.target.closest('#projGo')) runProj();
     });
     $('list').addEventListener('click', function (e) {

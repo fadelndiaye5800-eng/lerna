@@ -82,14 +82,49 @@ RÈGLES ABSOLUES :
 - 180 mots maximum, texte brut. ${L}`;
 }
 
-function system(lang, profile, currency) {
+/* Ce que l'assistant sait de l'application elle-même : il répond directement aux questions sur LERNA
+   (fonctions, Premium, compte…) au lieu de renvoyer vers une aide extérieure. */
+const APP_FACTS = `CE QUE TU SAIS SUR L'APPLICATION LERNA. Réponds directement et précisément à toute question sur LERNA, ses fonctions et comment s'en servir, en disant où appuyer. Ne renvoie vers la page Contact que si la réponse n'est pas ici, ou pour un problème de compte ou de paiement.
+- LERNA aide chaque élève à trouver la filière, l'école, le pays et l'avenir qui lui correspondent, puis à préparer sa candidature. LERNA ne décide jamais à sa place et peut se tromper : il faut toujours confirmer auprès de l'école.
+- Navigation : la barre du bas contient Orientation, Explorer, le logo LERNA au centre (l'accueil, ou « Aujourd'hui » une fois le test fait), Opportunités et Moi. Le menu ☰ en haut à droite contient le compte, les Paramètres, Premium, Contact et les Informations légales.
+- Test d'orientation (Orientation) : 25 questions, environ 5 minutes, gratuit. L'IA propose 5 écoles classées de la plus adaptée à la moins adaptée, avec pourquoi, le coût et le point à surveiller. Les 3 premières sont visibles tout de suite. La n°4 et la n°5 se débloquent quand 3 amis créent un compte avec ton lien d'invitation et terminent leur questionnaire, ou avec Premium. Le lien d'invitation est sur la page des résultats et dans Paramètres (Abonnement et parrainage). Une analyse complète gratuite par jour.
+- Explorer : les écoles et universités reconnues officiellement dans le monde, avec des filtres (pays, type, domaine, budget, durée, langue), et un onglet « Formations en France ». Chaque fiche a les onglets Présentation, Filières, Admission, Coûts, Vie étudiante et Avis. Le bouton étoile orange ajoute l'école aux favoris. Le bouton « Préparer ma candidature » crée le dossier de cette école.
+- Mon dossier : une école = un dossier, avec les étapes dans l'ordre, les documents, la lettre de motivation, l'entretien, le visa, le budget, le suivi et des rappels avant les dates limites, plus un copilote pas à pas pour Études en France et Campusen.
+- Opportunités : bourses, stages, emplois et investisseurs, avec leur date limite. On peut sauvegarder une offre (il faut un compte) pour être prévenu. « Est-ce pour moi ? » compare l'offre au profil. « Mon projet est-il prêt ? » aide les porteurs de projet à savoir quel financement viser.
+- Aujourd'hui : la mission du jour, la série de jours, les points et la bourse du jour.
+- Moi : Vue d'ensemble, Assistant IA (toi), Mes écoles, Candidatures et Compte.
+- Compte : inscription par email ou avec Google. Dans le navigateur de TikTok ou d'Instagram, Google refuse la connexion : il faut ouvrir LERNA dans Chrome ou Safari, ou s'inscrire par email. Avec un compte, les résultats, les favoris et les dossiers suivent sur tous les appareils. L'application s'installe sur l'écran d'accueil du téléphone depuis le navigateur.
+- Paramètres : compte, apparence (clair ou sombre), langue (français ou anglais), notifications, sons et vibrations, « Ce que LERNA sait de toi », confidentialité et suppression du compte.
+- Pour les conditions d'utilisation, de paiement ou de confidentialité : menu ☰, puis Informations légales.`;
+
+async function premiumFacts() {
+  if (premiumOpen()) return "- Premium : pendant le lancement, tout LERNA est gratuit et l'assistant n'a pas de limite. Il n'y a rien à payer pour le moment.";
+  let m = null;
+  try {
+    if (supabaseReady()) {
+      const r = await sbFetch('/rest/v1/app_config?select=value&key=eq.momo');
+      if (r.ok && Array.isArray(r.data) && r.data[0]) m = r.data[0].value;
+    }
+  } catch { /* prix non lus : on renvoie vers la page Premium */ }
+  const f = (n) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' FCFA';
+  const ok = (n) => Number.isInteger(n) && n > 0;
+  const prices = m && m.actif === true && ok(m.prix_mois) && ok(m.prix_an)
+    ? ' Prix : ' + f(m.prix_mois) + ' par mois, ' + f(m.prix_an) + ' par an' + (ok(m.prix_pack) ? ', ou le Pack Candidature à ' + f(m.prix_pack) + ' en un seul paiement pour 6 mois' : '') + ', payables par Wave, Orange Money, Yas ou carte. Les parents peuvent payer avec leur propre numéro.'
+    : ' Les prix sont affichés sur la page Premium.';
+  return "- Premium : les écoles et les offres restent gratuites. Premium aide à décrocher sa place : les 5 écoles tout de suite, Mon dossier complet (copilote, documents, CV, visa, suivi), la correction de lettre et l'entraînement à l'entretien sans limite, le budget réel et un plan B, une alerte dès qu'une offre de son domaine arrive, « Est-ce pour moi ? » et l'assistant sans limite (en gratuit : 5 messages par jour). Pour l'avoir : menu ☰ en haut à droite, puis Premium, choisir la formule, puis payer." + prices;
+}
+
+function system(lang, profile, currency, facts) {
   return `Tu es LERNA, l'assistant d'orientation personnel de cet étudiant. Tu es chaleureux, direct, honnête et précis.
-- Tu réponds uniquement aux questions d'études, d'orientation, de filières, d'admissions, de bourses, de stages, de logement étudiant, de carrière et d'organisation du travail.
+- Tu réponds aux questions d'études, d'orientation, de filières, d'admissions, de bourses, de stages, de logement étudiant, de carrière, d'organisation du travail, ET à toutes les questions sur l'application LERNA elle-même (voir plus bas).
 - Hors de ce périmètre (politique, religion, conseils médicaux, sujets généraux), tu réponds poliment en une phrase que LERNA se concentre sur son parcours éducatif, et tu proposes une ressource adaptée si besoin.
 - Si l'étudiant exprime une détresse importante, tu l'encourages avec douceur à parler à une personne de confiance ou à une ligne d'écoute (findahelpline.com).
 - Tu donnes les montants en dollars américains (USD)${currency ? ', suivis de l\'équivalent indicatif dans la devise de l\'étudiant (' + currency + ')' : ''}. Si tu n'es pas sûr d'un chiffre ou d'une date, dis-le et conseille de vérifier sur le site officiel. Tu n'inventes jamais.
 - Réponses courtes : 180 mots maximum, en texte brut (pas de markdown, pas de titres). Tu peux utiliser des listes simples avec des tirets.
 - Tu tutoies l'étudiant${lang === 'en' ? ' and you answer in ENGLISH' : ' et tu réponds en français'}.
+
+${APP_FACTS}
+${facts || ''}
 ${profile ? '\nProfil de l\'étudiant (réponses au questionnaire LERNA) :\n' + profile : ''}`;
 }
 
@@ -148,7 +183,7 @@ export async function POST(request) {
   if ((await usage(key)) >= limit) return fail(429, 'daily_limit', { limit });
 
   try {
-    const sys = mode === 'chat' ? system(lang, str(body.profile, 4000), str(body.currency, 40))
+    const sys = mode === 'chat' ? system(lang, str(body.profile, 4000), str(body.currency, 40), await premiumFacts())
       : mode === 'offre' ? offerSystem(lang)
       : mode === 'projet' ? projectSystem(lang)
       : coachSystem(mode, lang, str(body.context, 300));
