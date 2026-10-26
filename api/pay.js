@@ -156,12 +156,9 @@ async function snNetworks() {
   if (list.length) netCache = { t: Date.now(), list };
   return list;
 }
-const NET_RE = { wave: /wave/i, orange_money: /orange|(^|_)om(_|$)|maxit/i, free_money: /free|yas|mixx/i, card: /card|carte|visa|master/i };
-async function spNetwork(method) {
-  const list = await snNetworks();
-  const n = list.find((x) => NET_RE[method].test(x.code) || NET_RE[method].test(x.name));
-  return n ? n.code : null;
-}
+/* Codes réseau officiels de SasPay pour le Sénégal (catalogue : docs.saspay.me/api-reference/reference/formats).
+   « freemoney_sn » = Free Money, devenu Yas. */
+const SP_CODES = { wave: 'wave_sn', orange_money: 'orange_sn', free_money: 'freemoney_sn' };
 const SP_OK = /^(success|succeeded|successful|completed|paid|approved)$/i, SP_KO = /^(failed|failure|cancel+ed|expired|rejected|declined)$/i;
 /* Statut réel chez SasPay : « p-<id> » = paiement direct, « c-<id> » = page de paiement */
 async function spStatus(token) {
@@ -348,10 +345,9 @@ export async function POST(request) {
     const back = origin + '/premium.html?pay=retour';
     const first = (u.prenom || fullName.split(' ')[0] || 'Client').slice(0, 40), last = (u.nom || 'LERNA').slice(0, 40);
     let token = '', redirect = '', message = '', spErr = '';
-    let network = method === 'card' ? null : await spNetwork(method), guessed = false;
-    /* Réseau absent de la liste lue : on essaie le code habituel ; s'il est refusé, on passe à la page de paiement */
-    if (!network && method !== 'card') { network = { wave: 'wave_sn', orange_money: 'orange_money_sn', free_money: 'free_money_sn' }[method]; guessed = true; }
-    if (network && method !== 'card') {
+    /* Si SasPay refuse le paiement direct (réseau momentanément indisponible), on passe à sa page de paiement */
+    const network = method === 'card' ? null : SP_CODES[method];
+    if (network) {
       /* Paiement direct sur le téléphone de l'élève (Wave et Orange Money ouvrent leur appli via un lien) */
       const r = await sp('POST', '/payments/softpay/', { amount: amount.toFixed(2), currency: 'XOF', country: 'SN', network, description: desc,
         customer: { email: user.email, first_name: first, last_name: last, phone: '+221' + phone }, return_url: back, metadata: { user_id: user.id, plan } }, randomUUID());
@@ -366,7 +362,7 @@ export async function POST(request) {
       if (r.ok && (d.id || d.slug) && /^https:\/\//.test(d.checkout_url || '')) { token = 'c-' + (d.id || d.slug); redirect = d.checkout_url; }
       else spErr = (spErr ? spErr + ' / ' : '') + 'page de paiement HTTP ' + r.status + ' ' + clean(r.data);
       /* Wave / Orange Money / Free envoyés sur la page SasPay au lieu de l'appli : on garde la raison pour la corriger */
-      if (method !== 'card' && token) await logPay('fallback', { p: 'saspay', step: 'page SasPay au lieu de l’appli', method, network, guessed, msg: spErr || 'paiement direct sans réponse', reseaux: (await snNetworks()).map((n) => n.code).slice(0, 20) });
+      if (method !== 'card' && token) await logPay('fallback', { p: 'saspay', step: 'page SasPay au lieu de l’appli', method, network, msg: spErr || 'paiement direct sans réponse', reseaux: (await snNetworks()).map((n) => n.code).slice(0, 20) });
     }
     if (!TOKEN_RE.test(token)) {
       const detail = 'SasPay : ' + (spErr || 'pas de réponse');
