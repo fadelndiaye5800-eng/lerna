@@ -18,13 +18,13 @@ fs.mkdirSync(TMP, { recursive: true });
 execSync('curl -sSL --retry 3 -o ' + TMP + '/rome.zip "' + URL_JSON + '" && cd ' + TMP + ' && unzip -o -q rome.zip', { stdio: 'inherit' });
 const files = fs.readdirSync(TMP);
 const pick = (re) => { const f = files.find((x) => re.test(x)); if (!f) throw new Error('fichier absent : ' + re); return path.join(TMP, f); };
-/* Les fichiers du ROME sont en Latin-1 (ISO-8859-1) ; on lit en UTF-8 seulement si c'est vraiment de l'UTF-8 */
-const readJson = (f) => {
-  const b = fs.readFileSync(f);
-  const u = b.toString('utf8');
-  return JSON.parse(u.includes('�') ? b.toString('latin1') : u);
-};
-const version = fs.existsSync(path.join(TMP, 'version.txt')) ? fs.readFileSync(path.join(TMP, 'version.txt'), 'latin1').trim() : '';
+/* Les fichiers JSON du ROME sont en ISO-8859-15 (« œ » = 0xBD) ; on lit en UTF-8 seulement si c'est vraiment de l'UTF-8 */
+const L9 = new TextDecoder('iso-8859-15');
+const text = (f) => { const b = fs.readFileSync(f); const u = b.toString('utf8'); return u.includes('\uFFFD') ? L9.decode(b) : u; };
+const readJson = (f) => JSON.parse(text(f));
+const vtxt = fs.existsSync(path.join(TMP, 'version.txt')) ? text(path.join(TMP, 'version.txt')) : '';
+const version = ((vtxt.match(/Titre\/commentaire\s*:\s*([^\n]+)/) || [])[1] || '').trim();
+const published = ((vtxt.match(/Date de publication\s*:\s*([0-9/]+)/) || [])[1] || '').trim();
 const fiches = readJson(pick(/fiche_emploi_metier/));
 const arbo = readJson(pick(/arborescence_principale/)).arbo_principale;
 const ci = readJson(pick(/arborescence_centre_interet/)).arbo_centre_interet;
@@ -35,6 +35,9 @@ log('ROME', version, '| fiches :', list.length, '| grands domaines :', arbo.leng
 const keys = {};
 list.forEach((f) => Object.keys(f).forEach((k) => { keys[k] = (keys[k] || 0) + 1; }));
 log('Champs des fiches :', JSON.stringify(keys));
+const ex = list.find((f) => f.rome && f.rome.code_rome === 'M1805') || list[0];
+log('mobilites (brut) :', JSON.stringify(ex.mobilites).slice(0, 900));
+log('secteurs_activite (brut) :', JSON.stringify(ex.secteurs_activite).slice(0, 600));
 
 /* Grand domaine et domaine professionnel de chaque code */
 const where = {};
@@ -108,6 +111,17 @@ function activites(def) {
 }
 
 const lib = (x) => (x && (x.libelle || x.intitule)) || '';
+/* Métiers proches (« mobilités ») : tout code ROME cité dans l'objet */
+function mobs(m) {
+  const out = [], seen = new Set();
+  const walk = (o) => { if (!o || typeof o !== 'object') return; if (Array.isArray(o)) return o.forEach(walk); for (const [k, v] of Object.entries(o)) { if (k === 'code_rome' && typeof v === 'string') { if (!seen.has(v)) { seen.add(v); out.push(v); } } else walk(v); } };
+  walk(m); return out;
+}
+function secs(sx) {
+  const out = [];
+  const walk = (o) => { if (!o || typeof o !== 'object') return; if (Array.isArray(o)) return o.forEach(walk); if (typeof o.libelle === 'string' && !out.includes(o.libelle)) out.push(o.libelle); for (const v of Object.values(o)) if (v && typeof v === 'object') walk(v); };
+  walk(sx); return out;
+}
 const items = (block, onlyCore) => {
   const out = [];
   for (const e of (block && (block.enjeux || block.categories)) || []) for (const it of e.items || []) if (!onlyCore || it.coeur_metier) out.push(it.libelle);
@@ -136,9 +150,10 @@ for (const f of list) {
     acc: acc,
     sf: (sfCore.length >= 4 ? sfCore : sfAll).slice(0, 10),
     se: items(comp.savoir_etre_professionnel, false).slice(0, 8),
-    sv: items(comp.savoirs, true).slice(0, 8),
+    sv: (items(comp.savoirs, true).length ? items(comp.savoirs, true) : items(comp.savoirs, false)).slice(0, 8),
     ctx: (f.contextes_travail || []).map((c) => ({ l: c.libelle, i: (c.items || []).map(lib).slice(0, 6) })).filter((c) => c.i.length).slice(0, 6),
-    mob: ((f.mobilites || f.mobilite || []).map((m) => (m.rome_cible && m.rome_cible.code_rome) || m.code_rome_cible || (m.rome && m.rome.code_rome)).filter(Boolean)).slice(0, 8),
+    mob: mobs(f.mobilites).filter((c) => c !== code).slice(0, 8),
+    sec: secs(f.secteurs_activite).slice(0, 5),
     dp: w.dl || ''
   };
   const L = (w.g || code[0]);
@@ -155,7 +170,7 @@ fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 const now = new Date().toISOString().slice(0, 10);
 fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify({
-  maj: now, version, source: 'France Travail — Répertoire opérationnel des métiers et des emplois (ROME 4.0), Licence Ouverte 2.0',
+  maj: now, version, publie: published, source: 'France Travail — Répertoire opérationnel des métiers et des emplois (ROME 4.0), Licence Ouverte 2.0',
   sourceUrl: 'https://www.data.gouv.fr/datasets/58da857388ee384902e505f5/',
   domaines: doms.map((g) => ({ c: g.c, l: g.l })), interets, m: index
 }));
