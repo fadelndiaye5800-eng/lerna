@@ -163,7 +163,7 @@ Lerna.addStrings({
     'fi.wdFounded': 'Fondé en', 'fi.wdStudents': 'Étudiants', 'fi.wdDesc': 'Description',
     'fi.near': 'Autres établissements à {c}', 'fi.nearC': 'Autres établissements en {c}',
     'fi.srcM': 'Sources : {s}. LERNA ne modifie pas ces informations ; en cas de doute, la liste officielle fait foi.',
-    'fi.todoHead': 'À demander à l’école', 'fi.todoQ': 'Les questions à lui poser :',
+    'fi.jobs': 'Les métiers après cette formation', 'fi.jobsSub': 'Ce qu’on fait chaque jour, les qualités demandées et le niveau d’études : découvre les métiers liés à cette formation.', 'fi.jobsBtn': 'Voir les métiers', 'fi.todoHead': 'À demander à l’école', 'fi.todoQ': 'Les questions à lui poser :',
     'fi.todo_fil': 'Quelles filières proposez-vous en 1re année ?|Quel diplôme obtient-on à la fin (licence, master, BTS…) ?|Les cours sont-ils en français, en anglais ou dans une autre langue ?',
     'fi.todo_adm': 'Quels documents faut-il pour s’inscrire ?|Quelle est la date limite ?|Y a-t-il un concours, un test ou un entretien ?',
     'fi.todo_cout': 'Combien coûte l’inscription ?|Combien coûte l’année pour ma filière ?|Y a-t-il d’autres frais (examens, dossier, assurance) ?|Peut-on payer en plusieurs fois ?',
@@ -224,7 +224,7 @@ Lerna.addStrings({
     'fi.wdFounded': 'Founded', 'fi.wdStudents': 'Students', 'fi.wdDesc': 'Description',
     'fi.near': 'Other institutions in {c}', 'fi.nearC': 'Other institutions in {c}',
     'fi.srcM': 'Sources: {s}. LERNA does not change this information; if in doubt, the official list prevails.',
-    'fi.todoHead': 'Ask the school', 'fi.todoQ': 'Questions to ask:',
+    'fi.jobs': 'Jobs after this programme', 'fi.jobsSub': 'The day-to-day work, the qualities needed and the level of studies: discover the jobs linked to this programme.', 'fi.jobsBtn': 'See the jobs', 'fi.todoHead': 'Ask the school', 'fi.todoQ': 'Questions to ask:',
     'fi.todo_fil': 'Which programmes do you offer in first year?|Which degree do you get at the end (bachelor, master, diploma…)?|Are classes taught in French, English or another language?',
     'fi.todo_adm': 'Which documents do I need to apply?|What is the deadline?|Is there an entrance exam, a test or an interview?',
     'fi.todo_cout': 'How much is registration?|How much is one year of my programme?|Are there other fees (exams, application, insurance)?|Can I pay in instalments?',
@@ -438,6 +438,7 @@ Lerna.addStrings({
               card(t('fi.brief'), '<div class="s-meta" style="margin-top:0">' + tags.map(function (x) { return '<span class="tag">' + esc(x) + '</span>'; }).join('') + '</div>') +
               card(t('fi.mod'), mods.length ? '<ul class="list-dot">' + mods.map(function (m) { return '<li>' + esc(m) + '</li>'; }).join('') + '</ul>' : '<p class="note">' + esc(t('fi.modNone')) + '</p>') +
               card(t('fi.rec'), '<p>' + esc(t('fi.recFR')) + '</p>') +
+              card(t('fi.jobs'), '<p>' + esc(t('fi.jobsSub')) + '</p><div class="acts" style="margin-top:12px"><a class="btn btn-ghost btn-sm" href="metiers.html?q=' + encodeURIComponent(arr(f.nm).join(' ') || arr(f.fl).join(' ')) + '">' + esc(t('fi.jobsBtn')) + ' →</a></div>') +
               (g && has(g.lat) ? card(t('fi.where'), mapFrame(g.lat, g.lon)) : '');
           },
           fil: function () {

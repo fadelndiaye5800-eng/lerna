@@ -136,7 +136,7 @@ Lerna.addStrings({
     'ec.tPres': 'Présentation', 'ec.tFil': 'Filières', 'ec.tAdm': 'Admission', 'ec.tCost': 'Coûts', 'ec.tLife': 'Vie étudiante', 'ec.tRev': 'Avis',
     'ec.founded': 'Fondée en {y}', 'ec.about': 'À propos', 'ec.ranking': 'Classements et reconnaissance',
     'ec.strengths': 'Points forts', 'ec.weaknesses': 'Points de vigilance', 'ec.honest': 'Ce qu’il vaut mieux savoir avant de choisir.',
-    'ec.duration': 'Durée', 'ec.outcomes': 'Débouchés', 'ec.level': 'Niveau requis', 'ec.language': "Langue d'enseignement",
+    'ec.duration': 'Durée', 'ec.outcomes': 'Débouchés', 'ec.seeJobs': 'Voir les métiers', 'ec.level': 'Niveau requis', 'ec.language': "Langue d'enseignement",
     'ec.filNote': "Sélection de filières représentatives. La liste complète est sur le site officiel.",
     'ec.conditions': "Conditions d'accès", 'ec.documents': 'Documents requis', 'ec.deadlines': 'Dates limites', 'ec.process': 'Processus étape par étape',
     'ec.official': 'Site officiel de l’établissement',
@@ -176,7 +176,7 @@ Lerna.addStrings({
     'ec.tPres': 'Overview', 'ec.tFil': 'Programmes', 'ec.tAdm': 'Admission', 'ec.tCost': 'Costs', 'ec.tLife': 'Student life', 'ec.tRev': 'Reviews',
     'ec.founded': 'Founded in {y}', 'ec.about': 'About', 'ec.ranking': 'Rankings and recognition',
     'ec.strengths': 'Strengths', 'ec.weaknesses': 'Points to consider', 'ec.honest': 'What is worth knowing before you choose.',
-    'ec.duration': 'Length', 'ec.outcomes': 'Careers', 'ec.level': 'Entry level', 'ec.language': 'Language of instruction',
+    'ec.duration': 'Length', 'ec.outcomes': 'Careers', 'ec.seeJobs': 'See the jobs', 'ec.level': 'Entry level', 'ec.language': 'Language of instruction',
     'ec.filNote': 'A selection of representative programmes. The full list is on the official website.',
     'ec.conditions': 'Entry requirements', 'ec.documents': 'Required documents', 'ec.deadlines': 'Deadlines', 'ec.process': 'Step-by-step process',
     'ec.official': 'Official website',
@@ -242,7 +242,7 @@ Lerna.addStrings({
         '<div class="kv"><span>' + t('ec.level') + '</span>' + esc(L(f.niveau)) + '</div>' +
         '<div class="kv"><span>' + t('ec.language') + '</span>' + esc(f.langue) + '</div>' +
         '<div class="kv"><span>' + t('ec.filFee') + '</span>' + filFee(f) + '</div>' +
-        '<div class="kv" style="grid-column:1/-1"><span>' + t('ec.outcomes') + '</span>' + esc(L(f.debouches)) + '</div>' +
+        '<div class="kv" style="grid-column:1/-1"><span>' + t('ec.outcomes') + '</span>' + esc(L(f.debouches)) + ' <a class="orange bold" style="white-space:nowrap" href="metiers.html?q=' + encodeURIComponent(f.nom) + '">' + t('ec.seeJobs') + ' →</a></div>' +
       '</div></div>';
     }).join('') + '<p class="small muted">' + t('ec.filNote') + '</p></div>';
   }

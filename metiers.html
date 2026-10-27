@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Métiers et débouchés — LERNA</title>
+<meta name="lerna-title" content="mt.docTitle">
+<meta name="description" content="Découvre les métiers auxquels mènent tes études : ce qu’on fait chaque jour, les qualités demandées, le niveau d’études et les diplômes. Source officielle : France Travail (ROME).">
+<meta name="theme-color" content="#FBF6EC">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png?v=9">
+<script src="assets/js/boot.js"></script>
+<link rel="stylesheet" href="assets/css/lerna.css">
+<style>
+  .mt-head { padding: 26px 0 8px; }
+  .mt-head h1 { font-size: clamp(1.9rem, 5.4vw, 2.6rem); }
+  .mt-head p { color: var(--muted); margin-top: 8px; max-width: 620px; }
+  .search { position: relative; margin-top: 16px; }
+  .search .input { padding: 17px 56px 17px 20px; font-size: 1.05rem; border-radius: 18px; }
+  .search .ic { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); color: var(--brown); width: 22px; height: 22px; }
+  .mt-filters { display: grid; gap: 10px; margin-top: 14px; }
+  .mt-selects { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
+  .mt-mine { margin-top: 14px; padding: 14px 16px; border-radius: 18px; background: var(--cream); }
+  .mt-mine p { font-size: .9rem; color: var(--muted); margin-bottom: 8px; }
+  .count-row { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 10px; color: var(--muted); font-size: .9rem; }
+  .mt-list { display: grid; gap: 10px; }
+  @media (min-width: 760px) { .mt-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .mcard { display: block; text-decoration: none; color: inherit; padding: 16px 18px; }
+  .mcard h3 { font-size: 1.02rem; line-height: 1.35; }
+  .mcard .meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .mcard .meta span { font-size: .76rem; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--cream-dark); color: var(--brown); }
+  .mcard .meta .lv { background: var(--orange-soft); color: var(--orange-deep); }
+  .more { display: flex; justify-content: center; margin: 18px 0 30px; }
+  .ci-intro { margin-top: 12px; font-size: .9rem; color: var(--muted); }
+  /* Fiche métier */
+  .mf { padding: 18px 0 60px; display: grid; gap: 14px; }
+  .mf h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); line-height: 1.2; }
+  .mf > * { min-width: 0; }
+  .mf .badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .mf .badges .badge { white-space: normal; text-align: left; line-height: 1.3; max-width: 100%; }
+  .mf .card h3 { font-size: 1.05rem; margin-bottom: 10px; }
+  .mf .intro { font-size: 1.02rem; margin-bottom: 12px; }
+  .mf .aka { font-size: .86rem; color: var(--muted); margin-top: 8px; }
+  .mf .ctx { display: grid; gap: 10px; }
+  .mf .ctx h4 { font-size: .86rem; color: var(--muted); margin-bottom: 4px; }
+  .mf .ctx p { font-size: .94rem; }
+  .near { display: grid; gap: 8px; }
+  .near a { display: block; padding: 12px 14px; border-radius: 14px; background: var(--cream); text-decoration: none; color: var(--brown); font-weight: 700; font-size: .94rem; }
+  .near a small { display: block; font-weight: 500; color: var(--muted); margin-top: 2px; }
+  .mf .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .src-note { font-size: .8rem; color: var(--muted); }
+</style>
+</head>
+<body data-page="metiers">
+<div id="lerna-nav"></div>
+<main class="container container-md" id="root">
+  <div class="loading" style="padding:60px 0;text-align:center"></div>
+</main>
+<div id="lerna-footer"></div>
+
+<script src="assets/js/core.js"></script>
+<script>
+Lerna.addStrings({
+  fr: {
+    'mt.docTitle': 'Métiers et débouchés — LERNA', 'mt.eyebrow': 'Débouchés', 'mt.title': 'Métiers et débouchés',
+    'mt.sub': 'Découvre ce que tu peux faire avec tes études : ce qu’on fait chaque jour, les qualités demandées, le niveau d’études et les diplômes qui y mènent.',
+    'mt.search': 'Cherche un métier ou un domaine (ex. comptable, data, sage-femme)', 'mt.allDoms': 'Tous les domaines', 'mt.allCi': 'Par envie', 'mt.allLv': 'Par niveau d’études',
+    'mt.lvBac': 'Jusqu’à Bac + 2', 'mt.lv3': 'Bac + 3 ou Bac + 4', 'mt.lv5': 'Bac + 5 et plus', 'mt.byCi': 'Par envie', 'mt.byLv': 'Niveau d’études',
+    'mt.mine': 'Tes domaines (d’après ton test) :', 'mt.count': '{n} métiers', 'mt.count1': '1 métier', 'mt.more': 'Voir plus de métiers', 'mt.none': 'Aucun métier ne correspond', 'mt.noneSub': 'Essaie un autre mot ou enlève un filtre.',
+    'mt.l-1': 'Niveau non précisé', 'mt.l0': 'CAP, BEP ou sans diplôme', 'mt.l1': 'Bac', 'mt.l2': 'Bac + 2', 'mt.l3': 'Bac + 3', 'mt.l4': 'Bac + 4', 'mt.l5': 'Bac + 5', 'mt.l6': 'Bac + 6 et plus', 'mt.l7': 'Bac + 6 et plus', 'mt.l8': 'Doctorat',
+    'mt.back': '← Tous les métiers', 'mt.do': 'Ce que tu fais au quotidien', 'mt.reach': 'Pour y arriver', 'mt.dips': 'Diplômes et certifications qui y mènent (en France)',
+    'mt.qual': 'Les qualités demandées', 'mt.qualSub': 'Elles te ressemblent ? C’est un bon signe.', 'mt.skills': 'Ce que tu sauras faire', 'mt.know': 'Ce que tu dois connaître',
+    'mt.ctx': 'Conditions de travail', 'mt.near': 'Métiers proches', 'mt.nearSub': 'Des métiers vers lesquels on peut évoluer.', 'mt.aka': 'Aussi appelé : {n}', 'mt.sector': 'Secteur : {s}',
+    'mt.study': 'Trouver où étudier ça', 'mt.test': 'Faire mon test d’orientation', 'mt.ask': 'Poser une question à l’assistant',
+    'mt.src': 'Source : France Travail, Répertoire opérationnel des métiers et des emplois (ROME 4.0, {v}), Licence Ouverte 2.0, mis à jour par LERNA le {d}.',
+    'mt.srcWarn': 'Ce répertoire décrit les métiers en France : les diplômes et les conditions d’accès peuvent être différents dans ton pays. LERNA peut se tromper.',
+    'mt.notFound': 'Ce métier n’existe plus dans le répertoire', 'mt.err': 'Impossible de charger les métiers. Vérifie ta connexion puis réessaie.', 'mt.retry': 'Réessayer',
+    'mt.dom.business': 'Business', 'mt.dom.sante': 'Santé', 'mt.dom.tech': 'Tech', 'mt.dom.droit': 'Droit', 'mt.dom.art': 'Art et création', 'mt.dom.sciences': 'Sciences', 'mt.dom.education': 'Éducation', 'mt.dom.ingenierie': 'Ingénierie', 'mt.dom.comm': 'Communication', 'mt.dom.agri': 'Agriculture et environnement',
+    'mt.langNote': ''
+  },
+  en: {
+    'mt.docTitle': 'Careers and outcomes — LERNA', 'mt.eyebrow': 'Outcomes', 'mt.title': 'Careers and outcomes',
+    'mt.sub': 'Discover what you can do with your studies: the day-to-day work, the qualities needed, the level of studies and the diplomas that lead there.',
+    'mt.search': 'Search a job or a field (e.g. accountant, data, midwife)', 'mt.allDoms': 'All fields', 'mt.allCi': 'By interest', 'mt.allLv': 'By level of studies',
+    'mt.lvBac': 'Up to 2 years after high school', 'mt.lv3': '3 or 4 years after high school', 'mt.lv5': '5 years or more', 'mt.byCi': 'By interest', 'mt.byLv': 'Level of studies',
+    'mt.mine': 'Your fields (from your test):', 'mt.count': '{n} jobs', 'mt.count1': '1 job', 'mt.more': 'See more jobs', 'mt.none': 'No job matches', 'mt.noneSub': 'Try another word or remove a filter.',
+    'mt.l-1': 'Level not specified', 'mt.l0': 'Vocational or no diploma', 'mt.l1': 'High school diploma', 'mt.l2': '2 years after high school', 'mt.l3': '3 years after high school', 'mt.l4': '4 years after high school', 'mt.l5': '5 years after high school', 'mt.l6': '6+ years after high school', 'mt.l7': '6+ years after high school', 'mt.l8': 'Doctorate',
+    'mt.back': '← All jobs', 'mt.do': 'What you do day to day', 'mt.reach': 'How to get there', 'mt.dips': 'Diplomas and certifications that lead there (in France)',
+    'mt.qual': 'Qualities needed', 'mt.qualSub': 'Do they sound like you? That is a good sign.', 'mt.skills': 'What you will be able to do', 'mt.know': 'What you need to know',
+    'mt.ctx': 'Working conditions', 'mt.near': 'Related jobs', 'mt.nearSub': 'Jobs you can move on to.', 'mt.aka': 'Also called: {n}', 'mt.sector': 'Sector: {s}',
+    'mt.study': 'Find where to study this', 'mt.test': 'Take my orientation test', 'mt.ask': 'Ask the assistant',
+    'mt.src': 'Source: France Travail, French job repository (ROME 4.0, {v}), Open Licence 2.0, updated by LERNA on {d}.',
+    'mt.srcWarn': 'This repository describes jobs in France: diplomas and entry requirements may differ in your country. LERNA can be wrong.',
+    'mt.notFound': 'This job is no longer in the repository', 'mt.err': 'Could not load the jobs. Check your connection and try again.', 'mt.retry': 'Try again',
+    'mt.dom.business': 'Business', 'mt.dom.sante': 'Health', 'mt.dom.tech': 'Tech', 'mt.dom.droit': 'Law', 'mt.dom.art': 'Art and design', 'mt.dom.sciences': 'Sciences', 'mt.dom.education': 'Education', 'mt.dom.ingenierie': 'Engineering', 'mt.dom.comm': 'Communication', 'mt.dom.agri': 'Agriculture and environment',
+    'mt.langNote': 'Job descriptions come from the official French repository and are shown in French.'
+  }
+});
+
+(function () {
+  var t = Lerna.t, esc = Lerna.esc, $ = function (id) { return document.getElementById(id); };
+  var root = $('root'), IX = null, CACHE = {}, PER = 30;
+  var DOMS = ['business', 'sante', 'tech', 'droit', 'art', 'sciences', 'education', 'ingenierie', 'comm', 'agri'];
+  var st = { q: Lerna.param('q') || '', dom: Lerna.param('dom') || '', ci: Lerna.param('ci') || '', lv: Lerna.param('lv') || '', show: PER };
+  var norm = function (s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9+]+/g, ' ').trim(); };
+  var STOP = ' de du des la le les l d un une et en a au aux pour par sur dans licence master bachelor bts but dut diplome mention parcours option specialite cycle annee annees ecole formation filiere programme professionnelle pro integre integree preparatoire classe '.split(' ');
+  function lvTxt(n) { return t('mt.l' + n); }
+  function letterName(L) { var d = (IX.domaines || []).filter(function (x) { return x.c === L; })[0]; return d ? d.l : ''; }
+
+  function loadIndex() {
+    if (IX) return Promise.resolve(IX);
+    return fetch('assets/metiers/index.json').then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); }).then(function (j) {
+      IX = j; IX.byCode = {}; IX.m.forEach(function (m) { m.n = norm(m[1]); IX.byCode[m[0]] = m; }); return IX;
+    });
+  }
+  function loadLetter(L) {
+    if (CACHE[L]) return Promise.resolve(CACHE[L]);
+    return fetch('assets/metiers/' + encodeURIComponent(L) + '.json').then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); }).then(function (j) { CACHE[L] = j; return j; });
+  }
+  function myDoms() {
+    var a = ((Lerna.store.get('lerna_profile', null) || {}).answers || {}).q15;
+    a = Array.isArray(a) ? a : a ? [a] : [];
+    return a.map(function (x) { return typeof x === 'string' ? x : x && (x.id || x.v); }).filter(function (x) { return DOMS.indexOf(x) !== -1; });
+  }
+
+  /* ---------- Liste ---------- */
+  function filtered() {
+    var words = norm(st.q).split(' ').filter(function (w) { return w.length > 1 && STOP.indexOf(' ' + w + ' ') === -1 && STOP.indexOf(w) === -1; });
+    var ciSet = null;
+    if (st.ci) { var c = IX.interets.filter(function (x) { return String(x.id) === String(st.ci); })[0]; if (c) { ciSet = {}; c.m.forEach(function (k) { ciSet[k] = 1; }); } }
+    var out = [];
+    IX.m.forEach(function (m) {
+      if (st.dom && (m[4] || []).indexOf(st.dom) === -1) return;
+      if (ciSet && !ciSet[m[0]]) return;
+      if (st.lv === 'bac' && !(m[3] >= 0 && m[3] <= 2)) return;
+      if (st.lv === '3' && !(m[3] === 3 || m[3] === 4)) return;
+      if (st.lv === '5' && !(m[3] >= 5)) return;
+      var score = m[3] >= 2 ? 2 : 1;   // sans recherche : d'abord les métiers qui demandent des études supérieures
+      if (words.length) {
+        score = 0;
+        /* Racine du mot (« comptabilité » trouve « comptable ») ; un intitulé qui commence par le mot passe devant */
+        words.forEach(function (w) { var stem = w.length > 6 ? w.slice(0, 6) : w; var at = m.n.indexOf(stem); if (at !== -1) score += (at === 0 ? 3 : 2); });
+        if (!score) return;
+      }
+      out.push([score, m]);
+    });
+    out.sort(function (a, b) { return b[0] - a[0] || a[1][1].localeCompare(b[1][1], 'fr'); });
+    return out.map(function (x) { return x[1]; });
+  }
+  function card(m) {
+    return '<a class="card card-hover mcard" href="metiers.html?code=' + encodeURIComponent(m[0]) + '"><h3>' + esc(m[1]) + '</h3><div class="meta"><span class="lv">' + esc(lvTxt(m[3])) + '</span><span>' + esc(letterName(m[2])) + '</span></div></a>';
+  }
+  function renderList() {
+    document.title = t('mt.docTitle');
+    var mine = myDoms();
+    root.innerHTML =
+      '<div class="mt-head"><span class="eyebrow">' + t('mt.eyebrow') + '</span><h1>' + t('mt.title') + '</h1><p>' + t('mt.sub') + '</p>' +
+        (t('mt.langNote') ? '<p class="small">' + esc(t('mt.langNote')) + '</p>' : '') +
+        '<div class="search"><label class="sr-only" for="mq">' + esc(t('mt.search')) + '</label><input class="input" id="mq" type="search" autocomplete="off" placeholder="' + esc(t('mt.search')) + '" value="' + esc(st.q) + '">' +
+          '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>' +
+        (mine.length ? '<div class="mt-mine"><p>' + t('mt.mine') + '</p><div class="chips">' + mine.map(function (d) { return '<button type="button" class="chip' + (st.dom === d ? ' active' : '') + '" data-dom="' + d + '">' + esc(t('mt.dom.' + d)) + '</button>'; }).join('') + '</div></div>' : '') +
+        '<div class="mt-filters"><div class="chips" role="group">' + ['' ].concat(DOMS).map(function (d) { return '<button type="button" class="chip' + (st.dom === d ? ' active' : '') + '" data-dom="' + d + '">' + esc(d ? t('mt.dom.' + d) : t('mt.allDoms')) + '</button>'; }).join('') + '</div>' +
+          '<div class="mt-selects"><label><span class="sr-only">' + t('mt.byCi') + '</span><select class="select" id="mci"><option value="">' + esc(t('mt.allCi')) + '</option>' +
+            IX.interets.map(function (c) { return '<option value="' + c.id + '"' + (String(st.ci) === String(c.id) ? ' selected' : '') + '>' + esc(c.l) + '</option>'; }).join('') + '</select></label>' +
+          '<label><span class="sr-only">' + t('mt.byLv') + '</span><select class="select" id="mlv">' + [['', 'mt.allLv'], ['bac', 'mt.lvBac'], ['3', 'mt.lv3'], ['5', 'mt.lv5']].map(function (o) { return '<option value="' + o[0] + '"' + (st.lv === o[0] ? ' selected' : '') + '>' + esc(t(o[1])) + '</option>'; }).join('') + '</select></label></div></div>' +
+        '<p class="ci-intro" id="ciIntro"></p>' +
+      '</div><div class="count-row"><span id="mcount" aria-live="polite"></span></div><div class="mt-list" id="mlist"></div><div class="more" id="mmore"></div>' +
+      '<p class="src-note" style="margin-bottom:30px">' + esc(t('mt.src', { v: IX.version || 'ROME', d: Lerna.fmtDate(IX.maj) })) + ' ' + esc(t('mt.srcWarn')) + '</p>';
+    paintList();
+  }
+  function paintList() {
+    var list = filtered();
+    $('mcount').textContent = list.length === 1 ? t('mt.count1') : t('mt.count', { n: list.length.toLocaleString(Lerna.lang === 'en' ? 'en' : 'fr-FR') });
+    var c = st.ci && IX.interets.filter(function (x) { return String(x.id) === String(st.ci); })[0];
+    $('ciIntro').textContent = c && c.d ? c.d : '';
+    $('mlist').innerHTML = list.length ? list.slice(0, st.show).map(card).join('') :
+      '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + t('mt.none') + '</h4><p>' + t('mt.noneSub') + '</p></div>';
+    $('mmore').innerHTML = list.length > st.show ? '<button type="button" class="btn btn-ghost" id="moreBtn">' + t('mt.more') + '</button>' : '';
+    Lerna.qsa('[data-dom]').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-dom') === st.dom); });
+    var qs = ['q', 'dom', 'ci', 'lv'].filter(function (k) { return st[k]; }).map(function (k) { return k + '=' + encodeURIComponent(st[k]); }).join('&');
+    history.replaceState(null, '', 'metiers.html' + (qs ? '?' + qs : ''));
+  }
+
+  /* ---------- Fiche métier ---------- */
+  function ul(arr, cls) { return '<ul class="' + (cls || 'list-check') + '">' + arr.map(function (x) { return '<li><span>' + esc(x) + '</span></li>'; }).join('') + '</ul>'; }
+  function renderFiche(code) {
+    var m = IX.byCode[code];
+    if (!m) { root.innerHTML = '<div class="empty" style="margin-top:40px">' + Lerna.icon('search') + '<h4>' + t('mt.notFound') + '</h4><a class="btn btn-primary" style="margin-top:14px" href="metiers.html">' + t('mt.back') + '</a></div>'; return; }
+    root.innerHTML = '<div class="loading" style="padding:60px 0;text-align:center">' + Lerna.thinking('inline') + '</div>';
+    loadLetter(m[2]).then(function (all) {
+      var f = all[code];
+      if (!f) { renderFiche('__none__'); return; }
+      document.title = f.t + ' — LERNA';
+      Lerna.track('metier_view', code);
+      var dom = (m[4] || [])[0] || '';
+      var d = f.d || [];
+      var ctx = (f.ctx || []).map(function (c) { return '<div><h4>' + esc(c.l) + '</h4><p>' + esc(c.i.join(' · ')) + '</p></div>'; }).join('');
+      var near = (f.mob || []).map(function (c) { return IX.byCode[c]; }).filter(Boolean).slice(0, 6);
+      root.innerHTML = '<div class="mf">' +
+        '<a class="back" href="metiers.html">' + t('mt.back') + '</a>' +
+        '<div><span class="eyebrow">' + esc(letterName(m[2])) + '</span><h1>' + esc(f.t) + '</h1>' +
+          '<div class="badges"><span class="badge badge-soft">' + esc(lvTxt(m[3])) + '</span>' + (f.dp ? '<span class="badge badge-cream">' + esc(f.dp) + '</span>' : '') + (f.sec && f.sec[0] ? '<span class="badge badge-cream">' + esc(f.sec[0]) + '</span>' : '') + '</div>' +
+          (f.ap && f.ap.length ? '<p class="aka">' + esc(t('mt.aka', { n: f.ap.slice(0, 4).join(' · ') })) + '</p>' : '') + '</div>' +
+        (d.length ? '<section class="card"><h3>' + t('mt.do') + '</h3><p class="intro">' + esc(d[0]) + '</p>' + (d.length > 1 ? ul(d.slice(1), 'list-arrow') : '') + '</section>' : '') +
+        '<section class="card"><h3>' + t('mt.reach') + '</h3>' + (f.acc ? '<p>' + esc(f.acc) + '</p>' : '') +
+          (f.dip && f.dip.length ? '<h4 style="margin-top:14px;font-size:.92rem">' + t('mt.dips') + '</h4><div style="margin-top:8px">' + ul(f.dip) + '</div>' : '') +
+          '<div class="acts"><a class="btn btn-primary btn-sm" href="explorer.html' + (dom ? '?domaine=' + encodeURIComponent(dom) : '') + '">' + t('mt.study') + ' →</a>' +
+          (Lerna.store.raw('lerna_results') ? '' : '<a class="btn btn-ghost btn-sm" href="questionnaire.html">' + t('mt.test') + '</a>') + '</div></section>' +
+        (f.se && f.se.length ? '<section class="card"><h3>' + t('mt.qual') + '</h3><p class="small muted" style="margin:-4px 0 10px">' + t('mt.qualSub') + '</p>' + ul(f.se) + '</section>' : '') +
+        (f.sf && f.sf.length ? '<section class="card"><h3>' + t('mt.skills') + '</h3>' + ul(f.sf) + '</section>' : '') +
+        (f.sv && f.sv.length ? '<section class="card"><h3>' + t('mt.know') + '</h3><p>' + esc(f.sv.join(' · ')) + '</p></section>' : '') +
+        (ctx ? '<section class="card"><h3>' + t('mt.ctx') + '</h3><div class="ctx">' + ctx + '</div></section>' : '') +
+        (near.length ? '<section class="card"><h3>' + t('mt.near') + '</h3><p class="small muted" style="margin:-4px 0 10px">' + t('mt.nearSub') + '</p><div class="near">' + near.map(function (n) {
+          return '<a href="metiers.html?code=' + encodeURIComponent(n[0]) + '">' + esc(n[1]) + '<small>' + esc(lvTxt(n[3])) + '</small></a>';
+        }).join('') + '</div></section>' : '') +
+        '<p class="src-note">' + esc(t('mt.src', { v: IX.version || 'ROME', d: Lerna.fmtDate(IX.maj) })) + ' ' + esc(t('mt.srcWarn')) + '</p>' +
+      '</div>';
+      window.scrollTo(0, 0);
+    }, showErr);
+  }
+  function showErr() {
+    root.innerHTML = '<div class="empty" style="margin-top:40px">' + Lerna.icon('info') + '<h4>' + t('mt.err') + '</h4><button type="button" class="btn btn-primary" style="margin-top:14px" id="retry">' + t('mt.retry') + '</button></div>';
+  }
+  function route() {
+    var code = Lerna.param('code');
+    loadIndex().then(function () { if (code) renderFiche(code); else renderList(); }, showErr);
+  }
+
+  Lerna.ready(function () {
+    /* Arrivée sans filtre : on part du premier domaine choisi dans le test */
+    if (!st.q && !st.dom && !st.ci && !st.lv && !Lerna.param('code')) st.dom = myDoms()[0] || '';
+    root.querySelector('.loading').innerHTML = Lerna.thinking('inline');
+    route();
+    document.addEventListener('click', function (e) {
+      var b;
+      if ((b = e.target.closest('[data-dom]'))) { var d = b.getAttribute('data-dom'); st.dom = st.dom === d ? '' : d; st.show = PER; Lerna.sound.play('select'); paintList(); return; }
+      if (e.target.closest('#moreBtn')) { st.show += PER; paintList(); return; }
+      if (e.target.closest('#retry')) { route(); }
+    });
+    document.addEventListener('input', Lerna.debounce(function (e) { if (e.target.id === 'mq') { st.q = e.target.value; st.show = PER; paintList(); } }, 160));
+    document.addEventListener('change', function (e) {
+      if (e.target.id === 'mci') { st.ci = e.target.value; st.show = PER; paintList(); }
+      if (e.target.id === 'mlv') { st.lv = e.target.value; st.show = PER; paintList(); }
+    });
+    Lerna.onLang(function () { if (IX) { if (Lerna.param('code')) renderFiche(Lerna.param('code')); else renderList(); } });
+  });
+})();
+</script>
+</body>
+</html>

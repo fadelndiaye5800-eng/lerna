@@ -117,6 +117,7 @@ Lerna.addStrings({
     'rs.lockSubFree': 'Elles correspondent aussi à ton profil. Invite 3 amis pour les débloquer gratuitement.',
     'rs.lockBtn': 'Tout débloquer avec Premium',
     'rs.or': 'ou',
+    'rs.jobsTitle': 'Les métiers de tes domaines', 'rs.jobsText': 'Ce qu’on fait chaque jour, les qualités demandées et le niveau d’études, métier par métier.', 'rs.jobsBtn': 'Voir les métiers',
     'rs.inviteTitle': 'Invite 3 amis — c’est gratuit',
     'rs.inviteCount': '{n}/3 amis inscrits', 'rs.invitePending': '{n} invitation(s) en attente de confirmation',
     'rs.inviteRule': 'Un ami compte quand il crée son compte avec ton lien, confirme son email et termine son questionnaire.',
@@ -165,6 +166,7 @@ Lerna.addStrings({
     'rs.lockSubFree': 'They match your profile too. Invite 3 friends to unlock them for free.',
     'rs.lockBtn': 'Unlock everything with Premium',
     'rs.or': 'or',
+    'rs.jobsTitle': 'Jobs in your fields', 'rs.jobsText': 'The day-to-day work, the qualities needed and the level of studies, job by job.', 'rs.jobsBtn': 'See the jobs',
     'rs.inviteTitle': 'Invite 3 friends — it’s free',
     'rs.inviteCount': '{n}/3 friends signed up', 'rs.invitePending': '{n} invitation(s) waiting for confirmation',
     'rs.inviteRule': 'A friend counts once they create an account with your link, confirm their email and finish their questionnaire.',
@@ -328,6 +330,16 @@ Lerna.addStrings({
       }).join('') + '</section>';
   }
 
+  /* Débouchés : les métiers des domaines choisis dans le test (répertoire officiel des métiers, gratuit) */
+  function jobsCard() {
+    var DOMS = window.LERNA_DOMAINS || [];
+    var a = ((Lerna.store.get('lerna_profile', null) || {}).answers || {}).q15;
+    a = (Array.isArray(a) ? a : a ? [a] : []).map(function (x) { return typeof x === 'string' ? x : x && (x.id || x.v); });
+    var doms = DOMS.filter(function (d) { return a.indexOf(d.id) !== -1; });
+    return '<div class="card save-card reveal no-print" style="margin-top:28px"><span class="ic-wrap">' + Lerna.icon('briefcase', 'ic-lg') + '</span><div style="flex:1;min-width:0"><h3>' + t('rs.jobsTitle') + '</h3><p class="small muted" style="margin-top:4px">' + t('rs.jobsText') + '</p>' +
+      (doms.length ? '<div class="chips" style="margin-top:10px;flex-wrap:wrap">' + doms.map(function (d) { return '<a class="chip" href="metiers.html?dom=' + encodeURIComponent(d.id) + '">' + esc(Lerna.L(d.label)) + '</a>'; }).join('') + '</div>' : '') +
+      '</div><a class="btn btn-primary btn-sm" href="metiers.html' + (doms[0] ? '?dom=' + encodeURIComponent(doms[0].id) : '') + '">' + t('rs.jobsBtn') + '</a></div>';
+  }
   function render() {
     var res = Lerna.store.get('lerna_results', null);
     var root = $('root');
@@ -355,6 +367,7 @@ Lerna.addStrings({
       return Lerna.recoAccess(i) === 'open' ? recoCard(r, i) : '';
     }).join('') + lockedCards(res.recos) + '</div>';
     if (res.conseil) h += '<div class="card-note brown conseil reveal">' + Lerna.seal() + esc(res.conseil) + '</div>';
+    h += jobsCard();
     if (!Lerna.isLogged()) {
       h += '<div class="card save-card reveal no-print"><span class="ic-wrap">' + Lerna.icon('heart', 'ic-lg') + '</span><div><h3>' + t('rs.saveTitle') + '</h3><p class="small muted" style="margin-top:4px">' + t('rs.saveText') + '</p></div>' +
         '<a class="btn btn-primary btn-sm" href="auth.html?mode=signup&redirect=resultats.html">' + t('rs.saveBtn') + '</a></div>';

@@ -10,16 +10,16 @@
 if (new URL(self.location.href).searchParams.get('os') === '1') {
   try { importScripts('https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js'); } catch (e) {}
 }
-const VERSION = 'lerna-v9.0.1';
+const VERSION = 'lerna-v9.1.0';
 const SHELL = [
   '/', '/index.html', '/aujourdhui.html', '/questionnaire.html', '/loading.html', '/resultats.html', '/explorer.html', '/ecole.html',
-  '/fiche.html', '/opportunites.html', '/espace.html', '/premium.html', '/auth.html', '/dossier.html', '/parametres.html', '/contact.html',
+  '/fiche.html', '/metiers.html', '/opportunites.html', '/espace.html', '/premium.html', '/auth.html', '/dossier.html', '/parametres.html', '/contact.html',
   '/manifest.json', '/assets/css/lerna.css',
   '/assets/js/boot.js', '/assets/js/core.js', '/assets/js/questions.js', '/assets/js/data-schools.js', '/assets/js/data-opps.js',
   '/assets/js/engine.js', '/assets/js/guides.js', '/assets/js/accred.js', '/assets/js/coffre.js', '/assets/js/copilote.js', '/assets/js/daily.js',
   '/assets/vendor/supabase-2.45.4.js',
   '/assets/fonts/inter-latin.woff2', '/assets/fonts/inter-latin-ext.woff2', '/assets/fonts/playfair-latin.woff2', '/assets/fonts/playfair-latin-ext.woff2',
-  '/assets/icons/icon.svg', '/assets/icons/icon-192.png', '/assets/icons/apple-touch-icon.png', '/assets/annuaire/index.json',
+  '/assets/icons/icon.svg', '/assets/icons/icon-192.png', '/assets/icons/apple-touch-icon.png', '/assets/annuaire/index.json', '/assets/metiers/index.json',
   '/assets/stickers/autre.webp', '/assets/stickers/fire.webp', '/assets/stickers/target.webp', '/assets/stickers/wave.webp'
 ];
 const PREFIX = 'lerna-shell-' + VERSION + '-';

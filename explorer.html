@@ -46,6 +46,11 @@
   .count-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin: 12px 0 16px; color: var(--muted); font-size: .9rem; flex-wrap: wrap; }
   .sort { border: none; background: transparent; font-weight: 600; color: var(--brown); font-size: .88rem; cursor: pointer; }
   .note-line { font-size: .84rem; color: var(--muted); background: var(--cream); border-radius: 14px; padding: 10px 14px; margin: 0 0 14px; line-height: 1.5; }
+  .mt-link { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 12px 14px; border-radius: 16px; background: var(--surface); border: 1.5px solid var(--cream-dark); text-decoration: none; color: var(--brown); }
+  .mt-link .ic { color: var(--orange); width: 24px; height: 24px; flex-shrink: 0; }
+  .mt-link strong { display: block; font-size: .95rem; }
+  .mt-link small { display: block; color: var(--muted); font-size: .82rem; margin-top: 2px; }
+  .mt-link .go { margin-left: auto; color: var(--orange); font-weight: 800; }
   .fr-info { background: var(--orange-soft); border-radius: 18px; padding: 14px 16px; margin: 4px 0 6px; line-height: 1.55; font-size: .92rem; color: var(--brown); }
   .fr-info a { color: var(--orange-deep, #B84D06); font-weight: 800; }
 
@@ -93,6 +98,7 @@
         <input class="input" id="q" type="search" autocomplete="off">
         <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
       </div>
+      <a class="mt-link" href="metiers.html" id="mtLink"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 13h18"/></svg><span><strong data-i18n="ex.mtTitle">Métiers et débouchés</strong><small data-i18n="ex.mtSub">Ce que tu peux faire après tes études, métier par métier</small></span><span class="go" aria-hidden="true">→</span></a>
       <div class="filters" id="filters" role="group" aria-label="Filtres"></div>
       <div class="filters" id="frFilters" role="group" aria-label="Filtres France" hidden></div>
     </div>
@@ -129,7 +135,7 @@ Lerna.addStrings({
     'ex.docTitle': 'Explorer les écoles — LERNA',
     'ex.eyebrow': 'Écoles et universités', 'ex.title': 'Explorer les écoles',
     'ex.sub': 'Toutes les écoles et universités reconnues officiellement, partout dans le monde.',
-    'ex.tabEcoles': 'Écoles et universités', 'ex.tabFrance': 'Formations en France',
+    'ex.tabEcoles': 'Écoles et universités', 'ex.tabFrance': 'Formations en France', 'ex.mtTitle': 'Métiers et débouchés', 'ex.mtSub': 'Ce que tu peux faire après tes études, métier par métier',
     'ex.searchPh': 'École, ville, pays ou filière…', 'ex.searchPhFr': 'Formation ou ville…',
     'ex.fCountry': 'Pays', 'ex.allCountries': 'Tous les pays', 'ex.fBudget': 'Budget', 'ex.fDomain': 'Domaine', 'ex.fType': 'Type', 'ex.fDuration': 'Durée', 'ex.fLang': 'Langue',
     'ex.b1': 'Moins de 500 $', 'ex.b2': '500 – 2 000 $', 'ex.b3': '2 000 – 5 000 $', 'ex.b4': '5 000 – 15 000 $', 'ex.b5': 'Plus de 15 000 $',
@@ -157,7 +163,7 @@ Lerna.addStrings({
     'ex.docTitle': 'Explore schools — LERNA',
     'ex.eyebrow': 'Schools and universities', 'ex.title': 'Explore schools',
     'ex.sub': 'Every officially recognised school and university, all over the world.',
-    'ex.tabEcoles': 'Schools and universities', 'ex.tabFrance': 'Programmes in France',
+    'ex.tabEcoles': 'Schools and universities', 'ex.tabFrance': 'Programmes in France', 'ex.mtTitle': 'Careers and outcomes', 'ex.mtSub': 'What you can do after your studies, job by job',
     'ex.searchPh': 'School, city, country or field…', 'ex.searchPhFr': 'Programme or city…',
     'ex.fCountry': 'Country', 'ex.allCountries': 'All countries', 'ex.fBudget': 'Budget', 'ex.fDomain': 'Field', 'ex.fType': 'Type', 'ex.fDuration': 'Length', 'ex.fLang': 'Language',
     'ex.b1': 'Under $500', 'ex.b2': '$500 – 2,000', 'ex.b3': '$2,000 – 5,000', 'ex.b4': '$5,000 – 15,000', 'ex.b5': 'Over $15,000',

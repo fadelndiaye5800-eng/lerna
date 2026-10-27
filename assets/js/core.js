@@ -339,7 +339,7 @@
       'nav.settings': 'Paramètres', 'nav.dossiers': 'Mes dossiers', 'nav.help': 'Aide et contact',
       'mn.title': 'Menu', 'mn.go': 'Aller à', 'mn.settings': 'Réglages', 'mn.help': 'Aide et infos', 'mn.theme': 'Thème', 'mn.light': 'Clair', 'mn.dark': 'Sombre', 'mn.guest': 'Crée ton compte pour garder ton parcours sur tous tes appareils.', 'mn.tagline': 'Ton orientation, pas à pas',
       'ab.streak': '{n} jours de suite', 'ab.streak1': '1 jour de suite', 'ab.streak0': 'Lance ta série aujourd’hui', 'ab.results': 'Tes résultats t’attendent', 'ab.start': 'Commence ton orientation', 'ab.g2': 'Ton orientation, pas à pas', 'ab.g3': 'Écoles, bourses et emplois', 'ab.g4': 'Gratuit pour commencer', 'ab.mission': 'Ta mission du jour t’attend',
-      'nav.back': 'Retour', 'nav.school': 'École', 'nav.legal': 'Règles et confidentialité', 'nav.admin': 'Administration',
+      'nav.back': 'Retour', 'nav.school': 'École', 'nav.metiers': 'Métiers', 'nav.legal': 'Règles et confidentialité', 'nav.admin': 'Administration',
       'nav.streak': '{n} jour(s) d’affilée', 'nav.mainNav': 'Navigation principale'
     },
     en: {
@@ -373,7 +373,7 @@
       'nav.settings': 'Settings', 'nav.dossiers': 'My applications', 'nav.help': 'Help and contact',
       'mn.title': 'Menu', 'mn.go': 'Go to', 'mn.settings': 'Settings', 'mn.help': 'Help and info', 'mn.theme': 'Theme', 'mn.light': 'Light', 'mn.dark': 'Dark', 'mn.guest': 'Create your account to keep your path on all your devices.', 'mn.tagline': 'Your path, step by step',
       'ab.streak': '{n} days in a row', 'ab.streak1': '1 day in a row', 'ab.streak0': 'Start your streak today', 'ab.results': 'Your results are waiting', 'ab.start': 'Start your orientation', 'ab.g2': 'Your path, step by step', 'ab.g3': 'Schools, scholarships and jobs', 'ab.g4': 'Free to start', 'ab.mission': 'Your daily mission is waiting',
-      'nav.back': 'Back', 'nav.school': 'School', 'nav.legal': 'Rules and privacy', 'nav.admin': 'Admin',
+      'nav.back': 'Back', 'nav.school': 'School', 'nav.metiers': 'Careers', 'nav.legal': 'Rules and privacy', 'nav.admin': 'Admin',
       'nav.streak': '{n}-day streak', 'nav.mainNav': 'Main navigation'
     }
   });
@@ -1274,7 +1274,8 @@
     questionnaire: { back: 'index.html', title: 'nav.orientation' }, ecole: { back: 'explorer.html', title: 'nav.school' },
     dossier: { back: 'espace.html', title: 'nav.dossiers' }, premium: { back: 'espace.html', title: 'nav.premium' },
     parametres: { back: 'espace.html', title: 'nav.settings' }, contact: { back: 'parametres.html', title: 'nav.help' },
-    legal: { back: 'parametres.html', title: 'nav.legal' }, auth: { back: 'index.html', title: '' }, admin: { back: 'parametres.html', title: 'nav.admin' }
+    legal: { back: 'parametres.html', title: 'nav.legal' }, auth: { back: 'index.html', title: '' }, admin: { back: 'parametres.html', title: 'nav.admin' },
+    metiers: { back: 'explorer.html', title: 'nav.metiers' }
   };
   function screen() {
     var p = page(), sc = SCREENS[p] || { back: Lerna.homeHref(), title: '' };
@@ -1369,6 +1370,7 @@
           (hasProfile() ? a('aujourdhui.html', 'flame', 'nav.today', ['today']) : a('index.html', 'home', 'nav.home', ['home'])) +
           a(hasResults() ? 'resultats.html' : 'questionnaire.html', 'compass', 'nav.orientation', ['questionnaire', 'resultats', 'loading']) +
           a('explorer.html', 'school', 'nav.explore', ['explorer', 'ecole']) +
+          a('metiers.html', 'briefcase', 'nav.metiers', ['metiers']) +
           a('opportunites.html', 'star', 'nav.opps', ['opportunites']) +
           a('dossier.html', 'folder', 'nav.dossiers', ['dossier']) +
           (u ? a('espace.html', 'user', 'nav.me', ['espace']) : '') +
@@ -1405,6 +1407,7 @@
             (hasProfile() ? a('aujourdhui.html', 'flame', 'nav.today', ['today']) : a('index.html', 'home', 'nav.home', ['home'])) +
             a(hasResults() ? 'resultats.html' : 'questionnaire.html', 'compass', hasResults() ? 'nav.results' : 'nav.orientation', ['questionnaire', 'resultats', 'loading']) +
             a('explorer.html', 'school', 'nav.explore', ['explorer', 'ecole']) +
+            a('metiers.html', 'briefcase', 'nav.metiers', ['metiers']) +
             a('opportunites.html', 'star', 'nav.opps', ['opportunites']) +
             a('dossier.html', 'folder', 'nav.dossiers', ['dossier']) +
             a('premium.html', 'gem', 'nav.premium', ['premium']) +
@@ -1452,7 +1455,7 @@
     };
     host.innerHTML =
       '<nav class="bottom-nav" aria-label="Navigation mobile"><ul>' +
-        item(hasResults() ? 'resultats.html' : 'questionnaire.html', 'compass', 'nav.orientation', ['questionnaire', 'resultats', 'loading']) +
+        item(hasResults() ? 'resultats.html' : 'questionnaire.html', 'compass', 'nav.orientation', ['questionnaire', 'resultats', 'loading', 'metiers']) +
         item('explorer.html', 'school', 'nav.explore', ['explorer', 'ecole']) +
         '<li><a href="' + Lerna.homeHref() + '" class="center' + (p === 'home' || p === 'today' ? ' active' : '') + '" aria-label="LERNA — ' + t(hasProfile() ? 'nav.today' : 'nav.home') + '"><span class="center-btn">' + Lerna.seal() + '</span></a></li>' +
         item('opportunites.html', 'star', 'nav.opps', ['opportunites']) +
