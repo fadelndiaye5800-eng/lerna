@@ -1,3 +1,4 @@
+Appellations : 14330 | transitions : 661
 Métiers réglementés (France) : 286
 ROME ROME 4.0 version 62 - 26M10 | fiches : 1923 | grands domaines : 14 | centres d’intérêt : 30
 Champs des fiches : {"numero":1923,"rome":1923,"appellations":1923,"definition":1923,"acces_metier":1923,"competences":1923,"contextes_travail":1923,"secteurs_activite":1923,"mobilites":1923}
@@ -37,21 +38,22 @@ N Transport et Logistique
 Niveaux : {"0":146,"1":231,"2":531,"3":349,"4":2,"5":340,"6":3,"7":2,"8":68,"-1":251} | domaines LERNA : {"agri":122,"sciences":48,"ingenierie":553,"sante":120,"art":227,"tech":133,"business":483,"comm":105,"education":58,"droit":19} | sans domaine LERNA : 308 | activités : 11458
 
 Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
-   A.json 302960 octets
-   B.json 147800 octets
-   C.json 172672 octets
-   D.json 416108 octets
-   E.json 241158 octets
-   F.json 359190 octets
-   G.json 361194 octets
-   H.json 845813 octets
-   I.json 428758 octets
-   J.json 248732 octets
-   K.json 958629 octets
-   L.json 227334 octets
-   M.json 655174 octets
-   N.json 421416 octets
+   A.json 304741 octets
+   B.json 148349 octets
+   C.json 173375 octets
+   D.json 417589 octets
+   E.json 242281 octets
+   F.json 361131 octets
+   G.json 362645 octets
+   H.json 849360 octets
+   I.json 430710 octets
+   J.json 249601 octets
+   K.json 962485 octets
+   L.json 228162 octets
+   M.json 658600 octets
+   N.json 423088 octets
    index.json 200606 octets
+   search.json 806220 octets
 
 == M1805 Développeur / Développeuse informatique | niveau 2
 {
@@ -352,3 +354,32 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   "Responsable comptabilité générale et analytique",
   "Licence pro mention métiers de la gestion et de la comptabilité : comptabilité et paie",
   "Licence pro mention métiers de
+ESCO : fiches à relier 1923 | déjà en cache 0
+   100 / 1923 | reliées : 97
+   200 / 1923 | reliées : 171
+   300 / 1923 | reliées : 244
+   400 / 1923 | reliées : 343
+   500 / 1923 | reliées : 429
+   600 / 1923 | reliées : 518
+   700 / 1923 | reliées : 608
+   800 / 1923 | reliées : 692
+   900 / 1923 | reliées : 777
+   1000 / 1923 | reliées : 845
+   1100 / 1923 | reliées : 925
+   1200 / 1923 | reliées : 999
+   1300 / 1923 | reliées : 1062
+   1400 / 1923 | reliées : 1144
+   1500 / 1923 | reliées : 1212
+   1600 / 1923 | reliées : 1262
+   1700 / 1923 | reliées : 1311
+   1800 / 1923 | reliées : 1389
+   1900 / 1923 | reliées : 1474
+ESCO : fiches reliées 1492 / 1923
+M1805 Développeur / Développeuse informatique → développeur de logiciels | software developer | CITP 2512 Concepteurs de logiciels | score 0.75
+J1102 Médecin généraliste → médecin généraliste | general practitioner | CITP 2211 Médecins généralistes | score 1
+K1915 Avocat / Avocate → avocat | lawyer | CITP 2611 Avocats | score 1
+M1211 Expert-comptable / Experte-comptable → expert-comptable | accounting analyst | CITP   | score 1
+D1406 Directeur / Directrice des ventes → directeur de supermarché | supermarket manager | CITP 1420 Directeurs et gérants, commerce de détail et de gros | score 0.75
+E1103 Chargé / Chargée des relations publiques → chargé de campagne | activism officer | CITP 2432 Spécialistes des relations publiques | score 0.75
+K2107 Professeur / Professeure de collège et de lycée → professeur de religion | religious education teacher secondary school | CITP   | score 0.75
+A1301 Technicien / Technicienne en agriculture → technicien vétérinaire | veterinary technician | CITP 3240 Techniciens et assistants vétérinaires | score 0.75
