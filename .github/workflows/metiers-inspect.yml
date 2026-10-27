@@ -1,0 +1,22 @@
+name: Métiers (inspection ESCO)
+on:
+  push:
+    branches: [main]
+    paths: ['scripts/metiers/esco-inspect.mjs', '.github/workflows/metiers-inspect.yml']
+permissions:
+  contents: write
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/metiers/esco-inspect.mjs || true
+      - run: |
+          git config user.name "lerna-metiers[bot]"; git config user.email "metiers@users.noreply.github.com"
+          cp scripts/metiers/esco-inspect-log.txt /tmp/l.txt; git fetch -q origin main && git reset -q --hard origin/main
+          cp /tmp/l.txt scripts/metiers/esco-inspect-log.txt; git add scripts/metiers/esco-inspect-log.txt
+          git diff --cached --quiet || (git commit -m "Métiers : journal d'inspection ESCO" && git push origin HEAD:main)
