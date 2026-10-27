@@ -114,17 +114,28 @@ const lib = (x) => (x && (x.libelle || x.intitule)) || '';
 /* Métiers proches (« mobilités ») : tout code ROME cité dans l'objet */
 function mobs(m) {
   const out = [], seen = new Set();
-  const walk = (o) => { if (!o || typeof o !== 'object') return; if (Array.isArray(o)) return o.forEach(walk); for (const [k, v] of Object.entries(o)) { if (k === 'code_rome' && typeof v === 'string') { if (!seen.has(v)) { seen.add(v); out.push(v); } } else walk(v); } };
-  walk(m); return out;
+  /* Le ROME écrit « M1802 - Expert / Experte systèmes et réseaux », dans l'ordre de proximité */
+  const add = (c) => { if (c && /^[A-N]\d{4}$/.test(c) && !seen.has(c)) { seen.add(c); out.push(c); } };
+  const arr = Array.isArray(m) ? m.slice().sort((a, b) => (a.ordre_mobilite || 0) - (b.ordre_mobilite || 0)) : [];
+  for (const x of arr) {
+    const v = x && (x.rome_cible || x.code_rome_cible || x.code_rome);
+    if (typeof v === 'string') add(v.split(' ')[0].trim());
+    else if (v && typeof v === 'object') add(v.code_rome);
+  }
+  return out;
 }
 function secs(sx) {
   const out = [];
   const walk = (o) => { if (!o || typeof o !== 'object') return; if (Array.isArray(o)) return o.forEach(walk); if (typeof o.libelle === 'string' && !out.includes(o.libelle)) out.push(o.libelle); for (const v of Object.values(o)) if (v && typeof v === 'object') walk(v); };
   walk(sx); return out;
 }
-const items = (block, onlyCore) => {
+const items = (block, onlyCore, cat) => {
   const out = [];
-  for (const e of (block && (block.enjeux || block.categories)) || []) for (const it of e.items || []) if (!onlyCore || it.coeur_metier) out.push(it.libelle);
+  for (const e of (block && (block.enjeux || block.categories)) || []) {
+    if (cat === 'dip' && !/certification|habilitation|diplôme/i.test(e.libelle || '')) continue;
+    if (cat === 'sv' && /certification|habilitation|diplôme/i.test(e.libelle || '')) continue;
+    for (const it of e.items || []) if (!onlyCore || it.coeur_metier) out.push(it.libelle);
+  }
   return out;
 };
 
@@ -150,7 +161,8 @@ for (const f of list) {
     acc: acc,
     sf: (sfCore.length >= 4 ? sfCore : sfAll).slice(0, 10),
     se: items(comp.savoir_etre_professionnel, false).slice(0, 8),
-    sv: (items(comp.savoirs, true).length ? items(comp.savoirs, true) : items(comp.savoirs, false)).slice(0, 8),
+    sv: (items(comp.savoirs, true, 'sv').length ? items(comp.savoirs, true, 'sv') : items(comp.savoirs, false, 'sv')).slice(0, 8),
+    dip: items(comp.savoirs, false, 'dip').slice(0, 8),
     ctx: (f.contextes_travail || []).map((c) => ({ l: c.libelle, i: (c.items || []).map(lib).slice(0, 6) })).filter((c) => c.i.length).slice(0, 6),
     mob: mobs(f.mobilites).filter((c) => c !== code).slice(0, 8),
     sec: secs(f.secteurs_activite).slice(0, 5),
