@@ -153,6 +153,7 @@ Lerna.addStrings({
   var norm = function (s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9+]+/g, ' ').trim(); };
   var STOP = ' de du des la le les l d un une et en a au aux pour par sur dans licence master bachelor bts but dut diplome mention parcours option specialite cycle annee annees ecole formation filiere programme professionnelle pro integre integree preparatoire classe '.split(' ');
   function lvTxt(n) { return t('mt.l' + n); }
+  function cap(x) { x = String(x || ''); return x.charAt(0).toUpperCase() + x.slice(1); }   // les noms ESCO sont en minuscules
   function letterName(L) { var d = (IX.domaines || []).filter(function (x) { return x.c === L; })[0]; return d ? d.l : ''; }
 
   function loadIndex() {
@@ -228,7 +229,7 @@ Lerna.addStrings({
   }
   function card(m) {
     var en = Lerna.lang === 'en' && m[5];
-    return '<a class="card card-hover mcard" href="metiers.html?code=' + encodeURIComponent(m[0]) + '"><h3>' + esc(en ? m[5] : m[1]) + '</h3>' + (en ? '<p class="small muted" style="margin-top:2px">' + esc(m[1]) + '</p>' : '') + '<div class="meta"><span class="lv">' + esc(lvTxt(m[3])) + '</span><span>' + esc(letterName(m[2])) + '</span></div></a>';
+    return '<a class="card card-hover mcard" href="metiers.html?code=' + encodeURIComponent(m[0]) + '"><h3>' + esc(en ? cap(m[5]) : m[1]) + '</h3>' + (en ? '<p class="small muted" style="margin-top:2px">' + esc(m[1]) + '</p>' : '') + '<div class="meta"><span class="lv">' + esc(lvTxt(m[3])) + '</span><span>' + esc(letterName(m[2])) + '</span></div></a>';
   }
   function renderList() {
     document.title = t('mt.docTitle');
@@ -351,7 +352,7 @@ Lerna.addStrings({
       var ctx = (f.ctx || []).map(function (c) { return '<div><h4>' + esc(c.l) + '</h4><p>' + esc(c.i.join(' · ')) + '</p></div>'; }).join('');
       var near = (f.mob || []).map(function (c) { return IX.byCode[c]; }).filter(Boolean).slice(0, 6);
       var E = f.esco || null, EL = E ? (Lerna.lang === 'en' && E.en && E.en.t ? E.en : E.fr) : null;
-      var title = Lerna.lang === 'en' && m[5] ? m[5] : f.t;
+      var title = Lerna.lang === 'en' && m[5] ? cap(m[5]) : f.t;
       document.title = title + ' — LERNA';
       var ints = (IX.interets || []).filter(function (c) { return (c.m || []).indexOf(code) !== -1; });
       var tr = f.tr || {};
@@ -371,7 +372,7 @@ Lerna.addStrings({
         (ctx ? '<section class="card"><h3>' + t('mt.ctx') + '</h3><div class="ctx">' + ctx + '</div></section>' : '') +
         (ints.length ? '<section class="card"><h3>' + t('mt.ints') + '</h3><div class="chips">' + ints.map(function (c) { return '<a class="chip" href="metiers.html?ci=' + encodeURIComponent(c.id) + '">' + esc(c.l) + '</a>'; }).join('') + '</div></section>' : '') +
         (EL ? '<section class="card mt-intl"><h3>🌍 ' + t('mt.intl') + '</h3><p class="small muted" style="margin:-4px 0 12px">' + t('mt.intlSub') + '</p>' +
-          '<dl class="mt-dl"><dt>' + t('mt.intlName') + '</dt><dd>' + esc(EL.t) + (Lerna.lang !== 'en' && E.en && E.en.t ? ' <span class="muted">(' + esc(E.en.t) + ')</span>' : '') + '</dd>' +
+          '<dl class="mt-dl"><dt>' + t('mt.intlName') + '</dt><dd>' + esc(cap(EL.t)) + (Lerna.lang !== 'en' && E.en && E.en.t ? ' <span class="muted">(' + esc(E.en.t) + ')</span>' : '') + '</dd>' +
           (EL.i ? '<dt>' + t('mt.intlGroup') + '</dt><dd>' + esc(EL.i) + (EL.il ? ' — ' + esc(EL.il) : '') + '</dd>' : '') + '</dl>' +
           (EL.d ? '<h4 class="mt-h4">' + t('mt.intlDesc') + '</h4><p>' + esc(EL.d) + '</p>' : '') +
           (EL.s && EL.s.length ? '<h4 class="mt-h4">' + t('mt.intlSkills') + '</h4><div class="chips" style="margin-top:6px">' + EL.s.map(function (x) { return '<span class="chip">' + esc(x) + '</span>'; }).join('') + '</div>' : '') +
