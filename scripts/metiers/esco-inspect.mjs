@@ -1,14 +1,20 @@
 /* Inspection ponctuelle : correspondance ROME ↔ ESCO et API ESCO (supprimé ensuite) */
 const out = [];
 const log = (...a) => { out.push(a.join(' ')); console.log(...a); };
-const get = async (u, txt) => { const r = await fetch(u, { headers: { Accept: txt ? '*/*' : 'application/json' } }); log('GET', r.status, u.slice(0, 140)); return txt ? r.text() : r.json(); };
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36';
+const get = async (u, txt) => { const r = await fetch(u, { headers: { Accept: txt ? 'text/csv,text/plain,*/*' : 'application/json', 'User-Agent': UA, 'Accept-Language': 'fr-FR,fr;q=0.9,en;q=0.8', Referer: 'https://esco.ec.europa.eu/fr/use-esco/download' } }); log('GET', r.status, u.slice(0, 140)); return txt ? r.text() : r.json(); };
 try {
-  const csv = await get('https://esco.ec.europa.eu/system/files/2023-03/FR_20230104_mapping_esco_rome.csv', true);
+  let csv = await get('https://esco.ec.europa.eu/system/files/2023-03/FR_20230104_mapping_esco_rome.csv', true);
+  if (/<HTML|<html/.test(csv.slice(0, 200))) { const { execSync } = await import('node:child_process'); csv = execSync('curl -sSL -A "' + UA + '" -H "Accept: text/csv,*/*" "https://esco.ec.europa.eu/system/files/2023-03/FR_20230104_mapping_esco_rome.csv"').toString(); log('curl taille', csv.length); }
   const lines = csv.split(/\r?\n/);
   log('CSV lignes', lines.length); log(lines.slice(0, 8).join('\n'));
   const m1805 = lines.filter((l) => l.includes('M1805')).slice(0, 5); log('M1805 :\n' + m1805.join('\n'));
   const j1102 = lines.filter((l) => l.includes('J1102')).slice(0, 3); log('J1102 :\n' + j1102.join('\n'));
-  const uri = (m1805[0] || '').match(/http:\/\/data\.europa\.eu\/esco\/occupation\/[0-9a-f-]+/);
+  let uri = (m1805[0] || '').match(/http:\/\/data\.europa\.eu\/esco\/occupation\/[0-9a-f-]+/);
+  /* recherche ESCO en secours */
+  const sr = await get('https://ec.europa.eu/esco/api/search?text=' + encodeURIComponent('développeur informatique') + '&type=occupation&language=fr&limit=5');
+  const hits = ((sr._embedded || {}).results || []).map((h) => h.title + ' | ' + h.uri); log('SEARCH', hits.join('\n'));
+  if (!uri && hits[0]) uri = [hits[0].split(' | ')[1]];
   if (uri) {
     for (const lg of ['fr', 'en']) {
       const o = await get('https://ec.europa.eu/esco/api/resource/occupation?uri=' + encodeURIComponent(uri[0]) + '&language=' + lg);
