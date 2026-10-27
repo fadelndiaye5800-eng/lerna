@@ -86,7 +86,7 @@ const BY_DOM = {
 const BY_WORD = {
   tech: /informati|développeur|developpeur|logiciel|données|data|cyber|réseau|numérique|web|intelligence artificielle|système d'information/i,
   droit: /jurid|avocat|notaire|magistrat|juriste|greffier|commissaire de justice|huissier|police|gendarm|pénitentiaire|douane|diplomat|ambassad|contentieux|conformité/i,
-  sciences: /recherche|chercheur|chercheuse|biolog|chimi|physic|mathémati|statistic|laboratoire/i,
+  sciences: /recherche|chercheur|chercheuse|biolog|chimi|physic|mathémati|statistic|laboratoire|scientifique|géolog|géophysic|météorolog|océanograph|hydrolog|économiste|sociolog|archéolog|historien|géographe|démograph|astronom|actuaire/i,
   education: /enseignant|professeur|formateur|formatrice|éducat|conseiller \/ conseillère d'orientation/i,
   comm: /communication|journalis|publicit|marketing|média|rédacteur|rédactrice/i,
   sante: /médecin|infirmi|pharmac|sage-femme|kinésithérap|dentiste|soignant|psycholog|addictolog|thérapeut|psychanalyst|génétique/i,
