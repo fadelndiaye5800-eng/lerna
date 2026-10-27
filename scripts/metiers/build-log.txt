@@ -1,3 +1,4 @@
+Métiers réglementés (France) : 286
 ROME ROME 4.0 version 62 - 26M10 | fiches : 1923 | grands domaines : 14 | centres d’intérêt : 30
 Champs des fiches : {"numero":1923,"rome":1923,"appellations":1923,"definition":1923,"acces_metier":1923,"competences":1923,"contextes_travail":1923,"secteurs_activite":1923,"mobilites":1923}
 mobilites (brut) : [{"rome_cible":"M1802 - Expert / Experte systèmes et réseaux informatiques","code_org_rome_cible":491,"ordre_mobilite":1},{"rome_cible":"M1803 - Directeur / Directrice des systèmes d'information (DSI)","code_org_rome_cible":492,"ordre_mobilite":2},{"rome_cible":"M1810 - Technicien / Technicienne d'exploitation informatique","code_org_rome_cible":499,"ordre_mobilite":3},{"rome_cible":"M1812 - Responsable de la Sécurité des Systèmes d'Information (RSSI)","code_org_rome_cible":404049,"ordre_mobilite":4},{"rome_cible":"M1818 - Ingénieur / Ingénieure d'étude informatique","code_org_rome_cible":488641,"ordre_mobilite":5},{"rome_cible":"M1824 - Développeur / Développeuse décisionnel - Business Intelligence","code_org_rome_cible":488748,"ordre_mobilite":6},{"rome_cible":"M1831 - Développeur / Développeuse - jeux vidéo","code_org_rome_cible":488786,"ordre_mobilite":7},{"rome_cible":"M1832 - Homol
@@ -36,20 +37,20 @@ N Transport et Logistique
 Niveaux : {"0":146,"1":231,"2":531,"3":349,"4":2,"5":340,"6":3,"7":2,"8":68,"-1":251} | domaines LERNA : {"agri":122,"sciences":48,"ingenierie":553,"sante":120,"art":227,"tech":133,"business":483,"comm":105,"education":58,"droit":19} | sans domaine LERNA : 308 | activités : 11458
 
 Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
-   A.json 302211 octets
-   B.json 147422 octets
-   C.json 172224 octets
-   D.json 415128 octets
-   E.json 240605 octets
-   F.json 358392 octets
-   G.json 360361 octets
-   H.json 843853 octets
-   I.json 427820 octets
-   J.json 248130 octets
-   K.json 956396 octets
-   L.json 226830 octets
-   M.json 653620 octets
-   N.json 420485 octets
+   A.json 302960 octets
+   B.json 147800 octets
+   C.json 172672 octets
+   D.json 416108 octets
+   E.json 241158 octets
+   F.json 359190 octets
+   G.json 361194 octets
+   H.json 845813 octets
+   I.json 428758 octets
+   J.json 248732 octets
+   K.json 958629 octets
+   L.json 227334 octets
+   M.json 655174 octets
+   N.json 421416 octets
    index.json 200606 octets
 
 == M1805 Développeur / Développeuse informatique | niveau 2
