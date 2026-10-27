@@ -1,0 +1,19 @@
+GET 403 https://esco.ec.europa.eu/system/files/2023-03/FR_20230104_mapping_esco_rome.csv
+CSV lignes 20
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<TITLE>ERROR: The request could not be satisfied</TITLE>
+</HEAD><BODY>
+<H1>403 ERROR</H1>
+<H2>The request could not be satisfied.</H2>
+<HR noshade size="1px">
+Request blocked.
+M1805 :
+
+J1102 :
+
+GET 200 https://ec.europa.eu/esco/api/resource/concept?uri=http%3A%2F%2Fdata.europa.eu%2Fesco%2Fisco%2FC2512&language=fr
+
+ISCO 2512 "Concepteurs de logiciels" | {"en":{"literal":"Software developers research, analyse and evaluate requirements for existing or new software applications and operating systems, and design, develop, test and maintain software solutions to meet these requirements.\nTasks include -\n(a)  researching, analysing and evaluating requirements for software applications and operating systems;\n(b)  researching, designing and developing 
+GET 200 https://ec.europa.eu/esco/api/resource/concept?uri=http%3A%2F%2Fdata.europa.eu%2Fesco%2Fisco%2FC2&language=fr
+ISCO 2 "Professions intellectuelles et scientifiques" | {"en":{"literal":"Professionals increase the existing stock of knowledge; apply scientific or artistic concepts and theories; teach about the foregoing in a systematic manner; or engage in any combination of these activities. Competent performance in most occupations in this major group requires skills at the fourth ISCO skill level.\nTasks performed by professionals usually include: conducting analysis and  research, and developing concepts, theories and operational methods; advising on or applying existing knowledge related to physical sciences, mathematics, engineering and technology, life sciences, medical and health services, social sciences and humanities; teaching the theory and practice of one or more disciplines at different educational levels; teaching and educating persons with learning difficulties or special needs;  providing various business, legal and social services; crea
