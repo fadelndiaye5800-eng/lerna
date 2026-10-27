@@ -50,6 +50,11 @@
   .near a small { display: block; font-weight: 500; color: var(--muted); margin-top: 2px; }
   .mf .acts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
   .src-note { font-size: .8rem; color: var(--muted); }
+  .mt-h4 { font-size: .92rem; margin-top: 12px; }
+  .mt-fr { margin-top: 14px; border: 1.5px solid var(--cream-dark); border-radius: 14px; padding: 10px 14px; }
+  .mt-fr summary { cursor: pointer; font-weight: 700; font-size: .94rem; }
+  .mf .acts .btn { white-space: normal; }
+  .mt-note { margin-top: 10px; font-size: .88rem; color: var(--muted); }
 </style>
 </head>
 <body data-page="metiers">
@@ -60,6 +65,7 @@
 <div id="lerna-footer"></div>
 
 <script src="assets/js/core.js"></script>
+<script src="assets/js/questions.js"></script>
 <script>
 Lerna.addStrings({
   fr: {
@@ -74,8 +80,26 @@ Lerna.addStrings({
     'mt.ctx': 'Conditions de travail', 'mt.near': 'Métiers proches', 'mt.nearSub': 'Des métiers vers lesquels on peut évoluer.', 'mt.aka': 'Aussi appelé : {n}', 'mt.sector': 'Secteur : {s}',
     'mt.study': 'Trouver où étudier ça', 'mt.test': 'Faire mon test d’orientation', 'mt.ask': 'Poser une question à l’assistant',
     'mt.src': 'Source : France Travail, Répertoire opérationnel des métiers et des emplois (ROME 4.0, {v}), Licence Ouverte 2.0, mis à jour par LERNA le {d}.',
-    'mt.srcWarn': 'Ce répertoire décrit les métiers en France : les diplômes et les conditions d’accès peuvent être différents dans ton pays. LERNA peut se tromper.',
+    'mt.srcWarn': 'Les activités, qualités et compétences valent dans la plupart des pays ; les diplômes et conditions d’accès changent selon le pays, et ceux de France sont indiqués à part. LERNA peut se tromper.',
     'mt.notFound': 'Ce métier n’existe plus dans le répertoire', 'mt.err': 'Impossible de charger les métiers. Vérifie ta connexion puis réessaie.', 'mt.retry': 'Réessayer',
+    'mt.world': 'Le niveau d’études', 'mt.lvNote': 'Niveau demandé en France. Dans les pays du système LMD (dont le Sénégal et la Côte d’Ivoire), les diplômes ont la même durée ; ailleurs, elle peut changer.', 'mt.where': 'Où étudier pour ce métier', 'mt.allCountries': 'Tous les pays', 'mt.inFrance': 'En France : diplômes et conditions (selon France Travail)',
+    'mt.u.doc': 'Un doctorat : ce sont les études les plus longues (souvent 8 ans ou plus après le bac).', 'mt.u.none': 'Le niveau d’études n’est pas précisé : il dépend du poste, de l’employeur et du pays.',
+    'mt.u.l0': 'Pas de long diplôme : un diplôme professionnel court ou une formation sur le terrain suffit souvent (le nom du diplôme change selon le pays).',
+    'mt.u.l1': 'Le niveau bac, ou un diplôme professionnel du même niveau.', 'mt.u.range': 'Entre {a} et {b} ans d’études après le bac, selon le poste.', 'mt.u.one': '{a} ans d’études après le bac.', 'mt.u.fromBac': 'Du niveau bac jusqu’à {b} ans d’études après le bac, selon le poste.',
+    'mt.u.bts': 'Bac + 2 = un diplôme de technicien supérieur (son nom change selon le pays).', 'mt.u.lic': 'Bac + 3 = la licence du système LMD (France, Sénégal, Côte d’Ivoire…) ou un bachelor ailleurs.', 'mt.u.mas': 'Bac + 5 = le master : 3 ans de licence puis 2 ans de master.',
+    'mt.lmdSrc': 'Système LMD : au Sénégal, la licence dure 6 semestres (180 crédits) et le master 4 semestres (120 crédits) (décrets n° 2012-1114 et 2012-1115) ; la Côte d’Ivoire applique aussi la licence et le master LMD (arrêtés du 13 décembre 2011).',
+    'mt.regTitle': 'Métier réglementé', 'mt.regText': 'Ce métier est encadré par la loi en France, et ce type de métier l’est aussi dans beaucoup d’autres pays : diplôme reconnu par l’État, et parfois inscription à un ordre professionnel ou concours. Vérifie les règles du pays où tu veux travailler.',
+    'mt.recog': 'Diplôme obtenu dans un autre pays : il faut souvent le faire reconnaître dans le pays où tu veux exercer.',
+    'mt.r.medSn': 'pour exercer, il faut être inscrit à l’Ordre national des médecins du Sénégal.', 'mt.r.medCi': 'pour exercer, il faut être inscrit au tableau de l’Ordre national des médecins de Côte d’Ivoire.',
+    'mt.r.dentSn': 'la profession est encadrée par l’Ordre des chirurgiens-dentistes du Sénégal.', 'mt.r.pharSn': 'la profession est encadrée par l’Ordre des pharmaciens du Sénégal.',
+    'mt.r.pharCi': 'agrément du ministère de la Santé et inscription à l’Ordre des pharmaciens ; d’après le guide officiel du gouvernement américain (2026), c’est réservé aux Ivoiriens.',
+    'mt.r.vetSn': 'la profession est encadrée par l’Ordre des docteurs vétérinaires du Sénégal.', 'mt.r.avoSn': 'la profession est encadrée par l’Ordre des avocats du Sénégal (le barreau).',
+    'mt.r.avoCi': 'agrément du ministère de la Justice et inscription au barreau ; d’après le guide officiel du gouvernement américain (2026), c’est réservé aux Ivoiriens.',
+    'mt.r.notCi': 'agrément du ministère de la Justice, inscription à la Chambre des notaires et diplôme universitaire ; en général réservé aux Ivoiriens (guide officiel du gouvernement américain, 2026).',
+    'mt.r.ecSn': 'la profession est organisée par l’ONECCA (Ordre national des experts-comptables et comptables agréés du Sénégal).', 'mt.r.ecCi': 'la profession est organisée par l’Ordre des experts-comptables de Côte d’Ivoire.',
+    'mt.r.archSn': 'la profession est encadrée par la loi d’orientation de l’architecture sénégalaise.', 'mt.r.archCi': 'agrément du ministère ou de l’ordre professionnel (Ordre des architectes de Côte d’Ivoire).',
+    'mt.r.infCi': 'l’Ordre national des infirmiers et infirmières de Côte d’Ivoire inscrit les professionnels pour lutter contre l’exercice illégal.',
+    'mt.listNote': 'Chaque métier est expliqué pour tous les pays. Ce qui ne vaut qu’en France est indiqué, avec les règles du Sénégal et de la Côte d’Ivoire quand le métier est réglementé.',
     'mt.dom.business': 'Business', 'mt.dom.sante': 'Santé', 'mt.dom.tech': 'Tech', 'mt.dom.droit': 'Droit', 'mt.dom.art': 'Art et création', 'mt.dom.sciences': 'Sciences', 'mt.dom.education': 'Éducation', 'mt.dom.ingenierie': 'Ingénierie', 'mt.dom.comm': 'Communication', 'mt.dom.agri': 'Agriculture et environnement',
     'mt.langNote': ''
   },
@@ -91,8 +115,26 @@ Lerna.addStrings({
     'mt.ctx': 'Working conditions', 'mt.near': 'Related jobs', 'mt.nearSub': 'Jobs you can move on to.', 'mt.aka': 'Also called: {n}', 'mt.sector': 'Sector: {s}',
     'mt.study': 'Find where to study this', 'mt.test': 'Take my orientation test', 'mt.ask': 'Ask the assistant',
     'mt.src': 'Source: France Travail, French job repository (ROME 4.0, {v}), Open Licence 2.0, updated by LERNA on {d}.',
-    'mt.srcWarn': 'This repository describes jobs in France: diplomas and entry requirements may differ in your country. LERNA can be wrong.',
+    'mt.srcWarn': 'Activities, qualities and skills apply in most countries; diplomas and entry requirements change by country, and those of France are shown separately. LERNA can be wrong.',
     'mt.notFound': 'This job is no longer in the repository', 'mt.err': 'Could not load the jobs. Check your connection and try again.', 'mt.retry': 'Try again',
+    'mt.world': 'Level of studies', 'mt.lvNote': 'Level required in France. In LMD-system countries (including Senegal and Côte d’Ivoire), degrees have the same length; elsewhere it may differ.', 'mt.where': 'Where to study for this job', 'mt.allCountries': 'All countries', 'mt.inFrance': 'In France: diplomas and requirements (according to France Travail)',
+    'mt.u.doc': 'A doctorate: the longest studies (often 8 years or more after high school).', 'mt.u.none': 'The level of studies is not specified: it depends on the job, the employer and the country.',
+    'mt.u.l0': 'No long degree: a short vocational diploma or on-the-job training is often enough (the diploma name changes by country).',
+    'mt.u.l1': 'High school level, or a vocational diploma of the same level.', 'mt.u.range': 'Between {a} and {b} years of study after high school, depending on the job.', 'mt.u.one': '{a} years of study after high school.', 'mt.u.fromBac': 'From high school level up to {b} years of study after high school, depending on the job.',
+    'mt.u.bts': '2 years after high school = a higher technician diploma (its name changes by country).', 'mt.u.lic': '3 years = a bachelor’s degree (called “licence” in France, Senegal, Côte d’Ivoire…).', 'mt.u.mas': '5 years = a master’s degree: 3 years of bachelor then 2 years of master.',
+    'mt.lmdSrc': 'Bachelor-Master-Doctorate (LMD) system: in Senegal, the licence lasts 6 semesters (180 credits) and the master 4 semesters (120 credits) (decrees no. 2012-1114 and 2012-1115); Côte d’Ivoire also uses the LMD licence and master (orders of 13 December 2011).',
+    'mt.regTitle': 'Regulated job', 'mt.regText': 'This job is regulated by law in France, and this kind of job is also regulated in many other countries: a State-recognised diploma, and sometimes registration with a professional order or an exam. Check the rules of the country where you want to work.',
+    'mt.recog': 'Diploma obtained in another country: you often need to have it recognised in the country where you want to work.',
+    'mt.r.medSn': 'to practise, you must be registered with the National Order of Doctors of Senegal.', 'mt.r.medCi': 'to practise, you must be registered with the National Order of Doctors of Côte d’Ivoire.',
+    'mt.r.dentSn': 'the profession is regulated by the Order of Dental Surgeons of Senegal.', 'mt.r.pharSn': 'the profession is regulated by the Order of Pharmacists of Senegal.',
+    'mt.r.pharCi': 'licence from the Ministry of Health and registration with the Order of Pharmacists; according to the official US government guide (2026), it is restricted to Ivorian nationals.',
+    'mt.r.vetSn': 'the profession is regulated by the Order of Veterinary Doctors of Senegal.', 'mt.r.avoSn': 'the profession is regulated by the Bar (Order of Lawyers) of Senegal.',
+    'mt.r.avoCi': 'licence from the Ministry of Justice and registration with the Bar; according to the official US government guide (2026), it is restricted to Ivorian nationals.',
+    'mt.r.notCi': 'licence from the Ministry of Justice, registration with the Chamber of Notaries and a university degree; generally restricted to Ivorian nationals (official US government guide, 2026).',
+    'mt.r.ecSn': 'the profession is organised by ONECCA (National Order of Chartered Accountants of Senegal).', 'mt.r.ecCi': 'the profession is organised by the Order of Chartered Accountants of Côte d’Ivoire.',
+    'mt.r.archSn': 'the profession is regulated by the Senegalese architecture law.', 'mt.r.archCi': 'licence from the ministry or the professional order (Order of Architects of Côte d’Ivoire).',
+    'mt.r.infCi': 'the National Order of Nurses of Côte d’Ivoire registers professionals to fight illegal practice.',
+    'mt.listNote': 'Every job is explained for all countries. What only applies in France is marked, with the rules of Senegal and Côte d’Ivoire when the job is regulated.',
     'mt.dom.business': 'Business', 'mt.dom.sante': 'Health', 'mt.dom.tech': 'Tech', 'mt.dom.droit': 'Law', 'mt.dom.art': 'Art and design', 'mt.dom.sciences': 'Sciences', 'mt.dom.education': 'Education', 'mt.dom.ingenierie': 'Engineering', 'mt.dom.comm': 'Communication', 'mt.dom.agri': 'Agriculture and environment',
     'mt.langNote': 'Job descriptions come from the official French repository and are shown in French.'
   }
@@ -156,6 +198,7 @@ Lerna.addStrings({
     var mine = myDoms();
     root.innerHTML =
       '<div class="mt-head"><span class="eyebrow">' + t('mt.eyebrow') + '</span><h1>' + t('mt.title') + '</h1><p>' + t('mt.sub') + '</p>' +
+        '<p class="mt-note">' + esc(t('mt.listNote')) + '</p>' +
         (t('mt.langNote') ? '<p class="small">' + esc(t('mt.langNote')) + '</p>' : '') +
         '<div class="search"><label class="sr-only" for="mq">' + esc(t('mt.search')) + '</label><input class="input" id="mq" type="search" autocomplete="off" placeholder="' + esc(t('mt.search')) + '" value="' + esc(st.q) + '">' +
           '<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></div>' +
@@ -184,6 +227,78 @@ Lerna.addStrings({
 
   /* ---------- Fiche métier ---------- */
   function ul(arr, cls) { return '<ul class="' + (cls || 'list-check') + '">' + arr.map(function (x) { return '<li><span>' + esc(x) + '</span></li>'; }).join('') + '</ul>'; }
+  /* ---------- Pour y arriver : partout dans le monde, puis au Sénégal, en Côte d'Ivoire et en France ---------- */
+  /* Règles vérifiées dans les textes officiels (lois, ordres professionnels), par métier */
+  var RULES = {
+    medecin: { sn: ['mt.r.medSn', 'Loi n° 66-69 du 4 juillet 1966', 'https://informationsanitaire.sec.gouv.sn/dataset/7245e22d-c363-468f-b3f9-606d780f191a/resource/c7ab2198-cda1-47a9-aa5a-8bd49d40305a/download/loi-n-66-69-du-4-juillet-1966-relative-a-lexercice-de-la-medecine-et-a-lordre-des-medecins.pdf'],
+      ci: ['mt.r.medCi', 'Loi sur l’Ordre des médecins, titre III', 'https://loidici.biz/2019/08/18/titre-iii-inscription-aux-tableaux-departementaux-de-lordre/lois-article-par-article/autres-professions/ordre-des-medecins/'] },
+    dentiste: { sn: ['mt.r.dentSn', 'Loi relative à l’exercice de la chirurgie dentaire', 'https://www.vie-publique.sn/documents/5977/loi-relative-a-lexercice-de-la-chirurgie-dentaire-et-a-lordre-des-chirurgiens-dentistes'] },
+    pharmacien: { sn: ['mt.r.pharSn', 'Loi n° 73-62 du 19 décembre 1973', 'https://www.vie-publique.sn/documents/7312/loi-n-1973-62-du-19-decembre-1973-portant-creation-de-l-ordre-des-pharmaciens'],
+      ci: ['mt.r.pharCi', 'trade.gov, 2026', 'https://trade.gov/country-commercial-guides/cote-divoire-licensing-requirements-professional-services'] },
+    veterinaire: { sn: ['mt.r.vetSn', 'Loi n° 92-58 du 10 juillet 1992', 'https://www.vie-publique.sn/documents/7668/loi-n-92-58-du-10-juillet-1992-portant-creation-de-l-ordre-des-docteurs-veterinaires-du-senegal'] },
+    avocat: { sn: ['mt.r.avoSn', 'Loi n° 84-09 du 4 janvier 1984', 'https://www.vie-publique.sn/documents/7223/loi-n-1984-09-du-04-janvier-1984-portant-creation-de-l-ordre-des-avocats'],
+      ci: ['mt.r.avoCi', 'trade.gov, 2026', 'https://trade.gov/country-commercial-guides/cote-divoire-licensing-requirements-professional-services'] },
+    notaire: { ci: ['mt.r.notCi', 'trade.gov, 2026', 'https://trade.gov/country-commercial-guides/cote-divoire-licensing-requirements-professional-services'] },
+    comptable: { sn: ['mt.r.ecSn', 'IFAC', 'https://apps.ifac.org/member/ordre-national-des-experts-comptables-et-comptables-agr-s-du-s-n-gal'],
+      ci: ['mt.r.ecCi', 'IFAC', 'https://apps.ifac.org/member/ordre-des-experts-comptables-de-c-te-d-ivoire'] },
+    architecte: { sn: ['mt.r.archSn', 'Loi n° 78-43 du 6 juillet 1978', 'https://www.vie-publique.sn/documents/6734/loi-n-1978-43-du-06-juillet-1978-d-orientation-de-l-architecture-senegalaise-6734'],
+      ci: ['mt.r.archCi', 'trade.gov, 2026', 'https://trade.gov/country-commercial-guides/cote-divoire-licensing-requirements-professional-services'] },
+    infirmier: { ci: ['mt.r.infCi', 'Agence ivoirienne de presse', 'https://www.aip.ci/cote-divoire-aip-lordre-des-infirmiers-annonce-un-dispositif-dinscription-pour-lutter-contre-lexercice-illegal/'] }
+  };
+  function ruleOf(code, titre) {
+    if (code === 'J1103') return 'dentiste';
+    if (/^J11/.test(code) && code !== 'J1104') return 'medecin';
+    if (/^Pharmacien/i.test(titre)) return 'pharmacien';
+    if (/^Vétérinaire/i.test(titre)) return 'veterinaire';
+    if (/^Avocat/i.test(titre)) return 'avocat';
+    if (/^Notaire/i.test(titre)) return 'notaire';
+    if (/^Expert-comptable/i.test(titre)) return 'comptable';
+    if (/^F11/.test(code) && /^Architecte/i.test(titre)) return 'architecte';
+    if (/^J15/.test(code) && /^Infirmier/i.test(titre)) return 'infirmier';
+    return '';
+  }
+  /* Niveau d'études dit pour tous les pays (années après le bac, système LMD) */
+  function levels(acc, min) {
+    var n = []; String(acc || '').replace(/bac\s*\+\s*(\d)/gi, function (x, d) { n.push(+d); });
+    var lo = n.length ? Math.min.apply(null, n) : min, hi = n.length ? Math.max.apply(null, n) : min;
+    return [lo, hi];
+  }
+  function univLevel(acc, min) {
+    var r = levels(acc, min), lo = r[0], hi = r[1];
+    if (lo === 8 || (lo >= 6 && hi === 8)) return t('mt.u.doc');
+    if (lo < 0) return t('mt.u.none');
+    if (lo === 0) return t('mt.u.l0');
+    if (lo === 1 && hi === 1) return t('mt.u.l1');
+    var txt = hi > lo ? t('mt.u.range', { a: lo === 1 ? 0 : lo, b: hi }) : t('mt.u.one', { a: lo });
+    if (lo === 1 && hi > 1) txt = t('mt.u.fromBac', { b: hi });
+    var lmd = [];
+    if (lo <= 3 && hi >= 3) lmd.push(t('mt.u.lic'));
+    if (lo <= 5 && hi >= 5) lmd.push(t('mt.u.mas'));
+    if (lo <= 2 && hi >= 2) lmd.unshift(t('mt.u.bts'));
+    return txt + (lmd.length ? ' ' + lmd.join(' ') : '');
+  }
+  function studyLinks(dom) {
+    var me = Lerna.country(), list = ['SN', 'CI', 'FR'];
+    if (me && list.indexOf(me) === -1) list.unshift(me);
+    var q = dom ? 'domaine=' + encodeURIComponent(dom) + '&' : '';
+    return list.map(function (cc) { return '<a class="btn btn-ghost btn-sm" href="explorer.html?' + q + 'pays=' + cc + '">' + Lerna.flag(cc) + ' ' + esc(window.LERNA_COUNTRY_NAME ? window.LERNA_COUNTRY_NAME(cc, Lerna.lang) : cc) + '</a>'; }).join('') +
+      '<a class="btn btn-primary btn-sm" href="explorer.html' + (dom ? '?domaine=' + encodeURIComponent(dom) : '') + '">' + t('mt.allCountries') + ' →</a>';
+  }
+  function reachHtml(f, m, dom) {
+    var rule = RULES[ruleOf(m[0], f.t)] || null, reg = f.rg || rule;
+    var rl = function (r, cc) { return '<li><span><strong>' + Lerna.flag(cc) + ' ' + esc(window.LERNA_COUNTRY_NAME ? window.LERNA_COUNTRY_NAME(cc, Lerna.lang) : cc) + ' :</strong> ' + esc(t(r[0])) + ' <a class="small orange" href="' + esc(r[2]) + '" target="_blank" rel="noopener">' + esc(r[1]) + ' ↗</a></span></li>'; };
+    return '<section class="card"><h3>' + t('mt.reach') + '</h3>' +
+      '<h4 class="mt-h4">' + t('mt.world') + '</h4><p>' + esc(univLevel(f.acc, m[3])) + '</p>' +
+      '<p class="small muted" style="margin-top:6px">' + esc(t('mt.lvNote')) + ' ' + esc(t('mt.lmdSrc')) + '</p>' +
+      (reg ? '<div class="notice" style="margin-top:14px">' + Lerna.icon('info') + '<div><strong>' + t('mt.regTitle') + '</strong><p class="small" style="margin-top:4px">' + esc(t('mt.regText')) + '</p>' +
+        (rule && (rule.sn || rule.ci) ? '<ul class="list-arrow" style="margin-top:8px">' + (rule.sn ? rl(rule.sn, 'SN') : '') + (rule.ci ? rl(rule.ci, 'CI') : '') + '</ul>' : '') +
+        '<p class="small muted" style="margin-top:8px">' + esc(t('mt.recog')) + '</p></div></div>' : '') +
+      (f.acc || (f.dip && f.dip.length) ? '<details class="mt-fr"><summary>' + Lerna.flag('FR') + ' ' + t('mt.inFrance') + '</summary>' + (f.acc ? '<p style="margin-top:8px">' + esc(f.acc) + '</p>' : '') +
+        (f.dip && f.dip.length ? '<h4 class="mt-h4">' + t('mt.dips') + '</h4><div style="margin-top:6px">' + ul(f.dip) + '</div>' : '') + '</details>' : '') +
+      '<h4 class="mt-h4" style="margin-top:16px">' + t('mt.where') + '</h4><div class="acts">' + studyLinks(dom) + '</div>' +
+      (Lerna.store.raw('lerna_results') ? '' : '<p style="margin-top:12px"><a class="orange bold" href="questionnaire.html">' + t('mt.test') + ' →</a></p>') +
+      '</section>';
+  }
   function renderFiche(code) {
     var m = IX.byCode[code];
     if (!m) { root.innerHTML = '<div class="empty" style="margin-top:40px">' + Lerna.icon('search') + '<h4>' + t('mt.notFound') + '</h4><a class="btn btn-primary" style="margin-top:14px" href="metiers.html">' + t('mt.back') + '</a></div>'; return; }
@@ -203,10 +318,7 @@ Lerna.addStrings({
           '<div class="badges"><span class="badge badge-soft">' + esc(lvTxt(m[3])) + '</span>' + (f.dp ? '<span class="badge badge-cream">' + esc(f.dp) + '</span>' : '') + (f.sec && f.sec[0] ? '<span class="badge badge-cream">' + esc(f.sec[0]) + '</span>' : '') + '</div>' +
           (f.ap && f.ap.length ? '<p class="aka">' + esc(t('mt.aka', { n: f.ap.slice(0, 4).join(' · ') })) + '</p>' : '') + '</div>' +
         (d.length ? '<section class="card"><h3>' + t('mt.do') + '</h3><p class="intro">' + esc(d[0]) + '</p>' + (d.length > 1 ? ul(d.slice(1), 'list-arrow') : '') + '</section>' : '') +
-        '<section class="card"><h3>' + t('mt.reach') + '</h3>' + (f.acc ? '<p>' + esc(f.acc) + '</p>' : '') +
-          (f.dip && f.dip.length ? '<h4 style="margin-top:14px;font-size:.92rem">' + t('mt.dips') + '</h4><div style="margin-top:8px">' + ul(f.dip) + '</div>' : '') +
-          '<div class="acts"><a class="btn btn-primary btn-sm" href="explorer.html' + (dom ? '?domaine=' + encodeURIComponent(dom) : '') + '">' + t('mt.study') + ' →</a>' +
-          (Lerna.store.raw('lerna_results') ? '' : '<a class="btn btn-ghost btn-sm" href="questionnaire.html">' + t('mt.test') + '</a>') + '</div></section>' +
+        reachHtml(f, m, dom) +
         (f.se && f.se.length ? '<section class="card"><h3>' + t('mt.qual') + '</h3><p class="small muted" style="margin:-4px 0 10px">' + t('mt.qualSub') + '</p>' + ul(f.se) + '</section>' : '') +
         (f.sf && f.sf.length ? '<section class="card"><h3>' + t('mt.skills') + '</h3>' + ul(f.sf) + '</section>' : '') +
         (f.sv && f.sv.length ? '<section class="card"><h3>' + t('mt.know') + '</h3><p>' + esc(f.sv.join(' · ')) + '</p></section>' : '') +
