@@ -1,4 +1,5 @@
 GET 403 https://esco.ec.europa.eu/system/files/2023-03/FR_20230104_mapping_esco_rome.csv
+curl taille 919
 CSV lignes 20
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <HTML><HEAD><META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
@@ -12,6 +13,28 @@ M1805 :
 
 J1102 :
 
+GET 200 https://ec.europa.eu/esco/api/search?text=d%C3%A9veloppeur%20informatique&type=occupation&language=fr&limit=5
+SEARCH développeur de systèmes informatiques/développeuse de systèmes informatiques | http://data.europa.eu/esco/occupation/a7c1d23d-aeca-4bee-9a08-5993ed98b135
+développeur de base de données/développeuse de base de données | http://data.europa.eu/esco/occupation/b11e1742-5e28-4270-b081-b0193d85ee7d
+développeur de logiciels pour systèmes informatiques intégrés/développeuse de logiciels pour systèmes informatiques intégrés | http://data.europa.eu/esco/occupation/57af9090-55b4-4911-b2d0-86db01c00b02
+ingénieur de réseaux informatiques/ingénieure de réseaux informatiques | http://data.europa.eu/esco/occupation/cf2b03cd-feb7-4f47-90f6-ff1ed6016d3d
+concepteur de logiciels d’application/conceptrice de logiciels d’application | http://data.europa.eu/esco/occupation/bd272aee-adc9-4a06-a15c-a73b4b4a46a7
+GET 200 https://ec.europa.eu/esco/api/resource/occupation?uri=http%3A%2F%2Fdata.europa.eu%2Fesco%2Foccupation%2Fa7c1d23d-aeca-4bee-9a08-5993ed98b135
+
+OCC fr keys className,classId,uri,title,referenceLanguage,preferredLabel,alternativeLabel,preferredTerm,alternativeTerms,description,scopeNote,status,code,codes,_links,_embedded
+title "développeur de systèmes informatiques/développeuse de systèmes informatiques"
+description {"de":{"literal":"IT-Systementwickler warten, prüfen und verbessern Systeme, die das Unternehmen unterstützen. Sie nutzen bestehende oder neue Technologien, um besonderen Anforderungen gerecht zu werden. Sie testen Hardware- und Softwarekomponenten, diagnostizieren Fehlerursachen und beheben Systemfehler.","mimetype":"plain/text"},"no":{"literal":"IKT-systemutviklere opprettholder, reviderer og forbedrer organisatoriske støttesystemer. De bruker eksisterende eller nye teknologier til å dekke særlige behov. De tester systemkomponenter både for maskinvare og programvare, diagnostiserer og løser systemfeil.","mimetype":"plain/text"},"en-us":{"literal":"ICT system developers maintain, audit and improve organizational support systems. They use existing or new technologies to meet particular nee
+code 2511.14 | links self,isTopConceptInScheme,isInScheme,regulatedProfessionNote,broaderIscoGroup,hasEssentialSkill,hasOptionalSkill
+broaderIscoGroup [{"href":"https://ec.europa.eu/esco/api/resource/concept?uri=http://data.europa.eu/esco/isco/C2511&language=fr","uri":"http://data.europa.eu/esco/isco/C2511","title":"Analystes de systèmes","code":"2511"}]
+essential skills n 19 [{"href":"https://ec.europa.eu/esco/api/resource/skill?uri=http://data.europa.eu/esco/skill/85c11255-469f-41bd-a6d1-382bc4a87783&language=fr","uri":"http://data.europa.eu/esco/skill/85c11255-469f-41bd-a6d1-382bc4a87783","title":"interpréter des textes techniques","skillType":"http://data.europa.eu/esco/skill-type/skill"},{"href":"https://ec.europa.eu/esco/api/resource/skill?uri=http://data.europa.eu/esco/skill/6fa1c2c0-a012-4ca0-9642-e01569ba322c&language=fr","uri":"http://data.europa.eu/esco/sk
+GET 200 https://ec.europa.eu/esco/api/resource/occupation?uri=http%3A%2F%2Fdata.europa.eu%2Fesco%2Foccupation%2Fa7c1d23d-aeca-4bee-9a08-5993ed98b135
+
+OCC en keys className,classId,uri,title,referenceLanguage,preferredLabel,alternativeLabel,preferredTerm,alternativeTerms,description,scopeNote,status,code,codes,_links,_embedded
+title "ICT system developer"
+description {"de":{"literal":"IT-Systementwickler warten, prüfen und verbessern Systeme, die das Unternehmen unterstützen. Sie nutzen bestehende oder neue Technologien, um besonderen Anforderungen gerecht zu werden. Sie testen Hardware- und Softwarekomponenten, diagnostizieren Fehlerursachen und beheben Systemfehler.","mimetype":"plain/text"},"no":{"literal":"IKT-systemutviklere opprettholder, reviderer og forbedrer organisatoriske støttesystemer. De bruker eksisterende eller nye teknologier til å dekke særlige behov. De tester systemkomponenter både for maskinvare og programvare, diagnostiserer og løser systemfeil.","mimetype":"plain/text"},"en-us":{"literal":"ICT system developers maintain, audit and improve organizational support systems. They use existing or new technologies to meet particular nee
+code 2511.14 | links self,isTopConceptInScheme,isInScheme,regulatedProfessionNote,broaderIscoGroup,hasEssentialSkill,hasOptionalSkill
+broaderIscoGroup [{"href":"https://ec.europa.eu/esco/api/resource/concept?uri=http://data.europa.eu/esco/isco/C2511&language=en","uri":"http://data.europa.eu/esco/isco/C2511","title":"Systems analysts","code":"2511"}]
+essential skills n 19 [{"href":"https://ec.europa.eu/esco/api/resource/skill?uri=http://data.europa.eu/esco/skill/797a4416-0b8d-44f3-8fcd-eb10bd0be6b4&language=en","uri":"http://data.europa.eu/esco/skill/797a4416-0b8d-44f3-8fcd-eb10bd0be6b4","title":"develop software prototype","skillType":"http://data.europa.eu/esco/skill-type/skill"},{"href":"https://ec.europa.eu/esco/api/resource/skill?uri=http://data.europa.eu/esco/skill/9e06bac6-6b91-48ca-8b7d-c1f48cdecd7c&language=en","uri":"http://data.europa.eu/esco/skill/9e0
 GET 200 https://ec.europa.eu/esco/api/resource/concept?uri=http%3A%2F%2Fdata.europa.eu%2Fesco%2Fisco%2FC2512&language=fr
 
 ISCO 2512 "Concepteurs de logiciels" | {"en":{"literal":"Software developers research, analyse and evaluate requirements for existing or new software applications and operating systems, and design, develop, test and maintain software solutions to meet these requirements.\nTasks include -\n(a)  researching, analysing and evaluating requirements for software applications and operating systems;\n(b)  researching, designing and developing 
