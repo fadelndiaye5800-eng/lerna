@@ -185,9 +185,9 @@
     }).join('') + '</div>';
   }
   function periodSeg() { return '<div class="seg-p" role="group" aria-label="Période">' + [[7, '7 jours'], [30, '30 jours'], [90, '90 jours']].map(function (x) { return '<button type="button" data-period="' + x[0] + '" class="' + (data.period === x[0] ? 'on' : '') + '">' + x[1] + '</button>'; }).join('') + '</div>'; }
-  /* Fiches que les élèves demandent de compléter (bouton « Demander à LERNA de compléter cette fiche ») */
+  /* Fiches à compléter : élèves partis chercher une info absente sur le site officiel (fiche_out), et anciennes demandes (fiche_ask) */
   function loadAsks() {
-    return A.sb.from('events').select('sid,meta').eq('ev', 'fiche_ask').gte('at', new Date(Date.now() - data.period * 864e5).toISOString()).limit(5000).then(function (r) {
+    return A.sb.from('events').select('sid,meta').in('ev', ['fiche_ask', 'fiche_out']).gte('at', new Date(Date.now() - data.period * 864e5).toISOString()).limit(5000).then(function (r) {
       if (r.error) return;
       var by = {};
       (r.data || []).forEach(function (e) {
@@ -216,7 +216,7 @@
       '<div class="st-grid two" style="margin-top:14px"><div class="st-card"><h3>Pages les plus vues</h3><p class="sub">Nombre d’ouvertures</p>' + rank(S.top_pages, function (r) { return pg(r.page); }, 'n', function (r) { return r.people + ' pers.'; }) + '</div>' +
       '<div class="st-card"><h3>Pages de sortie</h3><p class="sub">Dernière page vue avant de quitter l’app</p>' + rank(S.exit_pages, function (r) { return pg(r.page); }, 'n') + '</div></div>' +
       '<div class="st-grid" style="margin-top:14px"><div class="st-card"><h3>Fonctions utilisées</h3><p class="sub">Actions faites dans l’app sur la période</p>' + rank(S.features, function (r) { return ft(r.ev); }, 'n', function (r) { return r.people + ' pers.'; }) + '</div></div>' +
-      '<div class="st-grid" style="margin-top:14px"><div class="st-card"><h3>Fiches à compléter en premier</h3><p class="sub">Demandées par les élèves (bouton « Demander à LERNA de compléter cette fiche ») · nombre de personnes</p>' +
+      '<div class="st-grid" style="margin-top:14px"><div class="st-card"><h3>Fiches à compléter en premier</h3><p class="sub">Élèves partis chercher une information absente sur le site officiel (frais, admission, vie étudiante) · nombre de personnes</p>' +
         (data.asks && data.asks.length ? '<div class="rank">' + data.asks.map(function (x) { var l = askLink(x), mx = data.asks[0].n || 1; return '<div class="r"><span>' + (l ? '<a href="' + esc(l) + '" target="_blank" rel="noopener">' + esc(x.name) + '</a>' : esc(x.name)) + (x.cc ? ' <span class="xsmall muted">' + esc(x.cc) + '</span>' : '') + '</span><b>' + x.n + '</b><span class="track"><i style="width:' + Math.round(x.n * 100 / mx) + '%"></i></span></div>'; }).join('') + '</div>' : '<p class="small muted">Pas encore de demande.</p>') + '</div></div>' +
       '<p class="xsmall muted" style="margin-top:10px">Tes propres visites ne sont pas comptées. Les personnes qui ont coupé « Statistiques » dans Paramètres non plus.</p>';
   }

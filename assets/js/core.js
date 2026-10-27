@@ -278,6 +278,8 @@
     if (s === undefined) s = DICT.fr[key];
     if (s === undefined) return key;
     if (vars) s = s.replace(/\{(\w+)\}/g, function (m, k) { return vars[k] !== undefined ? vars[k] : m; });
+    /* Typographie française : espace insécable avant ? ! : ; » et après « (le « ? » ne tombe plus seul sur une ligne) */
+    if (Lerna.lang === 'fr' && typeof s === 'string') s = s.replace(/ ([?!:;»])/g, ' $1').replace(/« /g, '« ');
     return s;
   };
   /* Texte bilingue dans les données : "texte" ou {fr:"…", en:"…"} */

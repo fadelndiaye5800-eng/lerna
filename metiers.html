@@ -229,16 +229,17 @@ Lerna.addStrings({
 
   Lerna.ready(function () {
     /* Arrivée sans filtre : on part du premier domaine choisi dans le test */
-    if (!st.q && !st.dom && !st.ci && !st.lv && !Lerna.param('code')) st.dom = myDoms()[0] || '';
+    if (!st.q && !st.dom && !st.ci && !st.lv && !Lerna.param('code')) { st.dom = myDoms()[0] || ''; st.autoDom = !!st.dom; }
     root.querySelector('.loading').innerHTML = Lerna.thinking('inline');
     route();
     document.addEventListener('click', function (e) {
       var b;
-      if ((b = e.target.closest('[data-dom]'))) { var d = b.getAttribute('data-dom'); st.dom = st.dom === d ? '' : d; st.show = PER; Lerna.sound.play('select'); paintList(); return; }
+      if ((b = e.target.closest('[data-dom]'))) { var d = b.getAttribute('data-dom'); st.dom = st.dom === d ? '' : d; st.autoDom = false; st.show = PER; Lerna.sound.play('select'); paintList(); return; }
       if (e.target.closest('#moreBtn')) { st.show += PER; paintList(); return; }
       if (e.target.closest('#retry')) { route(); }
     });
-    document.addEventListener('input', Lerna.debounce(function (e) { if (e.target.id === 'mq') { st.q = e.target.value; st.show = PER; paintList(); } }, 160));
+    /* Une recherche porte sur tous les métiers : le domaine choisi automatiquement (d'après le test) est retiré */
+    document.addEventListener('input', Lerna.debounce(function (e) { if (e.target.id === 'mq') { st.q = e.target.value; if (st.autoDom && st.q) { st.dom = ''; st.autoDom = false; } st.show = PER; paintList(); } }, 160));
     document.addEventListener('change', function (e) {
       if (e.target.id === 'mci') { st.ci = e.target.value; st.show = PER; paintList(); }
       if (e.target.id === 'mlv') { st.lv = e.target.value; st.show = PER; paintList(); }

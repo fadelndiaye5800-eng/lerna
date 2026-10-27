@@ -217,7 +217,7 @@ Lerna.addStrings({
     var en = Lerna.lang === 'en';
     var school = lernaOf(r);
     var f = school ? window.LERNA_FEE_FOR(school, Lerna.country()) : null;
-    if (f === null || f === undefined) return en ? 'Ask the school for the fees' : 'Frais à demander à l’école';
+    if (f === null || f === undefined) return en ? 'Fees: see the school website' : 'Frais : voir le site de l’école';
     if (f === 0) return t('common.free');
     return (en ? 'From ≈ ' : 'À partir de ≈ ') + Lerna.money(f) + (en ? ' / year · by programme' : ' / an · selon la filière');
   }

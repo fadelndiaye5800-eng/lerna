@@ -124,7 +124,7 @@
     var bs = ph('q17s', a.q17, lang);
     /* Frais non publiés sur le site officiel : on n'exclut pas l'école, on le dit franchement */
     if (fee === null || fee === undefined) {
-      add(4, 'Ses frais sont à demander à l’école : confirme-les avec elle avant de décider.', 'Ask the school for its fees: confirm them with the school before deciding.');
+      add(4, 'Ses frais ne sont pas publiés dans une source que LERNA peut lire : regarde-les sur son site officiel avant de décider.', 'Its fees are not published in a source LERNA can read: check them on its official website before deciding.');
     } else if (fee <= max) {
       add(30, fee === 0 ? 'Pas de frais de scolarité : ça colle avec ton budget ' + bs + '.' : 'Ses frais (à partir de ≈ ' + money(fee, 'fr') + ' par an pour toi, selon la filière) entrent dans ton budget ' + bs + '.',
         fee === 0 ? 'No tuition fees: it fits your ' + bs + ' budget.' : 'Its fees (from ≈ ' + money(fee, 'en') + ' a year for you, depending on the programme) fit your ' + bs + ' budget.');
