@@ -36,20 +36,20 @@ N Transport et Logistique
 Niveaux : {"0":146,"1":231,"2":531,"3":349,"4":2,"5":340,"6":3,"7":2,"8":68,"-1":251} | domaines LERNA : {"agri":122,"sciences":48,"ingenierie":553,"sante":120,"art":227,"tech":133,"business":483,"comm":105,"education":58,"droit":19} | sans domaine LERNA : 308 | activités : 11458
 
 Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
-   A.json 270777 octets
-   B.json 135917 octets
-   C.json 158212 octets
-   D.json 382886 octets
-   E.json 221068 octets
-   F.json 320544 octets
-   G.json 325128 octets
-   H.json 772800 octets
-   I.json 389761 octets
-   J.json 231544 octets
-   K.json 894012 octets
-   L.json 213465 octets
-   M.json 588866 octets
-   N.json 380993 octets
+   A.json 302211 octets
+   B.json 147422 octets
+   C.json 172224 octets
+   D.json 415128 octets
+   E.json 240605 octets
+   F.json 358392 octets
+   G.json 360361 octets
+   H.json 843853 octets
+   I.json 427820 octets
+   J.json 248130 octets
+   K.json 956396 octets
+   L.json 226830 octets
+   M.json 653620 octets
+   N.json 420485 octets
    index.json 200606 octets
 
 == M1805 Développeur / Développeuse informatique | niveau 2
@@ -90,13 +90,20 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   "Faire preuve de rigueur et de précision"
  ],
  "sv": [
+  "AutoItScript",
+  "Architecture web",
+  "Systèmes d'exploitation informatique",
+  "Sécurité des applications web",
+  "Développement d'applications mobiles",
+  "Langages de programmation informatique",
+  "Application web",
+  "Script Shell"
+ ],
+ "dip": [
   "BTS services informatiques aux organisations option A : solutions d'infrastructure, systèmes et réseaux",
   "Licence pro mention métiers de l'informatique : conduite de projets",
   "Master mention informatique",
-  "DUT informatique",
-  "BTS services informatiques aux organisations option B : solutions logicielles et applications métiers",
-  "Licence pro mention métiers de l'informatique : conception, développement et test de logiciels",
-  "Licence pro mention métiers de l'
+  "DUT inf
 
 == J1102 Médecin généraliste | niveau 8
 {
@@ -137,14 +144,17 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   "Faire preuve de réactivité"
  ],
  "sv": [
-  "Diplôme d'Etat de docteur en médecine",
   "Méthodes de contraception",
   "Interprétation d'analyses médicales",
   "Gestion du stress en situation d'urgence",
   "Pathologies courantes",
   "Education à la santé",
   "Interactions médicamenteuses",
-  "Classification Commune des Actes Médicaux (CCAM)"
+  "Classification Commune des Actes Médicaux (CCAM)",
+  "Gestion des dossiers médicaux"
+ ],
+ "dip": [
+  "Diplôme d'Etat de docteur en médecine"
  ],
  "ctx": [
   {
@@ -172,11 +182,7 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
    "l": "Horaires et durée du travail",
    "i": [
     "Travail de nuit",
-    "Travail en astreinte",
-    "Travail en journée"
-   ]
-  }
-
+    "Travail e
 
 == K2107 Professeur / Professeure de collège et de lycée | niveau 5
 {
@@ -218,8 +224,12 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   "Inspirer, donner du sens"
  ],
  "sv": [
-  "Master métiers de l'enseignement, de l'éducation et de la formation mention second degré",
-  "Master métiers de l'enseignement, de l'éducation et de la formation me
+  "Chimie",
+  "Sciences de la vie et de la terre",
+  "Education musicale",
+  "Enseignement des langues étrangères",
+  "Education physique et sportive (EPS)",
+  "Techno
 
 == C1129 Responsable grands comptes assurances | niveau 3
 {
@@ -261,6 +271,12 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   "Techniques de vente en assurance",
   "Négociation de contrats d'assurance"
  ],
+ "dip": [
+  "Conseiller clientèle en banque et assurance",
+  "Manager des risques et de l'assurance de l'entreprise",
+  "Manager de l'assurance",
+  "Responsable de clientèle banque finance assurance"
+ ],
  "ctx": [
   {
    "l": "Publics spécifiques",
@@ -290,18 +306,7 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
    ]
   },
   {
-   "l": "Types de structures",
-   "i": [
-    "Entreprises et milieux professionnels"
-   ]
-  }
- ],
- "mob": [],
- "sec": [
-  "Finance, banque et assurance"
- ],
- "dp": "Assurance"
-}
+   "l": "Ty
 
 == M1203 Comptable | niveau 3
 {
@@ -342,13 +347,7 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
  "sv": [
   "Comptabilité générale"
  ],
- "ctx": [
-  {
-   "l": "Statut d'emploi",
-   "i": [
-    "Salarié secteur privé (CDI, CDD)",
-    "Salarié secteur public"
-   ]
-  },
-  {
-   "l": "Conditions de travail et risques professionne
+ "dip": [
+  "Responsable comptabilité générale et analytique",
+  "Licence pro mention métiers de la gestion et de la comptabilité : comptabilité et paie",
+  "Licence pro mention métiers de
