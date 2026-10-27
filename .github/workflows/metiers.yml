@@ -23,4 +23,18 @@ jobs:
         with:
           node-version: 20
       - name: Inspecter les fichiers Onisep
-        run: node scripts/metiers/inspect.mjs
+        run: |
+          node scripts/metiers/inspect.mjs > scripts/metiers/inspect-log.txt 2>&1 || true
+          tail -c 3000 scripts/metiers/inspect-log.txt
+      - name: Publier le journal
+        if: always()
+        run: |
+          git config user.name "lerna-metiers[bot]"
+          git config user.email "metiers@users.noreply.github.com"
+          cp scripts/metiers/inspect-log.txt /tmp/log.txt
+          git fetch -q origin main && git reset -q --hard origin/main
+          cp /tmp/log.txt scripts/metiers/inspect-log.txt
+          git add scripts/metiers/inspect-log.txt
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m "Métiers : journal d'inspection"
+          git push origin HEAD:main
