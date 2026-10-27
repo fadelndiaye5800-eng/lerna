@@ -355,26 +355,25 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   "Licence pro mention métiers de la gestion et de la comptabilité : comptabilité et paie",
   "Licence pro mention métiers de
 ESCO : fiches à relier 1923 | déjà en cache 1923
-  (structure ESCO : className,classId,uri,title,referenceLanguage,preferredLabel,alternativeLabel,preferredTerm,alternativeTerms,description,status,code,codes,_links,_embedded | alternativeLabel : {"de":["KoordinatorIn für Sonderpädagogik","Koordinatorin für Sonderpädagogik","Koordinator für Sonderpädagogik"],"fi":["erityisopetuksen koordinaattori","koord )
-   100 / 1923 | reliées : 33
+   100 / 1923 | reliées : 34
    200 / 1923 | reliées : 72
-   300 / 1923 | reliées : 123
+   300 / 1923 | reliées : 124
    400 / 1923 | reliées : 150
-   500 / 1923 | reliées : 182
+   500 / 1923 | reliées : 183
    600 / 1923 | reliées : 225
    700 / 1923 | reliées : 259
    800 / 1923 | reliées : 302
    900 / 1923 | reliées : 352
-   1000 / 1923 | reliées : 391
-   1100 / 1923 | reliées : 431
+   1000 / 1923 | reliées : 390
+   1100 / 1923 | reliées : 430
    1200 / 1923 | reliées : 481
-   1300 / 1923 | reliées : 517
-   1400 / 1923 | reliées : 566
-   1500 / 1923 | reliées : 604
-   1600 / 1923 | reliées : 626
-   1700 / 1923 | reliées : 653
-   1800 / 1923 | reliées : 688
-   1900 / 1923 | reliées : 720
+   1300 / 1923 | reliées : 518
+   1400 / 1923 | reliées : 567
+   1500 / 1923 | reliées : 603
+   1600 / 1923 | reliées : 625
+   1700 / 1923 | reliées : 654
+   1800 / 1923 | reliées : 689
+   1900 / 1923 | reliées : 721
 ESCO : fiches reliées 733 / 1923 
 Sans correspondance (gardé sans ESCO) : 1190 | exactes (score 1) : 351 | par un autre nom ESCO : 173
 M1805 Développeur / Développeuse informatique → développeur de systèmes informatiques | ICT system developer | CITP 2511 Analystes de systèmes | score 0.87
@@ -430,3 +429,25 @@ I1330 Technicien / Technicienne d'installation de centrales téléphoniques → 
 M1819 Technicien / Technicienne en cybersécurité → aucune [technicien agricole 0.33 ; technicien des télécommunications 0.33 ; technicien audiovisuel 0.33]
 M1613 Télésecrétaire → aucune []
 F1115 Vulcanologue → aucune []
+ESCO (monde) : recherche sans mot → 2942
+  métiers listés par la recherche : 100
+  (arbre OIT, liens : self,isTopConceptInScheme,isInScheme,narrowerConcept )
+  métiers listés par l’arbre OIT : 1734
+ESCO (monde) : métiers ESCO 1734 | déjà reliés au ROME 639 | à ajouter 1275
+   200 / 1275
+   400 / 1275
+   600 / 1275
+   800 / 1275
+   1000 / 1275
+   1200 / 1275
+ESCO (monde) : métiers ajoutés 1274  | total 3118 | niveau OIT sur fiches ROME 731
+  par domaine LERNA : {"education":43,"ingenierie":500,"agri":78,"business":272,"sciences":23,"tech":54,"sante":49,"comm":34,"droit":34,"art":107} | sans domaine : 126 | fichiers : 41
+   E5311.2 accompagnateur de bus scolaire | school bus attendant | niveau 2 | education
+   E1330.8 responsable de la relation avec les fournisseurs informatiques | ICT vendor relationship manager | niveau 34 | tech,business
+   E2355.2 animateur danse | dance teacher | niveau 4 | education
+   E3311.3 vendeur d’instruments financiers | financial trader | niveau 3 | business
+   E3521.1 technicien audiovisuel | audio-visual technician | niveau 3 | comm,tech
+   E5211.1 vendeur sur les marchés | market vendor | niveau 2 | business
+   E7215.1 monteur d’échafaudage pour événements | event scaffolder | niveau 2 | ingenierie
+   E8122.4 opérateur de rectifieuse cylindrique | cylindrical grinder operator | niveau 2 | ingenierie
+   E8159.2 technicien en tressage textile | braiding textile technician | niveau 2 | ingenierie
