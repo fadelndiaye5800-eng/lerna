@@ -76,7 +76,7 @@ const BY_DOM = {
   sante: ['J'],
   tech: ['M18'],
   droit: ['K19', 'K14', 'K15'],   // droit, administration publique, impôts, douanes, diplomatie
-  art: ['B', 'L', 'E11', 'F11', 'K16'],   // K16 : culture et patrimoine
+  art: ['B', 'L', 'E11', 'K16'],   // K16 : culture et patrimoine (les architectes : par l'intitulé, plus bas)
   sciences: ['K24'],
   education: ['K21', 'K12'],   // K12 : travail social et éducatif
   ingenierie: ['F', 'H', 'I'],
@@ -84,15 +84,15 @@ const BY_DOM = {
   agri: ['A']
 };
 const BY_WORD = {
-  tech: /informati|développeur|developpeur|logiciel|données|data|cyber|réseau|numérique|web|intelligence artificielle|système d'information/i,
+  tech: /informatiqu|informaticien|développeur|developpeur|logiciel|données|\bdata|cyber|réseaux? (informatique|télécom|mobile)|télécom|numérique|\bweb\b|intelligence artificielle|systèmes? d'information/i,
   droit: /jurid|avocat|notaire|magistrat|juriste|greffier|commissaire de justice|huissier|police|gendarm|pénitentiaire|douane|diplomat|ambassad|contentieux|conformité/i,
   sciences: /recherche|chercheur|chercheuse|biolog|chimi|physic|mathémati|statistic|laboratoire|scientifique|géolog|géophysic|météorolog|océanograph|hydrolog|économiste|sociolog|archéolog|historien|géographe|démograph|astronom|actuaire/i,
   education: /enseignant|professeur|formateur|formatrice|éducat|conseiller \/ conseillère d'orientation/i,
-  comm: /communication|journalis|publicit|marketing|média|rédacteur|rédactrice/i,
+  comm: /communication|journalis|publicit|marketing|\bmédias?\b|multimédia|rédacteur|rédactrice/i,
   sante: /médecin|infirmi|pharmac|sage-femme|kinésithérap|dentiste|soignant|psycholog|addictolog|thérapeut|psychanalyst|génétique/i,
   agri: /agricol|agronom|environnement|forest|élevage|aquacult|urbanis|aménagement du territoire|durable|eaux pluviales/i,
   ingenierie: /ingénieur|ingénieure/i,
-  art: /architecte|design|graphiste|styliste|artiste|musicien|photograph/i
+  art: /^architecte(\s*\/|\s*$)|architecte (d'intérieur|du bâtiment|du patrimoine|naval|paysagiste)|architecte-urbaniste|design|graphiste|styliste|artiste|musicien|photograph/i
 };
 function lernaDoms(code, titre) {
   const w = where[code] || {}, out = new Set();
@@ -132,6 +132,23 @@ function activites(def) {
 }
 
 const lib = (x) => (x && (x.libelle || x.intitule)) || '';
+/* Textes valables pour tous les pays : les noms d'organismes propres à la France sont remplacés par leur rôle
+   (les diplômes et conditions d'accès français restent dans « acc » et « dip », montrés seulement pour la France) */
+const NEUTRAL = [
+  [/établissement d'hébergement pour personnes âgées dépendantes \(EHPAD\)/gi, 'maison de retraite médicalisée'],
+  [/\bEHPAD\b/g, 'maison de retraite médicalisée'],
+  [/\(DSN, URSSAF, caisses de retraite, etc\)/g, '(organismes sociaux, caisses de retraite, etc.)'],
+  [/\bDSN\b|\bURSSAF\b/g, 'organismes sociaux'],
+  [/les services de la CPAM/g, "les services de l'assurance maladie"], [/\bCPAM\b/g, 'assurance maladie'],
+  [/\(HAS, ANSM, sociétés savantes, etc\.\)/g, '(autorités sanitaires, sociétés savantes, etc.)'],
+  [/\(ARS, /g, '(autorités de santé, '], [/\bARS\b/g, 'autorités de santé'],
+  [/ et d'un Plan Local d'Urbanisme \(PLU\)/g, " et d'un plan local d'urbanisme"], [/ \(PLU, SCOT\)/g, ''], [/\bPLU\b/g, "plan local d'urbanisme"],
+  [/la loi Informatique et Libertés/g, 'la loi sur la protection des données personnelles'], [/\bla CNIL\b/g, "l'autorité de protection des données"], [/\bCNIL\b/g, 'autorité de protection des données'],
+  [/aux préfectures/g, 'aux autorités administratives'],
+  [/Sécurité Sociale, mutuelles/g, 'assurance maladie, mutuelles']
+];
+const neutral = (x) => { let s = String(x || ''); for (const [re, by] of NEUTRAL) s = s.replace(re, by); return s; };
+const neutralAll = (arr) => (arr || []).map(neutral);
 /* Métiers proches (« mobilités ») : tout code ROME cité dans l'objet */
 function mobs(m) {
   const out = [], seen = new Set();
@@ -180,13 +197,13 @@ for (const f of list) {
   const fiche = {
     t: titre,
     ap: (f.appellations || []).map((a) => a.libelle_court || a.libelle).filter((x) => x && x !== titre).slice(0, 6),
-    d: act,
+    d: neutralAll(act),
     acc: acc,
-    sf: (sfCore.length >= 4 ? sfCore : sfAll).slice(0, 10),
-    se: items(comp.savoir_etre_professionnel, false).slice(0, 8),
-    sv: (items(comp.savoirs, true, 'sv').length ? items(comp.savoirs, true, 'sv') : items(comp.savoirs, false, 'sv')).slice(0, 8),
+    sf: neutralAll((sfCore.length >= 4 ? sfCore : sfAll).slice(0, 10)),
+    se: neutralAll(items(comp.savoir_etre_professionnel, false).slice(0, 8)),
+    sv: neutralAll((items(comp.savoirs, true, 'sv').length ? items(comp.savoirs, true, 'sv') : items(comp.savoirs, false, 'sv')).slice(0, 8)),
     dip: items(comp.savoirs, false, 'dip').slice(0, 8),
-    ctx: (f.contextes_travail || []).map((c) => ({ l: c.libelle, i: (c.items || []).map(lib).slice(0, 6) })).filter((c) => c.i.length).slice(0, 6),
+    ctx: (f.contextes_travail || []).map((c) => ({ l: c.libelle, i: neutralAll((c.items || []).map(lib).slice(0, 6)) })).filter((c) => c.i.length).slice(0, 6),
     mob: mobs(f.mobilites).filter((c) => c !== code).slice(0, 8),
     sec: secs(f.secteurs_activite).slice(0, 5),
     dp: w.dl || '',

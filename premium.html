@@ -221,7 +221,7 @@ Lerna.addStrings({
     'pr.parMsg': 'Bonjour, je prépare mes candidatures d’études avec LERNA. Premium m’aide à constituer mon dossier (Campus France, Parcoursup, universités), à corriger mes lettres de motivation, à préparer l’entretien, à calculer le vrai budget et à ne rater aucune date limite. Ça coûte {p}. Tu peux regarder ici : {u}',
     'pr.parCopied': 'Message copié : colle-le dans WhatsApp.',
     'pr.perDay': '{n}/jour',
-    'pr.f3': 'Fiches complètes des écoles : admission, frais, vie étudiante', 'pr.f22': 'Métiers et débouchés, métier par métier',
+    'pr.f3': 'Fiches complètes des écoles : admission, frais, vie étudiante', 'pr.f22': 'Métiers et débouchés, métier par métier', 'pr.f23': '« Ce métier et toi » : ta compatibilité avec chaque métier et ton chemin pour y arriver',
     'pr.f4': 'Toutes les bourses, stages et emplois, avec le lien officiel',
     'pr.f5': 'Nouvelle analyse de ton profil', 'pr.f12': 'Assistant IA',
     'pr.f14': 'Mon dossier : les étapes et les dates officielles', 'pr.f20': 'Copilote pas à pas sur chaque plateforme, coffre prêt à copier, documents, CV, visa et suivi',
@@ -306,7 +306,7 @@ Lerna.addStrings({
     'pr.parMsg': 'Hi, I am preparing my study applications with LERNA. Premium helps me build my application file (Campus France, Parcoursup, universities), improve my cover letters, prepare for interviews, work out the real budget and never miss a deadline. It costs {p}. You can have a look here: {u}',
     'pr.parCopied': 'Message copied: paste it into WhatsApp.',
     'pr.perDay': '{n}/day',
-    'pr.f3': 'Full school pages: admission, fees, student life', 'pr.f22': 'Careers and outcomes, job by job',
+    'pr.f3': 'Full school pages: admission, fees, student life', 'pr.f22': 'Careers and outcomes, job by job', 'pr.f23': '“This job and you”: your fit with each job and your path to get there',
     'pr.f4': 'Every scholarship, internship and job, with the official link',
     'pr.f5': 'New analysis of your profile', 'pr.f12': 'AI assistant',
     'pr.f14': 'My application: steps and official dates', 'pr.f20': 'Step-by-step copilot on each platform, copy-ready vault, documents, CV, visa and tracking',
@@ -382,7 +382,7 @@ Lerna.addStrings({
      Premium : ce qui fait gagner du temps et réduit le risque (IA sans limite, budget et plan B, alertes ciblées, 5 écoles).
      Un nombre = limite par jour en gratuit. */
   /* [ligne, gratuit (0 non, 1 oui, n par jour, 'once' une fois), Premium] — gratuit : toutes les informations ; Premium : l'aide pour être pris */
-  var ROWS = [[1, 1, 1], [2, 1, 1], [21, 1, 1], [3, 1, 1], [22, 1, 1], [4, 1, 1], [14, 0, 1], [20, 0, 1], [16, 0, 1], [19, 0, 1], [12, 5, 1], [5, 'once', 1], [6, 0, 1], [17, 0, 1], [18, 0, 1], [7, 0, 1], [15, 0, 1]];
+  var ROWS = [[1, 1, 1], [2, 1, 1], [21, 1, 1], [3, 1, 1], [22, 1, 1], [23, 0, 1], [4, 1, 1], [14, 0, 1], [20, 0, 1], [16, 0, 1], [19, 0, 1], [12, 5, 1], [5, 'once', 1], [6, 0, 1], [17, 0, 1], [18, 0, 1], [7, 0, 1], [15, 0, 1]];
   var WHY = [['w1', 'folder'], ['w2', 'memo'], ['w3', 'money-bag'], ['w4', 'bell']];
 
   var M = function () { return Lerna.config.pay || null; };                          // paiement FCFA (Wave, Orange Money, Yas, carte)

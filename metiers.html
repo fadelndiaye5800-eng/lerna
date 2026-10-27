@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Métiers et débouchés — LERNA</title>
 <meta name="lerna-title" content="mt.docTitle">
-<meta name="description" content="Découvre les métiers auxquels mènent tes études : ce qu’on fait chaque jour, les qualités demandées, le niveau d’études et les diplômes. Source officielle : France Travail (ROME).">
+<meta name="description" content="Des milliers de métiers expliqués pour tous les pays : ce qu’on fait chaque jour, les qualités demandées, le niveau d’études et le chemin pour y arriver. Sources : classifications ROME et ESCO.">
 <meta name="theme-color" content="#FBF6EC">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="assets/icons/icon.svg" type="image/svg+xml">
@@ -62,6 +62,20 @@
   .mt-fr summary { cursor: pointer; font-weight: 700; font-size: .94rem; }
   .mf .acts .btn { white-space: normal; }
   .mt-note { margin-top: 10px; font-size: .88rem; color: var(--muted); }
+  .mt-ccsel { width: 100%; max-width: 420px; }
+  .mt-cc { margin-top: 12px; display: grid; gap: 10px; }
+  .mt-rule { padding: 12px 14px; border-radius: 14px; background: var(--cream); }
+  .mt-rule p { margin-top: 4px; font-size: .94rem; }
+  .mt-fit .mt-score { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 2px 0 10px; }
+  .mt-fit .mt-score b { font-size: 2rem; color: var(--orange-deep); line-height: 1; }
+  .mt-fit .mt-score span { font-weight: 700; }
+  .mt-why { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .mt-why li { position: relative; padding-left: 26px; font-size: .94rem; }
+  .mt-why li::before { position: absolute; left: 0; top: 0; font-weight: 800; }
+  .mt-why li.ok::before { content: '✓'; color: var(--olive); }
+  .mt-why li.mid::before { content: '~'; color: var(--orange-deep); }
+  .mt-why li.ko::before { content: '!'; color: var(--orange-deep); }
+  .mt-path { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 8px; font-size: .94rem; }
 </style>
 </head>
 <body data-page="metiers">
@@ -82,20 +96,20 @@ Lerna.addStrings({
     'mt.lvBac': 'Jusqu’à Bac + 2', 'mt.lv3': 'Bac + 3 ou Bac + 4', 'mt.lv5': 'Bac + 5 et plus', 'mt.byCi': 'Par envie', 'mt.byLv': 'Niveau d’études',
     'mt.mine': 'Tes domaines (d’après ton test) :', 'mt.count': '{n} métiers', 'mt.count1': '1 métier', 'mt.more': 'Voir plus de métiers', 'mt.none': 'Aucun métier ne correspond', 'mt.noneSub': 'Essaie un autre mot ou enlève un filtre.',
     'mt.l-1': 'Niveau non précisé', 'mt.l0': 'CAP, BEP ou sans diplôme', 'mt.l1': 'Bac', 'mt.l2': 'Bac + 2', 'mt.l3': 'Bac + 3', 'mt.l4': 'Bac + 4', 'mt.l5': 'Bac + 5', 'mt.l6': 'Bac + 6 et plus', 'mt.l7': 'Bac + 6 et plus', 'mt.l8': 'Doctorat',
-    'mt.back': '← Tous les métiers', 'mt.do': 'Ce que tu fais au quotidien', 'mt.reach': 'Pour y arriver', 'mt.dips': 'Diplômes et certifications qui y mènent (en France)',
+    'mt.back': '← Tous les métiers', 'mt.do': 'Ce que tu fais au quotidien', 'mt.reach': 'Pour y arriver', 'mt.dips': 'Diplômes et certifications qui y mènent',
     'mt.qual': 'Les qualités demandées', 'mt.qualSub': 'Elles te ressemblent ? C’est un bon signe.', 'mt.skills': 'Ce que tu sauras faire', 'mt.know': 'Ce que tu dois connaître',
-    'mt.ctx': 'Conditions de travail', 'mt.trE': 'Métier de la transition écologique', 'mt.trN': 'Lié au numérique', 'mt.secs': 'Où tu peux travailler', 'mt.secsSub': 'Les secteurs qui emploient ce métier.', 'mt.ints': 'Ce métier plaît souvent à ceux qui…', 'mt.intl': 'Ailleurs dans le monde', 'mt.intlSub': 'Correspondance dans la classification internationale ESCO (Commission européenne), fondée sur la classification des professions de l’OIT (CITP-08). Elle sert à comparer les métiers entre pays.', 'mt.intlName': 'Nom international', 'mt.intlGroup': 'Groupe de métiers (OIT, CITP-08)', 'mt.intlDesc': 'Description internationale', 'mt.intlSkills': 'Compétences essentielles (ESCO)', 'mt.intlApprox': 'Correspondance trouvée automatiquement par LERNA à partir des intitulés : elle peut être approximative.', 'mt.intlOpen': 'Voir la fiche ESCO', 'mt.srcEsco': 'Correspondance internationale : ESCO — Commission européenne (réutilisation autorisée avec mention de la source).', 'mt.frName': 'Nom en France : {n}', 'mt.near': 'Métiers proches', 'mt.nearSub': 'Des métiers vers lesquels on peut évoluer.', 'mt.aka': 'Aussi appelé : {n}', 'mt.sector': 'Secteur : {s}',
+    'mt.ctx': 'Conditions de travail', 'mt.trE': 'Métier de la transition écologique', 'mt.trN': 'Lié au numérique', 'mt.secs': 'Où tu peux travailler', 'mt.secsSub': 'Les secteurs qui emploient ce métier.', 'mt.ints': 'Ce métier plaît souvent à ceux qui…', 'mt.intl': 'Ailleurs dans le monde', 'mt.intlSub': 'Correspondance dans la classification internationale ESCO (Commission européenne), fondée sur la classification des professions de l’OIT (CITP-08). Elle sert à comparer les métiers entre pays.', 'mt.intlName': 'Nom international', 'mt.intlGroup': 'Groupe de métiers (OIT, CITP-08)', 'mt.intlDesc': 'Description internationale', 'mt.intlSkills': 'Compétences essentielles (ESCO)', 'mt.intlApprox': 'Correspondance trouvée automatiquement par LERNA à partir des intitulés : elle peut être approximative.', 'mt.intlOpen': 'Voir la fiche ESCO', 'mt.srcEsco': 'Correspondance internationale : ESCO — Commission européenne (réutilisation autorisée avec mention de la source).', 'mt.frName': 'Nom en français : {n}', 'mt.near': 'Métiers proches', 'mt.nearSub': 'Des métiers vers lesquels on peut évoluer.', 'mt.aka': 'Aussi appelé : {n}', 'mt.sector': 'Secteur : {s}',
     'mt.study': 'Trouver où étudier ça', 'mt.test': 'Faire mon test d’orientation', 'mt.ask': 'Poser une question à l’assistant',
-    'mt.src': 'Source : France Travail, Répertoire opérationnel des métiers et des emplois (ROME 4.0, {v}), Licence Ouverte 2.0, mis à jour par LERNA le {d}.',
-    'mt.srcWarn': 'Les activités, qualités et compétences valent dans la plupart des pays ; les diplômes et conditions d’accès changent selon le pays, et ceux de France sont indiqués à part. LERNA peut se tromper.',
+    'mt.src': 'Source de la fiche : répertoire des métiers ROME 4.0 de France Travail ({v}, Licence Ouverte 2.0), textes adaptés par LERNA pour tous les pays, mis à jour le {d}.',
+    'mt.srcWarn': 'Les activités, qualités et compétences valent dans la plupart des pays ; les diplômes et les règles changent d’un pays à l’autre : choisis un pays dans la fiche pour les voir. LERNA peut se tromper.',
     'mt.notFound': 'Ce métier n’existe plus dans le répertoire', 'mt.err': 'Impossible de charger les métiers. Vérifie ta connexion puis réessaie.', 'mt.retry': 'Réessayer',
-    'mt.world': 'Le niveau d’études', 'mt.lvNote': 'Niveau demandé en France. Dans les pays du système LMD (dont le Sénégal et la Côte d’Ivoire), les diplômes ont la même durée ; ailleurs, elle peut changer.', 'mt.where': 'Où étudier pour ce métier', 'mt.allCountries': 'Tous les pays', 'mt.inFrance': 'En France : diplômes et conditions (selon France Travail)',
-    'mt.u.doc': 'Un doctorat : ce sont les études les plus longues (souvent 8 ans ou plus après le bac).', 'mt.u.none': 'Le niveau d’études n’est pas précisé : il dépend du poste, de l’employeur et du pays.',
+    'mt.world': 'Le niveau d’études', 'mt.lvNote': 'Niveau demandé en France. Dans les pays du système LMD (dont le Sénégal et la Côte d’Ivoire), les diplômes ont la même durée ; ailleurs, elle peut changer.', 'mt.where': 'Où étudier pour ce métier', 'mt.allCountries': 'Tous les pays', 'mt.inFrance': 'Diplômes et conditions (selon France Travail)',
+    'mt.u.doc': 'Un doctorat : ce sont les études les plus longues (souvent 8 ans ou plus après le lycée).', 'mt.u.none': 'Le niveau d’études n’est pas précisé : il dépend du poste, de l’employeur et du pays.',
     'mt.u.l0': 'Pas de long diplôme : un diplôme professionnel court ou une formation sur le terrain suffit souvent (le nom du diplôme change selon le pays).',
     'mt.u.l1': 'Le niveau bac, ou un diplôme professionnel du même niveau.', 'mt.u.range': 'Entre {a} et {b} ans d’études après le bac, selon le poste.', 'mt.u.one': '{a} ans d’études après le bac.', 'mt.u.fromBac': 'Du niveau bac jusqu’à {b} ans d’études après le bac, selon le poste.',
-    'mt.u.bts': 'Bac + 2 = un diplôme de technicien supérieur (son nom change selon le pays).', 'mt.u.lic': 'Bac + 3 = la licence du système LMD (France, Sénégal, Côte d’Ivoire…) ou un bachelor ailleurs.', 'mt.u.mas': 'Bac + 5 = le master : 3 ans de licence puis 2 ans de master.',
+    'mt.u.bts': 'Bac + 2 = un diplôme de technicien supérieur (son nom change selon le pays).', 'mt.u.lic': 'Bac + 3 = une licence ou un bachelor (dans certains pays, le bachelor dure 4 ans).', 'mt.u.mas': 'Bac + 5 = un master (en général 1 à 2 ans après la licence ou le bachelor).',
     'mt.lmdSrc': 'Système LMD : au Sénégal, la licence dure 6 semestres (180 crédits) et le master 4 semestres (120 crédits) (décrets n° 2012-1114 et 2012-1115) ; la Côte d’Ivoire applique aussi la licence et le master LMD (arrêtés du 13 décembre 2011).',
-    'mt.regTitle': 'Métier réglementé', 'mt.regText': 'Ce métier est encadré par la loi en France, et ce type de métier l’est aussi dans beaucoup d’autres pays : diplôme reconnu par l’État, et parfois inscription à un ordre professionnel ou concours. Vérifie les règles du pays où tu veux travailler.',
+    'mt.regTitle': 'Métier souvent réglementé', 'mt.regText': 'Dans beaucoup de pays, ce métier est encadré par la loi : il faut un diplôme reconnu par l’État, et parfois une inscription à un ordre professionnel ou un concours. Les règles changent d’un pays à l’autre.',
     'mt.recog': 'Diplôme obtenu dans un autre pays : il faut souvent le faire reconnaître dans le pays où tu veux exercer.',
     'mt.r.medSn': 'pour exercer, il faut être inscrit à l’Ordre national des médecins du Sénégal.', 'mt.r.medCi': 'pour exercer, il faut être inscrit au tableau de l’Ordre national des médecins de Côte d’Ivoire.',
     'mt.r.dentSn': 'la profession est encadrée par l’Ordre des chirurgiens-dentistes du Sénégal.', 'mt.r.pharSn': 'la profession est encadrée par l’Ordre des pharmaciens du Sénégal.',
@@ -106,7 +120,7 @@ Lerna.addStrings({
     'mt.r.ecSn': 'la profession est organisée par l’ONECCA (Ordre national des experts-comptables et comptables agréés du Sénégal).', 'mt.r.ecCi': 'la profession est organisée par l’Ordre des experts-comptables de Côte d’Ivoire.',
     'mt.r.archSn': 'la profession est encadrée par la loi d’orientation de l’architecture sénégalaise.', 'mt.r.archCi': 'agrément du ministère ou de l’ordre professionnel (Ordre des architectes de Côte d’Ivoire).',
     'mt.r.infCi': 'l’Ordre national des infirmiers et infirmières de Côte d’Ivoire inscrit les professionnels pour lutter contre l’exercice illégal.',
-    'mt.inDom': 'avec tous les métiers du domaine {d}', 'mt.listNote': 'Chaque métier est expliqué pour tous les pays. Ce qui ne vaut qu’en France est indiqué, avec les règles du Sénégal et de la Côte d’Ivoire quand le métier est réglementé.',
+    'mt.inDom': 'avec tous les métiers du domaine {d}', 'mt.listNote': 'Chaque métier est expliqué pour tous les pays. Dans une fiche, choisis un pays pour voir ses règles et où y étudier.',
     'mt.dom.business': 'Business', 'mt.dom.sante': 'Santé', 'mt.dom.tech': 'Tech', 'mt.dom.droit': 'Droit', 'mt.dom.art': 'Art et création', 'mt.dom.sciences': 'Sciences', 'mt.dom.education': 'Éducation', 'mt.dom.ingenierie': 'Ingénierie', 'mt.dom.comm': 'Communication', 'mt.dom.agri': 'Agriculture et environnement',
     'mt.langNote': ''
   },
@@ -117,20 +131,20 @@ Lerna.addStrings({
     'mt.lvBac': 'Up to 2 years after high school', 'mt.lv3': '3 or 4 years after high school', 'mt.lv5': '5 years or more', 'mt.byCi': 'By interest', 'mt.byLv': 'Level of studies',
     'mt.mine': 'Your fields (from your test):', 'mt.count': '{n} jobs', 'mt.count1': '1 job', 'mt.more': 'See more jobs', 'mt.none': 'No job matches', 'mt.noneSub': 'Try another word or remove a filter.',
     'mt.l-1': 'Level not specified', 'mt.l0': 'Vocational or no diploma', 'mt.l1': 'High school diploma', 'mt.l2': '2 years after high school', 'mt.l3': '3 years after high school', 'mt.l4': '4 years after high school', 'mt.l5': '5 years after high school', 'mt.l6': '6+ years after high school', 'mt.l7': '6+ years after high school', 'mt.l8': 'Doctorate',
-    'mt.back': '← All jobs', 'mt.do': 'What you do day to day', 'mt.reach': 'How to get there', 'mt.dips': 'Diplomas and certifications that lead there (in France)',
+    'mt.back': '← All jobs', 'mt.do': 'What you do day to day', 'mt.reach': 'How to get there', 'mt.dips': 'Diplomas and certifications that lead there',
     'mt.qual': 'Qualities needed', 'mt.qualSub': 'Do they sound like you? That is a good sign.', 'mt.skills': 'What you will be able to do', 'mt.know': 'What you need to know',
-    'mt.ctx': 'Working conditions', 'mt.trE': 'Green transition job', 'mt.trN': 'Linked to digital', 'mt.secs': 'Where you can work', 'mt.secsSub': 'The sectors that hire for this job.', 'mt.ints': 'This job often appeals to people who…', 'mt.intl': 'Elsewhere in the world', 'mt.intlSub': 'Match in the international ESCO classification (European Commission), based on the ILO classification of occupations (ISCO-08). It helps compare jobs across countries.', 'mt.intlName': 'International name', 'mt.intlGroup': 'Occupation group (ILO, ISCO-08)', 'mt.intlDesc': 'International description', 'mt.intlSkills': 'Essential skills (ESCO)', 'mt.intlApprox': 'Match found automatically by LERNA from the job titles: it may be approximate.', 'mt.intlOpen': 'Open the ESCO page', 'mt.srcEsco': 'International match: ESCO — European Commission (reuse allowed with source credit).', 'mt.frName': 'Name in France: {n}', 'mt.near': 'Related jobs', 'mt.nearSub': 'Jobs you can move on to.', 'mt.aka': 'Also called: {n}', 'mt.sector': 'Sector: {s}',
+    'mt.ctx': 'Working conditions', 'mt.trE': 'Green transition job', 'mt.trN': 'Linked to digital', 'mt.secs': 'Where you can work', 'mt.secsSub': 'The sectors that hire for this job.', 'mt.ints': 'This job often appeals to people who…', 'mt.intl': 'Elsewhere in the world', 'mt.intlSub': 'Match in the international ESCO classification (European Commission), based on the ILO classification of occupations (ISCO-08). It helps compare jobs across countries.', 'mt.intlName': 'International name', 'mt.intlGroup': 'Occupation group (ILO, ISCO-08)', 'mt.intlDesc': 'International description', 'mt.intlSkills': 'Essential skills (ESCO)', 'mt.intlApprox': 'Match found automatically by LERNA from the job titles: it may be approximate.', 'mt.intlOpen': 'Open the ESCO page', 'mt.srcEsco': 'International match: ESCO — European Commission (reuse allowed with source credit).', 'mt.frName': 'Name in French: {n}', 'mt.near': 'Related jobs', 'mt.nearSub': 'Jobs you can move on to.', 'mt.aka': 'Also called: {n}', 'mt.sector': 'Sector: {s}',
     'mt.study': 'Find where to study this', 'mt.test': 'Take my orientation test', 'mt.ask': 'Ask the assistant',
-    'mt.src': 'Source: France Travail, French job repository (ROME 4.0, {v}), Open Licence 2.0, updated by LERNA on {d}.',
-    'mt.srcWarn': 'Activities, qualities and skills apply in most countries; diplomas and entry requirements change by country, and those of France are shown separately. LERNA can be wrong.',
+    'mt.src': 'Source of this page: ROME 4.0 job repository by France Travail ({v}, Open Licence 2.0), texts adapted by LERNA for every country, updated on {d}.',
+    'mt.srcWarn': 'Activities, qualities and skills apply in most countries; diplomas and rules change from one country to another: pick a country on the page to see them. LERNA can be wrong.',
     'mt.notFound': 'This job is no longer in the repository', 'mt.err': 'Could not load the jobs. Check your connection and try again.', 'mt.retry': 'Try again',
-    'mt.world': 'Level of studies', 'mt.lvNote': 'Level required in France. In LMD-system countries (including Senegal and Côte d’Ivoire), degrees have the same length; elsewhere it may differ.', 'mt.where': 'Where to study for this job', 'mt.allCountries': 'All countries', 'mt.inFrance': 'In France: diplomas and requirements (according to France Travail)',
+    'mt.world': 'Level of studies', 'mt.lvNote': 'Level required in France. In LMD-system countries (including Senegal and Côte d’Ivoire), degrees have the same length; elsewhere it may differ.', 'mt.where': 'Where to study for this job', 'mt.allCountries': 'All countries', 'mt.inFrance': 'Diplomas and requirements (according to France Travail)',
     'mt.u.doc': 'A doctorate: the longest studies (often 8 years or more after high school).', 'mt.u.none': 'The level of studies is not specified: it depends on the job, the employer and the country.',
     'mt.u.l0': 'No long degree: a short vocational diploma or on-the-job training is often enough (the diploma name changes by country).',
     'mt.u.l1': 'High school level, or a vocational diploma of the same level.', 'mt.u.range': 'Between {a} and {b} years of study after high school, depending on the job.', 'mt.u.one': '{a} years of study after high school.', 'mt.u.fromBac': 'From high school level up to {b} years of study after high school, depending on the job.',
-    'mt.u.bts': '2 years after high school = a higher technician diploma (its name changes by country).', 'mt.u.lic': '3 years = a bachelor’s degree (called “licence” in France, Senegal, Côte d’Ivoire…).', 'mt.u.mas': '5 years = a master’s degree: 3 years of bachelor then 2 years of master.',
+    'mt.u.bts': '2 years after high school = a higher technician diploma (its name changes by country).', 'mt.u.lic': '3 years = a bachelor’s degree (in some countries it lasts 4 years).', 'mt.u.mas': '5 years = a master’s degree (usually 1 to 2 years after the bachelor’s).',
     'mt.lmdSrc': 'Bachelor-Master-Doctorate (LMD) system: in Senegal, the licence lasts 6 semesters (180 credits) and the master 4 semesters (120 credits) (decrees no. 2012-1114 and 2012-1115); Côte d’Ivoire also uses the LMD licence and master (orders of 13 December 2011).',
-    'mt.regTitle': 'Regulated job', 'mt.regText': 'This job is regulated by law in France, and this kind of job is also regulated in many other countries: a State-recognised diploma, and sometimes registration with a professional order or an exam. Check the rules of the country where you want to work.',
+    'mt.regTitle': 'Often a regulated job', 'mt.regText': 'In many countries this job is regulated by law: you need a State-recognised diploma, and sometimes registration with a professional order or an exam. The rules change from one country to another.',
     'mt.recog': 'Diploma obtained in another country: you often need to have it recognised in the country where you want to work.',
     'mt.r.medSn': 'to practise, you must be registered with the National Order of Doctors of Senegal.', 'mt.r.medCi': 'to practise, you must be registered with the National Order of Doctors of Côte d’Ivoire.',
     'mt.r.dentSn': 'the profession is regulated by the Order of Dental Surgeons of Senegal.', 'mt.r.pharSn': 'the profession is regulated by the Order of Pharmacists of Senegal.',
@@ -141,9 +155,101 @@ Lerna.addStrings({
     'mt.r.ecSn': 'the profession is organised by ONECCA (National Order of Chartered Accountants of Senegal).', 'mt.r.ecCi': 'the profession is organised by the Order of Chartered Accountants of Côte d’Ivoire.',
     'mt.r.archSn': 'the profession is regulated by the Senegalese architecture law.', 'mt.r.archCi': 'licence from the ministry or the professional order (Order of Architects of Côte d’Ivoire).',
     'mt.r.infCi': 'the National Order of Nurses of Côte d’Ivoire registers professionals to fight illegal practice.',
-    'mt.inDom': 'including every job in {d}', 'mt.listNote': 'Every job is explained for all countries. What only applies in France is marked, with the rules of Senegal and Côte d’Ivoire when the job is regulated.',
+    'mt.inDom': 'including every job in {d}', 'mt.listNote': 'Every job is explained for all countries. On a job page, pick a country to see its rules and where to study there.',
     'mt.dom.business': 'Business', 'mt.dom.sante': 'Health', 'mt.dom.tech': 'Tech', 'mt.dom.droit': 'Law', 'mt.dom.art': 'Art and design', 'mt.dom.sciences': 'Sciences', 'mt.dom.education': 'Education', 'mt.dom.ingenierie': 'Engineering', 'mt.dom.comm': 'Communication', 'mt.dom.agri': 'Agriculture and environment',
-    'mt.langNote': 'Job descriptions come from the official French repository and are shown in French.'
+    'mt.langNote': 'Some job descriptions are only available in French for now.'
+  }
+});
+
+/* Pays au choix, niveau de compétence de l'OIT, métiers du monde (ESCO) et carte Premium « Ce métier et toi » */
+Lerna.addStrings({
+  fr: {
+    'mt.slT': 'Classification internationale (OIT)', 'mt.durT': 'Durée d’études la plus courante',
+    'mt.sl.1': 'Niveau 1 : pas de diplôme particulier ; on apprend surtout le métier en travaillant.',
+    'mt.sl.2': 'Niveau 2 : fin du collège ou du lycée, souvent avec une formation professionnelle au métier.',
+    'mt.sl.3': 'Niveau 3 : études supérieures courtes, en général 1 à 3 ans après le lycée (ou une longue expérience).',
+    'mt.sl.4': 'Niveau 4 : études supérieures longues, en général 3 à 6 ans après le lycée.',
+    'mt.sl.34': 'Niveaux 3 et 4 : études supérieures (courtes ou longues) et de l’expérience, car c’est un poste de direction.',
+    'mt.slb.1': 'Sans diplôme particulier', 'mt.slb.2': 'Fin du secondaire', 'mt.slb.3': 'Études supérieures courtes', 'mt.slb.4': 'Études supérieures longues', 'mt.slb.34': 'Études supérieures et expérience',
+    'mt.slSrc': 'Niveaux de compétence de l’OIT (CITP-08), les mêmes pour tous les pays.', 'mt.lvNote2': 'La durée peut changer d’un pays à l’autre.',
+    'mt.cTitle': 'Dans un pays précis', 'mt.cSub': 'Les règles et les diplômes changent d’un pays à l’autre. Choisis le pays où tu veux étudier ou travailler.',
+    'mt.cPick': 'Choisis un pays', 'mt.cPickFirst': 'Choisis un pays pour voir ce que LERNA sait de ce métier là-bas.',
+    'mt.cRule': 'Règle vérifiée', 'mt.cNone': '{p} : LERNA n’a pas encore vérifié les règles de ce métier dans ce pays. Pour être sûr, regarde le site du ministère qui s’en occupe et, si le métier est réglementé, celui de l’ordre professionnel.',
+    'mt.cStudy': 'Où étudier : {p}', 'mt.cSearch': 'Chercher les règles officielles', 'mt.cQuery': 'conditions pour exercer diplôme', 'mt.frSrc': 'D’après le répertoire ROME de France Travail.',
+    'mt.allStudy': 'Où étudier, dans tous les pays',
+    'mt.opt': 'Compétences utiles en plus', 'mt.intlE': 'Classification internationale', 'mt.intlESub': 'Ce métier vient de la classification internationale ESCO (Commission européenne), fondée sur celle de l’OIT (CITP-08).',
+    'mt.nearE': 'Métiers du même groupe', 'mt.nearESub': 'Des métiers proches dans la classification internationale.',
+    'mt.srcE': 'Source de la fiche : ESCO — Commission européenne, classification internationale des métiers fondée sur la CITP-08 de l’OIT (réutilisation autorisée avec mention de la source), mise à jour par LERNA le {d}. LERNA peut se tromper.',
+    'mt.byProfile': 'classés selon ton profil (test d’orientation)',
+    'mt.fitTitle': 'Ce métier et toi', 'mt.fitLockSub': 'Avec Premium, LERNA compare ce métier à tes réponses au test et te montre ton chemin pour y arriver.',
+    'mt.fitB1': 'Ton pourcentage de compatibilité avec ce métier', 'mt.fitB2': 'Ce qui colle et ce qui coince avec ton profil', 'mt.fitB3': 'Tes étapes pour y arriver, depuis ta situation', 'mt.fitB4': 'Où étudier dans ton pays, et ailleurs si tu veux partir',
+    'mt.fitNoTest': 'Fais le test d’orientation : LERNA pourra comparer ce métier à ton profil et te montrer ton chemin.',
+    'mt.fitHi': 'Très compatible avec ton profil', 'mt.fitMid': 'Plutôt compatible avec ton profil', 'mt.fitLo': 'À explorer : il colle moins à ton profil',
+    'mt.fitNote': 'Calculé à partir de tes réponses au test d’orientation. C’est une aide pour réfléchir, pas une décision : LERNA peut se tromper.',
+    'mt.w.dom': 'Il est dans un secteur que tu as choisi : {d}.', 'mt.w.domNo': 'Il n’est pas dans les secteurs que tu as choisis au test.',
+    'mt.w.subj': 'Tes matières préférées servent ici : {s}.', 'mt.w.subjNo': 'Tes matières préférées servent moins dans ce métier.',
+    'mt.w.style.creatif': 'Tu es plutôt créatif : ce domaine en a besoin.', 'mt.w.style.analytique': 'Tu es plutôt analytique : c’est utile dans ce domaine.', 'mt.w.style.pratique': 'Tu es avant tout pratique : ce domaine est concret.', 'mt.w.style.humain': 'Tu es avant tout humain : ce domaine est tourné vers les autres.',
+    'mt.w.styleNo': 'Ta façon de travailler n’est pas la plus courante dans ce domaine.',
+    'mt.w.dur': 'La durée d’études colle à ce que tu veux.', 'mt.w.durLong': 'Ce métier demande souvent plus d’années d’études que ce que tu veux.', 'mt.w.durShort': 'Ce métier demande souvent moins d’études que ce que tu prévois : tu pourras te spécialiser ensuite.',
+    'mt.w.reg': 'Tu veux pouvoir partir : ce métier est souvent réglementé, il faudra faire reconnaître ton diplôme dans le pays où tu travailleras.',
+    'mt.pathTitle': 'Ton chemin vers ce métier',
+    'mt.p.college': 'Tu es au collège : garde de bonnes bases dans les matières utiles à ce métier, puis vise un lycée qui t’y prépare.',
+    'mt.p.lycee': 'Tu es au lycée : choisis des matières utiles à ce métier et prépare ton bac (ou le diplôme de fin du secondaire de ton pays).',
+    'mt.p.term': 'Tu es en Terminale : obtiens ton bac et candidate dès cette année aux formations qui mènent à ce métier.',
+    'mt.p.sup': 'Tu es déjà dans le supérieur : vérifie si ta formation mène à ce métier ; sinon, une passerelle (licence pro, master, autre école) est souvent possible.',
+    'mt.p.work': 'Tu travailles déjà : la formation continue ou la validation de ton expérience peuvent te mener à ce métier.',
+    'mt.p.pause': 'Tu es entre deux : c’est le bon moment pour choisir une formation qui mène à ce métier.',
+    'mt.p.study': 'Études : {x}', 'mt.p.y0': 'pas de longues études : un diplôme professionnel ou une formation sur le terrain suffit souvent.', 'mt.p.y1': 'le niveau fin du lycée suffit souvent, avec une formation au métier.',
+    'mt.p.yr': 'compte souvent {a} à {b} ans après le lycée.', 'mt.p.yr1': 'compte souvent {a} ans après le lycée.', 'mt.p.ydoc': 'un doctorat, souvent 8 ans ou plus après le lycée.',
+    'mt.p.where': 'Où étudier dans ton pays ({p}) :', 'mt.p.whereBtn': 'voir les formations', 'mt.p.abroad': 'Tu veux pouvoir partir : regarde aussi les formations des autres pays.',
+    'mt.p.reg': 'Avant d’exercer, vérifie la règle de ton pays : diplôme reconnu par l’État, et parfois inscription à un ordre professionnel.',
+    'mt.p.regAbroad': 'Métier souvent réglementé : si tu étudies dans un pays et travailles dans un autre, fais reconnaître ton diplôme là où tu travailleras.',
+    'mt.p.near': 'Pour élargir tes options, regarde aussi :',
+    'mt.s.maths': 'les maths', 'mt.s.physique': 'la physique-chimie', 'mt.s.svt': 'la biologie', 'mt.s.histoire': 'l’histoire-géo', 'mt.s.eco': 'l’économie', 'mt.s.litterature': 'la littérature et la philo', 'mt.s.langues': 'les langues', 'mt.s.info': 'l’informatique', 'mt.s.arts': 'les arts', 'mt.s.sport': 'le sport'
+  },
+  en: {
+    'mt.slT': 'International classification (ILO)', 'mt.durT': 'Most common length of studies',
+    'mt.sl.1': 'Level 1: no particular diploma; you mostly learn the job while working.',
+    'mt.sl.2': 'Level 2: end of lower or upper secondary school, often with vocational training for the job.',
+    'mt.sl.3': 'Level 3: short higher education, usually 1 to 3 years after secondary school (or long experience).',
+    'mt.sl.4': 'Level 4: long higher education, usually 3 to 6 years after secondary school.',
+    'mt.sl.34': 'Levels 3 and 4: higher education (short or long) plus experience, because it is a management job.',
+    'mt.slb.1': 'No particular diploma', 'mt.slb.2': 'Secondary school', 'mt.slb.3': 'Short higher education', 'mt.slb.4': 'Long higher education', 'mt.slb.34': 'Higher education and experience',
+    'mt.slSrc': 'ILO skill levels (ISCO-08), the same for every country.', 'mt.lvNote2': 'The length may change from one country to another.',
+    'mt.cTitle': 'In a specific country', 'mt.cSub': 'Rules and diplomas change from one country to another. Pick the country where you want to study or work.',
+    'mt.cPick': 'Pick a country', 'mt.cPickFirst': 'Pick a country to see what LERNA knows about this job there.',
+    'mt.cRule': 'Verified rule', 'mt.cNone': '{p}: LERNA has not yet verified the rules for this job in this country. To be sure, check the website of the ministry in charge and, if the job is regulated, the professional order.',
+    'mt.cStudy': 'Where to study: {p}', 'mt.cSearch': 'Search the official rules', 'mt.cQuery': 'requirements to practise diploma', 'mt.frSrc': 'According to the ROME repository by France Travail.',
+    'mt.allStudy': 'Where to study, in every country',
+    'mt.opt': 'Useful extra skills', 'mt.intlE': 'International classification', 'mt.intlESub': 'This job comes from the international ESCO classification (European Commission), based on the ILO classification (ISCO-08).',
+    'mt.nearE': 'Jobs in the same group', 'mt.nearESub': 'Related jobs in the international classification.',
+    'mt.srcE': 'Source of this page: ESCO — European Commission, international classification of occupations based on the ILO ISCO-08 (reuse allowed with source credit), updated by LERNA on {d}. LERNA can be wrong.',
+    'mt.byProfile': 'ranked for your profile (orientation test)',
+    'mt.fitTitle': 'This job and you', 'mt.fitLockSub': 'With Premium, LERNA compares this job with your test answers and shows you your path to get there.',
+    'mt.fitB1': 'Your compatibility percentage with this job', 'mt.fitB2': 'What fits and what doesn’t with your profile', 'mt.fitB3': 'Your steps to get there, from where you are', 'mt.fitB4': 'Where to study in your country, and elsewhere if you want to move',
+    'mt.fitNoTest': 'Take the orientation test: LERNA will compare this job with your profile and show you your path.',
+    'mt.fitHi': 'Very compatible with your profile', 'mt.fitMid': 'Fairly compatible with your profile', 'mt.fitLo': 'Worth exploring: it fits your profile less',
+    'mt.fitNote': 'Calculated from your orientation test answers. It helps you think, it does not decide for you: LERNA can be wrong.',
+    'mt.w.dom': 'It is in a sector you chose: {d}.', 'mt.w.domNo': 'It is not in the sectors you chose in the test.',
+    'mt.w.subj': 'Your favourite subjects are useful here: {s}.', 'mt.w.subjNo': 'Your favourite subjects are less useful in this job.',
+    'mt.w.style.creatif': 'You are rather creative: this field needs it.', 'mt.w.style.analytique': 'You are rather analytical: it helps in this field.', 'mt.w.style.pratique': 'You are practical first: this field is hands-on.', 'mt.w.style.humain': 'You are people-oriented: this field is about others.',
+    'mt.w.styleNo': 'Your way of working is not the most common in this field.',
+    'mt.w.dur': 'The length of studies fits what you want.', 'mt.w.durLong': 'This job often needs more years of study than you want.', 'mt.w.durShort': 'This job often needs fewer years of study than you plan: you can specialise later.',
+    'mt.w.reg': 'You want to be able to move: this job is often regulated, so you will need your diploma recognised where you work.',
+    'mt.pathTitle': 'Your path to this job',
+    'mt.p.college': 'You are in lower secondary school: keep good foundations in the subjects this job uses, then aim for an upper secondary school that prepares you.',
+    'mt.p.lycee': 'You are in upper secondary school: pick subjects useful for this job and prepare your final exam (or your country’s end-of-school diploma).',
+    'mt.p.term': 'You are in your final year: pass your exam and apply this year to programmes that lead to this job.',
+    'mt.p.sup': 'You are already in higher education: check whether your programme leads to this job; if not, a bridge (professional degree, master’s, another school) is often possible.',
+    'mt.p.work': 'You already work: continuing education or recognition of your experience can lead you to this job.',
+    'mt.p.pause': 'You are between two steps: it is a good time to choose a programme that leads to this job.',
+    'mt.p.study': 'Studies: {x}', 'mt.p.y0': 'no long studies: a vocational diploma or on-the-job training is often enough.', 'mt.p.y1': 'the end of secondary school is often enough, with training for the job.',
+    'mt.p.yr': 'often {a} to {b} years after secondary school.', 'mt.p.yr1': 'often {a} years after secondary school.', 'mt.p.ydoc': 'a doctorate, often 8 years or more after secondary school.',
+    'mt.p.where': 'Where to study in your country ({p}):', 'mt.p.whereBtn': 'see the programmes', 'mt.p.abroad': 'You want to be able to move: look at programmes in other countries too.',
+    'mt.p.reg': 'Before you practise, check your country’s rule: a State-recognised diploma, and sometimes registration with a professional order.',
+    'mt.p.regAbroad': 'Often a regulated job: if you study in one country and work in another, have your diploma recognised where you work.',
+    'mt.p.near': 'To widen your options, also look at:',
+    'mt.s.maths': 'maths', 'mt.s.physique': 'physics and chemistry', 'mt.s.svt': 'biology', 'mt.s.histoire': 'history and geography', 'mt.s.eco': 'economics', 'mt.s.litterature': 'literature and philosophy', 'mt.s.langues': 'languages', 'mt.s.info': 'computing', 'mt.s.arts': 'the arts', 'mt.s.sport': 'sport'
   }
 });
 
@@ -156,12 +262,53 @@ Lerna.addStrings({
   var STOP = ' de du des la le les l d un une et en a au aux pour par sur dans licence master bachelor bts but dut diplome mention parcours option specialite cycle annee annees ecole formation filiere programme professionnelle pro integre integree preparatoire classe '.split(' ');
   function lvTxt(n) { return t('mt.l' + n); }
   function cap(x) { x = String(x || ''); return x.charAt(0).toUpperCase() + x.slice(1); }   // les noms ESCO sont en minuscules
-  function letterName(L) { var d = (IX.domaines || []).filter(function (x) { return x.c === L; })[0]; return d ? d.l : ''; }
+  function letterName(L) { var d = (IX.domaines || []).filter(function (x) { return x.c === L; })[0]; return d ? (Lerna.lang === 'en' && d.le ? d.le : d.l) : ''; }
+  /* Groupe affiché : le groupe de métiers de l'OIT (métiers du monde), sinon le grand domaine du répertoire */
+  function groupName(m) { var g = m[7] && IX.isco && IX.isco[m[7]]; return g ? (Lerna.lang === 'en' && g[1] ? g[1] : g[0]) : letterName(m[2]); }
+  /* Niveau : celui du répertoire (années après le lycée) ; sinon le niveau de compétence de l'OIT (m[6]) */
+  function lvBadge(m) { return m[3] >= 0 ? lvTxt(m[3]) : m[6] ? t('mt.slb.' + m[6]) : lvTxt(-1); }
+  function isHigher(m) { return m[3] >= 2 || (m[3] < 0 && /[34]/.test(m[6] || '')); }
+  function yearsQuick(m) {
+    if (m[3] >= 0) { var y = m[3] <= 1 ? 0 : m[3]; return [y, y]; }
+    return { '1': [0, 0], '2': [0, 0], '3': [1, 3], '4': [3, 6], '34': [3, 6] }[m[6]] || null;
+  }
+  function lvMatch(m, lv) {
+    if (!lv) return true;
+    var y = yearsQuick(m); if (!y) return false;
+    if (lv === 'bac') return y[0] <= 2;
+    if (lv === '3') return y[0] <= 4 && y[1] >= 3;
+    return y[1] >= 5;
+  }
+  function cName(cc) { return window.LERNA_COUNTRY_NAME ? window.LERNA_COUNTRY_NAME(cc, Lerna.lang) : cc; }
+
+  /* ---------- Profil (test d'orientation) : c'est lui qu'on met en avant, jamais un pays ---------- */
+  var SUBJ = { maths: ['sciences', 'ingenierie', 'tech', 'business'], physique: ['ingenierie', 'sciences'], svt: ['sante', 'sciences', 'agri'], eco: ['business'], info: ['tech', 'ingenierie'], arts: ['art'], litterature: ['comm', 'droit', 'education'], histoire: ['droit', 'education'], langues: ['comm', 'education'], sport: ['education', 'sante'] };
+  var STYLE = { creatif: ['art', 'comm'], analytique: ['sciences', 'tech', 'business', 'droit', 'ingenierie', 'sante'], pratique: ['ingenierie', 'agri', 'sante'], humain: ['sante', 'education', 'droit', 'comm'] };
+  var WANT = { courte: [0, 2], moyenne: [3, 3], longue: [4, 5] };
+  function profileInfo() {
+    var a = ((Lerna.store.get('lerna_profile', null) || {}).answers) || {};
+    var arr = function (v) { v = Array.isArray(v) ? v : v ? [v] : []; return v.map(function (x) { return typeof x === 'string' ? x : x && (x.id || x.v); }).filter(Boolean); };
+    var P = { doms: arr(a.q15).filter(function (d) { return DOMS.indexOf(d) !== -1; }), subs: arr(a.q6), style: arr(a.q8)[0] || '', dur: arr(a.q20)[0] || '', level: arr(a.q2)[0] || '', where: arr(a.q13), leave: arr(a.q18)[0] || '', cc: typeof a.q4 === 'string' ? a.q4 : '' };
+    return P.doms.length || P.subs.length || P.style || P.dur ? P : null;
+  }
+  var PROF = null;
+  function profScore(m) {
+    var P = PROF; if (!P) return 0;
+    var doms = m[4] || [], s = 0, sb = 0;
+    P.doms.forEach(function (d) { if (doms.indexOf(d) !== -1) s += 3; });
+    P.subs.forEach(function (x) { if ((SUBJ[x] || []).some(function (d) { return doms.indexOf(d) !== -1; })) sb++; });
+    s += Math.min(2, sb);
+    if (P.style && STYLE[P.style] && STYLE[P.style].some(function (d) { return doms.indexOf(d) !== -1; })) s += 1;
+    var y = yearsQuick(m), w = WANT[P.dur];
+    if (y && w && y[0] <= w[1] && y[1] >= w[0]) s += 1;
+    return s;
+  }
+  function abroad(P) { return P.where.some(function (w) { return w !== 'pays'; }) && P.leave !== 'non'; }
 
   function loadIndex() {
     if (IX) return Promise.resolve(IX);
     return fetch('assets/metiers/index.json').then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); }).then(function (j) {
-      IX = j; IX.byCode = {}; IX.m.forEach(function (m) { m.n = norm(m[1]); m.s = ' ' + m.n; m.e = m[5] ? ' ' + norm(m[5]) : ''; IX.byCode[m[0]] = m; }); return IX;
+      IX = j; IX.byCode = {}; IX.m.forEach(function (m) { m.n = norm(m[1]); m.s = ' ' + m.n; m.e = m[5] ? ' ' + norm(m[5]) : ''; m.p = profScore(m); IX.byCode[m[0]] = m; }); return IX;
     });
   }
   function loadLetter(L) {
@@ -203,10 +350,8 @@ Lerna.addStrings({
     IX.m.forEach(function (m) {
       if (st.dom && (m[4] || []).indexOf(st.dom) === -1) return;
       if (ciSet && !ciSet[m[0]]) return;
-      if (st.lv === 'bac' && !(m[3] >= 0 && m[3] <= 2)) return;
-      if (st.lv === '3' && !(m[3] === 3 || m[3] === 4)) return;
-      if (st.lv === '5' && !(m[3] >= 5)) return;
-      var score = m[3] >= 2 ? 2 : 1;   // sans recherche : d'abord les métiers qui demandent des études supérieures
+      if (!lvMatch(m, st.lv)) return;
+      var score = PROF ? m.p : isHigher(m) ? 2 : 1;   // sans recherche : d'abord ce qui colle au profil (sinon les études supérieures)
       if (words.length) {
         score = 0;
         var blob = SX && SX[m[0]] || '';
@@ -226,12 +371,12 @@ Lerna.addStrings({
       }
       out.push([score, m]);
     });
-    out.sort(function (a, b) { return b[0] - a[0] || (b[1][3] >= 2) - (a[1][3] >= 2) || a[1][1].localeCompare(b[1][1], 'fr'); });
+    out.sort(function (a, b) { return b[0] - a[0] || b[1].p - a[1].p || isHigher(b[1]) - isHigher(a[1]) || a[1][1].localeCompare(b[1][1], 'fr'); });
     return out.map(function (x) { return x[1]; });
   }
   function card(m) {
     var en = Lerna.lang === 'en' && m[5];
-    return '<a class="card card-hover mcard" href="metiers.html?code=' + encodeURIComponent(m[0]) + '"><h3>' + esc(en ? cap(m[5]) : m[1]) + '</h3>' + (en ? '<p class="small muted" style="margin-top:2px">' + esc(m[1]) + '</p>' : '') + '<div class="meta"><span class="lv">' + esc(lvTxt(m[3])) + '</span><span>' + esc(letterName(m[2])) + '</span></div></a>';
+    return '<a class="card card-hover mcard" href="metiers.html?code=' + encodeURIComponent(m[0]) + '"><h3>' + esc(cap(en ? m[5] : m[1])) + '</h3>' + (en ? '<p class="small muted" style="margin-top:2px">' + esc(cap(m[1])) + '</p>' : '') + '<div class="meta"><span class="lv">' + esc(lvBadge(m)) + '</span><span>' + esc(groupName(m)) + '</span></div></a>';
   }
   function renderList() {
     document.title = t('mt.docTitle');
@@ -257,6 +402,7 @@ Lerna.addStrings({
     $('mcount').textContent = list.length === 1 ? t('mt.count1') : t('mt.count', { n: list.length.toLocaleString(Lerna.lang === 'en' ? 'en' : 'fr-FR') });
     var dh = st.q ? domHits() : [];
     if (dh.length) $('mcount').textContent += ' · ' + t('mt.inDom', { d: dh.map(function (d) { return t('mt.dom.' + d); }).join(', ') });
+    else if (PROF && !st.q) $('mcount').textContent += ' · ' + t('mt.byProfile');
     var c = st.ci && IX.interets.filter(function (x) { return String(x.id) === String(st.ci); })[0];
     $('ciIntro').textContent = c && c.d ? c.d : '';
     $('mlist').innerHTML = list.length ? list.slice(0, st.show).map(card).join('') :
@@ -319,70 +465,167 @@ Lerna.addStrings({
     if (lo <= 2 && hi >= 2) lmd.unshift(t('mt.u.bts'));
     return txt + (lmd.length ? ' ' + lmd.join(' ') : '');
   }
-  function studyLinks(dom) {
-    var me = Lerna.country(), list = ['SN', 'CI', 'FR'];
-    if (me && list.indexOf(me) === -1) list.unshift(me);
-    var q = dom ? 'domaine=' + encodeURIComponent(dom) + '&' : '';
-    return list.map(function (cc) { return '<a class="btn btn-ghost btn-sm" href="explorer.html?' + q + 'pays=' + cc + '">' + Lerna.flag(cc) + ' ' + esc(window.LERNA_COUNTRY_NAME ? window.LERNA_COUNTRY_NAME(cc, Lerna.lang) : cc) + '</a>'; }).join('') +
-      '<a class="btn btn-primary btn-sm" href="explorer.html' + (dom ? '?domaine=' + encodeURIComponent(dom) : '') + '">' + t('mt.allCountries') + ' →</a>';
+  /* ---------- Pays au choix : aucun pays affiché d'office ; on part du pays de la personne ---------- */
+  function pickedCountry() { var c = Lerna.store.get('lerna_mt_cc', null); return typeof c === 'string' && c ? c : (Lerna.country() || ''); }
+  function countrySelect(cc) {
+    var c = window.LERNA_COUNTRIES ? window.LERNA_COUNTRIES(Lerna.lang) : { priority: [], rest: [] };
+    var all = c.priority.concat(c.rest).sort(function (a, b) { return a.name.localeCompare(b.name, Lerna.lang === 'en' ? 'en' : 'fr'); });
+    var me = Lerna.country();
+    var opt = function (x) { return '<option value="' + x.code + '"' + (x.code === cc ? ' selected' : '') + '>' + esc(x.name) + '</option>'; };
+    return '<select class="select mt-ccsel" id="mcc"><option value="">' + esc(t('mt.cPick')) + '</option>' +
+      all.filter(function (x) { return x.code === me; }).map(opt).join('') + all.filter(function (x) { return x.code !== me; }).map(opt).join('') + '</select>';
+  }
+  function countryBox(f, m, dom, cc) {
+    if (!cc) return '<p class="small muted">' + esc(t('mt.cPickFirst')) + '</p>';
+    var name = cName(cc), rule = RULES[ruleOf(m[0], f.t)] || null, r = rule ? rule[cc.toLowerCase()] : null;
+    var fr = cc === 'FR' && (f.acc || (f.dip && f.dip.length)), h = '';
+    if (r) h += '<div class="mt-rule"><strong>' + Lerna.flag(cc) + ' ' + esc(t('mt.cRule')) + '</strong><p>' + esc(cap(t(r[0]))) + ' <a class="small orange" href="' + esc(r[2]) + '" target="_blank" rel="noopener">' + esc(r[1]) + ' ↗</a></p></div>';
+    if (fr) h += '<div class="mt-rule"><strong>' + Lerna.flag(cc) + ' ' + esc(t('mt.inFrance')) + '</strong>' + (f.acc ? '<p>' + esc(f.acc) + '</p>' : '') +
+      (f.dip && f.dip.length ? '<h4 class="mt-h4">' + t('mt.dips') + '</h4><div style="margin-top:6px">' + ul(f.dip) + '</div>' : '') + '</div>';
+    if (!r && !fr) h += '<p>' + esc(t('mt.cNone', { p: name })) + '</p>';
+    return h + '<div class="acts"><a class="btn btn-ghost btn-sm" href="explorer.html?' + (dom ? 'domaine=' + encodeURIComponent(dom) + '&' : '') + 'pays=' + encodeURIComponent(cc) + '">' + Lerna.flag(cc) + ' ' + esc(t('mt.cStudy', { p: name })) + '</a>' +
+      '<a class="btn btn-ghost btn-sm" href="https://www.google.com/search?q=' + encodeURIComponent(cap(f.t) + ' ' + name + ' ' + t('mt.cQuery')) + '" target="_blank" rel="noopener" data-out="metier-regles">' + esc(t('mt.cSearch')) + ' ↗</a></div>';
   }
   function reachHtml(f, m, dom) {
-    var rule = RULES[ruleOf(m[0], f.t)] || null, reg = f.rg || rule;
-    var rl = function (r, cc) { return '<li><span><strong>' + Lerna.flag(cc) + ' ' + esc(window.LERNA_COUNTRY_NAME ? window.LERNA_COUNTRY_NAME(cc, Lerna.lang) : cc) + ' :</strong> ' + esc(t(r[0])) + ' <a class="small orange" href="' + esc(r[2]) + '" target="_blank" rel="noopener">' + esc(r[1]) + ' ↗</a></span></li>'; };
+    var rule = RULES[ruleOf(m[0], f.t)] || null, reg = f.rg || rule, sl = m[6] || '';
+    var yrs = m[3] >= 0 ? univLevel(f.acc, m[3]) : '';
     return '<section class="card"><h3>' + t('mt.reach') + '</h3>' +
-      '<h4 class="mt-h4">' + t('mt.world') + '</h4><p>' + esc(univLevel(f.acc, m[3])) + '</p>' +
-      '<p class="small muted" style="margin-top:6px">' + esc(t('mt.lvNote')) + ' ' + esc(t('mt.lmdSrc')) + '</p>' +
+      '<h4 class="mt-h4">' + t('mt.world') + '</h4>' +
+      (sl ? '<p><strong>' + t('mt.slT') + ' : </strong>' + esc(t('mt.sl.' + sl)) + '</p>' : '') +
+      (yrs ? '<p' + (sl ? ' style="margin-top:6px"' : '') + '>' + (sl ? '<strong>' + t('mt.durT') + ' : </strong>' : '') + esc(yrs) + '</p>' : (sl ? '' : '<p>' + esc(t('mt.u.none')) + '</p>')) +
+      '<p class="small muted" style="margin-top:6px">' + esc(t('mt.lvNote2')) + (sl ? ' ' + esc(t('mt.slSrc')) : '') + '</p>' +
       (reg ? '<div class="notice" style="margin-top:14px">' + Lerna.icon('info') + '<div><strong>' + t('mt.regTitle') + '</strong><p class="small" style="margin-top:4px">' + esc(t('mt.regText')) + '</p>' +
-        (rule && (rule.sn || rule.ci) ? '<ul class="list-arrow" style="margin-top:8px">' + (rule.sn ? rl(rule.sn, 'SN') : '') + (rule.ci ? rl(rule.ci, 'CI') : '') + '</ul>' : '') +
         '<p class="small muted" style="margin-top:8px">' + esc(t('mt.recog')) + '</p></div></div>' : '') +
-      (f.acc || (f.dip && f.dip.length) ? '<details class="mt-fr"><summary>' + Lerna.flag('FR') + ' ' + t('mt.inFrance') + '</summary>' + (f.acc ? '<p style="margin-top:8px">' + esc(f.acc) + '</p>' : '') +
-        (f.dip && f.dip.length ? '<h4 class="mt-h4">' + t('mt.dips') + '</h4><div style="margin-top:6px">' + ul(f.dip) + '</div>' : '') + '</details>' : '') +
-      '<h4 class="mt-h4" style="margin-top:16px">' + t('mt.where') + '</h4><div class="acts">' + studyLinks(dom) + '</div>' +
+      '<h4 class="mt-h4" style="margin-top:18px">' + t('mt.cTitle') + '</h4><p class="small muted" style="margin:4px 0 8px">' + esc(t('mt.cSub')) + '</p>' +
+      '<label class="sr-only" for="mcc">' + esc(t('mt.cPick')) + '</label>' + countrySelect(pickedCountry()) +
+      '<div id="ccBox" class="mt-cc">' + countryBox(f, m, dom, pickedCountry()) + '</div>' +
+      '<div class="acts" style="margin-top:14px"><a class="btn btn-primary btn-sm" href="explorer.html' + (dom ? '?domaine=' + encodeURIComponent(dom) : '') + '">' + t('mt.allStudy') + ' →</a></div>' +
       (Lerna.store.raw('lerna_results') ? '' : '<p style="margin-top:12px"><a class="orange bold" href="questionnaire.html">' + t('mt.test') + ' →</a></p>') +
       '</section>';
   }
+
+  /* ---------- Premium : « Ce métier et toi » (compatibilité avec le test + chemin personnel) ---------- */
+  function yearsOf(m, f) {
+    if (m[3] >= 0) { var r = levels(f.acc, m[3]); if (r[0] < 0) return null; return [r[0] <= 1 ? 0 : r[0], r[1] <= 1 ? 0 : r[1]]; }
+    return yearsQuick(m);
+  }
+  function yrsShort(m, f) {
+    if (m[3] < 0) return { '1': t('mt.p.y0'), '2': t('mt.p.y1'), '3': t('mt.p.yr', { a: 1, b: 3 }), '4': t('mt.p.yr', { a: 3, b: 6 }), '34': t('mt.p.yr', { a: 3, b: 6 }) }[m[6]] || '';
+    var r = levels(f.acc, m[3]), lo = r[0], hi = r[1];
+    if (lo < 0) return '';
+    if (lo === 8 || (lo >= 6 && hi === 8)) return t('mt.p.ydoc');
+    if (lo === 0) return t('mt.p.y0');
+    if (lo === 1 && hi <= 1) return t('mt.p.y1');
+    lo = lo <= 1 ? 0 : lo;
+    return lo === hi ? t('mt.p.yr1', { a: lo }) : t('mt.p.yr', { a: lo, b: hi });
+  }
+  function fitOf(m, f, P) {
+    var doms = m[4] || [], why = [], pts = 0, max = 0;
+    if (P.doms.length) {
+      max += 4;
+      var hit = doms.filter(function (d) { return P.doms.indexOf(d) !== -1; });
+      if (hit.length) { pts += 4; why.push(['ok', t('mt.w.dom', { d: hit.map(function (d) { return t('mt.dom.' + d); }).join(', ') })]); } else why.push(['ko', t('mt.w.domNo')]);
+    }
+    if (P.subs.length) {
+      max += 2;
+      var sh = P.subs.filter(function (x) { return (SUBJ[x] || []).some(function (d) { return doms.indexOf(d) !== -1; }); });
+      if (sh.length) { pts += 2; why.push(['ok', t('mt.w.subj', { s: sh.map(function (x) { return t('mt.s.' + x); }).join(', ') })]); } else why.push(['mid', t('mt.w.subjNo')]);
+    }
+    if (P.style && STYLE[P.style]) {
+      max += 2;
+      if (STYLE[P.style].some(function (d) { return doms.indexOf(d) !== -1; })) { pts += 2; why.push(['ok', t('mt.w.style.' + P.style)]); } else why.push(['mid', t('mt.w.styleNo')]);
+    }
+    var y = yearsOf(m, f), w = WANT[P.dur];
+    if (y && w) {
+      max += 2;
+      if (y[0] <= w[1] && y[1] >= w[0]) { pts += 2; why.push(['ok', t('mt.w.dur')]); }
+      else if (y[0] > w[1]) why.push(['ko', t('mt.w.durLong')]);
+      else { pts += 1; why.push(['mid', t('mt.w.durShort')]); }
+    }
+    var pct = max ? Math.round(pts / max * 100) : 0;
+    return { pct: pct, lab: pct >= 75 ? 'mt.fitHi' : pct >= 50 ? 'mt.fitMid' : 'mt.fitLo', why: why };
+  }
+  function pathOf(m, f, P) {
+    var steps = [], reg = f.rg || RULES[ruleOf(m[0], f.t)], dom = (m[4] || [])[0] || '';
+    var lv = { college: 'mt.p.college', lycee: 'mt.p.lycee', terminale: 'mt.p.term', superieur: 'mt.p.sup', travail: 'mt.p.work', pause: 'mt.p.pause' }[P.level];
+    if (lv) steps.push(esc(t(lv)));
+    var y = yrsShort(m, f);
+    if (y) steps.push(esc(t('mt.p.study', { x: y })));
+    var cc = P.cc || Lerna.country();
+    if (cc) steps.push(esc(t('mt.p.where', { p: cName(cc) })) + ' <a class="orange bold" href="explorer.html?' + (dom ? 'domaine=' + encodeURIComponent(dom) + '&' : '') + 'pays=' + encodeURIComponent(cc) + '">' + t('mt.p.whereBtn') + ' →</a>');
+    if (abroad(P)) steps.push(esc(t('mt.p.abroad')) + ' <a class="orange bold" href="explorer.html' + (dom ? '?domaine=' + encodeURIComponent(dom) : '') + '">' + t('mt.allCountries') + ' →</a>');
+    if (reg) steps.push(esc(t(abroad(P) ? 'mt.p.regAbroad' : 'mt.p.reg')));
+    var near = (f.mob || []).map(function (c) { return IX.byCode[c]; }).filter(Boolean).slice(0, 2);
+    if (near.length) steps.push(esc(t('mt.p.near')) + ' ' + near.map(function (n) { return '<a class="orange bold" href="metiers.html?code=' + encodeURIComponent(n[0]) + '">' + esc(cap(Lerna.lang === 'en' && n[5] ? n[5] : n[1])) + '</a>'; }).join(', '));
+    return steps;
+  }
+  function fitCard(f, m) {
+    var head = '<h3>✨ ' + t('mt.fitTitle') + '</h3>';
+    if (!Lerna.isPremium()) {
+      return '<section class="card lk-card mt-fit">' + Lerna.sticker('lock', 'stk-sm') + '<h3 style="margin-top:8px">' + t('mt.fitTitle') + '</h3>' +
+        '<p class="muted" style="margin:6px 0 4px">' + t('mt.fitLockSub') + '</p>' +
+        '<ul class="lk-list list-check">' + ['mt.fitB1', 'mt.fitB2', 'mt.fitB3', 'mt.fitB4'].map(function (k) { return '<li>' + t(k) + '</li>'; }).join('') + '</ul>' +
+        '<a class="btn btn-primary" style="margin-top:16px" href="premium.html?src=metier" data-paywall="metier" data-premium-go>' + t('pl.btn') + ' →</a>' +
+        '<p style="margin-top:8px"><a class="small muted" href="premium.html?src=metier">' + t('pl.plans') + '</a></p></section>';
+    }
+    if (!PROF) return '<section class="card mt-fit">' + head + '<p>' + esc(t('mt.fitNoTest')) + '</p><a class="btn btn-primary" style="margin-top:12px" href="questionnaire.html">' + t('mt.test') + ' →</a></section>';
+    var r = fitOf(m, f, PROF);
+    return '<section class="card mt-fit">' + head +
+      '<div class="mt-score"><b>' + r.pct + ' %</b><span>' + esc(t(r.lab)) + '</span></div>' +
+      '<ul class="mt-why">' + r.why.map(function (w) { return '<li class="' + w[0] + '"><span>' + esc(w[1]) + '</span></li>'; }).join('') + '</ul>' +
+      '<h4 class="mt-h4">' + t('mt.pathTitle') + '</h4><ol class="mt-path">' + pathOf(m, f, PROF).map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ol>' +
+      '<p class="small muted" style="margin-top:10px">' + esc(t('mt.fitNote')) + '</p></section>';
+  }
+
+  var CUR = null;
   function renderFiche(code) {
     var m = IX.byCode[code];
-    if (!m) { root.innerHTML = '<div class="empty" style="margin-top:40px">' + Lerna.icon('search') + '<h4>' + t('mt.notFound') + '</h4><a class="btn btn-primary" style="margin-top:14px" href="metiers.html">' + t('mt.back') + '</a></div>'; return; }
+    if (!m) { CUR = null; root.innerHTML = '<div class="empty" style="margin-top:40px">' + Lerna.icon('search') + '<h4>' + t('mt.notFound') + '</h4><a class="btn btn-primary" style="margin-top:14px" href="metiers.html">' + t('mt.back') + '</a></div>'; return; }
     root.innerHTML = '<div class="loading" style="padding:60px 0;text-align:center">' + Lerna.thinking('inline') + '</div>';
     loadLetter(m[2]).then(function (all) {
       var f = all[code];
       if (!f) { renderFiche('__none__'); return; }
       Lerna.track('metier_view', code);
+      CUR = { f: f, m: m, code: code };
+      var en = Lerna.lang === 'en', isE = f.src === 'esco';
+      var E = f.esco || null, EL = E ? (en && E.en && E.en.t ? E.en : E.fr) : null;
       var dom = (m[4] || [])[0] || '';
-      var d = f.d || [];
+      var d = isE && en && E.en && E.en.d ? [E.en.d] : (f.d || []);
+      var skills = isE && en && E.en && E.en.s && E.en.s.length ? E.en.s : (f.sf || []);
+      var know = isE && en && E.en && E.en.o && E.en.o.length ? E.en.o : (f.sv || []);
       var ctx = (f.ctx || []).map(function (c) { return '<div><h4>' + esc(c.l) + '</h4><p>' + esc(c.i.join(' · ')) + '</p></div>'; }).join('');
       var near = (f.mob || []).map(function (c) { return IX.byCode[c]; }).filter(Boolean).slice(0, 6);
-      var E = f.esco || null, EL = E ? (Lerna.lang === 'en' && E.en && E.en.t ? E.en : E.fr) : null;
-      var title = Lerna.lang === 'en' && m[5] ? cap(m[5]) : f.t;
+      var title = cap(en && m[5] ? m[5] : f.t);
       document.title = title + ' — LERNA';
       var ints = (IX.interets || []).filter(function (c) { return (c.m || []).indexOf(code) !== -1; });
       var tr = f.tr || {};
       root.innerHTML = '<div class="mf">' +
         '<a class="back" href="metiers.html">' + t('mt.back') + '</a>' +
-        '<div><span class="eyebrow">' + esc(letterName(m[2])) + '</span><h1>' + esc(title) + '</h1>' +
-          (title !== f.t ? '<p class="aka">' + esc(t('mt.frName', { n: f.t })) + '</p>' : '') +
-          '<div class="badges"><span class="badge badge-soft">' + esc(lvTxt(m[3])) + '</span>' + (f.dp ? '<span class="badge badge-cream">' + esc(f.dp) + '</span>' : '') +
+        '<div><span class="eyebrow">' + esc(groupName(m)) + '</span><h1>' + esc(title) + '</h1>' +
+          (title !== cap(f.t) ? '<p class="aka">' + esc(t('mt.frName', { n: cap(f.t) })) + '</p>' : '') +
+          '<div class="badges"><span class="badge badge-soft">' + esc(lvBadge(m)) + '</span>' + (f.dp ? '<span class="badge badge-cream">' + esc(f.dp) + '</span>' : '') +
             (tr.e ? '<span class="badge badge-olive">🌱 ' + esc(t('mt.trE')) + '</span>' : '') + (tr.n ? '<span class="badge badge-outline">💻 ' + esc(t('mt.trN')) + '</span>' : '') + '</div>' +
-          (f.ap && f.ap.length ? '<p class="aka">' + esc(t('mt.aka', { n: f.ap.slice(0, 4).join(' · ') })) + '</p>' : '') + '</div>' +
+          (f.ap && f.ap.length && !(isE && en) ? '<p class="aka">' + esc(t('mt.aka', { n: f.ap.slice(0, 4).map(cap).join(' · ') })) + '</p>' : '') + '</div>' +
         (d.length ? '<section class="card"><h3>' + t('mt.do') + '</h3><p class="intro">' + esc(d[0]) + '</p>' + (d.length > 1 ? ul(d.slice(1), 'list-arrow') : '') + '</section>' : '') +
+        fitCard(f, m) +
         reachHtml(f, m, dom) +
         (f.se && f.se.length ? '<section class="card"><h3>' + t('mt.qual') + '</h3><p class="small muted" style="margin:-4px 0 10px">' + t('mt.qualSub') + '</p>' + ul(f.se) + '</section>' : '') +
-        (f.sf && f.sf.length ? '<section class="card"><h3>' + t('mt.skills') + '</h3>' + ul(f.sf) + '</section>' : '') +
-        (f.sv && f.sv.length ? '<section class="card"><h3>' + t('mt.know') + '</h3><p>' + esc(f.sv.join(' · ')) + '</p></section>' : '') +
+        (skills.length ? '<section class="card"><h3>' + t('mt.skills') + '</h3>' + ul(skills.map(cap)) + '</section>' : '') +
+        (know.length ? '<section class="card"><h3>' + t(isE ? 'mt.opt' : 'mt.know') + '</h3><p>' + esc(know.join(' · ')) + '</p></section>' : '') +
         (f.sec && f.sec.length ? '<section class="card"><h3>' + t('mt.secs') + '</h3><p class="small muted" style="margin:-4px 0 10px">' + t('mt.secsSub') + '</p><div class="chips">' + f.sec.map(function (x) { return '<span class="chip">' + esc(x) + '</span>'; }).join('') + '</div></section>' : '') +
         (ctx ? '<section class="card"><h3>' + t('mt.ctx') + '</h3><div class="ctx">' + ctx + '</div></section>' : '') +
         (ints.length ? '<section class="card"><h3>' + t('mt.ints') + '</h3><div class="chips">' + ints.map(function (c) { return '<a class="chip" href="metiers.html?ci=' + encodeURIComponent(c.id) + '">' + esc(c.l) + '</a>'; }).join('') + '</div></section>' : '') +
-        (EL ? '<section class="card mt-intl"><h3>🌍 ' + t('mt.intl') + '</h3><p class="small muted" style="margin:-4px 0 12px">' + t('mt.intlSub') + '</p>' +
-          '<dl class="mt-dl"><dt>' + t('mt.intlName') + '</dt><dd>' + esc(cap(EL.t)) + (Lerna.lang !== 'en' && E.en && E.en.t ? ' <span class="muted">(' + esc(E.en.t) + ')</span>' : '') + '</dd>' +
+        (EL ? '<section class="card mt-intl"><h3>🌍 ' + t(isE ? 'mt.intlE' : 'mt.intl') + '</h3><p class="small muted" style="margin:-4px 0 12px">' + t(isE ? 'mt.intlESub' : 'mt.intlSub') + '</p>' +
+          '<dl class="mt-dl"><dt>' + t('mt.intlName') + '</dt><dd>' + esc(cap(EL.t)) + (!en && E.en && E.en.t ? ' <span class="muted">(' + esc(E.en.t) + ')</span>' : '') + '</dd>' +
           (EL.i ? '<dt>' + t('mt.intlGroup') + '</dt><dd>' + esc(EL.i) + (EL.il ? ' — ' + esc(EL.il) : '') + '</dd>' : '') + '</dl>' +
-          (EL.d ? '<h4 class="mt-h4">' + t('mt.intlDesc') + '</h4><p>' + esc(EL.d) + '</p>' : '') +
-          (EL.s && EL.s.length ? '<h4 class="mt-h4">' + t('mt.intlSkills') + '</h4><div class="chips" style="margin-top:6px">' + EL.s.map(function (x) { return '<span class="chip">' + esc(x) + '</span>'; }).join('') + '</div>' : '') +
-          '<p class="small muted" style="margin-top:12px">' + t('mt.intlApprox') + ' <a class="orange" href="' + esc(E.u) + '" target="_blank" rel="noopener">' + t('mt.intlOpen') + ' ↗</a></p></section>' : '') +
-        (near.length ? '<section class="card"><h3>' + t('mt.near') + '</h3><p class="small muted" style="margin:-4px 0 10px">' + t('mt.nearSub') + '</p><div class="near">' + near.map(function (n) {
-          return '<a href="metiers.html?code=' + encodeURIComponent(n[0]) + '">' + esc(n[1]) + '<small>' + esc(lvTxt(n[3])) + '</small></a>';
+          (!isE && EL.d ? '<h4 class="mt-h4">' + t('mt.intlDesc') + '</h4><p>' + esc(EL.d) + '</p>' : '') +
+          (!isE && EL.s && EL.s.length ? '<h4 class="mt-h4">' + t('mt.intlSkills') + '</h4><div class="chips" style="margin-top:6px">' + EL.s.map(function (x) { return '<span class="chip">' + esc(x) + '</span>'; }).join('') + '</div>' : '') +
+          '<p class="small muted" style="margin-top:12px">' + (isE ? '' : t('mt.intlApprox') + ' ') + '<a class="orange" href="' + esc(E.u) + '" target="_blank" rel="noopener">' + t('mt.intlOpen') + ' ↗</a></p></section>' : '') +
+        (near.length ? '<section class="card"><h3>' + t(isE ? 'mt.nearE' : 'mt.near') + '</h3><p class="small muted" style="margin:-4px 0 10px">' + t(isE ? 'mt.nearESub' : 'mt.nearSub') + '</p><div class="near">' + near.map(function (n) {
+          return '<a href="metiers.html?code=' + encodeURIComponent(n[0]) + '">' + esc(cap(en && n[5] ? n[5] : n[1])) + '<small>' + esc(lvBadge(n)) + '</small></a>';
         }).join('') + '</div></section>' : '') +
-        '<p class="src-note">' + esc(t('mt.src', { v: IX.version || 'ROME', d: Lerna.fmtDate(IX.maj) })) + (E ? ' ' + esc(t('mt.srcEsco')) : '') + ' ' + esc(t('mt.srcWarn')) + '</p>' +
+        '<p class="src-note">' + (isE ? esc(t('mt.srcE', { d: Lerna.fmtDate((IX.monde && IX.monde.maj) || IX.maj) })) :
+          esc(t('mt.src', { v: IX.version || 'ROME', d: Lerna.fmtDate(IX.maj) })) + (E ? ' ' + esc(t('mt.srcEsco')) : '') + ' ' + esc(t('mt.srcWarn'))) + '</p>' +
       '</div>';
       window.scrollTo(0, 0);
     }, showErr);
@@ -396,8 +639,8 @@ Lerna.addStrings({
   }
 
   Lerna.ready(function () {
-    /* Arrivée sans filtre : on part du premier domaine choisi dans le test */
-    if (!st.q && !st.dom && !st.ci && !st.lv && !Lerna.param('code')) { st.dom = myDoms()[0] || ''; st.autoDom = !!st.dom; }
+    /* Les métiers sont classés selon le profil (test d'orientation) : aucun filtre ni pays imposé */
+    PROF = profileInfo();
     root.querySelector('.loading').innerHTML = Lerna.thinking('inline');
     route();
     document.addEventListener('click', function (e) {
@@ -411,7 +654,15 @@ Lerna.addStrings({
     document.addEventListener('change', function (e) {
       if (e.target.id === 'mci') { st.ci = e.target.value; st.show = PER; paintList(); }
       if (e.target.id === 'mlv') { st.lv = e.target.value; st.show = PER; paintList(); }
+      if (e.target.id === 'mcc' && CUR) {
+        var cc = e.target.value;
+        Lerna.store.set('lerna_mt_cc', cc);
+        $('ccBox').innerHTML = countryBox(CUR.f, CUR.m, (CUR.m[4] || [])[0] || '', cc);
+        Lerna.track('metier_pays', cc || '-');
+      }
     });
+    /* Premium activé ou perdu pendant la visite : la carte « Ce métier et toi » est réaffichée */
+    Lerna.onAccessChange(function () { if (CUR && Lerna.param('code')) renderFiche(CUR.code); });
     Lerna.onLang(function () { if (IX) { if (Lerna.param('code')) renderFiche(Lerna.param('code')); else renderList(); } });
   });
 })();

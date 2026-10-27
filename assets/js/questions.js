@@ -302,7 +302,7 @@
     {
       id: 'q20', block: 3, type: 'single', layout: 'rows',
       title: { fr: 'Tu veux une formation de quelle durée ?', en: 'How long a programme do you want?' },
-      sub: { fr: 'Être médecin prend 9 ans. Être développeur web certifié prend 1 an. Tout dépend de ton projet.', en: 'Becoming a doctor takes 9 years. Becoming a certified web developer takes 1 year. It all depends on your plan.' },
+      sub: { fr: 'Devenir médecin prend de longues années (le nombre dépend du pays). Devenir développeur web peut prendre quelques mois à un an. Tout dépend de ton projet.', en: 'Becoming a doctor takes many years (how many depends on the country). Becoming a web developer can take a few months to a year. It all depends on your plan.' },
       options: [
         o('courte', 'zap', 'Courte — 1 à 2 ans', 'Short — 1 to 2 years', 'BTS, DUT, formations certifiantes. Je veux entrer rapidement sur le marché du travail.', 'Diplomas, certificates, vocational programmes. I want to start working quickly.'),
         o('moyenne', 'book-green', 'Moyenne — 3 ans', 'Medium — 3 years', 'Licence, Bachelor. Un diplôme solide sans s\'engager trop longtemps.', "Bachelor's degree. A solid qualification without committing too long."),

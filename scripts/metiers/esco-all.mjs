@@ -45,6 +45,11 @@ const labels = (o, key, lg) => {
   const v = Array.isArray(a) ? a : Array.isArray(a[lg]) ? a[lg] : typeof a[lg] === 'string' ? [a[lg]] : [];
   return v.map((x) => (typeof x === 'string' ? x : (x && (x.label || x.literal)) || '')).filter(Boolean);
 };
+/* « animatrice danse » n'est pas un autre nom de « animateur danse » : c'est le même au féminin */
+function genderVariant(a, b) {
+  const A = norm(a).split(' '), B = norm(b).split(' ');
+  return A.length === B.length && A.slice(1).join(' ') === B.slice(1).join(' ') && A[0].slice(0, 4) === B[0].slice(0, 4);
+}
 const linksOf = (o, name) => ((o && o._links && o._links[name]) || []).filter((x) => x && x.uri);
 
 /* ---------- 1. Liste de tous les métiers ESCO ---------- */
@@ -55,13 +60,22 @@ async function listAll() {
   const total = first && +first.total;
   log('ESCO (monde) : recherche sans mot →', total || 'refusée');
   if (total > 2000) {
-    const add = (j) => ((j && j._embedded && j._embedded.results) || []).forEach((h) => h.uri && uris.add(h.uri));
-    add(first);
-    for (let off = 100; off < total; off += 100) { add(await get(API + '/search?language=fr&type=occupation&limit=100&offset=' + off + '&full=false')); await sleep(50); }
+    const res = (j) => ((j && j._embedded && j._embedded.results) || []).map((h) => h.uri).filter(Boolean);
+    const p0 = res(first); p0.forEach((u) => uris.add(u));
+    /* « offset » d'ESCO : numéro de page (0, 1, 2…) ou rang du premier résultat, selon la version : on teste */
+    const p1 = res(await get(API + '/search?language=fr&type=occupation&limit=100&offset=1&full=false'));
+    const pageMode = p1.length > 50 && p1[0] !== p0[1];
+    log('  pagination ESCO :', pageMode ? 'par numéro de page' : 'par rang');
+    const pages = Math.ceil(total / 100);
+    for (let i = 1; i < pages && Date.now() < DEADLINE; i++) {
+      const off = pageMode ? i : i * 100;
+      res(await get(API + '/search?language=fr&type=occupation&limit=100&offset=' + off + '&full=false')).forEach((u) => uris.add(u));
+      await sleep(50);
+    }
     log('  métiers listés par la recherche :', uris.size);
   }
   /* b) en secours (ou en plus) : l'arbre de la classification de l'OIT, du grand groupe au métier */
-  if (uris.size < 2000) {
+  if (uris.size < (total > 2000 ? total * 0.95 : 2000)) {
     const seen = new Set(), queue = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'].map((c) => 'http://data.europa.eu/esco/isco/C' + c);
     let shown = false;
     while (queue.length && Date.now() < DEADLINE) {
@@ -194,7 +208,7 @@ await Promise.all([worker(), worker(), worker(), worker()]);
 
 /* Codes et fichiers : un fichier par sous-grand groupe de l'OIT (2 chiffres), lettre « Z » + groupe */
 const used = new Set(index.m.map((m) => m[0]));
-const files = {}, byUnit = {}, added = [];
+const files = {}, byUnit = {}, added = [], unitNames = {};
 for (const [u, d] of Object.entries(got)) {
   const isco = d.fr.i || (d.code || '').split('.')[0];
   if (!/^\d{4}$/.test(isco)) continue;
@@ -205,14 +219,15 @@ for (const [u, d] of Object.entries(got)) {
   const fiche = {
     t: d.fr.t, src: 'esco',
     d: d.fr.d ? [d.fr.d] : [],
-    ap: d.fr.a.filter((x) => norm(x) !== norm(d.fr.t)).slice(0, 8),
+    ap: d.fr.a.filter((x) => norm(x) !== norm(d.fr.t) && !genderVariant(x, d.fr.t)).slice(0, 8),
     sf: d.fr.s, sv: d.fr.o,
-    esco: { u, q: 1, fr: { t: d.fr.t, d: d.fr.d, i: isco, il: d.fr.il, s: d.fr.s }, en: { t: d.en.t, d: d.en.d, i: isco, il: d.en.il, s: d.en.s } },
+    esco: { u, q: 1, fr: { t: d.fr.t, d: d.fr.d, i: isco, il: d.fr.il, s: d.fr.s }, en: { t: d.en.t, d: d.en.d, i: isco, il: d.en.il, s: d.en.s, o: d.en.o } },
     mob: []
   };
   (files[L] = files[L] || {})[code] = fiche;
   (byUnit[isco] = byUnit[isco] || []).push(code);
-  added.push([code, d.fr.t, L, -1, domsOf(isco), d.en.t || '', skillLevel(isco)]);
+  added.push([code, d.fr.t, L, -1, domsOf(isco), d.en.t || '', skillLevel(isco), isco]);
+  if (!unitNames[isco] && d.fr.il) unitNames[isco] = [masc(d.fr.il), masc(d.en.il || '')];
   search[code] = norm([d.fr.t].concat(d.fr.a, [d.en.t], d.en.a, [d.fr.il, d.en.il]).join(' | '));
 }
 /* Métiers proches : les autres métiers du même groupe de l'OIT (4 chiffres), fiches ROME reliées comprises */
@@ -231,6 +246,7 @@ for (const L of Object.keys(files).sort()) {
   doms.push({ c: L, l: g.fr || ('CITP ' + L.slice(1)), le: g.en || '' });
 }
 index.domaines = doms;
+index.isco = unitNames;   // nom du groupe de métiers de l'OIT (4 chiffres), affiché sur les métiers du monde
 index.m = index.m.filter((m) => !/^E/.test(m[0])).concat(added);
 index.monde = { maj: new Date().toISOString().slice(0, 10), n: added.length, total: index.m.length, source: 'ESCO — Commission européenne (classification CITP-08 de l’OIT)' };
 for (const f of fs.readdirSync(OUT)) if (/^Z\d\d\.json$/.test(f)) fs.rmSync(path.join(OUT, f));
