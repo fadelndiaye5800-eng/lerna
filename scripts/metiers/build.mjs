@@ -110,8 +110,12 @@ function niveau(acc) {
   if (/master|diplôme d'ingénieur/i.test(s)) return 5;
   if (/licence|bachelor/i.test(s)) return 3;
   if (/\bBTS\b|\bBUT\b|\bDUT\b|\bBTSA\b|DEUST/i.test(s)) return 2;
+  /* Diplôme d'État d'infirmier (France) : 3 ans de formation après le bac, au grade de licence */
+  /* (sauf spécialités qui demandent 2 ans de plus : anesthésie, bloc opératoire, puériculture, pratique avancée) */
+  if (/dipl[ôo]me d'[ée]tat d'infirmi/i.test(s) && !/anesth|bloc opératoire|puéricult|pratique avancée/i.test(s)) return 3;
   if (/\bbac\b|baccalauréat|brevet professionnel|\bBP\b/i.test(s)) return 1;
   if (/\bCAP\b|\bBEP\b|sans diplôme|aucun diplôme|sans formation/i.test(s)) return 0;
+  if (/sans qualification|\bCQP\b|certificat de qualification professionnelle/i.test(s)) return 0;
   return -1;
 }
 

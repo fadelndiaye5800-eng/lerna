@@ -55,7 +55,9 @@
   .mt-dl dt { color: var(--muted); font-size: .86rem; }
   .mt-dl dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
   @media (max-width: 480px) { .mt-dl { grid-template-columns: 1fr; gap: 2px; } .mt-dl dd { margin-bottom: 8px; } }
-  .mf .chips .chip { white-space: normal; text-align: left; }
+  .mf .chips { flex-wrap: wrap; overflow: visible; }
+  .mf span.chip { background: var(--cream-dark); border-color: transparent; font-weight: 500; cursor: default; }
+  .mf .chips .chip { flex-shrink: 1; max-width: 100%; white-space: normal; text-align: left; border-radius: 14px; padding: 7px 12px; font-size: .86rem; line-height: 1.35; }
   .mt-fr { margin-top: 14px; border: 1.5px solid var(--cream-dark); border-radius: 14px; padding: 10px 14px; }
   .mt-fr summary { cursor: pointer; font-weight: 700; font-size: .94rem; }
   .mf .acts .btn { white-space: normal; }
