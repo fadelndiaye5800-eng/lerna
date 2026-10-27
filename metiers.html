@@ -209,14 +209,15 @@ Lerna.addStrings({
         var blob = SX && SX[m[0]] || '';
         /* Début de mot + racine (« comptabilité » trouve « comptable », « sage » ne trouve pas « paysagiste ») :
            l'intitulé compte le plus, puis le nom international, puis les autres noms du métier et son secteur */
-        var hit = 0;
+        var hit = 0, hitT = 0;
         stems.forEach(function (stem, i) {
           var at = m.s.indexOf(stem);
-          if (at !== -1) { score += (at === 0 ? 8 : 6) * wt[i]; hit++; }
-          else if (m.e && m.e.indexOf(stem) !== -1) { score += 5 * wt[i]; hit++; }
+          if (at !== -1) { score += (at === 0 ? 8 : 6) * wt[i]; hit++; hitT++; }
+          else if (m.e && m.e.indexOf(stem) !== -1) { score += 5 * wt[i]; hit++; hitT++; }
           else if (blob.indexOf(stem) !== -1) { score += 3 * wt[i]; hit++; }
         });
-        if (words.length > 1 && hit === words.length) score += 10;   // tous les mots trouvés : en premier
+        /* Tous les mots dans le nom du métier : en premier ; tous les mots quelque part : juste après */
+        if (words.length > 1) score += hitT === words.length ? 10 : hit === words.length ? 4 : 0;
         if (dh.length && (m[4] || []).some(function (d) { return dh.indexOf(d) !== -1; })) score += 2;
         if (!score) return;
       }
