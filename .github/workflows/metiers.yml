@@ -1,4 +1,4 @@
-# Métiers et débouchés : fiches métiers officielles de France Travail (ROME 4.0, Licence Ouverte 2.0),
+# Métiers et débouchés : fiches ROME (France Travail, Licence Ouverte 2.0) + tous les métiers ESCO (Commission européenne),
 # reliées aux domaines LERNA. Reconstruit chaque mois, puis publié par Vercel au prochain déploiement.
 name: Métiers et débouchés
 on:
@@ -7,7 +7,7 @@ on:
     - cron: '41 4 3 * *'        # le 3 de chaque mois à 4 h 41 UTC
   push:
     branches: [main]
-    paths: ['scripts/metiers/build.mjs', 'scripts/metiers/esco.mjs', '.github/workflows/metiers.yml']
+    paths: ['scripts/metiers/build.mjs', 'scripts/metiers/esco.mjs', 'scripts/metiers/esco-all.mjs', '.github/workflows/metiers.yml']
 permissions:
   contents: write
 concurrency:
@@ -16,7 +16,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 75
+    timeout-minutes: 130
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -30,6 +30,10 @@ jobs:
         run: |
           set -o pipefail
           node scripts/metiers/esco.mjs 2>&1 | tee -a scripts/metiers/build-log.txt
+      - name: Métiers du monde (tous les métiers ESCO)
+        run: |
+          set -o pipefail
+          node scripts/metiers/esco-all.mjs 2>&1 | tee -a scripts/metiers/build-log.txt
       - name: Publier si quelque chose a changé
         if: always()
         run: |
