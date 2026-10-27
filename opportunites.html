@@ -153,10 +153,11 @@ Lerna.addStrings({
     'op.none': 'Aucune offre ouverte avec ces filtres.', 'op.noneSub': 'Retire un filtre ou affiche les offres clôturées pour voir les prochaines sessions.',
     'op.verified': 'Mis à jour le {d}. Chaque offre est vérifiée sur la page officielle de l’organisme. LERNA peut se tromper : avant de postuler, relis toujours les conditions sur le site officiel.',
     'op.srcOk': 'Source officielle : {s} · vérifiée le {d}',
-    'op.premTitle': 'Toutes les offres sont ouvertes à tous',
-    'op.premText': "Premium t’aide à postuler : alerte dès qu’une offre de ton domaine arrive, « Est-ce pour moi ? » sans limite, lettre et entretien corrigés.",
-    'op.premInvTitle': 'Prépare ton projet avec Premium',
-    'op.premInvText': "Tous les programmes sont visibles. Premium te prévient dès qu’un nouveau financement arrive et vérifie sans limite si ton projet est prêt.",
+    'op.premTitle': 'Postuler, c’est avec Premium',
+    'op.premText': "Tu vois toutes les offres. Avec Premium : le lien officiel pour postuler, « Est-ce pour moi ? », l’alerte dès qu’une offre de ton domaine arrive, ta lettre et ton entretien corrigés.",
+    'op.premInvTitle': 'Contacter un programme, c’est avec Premium',
+    'op.premInvText': "Tu vois tous les programmes. Avec Premium : le lien officiel, l’alerte dès qu’un nouveau financement arrive, et la vérification de ton projet.",
+    'op.applyLock': 'Postuler avec Premium',
     'op.premBtn': 'Voir Premium →',
     'op.remote': 'À distance', 'op.intl': 'International', 'op.africa': 'Afrique',
     'op.hidden': 'Nom et organisme visibles avec Premium', 'op.save': 'Sauvegarder', 'op.saved': 'Sauvegardée',
@@ -214,10 +215,11 @@ Lerna.addStrings({
     'op.none': 'No open offer with these filters.', 'op.noneSub': 'Remove a filter or show closed offers to see upcoming sessions.',
     'op.verified': 'Updated on {d}. Every offer is checked on the organisation’s official page. LERNA can be wrong: before applying, always reread the conditions on the official website.',
     'op.srcOk': 'Official source: {s} · checked on {d}',
-    'op.premTitle': 'Every offer is open to everyone',
-    'op.premText': 'Premium helps you apply: an alert as soon as an offer in your field arrives, unlimited “Is this for me?”, cover letter and interview reviewed.',
-    'op.premInvTitle': 'Prepare your project with Premium',
-    'op.premInvText': 'Every programme is visible. Premium alerts you as soon as new funding arrives and checks without limit whether your project is ready.',
+    'op.premTitle': 'Applying is with Premium',
+    'op.premText': 'You can see every offer. With Premium: the official link to apply, “Is this for me?”, an alert as soon as an offer in your field arrives, your cover letter and interview reviewed.',
+    'op.premInvTitle': 'Contacting a programme is with Premium',
+    'op.premInvText': 'You can see every programme. With Premium: the official link, an alert as soon as new funding arrives, and a check of your project.',
+    'op.applyLock': 'Apply with Premium',
     'op.premBtn': 'See Premium →',
     'op.remote': 'Remote', 'op.intl': 'International', 'op.africa': 'Africa',
     'op.hidden': 'Name and organisation visible with Premium', 'op.save': 'Save', 'op.saved': 'Saved',
@@ -438,8 +440,9 @@ Lerna.addStrings({
     }
     var note = DL(o) ? o.deadlineNote : o.rollingNote;
     if (note && status !== 'closed') facts += '<p class="fact-note">' + esc(L(note)) + '</p>';
-    var btn;
+    var btn, payLock = Lerna.config.premiumEnabled && !Lerna.isPremium();   // le lien officiel et « Est-ce pour moi ? » : Premium
     if (status === 'closed') btn = '<span class="btn btn-ghost btn-sm is-disabled">' + t('op.closedBtn') + '</span>';
+    else if (payLock) btn = '<a class="btn btn-brown btn-sm" href="premium.html?src=offre" data-paywall="offre">' + Lerna.icon('lock', 'ic-sm') + t('op.applyLock') + '</a>';
     else {
       var label = o.type === 'bourse' ? t('op.apply') : o.type === 'investisseur' ? t('op.contact') : t('op.see');
       var saved = Lerna.oppFavs.has(o.id);
@@ -451,7 +454,7 @@ Lerna.addStrings({
       (DOMS(o).length ? '<div class="row" style="gap:6px">' + domTags(o) + '</div>' : '') +
       '<div class="facts">' + facts + '</div>' +
       '<div class="foot">' + btn + '</div>' +
-      (status !== 'closed' ? '<div class="fit" data-fitbox="' + o.id + '">' + (FIT[o.id] ? fitHTML(FIT[o.id]) : '<button type="button" class="fit-btn" data-fit="' + o.id + '">' + Lerna.icon('sparkle', 'ic-sm') + t('op.fit') + '</button>') + '</div>' : '') +
+      (status !== 'closed' && !payLock ? '<div class="fit" data-fitbox="' + o.id + '">' + (FIT[o.id] ? fitHTML(FIT[o.id]) : '<button type="button" class="fit-btn" data-fit="' + o.id + '">' + Lerna.icon('sparkle', 'ic-sm') + t('op.fit') + '</button>') + '</div>' : '') +
       '<div class="src">' + (o.source && o.verifie ? '<span class="src-ok">' + Lerna.icon('check', 'ic-sm') + t('op.srcOk', { s: esc(o.source), d: Lerna.fmtDate(o.verifie) }) + '</span>' : '') + '<button type="button" class="report-link" data-report="' + o.id + '" title="' + esc(t('op.reportTitle')) + '">' + Lerna.icon('flagReport', 'ic-sm') + t('op.report') + '</button></div></article>';
   }
 
@@ -483,7 +486,7 @@ Lerna.addStrings({
     });
     $('count').textContent = st.closed ? t('op.countAll', { n: shown.length }) : (open.length ? t((open.length === 1 ? 'op.c1.' : 'op.cn.') + st.tab, { n: open.length }) : t('op.c0'));
     $('guide').innerHTML = st.tab === 'investisseur' ? guideHTML() : '';
-    /* Plus d'offre cachée : le bandeau présente l'aide à la candidature (Premium), jamais un verrou sur l'information */
+    /* Bandeau Premium : on voit toutes les offres ; le lien officiel pour postuler et « Est-ce pour moi ? » sont Premium */
     var showPrem = Lerna.config.premiumEnabled && !Lerna.isPaidPremium() && open.length > 0;
     $('premBanner').innerHTML = showPrem
       ? '<div class="prem-banner">' + Lerna.icon('gem', 'ic-lg') + '<div><h3>' + t(st.tab === 'investisseur' ? 'op.premInvTitle' : 'op.premTitle') + '</h3><p>' + t(st.tab === 'investisseur' ? 'op.premInvText' : 'op.premText') + '</p></div><a class="btn btn-primary btn-sm" href="premium.html?src=offres">' + t('op.premBtn') + '</a></div>'
@@ -545,6 +548,7 @@ Lerna.addStrings({
     Lerna.onLang(full);
     Lerna.track('opps_visit');
     Lerna.auth.ready.then(function () { render(); window.LERNA_OPPS_UNLOCK().then(function (ok) { if (ok) full(); }); });
+    Lerna.onAccessChange(function () { render(); window.LERNA_OPPS_UNLOCK().then(function (ok) { if (ok) full(); }); });   // compte Premium reconnu plus tard
   });
 })();
 </script>

@@ -1783,6 +1783,58 @@
     return 'ref';
   };
 
+  /* Cadenas Premium des fiches et des offres : aperçu flouté + carte « Passer à Premium ».
+     Gratuit : le test, les 3 meilleures écoles, l'Explorer et la présentation de chaque fiche ; le reste est Premium. */
+  Lerna.addStrings({
+    fr: {
+      'pl.title': 'La suite de cette fiche est dans le Premium',
+      'pl.sub': 'Avant de candidater, sache exactement ce qui t’attend.',
+      'pl.b1': 'Admission : conditions, niveau des admis et chances d’être pris',
+      'pl.b2': 'Coûts : les frais publiés par l’école, avec leur source',
+      'pl.b3': 'Vie étudiante : ce que l’école publie sur la vie sur place',
+      'pl.b4': 'Comment candidater : les étapes et les dates, pas à pas dans Mon dossier',
+      'pl.btn': 'Passer à Premium', 'pl.plans': 'Voir les formules',
+      'pl.fee': 'Premium', 'pl.feeTitle': 'Les frais sont dans le Premium'
+    },
+    en: {
+      'pl.title': 'The rest of this page is in Premium',
+      'pl.sub': 'Before you apply, know exactly what is waiting for you.',
+      'pl.b1': 'Admission: requirements, profile of admitted students and your chances',
+      'pl.b2': 'Costs: the fees published by the school, with their source',
+      'pl.b3': 'Student life: what the school publishes about life on campus',
+      'pl.b4': 'How to apply: the steps and dates, step by step in My application',
+      'pl.btn': 'Go Premium', 'pl.plans': 'See the plans',
+      'pl.fee': 'Premium', 'pl.feeTitle': 'Fees are in Premium'
+    }
+  });
+  Lerna.lockCard = function (src, plan) {
+    var t = Lerna.t;
+    var q = 'premium.html?src=' + encodeURIComponent(src || 'fiche');
+    return '<section class="card lk-card">' + Lerna.sticker('lock', 'stk-sm') + '<h3 style="margin-top:8px">' + t('pl.title') + '</h3>' +
+      '<p class="muted" style="margin:6px 0 4px">' + t('pl.sub') + '</p>' +
+      '<ul class="lk-list list-check">' + ['pl.b1', 'pl.b2', 'pl.b3', 'pl.b4'].map(function (k) { return '<li>' + t(k) + '</li>'; }).join('') + '</ul>' +
+      '<a class="btn btn-primary" style="margin-top:16px" href="' + q + (plan ? '&plan=' + plan : '') + '" data-premium-go>' + t('pl.btn') + ' →</a>' +
+      '<p style="margin-top:8px"><a class="small muted" href="' + q + '">' + t('pl.plans') + '</a></p></section>';
+  };
+  /* Aperçu flouté (non lisible, non cliquable) suivi de la carte Premium */
+  Lerna.lockBox = function (html, src, plan) {
+    return '<div class="lockwrap"><div class="lk-prev" aria-hidden="true" inert>' + html + '</div>' + Lerna.lockCard(src, plan) + '</div>';
+  };
+  /* Le compte (ou la config) arrive après l'affichage : on réaffiche si l'accès Premium change */
+  Lerna.onAccessChange = function (fn) {
+    var last = Lerna.isPremium();
+    var chk = function () { var now = Lerna.isPremium(); if (now !== last) { last = now; fn(now); } };
+    Lerna.auth.ready.then(chk, chk);
+    Lerna.on('lerna:auth', chk); Lerna.on('lerna:config', chk);
+  };
+  /* Un onglet qui n'a rien d'autre que « à demander à l'école » reste ouvert : on ne fait pas payer une page vide */
+  Lerna.hasRealContent = function (html) {
+    var d = doc.createElement('div');
+    d.innerHTML = html || '';
+    Lerna.qsa('.todo, .fee-warn, .note, .pending, script, style', d).forEach(function (x) { x.remove(); });
+    return (d.textContent || '').replace(/\s+/g, ' ').trim().length > 40;
+  };
+
   /* ------------------------------------------------------------------ */
   /* Nouvel appareil (ou appli sur l'écran d'accueil) : tout revient du compte */
   /* Questionnaire, résultats, flammes, points et badges sont relus depuis    */

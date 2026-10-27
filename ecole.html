@@ -282,6 +282,7 @@ Lerna.addStrings({
   function filFee(f) {
     var F = s.fees, lang = Lerna.lang;
     if (!f.frais || !F || !s.frais_verifie) return '<span class="pending">' + t('ec.feeAsk') + '</span>';   // jamais d'estimation : seulement les tarifs publiés
+    if (!Lerna.isPremium()) return '<a class="fee-lock" href="premium.html?src=ecole-frais" title="' + esc(t('pl.feeTitle')) + '">' + Lerna.icon('lock', 'ic-sm') + t('pl.fee') + '</a>';
     var local = userCountry && userCountry === s.pays;
     /* Étudiant étranger : jamais le tarif local à la place d'un tarif étranger inconnu */
     var r = local ? (f.frais.local || f.frais.etranger) : f.frais.etranger;
@@ -408,12 +409,20 @@ Lerna.addStrings({
 
   var TABS = [['pres', 'ec.tPres', panelPres], ['fil', 'ec.tFil', panelFil], ['adm', 'ec.tAdm', panelAdm], ['cout', 'ec.tCost', panelCost], ['vie', 'ec.tLife', panelLife], ['avis', 'ec.tRev', panelRev]];
 
+  /* Premium : Admission, Coûts et Vie étudiante (la vie étudiante reste ouverte si l'école n'a rien publié) */
+  function tabLocked(k) {
+    if (Lerna.isPremium()) return false;
+    if (k === 'adm' || k === 'cout') return true;
+    if (k === 'vie') { var v = s.etu || {}; return ['assos', 'logement', 'resto', 'transport', 'sport'].some(function (x) { return !!v[x]; }); }
+    return false;
+  }
   function renderPanel() {
     var def = TABS.filter(function (x) { return x[0] === tab; })[0] || TABS[0];
     tab = def[0];
     Lerna.qsa('.tab').forEach(function (b) { var on = b.getAttribute('data-tab') === tab; b.classList.toggle('active', on); b.setAttribute('aria-selected', String(on)); });
     var p = $('panel');
-    p.innerHTML = def[2]();
+    if (tabLocked(tab)) { p.innerHTML = Lerna.lockBox(def[2](), 'ecole-' + tab); Lerna.track('paywall', 'ecole-' + tab); }
+    else p.innerHTML = def[2]();
     p.classList.remove('active'); void p.offsetWidth; p.classList.add('active');
   }
 
@@ -437,7 +446,7 @@ Lerna.addStrings({
           '<a class="tag" href="' + esc(s.site) + '" target="_blank" rel="noopener" style="text-decoration:none">' + Lerna.icon('globe', 'ic-sm') + esc(s.site.replace(/^https?:\/\/(www\.)?/, '')) + '</a>' +
         '</div></div>' +
       '<div class="tabs-wrap"><div class="tabs" role="tablist">' + TABS.map(function (x) {
-        return '<button type="button" class="tab" role="tab" data-tab="' + x[0] + '" aria-controls="panel">' + t(x[1]) + '</button>';
+        return '<button type="button" class="tab" role="tab" data-tab="' + x[0] + '" aria-controls="panel">' + t(x[1]) + (tabLocked(x[0]) ? '<span class="tab-lk" aria-hidden="true">' + Lerna.icon('lock') + '</span>' : '') + '</button>';
       }).join('') + '</div></div>' +
       '<section class="panel tab-panel active" id="panel" role="tabpanel"></section>' +
       '<button type="button" class="btn btn-primary fab' + (fav ? ' on' : '') + '" id="fab" aria-pressed="' + fav + '">' + Lerna.icon('star') + '<span class="fab-lbl">' + t(fav ? 'ec.faved' : 'ec.fav') + '</span></button>';
@@ -447,6 +456,7 @@ Lerna.addStrings({
   Lerna.ready(function () {
     render();
     if (s) Lerna.track('school_view', s.id);
+    Lerna.onAccessChange(function () { if (s) render(); });   // compte Premium reconnu après l'affichage
     document.addEventListener('click', function (e) {
       var tb = e.target.closest('.tab');
       if (tb) { tab = tb.getAttribute('data-tab'); history.replaceState(null, '', '#' + tab); renderPanel(); Lerna.sound.play('click'); return; }

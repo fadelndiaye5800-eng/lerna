@@ -527,7 +527,7 @@ Lerna.addStrings({
   }
   function renderPanel() {
     var fn = { etapes: pSteps, documents: pDocs, lettre: pLetter, entretien: pInterview, cv: pCv, reco: pReco, visa: pVisa, budget: pBudget, suivi: pTrack }[tab];
-    if (tab !== 'etapes' && !Lerna.isPremium()) { $('panel').innerHTML = locked(fn(), 'dossier-' + tab); return; }
+    if (!Lerna.isPremium()) { $('panel').innerHTML = locked(fn(), 'dossier-' + tab); Lerna.track('paywall', 'dossier-' + tab); return; }   // tout Mon dossier est Premium, Étapes comprises
     $('panel').innerHTML = fn();
     bindPanel();
   }
@@ -933,6 +933,7 @@ Lerna.addStrings({
       }
     });
     Lerna.onLang(render);
+    Lerna.onAccessChange(render);   // compte Premium reconnu après l'affichage
     Lerna.on('lerna:dossier', Lerna.debounce(function () { if (!id && !coffre) renderList(); }, 200));
     document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible' && id && !coffre && tab === 'etapes' && goGet() && !$('retBox')) renderPanel(); });
   });

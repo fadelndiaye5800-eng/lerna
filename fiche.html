@@ -281,6 +281,8 @@ Lerna.addStrings({
   /* ================== La fiche (même présentation que les fiches LERNA) ================== */
   var TABS = [['pres', 'fi.tPres'], ['fil', 'fi.tFil'], ['adm', 'fi.tAdm'], ['cout', 'fi.tCost'], ['vie', 'fi.tLife'], ['avis', 'fi.tRev']];
   var F = null;
+  var LOCK = { adm: 1, cout: 1, vie: 1 };
+  function tabLocked(k) { return !!(LOCK[k] && !Lerna.isPremium() && F && F.tabs[k] && Lerna.hasRealContent(F.tabs[k]())); }
   function typeTag() {
     if (F.type === 'public') return '<span class="badge badge-olive">' + esc(t('fi.pub')) + '</span>';
     if (F.type === 'ctr') return '<span class="badge badge-soft">' + esc(t('fi.ctr')) + '</span>';
@@ -302,17 +304,19 @@ Lerna.addStrings({
           (site ? '<a class="tag" href="' + esc(site) + '" target="_blank" rel="noopener nofollow" style="text-decoration:none">' + Lerna.icon('globe', 'ic-sm') + esc(site.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '')) + '</a>' : '') +
         '</div></div>' +
       '<div class="tabs-wrap"><div class="tabs" role="tablist">' + TABS.map(function (x) {
-        return '<button type="button" class="tab" role="tab" data-tab="' + x[0] + '" aria-controls="panel">' + esc(t(x[1])) + '</button>';
+        return '<button type="button" class="tab" role="tab" data-tab="' + x[0] + '" aria-controls="panel">' + esc(t(x[1])) + (tabLocked(x[0]) ? '<span class="tab-lk" aria-hidden="true">' + Lerna.icon('lock') + '</span>' : '') + '</button>';
       }).join('') + '</div></div>' +
       '<section class="panel tab-panel active" id="panel" role="tabpanel"></section>' +
-      (F.apply ? '<div class="apply-bar"><button type="button" class="btn btn-primary btn-block" id="applyBtn">' + esc(t(applyLabel())) + '</button><small>' + esc(t('fi.applySub')) + '</small></div>' : '');
+      (F.apply ? '<div class="apply-bar"><button type="button" class="btn btn-primary btn-block" id="applyBtn">' + (!Lerna.isPremium() && F.apply.kind !== 'uai' ? Lerna.icon('lock', 'ic-sm') + ' ' : '') + esc(t(applyLabel())) + '</button><small>' + esc(t('fi.applySub')) + '</small></div>' : '');
     renderPanel();
   }
   function renderPanel() {
     if (!F.tabs[F.tab]) F.tab = 'pres';
     Lerna.qsa('.tab').forEach(function (b) { var on = b.getAttribute('data-tab') === F.tab; b.classList.toggle('active', on); b.setAttribute('aria-selected', String(on)); });
-    var p = $('panel');
-    p.innerHTML = '<div class="stack">' + F.tabs[F.tab]() + '</div>' + (F.src ? '<p class="note" style="margin-top:18px">' + esc(F.src) + '</p>' : '');
+    var p = $('panel'), html = F.tabs[F.tab]();
+    /* Premium : Admission, Coûts et Vie étudiante (un onglet vide, seulement « à demander à l'école », reste ouvert) */
+    if (LOCK[F.tab] && !Lerna.isPremium() && Lerna.hasRealContent(html)) { html = Lerna.lockBox(html, 'fiche-' + F.tab); Lerna.track('paywall', 'fiche-' + F.tab); }
+    p.innerHTML = '<div class="stack">' + html + '</div>' + (F.src ? '<p class="note" style="margin-top:18px">' + esc(F.src) + '</p>' : '');
     p.classList.remove('active'); void p.offsetWidth; p.classList.add('active');
     if (F.tab === 'avis') loadReviews();
   }
@@ -636,6 +640,8 @@ Lerna.addStrings({
   function apply() {
     var a = F.apply;
     if (a.kind === 'uai') { F.tab = 'fil'; renderPanel(); Lerna.toast(t('fi.pickForm'), 3500); window.scrollTo({ top: document.querySelector('.tabs-wrap').getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); return; }
+    /* Préparer sa candidature (Mon dossier, copilote, lettre, entretien) : Premium */
+    if (!Lerna.isPremium()) { Lerna.track('paywall', 'apply'); location.href = 'premium.html?src=apply&plan=pack'; return; }
     if (a.kind === 'ann') return go(annDossier());
     /* Formation française : on dit quelle démarche s'applique, puis le vœu va dans le dossier France */
     var d = Lerna.dossiers.get('p-france');
@@ -668,6 +674,7 @@ Lerna.addStrings({
     else if (uai && /^[0-9A-Za-z]{6,10}$/.test(uai)) etabFiche(uai);
     else if (/^[A-Z]{2}$/.test(cc) && id) mondeFiche(cc, id);
     else notFound();
+    Lerna.onAccessChange(function () { if (F) shell(); });   // compte Premium reconnu après l'affichage
     document.addEventListener('click', function (e) {
       var tb = e.target.closest('.tab[data-tab]');
       if (tb && F) { F.tab = tb.getAttribute('data-tab'); renderPanel(); Lerna.sound.play('click'); return; }
