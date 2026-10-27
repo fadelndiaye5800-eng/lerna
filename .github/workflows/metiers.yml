@@ -1,5 +1,5 @@
-# Métiers et débouchés : fiches métiers officielles de l'Onisep (Idéo, licence ODbL), reliées aux domaines LERNA.
-# Reconstruit chaque mois, puis publié par Vercel au prochain déploiement.
+# Métiers et débouchés : fiches métiers officielles de France Travail (ROME 4.0, Licence Ouverte 2.0),
+# reliées aux domaines LERNA. Reconstruit chaque mois, puis publié par Vercel au prochain déploiement.
 name: Métiers et débouchés
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ on:
     - cron: '41 4 3 * *'        # le 3 de chaque mois à 4 h 41 UTC
   push:
     branches: [main]
-    paths: ['scripts/metiers/*.mjs', '.github/workflows/metiers.yml']
+    paths: ['scripts/metiers/build.mjs', '.github/workflows/metiers.yml']
 permissions:
   contents: write
 concurrency:
@@ -22,19 +22,21 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Inspecter les fichiers Onisep
+      - name: Construire les fiches métiers
         run: |
-          node scripts/metiers/inspect.mjs > scripts/metiers/inspect-log.txt 2>&1 || true
-          tail -c 3000 scripts/metiers/inspect-log.txt
-      - name: Publier le journal
+          set -o pipefail
+          node scripts/metiers/build.mjs 2>&1 | tee scripts/metiers/build-log.txt
+      - name: Publier si quelque chose a changé
         if: always()
         run: |
           git config user.name "lerna-metiers[bot]"
           git config user.email "metiers@users.noreply.github.com"
-          cp scripts/metiers/inspect-log.txt /tmp/log.txt
+          mkdir -p /tmp/out && cp scripts/metiers/build-log.txt /tmp/out/ 2>/dev/null || true
+          [ -f assets/metiers/index.json ] && cp -r assets/metiers /tmp/out/ || true
           git fetch -q origin main && git reset -q --hard origin/main
-          cp /tmp/log.txt scripts/metiers/inspect-log.txt
-          git add scripts/metiers/inspect-log.txt
-          if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Métiers : journal d'inspection"
+          cp /tmp/out/build-log.txt scripts/metiers/ 2>/dev/null || true
+          if [ -d /tmp/out/metiers ]; then rm -rf assets/metiers && cp -r /tmp/out/metiers assets/metiers; fi
+          git add -A assets/metiers scripts/metiers/build-log.txt
+          if git diff --cached --quiet; then echo "Rien de nouveau"; exit 0; fi
+          git commit -m "Métiers et débouchés : mise à jour automatique depuis le ROME ($(date -u +%Y-%m-%d))"
           git push origin HEAD:main
