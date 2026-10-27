@@ -1,13 +1,14 @@
 RES 4afa3efb-ccb6-4df7-a90f-bb5ad7d28045 https://api.opendata.onisep.fr/downloads/5fe0808a2da6f/5fe0808a2da6f.zip https://www.data.gouv.fr/api/1/datasets/r/4afa3efb-ccb6-4df7-a90f-bb5ad7d28045
+IP 134.33.79.64
 
 TRY https://api.opendata.onisep.fr/downloads/5fe0808a2da6f/5fe0808a2da6f.zip
 HTTP/1.1 403 Forbidden
-Date: Tue, 27 Oct 2026 17:40:55 GMT
+Date: Tue, 27 Oct 2026 17:41:46 GMT
 Server: Apache
 Content-Length: 239
 Content-Type: text/html; charset=iso-8859-1
 
--rw-r--r-- 1 runner runner 239 Oct 27 17:40 /tmp/fm/f.bin
+-rw-r--r-- 1 runner runner 239 Oct 27 17:41 /tmp/fm/f.bin
 /tmp/fm/f.bin: HTML document, ASCII text
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html><head>
@@ -21,7 +22,7 @@ Content-Type: text/html; charset=iso-8859-1
 TRY https://www.data.gouv.fr/api/1/datasets/r/4afa3efb-ccb6-4df7-a90f-bb5ad7d28045
 HTTP/2 302 
 server: nginx
-date: Tue, 27 Oct 2026 17:40:56 GMT
+date: Tue, 27 Oct 2026 17:41:46 GMT
 content-type: text/html; charset=utf-8
 content-length: 331
 location: https://api.opendata.onisep.fr/downloads/5fe0808a2da6f/5fe0808a2da6f.zip
@@ -34,12 +35,12 @@ x-frame-options: SAMEORIGIN
 strict-transport-security: max-age=15768000; includeSubDomains; preload;
 
 HTTP/1.1 403 Forbidden
-Date: Tue, 27 Oct 2026 17:40:56 GMT
+Date: Tue, 27 Oct 2026 17:41:47 GMT
 Server: Apache
 Content-Length: 239
 Content-Type: text/html; charset=iso-8859-1
 
--rw-r--r-- 1 runner runner 239 Oct 27 17:40 /tmp/fm/f.bin
+-rw-r--r-- 1 runner runner 239 Oct 27 17:41 /tmp/fm/f.bin
 /tmp/fm/f.bin: HTML document, ASCII text
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html><head>
@@ -53,7 +54,7 @@ Content-Type: text/html; charset=iso-8859-1
 TRY https://www.data.gouv.fr/api/1/datasets/r/4afa3efb-ccb6-4df7-a90f-bb5ad7d28045
 HTTP/2 302 
 server: nginx
-date: Tue, 27 Oct 2026 17:40:57 GMT
+date: Tue, 27 Oct 2026 17:41:47 GMT
 content-type: text/html; charset=utf-8
 content-length: 331
 location: https://api.opendata.onisep.fr/downloads/5fe0808a2da6f/5fe0808a2da6f.zip
@@ -66,12 +67,12 @@ x-frame-options: SAMEORIGIN
 strict-transport-security: max-age=15768000; includeSubDomains; preload;
 
 HTTP/1.1 403 Forbidden
-Date: Tue, 27 Oct 2026 17:40:57 GMT
+Date: Tue, 27 Oct 2026 17:41:48 GMT
 Server: Apache
 Content-Length: 239
 Content-Type: text/html; charset=iso-8859-1
 
--rw-r--r-- 1 runner runner 239 Oct 27 17:40 /tmp/fm/f.bin
+-rw-r--r-- 1 runner runner 239 Oct 27 17:41 /tmp/fm/f.bin
 /tmp/fm/f.bin: HTML document, ASCII text
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html><head>
