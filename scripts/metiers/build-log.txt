@@ -35,7 +35,7 @@ M Support à l'entreprise
 N Transport et Logistique 
    N11 Magasinage, manutention des charges et déménagement | N12 Organisation de la circulation des marchandises | N13 Personnel d'encadrement de la logistique | N21 Personnel navigant du transport aérien | N22 Personnel sédentaire du transport aérien | N31 Personnel navigant du transport maritime et fluvial | N32 Personnel sédentaire du transport maritime et fluvial | N41 Personnel de conduite du transport routier | N42 Personnel d'encadrement du transport routier | N43 Personnel navigant du transport terrestre | N44 Personnel sédentaire du transport ferroviaire et réseau filo guidé
 
-Niveaux : {"0":146,"1":231,"2":531,"3":349,"4":2,"5":340,"6":3,"7":2,"8":68,"-1":251} | domaines LERNA : {"agri":122,"sciences":48,"ingenierie":553,"sante":120,"art":227,"tech":133,"business":483,"comm":105,"education":58,"droit":19} | sans domaine LERNA : 308 | activités : 11458
+Niveaux : {"0":146,"1":231,"2":531,"3":349,"4":2,"5":340,"6":3,"7":2,"8":68,"-1":251} | domaines LERNA : {"agri":129,"sciences":48,"ingenierie":553,"sante":130,"art":241,"tech":133,"business":515,"comm":118,"education":86,"droit":77} | sans domaine LERNA : 199 | activités : 11458
 
 Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
    A.json 304741 octets
@@ -52,7 +52,7 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
    L.json 228162 octets
    M.json 658600 octets
    N.json 423088 octets
-   index.json 200606 octets
+   index.json 201953 octets
    search.json 806220 octets
 
 == M1805 Développeur / Développeuse informatique | niveau 2
@@ -364,7 +364,7 @@ ESCO : fiches à relier 1923 | déjà en cache 0
    700 / 1923 | reliées : 608
    800 / 1923 | reliées : 692
    900 / 1923 | reliées : 777
-   1000 / 1923 | reliées : 845
+   1000 / 1923 | reliées : 846
    1100 / 1923 | reliées : 925
    1200 / 1923 | reliées : 999
    1300 / 1923 | reliées : 1062
@@ -374,7 +374,7 @@ ESCO : fiches à relier 1923 | déjà en cache 0
    1700 / 1923 | reliées : 1311
    1800 / 1923 | reliées : 1389
    1900 / 1923 | reliées : 1474
-ESCO : fiches reliées 1492 / 1923
+ESCO : fiches reliées 1492 / 1923 
 M1805 Développeur / Développeuse informatique → développeur de logiciels | software developer | CITP 2512 Concepteurs de logiciels | score 0.75
 J1102 Médecin généraliste → médecin généraliste | general practitioner | CITP 2211 Médecins généralistes | score 1
 K1915 Avocat / Avocate → avocat | lawyer | CITP 2611 Avocats | score 1
