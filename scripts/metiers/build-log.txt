@@ -1,99 +1,7 @@
-ROME Numero de version : 62
-
-Date de publication : 19/10/2026
-
-Date de validation : 26/08/2026
-
-Titre/commentaire : ROME 4.0 version 62 - 26M10
-
-Description : AprÃ¨s la derniÃ¨re version majeure prÃ©cÃ©dente de juin 2026, le ROME poursuit son dynamisme avec lâaide des partenaires, dans une logique de 2 versions par an, afin de continuer Ã  reflÃ©ter la rÃ©alitÃ© des mÃ©tiers et des compÃ©tences du marchÃ© du travail.
-
-
-
-Cette version dâOctobre 2026 permet de livrerâ¯:
-
-13 nouvelles fiches mÃ©tier (12 Nouveaux codes et une reprise de code existant)
-
-
-
-Le ROME passe ainsi Ã  1923 mÃ©tiers, consultables sur MÃ©tierScope dÃ¨s le 19 octobre 2026.
-
-
-
-Nombre de nouveaux codes ROME par grand domaine du ROMEâ¯:
-
-A - Agriculture et PÃªche, Espaces naturels et Espaces verts, Soins aux animauxâ¯â¯â¯â¯â¯
-
-B - Arts et FaÃ§onnage d'ouvrages d'artâ¯â¯â¯â¯â¯â¯
-
-C - Banque, Assurance, Immobilierâ¯â¯â¯â¯â¯
-
-D - Commerce, Vente et Grande distributionâ¯â¯â¯â¯â¯â¯â¯â¯â¯â¯â¯â¯â¯â¯â¯
-
-E - Communication, MÃ©dia et MultimÃ©diaâ¯â¯â¯â¯â¯â¯â¯
-
-F - Construction, BÃ¢timent et Travaux publicsâ¯â¯â¯â¯â¯â¯â¯â¯
-
-G - HÃ´tellerie-Restauration, Tourisme, Loisirs et Animationâ¯â¯
-
-H - Industrieâ¯â¯â¯â¯â¯
-
-I - Installation et Maintenanceâ¯â¯â¯2
-
-J - SantÃ©â¯â¯â¯â¯â¯â¯â¯â¯
-
-K - Services Ã  la personne et Ã  la collectivitÃ©â¯â¯â¯6â¯â¯â¯â¯â¯
-
-L - Spectacleâ¯â¯â¯1â¯
-
-M - Support Ã  l'entrepriseâ¯â¯â¯â¯â¯â¯â¯
-
-N - Transport et Logistiqueâ¯ 3â¯â¯
-
-
-
-PrÃ©sentation des Ã©volutions sur cette versionâ¯:
-
-â¯
-
-Evolutions des donnÃ©es :
-
-
-
-Evolution des 3 arborescences des CompÃ©tences, Savoirs et Contextes de travail :
-
-CrÃ©ation de nombreux objets en lien avec le volume de fiches crÃ©Ã©es
-
-Substitution pour en amÃ©liorer la qualitÃ© (suppression de doublons, etc.)
-
-Revue dâindexations de compÃ©tences dans le cadre de lâhomogÃ©nÃ©isation des macro-compÃ©tences
-
-
-
-
-
-Transformation de certaines fiches publiÃ©esâ¯:
-
-
-
-Ficheâ¯H2427
-
-LibellÃ© 26M06â¯: Applicateur / Applicatrice en tannerie-mÃ©gisserie
-
-LibellÃ© 26M10â¯: Coloriste du cuir
-
-DÃ©tailâ¯: Lâappellation a Ã©tÃ© gardÃ©e dans la mÃªme fiche
-
-
-
-
-
-Pour reflÃ©ter au mieux les Ã©volutions du marchÃ© du travail, et prendre en compte les travaux menÃ©s par les branches sur les emplois et compÃ©tences, de nouveaux mÃ©tiers apparaissent dans le ROME dans tous les secteurs dâactivitÃ©. De nouvelles appellations sont ainsi intÃ©grÃ©es aux fiches existantes et de nouvelles fiches sont crÃ©Ã©es. Voici un exemple :
-
-
-
- Services Ã  la personne et Ã  la collectivitÃ© : K2128 Directeur / Directrice pÃ©dagogique des Ã©coles de conduite | fiches : 1923 | grands domaines : 14 | centres d’intérêt : 30
+ROME ROME 4.0 version 62 - 26M10 | fiches : 1923 | grands domaines : 14 | centres d’intérêt : 30
 Champs des fiches : {"numero":1923,"rome":1923,"appellations":1923,"definition":1923,"acces_metier":1923,"competences":1923,"contextes_travail":1923,"secteurs_activite":1923,"mobilites":1923}
+mobilites (brut) : [{"rome_cible":"M1802 - Expert / Experte systèmes et réseaux informatiques","code_org_rome_cible":491,"ordre_mobilite":1},{"rome_cible":"M1803 - Directeur / Directrice des systèmes d'information (DSI)","code_org_rome_cible":492,"ordre_mobilite":2},{"rome_cible":"M1810 - Technicien / Technicienne d'exploitation informatique","code_org_rome_cible":499,"ordre_mobilite":3},{"rome_cible":"M1812 - Responsable de la Sécurité des Systèmes d'Information (RSSI)","code_org_rome_cible":404049,"ordre_mobilite":4},{"rome_cible":"M1818 - Ingénieur / Ingénieure d'étude informatique","code_org_rome_cible":488641,"ordre_mobilite":5},{"rome_cible":"M1824 - Développeur / Développeuse décisionnel - Business Intelligence","code_org_rome_cible":488748,"ordre_mobilite":6},{"rome_cible":"M1831 - Développeur / Développeuse - jeux vidéo","code_org_rome_cible":488786,"ordre_mobilite":7},{"rome_cible":"M1832 - Homol
+secteurs_activite (brut) : [{"code":"96","libelle":"Informatique et télécommunication","principal":true}]
 
 Domaines professionnels :
 A Agriculture et Pêche, Espaces naturels et Espaces verts, Soins aux animaux 
@@ -128,21 +36,21 @@ N Transport et Logistique
 Niveaux : {"0":146,"1":231,"2":531,"3":349,"4":2,"5":340,"6":3,"7":2,"8":68,"-1":251} | domaines LERNA : {"agri":122,"sciences":48,"ingenierie":553,"sante":120,"art":227,"tech":133,"business":483,"comm":105,"education":58,"droit":19} | sans domaine LERNA : 308 | activités : 11458
 
 Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
-   A.json 257779 octets
-   B.json 120394 octets
-   C.json 149135 octets
-   D.json 329124 octets
-   E.json 192626 octets
-   F.json 287276 octets
-   G.json 283789 octets
-   H.json 705492 octets
-   I.json 358303 octets
-   J.json 208468 octets
-   K.json 815801 octets
-   L.json 185788 octets
-   M.json 520128 octets
-   N.json 355767 octets
-   index.json 203754 octets
+   A.json 270777 octets
+   B.json 135917 octets
+   C.json 158212 octets
+   D.json 382886 octets
+   E.json 221068 octets
+   F.json 320544 octets
+   G.json 325128 octets
+   H.json 772800 octets
+   I.json 389761 octets
+   J.json 231544 octets
+   K.json 894012 octets
+   L.json 213465 octets
+   M.json 588866 octets
+   N.json 380993 octets
+   index.json 200606 octets
 
 == M1805 Développeur / Développeuse informatique | niveau 2
 {
@@ -181,33 +89,14 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   "Faire preuve de créativité, d'inventivité",
   "Faire preuve de rigueur et de précision"
  ],
- "sv": [],
- "ctx": [
-  {
-   "l": "Statut d'emploi",
-   "i": [
-    "Salarié secteur privé (CDI, CDD)",
-    "Salarié secteur public",
-    "Travailleur indépendant"
-   ]
-  },
-  {
-   "l": "Conditions de travail et risques professionnels",
-   "i": [
-    "Possibilité de télétravail",
-    "Station assise prolongée",
-    "Travail en mode projet"
-   ]
-  },
-  {
-   "l": "Horaires et durée du travail",
-   "i": [
-    "Travail en journée"
-   ]
-  }
- ],
- "mob": [],
- "dp": "Systèmes d'information et d
+ "sv": [
+  "BTS services informatiques aux organisations option A : solutions d'infrastructure, systèmes et réseaux",
+  "Licence pro mention métiers de l'informatique : conduite de projets",
+  "Master mention informatique",
+  "DUT informatique",
+  "BTS services informatiques aux organisations option B : solutions logicielles et applications métiers",
+  "Licence pro mention métiers de l'informatique : conception, développement et test de logiciels",
+  "Licence pro mention métiers de l'
 
 == J1102 Médecin généraliste | niveau 8
 {
@@ -247,7 +136,16 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   "Faire preuve de rigueur et de précision",
   "Faire preuve de réactivité"
  ],
- "sv": [],
+ "sv": [
+  "Diplôme d'Etat de docteur en médecine",
+  "Méthodes de contraception",
+  "Interprétation d'analyses médicales",
+  "Gestion du stress en situation d'urgence",
+  "Pathologies courantes",
+  "Education à la santé",
+  "Interactions médicamenteuses",
+  "Classification Commune des Actes Médicaux (CCAM)"
+ ],
  "ctx": [
   {
    "l": "Statut d'emploi",
@@ -278,10 +176,7 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
     "Travail en journée"
    ]
   }
- ],
- "mob": [],
- "dp": "Praticiens médicaux"
-}
+
 
 == K2107 Professeur / Professeure de collège et de lycée | niveau 5
 {
@@ -322,19 +217,9 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   "Faire preuve de contrôle de soi",
   "Inspirer, donner du sens"
  ],
- "sv": [],
- "ctx": [
-  {
-   "l": "Publics spécifiques",
-   "i": [
-    "Mineurs (- 18 ans)"
-   ]
-  },
-  {
-   "l": "Statut d'emploi",
-   "i": [
-    "Fonctionnaire",
-    "Salarié 
+ "sv": [
+  "Master métiers de l'enseignement, de l'éducation et de la formation mention second degré",
+  "Master métiers de l'enseignement, de l'éducation et de la formation me
 
 == C1129 Responsable grands comptes assurances | niveau 3
 {
@@ -349,7 +234,7 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   "Négocie les contrats d'assurance et les conditions de renouvellement en suivant les performances et la satisfaction des clients",
   "Identifie les opportunités de croissance et propose des solutions adaptées aux clients grands comptes",
   "Adapte les stratégies de compte en analysant les tendances du marché",
-  "Supervise les équipes internes pour garantir la mise en ½uvre de solutions d'assurance"
+  "Supervise les équipes internes pour garantir la mise en œuvre de solutions d'assurance"
  ],
  "acc": "Ce métier est accessible avec un niveau Bac + 3 à Bac + 5 Licence ou Master en assurance.",
  "sf": [
@@ -412,6 +297,9 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   }
  ],
  "mob": [],
+ "sec": [
+  "Finance, banque et assurance"
+ ],
  "dp": "Assurance"
 }
 
