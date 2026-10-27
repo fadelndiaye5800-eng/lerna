@@ -1,0 +1,466 @@
+ROME Numero de version : 62
+
+Date de publication : 19/10/2026
+
+Date de validation : 26/08/2026
+
+Titre/commentaire : ROME 4.0 version 62 - 26M10
+
+Description : AprÃ¨s la derniÃ¨re version majeure prÃ©cÃ©dente de juin 2026, le ROME poursuit son dynamisme avec lâaide des partenaires, dans une logique de 2 versions par an, afin de continuer Ã  reflÃ©ter la rÃ©alitÃ© des mÃ©tiers et des compÃ©tences du marchÃ© du travail.
+
+
+
+Cette version dâOctobre 2026 permet de livrerâ¯:
+
+13 nouvelles fiches mÃ©tier (12 Nouveaux codes et une reprise de code existant)
+
+
+
+Le ROME passe ainsi Ã  1923 mÃ©tiers, consultables sur MÃ©tierScope dÃ¨s le 19 octobre 2026.
+
+
+
+Nombre de nouveaux codes ROME par grand domaine du ROMEâ¯:
+
+A - Agriculture et PÃªche, Espaces naturels et Espaces verts, Soins aux animauxâ¯â¯â¯â¯â¯
+
+B - Arts et FaÃ§onnage d'ouvrages d'artâ¯â¯â¯â¯â¯â¯
+
+C - Banque, Assurance, Immobilierâ¯â¯â¯â¯â¯
+
+D - Commerce, Vente et Grande distributionâ¯â¯â¯â¯â¯â¯â¯â¯â¯â¯â¯â¯â¯â¯â¯
+
+E - Communication, MÃ©dia et MultimÃ©diaâ¯â¯â¯â¯â¯â¯â¯
+
+F - Construction, BÃ¢timent et Travaux publicsâ¯â¯â¯â¯â¯â¯â¯â¯
+
+G - HÃ´tellerie-Restauration, Tourisme, Loisirs et Animationâ¯â¯
+
+H - Industrieâ¯â¯â¯â¯â¯
+
+I - Installation et Maintenanceâ¯â¯â¯2
+
+J - SantÃ©â¯â¯â¯â¯â¯â¯â¯â¯
+
+K - Services Ã  la personne et Ã  la collectivitÃ©â¯â¯â¯6â¯â¯â¯â¯â¯
+
+L - Spectacleâ¯â¯â¯1â¯
+
+M - Support Ã  l'entrepriseâ¯â¯â¯â¯â¯â¯â¯
+
+N - Transport et Logistiqueâ¯ 3â¯â¯
+
+
+
+PrÃ©sentation des Ã©volutions sur cette versionâ¯:
+
+â¯
+
+Evolutions des donnÃ©es :
+
+
+
+Evolution des 3 arborescences des CompÃ©tences, Savoirs et Contextes de travail :
+
+CrÃ©ation de nombreux objets en lien avec le volume de fiches crÃ©Ã©es
+
+Substitution pour en amÃ©liorer la qualitÃ© (suppression de doublons, etc.)
+
+Revue dâindexations de compÃ©tences dans le cadre de lâhomogÃ©nÃ©isation des macro-compÃ©tences
+
+
+
+
+
+Transformation de certaines fiches publiÃ©esâ¯:
+
+
+
+Ficheâ¯H2427
+
+LibellÃ© 26M06â¯: Applicateur / Applicatrice en tannerie-mÃ©gisserie
+
+LibellÃ© 26M10â¯: Coloriste du cuir
+
+DÃ©tailâ¯: Lâappellation a Ã©tÃ© gardÃ©e dans la mÃªme fiche
+
+
+
+
+
+Pour reflÃ©ter au mieux les Ã©volutions du marchÃ© du travail, et prendre en compte les travaux menÃ©s par les branches sur les emplois et compÃ©tences, de nouveaux mÃ©tiers apparaissent dans le ROME dans tous les secteurs dâactivitÃ©. De nouvelles appellations sont ainsi intÃ©grÃ©es aux fiches existantes et de nouvelles fiches sont crÃ©Ã©es. Voici un exemple :
+
+
+
+ Services Ã  la personne et Ã  la collectivitÃ© : K2128 Directeur / Directrice pÃ©dagogique des Ã©coles de conduite | fiches : 1923 | grands domaines : 14 | centres d’intérêt : 30
+Champs des fiches : {"numero":1923,"rome":1923,"appellations":1923,"definition":1923,"acces_metier":1923,"competences":1923,"contextes_travail":1923,"secteurs_activite":1923,"mobilites":1923}
+
+Domaines professionnels :
+A Agriculture et Pêche, Espaces naturels et Espaces verts, Soins aux animaux 
+   A11 Engins agricoles et forestiers | A12 Espaces naturels et espaces verts | A13 Etudes et assistance technique | A14 Production | A15 Soins aux animaux
+B Arts et Façonnage d'ouvrages d'art 
+   B11 Arts plastiques | B12 Céramique | B13 Décoration | B14 Fibres et papier | B15 Instruments de musique | B16 Métal, verre, bijouterie et horlogerie | B17 Taxidermie | B18 Tissu et cuirs
+C Banque, Assurance, Immobilier 
+   C11 Assurance | C12 Banque | C13 Finance | C14 Gestion administrative banque et assurances | C15 Immobilier
+D Commerce, Vente et Grande distribution 
+   D11 Commerce alimentaire et métiers de bouche | D12 Commerce non alimentaire et de prestations de confort | D13 Direction de magasin de détail | D14 Force de vente | D15 Grande distribution
+E Communication, Média et Multimédia 
+   E11 Edition et communication | E12 Images et sons | E13 Industries graphiques | E14 Publicité
+F Construction, Bâtiment et Travaux publics 
+   F11 Conception et études | F12 Conduite et encadrement de chantier - travaux | F13 Engins de chantier | F14 Extraction | F15 Montage de structures | F16 Second oeuvre | F17 Travaux et gros oeuvre
+G Hôtellerie-Restauration, Tourisme, Loisirs et Animation 
+   G11 Accueil et promotion touristique | G12 Animation d'activités de loisirs | G13 Conception, commercialisation et vente de produits touristiques | G14 Gestion et direction | G15 Personnel d'étage en hôtellerie | G16 Production culinaire | G17 Accueil en hôtellerie | G18 Service
+H Industrie 
+   H11 Affaires et support technique client | H12 Conception, recherche, études et développement | H13 Hygiène Sécurité Environnement -HSE- industriels | H14 Méthodes et gestion industrielles | H15 Qualité et analyses industrielles | H21 Alimentaire | H22 Bois | H23 Chimie et pharmacie | H24 Cuir et textile | H25 Direction, encadrement et pilotage de fabrication et production industrielles | H26 Electronique et électricité | H27 Energie | H28 Matériaux de construction, céramique et verre | H29 Mécanique, travail des métaux et outillage | H31 Papier et carton | H32 Plastique, caoutchouc | H33 Préparation et conditionnement | H34 Traitements thermiques et traitements de surfaces
+I Installation et Maintenance 
+   I11 Encadrement | I12 Entretien technique | I13 Equipements de production, équipements collectifs | I14 Equipements domestiques et informatique | I15 Travaux d'accès difficile | I16 Véhicules, engins, aéronefs
+J Santé 
+   J11 Praticiens médicaux | J12 Praticiens médico-techniques | J13 Professionnels médico-techniques | J14 Rééducation et appareillage | J15 Soins paramédicaux
+K Services à la personne et à la collectivité 
+   K11 Accompagnement de la personne | K12 Action sociale, socio-éducative et socio-culturelle | K13 Aide à la vie quotidienne | K14 Conception et mise en oeuvre des politiques publiques | K15 Contrôle public | K16 Culture et gestion documentaire | K17 Défense, sécurité publique et secours | K18 Développement territorial et emploi | K19 Droit | K21 Formation initiale et continue | K22 Nettoyage et propreté industriels | K23 Propreté et environnement urbain | K24 Recherche | K25 Sécurité privée | K26 Services funéraires
+L Spectacle 
+   L11 Animation de spectacles | L12 Artistes - interprètes du spectacle | L13 Conception et production de spectacles | L14 Sport professionnel | L15 Techniciens du spectacle
+M Support à l'entreprise 
+   M11 Achats | M12 Comptabilité et gestion | M13 Direction d'entreprise | M14 Organisation et études | M15 Ressources humaines | M16 Secrétariat et assistance | M17 Stratégie commerciale, marketing et supervision des ventes | M18 Systèmes d'information et de télécommunication
+N Transport et Logistique 
+   N11 Magasinage, manutention des charges et déménagement | N12 Organisation de la circulation des marchandises | N13 Personnel d'encadrement de la logistique | N21 Personnel navigant du transport aérien | N22 Personnel sédentaire du transport aérien | N31 Personnel navigant du transport maritime et fluvial | N32 Personnel sédentaire du transport maritime et fluvial | N41 Personnel de conduite du transport routier | N42 Personnel d'encadrement du transport routier | N43 Personnel navigant du transport terrestre | N44 Personnel sédentaire du transport ferroviaire et réseau filo guidé
+
+Niveaux : {"0":146,"1":231,"2":531,"3":349,"4":2,"5":340,"6":3,"7":2,"8":68,"-1":251} | domaines LERNA : {"agri":122,"sciences":48,"ingenierie":553,"sante":120,"art":227,"tech":133,"business":483,"comm":105,"education":58,"droit":19} | sans domaine LERNA : 308 | activités : 11458
+
+Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
+   A.json 257779 octets
+   B.json 120394 octets
+   C.json 149135 octets
+   D.json 329124 octets
+   E.json 192626 octets
+   F.json 287276 octets
+   G.json 283789 octets
+   H.json 705492 octets
+   I.json 358303 octets
+   J.json 208468 octets
+   K.json 815801 octets
+   L.json 185788 octets
+   M.json 520128 octets
+   N.json 355767 octets
+   index.json 203754 octets
+
+== M1805 Développeur / Développeuse informatique | niveau 2
+{
+ "t": "Développeur / Développeuse informatique",
+ "ap": [
+  "Analyste développeur / Analyste développeuse",
+  "Analyste-programmeur(se) gestion informatique",
+  "Analyste-programmeur / Analyste-programmeuse informatique",
+  "Analyste-programmeur(se) scientifique informatique",
+  "Développeur(euse) de sécurité des systèmes d'information",
+  "Développeur / Développeuse IOT"
+ ],
+ "d": [
+  "Le Développeur informatique conçoit et améliore des systèmes informatiques.",
+  "Conçoit et développe des applications informatiques selon les besoins des utilisateurs",
+  "Participe à l'analyse des besoins des clients et propose des solutions techniques adaptées",
+  "Rédige des documentations techniques et des guides d'utilisation pour les applications développées",
+  "Assure la maintenance et la mise à jour des systèmes pour garantir leur efficacité et leur sécurité",
+  "Collabore avec des équipes multidisciplinaires pour intégrer de nouvelles technologies et améliorer les processus de développement",
+  "Effectue des tests et des validations pour s'assurer de la qualité et de la performance des applications"
+ ],
+ "acc": "Ce métier est accessible avec un niveau Bac + 2 à Bac + 5 dans le domaine de l'informatique. Également avec le TP Développeur web et web mobile (DWWM) si enrichi d'une expérience de la relation client.",
+ "sf": [
+  "Analyser les besoins informatiques",
+  "Concevoir une application web",
+  "Développer une application en lien avec une base de données",
+  "Réaliser des études et développements informatiques",
+  "Concevoir et maintenir un système de cybersécurité",
+  "Optimiser les processus de qualité pour assurer la fiabilité des logiciels",
+  "Traiter les retours utilisateurs pour améliorer les systèmes",
+  "Documenter les procédures techniques pour les utilisateurs",
+  "Respecter les normes de sécurité informatique dans le développement"
+ ],
+ "se": [
+  "Faire preuve d'autonomie",
+  "Faire preuve de créativité, d'inventivité",
+  "Faire preuve de rigueur et de précision"
+ ],
+ "sv": [],
+ "ctx": [
+  {
+   "l": "Statut d'emploi",
+   "i": [
+    "Salarié secteur privé (CDI, CDD)",
+    "Salarié secteur public",
+    "Travailleur indépendant"
+   ]
+  },
+  {
+   "l": "Conditions de travail et risques professionnels",
+   "i": [
+    "Possibilité de télétravail",
+    "Station assise prolongée",
+    "Travail en mode projet"
+   ]
+  },
+  {
+   "l": "Horaires et durée du travail",
+   "i": [
+    "Travail en journée"
+   ]
+  }
+ ],
+ "mob": [],
+ "dp": "Systèmes d'information et d
+
+== J1102 Médecin généraliste | niveau 8
+{
+ "t": "Médecin généraliste",
+ "ap": [
+  "Médecin acupuncteur",
+  "Médecin en pharmacovigilance",
+  "Médecin homéopathe",
+  "Médecin immunologue",
+  "Médecin ostéopathe",
+  "Médecin praticien"
+ ],
+ "d": [
+  "Le médecin généraliste assure un suivi médical personnalisé pour chaque patient.",
+  "Diagnostique et traite les maladies courantes et les pathologies diverses",
+  "Assure le suivi médical des patients de tous âges, de la naissance à la vieillesse",
+  "Oriente les patients vers des spécialistes lorsque nécessaire",
+  "Réalise des actes de prévention et de dépistage pour maintenir la santé publique",
+  "Peut pratiquer des soins spécifiques",
+  "Gère les urgences médicales et assure une continuité des soins"
+ ],
+ "acc": "Cet emploi est accessible avec un Diplôme d'État de docteur en médecine ou un Doctorat en médecine.",
+ "sf": [
+  "Enseigner, développer des compétences",
+  "Analyser des résultats d'examen médicaux",
+  "Conseiller le patient sur des pratiques de santé préventive",
+  "Déterminer les besoins thérapeutiques et réaliser les soins médicaux",
+  "Recenser les symptômes, les dysfonctionnements, cerner l'environnement de vie du patient et procéder à l'examen clinique",
+  "Réaliser la prescription médicale, expliquer les modalités de traitement au patient et le conseiller sur l'hygiène de vie",
+  "Réaliser un diagnostic médical",
+  "Actualiser le dossier médical du patient",
+  "Assurer la gestion administrative et financière d'une activité",
+  "Appliquer un cadre juridique ou réglementaire"
+ ],
+ "se": [
+  "Etre à l'écoute, faire preuve d'empathie",
+  "Faire preuve de rigueur et de précision",
+  "Faire preuve de réactivité"
+ ],
+ "sv": [],
+ "ctx": [
+  {
+   "l": "Statut d'emploi",
+   "i": [
+    "Profession libérale"
+   ]
+  },
+  {
+   "l": "Conditions de travail et risques professionnels",
+   "i": [
+    "Au domicile d'un particulier",
+    "Déplacements professionnels",
+    "Port d'équipement d'hygiène"
+   ]
+  },
+  {
+   "l": "Types de structures",
+   "i": [
+    "Cabinet libéral",
+    "Etablissement de santé"
+   ]
+  },
+  {
+   "l": "Horaires et durée du travail",
+   "i": [
+    "Travail de nuit",
+    "Travail en astreinte",
+    "Travail en journée"
+   ]
+  }
+ ],
+ "mob": [],
+ "dp": "Praticiens médicaux"
+}
+
+== K2107 Professeur / Professeure de collège et de lycée | niveau 5
+{
+ "t": "Professeur / Professeure de collège et de lycée",
+ "ap": [
+  "Chargé / Chargée d'enseignement général du second degré",
+  "Enseignant(e) correcteur(trice) de matières générales",
+  "Lecteur(trice) langue étrangère dans l'enseignement second",
+  "Maître(sse) établissement enseignement privé contrat 2 degré",
+  "Maître(sse) contractuel(le) établ privé enseignement général",
+  "Moniteur(trice) maison familiale rurale en enseignt général"
+ ],
+ "d": [
+  "Le Professeur de collège et de lycée est un pilier du développement intellectuel et personnel des jeunes.",
+  "Il dispense des cours adaptés aux programmes scolaires en fonction des niveaux d'enseignement",
+  "Évalue les progrès et les connaissances des élèves à travers des examens et des contrôles continus",
+  "Prépare les élèves aux diplômes et aux orientations futures en leur fournissant les outils nécessaires",
+  "Contribue à l'éducation à la citoyenneté et au développement personnel des élèves",
+  "Participe activement à la vie scolaire, notamment en collaborant avec les autres membres de l'équipe pédagogique",
+  "Adapte ses méthodes pédagogiques aux besoins spécifiques de ses élèves pour optimiser leur apprentissage"
+ ],
+ "acc": "Cet emploi est accessible avec un diplôme de niveau Bac+5 dans la spécialité enseignée. Pour être titularisé, il faut être reçu au CAPES (enseignement général), au CAPET (enseignement technologique), ou à l'Agrégation.",
+ "sf": [
+  "Adapter l'apprentissage selon la progression pédagogique, les difficultés rencontrées",
+  "Collecter des informations pour préparer une séquence de formation, une leçon",
+  "Concevoir des supports et outils pédagogiques (matériel pédagogique, logiciel éducatif, sujet d'examen)",
+  "Concevoir et préparer les cours, les travaux dirigés ou les travaux pratiques",
+  "Définir la progression pédagogique",
+  "Développer une démarche pédagogique pour l'enseignement des savoirs fondamentaux",
+  "Enseigner, développer des compétences",
+  "Faire preuve de pédagogie pour faciliter la compréhension",
+  "Organiser des évaluations de connaissances et de compétences, des examens",
+  "Renseigner des supports d'évaluation scolaire"
+ ],
+ "se": [
+  "Avoir l'esprit d'équipe",
+  "Etre à l'écoute, faire preuve d'empathie",
+  "Faire preuve de contrôle de soi",
+  "Inspirer, donner du sens"
+ ],
+ "sv": [],
+ "ctx": [
+  {
+   "l": "Publics spécifiques",
+   "i": [
+    "Mineurs (- 18 ans)"
+   ]
+  },
+  {
+   "l": "Statut d'emploi",
+   "i": [
+    "Fonctionnaire",
+    "Salarié 
+
+== C1129 Responsable grands comptes assurances | niveau 3
+{
+ "t": "Responsable grands comptes assurances",
+ "ap": [
+  "Chargé / Chargée de clientèle entreprises",
+  "Responsable grands comptes bancaires"
+ ],
+ "d": [
+  "Le Responsable grands comptes des assurances gère des relations durables auprès de clients stratégiques avec un portefeuille limité à très fort enjeu.",
+  "Développe et entretient des relations avec les clients grands comptes pour comprendre leurs besoins en assurance",
+  "Négocie les contrats d'assurance et les conditions de renouvellement en suivant les performances et la satisfaction des clients",
+  "Identifie les opportunités de croissance et propose des solutions adaptées aux clients grands comptes",
+  "Adapte les stratégies de compte en analysant les tendances du marché",
+  "Supervise les équipes internes pour garantir la mise en ½uvre de solutions d'assurance"
+ ],
+ "acc": "Ce métier est accessible avec un niveau Bac + 3 à Bac + 5 Licence ou Master en assurance.",
+ "sf": [
+  "Contrôler et faire appliquer le respect de dispositions légales et réglementaires",
+  "Négocier un contrat",
+  "Respecter les règles d'éthique et de déontologie",
+  "Améliorer la qualité de service",
+  "Développer et fidéliser la relation client",
+  "Elaborer, adapter une proposition commerciale",
+  "Réaliser une veille de marché, une veille concurrentielle"
+ ],
+ "se": [
+  "Faire preuve de leadership",
+  "Faire preuve de sens des responsabilités",
+  "Organiser son travail selon les priorités et les objectifs"
+ ],
+ "sv": [
+  "Connaissance des logiciels CRM",
+  "Evaluation des risques financiers",
+  "Gestion de portefeuille clients",
+  "Connaissance des produits et services",
+  "Formation continue en réglementations",
+  "Droit et réglementation des assurances",
+  "Techniques de vente en assurance",
+  "Négociation de contrats d'assurance"
+ ],
+ "ctx": [
+  {
+   "l": "Publics spécifiques",
+   "i": [
+    "Clientèle d'affaires",
+    "Clientèle d'entreprises"
+   ]
+  },
+  {
+   "l": "Statut d'emploi",
+   "i": [
+    "Salarié secteur privé (CDI, CDD)"
+   ]
+  },
+  {
+   "l": "Conditions de travail et risques professionnels",
+   "i": [
+    "En bureau d'études",
+    "En contact avec du public",
+    "Station assise prolongée"
+   ]
+  },
+  {
+   "l": "Horaires et durée du travail",
+   "i": [
+    "Travail en journée"
+   ]
+  },
+  {
+   "l": "Types de structures",
+   "i": [
+    "Entreprises et milieux professionnels"
+   ]
+  }
+ ],
+ "mob": [],
+ "dp": "Assurance"
+}
+
+== M1203 Comptable | niveau 3
+{
+ "t": "Comptable",
+ "ap": [
+  "Agent / Agente comptable d'établissement public -EPSCP-",
+  "Caissier / Caissière de casino de jeux",
+  "Collaborateur / Collaboratrice comptable",
+  "Comptable analytique",
+  "Comptable clientèle",
+  "Comptable de gestion locative"
+ ],
+ "d": [
+  "Le Comptable assure la tenue des comptes de l'entreprise jusqu'à l'établissement des comptes sociaux, en garantissant la conformité des pratiques comptables et fiscales aux normes en vigueur et réalise une analyse financière.",
+  "Enregistre et centralise les données commerciales et financières dans les comptes d'une entreprise",
+  "Assure le suivi de la trésorerie et réalise les rapprochements bancaires",
+  "Gère les déclarations de TVA Réalise les opérations de clôture périodiques et annuelles",
+  "Analyse la situation économique et financière de l'entreprise",
+  "Peut superviser une équipe de comptables ou de gestionnaires financiers"
+ ],
+ "acc": "Cet emploi est accessible avec un diplôme de niveau Bac +3 à Bac +5 en comptabilité. Les formations disponibles incluent le Diplôme de comptabilité et de gestion (DCG), les Licences, Masters et le Diplôme supérieur de comptabilité et de gestion (DSCG). Un Certificat de compétence en comptabilité et gestion (CCG) peut également être pertinent.",
+ "sf": [
+  "Collecter et contrôler les documents commerciaux papier ou dématérialisés pour la traçabilité, la fiabilité",
+  "Collecter les informations nécessaires à l'établissement des paies (heures travaillées, absences, congés, primes, etc.)",
+  "Gérer les déclarations sociales et fiscales (DSN, URSSAF, caisses de retraite, etc)",
+  "Suivre les échéanciers clients et procéder aux encaissements, relancer les créances en retard de paiement",
+  "Suivre les échéanciers fournisseurs et procéder aux paiements",
+  "Enregistrer ou valider les saisies automatisées des opérations comptables courantes (ventes, achats)",
+  "Participer à l'élaboration des budgets prévisionnels et justifier les écarts prévisionnels ou réels",
+  "Préparer et comptabiliser les opérations de fin d'exercice ou de clôture mensuelle ou trimestrielle",
+  "Elaborer des tableaux de bord"
+ ],
+ "se": [
+  "Avoir l'esprit d'équipe",
+  "Faire preuve de rigueur et de précision",
+  "Faire preuve de réactivité"
+ ],
+ "sv": [
+  "Comptabilité générale"
+ ],
+ "ctx": [
+  {
+   "l": "Statut d'emploi",
+   "i": [
+    "Salarié secteur privé (CDI, CDD)",
+    "Salarié secteur public"
+   ]
+  },
+  {
+   "l": "Conditions de travail et risques professionne
