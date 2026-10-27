@@ -31,26 +31,26 @@ async function get(url, tries = 4) {
 const STOP = new Set('de du des la le les l d un une et en a au aux pour par sur dans avec chez ou'.split(' '));
 const norm = (x) => String(x || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
 const first = (t) => String(t || '').split('/')[0].replace(/\([^)]*\)/g, ' ').trim();
-/* Intitulé ROME au masculin complet : « Directeur / Directrice des ventes » → « Directeur des ventes »
-   (avant, seul « Directeur » était gardé : correspondances fausses) */
+/* Intitulé au masculin complet, pour le ROME (« Directeur / Directrice des ventes » → « Directeur des ventes »)
+   comme pour ESCO (« chargé/chargée d'enseignement » → « chargé d'enseignement ») ; avant, seul le premier mot était gardé */
 function masc(t) {
   t = String(t || '').replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim();
-  const i = t.indexOf(' / ');
-  if (i === -1) return t.split('/')[0].trim();
-  const L = t.slice(0, i).trim(), R = t.slice(i + 3).trim();
+  const i = t.indexOf('/');
+  if (i === -1) return t;
+  const L = t.slice(0, i).trim(), R = t.slice(i + 1).split('/')[0].trim();
   const lw = L.split(' '), rw = R.split(' ');
   return rw.length > lw.length ? L + ' ' + rw.slice(lw.length).join(' ') : L;
 }
 const toks = (t) => new Set(norm(t).split(' ').filter((w) => w.length > 2 && !STOP.has(w)).map((w) => w.slice(0, 5)));
 function score(rome, esco) {
-  const A = toks(masc(rome)), B = toks(first(esco));
+  const A = toks(masc(rome)), B = toks(masc(esco));
   if (!A.size || !B.size) return 0;
   let inter = 0; A.forEach((x) => { if (B.has(x)) inter++; });
   const jac = inter / (A.size + B.size - inter);
   /* Tous les mots du ROME présents et au plus un mot en plus côté ESCO : bonne correspondance */
   return inter === A.size && B.size <= A.size + 1 ? Math.max(jac, 0.6 + 0.4 * jac) : jac;
 }
-const MIN = 0.6, MIN_ALT = 0.8, MV = 3;   // MV : version de la règle de correspondance (change = tout est recalculé)
+const MIN = 0.6, MIN_ALT = 0.8, MV = 4, OV = 2;   // MV : version de la règle de correspondance (change = tout est recalculé)
 const lit = (d, lg) => (d && d[lg] && d[lg].literal) ? String(d[lg].literal).replace(/\s+/g, ' ').trim() : '';
 
 /* Autres noms ESCO d'un métier (en français), pour reconnaître « data scientist » = « scientifique des données » */
@@ -64,12 +64,12 @@ async function altLabels(uri) {
   let list = Array.isArray(a) ? a : Array.isArray(a.fr) ? a.fr : [];
   list = list.map((x) => (typeof x === 'string' ? x : x && (x.label || x.literal) || '')).filter(Boolean);
   const pl = o.preferredLabel && typeof o.preferredLabel.fr === 'string' ? [o.preferredLabel.fr] : [];
-  cache.alt[uri] = pl.concat(list).slice(0, 40);
+  cache.alt[uri] = pl.concat(list).slice(0, 20);
   return cache.alt[uri];
 }
 async function matchOne(code, titre) {
   const c = cache.match[code];
-  if (c && c.t === titre && (c.v === MV || (c.v === 2 && c.uri))) return c;   // les bonnes correspondances déjà trouvées sont gardées
+  if (c && c.t === titre && c.v === MV) return c;
   const q = masc(titre);
   const j = await get(API + '/search?text=' + encodeURIComponent(q) + '&type=occupation&language=fr&limit=8');
   if (!j) return null;   // erreur réseau : on réessaiera au prochain passage (rien en cache)
@@ -87,7 +87,7 @@ async function matchOne(code, titre) {
   hits.sort((a, b) => b.s - a.s || a.r - b.r);
   const best = hits[0] && hits[0].s >= MIN ? hits[0] : null;
   const m = { t: titre, v: MV, uri: best ? best.uri : '', et: best ? best.title : '', s: best ? Math.round(best.s * 100) / 100 : 0, alt: best && best.alt ? 1 : 0,
-    h: best ? undefined : hits.slice(0, 3).map((x) => first(x.title) + ' ' + Math.round(x.s * 100) / 100).join(' ; '), at: new Date().toISOString().slice(0, 10) };
+    h: best ? undefined : hits.slice(0, 3).map((x) => masc(x.title) + ' ' + Math.round(x.s * 100) / 100).join(' ; '), at: new Date().toISOString().slice(0, 10) };
   cache.match[code] = m;
   return m;
 }
@@ -105,15 +105,15 @@ async function iscoOf(o, lg, depth = 0) {
 }
 async function occOne(uri) {
   const c = cache.occ[uri];
-  if (c && c.fr && c.fr.i) return c;
-  const out = {};
+  if (c && c.ov === OV && c.fr && c.fr.i) return c;
+  const out = { ov: OV };
   for (const lg of ['fr', 'en']) {
     const o = await get(API + '/resource/occupation?uri=' + encodeURIComponent(uri) + '&language=' + lg);
     if (!o) return null;
     const L = o._links || {};
     const isco = await iscoOf(o, lg);
     out[lg] = {
-      t: first(o.title || ''),
+      t: masc(o.title || ''),
       d: lit(o.description, lg),
       i: isco.i, il: isco.il,
       s: (L.hasEssentialSkill || []).map((x) => x.title).filter(Boolean).slice(0, 10)
@@ -155,7 +155,6 @@ await Promise.all([worker(), worker(), worker(), worker()]);
 if (!stopped) {   // on ne garde dans le cache que les métiers ESCO encore utilisés
   const used = new Set(Object.values(cache.match).map((x) => x.uri).filter(Boolean));
   for (const u of Object.keys(cache.occ)) if (!used.has(u)) delete cache.occ[u];
-  cache.alt = {};   // utile seulement pendant la recherche
 }
 fs.writeFileSync(CACHE, JSON.stringify(cache));
 for (const [L, obj] of Object.entries(letters)) fs.writeFileSync(path.join(OUT, L + '.json'), JSON.stringify(obj));
