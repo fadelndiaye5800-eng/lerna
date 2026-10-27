@@ -356,18 +356,77 @@ Publié : 1923 métiers, 14 fichiers de domaine, 30 centres d’intérêt
   "Licence pro mention métiers de
 ESCO : fiches à relier 1923 | déjà en cache 1923
   (structure ESCO : className,classId,uri,title,referenceLanguage,preferredLabel,alternativeLabel,preferredTerm,alternativeTerms,description,status,code,codes,_links,_embedded | alternativeLabel : {"de":["KoordinatorIn für Sonderpädagogik","Koordinatorin für Sonderpädagogik","Koordinator für Sonderpädagogik"],"fi":["erityisopetuksen koordinaattori","koord )
-   100 / 1923 | reliées : 35
-   200 / 1923 | reliées : 73
-   300 / 1923 | reliées : 124
-   400 / 1923 | reliées : 151
-   500 / 1923 | reliées : 184
+   100 / 1923 | reliées : 33
+   200 / 1923 | reliées : 72
+   300 / 1923 | reliées : 123
+   400 / 1923 | reliées : 150
+   500 / 1923 | reliées : 182
    600 / 1923 | reliées : 225
-   700 / 1923 | reliées : 260
-   800 / 1923 | reliées : 303
-   900 / 1923 | reliées : 354
+   700 / 1923 | reliées : 259
+   800 / 1923 | reliées : 302
+   900 / 1923 | reliées : 352
    1000 / 1923 | reliées : 391
    1100 / 1923 | reliées : 431
-   1200 / 1923 | reliées : 482
-   1300 / 1923 | reliées : 520
-   1400 / 1923 | reliées : 567
-   1500 / 1923 | reliées : 605
+   1200 / 1923 | reliées : 481
+   1300 / 1923 | reliées : 517
+   1400 / 1923 | reliées : 566
+   1500 / 1923 | reliées : 604
+   1600 / 1923 | reliées : 626
+   1700 / 1923 | reliées : 653
+   1800 / 1923 | reliées : 688
+   1900 / 1923 | reliées : 720
+ESCO : fiches reliées 733 / 1923 
+Sans correspondance (gardé sans ESCO) : 1190 | exactes (score 1) : 351 | par un autre nom ESCO : 173
+M1805 Développeur / Développeuse informatique → développeur de systèmes informatiques | ICT system developer | CITP 2511 Analystes de systèmes | score 0.87
+J1102 Médecin généraliste → médecin généraliste | general practitioner | CITP 2211 Médecins généralistes | score 1
+K1915 Avocat / Avocate → avocat | lawyer | CITP 2611 Avocats | score 1
+M1211 Expert-comptable / Experte-comptable → expert-comptable | accounting analyst | CITP 2411 Cadres comptables | score 1
+D1406 Directeur / Directrice des ventes → directeur des ventes | sales manager | CITP 1221 Directeurs et cadres de direction, ventes et commercialisation | score 1
+E1103 Chargé / Chargée des relations publiques → chargé des relations publiques | public relations officer | CITP 2432 Spécialistes des relations publiques | score 1
+K2107 Professeur / Professeure de collège et de lycée → chargé d'enseignement général du second degré | secondary school teacher | CITP 2330 Professeurs, enseignement secondaire | score 0.95 (autre nom)
+A1301 Technicien / Technicienne en agriculture → technicien agricole | agricultural technician | CITP 3142 Techniciens, agriculture et élevage | score 1
+J1506 Infirmier / Infirmière en soins généraux (IDE) → infirmier de soins généraux | nurse responsible for general care | CITP 2221 Cadres infirmiers | score 1
+K2111 Formateur / Formatrice → formateur en entreprise | corporate trainer | CITP 2424 Spécialistes de la formation du personnel | score 0.8
+G1602 Commis / Commise de cuisine → aucune [chef de cuisine 0.33 ; installateur de cuisines 0.33 ; commissaire-priseur 0.33]
+L1202 Musicien / Musicienne → musicien | musician | CITP 2652 Compositeurs, musiciens et chanteurs | score 1
+I1634 Accastilleur / Accastilleuse → accastilleur | boat rigger | CITP 7215 Gréeurs et épisseurs de câbles | score 1
+N4405 Agent / Agente d'exploitation du réseau ferré → aucune [agent de manœuvre du réseau ferré 0.5 ; aiguilleur du réseau ferré 0.4 ; agent de réseau d’eau 0.4]
+H2810 Agent / Agente technique de centrale à enrobés → aucune [agent technique forestier 0.4 ; agent du service central des courses et jeux 0.29 ; technicien informatique 0.2]
+G1223 Animateur / Animatrice en site de divertissement → aucune [animateur 3D 0.33 ; animateur en environnement 0.25 ; animateur touristique 0.25]
+D1409 Assistant / Assistante administration des ventes → assistant des ventes | sales support assistant | CITP 4311 Aides comptables et teneurs de livres | score 0.67
+H1208 Automaticien / Automaticienne en bureau d'études → aucune [technicien bureau d’études des industries de la chaussure 0.33 ; ingénieur en automatismes 0.25 ; employé de bureau 0.25]
+I1606 Carrossier-peintre / Carrossière-peintre → carrossier | coachbuilder | CITP 7231 Mécaniciens et réparateurs de véhicules à moteur | score 0.95 (autre nom)
+K1226 Chargé / Chargée de médiation interculturelle → aucune [consultant en médiation interculturelle 0.5 ; chargé de mission aux relations internationales 0.4 ; chargé de mission économique 0.2]
+H2515 Chef / Cheffe d'atelier en industrie de transformation → aucune [chef d’atelier - métiers de la scène 0.33 ; chef d’atelier de maintenance automobile 0.33 ; chef de quart en industrie minière 0.33]
+M1853 Chef / Cheffe de projet étude et développement informatique → aucune [chef de projet 0.4 ; gestionnaire de projet informatique 0.33 ; chef de projet aménagement 0.33]
+K2420 Chercheur / Chercheuse du monde forestier → aucune [forestier 0.33 ; garde forestier 0.25 ; technicien forestier 0.25]
+E1119 Concepteur rédacteur / Conceptrice rédactrice → concepteur - rédacteur publicitaire | advertising copywriter | CITP 2431 Spécialistes de la publicité et de la commercialisation | score 0.87
+N4301 Conducteur / Conductrice de train → conducteur de train | train driver | CITP 8311 Conducteurs de locomotives | score 1
+D1248 Conseiller / Conseillère en matériel médical ou paramédical → aucune [conseiller crédits 0.2 ; réceptionniste médical 0.2 ; technicien médical des services d’urgence 0.14]
+E1310 Contrôleur / Contrôleuse qualité en industrie graphique → aucune [contrôleur de la qualité des produits 0.4 ; contrôleur qualité des textiles 0.4 ; contrôleur qualité en habillement 0.4]
+M1405 Data scientist → scientifique des données | data scientist | CITP 2511 Analystes de systèmes | score 0.95 (autre nom)
+K2118 Directeur / Directrice d'école primaire → directeur d'école primaire | primary school head teacher | CITP 1345 Cadres de direction, éducation | score 1
+M1870 Directeur / Directrice de projet en informatique → directeur de projets | programme manager | CITP 1213 Directeurs et cadres de direction, stratégie et planifications | score 0.67
+F1505 Echafaudeur / Echafaudeuse → monteur en échafaudage | construction scaffolder | CITP 7119 Métiers qualifiés du bâtiment (gros œuvre) et assimilés non classés ailleurs | score 0.8
+K2110 Enseignant / Enseignante de la conduite et de la sécurité routière → enseignant de la conduite et de la sécurité routière | occupational driving instructor | CITP 2320 Professeurs, enseignement technique et professionnel | score 1
+K2124 Formateur / Formatrice conduite d'engins motorisés et de levage → aucune [formateur de conducteurs ferroviaires 0.33 ; conducteur d'engins forestiers 0.33 ; conducteur d'engins d'extinction d'incendie 0.29]
+M1212 Gestionnaire de lits → aucune [gestionnaire des adhérents 0.33 ; gestionnaire de logements 0.33 ; gestionnaire du flux des bagages 0.25]
+J1506 Infirmier / Infirmière en soins généraux (IDE) → infirmier de soins généraux | nurse responsible for general care | CITP 2221 Cadres infirmiers | score 1
+M1833 Ingénieur / Ingénieure sécurité web → aucune [ingénieur hygiène et sécurité 0.5 ; ingénieur sécurité incendie 0.5 ; ingénieur de sécurité en exploitation de gisements 0.4]
+N3114 Lamaneur / Lamaneuse → aucune []
+I1602 Mécanicien / Mécanicienne avion → technicien aéronautique | avionics inspector | CITP 3114 Techniciens en électronique | score 0.95 (autre nom)
+H2908 Modeleur / Modeleuse → modeleur | model maker | CITP 2163 Concepteurs modélistes de produits et de vêtements | score 1
+I1501 Opérateur / Opératrice cordiste → aucune [cordiste 0.5 ; opérateur sur plieuse 0.33 ; opérateur de thermoscellage 0.33]
+I1630 Opérateur / Opératrice maintenance pneumatiques Véhicules Utilitaires et Industriels → aucune [chef d’équipe de maintenance industrielle 0.25 ; responsable maintenance des véhicules de transport routier 0.22 ; technicien de véhicules 0.14]
+I1609 Peintre automobile → aucune [peintre en bâtiment 0.33 ; peintre décorateur 0.33 ; moniteur automobile 0.33]
+F1615 Poseur / Poseuse de cloisons démontables et mobiles → aucune [poseur de moquette 0.2 ; poseur de voies ferrées 0.17 ; développeur d’applications mobiles 0.17]
+J1412 Psychomotricien / Psychomotricienne → aucune []
+G1243 Responsable d'éducation et d'animation à l'environnement → aucune [animateur en environnement 0.5 ; ingénieur environnement-responsable mines et carrières 0.29 ; animateur 3D 0.25]
+I1109 Responsable de parc de véhicules → aucune [responsable de comptoir en location de véhicules 0.4 ; responsable maintenance des véhicules de transport routier 0.33 ; responsable de comptoir en location de voitures et de véhicules automobiles légers 0.25]
+K1419 Responsable du service des assemblées → aucune [responsable de station-service 0.5 ; responsable de service d'archives 0.5 ; responsable service clients 0.5]
+M1885 Responsable télécoms → responsable des télécommunications | telecommunications manager | CITP 1330 Directeurs et cadres de direction, technologies de l’information et des communications | score 1
+K1738 Spécialiste du soutien ou de la formation propulsion nucléaire → aucune [ingénieur nucléaire 0.17 ; vétérinaire spécialisé 0.17 ; formateur de la formation continue 0.17]
+I1330 Technicien / Technicienne d'installation de centrales téléphoniques → aucune [technicien en radioprotection 0.2 ; technicien en hydroélectricité 0.2 ; technicien en robotique 0.2]
+M1819 Technicien / Technicienne en cybersécurité → aucune [technicien agricole 0.33 ; technicien des télécommunications 0.33 ; technicien audiovisuel 0.33]
+M1613 Télésecrétaire → aucune []
+F1115 Vulcanologue → aucune []
