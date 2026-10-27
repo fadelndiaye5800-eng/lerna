@@ -1,0 +1,40 @@
+
+######## ideo-fiches-metiers | licence=odc-odbl | maj=2026-10-27T00:00:11.534000+00:00
+  RES zip null Idéo-Fiches métiers https://api.opendata.onisep.fr/downloads/5fe0808a2da6f/5fe0808a2da6f.zip
+
+######## ideo-metiers-onisep | licence=odc-odbl | maj=2026-10-27T00:00:09.419000+00:00
+  RES xlsx null Idéo-Métiers Onisep https://api.opendata.onisep.fr/downloads/5fa5949243f97/5fa5949243f97.xlsx
+  RES ods null Idéo-Métiers Onisep https://api.opendata.onisep.fr/downloads/5fa5949243f97/5fa5949243f97.ods
+  RES csv null Idéo-Métiers Onisep https://api.opendata.onisep.fr/downloads/5fa5949243f97/5fa5949243f97.csv
+  RES xml null Idéo-Métiers Onisep https://api.opendata.onisep.fr/downloads/5fa5949243f97/5fa5949243f97.xml
+  RES json null Idéo-Métiers Onisep https://api.opendata.onisep.fr/downloads/5fa5949243f97/5fa5949243f97.json
+
+######## ideo-fiches-formations | licence=odc-odbl | maj=2026-10-27T00:00:04.616000+00:00
+  RES zip null Idéo-Fiches formations https://api.opendata.onisep.fr/downloads/5fe07a9ecc960/5fe07a9ecc960.zip
+[f.zip]
+  End-of-central-directory signature not found.  Either this file is not
+  a zipfile, or it constitutes one disk of a multi-part archive.  In the
+  latter case the central directory and zipfile comment will be found on
+  the last disk(s) of this archive.
+unzip:  cannot find zipfile directory in one of f.zip or
+        f.zip.zip, and cannot find f.zip.ZIP, period.
+node:internal/errors:984
+  const err = new Error(message);
+              ^
+
+Error: Command failed: curl -sSL -o /tmp/fm/f.zip "https://api.opendata.onisep.fr/downloads/5fe0808a2da6f/5fe0808a2da6f.zip" && cd /tmp/fm && unzip -o -q f.zip && ls -la /tmp/fm | head -20
+    at genericNodeError (node:internal/errors:984:15)
+    at wrappedFn (node:internal/errors:538:14)
+    at checkExecSyncError (node:child_process:891:11)
+    at execSync (node:child_process:963:15)
+    at file:///home/runner/work/lerna/lerna/scripts/metiers/inspect.mjs:13:1
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5) {
+  status: 9,
+  signal: null,
+  output: [ null, null, null ],
+  pid: 2408,
+  stdout: null,
+  stderr: null
+}
+
+Node.js v20.20.2
