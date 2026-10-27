@@ -31,40 +31,65 @@ async function get(url, tries = 4) {
 const STOP = new Set('de du des la le les l d un une et en a au aux pour par sur dans avec chez ou'.split(' '));
 const norm = (x) => String(x || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
 const first = (t) => String(t || '').split('/')[0].replace(/\([^)]*\)/g, ' ').trim();
-const toks = (t) => new Set(norm(first(t)).split(' ').filter((w) => w.length > 2 && !STOP.has(w)).map((w) => w.slice(0, 5)));
-function score(a, b) {
-  const A = toks(a), B = toks(b);
+/* Intitulé ROME au masculin complet : « Directeur / Directrice des ventes » → « Directeur des ventes »
+   (avant, seul « Directeur » était gardé : correspondances fausses) */
+function masc(t) {
+  t = String(t || '').replace(/\([^)]*\)/g, ' ').replace(/\s+/g, ' ').trim();
+  const i = t.indexOf(' / ');
+  if (i === -1) return t.split('/')[0].trim();
+  const L = t.slice(0, i).trim(), R = t.slice(i + 3).trim();
+  const lw = L.split(' '), rw = R.split(' ');
+  return rw.length > lw.length ? L + ' ' + rw.slice(lw.length).join(' ') : L;
+}
+const toks = (t) => new Set(norm(t).split(' ').filter((w) => w.length > 2 && !STOP.has(w)).map((w) => w.slice(0, 5)));
+function score(rome, esco) {
+  const A = toks(masc(rome)), B = toks(first(esco));
   if (!A.size || !B.size) return 0;
   let inter = 0; A.forEach((x) => { if (B.has(x)) inter++; });
   const jac = inter / (A.size + B.size - inter);
-  return inter === A.size ? Math.max(jac, 0.5 + 0.5 * jac) : jac;   // tous les mots du ROME présents : bonne correspondance
+  /* Tous les mots du ROME présents et au plus un mot en plus côté ESCO : bonne correspondance */
+  return inter === A.size && B.size <= A.size + 1 ? Math.max(jac, 0.6 + 0.4 * jac) : jac;
 }
+const MIN = 0.6, MV = 2;   // MV : version de la règle de correspondance (change = tout est recalculé)
 const lit = (d, lg) => (d && d[lg] && d[lg].literal) ? String(d[lg].literal).replace(/\s+/g, ' ').trim() : '';
 
 async function matchOne(code, titre) {
   const c = cache.match[code];
-  if (c && c.t === titre) return c;
-  const q = first(titre);
+  if (c && c.t === titre && c.v === MV) return c;
+  const q = masc(titre);
   const j = await get(API + '/search?text=' + encodeURIComponent(q) + '&type=occupation&language=fr&limit=8');
   const hits = ((j && j._embedded && j._embedded.results) || []).map((h) => ({ uri: h.uri, title: h.title, s: score(titre, h.title) }));
   hits.sort((a, b) => b.s - a.s);
-  const best = hits[0] && hits[0].s >= 0.5 ? hits[0] : null;
-  const m = { t: titre, uri: best ? best.uri : '', s: best ? Math.round(best.s * 100) / 100 : 0, at: new Date().toISOString().slice(0, 10) };
+  const best = hits[0] && hits[0].s >= MIN ? hits[0] : null;
+  const m = { t: titre, v: MV, uri: best ? best.uri : '', et: best ? best.title : '', s: best ? Math.round(best.s * 100) / 100 : 0, at: new Date().toISOString().slice(0, 10) };
   cache.match[code] = m;
   return m;
 }
+/* Groupe CITP-08 : directement, ou en remontant les métiers ESCO plus larges (métier ESCO « spécialisé ») */
+async function iscoOf(o, lg, depth = 0) {
+  const L = (o && o._links) || {};
+  const g = (L.broaderIscoGroup || [])[0];
+  if (g && g.code) return { i: String(g.code), il: g.title || '' };
+  const b = (L.broaderOccupation || [])[0];
+  if (b && b.uri && depth < 4) {
+    const p = await get(API + '/resource/occupation?uri=' + encodeURIComponent(b.uri) + '&language=' + lg);
+    if (p) return iscoOf(p, lg, depth + 1);
+  }
+  return { i: '', il: '' };
+}
 async function occOne(uri) {
-  if (cache.occ[uri]) return cache.occ[uri];
+  const c = cache.occ[uri];
+  if (c && c.fr && c.fr.i) return c;
   const out = {};
   for (const lg of ['fr', 'en']) {
     const o = await get(API + '/resource/occupation?uri=' + encodeURIComponent(uri) + '&language=' + lg);
     if (!o) return null;
     const L = o._links || {};
-    const isco = (L.broaderIscoGroup || [])[0] || {};
+    const isco = await iscoOf(o, lg);
     out[lg] = {
       t: first(o.title || ''),
       d: lit(o.description, lg),
-      i: isco.code || '', il: isco.title || '',
+      i: isco.i, il: isco.il,
       s: (L.hasEssentialSkill || []).map((x) => x.title).filter(Boolean).slice(0, 10)
     };
   }
@@ -101,13 +126,19 @@ async function worker() {
   }
 }
 await Promise.all([worker(), worker(), worker(), worker()]);
+if (!stopped) {   // on ne garde dans le cache que les métiers ESCO encore utilisés
+  const used = new Set(Object.values(cache.match).map((x) => x.uri).filter(Boolean));
+  for (const u of Object.keys(cache.occ)) if (!used.has(u)) delete cache.occ[u];
+}
 fs.writeFileSync(CACHE, JSON.stringify(cache));
 for (const [L, obj] of Object.entries(letters)) fs.writeFileSync(path.join(OUT, L + '.json'), JSON.stringify(obj));
 index.esco = { maj: new Date().toISOString().slice(0, 10), n: ok, source: 'ESCO — Commission européenne (classification CITP-08 de l’OIT)' };
 fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify(index));
 log('ESCO : fiches reliées', ok, '/', todo.length, stopped ? '(arrêt : limite de temps, la suite au prochain passage)' : '');
-/* Contrôle humain : quelques correspondances */
-for (const c of ['M1805', 'J1102', 'K1915', 'M1211', 'D1406', 'E1103', 'K2107', 'A1301']) {
+/* Contrôle humain : quelques correspondances, puis un échantillon régulier */
+const sample = index.m.filter((x, i) => i % 48 === 0).map((x) => x[0]);
+log('Sans correspondance (gardé sans ESCO) :', todo.length - ok, '| exactes (score 1) :', Object.values(cache.match).filter((x) => x.v === MV && x.s === 1).length);
+for (const c of ['M1805', 'J1102', 'K1915', 'M1211', 'D1406', 'E1103', 'K2107', 'A1301', 'J1506', 'K2111', 'G1602', 'L1202'].concat(sample)) {
   const m = index.m.find((x) => x[0] === c); const f = m && letters[m[2]][c];
   log(c, m ? m[1] : '?', '→', f && f.esco ? f.esco.fr.t + ' | ' + f.esco.en.t + ' | CITP ' + f.esco.fr.i + ' ' + f.esco.fr.il + ' | score ' + f.esco.q : 'aucune');
 }
