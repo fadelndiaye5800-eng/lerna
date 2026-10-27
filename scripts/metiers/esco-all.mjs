@@ -228,7 +228,8 @@ for (const [u, d] of Object.entries(got)) {
   (byUnit[isco] = byUnit[isco] || []).push(code);
   added.push([code, d.fr.t, L, -1, domsOf(isco), d.en.t || '', skillLevel(isco), isco]);
   if (!unitNames[isco] && d.fr.il) unitNames[isco] = [masc(d.fr.il), masc(d.en.il || '')];
-  search[code] = norm([d.fr.t].concat(d.fr.a, [d.en.t], d.en.a, [d.fr.il, d.en.il]).join(' | '));
+  /* Recherche : noms FR et EN (fichier léger : il est chargé à la première recherche, souvent sur mobile) */
+  search[code] = norm([d.fr.t].concat(d.fr.a.slice(0, 6), [d.en.t], d.en.a.slice(0, 4)).join(' | '));
 }
 /* Métiers proches : les autres métiers du même groupe de l'OIT (4 chiffres), fiches ROME reliées comprises */
 for (const m of index.m) {
