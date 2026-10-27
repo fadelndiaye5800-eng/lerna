@@ -28,6 +28,10 @@ const published = ((vtxt.match(/Date de publication\s*:\s*([0-9/]+)/) || [])[1] 
 const fiches = readJson(pick(/fiche_emploi_metier/));
 const arbo = readJson(pick(/arborescence_principale/)).arbo_principale;
 const ci = readJson(pick(/arborescence_centre_interet/)).arbo_centre_interet;
+/* Métier réglementé en France (« emploi_reglemente » du référentiel des codes ROME) */
+const REG = {};
+for (const r of readJson(pick(/referentiel_code_rome/))) if (r.code_rome && r.emploi_reglemente === 'O') REG[r.code_rome] = 1;
+log('Métiers réglementés (France) :', Object.keys(REG).length);
 const list = Array.isArray(fiches) ? fiches : (fiches.fiches_emploi_metier || fiches.fiche_emploi_metier || Object.values(fiches)[0]);
 log('ROME', version, '| fiches :', list.length, '| grands domaines :', arbo.length, '| centres d’intérêt :', ci.length);
 
@@ -166,7 +170,8 @@ for (const f of list) {
     ctx: (f.contextes_travail || []).map((c) => ({ l: c.libelle, i: (c.items || []).map(lib).slice(0, 6) })).filter((c) => c.i.length).slice(0, 6),
     mob: mobs(f.mobilites).filter((c) => c !== code).slice(0, 8),
     sec: secs(f.secteurs_activite).slice(0, 5),
-    dp: w.dl || ''
+    dp: w.dl || '',
+    rg: REG[code] ? 1 : 0
   };
   const L = (w.g || code[0]);
   (byLetter[L] = byLetter[L] || {})[code] = fiche;
