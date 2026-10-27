@@ -447,18 +447,18 @@ ESCO (monde) : métiers ESCO 2942 | déjà reliés au ROME 639 | à ajouter 2303
 ESCO (monde) : métiers ajoutés 2301  | total 4145 | niveau OIT sur fiches ROME 731
   par domaine LERNA : {"agri":83,"education":164,"ingenierie":919,"business":652,"sciences":65,"sante":75,"comm":69,"tech":75,"droit":37,"art":164} | sans domaine : 169 | fichiers : 41
    E7511.6.2 abatteur en abattage casher | kosher slaughterer | niveau 2 | agri
-   E5113.1.3 animateur en parc zoologique | zoo educator | niveau 2 | business
-   E2133.9 chargé de mission patrimoine naturel | nature conservation officer | niveau 4 | agri
-   E8342.4 conducteur de niveleuse | grader operator | niveau 2 | 
-   E3324.1 courtier | commodity broker | niveau 3 | business
-   E2352.1 enseignant spécialisé | special educational needs teacher | niveau 4 | education
+   E2659.4 animateur touristique | tourist animator | niveau 4 | art
+   E2422.10.6 chargé de mission fiscalité | fiscal affairs policy officer | niveau 4 | business
+   E8143.2 conducteur de machines à onduler | corrugator operator | niveau 2 | ingenierie
+   E3324.1.2 courtier en collecte et valorisation de déchets | waste broker | niveau 3 | business
+   E2351.4 enseignant référent pour la scolarisation des élèves handicapés | special educational needs coordinator | niveau 4 | education
    E1420.4.22 gérant de jardinerie | flower and garden shop manager | niveau 34 | business
-   E2151.1.6 ingénieur sous-stations électriques | substation engineer | niveau 4 | ingenierie
-   E7215.4 monteur de chapiteau | tent installer | niveau 2 | ingenierie
-   E8212.3.5 opérateur de fabrication de circuits imprimés | printed circuit board assembler | niveau 2 | ingenierie
-   E8151.2.1 ouvrier de filature artificielle et synthétique | man-made fiber spinner | niveau 2 | ingenierie
-   E1324.6 responsable conduites de transport | pipeline superintendent | niveau 34 | ingenierie,business
+   E2144.1.2.1 ingénieur sciences et techniques des équipements agricoles | agricultural equipment design engineer | niveau 4 | ingenierie
+   E2654.4 monteur audiovisuel | video and motion picture editor | niveau 4 | art
+   E3139.1 opérateur de lignes d’assemblage automatisées | automated assembly line operator | niveau 3 | ingenierie
+   E8155.1.3 ouvrier tanneur | tanner | niveau 2 | ingenierie
+   E1221.3.2.1.1 responsable catégorie de produits | category manager | niveau 34 | business
    E1324.3.2.26 responsable import-export de machines et équipements de bureau | import export manager in office machinery and equipment | niveau 34 | ingenierie,business
    E3331.2.1.12 spécialiste en import-export de poissons, crustacés et mollusques | import export specialist in fish, crustaceans and molluscs | niveau 3 | business
-   E7126.13 technicien en conservation de l’eau | water conservation technician | niveau 2 | ingenierie
+   E3111.1 technicien en chimie | chemistry technician | niveau 3 | ingenierie
    E5223.7.15 vendeur en optique | eyewear and optical equipment specialised seller | niveau 2 | business
