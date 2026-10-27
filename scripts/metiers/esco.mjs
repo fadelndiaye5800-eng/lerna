@@ -79,8 +79,12 @@ const todo = index.m.map((m) => ({ code: m[0], titre: m[1], L: m[2], m }));
 log('ESCO : fiches à relier', todo.length, '| déjà en cache', Object.keys(cache.match).length);
 
 let done = 0, ok = 0, k = 0;
+/* Limite de temps : on garde ce qui est fait (cache) et on continue au prochain passage */
+const DEADLINE = Date.now() + (+process.env.ESCO_MINUTES || 45) * 60000;
+let stopped = false;
 async function worker() {
   while (k < todo.length) {
+    if (Date.now() > DEADLINE) { stopped = true; break; }
     const x = todo[k++];
     const mt = await matchOne(x.code, x.titre);
     if (mt && mt.uri) {
@@ -101,7 +105,7 @@ fs.writeFileSync(CACHE, JSON.stringify(cache));
 for (const [L, obj] of Object.entries(letters)) fs.writeFileSync(path.join(OUT, L + '.json'), JSON.stringify(obj));
 index.esco = { maj: new Date().toISOString().slice(0, 10), n: ok, source: 'ESCO — Commission européenne (classification CITP-08 de l’OIT)' };
 fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify(index));
-log('ESCO : fiches reliées', ok, '/', todo.length);
+log('ESCO : fiches reliées', ok, '/', todo.length, stopped ? '(arrêt : limite de temps, la suite au prochain passage)' : '');
 /* Contrôle humain : quelques correspondances */
 for (const c of ['M1805', 'J1102', 'K1915', 'M1211', 'D1406', 'E1103', 'K2107', 'A1301']) {
   const m = index.m.find((x) => x[0] === c); const f = m && letters[m[2]][c];

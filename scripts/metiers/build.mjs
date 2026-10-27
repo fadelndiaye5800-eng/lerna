@@ -72,25 +72,25 @@ doms.forEach((g) => log(g.c, g.l, '\n   ' + g.s.map((s) => s.c + ' ' + s.l).join
 
 /* Classement vers les 10 domaines LERNA (questionnaire et Explorer) : par domaine professionnel du ROME, puis par mots de l'intitulé */
 const BY_DOM = {
-  business: ['C', 'D', 'G', 'M11', 'M12', 'M13', 'M14', 'M15', 'M16', 'M17', 'N1'],
+  business: ['C', 'D', 'G', 'M11', 'M12', 'M13', 'M14', 'M15', 'M16', 'M17', 'N1', 'K15', 'K18'],
   sante: ['J'],
   tech: ['M18'],
-  droit: ['K19'],
-  art: ['B', 'L', 'E11', 'F11'],
+  droit: ['K19', 'K14', 'K15'],   // droit, administration publique, impôts, douanes, diplomatie
+  art: ['B', 'L', 'E11', 'F11', 'K16'],   // K16 : culture et patrimoine
   sciences: ['K24'],
-  education: ['K21'],
+  education: ['K21', 'K12'],   // K12 : travail social et éducatif
   ingenierie: ['F', 'H', 'I'],
-  comm: ['E'],
+  comm: ['E', 'K16'],   // K16 : documentation, bibliothèques, archives
   agri: ['A']
 };
 const BY_WORD = {
   tech: /informati|développeur|developpeur|logiciel|données|data|cyber|réseau|numérique|web|intelligence artificielle|système d'information/i,
-  droit: /jurid|avocat|notaire|magistrat|juriste|greffier|commissaire de justice|huissier/i,
+  droit: /jurid|avocat|notaire|magistrat|juriste|greffier|commissaire de justice|huissier|police|gendarm|pénitentiaire|douane|diplomat|ambassad|contentieux|conformité/i,
   sciences: /recherche|chercheur|chercheuse|biolog|chimi|physic|mathémati|statistic|laboratoire/i,
   education: /enseignant|professeur|formateur|formatrice|éducat|conseiller \/ conseillère d'orientation/i,
   comm: /communication|journalis|publicit|marketing|média|rédacteur|rédactrice/i,
-  sante: /médecin|infirmi|pharmac|sage-femme|kinésithérap|dentiste|soignant/i,
-  agri: /agricol|agronom|environnement|forest|élevage|aquacult/i,
+  sante: /médecin|infirmi|pharmac|sage-femme|kinésithérap|dentiste|soignant|psycholog|addictolog|thérapeut|psychanalyst|génétique/i,
+  agri: /agricol|agronom|environnement|forest|élevage|aquacult|urbanis|aménagement du territoire|durable|eaux pluviales/i,
   ingenierie: /ingénieur|ingénieure/i,
   art: /architecte|design|graphiste|styliste|artiste|musicien|photograph/i
 };
