@@ -7,7 +7,7 @@ on:
     - cron: '41 4 3 * *'        # le 3 de chaque mois à 4 h 41 UTC
   push:
     branches: [main]
-    paths: ['scripts/metiers/build.mjs', '.github/workflows/metiers.yml']
+    paths: ['scripts/metiers/build.mjs', 'scripts/metiers/esco.mjs', '.github/workflows/metiers.yml']
 permissions:
   contents: write
 concurrency:
@@ -16,7 +16,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,17 +26,23 @@ jobs:
         run: |
           set -o pipefail
           node scripts/metiers/build.mjs 2>&1 | tee scripts/metiers/build-log.txt
+      - name: Correspondance internationale (ESCO, classification CITP-08 de l'OIT)
+        run: |
+          set -o pipefail
+          node scripts/metiers/esco.mjs 2>&1 | tee -a scripts/metiers/build-log.txt
       - name: Publier si quelque chose a changé
         if: always()
         run: |
           git config user.name "lerna-metiers[bot]"
           git config user.email "metiers@users.noreply.github.com"
           mkdir -p /tmp/out && cp scripts/metiers/build-log.txt /tmp/out/ 2>/dev/null || true
+          cp scripts/metiers/esco-cache.json /tmp/out/ 2>/dev/null || true
           [ -f assets/metiers/index.json ] && cp -r assets/metiers /tmp/out/ || true
           git fetch -q origin main && git reset -q --hard origin/main
           cp /tmp/out/build-log.txt scripts/metiers/ 2>/dev/null || true
+          cp /tmp/out/esco-cache.json scripts/metiers/ 2>/dev/null || true
           if [ -d /tmp/out/metiers ]; then rm -rf assets/metiers && cp -r /tmp/out/metiers assets/metiers; fi
-          git add -A assets/metiers scripts/metiers/build-log.txt
+          git add -A assets/metiers scripts/metiers/build-log.txt scripts/metiers/esco-cache.json
           if git diff --cached --quiet; then echo "Rien de nouveau"; exit 0; fi
           git commit -m "Métiers et débouchés : mise à jour automatique depuis le ROME ($(date -u +%Y-%m-%d))"
           git push origin HEAD:main

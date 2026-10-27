@@ -29,8 +29,21 @@ const fiches = readJson(pick(/fiche_emploi_metier/));
 const arbo = readJson(pick(/arborescence_principale/)).arbo_principale;
 const ci = readJson(pick(/arborescence_centre_interet/)).arbo_centre_interet;
 /* Métier réglementé en France (« emploi_reglemente » du référentiel des codes ROME) */
-const REG = {};
-for (const r of readJson(pick(/referentiel_code_rome/))) if (r.code_rome && r.emploi_reglemente === 'O') REG[r.code_rome] = 1;
+const REG = {}, TRANS = {};
+for (const r of readJson(pick(/referentiel_code_rome/))) {
+  if (!r.code_rome) continue;
+  if (r.emploi_reglemente === 'O') REG[r.code_rome] = 1;
+  /* Transitions (ROME) : emploi vert ou stratégique pour l'écologie, métier lié au numérique */
+  const eco = /vert|stratégique/i.test(r.transition_eco || '') ? 1 : 0, num = r.transition_num === 'O' ? 1 : 0;
+  if (eco || num) TRANS[r.code_rome] = { e: eco, n: num };
+}
+/* Toutes les appellations (noms du métier, ~11 000) pour la recherche */
+const APPS = {};
+for (const a of readJson(pick(/referentiel_appellation/))) {
+  const c = a.code_rome_parent; if (!c) continue;
+  (APPS[c] = APPS[c] || []).push(a.libelle_court || a.libelle);
+}
+log('Appellations :', Object.values(APPS).reduce((n, x) => n + x.length, 0), '| transitions :', Object.keys(TRANS).length);
 log('Métiers réglementés (France) :', Object.keys(REG).length);
 const list = Array.isArray(fiches) ? fiches : (fiches.fiches_emploi_metier || fiches.fiche_emploi_metier || Object.values(fiches)[0]);
 log('ROME', version, '| fiches :', list.length, '| grands domaines :', arbo.length, '| centres d’intérêt :', ci.length);
@@ -143,6 +156,8 @@ const items = (block, onlyCore, cat) => {
   return out;
 };
 
+const norm = (x) => String(x || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9+]+/g, ' ').trim();
+const search = {};
 const index = [], byLetter = {}, stats = { niveaux: {}, doms: {}, sansDom: 0, activites: 0 };
 for (const f of list) {
   const code = f.rome && f.rome.code_rome, titre = f.rome && f.rome.intitule;
@@ -171,11 +186,14 @@ for (const f of list) {
     mob: mobs(f.mobilites).filter((c) => c !== code).slice(0, 8),
     sec: secs(f.secteurs_activite).slice(0, 5),
     dp: w.dl || '',
-    rg: REG[code] ? 1 : 0
+    rg: REG[code] ? 1 : 0,
+    tr: TRANS[code] || null
   };
   const L = (w.g || code[0]);
   (byLetter[L] = byLetter[L] || {})[code] = fiche;
   index.push([code, titre, L, nv, d]);
+  /* Texte de recherche : appellations, domaine professionnel, secteurs (sans accents, en minuscules) */
+  search[code] = norm([titre].concat(APPS[code] || [], [w.dl || ''], fiche.sec || []).join(' | '));
 }
 index.sort((a, b) => a[1].localeCompare(b[1], 'fr'));
 log('\nNiveaux :', JSON.stringify(stats.niveaux), '| domaines LERNA :', JSON.stringify(stats.doms), '| sans domaine LERNA :', stats.sansDom, '| activités :', stats.activites);
@@ -192,6 +210,7 @@ fs.writeFileSync(path.join(OUT, 'index.json'), JSON.stringify({
   domaines: doms.map((g) => ({ c: g.c, l: g.l })), interets, m: index
 }));
 for (const [L, obj] of Object.entries(byLetter)) fs.writeFileSync(path.join(OUT, L + '.json'), JSON.stringify(obj));
+fs.writeFileSync(path.join(OUT, 'search.json'), JSON.stringify(search));
 log('\nPublié :', index.length, 'métiers,', Object.keys(byLetter).length, 'fichiers de domaine,', interets.length, 'centres d’intérêt');
 for (const f of fs.readdirSync(OUT)) log('  ', f, fs.statSync(path.join(OUT, f)).size, 'octets');
 
