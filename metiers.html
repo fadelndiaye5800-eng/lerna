@@ -23,7 +23,11 @@
   .mt-selects { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
   .mt-mine { margin-top: 14px; padding: 14px 16px; border-radius: 18px; background: var(--cream); }
   .mt-mine p { font-size: .9rem; color: var(--muted); margin-bottom: 8px; }
-  .count-row { display: flex; justify-content: space-between; align-items: center; margin: 18px 0 10px; color: var(--muted); font-size: .9rem; }
+  .count-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin: 18px 0 10px; color: var(--muted); font-size: .9rem; }
+  .count-row #mcount { min-width: 0; }
+  .mt-sort { flex-shrink: 0; }
+  .mt-sort .select { padding: 9px 34px 9px 12px; font-size: .86rem; min-height: 0; width: auto; }
+  .mt-secf { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; font-size: .9rem; color: var(--muted); }
   .mt-list { display: grid; gap: 10px; }
   @media (min-width: 760px) { .mt-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .mcard { display: block; text-decoration: none; color: inherit; padding: 16px 18px; }
@@ -180,7 +184,8 @@ Lerna.addStrings({
     'mt.opt': 'Compétences utiles en plus', 'mt.intlE': 'Classification internationale', 'mt.intlESub': 'Ce métier vient de la classification internationale ESCO (Commission européenne), fondée sur celle de l’OIT (CITP-08).',
     'mt.nearE': 'Métiers du même groupe', 'mt.nearESub': 'Des métiers proches dans la classification internationale.',
     'mt.srcE': 'Source de la fiche : ESCO — Commission européenne, classification internationale des métiers fondée sur la CITP-08 de l’OIT (réutilisation autorisée avec mention de la source), mise à jour par LERNA le {d}. LERNA peut se tromper.',
-    'mt.byProfile': 'classés selon ton profil (test d’orientation)',
+    'mt.byProfile': 'classés selon ton profil (test d’orientation)', 'mt.sortBy': 'Trier', 'mt.sortProfil': 'Pour toi (ton test)', 'mt.sortMix': 'Au hasard', 'mt.sortAz': 'Nom A → Z',
+    'mt.secF': 'Métiers du secteur :', 'mt.loading': 'Chargement…', 'mt.w.obj.ok': 'Ça va avec ton objectif professionnel.', 'mt.w.obj.no': 'Ton objectif professionnel est moins courant dans ce domaine.',
     'mt.fitTitle': 'Ce métier et toi', 'mt.fitLockSub': 'Avec Premium, LERNA compare ce métier à tes réponses au test et te montre ton chemin pour y arriver.',
     'mt.fitB1': 'Ton pourcentage de compatibilité avec ce métier', 'mt.fitB2': 'Ce qui colle et ce qui coince avec ton profil', 'mt.fitB3': 'Tes étapes pour y arriver, depuis ta situation', 'mt.fitB4': 'Où étudier dans ton pays, et ailleurs si tu veux partir',
     'mt.fitNoTest': 'Fais le test d’orientation : LERNA pourra comparer ce métier à ton profil et te montrer ton chemin.',
@@ -224,7 +229,8 @@ Lerna.addStrings({
     'mt.opt': 'Useful extra skills', 'mt.intlE': 'International classification', 'mt.intlESub': 'This job comes from the international ESCO classification (European Commission), based on the ILO classification (ISCO-08).',
     'mt.nearE': 'Jobs in the same group', 'mt.nearESub': 'Related jobs in the international classification.',
     'mt.srcE': 'Source of this page: ESCO — European Commission, international classification of occupations based on the ILO ISCO-08 (reuse allowed with source credit), updated by LERNA on {d}. LERNA can be wrong.',
-    'mt.byProfile': 'ranked for your profile (orientation test)',
+    'mt.byProfile': 'ranked for your profile (orientation test)', 'mt.sortBy': 'Sort', 'mt.sortProfil': 'For you (your test)', 'mt.sortMix': 'Random', 'mt.sortAz': 'Name A → Z',
+    'mt.secF': 'Jobs in the sector:', 'mt.loading': 'Loading…', 'mt.w.obj.ok': 'It fits your career goal.', 'mt.w.obj.no': 'Your career goal is less common in this field.',
     'mt.fitTitle': 'This job and you', 'mt.fitLockSub': 'With Premium, LERNA compares this job with your test answers and shows you your path to get there.',
     'mt.fitB1': 'Your compatibility percentage with this job', 'mt.fitB2': 'What fits and what doesn’t with your profile', 'mt.fitB3': 'Your steps to get there, from where you are', 'mt.fitB4': 'Where to study in your country, and elsewhere if you want to move',
     'mt.fitNoTest': 'Take the orientation test: LERNA will compare this job with your profile and show you your path.',
@@ -257,7 +263,12 @@ Lerna.addStrings({
   var t = Lerna.t, esc = Lerna.esc, $ = function (id) { return document.getElementById(id); };
   var root = $('root'), IX = null, CACHE = {}, PER = 30;
   var DOMS = ['business', 'sante', 'tech', 'droit', 'art', 'sciences', 'education', 'ingenierie', 'comm', 'agri'];
-  var st = { q: Lerna.param('q') || '', dom: Lerna.param('dom') || '', ci: Lerna.param('ci') || '', lv: Lerna.param('lv') || '', show: PER };
+  var st = { q: Lerna.param('q') || '', dom: Lerna.param('dom') || '', ci: Lerna.param('ci') || '', lv: Lerna.param('lv') || '', sec: Lerna.param('sec') || '', sort: Lerna.param('tri') || '', show: PER };
+  function testDone() { return !!Lerna.store.raw('lerna_results'); }   // le profil ne compte que si le test est terminé
+  function sortMode() { var s = st.sort; if (s === 'profil' && !PROF) s = ''; return s || (PROF ? 'profil' : 'mix'); }
+  /* « Au hasard » : un ordre mélangé, le même pendant toute la visite (« Voir plus » ne remélange pas) */
+  var MIX = (function () { var k = 'lerna_mt_mix', v = Lerna.store.sget ? Lerna.store.sget(k) : null; if (!v) { v = Math.floor(Math.random() * 1e9); try { Lerna.store.sset(k, v); } catch (e) {} } return v; })();
+  function mixKey(code) { var h = MIX; for (var i = 0; i < code.length; i++) h = (h * 31 + code.charCodeAt(i)) | 0; h ^= h >>> 15; h = Math.imul(h, 2246822507); h ^= h >>> 13; return (h >>> 0) / 4294967296; }
   var norm = function (s) { return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[^a-z0-9+]+/g, ' ').trim(); };
   var STOP = ' de du des la le les l d un une et en a au aux pour par sur dans licence master bachelor bts but dut diplome mention parcours option specialite cycle annee annees ecole formation filiere programme professionnelle pro integre integree preparatoire classe '.split(' ');
   function lvTxt(n) { return t('mt.l' + n); }
@@ -288,14 +299,16 @@ Lerna.addStrings({
   function profileInfo() {
     var a = ((Lerna.store.get('lerna_profile', null) || {}).answers) || {};
     var arr = function (v) { v = Array.isArray(v) ? v : v ? [v] : []; return v.map(function (x) { return typeof x === 'string' ? x : x && (x.id || x.v); }).filter(Boolean); };
-    var P = { doms: arr(a.q15).filter(function (d) { return DOMS.indexOf(d) !== -1; }), subs: arr(a.q6), style: arr(a.q8)[0] || '', dur: arr(a.q20)[0] || '', level: arr(a.q2)[0] || '', where: arr(a.q13), leave: arr(a.q18)[0] || '', cc: typeof a.q4 === 'string' ? a.q4 : '' };
+    var P = { doms: arr(a.q15).filter(function (d) { return DOMS.indexOf(d) !== -1; }), subs: arr(a.q6), style: arr(a.q8)[0] || '', dur: arr(a.q20)[0] || '', level: arr(a.q2)[0] || '', where: arr(a.q13), leave: arr(a.q18)[0] || '', obj: arr(a.q12)[0] || '', cc: typeof a.q4 === 'string' ? a.q4 : '' };
     return P.doms.length || P.subs.length || P.style || P.dur ? P : null;
   }
   var PROF = null;
   function profScore(m) {
     var P = PROF; if (!P) return 0;
     var doms = m[4] || [], s = 0, sb = 0;
-    P.doms.forEach(function (d) { if (doms.indexOf(d) !== -1) s += 3; });
+    /* Secteurs : le 1er choix du test compte le plus ; plusieurs secteurs touchés = un petit bonus seulement (sinon les métiers « à cheval » passent toujours devant) */
+    var hits = P.doms.filter(function (d) { return doms.indexOf(d) !== -1; });
+    if (hits.length) s += [3, 2.6, 2.2][Math.min(2, P.doms.indexOf(hits[0]))] + (hits.length > 1 ? 0.4 : 0);
     P.subs.forEach(function (x) { if ((SUBJ[x] || []).some(function (d) { return doms.indexOf(d) !== -1; })) sb++; });
     s += Math.min(2, sb);
     if (P.style && STYLE[P.style] && STYLE[P.style].some(function (d) { return doms.indexOf(d) !== -1; })) s += 1;
@@ -316,6 +329,7 @@ Lerna.addStrings({
     return fetch('assets/metiers/' + encodeURIComponent(L) + '.json').then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); }).then(function (j) { CACHE[L] = j; return j; });
   }
   function myDoms() {
+    if (!testDone()) return [];
     var a = ((Lerna.store.get('lerna_profile', null) || {}).answers || {}).q15;
     a = Array.isArray(a) ? a : a ? [a] : [];
     return a.map(function (x) { return typeof x === 'string' ? x : x && (x.id || x.v); }).filter(function (x) { return DOMS.indexOf(x) !== -1; });
@@ -334,7 +348,7 @@ Lerna.addStrings({
   var SX = null, SXp = null;
   function loadSearch() {
     if (SX || SXp) return;
-    SXp = fetch('assets/metiers/search.json').then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) { j = j || {}; Object.keys(j).forEach(function (k) { j[k] = ' ' + j[k]; }); SX = j; if (st.q) paintList(); }, function () { SX = {}; });
+    SXp = fetch('assets/metiers/search.json').then(function (r) { return r.ok ? r.json() : {}; }).then(function (j) { j = j || {}; Object.keys(j).forEach(function (k) { j[k] = ' ' + j[k]; }); SX = j; if (st.q || st.sec) paintList(); }, function () { SX = {}; if (st.sec) paintList(); });
   }
   function wordsOf(q) { return norm(q).split(' ').filter(function (w) { return w.length > 1 && STOP.indexOf(w) === -1; }); }
   function domHits() { var out = []; wordsOf(st.q).forEach(function (w) { var d = KWD[w]; if (d && out.indexOf(d) === -1) out.push(d); }); return out; }
@@ -346,12 +360,17 @@ Lerna.addStrings({
     var wt = stems.map(function (x) { var df = 0; IX.m.forEach(function (m) { if (m.s.indexOf(x) !== -1) df++; }); return df && df <= 20 ? 1.6 : df <= 80 ? 1.25 : 1; });
     var ciSet = null;
     if (st.ci) { var c = IX.interets.filter(function (x) { return String(x.id) === String(st.ci); })[0]; if (c) { ciSet = {}; c.m.forEach(function (k) { ciSet[k] = 1; }); } }
-    var out = [];
+    /* Secteur choisi dans une fiche (« Où tu peux travailler ») : les métiers qui citent ce secteur */
+    var secKey = st.sec ? ' ' + norm(st.sec) + ' ' : '';
+    if (secKey) loadSearch();
+    var mode = sortMode(), out = [];
     IX.m.forEach(function (m) {
       if (st.dom && (m[4] || []).indexOf(st.dom) === -1) return;
       if (ciSet && !ciSet[m[0]]) return;
       if (!lvMatch(m, st.lv)) return;
-      var score = PROF ? m.p : isHigher(m) ? 2 : 1;   // sans recherche : d'abord ce qui colle au profil (sinon les études supérieures)
+      if (secKey && !(SX && (SX[m[0]] + ' ').indexOf(secKey) !== -1)) return;
+      /* Sans recherche : ton profil (si le test est fait), le hasard ou l'ordre alphabétique */
+      var score = mode === 'profil' ? m.p : mode === 'mix' ? mixKey(m[0]) : 0;
       if (words.length) {
         score = 0;
         var blob = SX && SX[m[0]] || '';
@@ -371,7 +390,10 @@ Lerna.addStrings({
       }
       out.push([score, m]);
     });
-    out.sort(function (a, b) { return b[0] - a[0] || b[1].p - a[1].p || isHigher(b[1]) - isHigher(a[1]) || a[1][1].localeCompare(b[1][1], 'fr'); });
+    out.sort(function (a, b) {
+      return b[0] - a[0] || (mode === 'profil' || words.length ? b[1].p - a[1].p || isHigher(b[1]) - isHigher(a[1]) : 0) ||
+        (mode === 'profil' && !words.length ? mixKey(b[1][0]) - mixKey(a[1][0]) : cap(a[1][1]).localeCompare(cap(b[1][1]), 'fr'));   // à égalité pour ton profil : mélangé, pas « A » d'abord
+    });
     return out.map(function (x) { return x[1]; });
   }
   function card(m) {
@@ -393,7 +415,11 @@ Lerna.addStrings({
             IX.interets.map(function (c) { return '<option value="' + c.id + '"' + (String(st.ci) === String(c.id) ? ' selected' : '') + '>' + esc(c.l) + '</option>'; }).join('') + '</select></label>' +
           '<label><span class="sr-only">' + t('mt.byLv') + '</span><select class="select" id="mlv">' + [['', 'mt.allLv'], ['bac', 'mt.lvBac'], ['3', 'mt.lv3'], ['5', 'mt.lv5']].map(function (o) { return '<option value="' + o[0] + '"' + (st.lv === o[0] ? ' selected' : '') + '>' + esc(t(o[1])) + '</option>'; }).join('') + '</select></label></div></div>' +
         '<p class="ci-intro" id="ciIntro"></p>' +
-      '</div><div class="count-row"><span id="mcount" aria-live="polite"></span></div><div class="mt-list" id="mlist"></div><div class="more" id="mmore"></div>' +
+      '<div id="msec"></div>' +
+      '</div><div class="count-row"><span id="mcount" aria-live="polite"></span>' +
+        '<label class="mt-sort"><span class="sr-only">' + esc(t('mt.sortBy')) + '</span><select class="select" id="msort">' +
+          (PROF ? [['profil', 'mt.sortProfil']] : []).concat([['mix', 'mt.sortMix'], ['az', 'mt.sortAz']]).map(function (o) { return '<option value="' + o[0] + '"' + (sortMode() === o[0] ? ' selected' : '') + '>' + esc(t(o[1])) + '</option>'; }).join('') +
+        '</select></label></div><div class="mt-list" id="mlist"></div><div class="more" id="mmore"></div>' +
       '<p class="src-note" style="margin-bottom:30px">' + esc(t('mt.src', { v: IX.version || 'ROME', d: Lerna.fmtDate(IX.maj) })) + ' ' + esc(t('mt.srcWarn')) + '</p>';
     paintList();
   }
@@ -402,14 +428,15 @@ Lerna.addStrings({
     $('mcount').textContent = list.length === 1 ? t('mt.count1') : t('mt.count', { n: list.length.toLocaleString(Lerna.lang === 'en' ? 'en' : 'fr-FR') });
     var dh = st.q ? domHits() : [];
     if (dh.length) $('mcount').textContent += ' · ' + t('mt.inDom', { d: dh.map(function (d) { return t('mt.dom.' + d); }).join(', ') });
-    else if (PROF && !st.q) $('mcount').textContent += ' · ' + t('mt.byProfile');
+    else if (sortMode() === 'profil' && !st.q) $('mcount').textContent += ' · ' + t('mt.byProfile');
+    $('msec').innerHTML = st.sec ? '<div class="mt-secf"><span>' + esc(t('mt.secF')) + '</span><button type="button" class="chip active" id="secOff">' + esc(st.sec) + ' ✕</button></div>' + (SX ? '' : '<p class="small muted">' + esc(t('mt.loading')) + '</p>') : '';
     var c = st.ci && IX.interets.filter(function (x) { return String(x.id) === String(st.ci); })[0];
     $('ciIntro').textContent = c && c.d ? c.d : '';
     $('mlist').innerHTML = list.length ? list.slice(0, st.show).map(card).join('') :
       '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('search') + '<h4>' + t('mt.none') + '</h4><p>' + t('mt.noneSub') + '</p></div>';
     $('mmore').innerHTML = list.length > st.show ? '<button type="button" class="btn btn-ghost" id="moreBtn">' + t('mt.more') + '</button>' : '';
     Lerna.qsa('[data-dom]').forEach(function (b) { b.classList.toggle('active', b.getAttribute('data-dom') === st.dom); });
-    var qs = ['q', 'dom', 'ci', 'lv'].filter(function (k) { return st[k]; }).map(function (k) { return k + '=' + encodeURIComponent(st[k]); }).join('&');
+    var qs = ['q', 'dom', 'ci', 'lv', 'sec'].filter(function (k) { return st[k]; }).map(function (k) { return k + '=' + encodeURIComponent(st[k]); }).concat(st.sort ? ['tri=' + st.sort] : []).join('&');
     history.replaceState(null, '', 'metiers.html' + (qs ? '?' + qs : ''));
   }
 
@@ -519,31 +546,45 @@ Lerna.addStrings({
     lo = lo <= 1 ? 0 : lo;
     return lo === hi ? t('mt.p.yr1', { a: lo }) : t('mt.p.yr', { a: lo, b: hi });
   }
+  /* Compatibilité : chaque critère compte en partie (pas tout ou rien), et 100 % n'est jamais affiché :
+     un test ne peut pas dire qu'un métier est parfait pour quelqu'un */
+  var OBJ = { entreprise: ['business', 'art', 'tech', 'comm'], freelance: ['art', 'tech', 'comm', 'business'], public: ['droit', 'education', 'sante'], recherche: ['sciences', 'education', 'sante'], ong: ['sante', 'education', 'agri', 'droit'] };
   function fitOf(m, f, P) {
     var doms = m[4] || [], why = [], pts = 0, max = 0;
     if (P.doms.length) {
       max += 4;
       var hit = doms.filter(function (d) { return P.doms.indexOf(d) !== -1; });
-      if (hit.length) { pts += 4; why.push(['ok', t('mt.w.dom', { d: hit.map(function (d) { return t('mt.dom.' + d); }).join(', ') })]); } else why.push(['ko', t('mt.w.domNo')]);
+      if (hit.length) {
+        var rank = Math.min.apply(null, hit.map(function (d) { return P.doms.indexOf(d); }));   // ton 1er choix compte le plus
+        pts += 4 * (rank === 0 ? 1 : rank === 1 ? 0.92 : 0.85) * (hit.length < doms.length ? 0.96 : 1);
+        why.push(['ok', t('mt.w.dom', { d: hit.map(function (d) { return t('mt.dom.' + d); }).join(', ') })]);
+      } else why.push(['ko', t('mt.w.domNo')]);
     }
     if (P.subs.length) {
       max += 2;
       var sh = P.subs.filter(function (x) { return (SUBJ[x] || []).some(function (d) { return doms.indexOf(d) !== -1; }); });
-      if (sh.length) { pts += 2; why.push(['ok', t('mt.w.subj', { s: sh.map(function (x) { return t('mt.s.' + x); }).join(', ') })]); } else why.push(['mid', t('mt.w.subjNo')]);
+      var part = Math.min(1, sh.length / Math.min(P.subs.length, 3));
+      pts += 2 * part;
+      if (sh.length) why.push([part >= 0.5 ? 'ok' : 'mid', t('mt.w.subj', { s: sh.map(function (x) { return t('mt.s.' + x); }).join(', ') })]); else why.push(['mid', t('mt.w.subjNo')]);
     }
     if (P.style && STYLE[P.style]) {
       max += 2;
-      if (STYLE[P.style].some(function (d) { return doms.indexOf(d) !== -1; })) { pts += 2; why.push(['ok', t('mt.w.style.' + P.style)]); } else why.push(['mid', t('mt.w.styleNo')]);
+      if (STYLE[P.style].some(function (d) { return doms.indexOf(d) !== -1; })) { pts += 2; why.push(['ok', t('mt.w.style.' + P.style)]); } else { pts += 0.4; why.push(['mid', t('mt.w.styleNo')]); }
     }
     var y = yearsOf(m, f), w = WANT[P.dur];
     if (y && w) {
       max += 2;
-      if (y[0] <= w[1] && y[1] >= w[0]) { pts += 2; why.push(['ok', t('mt.w.dur')]); }
-      else if (y[0] > w[1]) why.push(['ko', t('mt.w.durLong')]);
+      if (y[0] <= w[1] && y[1] >= w[0]) { pts += (y[0] >= w[0] && y[1] <= w[1]) ? 2 : 1.7; why.push(['ok', t('mt.w.dur')]); }
+      else if (y[0] > w[1]) { pts += y[0] - w[1] <= 1 ? 0.8 : 0; why.push(['ko', t('mt.w.durLong')]); }
       else { pts += 1; why.push(['mid', t('mt.w.durShort')]); }
     }
+    if (P.obj && OBJ[P.obj]) {
+      max += 1;
+      if (OBJ[P.obj].some(function (d) { return doms.indexOf(d) !== -1; })) { pts += 1; why.push(['ok', t('mt.w.obj.ok')]); } else { pts += 0.3; why.push(['mid', t('mt.w.obj.no')]); }
+    }
     var pct = max ? Math.round(pts / max * 100) : 0;
-    return { pct: pct, lab: pct >= 75 ? 'mt.fitHi' : pct >= 50 ? 'mt.fitMid' : 'mt.fitLo', why: why };
+    pct = Math.min(pct, why.some(function (x) { return x[0] !== 'ok'; }) ? 94 : 98);
+    return { pct: pct, lab: pct >= 80 ? 'mt.fitHi' : pct >= 55 ? 'mt.fitMid' : 'mt.fitLo', why: why };
   }
   function pathOf(m, f, P) {
     var steps = [], reg = f.rg || RULES[ruleOf(m[0], f.t)], dom = (m[4] || [])[0] || '';
@@ -563,7 +604,7 @@ Lerna.addStrings({
     var head = '<h3>✨ ' + t('mt.fitTitle') + '</h3>';
     if (!Lerna.isPremium()) {
       return '<section class="card lk-card mt-fit">' + Lerna.sticker('lock', 'stk-sm') + '<h3 style="margin-top:8px">' + t('mt.fitTitle') + '</h3>' +
-        '<p class="muted" style="margin:6px 0 4px">' + t('mt.fitLockSub') + '</p>' +
+        '<p class="muted" style="margin:6px 0 4px">' + Lerna.linkifyHTML(t('mt.fitLockSub')) + '</p>' +
         '<ul class="lk-list list-check">' + ['mt.fitB1', 'mt.fitB2', 'mt.fitB3', 'mt.fitB4'].map(function (k) { return '<li>' + t(k) + '</li>'; }).join('') + '</ul>' +
         '<a class="btn btn-primary" style="margin-top:16px" href="premium.html?src=metier" data-paywall="metier" data-premium-go>' + t('pl.btn') + ' →</a>' +
         '<p style="margin-top:8px"><a class="small muted" href="premium.html?src=metier">' + t('pl.plans') + '</a></p></section>';
@@ -612,7 +653,7 @@ Lerna.addStrings({
         (f.se && f.se.length ? '<section class="card"><h3>' + t('mt.qual') + '</h3><p class="small muted" style="margin:-4px 0 10px">' + t('mt.qualSub') + '</p>' + ul(f.se) + '</section>' : '') +
         (skills.length ? '<section class="card"><h3>' + t('mt.skills') + '</h3>' + ul(skills.map(cap)) + '</section>' : '') +
         (know.length ? '<section class="card"><h3>' + t(isE ? 'mt.opt' : 'mt.know') + '</h3><p>' + esc(know.join(' · ')) + '</p></section>' : '') +
-        (f.sec && f.sec.length ? '<section class="card"><h3>' + t('mt.secs') + '</h3><p class="small muted" style="margin:-4px 0 10px">' + t('mt.secsSub') + '</p><div class="chips">' + f.sec.map(function (x) { return '<span class="chip">' + esc(x) + '</span>'; }).join('') + '</div></section>' : '') +
+        (f.sec && f.sec.length ? '<section class="card"><h3>' + t('mt.secs') + '</h3><p class="small muted" style="margin:-4px 0 10px">' + t('mt.secsSub') + '</p><div class="chips">' + f.sec.map(function (x) { return '<a class="chip" href="metiers.html?sec=' + encodeURIComponent(x) + '">' + esc(x) + ' →</a>'; }).join('') + '</div></section>' : '') +
         (ctx ? '<section class="card"><h3>' + t('mt.ctx') + '</h3><div class="ctx">' + ctx + '</div></section>' : '') +
         (ints.length ? '<section class="card"><h3>' + t('mt.ints') + '</h3><div class="chips">' + ints.map(function (c) { return '<a class="chip" href="metiers.html?ci=' + encodeURIComponent(c.id) + '">' + esc(c.l) + '</a>'; }).join('') + '</div></section>' : '') +
         (EL ? '<section class="card mt-intl"><h3>🌍 ' + t(isE ? 'mt.intlE' : 'mt.intl') + '</h3><p class="small muted" style="margin:-4px 0 12px">' + t(isE ? 'mt.intlESub' : 'mt.intlSub') + '</p>' +
@@ -640,13 +681,14 @@ Lerna.addStrings({
 
   Lerna.ready(function () {
     /* Les métiers sont classés selon le profil (test d'orientation) : aucun filtre ni pays imposé */
-    PROF = profileInfo();
+    PROF = testDone() ? profileInfo() : null;   // pas de test terminé : pas de classement « pour toi »
     root.querySelector('.loading').innerHTML = Lerna.thinking('inline');
     route();
     document.addEventListener('click', function (e) {
       var b;
       if ((b = e.target.closest('[data-dom]'))) { var d = b.getAttribute('data-dom'); st.dom = st.dom === d ? '' : d; st.autoDom = false; st.show = PER; Lerna.sound.play('select'); paintList(); return; }
       if (e.target.closest('#moreBtn')) { st.show += PER; paintList(); return; }
+      if (e.target.closest('#secOff')) { st.sec = ''; st.show = PER; paintList(); return; }
       if (e.target.closest('#retry')) { route(); }
     });
     /* Une recherche porte sur tous les métiers : le domaine choisi automatiquement (d'après le test) est retiré */
@@ -654,6 +696,7 @@ Lerna.addStrings({
     document.addEventListener('change', function (e) {
       if (e.target.id === 'mci') { st.ci = e.target.value; st.show = PER; paintList(); }
       if (e.target.id === 'mlv') { st.lv = e.target.value; st.show = PER; paintList(); }
+      if (e.target.id === 'msort') { st.sort = e.target.value; st.show = PER; paintList(); Lerna.track('metier_tri', st.sort); }
       if (e.target.id === 'mcc' && CUR) {
         var cc = e.target.value;
         Lerna.store.set('lerna_mt_cc', cc);

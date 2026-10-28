@@ -404,7 +404,7 @@ Lerna.ready(function () {
         '<a class="btn btn-primary" href="premium.html?src=decouvrir">' + esc(t('home.pSee')) + '</a></article>';
     var f = pay ? t('home.fa5f', { m: fc(pay.prixMois), a: fc(pay.prixAn), p: fc(pay.prixPack || 25000) }) : '';
     var Q = [['home.fq1', esc(t('home.fa1'))], ['home.fq2', esc(t('home.fa2'))], ['home.fq3', esc(t('home.fa3'))], ['home.fq4', esc(t('home.fa4'))],
-      ['home.fq5', esc(t('home.fa5', { f: f }))], ['home.fq6', esc(t(pay ? 'home.fa6' : 'home.fa6Soon'))], ['home.fq7', esc(t('home.fa7'))], ['home.fq8', t('home.fa8')]];
+      ['home.fq5', Lerna.linkify(t('home.fa5', { f: f }))], ['home.fq6', esc(t(pay ? 'home.fa6' : 'home.fa6Soon'))], ['home.fq7', esc(t('home.fa7'))], ['home.fq8', t('home.fa8')]];
     document.getElementById('faqList').innerHTML = Q.map(function (q) { return '<details class="reveal"><summary>' + esc(t(q[0])) + '</summary><p>' + q[1] + '</p></details>'; }).join('');
     Lerna.initReveal();
   }

@@ -38,6 +38,37 @@
       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
     });
   };
+  /* Quand un texte parle d'une partie de l'appli (Premium, Pack Candidature, Mon dossier…), elle devient un lien direct :
+     un appui et on y est. Seule la 1re mention de chaque partie est liée ; jamais dans un lien déjà présent. */
+  var APP_LINKS = [
+    [/Pack Candidature|Application Pack/, 'premium.html?plan=pack#buyBox', 'pack'],
+    [/\bPremium\b/, 'premium.html', 'premium'],
+    [/\bMon dossier\b|\bMy application\b/, 'dossier.html', 'dossier'],
+    [/test d(?:[’']|&#39;)orientation|orientation test/i, 'questionnaire.html', 'test'],
+    [/\bl(?:[’']|&#39;)Explorer\b|\bthe Explorer\b/, 'explorer.html', 'explorer'],
+    [/page Métiers|Métiers et débouchés|Careers and outcomes/, 'metiers.html', 'metiers'],
+    [/\bOpportunités\b|\bOpportunities\b/, 'opportunites.html', 'opps'],
+    [/\bParamètres\b|\bSettings\b/, 'parametres.html', 'settings']
+  ];
+  Lerna.linkifyHTML = function (html, skip) {
+    var done = {}, inA = 0;
+    return String(html || '').split(/(<[^>]+>)/).map(function (part) {
+      if (part.charAt(0) === '<') { if (/^<a[\s>]/i.test(part)) inA++; else if (/^<\/a>/i.test(part)) inA = Math.max(0, inA - 1); return part; }
+      if (inA || !part) return part;
+      APP_LINKS.forEach(function (L) {
+        if (done[L[2]] || (skip && skip.indexOf(L[2]) !== -1)) return;
+        var m = part.match(L[0]); if (!m) return;
+        done[L[2]] = 1;
+        part = part.slice(0, m.index) + '\u0000' + L[2] + '\u0001' + m[0] + '\u0002' + part.slice(m.index + m[0].length);
+      });
+      return part.replace(/\u0000(\w+)\u0001([^\u0002]*)\u0002/g, function (x, k, txt) {
+        var L = APP_LINKS.filter(function (y) { return y[2] === k; })[0];
+        var href = k === 'test' && Lerna.store && Lerna.store.raw('lerna_results') ? 'resultats.html' : L[1];   // test déjà fait : ses résultats
+        return '<a class="app-link" href="' + href + '" data-app-link="' + k + '">' + txt + '</a>';
+      });
+    }).join('');
+  };
+  Lerna.linkify = function (text, skip) { return Lerna.linkifyHTML(Lerna.esc(text), skip); };
   Lerna.qs = function (sel, root) { return (root || doc).querySelector(sel); };
   Lerna.qsa = function (sel, root) { return Array.prototype.slice.call((root || doc).querySelectorAll(sel)); };
   /* Paramètres d'URL. Secours : certains hébergements (aperçus intégrés) retirent la query string
@@ -306,7 +337,16 @@
     Lerna.applyI18n();
     Lerna.emit('lerna:lang', lang);
   };
-  Lerna.onLang = function (fn) { Lerna.on('lerna:lang', fn); };
+  /* Une page redessinée (langue, Premium reconnu…) garde l'endroit où l'on était : pas de retour en haut */
+  Lerna.keepScroll = function (fn) {
+    return function () {
+      var y = window.scrollY, r = fn.apply(this, arguments);
+      var back = function () { if (y > 0 && Math.abs(window.scrollY - y) > 2) window.scrollTo(0, y); };
+      requestAnimationFrame(back); setTimeout(back, 150); setTimeout(back, 450);
+      return r;
+    };
+  };
+  Lerna.onLang = function (fn) { Lerna.on('lerna:lang', Lerna.keepScroll(fn)); };
 
   /* Chaînes communes */
   Lerna.addStrings({
@@ -1231,11 +1271,12 @@
     wrap.className = 'modal-wrap';
     wrap.innerHTML = '<div class="modal" role="dialog" aria-modal="true">' + html + '</div>';
     doc.body.appendChild(wrap);
-    var prevOverflow = doc.body.style.overflow;
+    var prevOverflow = doc.body.style.overflow, keepY = window.scrollY;   // en fermant, on revient exactement où l'on était
     doc.body.style.overflow = 'hidden';
     function close() {
       wrap.classList.remove('open');
       doc.body.style.overflow = prevOverflow;
+      if (Math.abs(window.scrollY - keepY) > 2) window.scrollTo(0, keepY);
       setTimeout(function () { wrap.remove(); }, 300);
       doc.removeEventListener('keydown', onKey);
     }
@@ -1390,6 +1431,7 @@
     var host = doc.getElementById('lerna-menu-host');
     if (!host) { host = doc.createElement('div'); host.id = 'lerna-menu-host'; doc.body.appendChild(host); }
     var p = page(), u = Auth.user, t = Lerna.t, wasOpen = host.querySelector('.mn.open');
+    var oldBody = host.querySelector('.mn-body'), keepScroll = oldBody ? oldBody.scrollTop : 0;   // le menu reste là où on était
     var a = function (href, icon, key, pages) {
       var on = pages && pages.indexOf(p) !== -1;
       return '<a href="' + href + '" class="mn-link' + (on ? ' active' : '') + '"' + (on ? ' aria-current="page"' : '') + '>' + Lerna.icon(icon) + '<span>' + t(key) + '</span>' + Lerna.icon('arrowR', 'ic-sm mn-go') + '</a>';
@@ -1430,7 +1472,15 @@
           '<p class="mn-foot"><span class="logo-txt">LER<span class="n">N</span>A</span> · ' + t('mn.tagline') + '</p>' +
         '</div>' +
       '</aside>';
-    if (wasOpen) openMenu(true, true);
+    if (wasOpen) { host.querySelector('.mn').classList.add('mn-instant'); openMenu(true, true); }
+    var nb = host.querySelector('.mn-body'); if (nb && keepScroll) nb.scrollTop = keepScroll;
+    if (wasOpen) requestAnimationFrame(function () { var m = host.querySelector('.mn'); if (m) m.classList.remove('mn-instant'); });
+  }
+  /* Thème et sons : on change seulement la ligne touchée, sans redessiner le menu (il ne remonte pas en haut) */
+  function refreshMenuRow(el, icon, val) {
+    if (!el) { renderMenu(); return; }
+    var ic = el.querySelector('svg'); if (ic) ic.outerHTML = Lerna.icon(icon);
+    var v = el.querySelector('.mn-val'); if (v) v.textContent = val;
   }
   var menuOpener = null;
   function openMenu(open, quiet) {
@@ -1519,8 +1569,8 @@
     if ((el = e.target.closest('[data-lang]'))) { e.preventDefault(); Lerna.setLang(el.getAttribute('data-lang')); Sound.play('click'); return; }
     if (e.target.closest('.ab-menu')) { openMenu(true); Sound.play('click'); return; }
     if (e.target.closest('[data-menu-close]')) { openMenu(false); return; }
-    if (e.target.closest('[data-theme-toggle]')) { Prefs.set('theme', Prefs.theme() === 'dark' ? 'light' : 'dark'); renderMenu(); return; }
-    if ((el = e.target.closest('[data-sound-toggle]'))) { Sound.toggle(); renderMenu(); return; }
+    if ((el = e.target.closest('[data-theme-toggle]'))) { Prefs.set('theme', Prefs.theme() === 'dark' ? 'light' : 'dark'); var dk = Prefs.theme() === 'dark'; refreshMenuRow(el, dk ? 'moon' : 'sun', Lerna.t(dk ? 'mn.dark' : 'mn.light')); return; }
+    if ((el = e.target.closest('[data-sound-toggle]'))) { Sound.toggle(); refreshMenuRow(el, Sound.enabled ? 'volume' : 'volumeX', Lerna.t(Sound.enabled ? 'common.on' : 'common.off')); return; }
     if (e.target.closest('.mn a[href]')) { openMenu(false); }
     if ((el = e.target.closest('[data-logout]'))) {
       if (el.disabled) return;
@@ -1827,6 +1877,7 @@
   };
   /* Le compte (ou la config) arrive après l'affichage : on réaffiche si l'accès Premium change */
   Lerna.onAccessChange = function (fn) {
+    fn = Lerna.keepScroll(fn);
     var last = Lerna.isPremium();
     var chk = function () { var now = Lerna.isPremium(); if (now !== last) { last = now; fn(now); } };
     Lerna.auth.ready.then(chk, chk);

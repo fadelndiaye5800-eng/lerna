@@ -162,7 +162,7 @@ p { line-height: 1.65; }
 .container-md { max-width: 960px; }
 .container-sm { max-width: 720px; }
 .section { padding: 72px 0; }
-.section-alt { background: var(--cream); }
+.section-alt { background: transparent; }   /* une seule couleur de fond sur toute la page (pas de bandes) */
 .center { text-align: center; }
 .muted { color: var(--muted); }
 .small { font-size: 0.85rem; }
@@ -931,6 +931,7 @@ html.mn-lock, html.mn-lock body { overflow: hidden; }
 .mn-foot .logo-txt { font-family: var(--font-title); font-weight: 900; letter-spacing: .05em; color: var(--brown); }
 .mn-foot .n { color: var(--orange); }
 [data-calm] .mn, [data-calm] .mn-overlay { transition: none; }
+.mn.mn-instant, .mn.mn-instant + *, .mn-overlay:has(+ .mn.mn-instant) { transition: none !important; }   /* menu redessiné (langue) : pas de nouvelle animation d'ouverture */
 /* Sur ordinateur, la barre de gauche montre déjà tout : pas de 3 barres */
 @media (min-width: 960px) { .ab-menu { display: none; } }
 @media print { .mn, .mn-overlay { display: none !important; } }
@@ -943,3 +944,7 @@ html.mn-lock, html.mn-lock body { overflow: hidden; }
 .fee-lock { display: inline-flex; align-items: center; gap: 4px; font-weight: 700; color: var(--orange-deep); text-decoration: none; }
 .tab .tab-lk { display: inline-flex; margin-left: 5px; opacity: .7; vertical-align: -2px; }
 .tab .tab-lk svg { width: 13px; height: 13px; }
+
+/* Lien direct vers une partie de l'appli, dans un texte (Premium, Pack Candidature, Mon dossier…) */
+.app-link { color: var(--orange-deep); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.msg.bot .app-link { color: var(--orange-deep); }

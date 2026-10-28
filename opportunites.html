@@ -63,6 +63,7 @@
   .verified { font-size: .8rem; color: var(--muted); text-align: center; margin: 30px auto 60px; max-width: 560px; }
   .prem-banner { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; background: var(--panel-grad); color: var(--on-panel); border-radius: 20px; padding: 22px 24px; margin-bottom: 18px; }
   .prem-banner h3 { color: var(--on-panel); font-size: 1.15rem; }
+  .prem-banner .app-link { color: var(--orange); }
   .prem-banner p { color: var(--on-panel-muted); font-size: .9rem; margin-top: 4px; }
   .prem-banner > div { flex: 1; min-width: 200px; }
   .fact-note { font-size: .82rem; color: var(--muted); background: var(--cream); border-radius: 10px; padding: 8px 10px; line-height: 1.45; }
@@ -489,7 +490,7 @@ Lerna.addStrings({
     /* Bandeau Premium : toutes les offres et leurs liens officiels sont gratuits ; « Est-ce pour moi ? » et les alertes sont Premium */
     var showPrem = Lerna.config.premiumEnabled && !Lerna.isPaidPremium() && open.length > 0;
     $('premBanner').innerHTML = showPrem
-      ? '<div class="prem-banner">' + Lerna.icon('gem', 'ic-lg') + '<div><h3>' + t(st.tab === 'investisseur' ? 'op.premInvTitle' : 'op.premTitle') + '</h3><p>' + t(st.tab === 'investisseur' ? 'op.premInvText' : 'op.premText') + '</p></div><a class="btn btn-primary btn-sm" href="premium.html?src=offres">' + t('op.premBtn') + '</a></div>'
+      ? '<div class="prem-banner">' + Lerna.icon('gem', 'ic-lg') + '<div><h3>' + Lerna.linkifyHTML(t(st.tab === 'investisseur' ? 'op.premInvTitle' : 'op.premTitle')) + '</h3><p>' + t(st.tab === 'investisseur' ? 'op.premInvText' : 'op.premText') + '</p></div><a class="btn btn-primary btn-sm" href="premium.html?src=offres">' + t('op.premBtn') + '</a></div>'
       : '';
     $('list').innerHTML = shown.length ? shown.map(card).join('') :
       '<div class="empty" style="grid-column:1/-1">' + Lerna.icon('star') + '<h4>' + t('op.none') + '</h4><p>' + t('op.noneSub') + '</p></div>';

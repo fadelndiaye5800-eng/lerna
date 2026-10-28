@@ -389,7 +389,7 @@ Lerna.addStrings({
     var hist = chatHistory();
     if (!hist.length) hist = [{ role: 'assistant', content: t('sp.iaHello', { name: user.prenom || '' }) }];
     return '<section class="blk"><div class="blk-head"><div><h2>' + Lerna.icon('chat') + t('sp.iaTitle') + '</h2><p class="small muted" style="margin-top:4px">' + t('sp.iaSub') + '</p></div></div>' +
-      '<div class="chat"><div class="chat-msgs" id="msgs" aria-live="polite">' + hist.map(function (m) { return '<div class="msg ' + (m.role === 'user' ? 'me' : 'bot') + '">' + esc(m.content) + '</div>'; }).join('') + '</div>' +
+      '<div class="chat"><div class="chat-msgs" id="msgs" aria-live="polite">' + hist.map(function (m) { return '<div class="msg ' + (m.role === 'user' ? 'me' : 'bot') + '">' + (m.role === 'user' ? esc(m.content) : Lerna.linkify(m.content)) + '</div>'; }).join('') + '</div>' +
       '<div class="chat-sugg" id="sugg">' + suggestions().map(function (s) { return '<button type="button" data-ask="' + esc(s) + '">' + esc(s) + '</button>'; }).join('') + '</div>' +
       '<form class="chat-form" id="chatForm"><label class="sr-only" for="chatIn">' + t('sp.iaPh') + '</label><input class="input" id="chatIn" maxlength="800" autocomplete="off" placeholder="' + esc(t('sp.iaPh')) + '">' +
       '<button class="btn btn-primary" type="submit" aria-label="' + esc(t('sp.send')) + '">' + Lerna.icon('send') + '</button></form></div>' +
@@ -411,7 +411,9 @@ Lerna.addStrings({
   }
   function addMsg(role, content, cls) {
     var box = $('msgs'); if (!box) return null;
-    var d = document.createElement('div'); d.className = 'msg ' + (role === 'user' ? 'me' : 'bot') + (cls ? ' ' + cls : ''); d.textContent = content;
+    var d = document.createElement('div'); d.className = 'msg ' + (role === 'user' ? 'me' : 'bot') + (cls ? ' ' + cls : '');
+    /* Réponses de l'assistant : « Premium », « Pack Candidature », « Mon dossier »… deviennent des liens directs */
+    if (role === 'user' || cls === 'typing') d.textContent = content; else d.innerHTML = Lerna.linkify(content);
     box.appendChild(d); box.scrollTop = box.scrollHeight; return d;
   }
   function profileSummary() {

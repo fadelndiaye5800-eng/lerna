@@ -336,7 +336,7 @@ Lerna.addStrings({
   }
   /* ---------- Premium : presque tout « Mon dossier » est réservé ---------- */
   function lockCard(src) {
-    return '<section class="card lk-card">' + Lerna.sticker('lock', 'stk-sm') + '<h3 style="margin-top:8px">' + t('lk.title') + '</h3><p class="muted" style="margin:6px 0 4px">' + t('lk.sub') + '</p>' +
+    return '<section class="card lk-card">' + Lerna.sticker('lock', 'stk-sm') + '<h3 style="margin-top:8px">' + Lerna.linkifyHTML(t('lk.title')) + '</h3><p class="muted" style="margin:6px 0 4px">' + Lerna.linkifyHTML(t('lk.sub')) + '</p>' +
       '<ul class="lk-list list-check">' + ['lk.b1', 'lk.b2', 'lk.b3', 'lk.b4'].map(function (k) { return '<li>' + t(k) + '</li>'; }).join('') + '</ul>' +
       '<a class="btn btn-primary" style="margin-top:16px" href="premium.html?src=' + encodeURIComponent(src || 'dossier') + '&plan=pack">' + t('lk.btn') + ' →</a>' +
       '<p style="margin-top:8px"><a class="small muted" href="premium.html?src=' + encodeURIComponent(src || 'dossier') + '">' + t('lk.month') + '</a></p></section>';

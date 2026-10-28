@@ -210,7 +210,7 @@ Lerna.addStrings({
     'pr.w2t': 'Lettres et entretien, corrigés sans limite', 'pr.w2': 'LERNA relit ta lettre de motivation et tes réponses d’entretien autant de fois qu’il le faut, jusqu’à ce qu’elles soient prêtes.',
     'pr.w3t': 'Ton vrai budget, et un plan B', 'pr.w3': 'Le coût réel de ta première année (scolarité, logement, vie, visa, billet) et des écoles de secours qui rentrent dans ton budget.',
     'pr.w4t': 'Les nouvelles offres pour toi, en premier', 'pr.w4': 'Une alerte dès qu’une bourse, un stage ou un financement de ton domaine est ajouté dans LERNA.',
-    'pr.agency': 'Un accompagnement en agence pour étudier à l’étranger coûte souvent bien plus cher. Avec le <strong>Pack Candidature</strong>, tu as les outils de toute la saison pour une fraction de ce prix.',
+    'pr.agency': 'Un accompagnement en agence pour étudier à l’étranger coûte souvent bien plus cher. Avec le <a class="app-link" href="premium.html?plan=pack#buyBox" data-app-link="pack">Pack Candidature</a>, tu as les outils de toute la saison pour une fraction de ce prix.',
     'pr.pack': 'Pack Candidature', 'pr.pPack': '39,99 $', 'pr.pPackUnit': '/ 6 mois',
     'pr.subPack': 'Un seul paiement pour toute ta saison de candidatures : 6 mois d’accès complet, sans renouvellement.',
     'pr.fcfaPack': 'soit <strong>{m}</strong> en une fois, payable par Wave, Orange Money, Yas ou carte',
@@ -295,7 +295,7 @@ Lerna.addStrings({
     'pr.w2t': 'Letters and interview, reviewed without limit', 'pr.w2': 'LERNA reviews your cover letter and interview answers as many times as needed, until they are ready.',
     'pr.w3t': 'Your real budget, and a plan B', 'pr.w3': 'The real cost of your first year (tuition, housing, living, visa, flight) and back-up schools that fit your budget.',
     'pr.w4t': 'New offers for you, first', 'pr.w4': 'An alert as soon as a scholarship, internship or funding in your field is added to LERNA.',
-    'pr.agency': 'Paying an agency to help you study abroad often costs much more. With the <strong>Application Pack</strong>, you get the tools for the whole season for a fraction of that price.',
+    'pr.agency': 'Paying an agency to help you study abroad often costs much more. With the <a class="app-link" href="premium.html?plan=pack#buyBox" data-app-link="pack">Application Pack</a>, you get the tools for the whole season for a fraction of that price.',
     'pr.pack': 'Application Pack', 'pr.pPack': '$39.99', 'pr.pPackUnit': '/ 6 months',
     'pr.subPack': 'One payment for your whole application season: 6 months of full access, no renewal.',
     'pr.fcfaPack': 'that is <strong>{m}</strong> once, payable by Wave, Orange Money, Yas or card',
@@ -457,7 +457,7 @@ Lerna.addStrings({
     var qs = [['pr.q5', 'pr.a5'], ['pr.q1', a1], ['pr.q2', 'pr.a2'], ['pr.q3', 'pr.a3']];
     if (packOn()) qs.splice(1, 0, ['pr.q6', 'pr.a6']);
     if (M()) qs.push(['pr.q7', 'pr.a7'], ['pr.q4', 'pr.a4'], ['pr.q8', 'pr.a8']);
-    $('faq').innerHTML = qs.map(function (q) { return '<details class="reveal"><summary>' + t(q[0]) + '</summary><p>' + t(q[1]) + '</p></details>'; }).join('');
+    $('faq').innerHTML = qs.map(function (q) { return '<details class="reveal"><summary>' + t(q[0]) + '</summary><p>' + Lerna.linkifyHTML(t(q[1]), ['premium']) + '</p></details>'; }).join('');
     Lerna.initReveal();
   }
   function renderStatus() {
@@ -652,9 +652,24 @@ Lerna.addStrings({
   Lerna.ready(function () {
   Lerna.analytics.capture('premium_view', { src: Lerna.param('src') || document.referrer.split('/').pop().split('?')[0] || 'direct' });
     renderPrice(); renderTable(); renderFaq(); renderWhy();
+    /* Arrivée depuis un lien « Pack Candidature » ou « Premium » d'une autre page : directement sur le paiement */
+    if (Lerna.param('plan') || location.hash === '#buyBox') setTimeout(function () { var c = document.querySelector('.price-card'); if (c) c.scrollIntoView({ block: 'center' }); }, 350);
     $('parentsBtn').addEventListener('click', sendParents);
     Lerna.qsa('[data-plan]').forEach(function (b) { b.addEventListener('click', function () { plan = b.getAttribute('data-plan'); renderPrice(); Lerna.sound.play('click'); }); });
     $('buyBtn').addEventListener('click', buy);
+    /* « Pack Candidature » dans un texte de cette page : on choisit le Pack et on remonte au bouton de paiement */
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('[data-app-link="pack"], a[href="#buyBox"]');
+      if (!a) return;
+      e.preventDefault();
+      if (a.getAttribute('data-app-link') === 'pack' && packOn()) { plan = 'pack'; renderPrice(); }
+      var box = document.querySelector('.price-card');
+      if (box) box.scrollIntoView({ behavior: Lerna.prefs && Lerna.prefs.get && Lerna.prefs.get('reduceMotion') ? 'auto' : 'smooth', block: 'center' });
+      var btn = !$('momoBtn').hidden ? $('momoBtn') : $('buyBtn');
+      setTimeout(function () { if (btn) { Lerna.pop && Lerna.pop(btn); try { btn.focus({ preventScroll: true }); } catch (err) {} } }, 450);
+      Lerna.sound.play('click');
+      Lerna.track('premium_pack_link');
+    });
     $('momoBtn').addEventListener('click', momo);
     Lerna.auth.ready.then(function () {
       renderPrice(); renderFaq(); renderStatus(); resumePayment();
