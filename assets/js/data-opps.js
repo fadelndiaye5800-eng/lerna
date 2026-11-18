@@ -401,7 +401,9 @@
   ];
 
   window.LERNA_OPPS_VERIFIED = V;
-  var STALE_DAYS = 30;
+  /* Une offre vérifiée il y a plus de 30 jours est à revérifier (signalée dans /admin) mais reste visible :
+     la date de vérification est écrite sur chaque carte. Au-delà de 90 jours sans nouvelle vérification, elle est cachée. */
+  var STALE_DAYS = 90, RECHECK_DAYS = 30;
 
   /* Pays de la personne (réponse au questionnaire, compte, ou pays détecté) */
   function userCountry() {
@@ -434,6 +436,7 @@
     if (o.rolling) return 'rolling';
     return 'unverified';
   };
+  window.LERNA_OPP_RECHECK = function (o) { return !o.verifie || daysSince(o.verifie) > RECHECK_DAYS; };
   window.LERNA_OPP_VISIBLE = function (o, withClosed) {
     var s = window.LERNA_OPP_STATUS(o);
     return s === 'open' || s === 'urgent' || s === 'rolling' || (withClosed && s === 'closed');

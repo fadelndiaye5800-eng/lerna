@@ -49,6 +49,22 @@
   .splash-badges .tag { padding: 6px 14px 6px 8px; font-size: .84rem; background: var(--white); border: 1.5px solid var(--cream-dark); gap: 6px; }
   .resume-box { margin: 0 auto 18px; max-width: 460px; text-align: left; }
   .splash .btn-primary { min-width: 240px; }
+  /* Téléphone : le bouton « Commencer » doit se voir sans faire défiler (les badges passent dessous) */
+  @media (max-width: 600px) {
+    .splash { display: flex; flex-direction: column; align-items: center; padding-top: 4px; }
+    .splash > * { width: 100%; }
+    .splash > .splash-art { width: 220px; height: 128px; margin: 0 auto 12px; }
+    .splash-art .stk { width: 54px; height: 54px; }
+    .splash-art .seal { width: 52px; height: 52px; }
+    .splash p.lead { margin: 10px auto 18px; font-size: 1rem; }
+    .splash-badges { order: 5; margin: 22px 0 0; }
+  }
+  @media (max-width: 600px) and (max-height: 600px) {
+    .splash > .splash-art { height: 84px; margin-bottom: 6px; }
+    .splash-art .stk { width: 40px; height: 40px; }
+    .splash-art .seal { width: 40px; height: 40px; }
+    .splash h1 { font-size: 1.8rem; }
+  }
 
   /* Carte question */
   .q-head { margin-bottom: 20px; }

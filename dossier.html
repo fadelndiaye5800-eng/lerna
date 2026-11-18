@@ -194,7 +194,7 @@ Lerna.addStrings({
     'ds.docTitle': 'Mon dossier — LERNA',
     'ds.listTitle': 'Mes dossiers de candidature', 'ds.listSub': 'Une école = un dossier : les étapes, les documents, ta lettre, ton entretien et le visa, au même endroit.',
     'ds.empty': 'Aucun dossier pour l’instant', 'ds.emptySub': 'Choisis une école de tes résultats ou de tes favoris pour commencer.',
-    'ds.start': 'Commencer un dossier', 'ds.pickTitle': 'Pour quelle école ?', 'ds.pickFromResults': 'Tes écoles recommandées', 'ds.pickFromFavs': 'Tes favoris', 'ds.pickAll': 'Ou cherche dans toutes les écoles',
+    'ds.start': 'Commencer un dossier', 'ds.pickTitle': 'Pour quelle école ?', 'ds.pickFromResults': 'Tes écoles recommandées', 'ds.pickFromFavs': 'Tes favoris', 'ds.pickAll': 'Ou cherche dans toutes les écoles', 'ds.pickPh': 'Choisis une école',
     'ds.open': 'Ouvrir le dossier →', 'ds.nextStep': 'Prochaine étape : {s}', 'ds.allDone': 'Toutes les étapes sont faites 🎉',
     'ds.bTitle': 'Bourses pour tes destinations', 'ds.bSub': 'Bourses encore ouvertes, avec leur page officielle, pour : {c}, et pour ton niveau quand on le connaît.', 'ds.bDeadline': 'date limite {d}', 'ds.bRolling': 'candidature à tout moment', 'ds.bNone': 'Pas encore de bourse ouverte qui correspond à ces destinations et à ton niveau. Les nouvelles bourses arrivent dans Opportunités.', 'ds.bAll': 'Toutes les bourses →',
     'ds.frTitle': 'Candidature en France', 'ds.voeux': 'Mes vœux', 'ds.nVoeux': '{n} vœu(x)', 'ds.voeuxSub': 'Toutes tes formations en France passent par ce même dossier, sur la même plateforme. Ajoute-les depuis leur fiche.', 'ds.addVoeu': 'Ajouter une formation', 'ds.rmVoeu': 'Retirer ce vœu', 'ds.site': 'Site officiel', 'ds.findSchool': 'Trouver une école →', 'ds.nextDate': '{n} candidature(s) en cours · prochaine date {d}',
@@ -257,7 +257,7 @@ Lerna.addStrings({
     'ds.docTitle': 'My application — LERNA',
     'ds.listTitle': 'My applications', 'ds.listSub': 'One school = one application: steps, documents, your letter, your interview and the visa, all in one place.',
     'ds.empty': 'No application yet', 'ds.emptySub': 'Pick a school from your results or favourites to start.',
-    'ds.start': 'Start an application', 'ds.pickTitle': 'For which school?', 'ds.pickFromResults': 'Your recommended schools', 'ds.pickFromFavs': 'Your favourites', 'ds.pickAll': 'Or search all schools',
+    'ds.start': 'Start an application', 'ds.pickTitle': 'For which school?', 'ds.pickFromResults': 'Your recommended schools', 'ds.pickFromFavs': 'Your favourites', 'ds.pickAll': 'Or search all schools', 'ds.pickPh': 'Choose a school',
     'ds.open': 'Open →', 'ds.nextStep': 'Next step: {s}', 'ds.allDone': 'All steps done 🎉',
     'ds.bTitle': 'Scholarships for your destinations', 'ds.bSub': 'Scholarships still open, with their official page, for: {c}, and for your level when we know it.', 'ds.bDeadline': 'deadline {d}', 'ds.bRolling': 'apply anytime', 'ds.bNone': 'No open scholarship matches these destinations and your level yet. New scholarships arrive in Opportunities.', 'ds.bAll': 'All scholarships →',
     'ds.frTitle': 'Applying in France', 'ds.voeux': 'My choices', 'ds.nVoeux': '{n} choice(s)', 'ds.voeuxSub': 'All your programmes in France go through this one application, on the same platform. Add them from their profile.', 'ds.addVoeu': 'Add a programme', 'ds.rmVoeu': 'Remove this choice', 'ds.site': 'Official website', 'ds.findSchool': 'Find a school →', 'ds.nextDate': '{n} application(s) in progress · next date {d}',
@@ -452,7 +452,7 @@ Lerna.addStrings({
     var others = c.others.filter(function (i) { var x = fromReco(i); return x && !(Lerna.dossiers.get(x.id) && (!x.voeu || (Lerna.dossiers.get(x.id).voeux || []).some(function (v) { return v.k === x.voeu.k; }))); });
     if (c.results.length || others.length) h += '<p class="label" style="margin-top:12px">' + t('ds.pickFromResults') + '</p><div class="pick">' + c.results.filter(function (x) { return !Lerna.dossiers.get(x); }).map(pickBtn).join('') + others.map(recoBtn).join('') + '</div>';
     if (c.favs.length) h += '<p class="label" style="margin-top:12px">' + t('ds.pickFromFavs') + '</p><div class="pick">' + c.favs.filter(function (x) { return !Lerna.dossiers.get(x); }).map(pickBtn).join('') + '</div>';
-    h += '<div class="field" style="margin-top:14px"><label for="pickAll">' + t('ds.pickAll') + '</label><select class="select" id="pickAll"><option value="">—</option>' +
+    h += '<div class="field" style="margin-top:14px"><label for="pickAll">' + t('ds.pickAll') + '</label><select class="select" id="pickAll"><option value="">' + t('ds.pickPh') + '</option>' +
       window.LERNA_SCHOOLS.slice().sort(function (a, b) { return a.nom.localeCompare(b.nom, Lerna.lang); }).map(function (s) { return '<option value="' + s.id + '">' + esc(s.nom) + '</option>'; }).join('') + '</select></div></section>';
     $('root').innerHTML = h;
   }

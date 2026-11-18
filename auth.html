@@ -278,7 +278,7 @@ Lerna.addStrings({
       }
       var av = e.target.closest('[data-av]');
       if (av) {
-        genre = genre === av.getAttribute('data-av') ? '' : av.getAttribute('data-av'); genreTouched = true;   // 2e appui : choix enlevé
+        genre = av.getAttribute('data-av'); genreTouched = true;   // réponse obligatoire : un 2e appui confirme (avant, il enlevait le choix pré-rempli d'après le prénom)
         Array.prototype.forEach.call(document.querySelectorAll('[data-av]'), function (b) { var on = b.getAttribute('data-av') === genre; b.classList.toggle('on', on); b.setAttribute('aria-checked', String(on)); });
         Lerna.pop(av); Lerna.sound.play('select'); return;
       }

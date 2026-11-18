@@ -100,7 +100,8 @@
   function days(iso) { var d = Lerna.daysUntil(iso); return d === null ? null : -d; }
   function oppStatus(row) {
     var o = Object.assign({}, row.data || {}, { id: row.slug, deadline: row.date_limite || (row.data && row.data.deadline), verifie: row.verifie || (row.data && row.data.verifie) });
-    return window.LERNA_OPP_STATUS(o);
+    var s = window.LERNA_OPP_STATUS(o);
+    return s !== 'closed' && window.LERNA_OPP_RECHECK && window.LERNA_OPP_RECHECK(o) ? 'stale' : s;   // à revérifier dès 30 jours
   }
 
   /* ---------- Chargement ---------- */

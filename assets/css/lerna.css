@@ -132,6 +132,7 @@ body {
 body.no-nav { padding-top: 0; }
 img, svg { display: block; max-width: 100%; }
 a { color: inherit; }
+a.card { text-decoration: none; }   /* une carte cliquable n'est jamais soulignée */
 button { font: inherit; color: inherit; cursor: pointer; background: none; border: none; }
 input, select, textarea { font: inherit; color: inherit; }
 ::selection { background: rgba(232, 100, 12, 0.22); }
@@ -357,6 +358,7 @@ p { line-height: 1.65; }
   -webkit-overflow-scrolling: touch;
 }
 .tabs::-webkit-scrollbar { display: none; }
+.tabs.tabs-more { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 56px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 56px), transparent); }   /* d'autres onglets à droite */
 .tab {
   flex-shrink: 0;
   padding: 14px 18px;

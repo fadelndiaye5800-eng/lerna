@@ -34,6 +34,7 @@
   .st-head h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); }
   .st-head p { color: var(--muted); margin-top: 6px; }
   .sec { scroll-margin-top: calc(var(--nav-h) + 70px); }
+  .sec + .sec { margin-top: 26px; }   /* un titre de section ne colle pas à la carte d'au-dessus */
   .sec h2 { font-size: 1.25rem; display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
   .sec h2 .stk { width: 34px; height: 34px; }
   .group { background: var(--surface); border: 1.5px solid var(--cream-dark); border-radius: 20px; overflow: hidden; }
@@ -289,14 +290,16 @@ Lerna.addStrings({
 
     /* Ce que LERNA sait de toi */
     var me = Lerna.me.get();
-    var domName = function (d) { var x = (window.LERNA_DOMAINS || []).filter(function (z) { return z.id === d; })[0]; return x ? Lerna.L(x.label) : d; };
+    /* Réponses du test enregistrées en code (« superieur », « tech ») : on affiche le libellé de la question */
+    var optLabel = function (qid, v) { var q = window.LERNA_QUESTION && window.LERNA_QUESTION(qid), o = q && (q.options || []).filter(function (x) { return x.id === v; })[0]; return o ? Lerna.L(o.label) : v; };
+    var domName = function (d) { var x = (window.LERNA_DOMAINS || []).filter(function (z) { return z.id === d; })[0]; return x ? Lerna.L(x.label) : optLabel('q15', d); };
     h += sec('savoir', 'st.sKnow', 'thinking',
       item(t('st.kAvatar'), '', '<div class="avs">' + [['h', 'st.avH'], ['f', 'st.avF'], ['x', 'st.avX']].map(function (a) {
         return '<button type="button" class="av' + (me.genre === a[0] ? ' on' : '') + (me.genre === a[0] && me.genreDevine ? ' guess' : '') + '" data-av="' + a[0] + '" title="' + esc(t(a[1])) + '" aria-pressed="' + (me.genre === a[0]) + '">' + t(a[1]) + '</button>';
       }).join('') + '</div>', true) +
       item(t('st.kBirth'), me.age ? t('st.kAge', { n: me.age }) : '', '<input class="input" type="date" id="kBirth" style="max-width:190px" value="' + esc(me.naissance || '') + '" max="' + new Date().toISOString().slice(0, 10) + '">') +
       item(t('st.kCountry'), '', '<strong>' + esc(me.pays ? window.LERNA_COUNTRY_NAME(me.pays) : '—') + '</strong>') +
-      item(t('st.kLevel'), '', '<strong>' + esc(me.niveau || '—') + '</strong>') +
+      item(t('st.kLevel'), '', '<strong>' + esc(me.niveau ? optLabel('q2', me.niveau) : '—') + '</strong>') +
       item(t('st.kDoms'), '', '<strong>' + esc(me.domaines.length ? me.domaines.map(domName).join(', ') : t('st.kNone')) + '</strong>') +
       item(t('st.kSeen'), '', me.vus.length ? '<div class="row" style="gap:8px;flex-wrap:wrap;justify-content:flex-end"><strong>' + esc(me.vus.map(domName).join(', ')) + '</strong><button type="button" class="btn btn-ghost btn-sm" id="kForget">' + t('st.kForget') + '</button></div>' : '<strong>' + t('st.kNone') + '</strong>'));
 

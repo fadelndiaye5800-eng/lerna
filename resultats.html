@@ -69,6 +69,7 @@
   .save-card { margin-top: 28px; display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
   .save-card .ic-wrap { width: 48px; height: 48px; border-radius: 14px; background: var(--cream-dark); color: var(--orange); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
   .save-card > div { flex: 1; min-width: 200px; }
+  @media (max-width: 480px) { .rs-jobs .ic-wrap { display: none; } }   /* téléphone : la liste prend toute la largeur */
   .rs-jobs ol { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; }
   .rs-jobs li a { display: flex; justify-content: space-between; gap: 10px; padding: 9px 12px; border-radius: 12px; background: var(--cream); text-decoration: none; color: var(--brown); font-weight: 700; font-size: .94rem; }
   .rs-jobs li a span:first-child { min-width: 0; overflow-wrap: anywhere; }
@@ -242,7 +243,7 @@ Lerna.addStrings({
     var link = school ? '' : refLink(r);
     var fav = school && Lerna.favs.has(school.id);
     var score = Math.max(0, Math.min(100, parseInt(r.score, 10) || 0));
-    var list = function (arr, cls) { return '<ul class="' + cls + '">' + (arr || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; };
+    var list = function (arr, cls) { return '<ul class="' + cls + '">' + (arr || []).map(function (x) { return '<li>' + esc(Lerna.typo(x)) + '</li>'; }).join('') + '</ul>'; };
     return '<article class="card reco reveal" id="reco-' + (i + 1) + '" style="--i:' + Math.min(i, 3) + '">' +
       '<span class="badge badge-orange">' + t('rs.recoN', { n: i + 1 }) + '</span>' +
       '<h2>' + esc(r.nom) + '</h2>' + levelBadge(r, school) +
@@ -257,7 +258,7 @@ Lerna.addStrings({
         '<div><p class="why-title">' + t('rs.why') + '</p>' + list(r.pourquoi, 'list-arrow') + '</div>' +
         (r.points_forts && r.points_forts.length ? '<div><p class="why-title">' + t('rs.strengths') + '</p>' + list(r.points_forts, 'list-check') + '</div>' : '') +
       '</div>' +
-      (r.point_attention ? '<div class="attn">' + Lerna.icon('alert') + '<div><strong>' + t('rs.attention') + ' — </strong>' + esc(r.point_attention) + '</div></div>' : '') +
+      (r.point_attention ? '<div class="attn">' + Lerna.icon('alert') + '<div><strong>' + t('rs.attention') + ' — </strong>' + esc(Lerna.typo(r.point_attention)) + '</div></div>' : '') +
       '<div class="reco-actions no-print">' +
         (school
           ? '<a class="btn btn-brown btn-sm" href="ecole.html?id=' + encodeURIComponent(school.id) + '">' + t('rs.seeSchool') + '</a>' +
@@ -344,7 +345,7 @@ Lerna.addStrings({
     var LM = window.LernaMetiers, c = LM && LM.cached();
     if (c) {
       var top = c.metiers.slice(0, 5);
-      return '<h3>✨ ' + t('rs.jobsTitle') + '</h3>' + (c.resume ? '<p class="small muted" style="margin-top:4px">' + esc(c.resume) + '</p>' : '') +
+      return '<h3>✨ ' + t('rs.jobsTitle') + '</h3>' + (c.resume ? '<p class="small muted" style="margin-top:4px">' + esc(Lerna.typo(c.resume)) + '</p>' : '') +
         '<ol>' + top.map(function (x) { return '<li><a href="metiers.html?code=' + encodeURIComponent(x.c) + '"><span>' + esc(Lerna.lang === 'en' && x.en ? x.en : x.t) + '</span><b>' + x.pct + ' %</b></a></li>'; }).join('') + '</ol>' +
         '<p class="small muted" style="margin-top:8px">' + t('rs.jobsNote') + '</p>' +
         '<a class="btn btn-primary btn-sm" style="margin-top:12px" href="metiers.html">' + t('rs.jobsAll') + ' →</a>';
@@ -384,11 +385,11 @@ Lerna.addStrings({
     if (res.source === 'fallback') h += '<div class="notice reveal" style="margin-bottom:18px">' + Lerna.icon('info') + '<div>' + t('rs.fallback') + ' <a class="btn-link" href="loading.html">' + t('rs.retry') + '</a></div></div>';
     if (res.source === 'local') h += '<div class="notice reveal" style="margin-bottom:18px">' + Lerna.icon('info') + '<div>' + t('rs.local') + '</div></div>';
     if (res.source === 'ai' && res.lang && res.lang !== Lerna.lang) h += '<p class="small muted" style="margin-bottom:12px">' + t('rs.otherLang') + '</p>';
-    h += '<div class="card-note resume reveal">' + esc(res.resume) + '</div>';
+    h += '<div class="card-note resume reveal">' + esc(Lerna.typo(res.resume)) + '</div>';
     h += '<div class="recos">' + res.recos.map(function (r, i) {
       return Lerna.recoAccess(i) === 'open' ? recoCard(r, i) : '';
     }).join('') + lockedCards(res.recos) + '</div>';
-    if (res.conseil) h += '<div class="card-note brown conseil reveal">' + Lerna.seal() + esc(res.conseil) + '</div>';
+    if (res.conseil) h += '<div class="card-note brown conseil reveal">' + Lerna.seal() + esc(Lerna.typo(res.conseil)) + '</div>';
     h += jobsCard();
     if (!Lerna.isLogged()) {
       h += '<div class="card save-card reveal no-print"><span class="ic-wrap">' + Lerna.icon('heart', 'ic-lg') + '</span><div><h3>' + t('rs.saveTitle') + '</h3><p class="small muted" style="margin-top:4px">' + t('rs.saveText') + '</p></div>' +

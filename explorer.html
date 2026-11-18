@@ -467,7 +467,7 @@ Lerna.addStrings({
     st.show = PER;
     renderEcoles();
   }
-  function credit() { $('credit').textContent = t('ex.credit', { d: A.idx && A.idx.maj ? Lerna.fmtDate(A.idx.maj) : '—' }); $('fxNote').textContent = t('ex.fxNote') + ' ' + (Lerna.moneyNote ? Lerna.moneyNote() : ''); }
+  function credit() { $('credit').textContent = t('ex.credit', { d: A.idx && A.idx.maj ? Lerna.fmtDate(A.idx.maj) : '—' }); $('fxNote').textContent = Lerna.moneyNote ? Lerna.moneyNote() : t('ex.fxNote'); }   // une seule phrase, dans la devise affichée
 
   Lerna.ready(function () {
     $('q').value = st.q;

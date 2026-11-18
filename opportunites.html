@@ -21,6 +21,12 @@
   .op-head h1 { font-size: clamp(2rem, 5vw, 3rem); }
   .op-head p { color: var(--muted); margin-top: 8px; max-width: 620px; }
   .tabs-wrap { position: sticky; top: var(--nav-h); z-index: 40; background: var(--bg); margin-top: 18px; }
+  /* Téléphone : les 4 catégories en 2 × 2, toutes visibles (avant, « Emplois » et « Investisseurs » étaient cachés à droite) */
+  @media (max-width: 520px) {
+    #tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; border-bottom: 0; overflow: visible; -webkit-mask-image: none; mask-image: none; }
+    #tabs .tab { justify-content: center; padding: 10px 8px; margin: 0; border: 1.5px solid var(--cream-dark); border-radius: 14px; white-space: normal; text-align: center; }
+    #tabs .tab.active { border-color: var(--orange); background: var(--orange-soft); }
+  }
   .tab .count { background: var(--cream-dark); color: var(--muted); border-radius: 99px; font-size: .72rem; padding: 2px 8px; }
   .tab.active .count { background: rgba(232, 100, 12, 0.12); color: var(--orange-deep); }
   .filters { display: flex; gap: 10px; overflow-x: auto; scrollbar-width: none; padding: 16px 0 8px; -webkit-overflow-scrolling: touch; align-items: center; }

@@ -213,6 +213,14 @@
     if (n === 0) return lang === 'fr' ? '0 $' : '$0';
     return lang === 'fr' ? Math.round(n).toLocaleString('fr-FR') + ' $' : '$' + Math.round(n).toLocaleString('en-US');
   };
+  /* « au Sénégal », « en France », « aux États-Unis » (et « the United States » en anglais) */
+  var IN_AUX = 'US AE NL PH KM MV SC'.split(' '), IN_AU = 'SN CA MA CM BF BJ TG NE ML GA CG CD TD KE NG GH LR BR MX JP PT LU QA KW LB RW BI BW ZW MW MZ LS CV DK VN PK BD NP KH LA KZ GB SD SS YE CL PE VE GT HN NI PY UY'.split(' '), IN_THE = 'US GB AE NL PH CF GM'.split(' ');
+  Lerna.inCountry = function (code) {
+    code = String(code || '').toUpperCase();
+    var n = window.LERNA_COUNTRY_NAME ? window.LERNA_COUNTRY_NAME(code, Lerna.lang) : code;
+    if (Lerna.lang === 'en') return (IN_THE.indexOf(code) !== -1 ? 'the ' : '') + n;
+    return (IN_AUX.indexOf(code) !== -1 ? 'aux ' : IN_AU.indexOf(code) !== -1 ? 'au ' : 'en ') + n;
+  };
   Lerna.moneyNote = function () {
     var c = Lerna.currency();
     if (c === 'USD') return Lerna.t('common.indicative');
@@ -263,7 +271,8 @@
     var n = name === undefined ? Lerna.displayName() : name;
     var day = Math.floor(Date.now() / 864e5);
     var s = list[day % list.length];
-    return s.replace('{_n}', n ? ' ' + n : '').replace('{,n}', n ? ', ' + n : '');
+    s = s.replace('{_n}', n ? ' ' + n : '').replace('{,n}', n ? ', ' + n : '');
+    return Lerna.lang === 'fr' ? s.replace(/ ([?!:;»])/g, '\u00a0$1') : s;   // le « ? » ne tombe pas seul sur une ligne
   };
   Lerna.greetingSub = function () {
     var slot = Lerna.slot();
@@ -312,6 +321,11 @@
     /* Typographie française : espace insécable avant ? ! : ; » et après « (le « ? » ne tombe plus seul sur une ligne) */
     if (Lerna.lang === 'fr' && typeof s === 'string') s = s.replace(/ ([?!:;»])/g, ' $1').replace(/« /g, '« ');
     return s;
+  };
+  /* Même typographie pour les textes écrits par l'IA (le « : » ou le « ? » ne commence jamais une ligne) */
+  Lerna.typo = function (s) {
+    s = String(s == null ? '' : s);
+    return Lerna.lang === 'fr' ? s.replace(/ ([?!:;»])/g, '\u00a0$1').replace(/« /g, '«\u00a0') : s;
   };
   /* Texte bilingue dans les données : "texte" ou {fr:"…", en:"…"} */
   Lerna.L = function (v) {
@@ -2278,6 +2292,32 @@
   /* Démarrage */
   var readyFns = [];
   Lerna.ready = function (fn) { if (Lerna._isReady) fn(); else readyFns.push(fn); };
+
+  /* Rangées d'onglets plus larges que l'écran (téléphone) : un fondu à droite montre qu'il y en a d'autres,
+     et l'onglet choisi glisse au milieu (il n'est plus à moitié caché au bord) */
+  (function () {
+    var raf = 0;
+    function mark() {
+      raf = 0;
+      Lerna.qsa('.tabs').forEach(function (el) { var more = el.scrollWidth - el.clientWidth - el.scrollLeft > 6; if (el.classList.contains('tabs-more') !== more) el.classList.toggle('tabs-more', more); });
+    }
+    function soon() { if (!raf) raf = requestAnimationFrame(mark); }
+    doc.addEventListener('scroll', function (e) { if (e.target && e.target.classList && e.target.classList.contains('tabs')) soon(); }, true);
+    window.addEventListener('resize', soon);
+    if (window.MutationObserver) new MutationObserver(soon).observe(doc.documentElement, { childList: true, subtree: true });
+    doc.addEventListener('click', function (e) {
+      if (!e.target.closest || !e.target.closest('.tabs .tab')) return;
+      setTimeout(function () {
+        Lerna.qsa('.tabs').forEach(function (p) {
+          var a = p.querySelector('.tab.active, .tab[aria-selected="true"]');
+          if (!a || p.scrollWidth <= p.clientWidth) return;
+          var ra = a.getBoundingClientRect(), rp = p.getBoundingClientRect();
+          var d = (ra.left + ra.width / 2) - (rp.left + rp.width / 2);
+          if (Math.abs(d) > 8) { try { p.scrollBy({ left: d, behavior: 'smooth' }); } catch (x) { p.scrollLeft += d; } }
+        });
+      }, 60);
+    });
+  })();
   function boot() {
     Prefs.apply();
     renderChrome();
