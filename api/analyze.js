@@ -3,6 +3,7 @@
    Gratuit : 1 analyse complète par jour et par adresse IP (et par compte). Premium : illimité. */
 import { json, fail, sameOrigin, readJson, clientIp, hashKey, getUser, usage, hit, claude, extractJson, str, cleanRaw, saveProfile } from './_lib.js';
 import { buildCandidates, candidatesPrompt, bindRecos } from './_catalogue.js';
+import { metiers } from './_metiers.js';
 
 const LABELS = {
   q1: 'Âge', q2: 'Niveau scolaire actuel', q3: 'Bac ou diplôme équivalent', q4: 'Pays actuel', q5: 'Langues parlées (avec niveau)',
@@ -118,7 +119,8 @@ function cleanResult(r) {
 export async function POST(request) {
   if (!sameOrigin(request)) return fail(403, 'forbidden_origin');
   let body;
-  try { body = await readJson(request); } catch (e) { return fail(e.status || 400, e.message); }
+  try { body = await readJson(request, 60000); } catch (e) { return fail(e.status || 400, e.message); }
+  if (body.kind === 'metiers') return metiers(request, body);   // « Les métiers faits pour toi » (même fonction : 12 au plus sur Vercel gratuit)
 
   const answers = cleanAnswers(body.answers);
   if (Object.keys(answers).length < 15) return fail(400, 'incomplete_answers');

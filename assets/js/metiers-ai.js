@@ -140,8 +140,8 @@
     var P = profile();
     if (!P) return Promise.reject(Object.assign(new Error('no_test'), { status: 0 }));
     if (!force && store().sget && store().sget(LIM) === answersHash() + today()) return Promise.reject(Object.assign(new Error('daily_limit'), { status: 429 }));
-    var body = { answers: labelled(), candidates: candidates(IX, P, 40), lang: Lerna.lang === 'en' ? 'en' : 'fr', did: Lerna.deviceId ? Lerna.deviceId() : '' };
-    inflight = Lerna.api('/api/metiers', body, { timeout: 60000 }).then(function (resp) {
+    var body = { kind: 'metiers', answers: labelled(), candidates: candidates(IX, P, 40), lang: Lerna.lang === 'en' ? 'en' : 'fr', did: Lerna.deviceId ? Lerna.deviceId() : '' };
+    inflight = Lerna.api('/api/analyze', body, { timeout: 60000 }).then(function (resp) {
       inflight = null;
       var r = resp && resp.ok ? resp.data : null;
       if (!r || !Array.isArray(r.metiers) || !r.metiers.length) {

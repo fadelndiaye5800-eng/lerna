@@ -1,9 +1,10 @@
-/* POST /api/metiers — « Les métiers faits pour toi »
+/* « Les métiers faits pour toi » — appelé par POST /api/analyze avec { kind: 'metiers' }
+   (le forfait gratuit de Vercel accepte au plus 12 fonctions : ce module n'en est pas une, il passe par analyze.js)
    Le moteur LERNA (dans l'appli) prépare ~40 métiers possibles à partir de TOUTES les réponses du test ;
    l'IA lit le profil complet (y compris la vision à 10 ans) et choisit les 10 qui lui correspondent vraiment,
    avec un pourcentage, une raison tirée de ses réponses et un point d'attention. Elle ne peut rien inventer :
    elle recopie les codes de la liste. Le résultat est gardé dans l'appli et ne se refait que si le test change. */
-import { json, fail, sameOrigin, readJson, clientIp, hashKey, getUser, usage, hit, claude, extractJson, str } from './_lib.js';
+import { json, fail, clientIp, hashKey, getUser, usage, hit, claude, extractJson, str } from './_lib.js';
 
 const LABELS = {
   q1: 'Âge', q2: 'Niveau scolaire actuel', q3: 'Bac ou diplôme équivalent', q4: 'Pays actuel', q5: 'Langues parlées (avec niveau)',
@@ -57,10 +58,7 @@ function cleanCandidates(list) {
   return out.filter((x) => x.t);
 }
 
-export async function POST(request) {
-  if (!sameOrigin(request)) return fail(403, 'forbidden_origin');
-  let body;
-  try { body = await readJson(request, 60000); } catch (e) { return fail(e.status || 400, e.message); }
+export async function metiers(request, body) {
   const answers = cleanAnswers(body.answers);
   if (Object.keys(answers).length < 12) return fail(400, 'incomplete_answers');
   const cands = cleanCandidates(body.candidates);
@@ -112,4 +110,3 @@ export async function POST(request) {
   return json(out);
 }
 
-export function GET() { return fail(405, 'method_not_allowed'); }
