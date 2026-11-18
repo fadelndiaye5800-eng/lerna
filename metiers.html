@@ -80,6 +80,23 @@
   .mt-why li.mid::before { content: '~'; color: var(--orange-deep); }
   .mt-why li.ko::before { content: '!'; color: var(--orange-deep); }
   .mt-path { margin: 8px 0 0; padding-left: 20px; display: grid; gap: 8px; font-size: .94rem; }
+  /* Les métiers faits pour toi (analyse IA) */
+  .mcard .meta .pct { background: var(--orange); color: #fff; }
+  .mt-top { margin-top: 18px; padding: 18px; border-radius: 20px; background: var(--cream); border: 1.5px solid var(--orange-soft); }
+  .mt-top h2 { font-size: 1.25rem; margin-top: 4px; }
+  .mt-top .mt-res { margin-top: 6px; font-size: .94rem; }
+  .mt-top ol { list-style: none; padding: 0; margin: 12px 0 0; display: grid; gap: 8px; }
+  .mt-top li:not(.lockline) > a { display: grid; grid-template-columns: 28px minmax(0, 1fr) auto; gap: 4px 10px; align-items: start; padding: 11px 12px; border-radius: 14px; background: var(--surface); text-decoration: none; color: var(--brown); }
+  .mt-top .n { font-weight: 800; color: var(--orange-deep); line-height: 1.4; }
+  .mt-top .nm { font-weight: 700; line-height: 1.35; min-width: 0; overflow-wrap: anywhere; }
+  .mt-top .pc { font-weight: 800; color: var(--orange-deep); white-space: nowrap; line-height: 1.4; }
+  .mt-top .wy { grid-column: 2 / 4; font-size: .86rem; color: var(--muted); line-height: 1.4; }
+  .mt-top .lockline { padding: 10px 12px; border-radius: 14px; border: 1.5px dashed var(--orange-soft); font-size: .88rem; }
+  .mt-top .wait { display: flex; gap: 10px; align-items: center; margin-top: 10px; font-size: .94rem; }
+  .mt-top .wait .thinking { flex-shrink: 0; }
+  .mt-free { margin-bottom: 10px; padding: 14px 16px; border-radius: 16px; background: var(--orange-soft); }
+  .mt-free b { font-size: 1.5rem; color: var(--orange-deep); }
+  .mt-free p { margin-top: 4px; font-size: .94rem; }
 </style>
 </head>
 <body data-page="metiers">
@@ -91,6 +108,7 @@
 
 <script src="assets/js/core.js"></script>
 <script src="assets/js/questions.js"></script>
+<script src="assets/js/metiers-ai.js"></script>
 <script>
 Lerna.addStrings({
   fr: {
@@ -210,6 +228,15 @@ Lerna.addStrings({
     'mt.p.reg': 'Avant d’exercer, vérifie la règle de ton pays : diplôme reconnu par l’État, et parfois inscription à un ordre professionnel.',
     'mt.p.regAbroad': 'Métier souvent réglementé : si tu étudies dans un pays et travailles dans un autre, fais reconnaître ton diplôme là où tu travailleras.',
     'mt.p.near': 'Pour élargir tes options, regarde aussi :',
+    'mt.topEyebrow': 'Analyse IA de ton test', 'mt.topTitle': 'Les métiers faits pour toi',
+    'mt.topWait': 'LERNA lit toutes tes réponses, y compris ce que tu as écrit, pour trouver les métiers qui te correspondent vraiment…',
+    'mt.topErr': 'L’analyse n’a pas pu se faire pour l’instant. En attendant, les métiers ci-dessous sont classés selon ton test.',
+    'mt.topLimit': 'Tu as déjà fait plusieurs analyses aujourd’hui : réessaie demain. En attendant, les métiers ci-dessous sont classés selon ton test.',
+    'mt.topRetry': 'Réessayer', 'mt.topLock': 'Pourquoi les métiers n° 4 à 10 te vont, ce qui peut coincer et ton chemin pour y arriver : avec Premium.',
+    'mt.topNote': 'Choisis par l’IA parmi des milliers de métiers, à partir de toutes tes réponses au test. C’est une aide pour réfléchir, pas une décision : LERNA peut se tromper.',
+    'mt.fitTop': 'Fait pour toi, d’après l’analyse IA de ton test', 'mt.freeRank': 'N° {n} des métiers faits pour toi',
+    'mt.fitAi': 'Pourcentage donné par l’analyse IA de toutes tes réponses au test. C’est une aide pour réfléchir, pas une décision : LERNA peut se tromper.',
+    'mt.fitCalc': 'Estimation rapide : ce métier ne fait pas partie des 10 choisis par l’analyse IA de ton test. LERNA peut se tromper.',
     'mt.s.maths': 'les maths', 'mt.s.physique': 'la physique-chimie', 'mt.s.svt': 'la biologie', 'mt.s.histoire': 'l’histoire-géo', 'mt.s.eco': 'l’économie', 'mt.s.litterature': 'la littérature et la philo', 'mt.s.langues': 'les langues', 'mt.s.info': 'l’informatique', 'mt.s.arts': 'les arts', 'mt.s.sport': 'le sport'
   },
   en: {
@@ -255,6 +282,15 @@ Lerna.addStrings({
     'mt.p.reg': 'Before you practise, check your country’s rule: a State-recognised diploma, and sometimes registration with a professional order.',
     'mt.p.regAbroad': 'Often a regulated job: if you study in one country and work in another, have your diploma recognised where you work.',
     'mt.p.near': 'To widen your options, also look at:',
+    'mt.topEyebrow': 'AI analysis of your test', 'mt.topTitle': 'The jobs made for you',
+    'mt.topWait': 'LERNA is reading all your answers, including what you wrote, to find the jobs that truly fit you…',
+    'mt.topErr': 'The analysis could not run for now. Meanwhile, the jobs below are ranked from your test.',
+    'mt.topLimit': 'You have already run several analyses today: try again tomorrow. Meanwhile, the jobs below are ranked from your test.',
+    'mt.topRetry': 'Try again', 'mt.topLock': 'Why jobs 4 to 10 fit you, what could get in the way and your path to get there: with Premium.',
+    'mt.topNote': 'Picked by AI among thousands of jobs, from all your test answers. It helps you think, it does not decide for you: LERNA can be wrong.',
+    'mt.fitTop': 'Made for you, according to the AI analysis of your test', 'mt.freeRank': 'No. {n} of the jobs made for you',
+    'mt.fitAi': 'Percentage given by the AI analysis of all your test answers. It helps you think, it does not decide for you: LERNA can be wrong.',
+    'mt.fitCalc': 'Quick estimate: this job is not one of the 10 picked by the AI analysis of your test. LERNA can be wrong.',
     'mt.s.maths': 'maths', 'mt.s.physique': 'physics and chemistry', 'mt.s.svt': 'biology', 'mt.s.histoire': 'history and geography', 'mt.s.eco': 'economics', 'mt.s.litterature': 'literature and philosophy', 'mt.s.langues': 'languages', 'mt.s.info': 'computing', 'mt.s.arts': 'the arts', 'mt.s.sport': 'sport'
   }
 });
@@ -321,7 +357,7 @@ Lerna.addStrings({
   function loadIndex() {
     if (IX) return Promise.resolve(IX);
     return fetch('assets/metiers/index.json').then(function (r) { if (!r.ok) throw new Error('http'); return r.json(); }).then(function (j) {
-      IX = j; IX.byCode = {}; IX.m.forEach(function (m) { m.n = norm(m[1]); m.s = ' ' + m.n; m.e = m[5] ? ' ' + norm(m[5]) : ''; m.p = profScore(m); IX.byCode[m[0]] = m; }); return IX;
+      IX = j; IX.byCode = {}; IX.m.forEach(function (m) { m.n = norm(m[1]); m.s = ' ' + m.n; m.e = m[5] ? ' ' + norm(m[5]) : ''; m.p = window.LernaMetiers ? LernaMetiers.score(m, PROF) : profScore(m); IX.byCode[m[0]] = m; }); return IX;
     });
   }
   function loadLetter(L) {
@@ -370,7 +406,8 @@ Lerna.addStrings({
       if (!lvMatch(m, st.lv)) return;
       if (secKey && !(SX && (SX[m[0]] + ' ').indexOf(secKey) !== -1)) return;
       /* Sans recherche : ton profil (si le test est fait), le hasard ou l'ordre alphabétique */
-      var score = mode === 'profil' ? m.p : mode === 'mix' ? mixKey(m[0]) : 0;
+      var ap = mode === 'profil' && !words.length ? aiPick(m[0]) : null;
+      var score = mode === 'profil' ? (ap ? 100 + ap.x.pct : m.p) : mode === 'mix' ? mixKey(m[0]) : 0;
       if (words.length) {
         score = 0;
         var blob = SX && SX[m[0]] || '';
@@ -398,7 +435,7 @@ Lerna.addStrings({
   }
   function card(m) {
     var en = Lerna.lang === 'en' && m[5];
-    return '<a class="card card-hover mcard" href="metiers.html?code=' + encodeURIComponent(m[0]) + '"><h3>' + esc(cap(en ? m[5] : m[1])) + '</h3>' + (en ? '<p class="small muted" style="margin-top:2px">' + esc(cap(m[1])) + '</p>' : '') + '<div class="meta"><span class="lv">' + esc(lvBadge(m)) + '</span><span>' + esc(groupName(m)) + '</span></div></a>';
+    return '<a class="card card-hover mcard" href="metiers.html?code=' + encodeURIComponent(m[0]) + '"><h3>' + esc(cap(en ? m[5] : m[1])) + '</h3>' + (en ? '<p class="small muted" style="margin-top:2px">' + esc(cap(m[1])) + '</p>' : '') + '<div class="meta">' + pctBadge(m) + '<span class="lv">' + esc(lvBadge(m)) + '</span><span>' + esc(groupName(m)) + '</span></div></a>';
   }
   function renderList() {
     document.title = t('mt.docTitle');
@@ -416,14 +453,44 @@ Lerna.addStrings({
           '<label><span class="sr-only">' + t('mt.byLv') + '</span><select class="select" id="mlv">' + [['', 'mt.allLv'], ['bac', 'mt.lvBac'], ['3', 'mt.lv3'], ['5', 'mt.lv5']].map(function (o) { return '<option value="' + o[0] + '"' + (st.lv === o[0] ? ' selected' : '') + '>' + esc(t(o[1])) + '</option>'; }).join('') + '</select></label></div></div>' +
         '<p class="ci-intro" id="ciIntro"></p>' +
       '<div id="msec"></div>' +
-      '</div><div class="count-row"><span id="mcount" aria-live="polite"></span>' +
+      '</div><div id="mtop"></div><div class="count-row"><span id="mcount" aria-live="polite"></span>' +
         '<label class="mt-sort"><span class="sr-only">' + esc(t('mt.sortBy')) + '</span><select class="select" id="msort">' +
           (PROF ? [['profil', 'mt.sortProfil']] : []).concat([['mix', 'mt.sortMix'], ['az', 'mt.sortAz']]).map(function (o) { return '<option value="' + o[0] + '"' + (sortMode() === o[0] ? ' selected' : '') + '>' + esc(t(o[1])) + '</option>'; }).join('') +
         '</select></label></div><div class="mt-list" id="mlist"></div><div class="more" id="mmore"></div>' +
       '<p class="src-note" style="margin-bottom:30px">' + esc(t('mt.src', { v: IX.version || 'ROME', d: Lerna.fmtDate(IX.maj) })) + ' ' + esc(t('mt.srcWarn')) + '</p>';
     paintList();
   }
-  function paintList() {
+  /* ---------- Les métiers faits pour toi (analyse IA du test) ---------- */
+  var TOP = { err: 0 };
+  function aiPick(code) { return PROF && window.LernaMetiers ? LernaMetiers.pick(code) : null; }
+  function pctBadge(m) { var a = aiPick(m[0]); return a ? '<span class="pct">✨ ' + a.x.pct + ' %</span>' : ''; }
+  function topName(x) { var m = IX.byCode[x.c]; return cap(m ? (Lerna.lang === 'en' && m[5] ? m[5] : m[1]) : (Lerna.lang === 'en' && x.en ? x.en : x.t)); }
+  function runTop(force) {
+    TOP.err = 0;
+    LernaMetiers.run(IX, force).then(function () { paintTop(); paintList(true); }, function (e) { TOP.err = e && e.status === 429 ? 429 : 1; paintTop(); });
+  }
+  function paintTop() {
+    var box = $('mtop'); if (!box) return;
+    if (!PROF || !window.LernaMetiers || st.q || st.sec) { box.innerHTML = ''; return; }
+    var c = LernaMetiers.cached(), prem = Lerna.isPremium();
+    var head = '<span class="eyebrow">' + t('mt.topEyebrow') + '</span><h2>✨ ' + t('mt.topTitle') + '</h2>';
+    if (!c) {
+      if (!TOP.err && !LernaMetiers.busy()) runTop(false);
+      box.innerHTML = '<section class="mt-top" aria-live="polite">' + head + (TOP.err
+        ? '<p class="mt-res">' + esc(t(TOP.err === 429 ? 'mt.topLimit' : 'mt.topErr')) + '</p>' + (TOP.err === 429 ? '' : '<button type="button" class="btn btn-ghost btn-sm" style="margin-top:10px" id="topRetry">' + t('mt.topRetry') + '</button>')
+        : '<div class="wait">' + Lerna.thinking('inline') + '<span>' + esc(t('mt.topWait')) + '</span></div>') + '</section>';
+      return;
+    }
+    var items = c.metiers.filter(function (x) { return IX.byCode[x.c]; });
+    box.innerHTML = '<section class="mt-top">' + head + (c.resume ? '<p class="mt-res">' + esc(c.resume) + '</p>' : '') + '<ol>' +
+      items.map(function (x, i) {
+        var li = '<li><a href="metiers.html?code=' + encodeURIComponent(x.c) + '"><span class="n">' + (i + 1) + '</span><span class="nm">' + esc(topName(x)) + '</span><span class="pc">' + x.pct + ' %</span>' +
+          ((prem || i < 3) && x.why ? '<span class="wy">' + esc(x.why) + '</span>' : '') + '</a></li>';
+        return (!prem && i === 3 ? '<li class="lockline">🔒 ' + Lerna.linkifyHTML(esc(t('mt.topLock'))) + '</li>' : '') + li;
+      }).join('') + '</ol><p class="small muted" style="margin-top:10px">' + esc(t('mt.topNote')) + '</p></section>';
+  }
+  function paintList(noTop) {
+    if (!noTop) paintTop();
     var list = filtered();
     $('mcount').textContent = list.length === 1 ? t('mt.count1') : t('mt.count', { n: list.length.toLocaleString(Lerna.lang === 'en' ? 'en' : 'fr-FR') });
     var dh = st.q ? domHits() : [];
@@ -550,6 +617,17 @@ Lerna.addStrings({
      un test ne peut pas dire qu'un métier est parfait pour quelqu'un */
   var OBJ = { entreprise: ['business', 'art', 'tech', 'comm'], freelance: ['art', 'tech', 'comm', 'business'], public: ['droit', 'education', 'sante'], recherche: ['sciences', 'education', 'sante'], ong: ['sante', 'education', 'agri', 'droit'] };
   function fitOf(m, f, P) {
+    var a = aiPick(m[0]), r = ruleFit(m, f, P);
+    if (a) return { pct: a.x.pct, lab: a.x.pct >= 90 ? 'mt.fitTop' : a.x.pct >= 80 ? 'mt.fitHi' : 'mt.fitMid', ai: a.rank,
+      why: (a.x.why ? [['ok', a.x.why]] : []).concat(a.x.watch ? [['mid', a.x.watch]] : []).concat(r.why) };
+    /* Hors des 10 métiers choisis par l'IA : simple estimation, toujours en dessous du 10e */
+    var c = window.LernaMetiers && LernaMetiers.cached(), last = c ? c.metiers[c.metiers.length - 1].pct : 92;
+    r.pct = Math.max(20, Math.min(r.pct, 89, last - 3));
+    r.lab = r.pct >= 80 ? 'mt.fitHi' : r.pct >= 55 ? 'mt.fitMid' : 'mt.fitLo';
+    r.calc = true;
+    return r;
+  }
+  function ruleFit(m, f, P) {
     var doms = m[4] || [], why = [], pts = 0, max = 0;
     if (P.doms.length) {
       max += 4;
@@ -603,7 +681,10 @@ Lerna.addStrings({
   function fitCard(f, m) {
     var head = '<h3>✨ ' + t('mt.fitTitle') + '</h3>';
     if (!Lerna.isPremium()) {
-      return '<section class="card lk-card mt-fit">' + Lerna.sticker('lock', 'stk-sm') + '<h3 style="margin-top:8px">' + t('mt.fitTitle') + '</h3>' +
+      /* Gratuit : le % et le rang des 10 métiers faits pour toi, et le « pourquoi » des 3 premiers */
+      var a = aiPick(m[0]);
+      var free = a ? '<div class="mt-free"><b>✨ ' + a.x.pct + ' %</b><p class="bold">' + esc(t('mt.freeRank', { n: a.rank })) + '</p>' + (a.rank <= 3 && a.x.why ? '<p>' + esc(a.x.why) + '</p>' : '') + '</div>' : '';
+      return '<section class="card lk-card mt-fit">' + free + Lerna.sticker('lock', 'stk-sm') + '<h3 style="margin-top:8px">' + t('mt.fitTitle') + '</h3>' +
         '<p class="muted" style="margin:6px 0 4px">' + Lerna.linkifyHTML(t('mt.fitLockSub')) + '</p>' +
         '<ul class="lk-list list-check">' + ['mt.fitB1', 'mt.fitB2', 'mt.fitB3', 'mt.fitB4'].map(function (k) { return '<li>' + t(k) + '</li>'; }).join('') + '</ul>' +
         '<a class="btn btn-primary" style="margin-top:16px" href="premium.html?src=metier" data-paywall="metier" data-premium-go>' + t('pl.btn') + ' →</a>' +
@@ -615,7 +696,7 @@ Lerna.addStrings({
       '<div class="mt-score"><b>' + r.pct + ' %</b><span>' + esc(t(r.lab)) + '</span></div>' +
       '<ul class="mt-why">' + r.why.map(function (w) { return '<li class="' + w[0] + '"><span>' + esc(w[1]) + '</span></li>'; }).join('') + '</ul>' +
       '<h4 class="mt-h4">' + t('mt.pathTitle') + '</h4><ol class="mt-path">' + pathOf(m, f, PROF).map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ol>' +
-      '<p class="small muted" style="margin-top:10px">' + esc(t('mt.fitNote')) + '</p></section>';
+      '<p class="small muted" style="margin-top:10px">' + esc(t(r.ai ? 'mt.fitAi' : r.calc ? 'mt.fitCalc' : 'mt.fitNote')) + '</p></section>';
   }
 
   var CUR = null;
@@ -681,7 +762,7 @@ Lerna.addStrings({
 
   Lerna.ready(function () {
     /* Les métiers sont classés selon le profil (test d'orientation) : aucun filtre ni pays imposé */
-    PROF = testDone() ? profileInfo() : null;   // pas de test terminé : pas de classement « pour toi »
+    PROF = window.LernaMetiers ? LernaMetiers.profile() : (testDone() ? profileInfo() : null);   // pas de test terminé : pas de classement « pour toi »
     root.querySelector('.loading').innerHTML = Lerna.thinking('inline');
     route();
     document.addEventListener('click', function (e) {
@@ -689,7 +770,8 @@ Lerna.addStrings({
       if ((b = e.target.closest('[data-dom]'))) { var d = b.getAttribute('data-dom'); st.dom = st.dom === d ? '' : d; st.autoDom = false; st.show = PER; Lerna.sound.play('select'); paintList(); return; }
       if (e.target.closest('#moreBtn')) { st.show += PER; paintList(); return; }
       if (e.target.closest('#secOff')) { st.sec = ''; st.show = PER; paintList(); return; }
-      if (e.target.closest('#retry')) { route(); }
+      if (e.target.closest('#retry')) { route(); return; }
+      if (e.target.closest('#topRetry')) { runTop(true); paintTop(); }
     });
     /* Une recherche porte sur tous les métiers : le domaine choisi automatiquement (d'après le test) est retiré */
     document.addEventListener('input', Lerna.debounce(function (e) { if (e.target.id === 'mq') { st.q = e.target.value; if (st.autoDom && st.q) { st.dom = ''; st.autoDom = false; } st.show = PER; paintList(); } }, 160));
@@ -705,7 +787,7 @@ Lerna.addStrings({
       }
     });
     /* Premium activé ou perdu pendant la visite : la carte « Ce métier et toi » est réaffichée */
-    Lerna.onAccessChange(function () { if (CUR && Lerna.param('code')) renderFiche(CUR.code); });
+    Lerna.onAccessChange(function () { if (CUR && Lerna.param('code')) renderFiche(CUR.code); else if (IX && !Lerna.param('code')) paintTop(); });
     Lerna.onLang(function () { if (IX) { if (Lerna.param('code')) renderFiche(Lerna.param('code')); else renderList(); } });
   });
 })();

@@ -2140,7 +2140,7 @@
 
   /* Compte : export des données, effacement local, suppression (Paramètres et Mon espace) */
   var LOCAL_KEYS = ['lerna_profile', 'lerna_results', 'lerna_history', 'lerna_favoris', 'lerna_opp_favs', 'lerna_chat', 'lerna_tracker', 'lerna_reminders', 'lerna_reviews',
-    'lerna_visits', 'lerna_xp', 'lerna_badges', 'lerna_dossiers', 'lerna_cv', 'lerna_prefs'];
+    'lerna_visits', 'lerna_xp', 'lerna_badges', 'lerna_dossiers', 'lerna_cv', 'lerna_prefs', 'lerna_mt_ai'];
   Lerna.account = {
     /* Suppression du compte, la même partout (Paramètres, Mon espace) :
        un seul envoi même si on appuie deux fois, message clair en cas d'échec,
