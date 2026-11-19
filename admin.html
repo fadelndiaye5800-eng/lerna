@@ -77,6 +77,38 @@
   :root[data-theme="dark"] .ab-bar span:first-child { background: #F7EDDC; }
   .json { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: .8rem; min-height: 320px; }
   .gate { text-align: center; padding: 60px 10px; }
+  /* Vue d'ensemble */
+  .kpis.six { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 560px) { .kpis.six { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 1040px) { .kpis.six { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+  .kpi small { display: block; font-size: .74rem; color: var(--muted); margin-top: 2px; }
+  .live-dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--cream-darker); margin-right: 6px; vertical-align: middle; }
+  .live-dot.on { background: #2FB344; box-shadow: 0 0 0 0 rgba(47, 179, 68, .5); animation: ldPulse 1.8s infinite; }
+  @keyframes ldPulse { 70% { box-shadow: 0 0 0 9px rgba(47, 179, 68, 0); } 100% { box-shadow: 0 0 0 0 rgba(47, 179, 68, 0); } }
+  @media (prefers-reduced-motion: reduce) { .live-dot.on { animation: none; } }
+  .ov-brief { font-size: .98rem; line-height: 1.55; }
+  .ov-brief b { color: var(--brown); }
+  .ov-tip { margin-top: 10px; padding: 10px 12px; border-radius: 12px; background: var(--orange-soft); font-size: .86rem; }
+  .bars .sb { flex: 1; min-width: 3px; display: flex; flex-direction: column; border-radius: 4px 4px 0 0; overflow: hidden; }
+  .bars .sb i { display: block; flex-basis: 0; min-height: 0; }
+  .bars .sb .nw { background: var(--orange); }
+  .bars .sb .rt { background: var(--olive); }
+  .legend { display: flex; gap: 14px; flex-wrap: wrap; font-size: .78rem; color: var(--muted); margin-top: 8px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 5px; vertical-align: -1px; }
+  .fn { display: grid; gap: 10px; }
+  .fn .s { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 10px; font-size: .88rem; }
+  .fn .s b { font-weight: 700; color: var(--brown); text-align: right; white-space: nowrap; }
+  .fn .s b span { font-weight: 600; color: var(--muted); font-size: .78rem; margin-left: 4px; }
+  .fn .s .track { grid-column: 1 / -1; height: 8px; border-radius: 99px; background: var(--cream-dark); overflow: hidden; }
+  .fn .s .track i { display: block; height: 100%; background: var(--orange); border-radius: 99px; }
+  .fn .s.worst .track i { background: var(--orange-deep); }
+  .fn .loss { grid-column: 1 / -1; font-size: .78rem; font-weight: 700; color: var(--orange-deep); }
+  .todo { display: grid; gap: 8px; }
+  .todo .t { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--cream); font-size: .9rem; }
+  .todo .t.hot { background: var(--orange-soft); }
+  .todo .t b { color: var(--brown); }
+  .todo .t button { font-weight: 700; color: var(--orange-deep); font-size: .82rem; white-space: nowrap; }
+  .rank + h4, .ov-sub { font-size: .86rem; margin: 14px 0 8px; }
 </style>
 </head>
 <body data-page="admin" data-bottomnav="off">
@@ -93,8 +125,8 @@
 (function () {
   var esc = Lerna.esc, L = Lerna.L, A = Lerna.auth, today = new Date().toISOString().slice(0, 10);
   var $ = function (id) { return document.getElementById(id); };
-  var tab = (location.hash || '#stats').slice(1), data = { opps: [], reps: [], msgs: [], ab: null, abHist: [], fx: null, momo: null, ai: null, pays: [], users: null, abCounts: null, stats: null, ulist: [], period: 30, uq: '' };
-  var TABS = [['stats', 'Statistiques'], ['paiements', 'Paiements'], ['premium', 'Premium et comptes'], ['ia', 'Centre IA'], ['offres', 'Offres'], ['signalements', 'Signalements'], ['messages', 'Messages'], ['ab', 'Tests A/B'], ['fx', 'Taux de change']];
+  var tab = (location.hash || '#apercu').slice(1), data = { ov: null, opps: [], reps: [], msgs: [], ab: null, abHist: [], fx: null, momo: null, ai: null, pays: [], users: null, abCounts: null, stats: null, ulist: [], period: 30, uq: '' };
+  var TABS = [['apercu', 'Vue d’ensemble'], ['stats', 'Pages et actions'], ['paiements', 'Paiements'], ['premium', 'Premium et comptes'], ['ia', 'Centre IA'], ['offres', 'Offres'], ['signalements', 'Signalements'], ['messages', 'Messages'], ['ab', 'Tests A/B'], ['fx', 'Taux de change']];
   var live = function () { return A.mode === 'supabase' && A.sb; };
   function toast(m) { Lerna.toast(m, 2200); }
   function days(iso) { var d = Lerna.daysUntil(iso); return d === null ? null : -d; }
@@ -121,8 +153,10 @@
       sb.from('paiements_momo').select('*').order('created_at', { ascending: false }).limit(300),
       sb.rpc('lerna_stats', { p_days: data.period }),
       sb.from('users').select('id,email,prenom,nom,pays,date_inscription,is_premium,premium_expiry,role').order('date_inscription', { ascending: false }).limit(1000),
-      loadAsks()
+      loadAsks(),
+      sb.rpc('lerna_overview', { p_days: data.period })
     ]).then(function (r) {
+      data.ov = r[10] && !r[10].error ? r[10].data : null;
       data.stats = r[7] && !r[7].error ? r[7].data : null;
       data.ulist = (r[8] && r[8].data) || [];
       data.opps = r[0].data || []; data.reps = r[1].data || []; data.msgs = r[2].data || [];
@@ -149,13 +183,14 @@
     var rev30 = data.pays.filter(function (x) { return x.statut === 'valide' && new Date(x.traite_at || x.created_at).getTime() > since; }).reduce(function (a, x) { return a + (x.montant || 0); }, 0);
     var h = '<div class="ad-head"><div><span class="eyebrow">Administration</span><h1>Tableau de bord LERNA</h1></div>' +
       (live() ? '<span class="small muted">Connecté : ' + esc(u.email) + '</span>' : '<span class="badge badge-soft">Mode aperçu — Supabase pas encore branché</span>') + '</div>' +
+      (data.ov ? headOv(data.ov, premiumNow, rev30) :
       '<div class="kpis"><div class="kpi"><b>' + (S.visitors_today == null ? '—' : S.visitors_today) + '</b><span>Visiteurs aujourd’hui</span></div>' +
       '<div class="kpi"><b>' + (S.visitors_7 == null ? '—' : S.visitors_7) + '</b><span>Visiteurs (7 jours)</span></div>' +
       '<div class="kpi"><b>' + (data.users === null ? '—' : data.users) + '</b><span>Comptes</span></div>' +
       '<div class="kpi"><b>' + premiumNow + '</b><span>Premium actifs</span></div>' +
-      '<div class="kpi' + (rev30 ? ' hot' : '') + '"><b>' + fcfa(rev30) + '</b><span>Revenus (30 jours)</span></div></div>' +
+      '<div class="kpi' + (rev30 ? ' hot' : '') + '"><b>' + fcfa(rev30) + '</b><span>Revenus (30 jours)</span></div></div>') +
       '<div class="tabs-wrap"><div class="tabs" role="tablist">' + TABS.map(function (x) { var n = { offres: stale, signalements: newReps, messages: newMsgs }[x[0]]; return '<button type="button" class="tab' + (x[0] === tab ? ' active' : '') + '" data-tab="' + x[0] + '">' + x[1] + (n ? '<span class="cnt">' + n + '</span>' : '') + '</button>'; }).join('') + '</div></div>' +
-      '<div id="panel">' + ({ stats: pStats, premium: pPremium, ia: pAi, paiements: pPays, offres: pOffres, signalements: pReps, messages: pMsgs, ab: pAb, fx: pFx }[tab] || pOffres)() + '</div>';
+      '<div id="panel">' + ({ apercu: function () { return pApercu(stale, newReps, newMsgs); }, stats: pStats, premium: pPremium, ia: pAi, paiements: pPays, offres: pOffres, signalements: pReps, messages: pMsgs, ab: pAb, fx: pFx }[tab] || pOffres)() + '</div>';
     $('root').innerHTML = h;
   }
   /* ---------- Statistiques ---------- */
@@ -220,6 +255,101 @@
       '<div class="st-grid" style="margin-top:14px"><div class="st-card"><h3>Fiches à compléter en premier</h3><p class="sub">Élèves partis chercher une information absente sur le site officiel (frais, admission, vie étudiante) · nombre de personnes</p>' +
         (data.asks && data.asks.length ? '<div class="rank">' + data.asks.map(function (x) { var l = askLink(x), mx = data.asks[0].n || 1; return '<div class="r"><span>' + (l ? '<a href="' + esc(l) + '" target="_blank" rel="noopener">' + esc(x.name) + '</a>' : esc(x.name)) + (x.cc ? ' <span class="xsmall muted">' + esc(x.cc) + '</span>' : '') + '</span><b>' + x.n + '</b><span class="track"><i style="width:' + Math.round(x.n * 100 / mx) + '%"></i></span></div>'; }).join('') + '</div>' : '<p class="small muted">Pas encore de demande.</p>') + '</div></div>' +
       '<p class="xsmall muted" style="margin-top:10px">Tes propres visites ne sont pas comptées. Les personnes qui ont coupé « Statistiques » dans Paramètres non plus.</p>';
+  }
+  /* ---------- Vue d'ensemble : qui arrive, d'où, qui repart, où on perd les gens ---------- */
+  function loadOv() { return A.sb.rpc('lerna_overview', { p_days: data.period }).then(function (r) { if (!r.error) data.ov = r.data; }, function () {}); }
+  var SRC = { tiktok: 'TikTok', instagram: 'Instagram', facebook: 'Facebook', whatsapp: 'WhatsApp', snapchat: 'Snapchat', youtube: 'YouTube', google: 'Google',
+    recherche: 'Autre moteur de recherche', x: 'X (Twitter)', linkedin: 'LinkedIn', parrainage: 'Lien de parrainage', direct: 'Direct (lien partagé, favori ou adresse tapée)' };
+  var DEV = { telephone: 'Téléphone', tablette: 'Tablette', ordinateur: 'Ordinateur', appli: 'Appli installée sur l’écran', navigateur: 'Navigateur (pas installée)', '?': 'Inconnu' };
+  var srcName = function (k) { k = String(k || ''); return SRC[k] || (k.indexOf('site:') === 0 ? 'Site : ' + k.slice(5) : k); };
+  var ccName = function (k) {
+    if (!k || k === '?') return 'Inconnu';
+    var n = k; try { n = new Intl.DisplayNames(['fr'], { type: 'region' }).of(k) || k; } catch (e) {}
+    var f = /^[A-Z]{2}$/.test(k) ? String.fromCodePoint(127397 + k.charCodeAt(0), 127397 + k.charCodeAt(1)) + ' ' : '';
+    return f + n;
+  };
+  var pct = function (a, b) { return b ? Math.round(a * 100 / b) : 0; };
+  function headOv(O, premiumNow, rev30) {
+    var t = function (b, s, sm, cls) { return '<div class="kpi' + (cls ? ' ' + cls : '') + '"><b>' + b + '</b><span>' + s + '</span>' + (sm ? '<small>' + sm + '</small>' : '') + '</div>'; };
+    return '<div class="kpis six">' +
+      t('<span class="live-dot' + (O.live_now ? ' on' : '') + '"></span>' + O.live_now, 'En ce moment', 'actifs ces 5 dernières minutes') +
+      t(O.today, 'Visiteurs aujourd’hui', 'hier : ' + O.yesterday) +
+      t(O.today_new, 'Nouveaux aujourd’hui', 'première visite') +
+      t(data.users === null ? '—' : data.users, 'Comptes', '') +
+      t(premiumNow, 'Premium actifs', '') +
+      t(fcfa(rev30), 'Revenus (30 jours)', '', rev30 ? 'hot' : '') + '</div>';
+  }
+  /* Une barre par jour : orange = nouvelles personnes, vert = personnes qui reviennent */
+  function stackBars(rows, n) {
+    var map = {}; (rows || []).forEach(function (r) { map[r.day] = r; });
+    var list = [], max = 1;
+    for (var i = n - 1; i >= 0; i--) { var d = new Date(Date.now() - i * 864e5).toISOString().slice(0, 10), r = map[d] || {}; list.push({ d: d, v: +r.visitors || 0, nw: +r.new || 0 }); max = Math.max(max, +r.visitors || 0); }
+    var fd = function (d) { return new Date(d + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' }); };
+    return '<div class="bars" role="img" aria-label="Visiteurs par jour, nouveaux et revenus">' + list.map(function (x) {
+      var rt = Math.max(0, x.v - x.nw), tip = fd(x.d) + ' : ' + x.v + ' visiteurs (' + x.nw + ' nouveaux, ' + rt + ' revenus)';
+      return x.v ? '<span class="sb" style="height:' + Math.max(4, Math.round(x.v * 100 / max)) + '%" title="' + esc(tip) + '"><i class="nw" style="flex-grow:' + x.nw + '"></i><i class="rt" style="flex-grow:' + rt + '"></i></span>' : '<span class="b zero" title="' + esc(tip) + '"></span>';
+    }).join('') + '</div><div class="bars-x"><span>' + fd(list[0].d) + '</span><span>max ' + max + '</span><span>' + fd(list[list.length - 1].d) + '</span></div>' +
+      '<div class="legend"><span><i style="background:var(--orange)"></i>Nouveaux</span><span><i style="background:var(--olive)"></i>Reviennent</span></div>';
+  }
+  function funnel(F) {
+    var steps = [['visit', 'Ont ouvert LERNA'], ['quiz_start', 'Ont commencé le test'], ['quiz_done', 'Ont fini le test'], ['results', 'Ont vu leurs résultats'],
+      ['signup', 'Ont créé un compte'], ['premium_view', 'Ont ouvert la page Premium'], ['pay_start', 'Ont commencé un paiement'], ['paid', 'Ont payé']];
+    var top = +F.visit || 0, worst = -1, worstLoss = 0;
+    for (var i = 1; i < steps.length; i++) { var loss = (+F[steps[i - 1][0]] || 0) - (+F[steps[i][0]] || 0); if (loss > worstLoss) { worstLoss = loss; worst = i; } }
+    return '<div class="fn">' + steps.map(function (s, i) {
+      var v = +F[s[0]] || 0;
+      return '<div class="s' + (i === worst ? ' worst' : '') + '"><span>' + (i + 1) + '. ' + s[1] + '</span><b>' + v + (i ? '<span>' + pct(v, top) + ' %</span>' : '') + '</b><span class="track"><i style="width:' + (top ? Math.max(v ? 2 : 0, pct(v, top)) : 0) + '%"></i></span>' +
+        (i === worst ? '<span class="loss">↑ C’est ici que tu perds le plus de monde : ' + worstLoss + ' personne' + (worstLoss > 1 ? 's' : '') + ' s’arrêtent entre l’étape ' + i + ' et l’étape ' + (i + 1) + '.</span>' : '') + '</div>';
+    }).join('') + '</div>';
+  }
+  function kRank(rows, nameFn) { return rank((rows || []).map(function (r) { return { k: r.k, n: r.n }; }), function (r) { return nameFn(r.k); }, 'n', function (r) { var tot = (rows || []).reduce(function (a, x) { return a + (+x.n || 0); }, 0); return pct(r.n, tot) + ' %'; }); }
+  function pApercu(stale, newReps, newMsgs) {
+    if (!live()) return '<p class="muted">Disponible une fois Supabase branché.</p>';
+    var O = data.ov;
+    if (!O) return '<p class="muted">La vue d’ensemble n’a pas pu se charger. Recharge la page.</p>';
+    var n = O.days, F = O.funnel || {}, ret = Math.max(0, O.visitors - O.new_n);
+    var since = O.tracking_since ? 'Compté depuis le ' + new Date(O.tracking_since + 'T12:00:00').toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + ' (avant, cette information n’était pas enregistrée).' : 'Commence à se remplir avec les prochaines visites (avant, cette information n’était pas enregistrée).';
+    var tips = [];
+    if (O.one_page_pct >= 50) tips.push('Plus de la moitié des visites s’arrêtent après une seule page : la première page vue (souvent l’accueil) doit donner envie d’aller plus loin, par exemple de lancer le test.');
+    if (F.visit && F.quiz_start < F.visit * 0.2) tips.push('Moins de 1 visiteur sur 5 commence le test d’orientation : c’est le premier point à améliorer avant le paiement.');
+    var pend = data.pays.filter(function (x) { return x.statut === 'en_attente'; }).length;
+    var todo = [
+      [pend, pend + ' paiement' + (pend > 1 ? 's' : '') + ' en attente de vérification', 'paiements'],
+      [newMsgs, newMsgs + ' nouveau' + (newMsgs > 1 ? 'x' : '') + ' message' + (newMsgs > 1 ? 's' : ''), 'messages'],
+      [newReps, newReps + ' signalement' + (newReps > 1 ? 's' : '') + ' à lire', 'signalements'],
+      [stale, stale + ' offre' + (stale > 1 ? 's' : '') + ' à revérifier (plus de 30 jours)', 'offres'],
+      [O.errors_7, O.errors_7 + ' erreur' + (O.errors_7 > 1 ? 's' : '') + ' dans l’app ces 7 jours, chez ' + O.errors_people_7 + ' personne' + (O.errors_people_7 > 1 ? 's' : ''), '']
+    ].filter(function (x) { return x[0]; });
+    var recent = data.ulist.filter(function (x) { return x.role !== 'admin'; }).slice(0, 6);
+    return periodSeg() +
+      '<div class="st-grid two">' +
+        '<section class="st-card"><h3>En bref (' + n + ' derniers jours)</h3><p class="ov-brief"><b>' + O.visitors + '</b> personne' + (O.visitors > 1 ? 's' : '') + ' ont ouvert LERNA, dont <b>' + O.new_n + '</b> pour la première fois et <b>' + ret + '</b> qui étaient déjà venues avant. ' +
+          (O.one_page_pct == null ? '' : '<b>' + O.one_page_pct + ' %</b> des visites s’arrêtent après une seule page. ') +
+          (O.came_back_pct == null ? '' : '<b>' + O.came_back_pct + ' %</b> des nouveaux sont revenus un autre jour. ') +
+          (O.median_seconds == null ? '' : 'La moitié des pages sont regardées moins de <b>' + dur(O.median_seconds) + '</b>.') + '</p>' +
+          tips.map(function (t) { return '<div class="ov-tip">' + esc(t) + '</div>'; }).join('') + '</section>' +
+        '<section class="st-card"><h3>À faire</h3><p class="sub">Ce qui attend une action de ta part</p>' +
+          (todo.length ? '<div class="todo">' + todo.map(function (x) { return '<div class="t' + (x[2] === 'paiements' || !x[2] ? ' hot' : '') + '"><span><b>' + esc(x[1]) + '</b></span>' + (x[2] ? '<button type="button" data-tab="' + x[2] + '">Voir</button>' : '') + '</div>'; }).join('') + '</div>' : '<p class="small muted">Rien en attente. Tout est à jour.</p>') + '</section>' +
+      '</div>' +
+      '<div class="st-grid" style="margin-top:14px"><section class="st-card"><h3>Arrivées et retours</h3><p class="sub">Chaque barre = un jour. Survole une barre pour le détail.</p>' + stackBars(O.per_day, n) + '</section></div>' +
+      '<div class="st-grid two" style="margin-top:14px">' +
+        '<section class="st-card"><h3>D’où ils viennent</h3><p class="sub">' + esc(since) + '</p>' + kRank(O.sources, srcName) +
+          '<p class="xsmall muted" style="margin-top:10px">Astuce : ajoute <b>?utm_source=tiktok</b> (ou instagram, whatsapp…) à la fin des liens que tu partages. LERNA saura exactement d’où vient chaque personne. Les liens ouverts depuis WhatsApp arrivent souvent en « Direct ».</p></section>' +
+        '<section class="st-card"><h3>Pays</h3><p class="sub">Pays de connexion à l’arrivée. ' + esc(since.split(' (')[0]) + '</p>' + kRank(O.countries, ccName) + '</section>' +
+      '</div>' +
+      '<div class="st-grid two" style="margin-top:14px">' +
+        '<section class="st-card"><h3>Chemin vers le paiement</h3><p class="sub">Combien de personnes passent chaque étape (en % des visiteurs). Une personne peut revoir ses résultats sans refaire le test : un chiffre peut donc être plus grand que celui d’avant.</p>' + funnel(F) + '</section>' +
+        '<section class="st-card"><h3>Appareils</h3><p class="sub">' + esc(since.split(' (')[0]) + '</p>' + kRank(O.devices, function (k) { return DEV[k] || k; }) +
+          '<h4 class="ov-sub">LERNA installée ou pas</h4>' + kRank(O.apps, function (k) { return DEV[k] || k; }) + '</section>' +
+      '</div>' +
+      '<div class="st-grid two" style="margin-top:14px">' +
+        '<section class="st-card"><h3>Par où ils entrent</h3><p class="sub">Première page vue de la journée</p>' + kRank(O.landing, pg) + '</section>' +
+        '<section class="st-card"><h3>Par où ils repartent</h3><p class="sub">Dernière page vue de la journée</p>' + kRank(O.exits, pg) + '</section>' +
+      '</div>' +
+      '<div class="st-grid" style="margin-top:14px"><section class="st-card"><h3>Derniers inscrits</h3>' +
+        (recent.length ? recent.map(function (x) { var on = x.is_premium && (!x.premium_expiry || new Date(x.premium_expiry) > new Date()); return '<div class="u-row"><div class="who"><strong>' + esc(((x.prenom || '') + ' ' + (x.nom || '')).trim() || x.email) + '</strong><span class="xsmall muted">' + esc(x.email) + (x.pays ? ' · ' + esc(x.pays) : '') + ' · inscrit le ' + Lerna.fmtDate(x.date_inscription) + '</span></div>' + (on ? '<span class="pill-s valide">Premium</span>' : '<span class="pill-s">Gratuit</span>') + '</div>'; }).join('') + '<button type="button" class="btn btn-ghost" data-tab="premium" style="margin-top:10px">Voir tous les comptes</button>' : '<p class="small muted">Aucun compte pour l’instant.</p>') +
+      '</section></div>' +
+      '<p class="xsmall muted" style="margin-top:10px">Une « personne » = un appareil (téléphone ou ordinateur). Tes propres visites, les robots et les personnes qui ont coupé « Statistiques » dans Paramètres ne sont pas comptés. LERNA peut se tromper : ces chiffres sont une estimation.</p>';
   }
   /* ---------- Centre IA ---------- */
   function pAi() {
@@ -418,6 +548,12 @@
   Lerna.ready(function () {
     $('root').innerHTML = '<p class="muted" style="padding:40px 0">Chargement…</p>';
     A.ready.then(function () { return load(); }).then(render, function () { render(); });
+    /* « En ce moment » se met à jour toute seule chaque minute quand la vue d'ensemble est ouverte */
+    setInterval(function () {
+      if (tab !== 'apercu' || document.visibilityState !== 'visible' || !live() || document.querySelector('.modal-wrap')) return;
+      var a = document.activeElement; if (a && /INPUT|TEXTAREA|SELECT/.test(a.tagName)) return;
+      loadOv().then(render);
+    }, 60000);
     document.addEventListener('input', function (e) {
       if (e.target.id !== 'uSearch') return;
       data.uq = e.target.value; var pos = e.target.selectionStart; render();
@@ -425,10 +561,15 @@
     });
     document.addEventListener('click', function (e) {
       var b;
-      if ((b = e.target.closest('[data-tab]'))) { tab = b.getAttribute('data-tab'); history.replaceState(null, '', '#' + tab); render(); return; }
+      if ((b = e.target.closest('[data-tab]'))) {
+        var fromPanel = !b.closest('.tabs');
+        tab = b.getAttribute('data-tab'); history.replaceState(null, '', '#' + tab); render();
+        if (fromPanel) { var tw = document.querySelector('.tabs-wrap'); if (tw) window.scrollTo({ top: Math.max(0, tw.getBoundingClientRect().top + window.scrollY - 70), behavior: 'smooth' }); }
+        return;
+      }
       if ((b = e.target.closest('[data-period]'))) {
         data.period = +b.getAttribute('data-period');
-        Promise.all([A.sb.rpc('lerna_stats', { p_days: data.period }).then(function (r) { if (!r.error) data.stats = r.data; }), loadAsks()]).then(render, render);
+        Promise.all([A.sb.rpc('lerna_stats', { p_days: data.period }).then(function (r) { if (!r.error) data.stats = r.data; }), loadAsks(), loadOv()]).then(render, render);
         return;
       }
       if ((b = e.target.closest('[data-prem]'))) {

@@ -769,6 +769,33 @@
   /* Identifiant anonyme tiré au hasard ; respecte « Statistiques » dans  */
   /* Paramètres ; les visites du propriétaire ne sont pas comptées.        */
   /* ------------------------------------------------------------------ */
+  /* Robots (Google, aperçus de liens, tests automatiques) : jamais comptés comme des visiteurs */
+  var BOT = !!navigator.webdriver || /bot|crawl|spider|slurp|headless|lighthouse|preview|facebookexternalhit|whatsapp\/|telegram|pingdom|gtmetrix/i.test(navigator.userAgent || '');
+  /* D'où vient la personne (pour la page admin) : lien suivi (?utm_source=tiktok), parrainage, appli qui a ouvert le lien, ou site précédent */
+  function arriveMeta() {
+    var q = new URLSearchParams(location.search), ua = navigator.userAgent || '', host = '';
+    try { host = doc.referrer ? new URL(doc.referrer).hostname.replace(/^www\./, '') : ''; } catch (e) {}
+    if (host === location.hostname) host = '';
+    var u = String(q.get('utm_source') || q.get('src') || '').toLowerCase().slice(0, 24), x = u + ' ' + host, src = 'direct';
+    if (q.get('ref')) src = 'parrainage';
+    else if (/tiktok/.test(x) || /musical_ly|bytedance|tiktok/i.test(ua)) src = 'tiktok';
+    else if (/instagram/.test(x) || /Instagram/.test(ua)) src = 'instagram';
+    else if (/facebook|messenger|^fb\b/.test(x) || /FBAN|FBAV|FB_IAB/.test(ua)) src = 'facebook';
+    else if (/whatsapp|wa\.me/.test(x)) src = 'whatsapp';
+    else if (/snapchat/.test(x) || /Snapchat/.test(ua)) src = 'snapchat';
+    else if (/youtube|youtu\.be/.test(x)) src = 'youtube';
+    else if (/google\./.test(x) || u === 'google') src = 'google';
+    else if (/bing|duckduckgo|yahoo|ecosia|qwant/.test(x)) src = 'recherche';
+    else if (/(^|\s)(t\.co|twitter\.com|x\.com)/.test(x)) src = 'x';
+    else if (/linkedin|lnkd/.test(x)) src = 'linkedin';
+    else if (u) src = u;
+    else if (host) src = 'site:' + host.slice(0, 30);
+    var w = Math.min(screen.width || innerWidth, screen.height || innerHeight);
+    var dev = /iPad|Tablet/i.test(ua) || (/Android/i.test(ua) && !/Mobi/i.test(ua)) ? 'tablette' : /Mobi|Android|iPhone|iPod/i.test(ua) || w < 600 ? 'telephone' : 'ordinateur';
+    var app = (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone ? 'appli' : 'navigateur';
+    var v = Daily.visits();
+    return { src: src, cc: Lerna.config.country || '', dev: dev, app: app, nw: v.days.length <= 1 ? 1 : 0, lang: Lerna.lang, camp: String(q.get('utm_campaign') || '').slice(0, 30) };
+  }
   var Stats = Lerna.stats = {
     q: [], ready: false, t0: Date.now(), left: false,
     sid: function () {
@@ -778,7 +805,7 @@
     },
     page: function () { return ((doc.body && doc.body.getAttribute('data-page')) || location.pathname.split('/').pop().replace(/\.html$/, '') || 'home').slice(0, 40); },
     log: function (ev, meta, keep) {
-      if (!A.allowed()) return;
+      if (!A.allowed() || BOT) return;
       ev = String(ev || '').toLowerCase().replace(/[^a-z0-9_:.-]/g, '_').slice(0, 40);
       if (!ev || ev.indexOf('ai:') === 0) return;
       var item = { p_sid: Stats.sid(), p_ev: ev, p_page: Stats.page(), p_meta: meta || null };
@@ -800,6 +827,8 @@
     },
     start: function () {
       Stats.ready = true;
+      /* Une « arrivée » par visite (onglet ou appli ouverte) */
+      try { if (A.allowed() && !BOT && !store.sget('lerna_arrived', null)) { store.sset('lerna_arrived', 1); Stats.q.unshift({ p_sid: Stats.sid(), p_ev: 'arrive', p_page: Stats.page(), p_meta: arriveMeta() }); } } catch (e) {}
       if (Auth.mode === 'supabase') Auth.token().then(function (tok) { Stats.tok = tok; });
       var q = Stats.q; Stats.q = [];
       q.forEach(function (x) { Stats.send(x); });
