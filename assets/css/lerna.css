@@ -532,6 +532,20 @@ p { line-height: 1.65; }
 .bottom-nav a.center:active .center-btn { transform: scale(.94); }
 .bottom-nav a.center::after { display: none; }
 
+/* Téléphone : les barres se cachent quand on descend, reviennent quand on remonte (Lerna.showBars) */
+@media (max-width: 768px) {
+  .bottom-nav, .appbar { transition: transform .28s var(--ease), border-color .2s, background-color .2s; }
+  body.bars-hidden .bottom-nav { transform: translateY(calc(100% + 30px)); }   /* + le bouton central qui dépasse */
+  body.bars-hidden .appbar { transform: translateY(-100%); }
+  body.bars-hidden::before { content: ''; position: fixed; top: 0; left: 0; right: 0; height: var(--safe-t, 0px); background: var(--bg); z-index: 99; }   /* sous l'heure et la batterie (iPhone) */
+  .tabs-wrap, .st-nav, .lg-tabs { transition: top .28s var(--ease); }
+  body.bars-hidden .tabs-wrap, body.bars-hidden .st-nav, body.bars-hidden .lg-tabs { top: var(--safe-t, 0px); }
+  body.has-bottom-nav .toast, body.has-bottom-nav .fab, body.has-bottom-nav .apply-bar { transition: bottom .28s var(--ease); }
+  body.bars-hidden.has-bottom-nav .toast, body.bars-hidden.has-bottom-nav .fab { bottom: calc(var(--safe-b) + 14px); }
+  body.bars-hidden.has-bottom-nav .apply-bar { bottom: calc(var(--safe-b) + 10px); }
+}
+@media (prefers-reduced-motion: reduce) { .bottom-nav, .appbar, .tabs-wrap, .st-nav, .lg-tabs { transition: none; } }
+
 @media (max-width: 768px) {
   :root { --nav-h: 60px; }
   .nav-inner { padding: 0 12px; display: grid; grid-template-columns: auto 1fr auto; }

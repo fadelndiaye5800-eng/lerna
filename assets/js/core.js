@@ -1399,12 +1399,30 @@
     var fromHere = doc.referrer && doc.referrer.indexOf(location.origin) === 0 && history.length > 1;
     if (fromHere) history.back(); else location.href = b.getAttribute('data-back');
   });
-  /* La barre du haut prend un fond et un trait dès qu'on fait défiler */
-  var abTick = false;
+  /* La barre du haut prend un fond et un trait dès qu'on fait défiler.
+     Sur téléphone, comme dans l'appli Google : quand on descend pour lire, la barre du haut et celle du bas
+     glissent hors de l'écran ; dès qu'on remonte un peu, elles reviennent. */
+  var abTick = false, lastY = window.scrollY, NO_HIDE = ['questionnaire', 'loading', 'auth', 'admin'];
+  function barsHidden(on) { if (doc.body.classList.contains('bars-hidden') !== on) doc.body.classList.toggle('bars-hidden', on); }
+  Lerna.showBars = function () { barsHidden(false); };
   window.addEventListener('scroll', function () {
     if (abTick) return; abTick = true;
-    requestAnimationFrame(function () { abTick = false; var bar = doc.querySelector('.appbar'); if (bar) bar.classList.toggle('scrolled', window.scrollY > 4); });
+    requestAnimationFrame(function () {
+      abTick = false;
+      var y = window.scrollY, bar = doc.querySelector('.appbar'), d = y - lastY;
+      if (bar) bar.classList.toggle('scrolled', y > 4);
+      var el = doc.activeElement, typing = el && (el.tagName === 'TEXTAREA' || (el.tagName === 'INPUT' && !/^(checkbox|radio|range|button|submit)$/.test(el.type)) || el.isContentEditable);
+      var room = doc.documentElement.scrollHeight - window.innerHeight;
+      if (window.innerWidth > 768 || NO_HIDE.indexOf(page()) !== -1 || room < window.innerHeight * 0.6 ||
+          doc.documentElement.classList.contains('mn-lock') || doc.querySelector('.modal-wrap')) { barsHidden(false); lastY = y; return; }
+      if (typing) { lastY = y; return; }   // clavier ouvert : on ne bouge rien
+      if (y < 80 || y > room - 40) barsHidden(false);           // tout en haut ou tout en bas : visibles
+      else if (d > 6) barsHidden(true);                          // on descend : on cache
+      else if (d < -6) barsHidden(false);                        // on remonte : elles reviennent
+      if (Math.abs(d) > 6 || y < 80) lastY = y;
+    });
   }, { passive: true });
+  window.addEventListener('pageshow', function () { barsHidden(false); lastY = window.scrollY; });
 
   /* Barre latérale fixe (ordinateur et tablette en largeur) */
   function renderSide() {
