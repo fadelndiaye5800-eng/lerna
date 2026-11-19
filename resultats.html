@@ -73,6 +73,9 @@
   .rs-jobs ol { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 6px; }
   .rs-jobs li a { display: flex; justify-content: space-between; gap: 10px; padding: 9px 12px; border-radius: 12px; background: var(--cream); text-decoration: none; color: var(--brown); font-weight: 700; font-size: .94rem; }
   .rs-jobs li a span:first-child { min-width: 0; overflow-wrap: anywhere; }
+  .rs-jobs .rs-jsch { display: block; font-weight: 600; font-size: .78rem; color: var(--muted); margin-top: 2px; }
+  .reco .leads { margin-top: 12px; font-size: .88rem; line-height: 1.5; }
+  .reco .leads a { color: var(--orange-deep); font-weight: 700; }
   .rs-jobs li a b { color: var(--orange-deep); white-space: nowrap; }
   .rs-jobs .wait { display: flex; gap: 10px; align-items: center; margin-top: 8px; font-size: .92rem; color: var(--muted); }
 
@@ -125,6 +128,7 @@ Lerna.addStrings({
     'rs.lockBtn': 'Tout débloquer avec Premium',
     'rs.or': 'ou',
     'rs.jobsTitle': 'Les métiers faits pour toi', 'rs.jobsText': 'Ce qu’on fait chaque jour, les qualités demandées et le niveau d’études, métier par métier.', 'rs.jobsBtn': 'Voir les métiers',
+    'rs.leads': 'Peut te mener à :', 'rs.jobsSch': 'Écoles :',
     'rs.jobsWait': 'LERNA cherche, parmi des milliers de métiers, ceux qui te correspondent vraiment…', 'rs.jobsErr': 'L’analyse des métiers n’a pas pu se faire pour l’instant. Tu peux voir les métiers classés selon ton test.', 'rs.jobsAll': 'Voir mes 10 métiers', 'rs.jobsNote': 'Choisis par l’IA à partir de toutes tes réponses. LERNA peut se tromper.',
     'rs.inviteTitle': 'Invite 3 amis — c’est gratuit',
     'rs.inviteCount': '{n}/3 amis inscrits', 'rs.invitePending': '{n} invitation(s) en attente de confirmation',
@@ -175,6 +179,7 @@ Lerna.addStrings({
     'rs.lockBtn': 'Unlock everything with Premium',
     'rs.or': 'or',
     'rs.jobsTitle': 'The jobs made for you', 'rs.jobsText': 'The day-to-day work, the qualities needed and the level of studies, job by job.', 'rs.jobsBtn': 'See the jobs',
+    'rs.leads': 'Can lead you to:', 'rs.jobsSch': 'Schools:',
     'rs.jobsWait': 'LERNA is looking, among thousands of jobs, for the ones that truly fit you…', 'rs.jobsErr': 'The job analysis could not run for now. You can see the jobs ranked from your test.', 'rs.jobsAll': 'See my 10 jobs', 'rs.jobsNote': 'Picked by AI from all your answers. LERNA can be wrong.',
     'rs.inviteTitle': 'Invite 3 friends — it’s free',
     'rs.inviteCount': '{n}/3 friends signed up', 'rs.invitePending': '{n} invitation(s) waiting for confirmation',
@@ -259,6 +264,7 @@ Lerna.addStrings({
         (r.points_forts && r.points_forts.length ? '<div><p class="why-title">' + t('rs.strengths') + '</p>' + list(r.points_forts, 'list-check') + '</div>' : '') +
       '</div>' +
       (r.point_attention ? '<div class="attn">' + Lerna.icon('alert') + '<div><strong>' + t('rs.attention') + ' — </strong>' + esc(Lerna.typo(r.point_attention)) + '</div></div>' : '') +
+      leadsTo(school) +
       '<div class="reco-actions no-print">' +
         (school
           ? '<a class="btn btn-brown btn-sm" href="ecole.html?id=' + encodeURIComponent(school.id) + '">' + t('rs.seeSchool') + '</a>' +
@@ -269,6 +275,12 @@ Lerna.addStrings({
     '</article>';
   }
 
+  /* Métiers (parmi tes 10) auxquels cette école peut mener */
+  function leadsTo(school) {
+    var LM = window.LernaMetiers, jobs = school && LM ? LM.jobsForSchool(school, 3) : [];
+    if (!jobs.length) return '';
+    return '<p class="leads"><strong>' + t('rs.leads') + '</strong> ' + jobs.map(function (x) { return '<a href="metiers.html?code=' + encodeURIComponent(x.c) + '">' + esc(Lerna.lang === 'en' && x.en ? x.en : x.t) + '</a>'; }).join(' · ') + '</p>';
+  }
   function ghost(n) {
     return '<span class="badge badge-orange">' + t('rs.recoN', { n: n }) + '</span><h2 style="margin:14px 0 12px">██████ ████████</h2>' +
       '<div class="meta-row"><span class="tag">██████, ████</span><span class="tag">██████</span><span class="tag">████ $</span></div>' +
@@ -346,7 +358,10 @@ Lerna.addStrings({
     if (c) {
       var top = c.metiers.slice(0, 5);
       return '<h3>✨ ' + t('rs.jobsTitle') + '</h3>' + (c.resume ? '<p class="small muted" style="margin-top:4px">' + esc(Lerna.typo(c.resume)) + '</p>' : '') +
-        '<ol>' + top.map(function (x) { return '<li><a href="metiers.html?code=' + encodeURIComponent(x.c) + '"><span>' + esc(Lerna.lang === 'en' && x.en ? x.en : x.t) + '</span><b>' + x.pct + ' %</b></a></li>'; }).join('') + '</ol>' +
+        '<ol>' + top.map(function (x, i) {
+          var sc = i < 3 && window.LERNA_SCHOOLS ? LM.schoolsFor(x, 2).map(function (y) { return y.s.nom.split(' — ')[0].split(' (')[0]; }).join(', ') : '';
+          return '<li><a href="metiers.html?code=' + encodeURIComponent(x.c) + '"><span>' + esc(Lerna.lang === 'en' && x.en ? x.en : x.t) + (sc ? '<small class="rs-jsch">🎓 ' + esc(t('rs.jobsSch')) + ' ' + esc(sc) + '</small>' : '') + '</span><b>' + x.pct + ' %</b></a></li>';
+        }).join('') + '</ol>' +
         '<p class="small muted" style="margin-top:8px">' + t('rs.jobsNote') + '</p>' +
         '<a class="btn btn-primary btn-sm" style="margin-top:12px" href="metiers.html">' + t('rs.jobsAll') + ' →</a>';
     }
@@ -355,7 +370,15 @@ Lerna.addStrings({
         : '<div class="wait">' + Lerna.thinking('inline') + '<span>' + t('rs.jobsWait') + '</span></div>') +
       '<a class="btn btn-primary btn-sm" style="margin-top:12px" href="metiers.html">' + t('rs.jobsBtn') + ' →</a>';
   }
-  function paintJobs() { var el = $('rsJobs'); if (el) el.innerHTML = jobsInner(); }
+  function paintJobs() {
+    var el = $('rsJobs'); if (el) el.innerHTML = jobsInner();
+    /* Analyse des métiers arrivée après l'affichage : on ajoute « Peut te mener à » sur les écoles */
+    var res = Lerna.store.get('lerna_results', null);
+    ((res && res.recos) || []).forEach(function (r, i) {
+      var card = $('reco-' + (i + 1)); if (!card || card.querySelector('.leads') || !card.querySelector('.reco-actions')) return;
+      var h = leadsTo(lernaOf(r)); if (h) card.querySelector('.reco-actions').insertAdjacentHTML('beforebegin', h);
+    });
+  }
   /* Internet revenu : on relance l'analyse des métiers qui avait échoué */
   Lerna.on('lerna:online', function () { if (jobsState.err && $('rsJobs')) { jobsState.err = 0; jobsCard(); paintJobs(); } });
   function jobsCard() {
