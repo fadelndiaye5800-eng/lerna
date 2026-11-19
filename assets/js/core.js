@@ -1410,7 +1410,8 @@
     }
     if (p === 'today' || (p === 'home' && hasProfile())) {
       var st = Lerna.daily && Lerna.daily.streak ? Lerna.daily.streak() : { days: 0 };
-      right += '<a class="ab-streak" href="aujourdhui.html" aria-label="' + Lerna.esc(t('nav.streak', { n: st.days })) + '">' + Lerna.icon('flame', 'ic-sm') + '<span>' + st.days + '</span></a>';
+      var tr = Lerna.daily.tier(st.days).cur;
+      right += '<a class="ab-streak t-' + tr.k + '" href="aujourdhui.html" aria-label="' + Lerna.esc(t('nav.streak', { n: st.days }) + ' · ' + Lerna.L(tr.n)) + '">' + (st.days >= 7 ? Lerna.flame(tr, 'ic-sm') : Lerna.icon('flame', 'ic-sm')) + '<span>' + st.days + '</span></a>';
     }
     if (p === 'home' && !u) right += '<a class="ab-login" href="auth.html?mode=login">' + t('nav.login') + '</a>';
     /* Les 3 barres : tout LERNA dans un seul menu (compte, pages, Paramètres, langue, thème, aide) */
@@ -1526,7 +1527,7 @@
     };
     var dark = Prefs.theme() === 'dark';
     var acct = u
-      ? '<a class="mn-acct" href="espace.html"><span class="avatar">' + Lerna.esc(Lerna.initials(u)) + '</span><span class="mn-acct-txt"><strong>' + Lerna.esc(Lerna.displayName(u) || t('nav.account')) + '</strong><span>' + Lerna.esc(u.email || '') + '</span></span>' +
+      ? '<a class="mn-acct" href="espace.html">' + Lerna.avatarRing(Lerna.esc(Lerna.initials(u))) + '<span class="mn-acct-txt"><strong>' + Lerna.esc(Lerna.displayName(u) || t('nav.account')) + '</strong><span>' + Lerna.esc(u.email || '') + '</span></span>' +
         '<span class="mn-badge' + (Lerna.isPaidPremium() || u.role === 'admin' ? ' prem' : '') + '">' + t(Lerna.isPaidPremium() || u.role === 'admin' ? 'nav.premiumBadge' : 'nav.free') + '</span></a>'
       : '<div class="mn-guest"><p>' + t('mn.guest') + '</p><div class="mn-guest-btns"><a class="btn btn-primary btn-sm" href="auth.html?mode=signup">' + t('nav.signup') + '</a><a class="btn btn-ghost btn-sm" href="auth.html?mode=login">' + t('nav.login') + '</a></div></div>';
     host.innerHTML =
@@ -1690,6 +1691,7 @@
   Lerna.addStrings({
     fr: {
       'rt.great': 'Génial !', 'rt.levelUp': 'Nouveau niveau : {level}', 'rt.levelUpText': 'Tu avances vraiment dans ton orientation. Continue comme ça.',
+      'fl.unlocked': '{name} débloquée !', 'fl.unlockedM': '{name} débloqué !', 'fl.days': '{n} jours d’affilée', 'fl.share': 'Partager ma flamme', 'fl.badges': 'Mes badges de flamme', 'fl.next': 'Encore {n} jour(s) pour : {name}', 'fl.max': 'Tu as atteint le palier ultime.', 'fl.lost': 'Ta série a recommencé : tes badges restent à toi pour toujours.', 'fl.shareText': '{n} jours d’affilée sur LERNA ({name}). Trouve ton orientation toi aussi :', 'fl.shareImg': 'jours d’affilée sur LERNA', 'fl.shareCta': 'Trouve ton orientation sur', 'fl.saved': 'Image enregistrée : publie-la en statut ou sur TikTok.',
       'rt.streakStart': 'Ton parcours commence', 'rt.streakStartText': 'Trois visites : ton parcours LERNA est lancé. Reviens chaque jour pour le faire grandir.',
       'rt.streakBadge': 'Parcours de {n} jours', 'rt.streakBadgeText': '{n} jours à avancer sur ton avenir. Le léopard LERNA est fier de toi.',
       'ref.message': "J'ai trouvé mon orientation avec LERNA : 25 questions et l'IA te propose les écoles faites pour toi, avec les vrais coûts et les bourses. Essaie gratuitement : {link}",
@@ -1710,6 +1712,7 @@
     },
     en: {
       'rt.great': 'Great!', 'rt.levelUp': 'New level: {level}', 'rt.levelUpText': 'You are really moving forward with your orientation. Keep it up.',
+      'fl.unlocked': '{name} unlocked!', 'fl.unlockedM': '{name} unlocked!', 'fl.days': '{n} days in a row', 'fl.share': 'Share my flame', 'fl.badges': 'My flame badges', 'fl.next': '{n} more day(s) for: {name}', 'fl.max': 'You reached the ultimate level.', 'fl.lost': 'Your streak started over: your badges stay yours forever.', 'fl.shareText': '{n} days in a row on LERNA ({name}). Find your path too:', 'fl.shareImg': 'days in a row on LERNA', 'fl.shareCta': 'Find your path on', 'fl.saved': 'Image saved: post it as a status or on TikTok.',
       'rt.streakStart': 'Your journey has started', 'rt.streakStartText': 'Three visits: your LERNA journey is on. Come back every day to make it grow.',
       'rt.streakBadge': '{n}-day journey', 'rt.streakBadgeText': '{n} days working on your future. The LERNA leopard is proud of you.',
       'ref.message': 'I found my path with LERNA: 25 questions and the AI suggests the schools that fit you, with real costs and scholarships. Try it for free: {link}',
@@ -1802,15 +1805,110 @@
         setTimeout(function () { Lerna.celebrate({ img: 'fire', title: Lerna.t('rt.streakStart'), text: Lerna.t('rt.streakStartText'), sound: 'streak' }); }, 1200);
         return;
       }
-      [365, 100, 30, 7].some(function (m) {
+      [365, 100, 60, 30, 10, 7].some(function (m) {
         if (s.days >= m && seen.indexOf('s' + m) === -1) {
-          mark('s' + m);
-          setTimeout(function () { Lerna.celebrate({ img: 'leopard', title: Lerna.t('rt.streakBadge', { n: m }), text: Lerna.t('rt.streakBadgeText', { n: m }), sound: 'streak' }); }, 1200);
+          /* Les paliers en dessous, atteints en même temps, sont gagnés aussi (sans fête de plus) */
+          [7, 10, 30, 60, 100, 365].forEach(function (x) { if (x <= m && seen.indexOf('s' + x) === -1) seen.push('s' + x); });
+          store.set('lerna_badges', seen);
+          var tier = Daily.tier(m).cur;
+          setTimeout(function () { Lerna.celebrateTier(tier, s.days); }, 1200);
           return true;
         }
         return false;
       });
+    },
+    /* Paliers de flammes : la couleur suit la série en cours (elle revient à la normale si la série casse),
+       les badges gagnés restent pour toujours (lerna_badges + meilleure série) */
+    tiers: function () { return TIERS; },
+    tier: function (days) {
+      days = days === undefined ? Daily.streak().days : days;
+      var cur = TIERS[0], next = TIERS[1];
+      TIERS.forEach(function (x, i) { if (days >= x.d) { cur = x; next = TIERS[i + 1] || null; } });
+      return { cur: cur, next: next, days: days, toNext: next ? next.d - days : 0 };
+    },
+    best: function () {
+      var d = Daily.streak().days, b = Math.max(parseInt(store.get('lerna_best_streak', 0), 10) || 0, d);
+      if (b !== store.get('lerna_best_streak', 0)) store.set('lerna_best_streak', b);
+      return b;
+    },
+    earned: function (t) {
+      if (t.d === 0) return true;
+      var seen = store.get('lerna_badges', []);
+      return Daily.best() >= t.d || seen.indexOf(t.d === 3 ? 'start' : 's' + t.d) !== -1;
     }
+  };
+  var TIERS = [
+    { d: 0, k: 'base', n: { fr: 'Flamme', en: 'Flame' }, a: '#FFB347', b: '#E8590C' },
+    { d: 3, k: 'spark', n: { fr: 'Étincelle', en: 'Spark' }, a: '#FFB347', b: '#E8590C', m: { fr: 'Ton parcours est lancé. Reviens chaque jour : à 7 jours, ta flamme devient dorée.', en: 'Your journey has started. Come back every day: at 7 days, your flame turns gold.' } },
+    { d: 7, k: 'gold', n: { fr: 'Flamme dorée', en: 'Golden flame' }, a: '#FFE27A', b: '#F2A30F', m: { fr: 'Ta flamme devient dorée en haut de l’écran. Prochain palier : la Flamme bleue, à 10 jours.', en: 'Your flame turns gold at the top of the screen. Next level: the Blue flame, at 10 days.' } },
+    { d: 10, k: 'blue', n: { fr: 'Flamme bleue', en: 'Blue flame' }, a: '#8FE3FF', b: '#2F6BFF', m: { fr: 'La flamme la plus chaude : seuls ceux qui tiennent 10 jours la voient. Un nouveau badge brille sur ton profil.', en: 'The hottest flame: only those who last 10 days see it. A new badge shines on your profile.' } },
+    { d: 30, k: 'or', n: { fr: 'Profil Or', en: 'Gold profile' }, a: '#E9B8FF', b: '#8E3BFF', m: { fr: '30 jours ! Ton profil passe en Or : nouvelles couleurs et contour doré autour de ta photo. Tu es en avance.', en: '30 days! Your profile turns Gold: new colours and a golden ring around your photo. You are ahead.' } },
+    { d: 60, k: 'aurora', n: { fr: 'Aurore', en: 'Aurora' }, a: '#7CFFCB', b: '#7B5CFF', m: { fr: '60 jours : un contour Aurore multicolore entoure ta photo et ton profil change encore de couleurs.', en: '60 days: a multicoloured Aurora ring around your photo, and new profile colours.' } },
+    { d: 100, k: 'legend', n: { fr: 'Légende', en: 'Legend' }, a: '#FFD36E', b: '#D7263D', m: { fr: '100 jours. Tu entres chez les Légendes LERNA : contour léopard et badge rare.', en: '100 days. You join the LERNA Legends: leopard ring and a rare badge.' } },
+    { d: 365, k: 'eternal', n: { fr: 'Flamme éternelle', en: 'Eternal flame' }, a: '#FFFFFF', b: '#7FB2FF', m: { fr: '365 jours : la flamme éternelle. Le palier ultime de LERNA.', en: '365 days: the eternal flame. The ultimate LERNA level.' } }
+  ];
+  var FLAME_D = 'M12 22c4.4 0 7-2.9 7-6.6 0-3.5-2.4-5.6-4-8.4-.6 2-1.6 3-3 3.4.4-3.1-.8-5.9-3.4-8.4-.3 3.6-1.6 5.5-3.2 7.6C4.3 11.2 5 13 5 15.4 5 19.1 7.6 22 12 22z';
+  var flameN = 0;
+  /* Flamme aux couleurs du palier (dégradé) */
+  Lerna.flame = function (tier, cls) {
+    tier = tier || Daily.tier().cur; var id = 'fg' + (++flameN);
+    return '<svg class="flame-svg ' + (cls || '') + ' t-' + tier.k + '" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><defs><linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + tier.a + '"/><stop offset="1" stop-color="' + tier.b + '"/></linearGradient></defs>' +
+      '<path d="' + FLAME_D + '" fill="url(#' + id + ')"/><path d="M12 19.5c1.7 0 2.8-1.1 2.8-2.6 0-1.4-1-2.3-1.6-3.4-.3.8-.7 1.2-1.2 1.4.1-1.2-.3-2.3-1.4-3.3-.1 1.4-.6 2.2-1.3 3-.5.7-.2 1.4-.2 2.3 0 1.5 1.1 2.6 2.9 2.6z" fill="#fff" opacity=".55"/></svg>';
+  };
+  /* Badges de flamme : gagnés en couleur, à venir en gris avec le nombre de jours */
+  /* Photo de profil avec le contour du palier (Or à 30 jours, Aurore à 60, léopard à 100…) */
+  Lerna.avatarRing = function (inner, cls) {
+    var t = Daily.tier().cur;
+    return '<span class="tier-ring t-' + t.k + (cls ? ' ' + cls : '') + '"><span class="avatar">' + inner + '</span></span>';
+  };
+  Lerna.flameBadges = function () {
+    return '<div class="fl-badges">' + TIERS.slice(1).map(function (x) {
+      var ok = Daily.earned(x);
+      return '<span class="fl-badge' + (ok ? ' on' : '') + '" title="' + Lerna.esc(Lerna.L(x.n)) + ' · ' + x.d + ' j">' + (ok ? Lerna.flame(x) : Lerna.icon('lock', 'ic-sm')) + '<small>' + x.d + '</small></span>';
+    }).join('') + '</div>';
+  };
+  /* Écran spécial de palier, avec une image à partager (statut WhatsApp, TikTok) */
+  Lerna.celebrateTier = function (tier, days) {
+    Lerna.confetti();
+    Sound.play('streak');
+    var masc = tier.k === 'or' || tier.k === 'base';
+    Lerna.modal('<div class="celebrate fl-cele t-' + tier.k + '"><div class="fl-big">' + Lerna.flame(tier) + '<b>' + days + '</b></div>' +
+      '<h2>' + Lerna.esc(Lerna.t(masc ? 'fl.unlockedM' : 'fl.unlocked', { name: Lerna.L(tier.n) })) + '</h2>' +
+      (tier.m ? '<p>' + Lerna.esc(Lerna.L(tier.m)) + '</p>' : '') + Lerna.flameBadges() +
+      '<button type="button" class="btn btn-ghost btn-block" data-fl-cele-share style="margin-top:14px">' + Lerna.icon('share', 'ic-sm') + Lerna.t('fl.share') + '</button>' +
+      '<button type="button" class="btn btn-primary btn-block" data-close style="margin-top:10px">' + Lerna.t('rt.great') + '</button></div>');
+    var b = doc.querySelector('[data-fl-cele-share]');
+    if (b) b.addEventListener('click', function () { Lerna.shareFlame(tier, days); });
+  };
+  /* Image 1080 × 1350 : flamme du palier, nombre de jours, lien (avec le code de parrainage s'il y en a un) */
+  Lerna.shareFlame = function (tier, days) {
+    tier = tier || Daily.tier().cur; days = days === undefined ? Daily.streak().days : days;
+    var link = (Lerna.referral && Auth.user ? Lerna.referral.link() : '') || (Lerna.config.appUrl || location.origin);
+    var text = Lerna.t('fl.shareText', { n: days, name: Lerna.L(tier.n) }) + ' ' + link;
+    var c = doc.createElement('canvas'); c.width = 1080; c.height = 1350;
+    var g = c.getContext && c.getContext('2d');
+    if (!g || !window.Path2D) { if (navigator.share) navigator.share({ text: text }).catch(function () {}); return; }
+    var bg = g.createLinearGradient(0, 0, 1080, 1350); bg.addColorStop(0, '#2A1607'); bg.addColorStop(1, '#4A2408');
+    g.fillStyle = bg; g.fillRect(0, 0, 1080, 1350);
+    var glow = g.createRadialGradient(540, 560, 40, 540, 560, 520); glow.addColorStop(0, tier.a + '66'); glow.addColorStop(1, 'rgba(0,0,0,0)');
+    g.fillStyle = glow; g.fillRect(0, 0, 1080, 1350);
+    g.save(); g.translate(540 - 300, 230); g.scale(25, 25);
+    var fg = g.createLinearGradient(0, 0, 0, 24); fg.addColorStop(0, tier.a); fg.addColorStop(1, tier.b);
+    g.fillStyle = fg; g.fill(new Path2D(FLAME_D)); g.restore();
+    g.textAlign = 'center'; g.fillStyle = '#FFFFFF';
+    g.font = '800 190px system-ui, -apple-system, Segoe UI, Roboto, sans-serif'; g.fillText(String(days), 540, 1010);
+    g.font = '700 54px system-ui, -apple-system, Segoe UI, Roboto, sans-serif'; g.fillText(Lerna.t('fl.shareImg'), 540, 1085);
+    g.fillStyle = tier.a; g.font = '800 60px system-ui, -apple-system, Segoe UI, Roboto, sans-serif'; g.fillText(Lerna.L(tier.n), 540, 1170);
+    g.fillStyle = '#F2D8B5'; g.font = '600 38px system-ui, -apple-system, Segoe UI, Roboto, sans-serif';
+    g.fillText(Lerna.t('fl.shareCta') + ' ' + String(link).replace(/^https?:\/\//, '').replace(/\?.*$/, ''), 540, 1270);
+    c.toBlob(function (blob) {
+      if (!blob) return;
+      var file = window.File ? new File([blob], 'lerna-flamme-' + days + '.png', { type: 'image/png' }) : null;
+      if (file && navigator.canShare && navigator.canShare({ files: [file] })) { navigator.share({ files: [file], text: text }).catch(function () {}); Lerna.track('flame_share', tier.k); return; }
+      var a = doc.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'lerna-flamme-' + days + '.png'; doc.body.appendChild(a); a.click();
+      setTimeout(function () { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+      Lerna.toast(Lerna.t('fl.saved'), 3500); Lerna.track('flame_share', tier.k);
+    }, 'image/png');
   };
   Lerna.track = function (ev, id) {
     var l = Daily.log();
@@ -2228,7 +2326,7 @@
 
   /* Compte : export des données, effacement local, suppression (Paramètres et Mon espace) */
   var LOCAL_KEYS = ['lerna_profile', 'lerna_results', 'lerna_history', 'lerna_favoris', 'lerna_opp_favs', 'lerna_chat', 'lerna_tracker', 'lerna_reminders', 'lerna_reviews',
-    'lerna_visits', 'lerna_xp', 'lerna_badges', 'lerna_dossiers', 'lerna_cv', 'lerna_prefs', 'lerna_mt_ai'];
+    'lerna_visits', 'lerna_xp', 'lerna_badges', 'lerna_dossiers', 'lerna_cv', 'lerna_prefs', 'lerna_mt_ai', 'lerna_best_streak'];
   Lerna.account = {
     /* Suppression du compte, la même partout (Paramètres, Mon espace) :
        un seul envoi même si on appuie deux fois, message clair en cas d'échec,
@@ -2399,7 +2497,7 @@
     initReveal();
     try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () { if (Prefs.get('theme') === 'auto') Prefs.apply(); }); } catch (e) {}
     Lerna._isReady = true;
-    try { Daily.recordVisit(); Daily.milestones(); } catch (err) {}
+    try { Daily.recordVisit(); doc.documentElement.setAttribute('data-tier', Daily.tier().cur.k); Daily.best(); Daily.milestones(); } catch (err) {}
     var ref = Lerna.param('ref');
     if (ref && /^[A-Za-z0-9]{4,12}$/.test(ref) && !Auth.user) store.set('lerna_ref', ref.toUpperCase());
     readyFns.forEach(function (fn) { try { fn(); } catch (err) { console.error(err); } });

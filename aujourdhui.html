@@ -250,7 +250,7 @@ Lerna.addStrings({
     return '<section class="hello">' + Lerna.sticker(img) + '<div><h1>' + esc(Lerna.greeting(u ? Lerna.displayName(u) : '')) + '</h1><p>' + esc(date.charAt(0).toUpperCase() + date.slice(1)) + '</p>' +
       (sub ? '<p class="hello-sub">' + esc(sub) + '</p>' : '') + '</div></section>' +
       '<div class="chips-top">' +
-        (s.started ? '<a class="pill" href="#parcours">' + Lerna.sticker('fire') + s.days + '</a>' : '') +
+        (s.started ? '<a class="pill pill-fl t-' + D.tier(s.days).cur.k + '" href="#parcours">' + (s.days >= 7 ? Lerna.flame(D.tier(s.days).cur) : Lerna.sticker('fire')) + s.days + '</a>' : '') +
         '<a class="pill" href="#parcours">' + Lerna.sticker(lv.cur.img) + esc(L(lv.cur.label)) + '</a>' +
         '<a class="pill" href="#missions">' + Lerna.sticker('target') + t('td.mDone', { n: missionsDoneCount(), t: MISS.length }) + '</a>' +
       '</div>';
@@ -259,9 +259,16 @@ Lerna.addStrings({
   /* ---------- Parcours + niveau ---------- */
   function journey() {
     var s = D.streak(), lv = D.level(), v = D.visits();
-    var h = '<section class="blk journey" id="parcours"><div class="blk-h">' + Lerna.sticker('fire') + '<div class="grow">';
+    var tr = D.tier(s.days);
+    var h = '<section class="blk journey t-' + tr.cur.k + '" id="parcours"><div class="blk-h">' + (s.days >= 3 ? Lerna.flame(tr.cur, 'fl-hd') : Lerna.sticker('fire')) + '<div class="grow">';
     if (s.started) {
-      h += '<h2 class="big">' + s.days + '<small>' + t('td.days') + '</small></h2><p>' + t('td.journeySub') + '</p></div></div>';
+      h += '<h2 class="big">' + s.days + '<small>' + t('td.days') + '</small></h2><p><b class="fl-name">' + esc(L(tr.cur.n)) + '</b> · ' + t('td.journeySub') + '</p></div></div>';
+      /* Prochain palier : ce qui va changer, et combien de jours il reste */
+      h += tr.next ? '<div class="fl-prog"><div class="level-top"><span>' + esc(t('fl.next', { n: tr.toNext, name: L(tr.next.n) })) + '</span><span>' + s.days + ' / ' + tr.next.d + '</span></div>' +
+        '<div class="bar"><span style="width:' + Math.round(100 * (s.days - tr.cur.d) / Math.max(1, tr.next.d - tr.cur.d)) + '%;background:linear-gradient(90deg,' + tr.next.a + ',' + tr.next.b + ')"></span></div></div>'
+        : '<p class="small muted" style="margin-top:10px">' + esc(t('fl.max')) + '</p>';
+      h += Lerna.flameBadges();
+      if (s.days >= 7) h += '<button type="button" class="btn btn-ghost btn-sm" data-fl-share style="margin-top:12px">' + Lerna.icon('share', 'ic-sm') + t('fl.share') + '</button>';
       var days = {}; v.days.forEach(function (d) { days[d] = 1; });
       var now = new Date(), dow = (now.getDay() + 6) % 7, monday = Lerna.addDays(Lerna.today(), -dow);
       var names = Lerna.lang === 'en' ? ['M', 'T', 'W', 'T', 'F', 'S', 'S'] : ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
@@ -452,6 +459,7 @@ Lerna.addStrings({
     Lerna.on('lerna:referral', rr);
     document.addEventListener('visibilitychange', function () { if (!document.hidden) rr(); });
     document.addEventListener('click', function (e) {
+      if (e.target.closest('[data-fl-share]')) { Lerna.shareFlame(); return; }
       var el;
       if ((el = e.target.closest('[data-share]'))) { Lerna.referral.share(el.getAttribute('data-share'), el.tagName === 'A'); setTimeout(rr, 300); return; }
       if ((el = e.target.closest('[data-qa]'))) {

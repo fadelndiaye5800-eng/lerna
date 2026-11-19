@@ -565,14 +565,21 @@ Lerna.addStrings({
     if (tab === 'ia') { var m = $('msgs'); if (m) m.scrollTop = m.scrollHeight; }
     if (tab === 'ecoles' && $('cmpGo')) $('cmpOut').innerHTML = compareTable($('cmpA').value, $('cmpB').value);
   }
+  /* Palier de flamme : nom, jours, prochain palier et badges gagnés (ils restent même si la série casse) */
+  function flameLine() {
+    var D = Lerna.daily, s = D.streak(), tr = D.tier(s.days);
+    return '<div class="fl-line">' + Lerna.flame(tr.cur) + '<b>' + esc(Lerna.L(tr.cur.n)) + '</b><span>' + esc(t('fl.days', { n: s.days })) + '</span>' +
+      (tr.next ? '<span class="fl-next">' + esc(t('fl.next', { n: tr.toNext, name: Lerna.L(tr.next.n) })) + '</span>' : '') + '</div>' + Lerna.flameBadges();
+  }
   function render() {
     var c = completion();
     var where = [user.pays ? window.LERNA_COUNTRY_NAME(user.pays) : '', user.niveau].filter(Boolean).join(' · ');
     $('root').innerHTML =
-      '<section class="card"><div class="prof"><span class="avatar">' + esc(Lerna.initials(user)) + '</span><div class="prof-info">' +
+      '<section class="card prof-card"><div class="prof">' + Lerna.avatarRing(esc(Lerna.initials(user))) + '<div class="prof-info">' +
         '<h1>' + esc(Lerna.greeting(Lerna.displayName(user) || user.email.split('@')[0])) + '</h1>' +
         '<p>' + esc(where || user.email) + ' · <span class="badge ' + (Lerna.isPremium() && user.is_premium ? 'badge-orange' : 'badge-cream') + '" style="vertical-align:middle">' + t(Lerna.isPremium() && user.is_premium ? 'sp.premium' : 'sp.free') + '</span></p></div>' +
         '<button type="button" class="btn btn-ghost btn-sm" id="editBtn">' + Lerna.icon('edit', 'ic-sm') + t('sp.edit') + '</button></div>' +
+        flameLine() +
         '<div class="complete"><div class="complete-top"><span>' + t('sp.complete') + '</span><strong>' + c + '%</strong></div><div class="bar"><span style="width:' + c + '%"></span></div></div>' +
         (Lerna.auth.mode === 'supabase' && user.verified === false ? '<div class="notice" style="margin-top:14px">' + Lerna.icon('mail') + '<div class="small">' + t('sp.verifyMail') + '</div></div>' : '') +
       '</section>' +
