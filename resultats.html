@@ -356,6 +356,8 @@ Lerna.addStrings({
       '<a class="btn btn-primary btn-sm" style="margin-top:12px" href="metiers.html">' + t('rs.jobsBtn') + ' →</a>';
   }
   function paintJobs() { var el = $('rsJobs'); if (el) el.innerHTML = jobsInner(); }
+  /* Internet revenu : on relance l'analyse des métiers qui avait échoué */
+  Lerna.on('lerna:online', function () { if (jobsState.err && $('rsJobs')) { jobsState.err = 0; jobsCard(); paintJobs(); } });
   function jobsCard() {
     var LM = window.LernaMetiers;
     if (LM && !LM.cached() && LM.profile() && !jobsState.err && !LM.busy()) {

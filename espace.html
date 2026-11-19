@@ -454,6 +454,7 @@ Lerna.addStrings({
     Lerna.api('/api/chat', { messages: msgs, lang: Lerna.lang, profile: profileSummary(), currency: curTxt }, { timeout: 45000 }).then(function (res) {
       if (res.ok && res.data && res.data.reply) { bumpChat(); finish(res.data.reply); }
       else if (res.status === 429) { if (typing) typing.remove(); addMsg('assistant', t('sp.quotaOut')); store.set('lerna_chat_count', { d: Lerna.today(), n: FREE_MSG }); $('quota').textContent = quotaLine(); }
+      else if (res.offline) finish(localAnswer(q) || t('net.need'));
       else finish(localAnswer(q) || t('sp.iaError'));
     });
   }

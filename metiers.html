@@ -791,6 +791,8 @@ Lerna.addStrings({
     });
     /* Premium activé ou perdu pendant la visite : la carte « Ce métier et toi » est réaffichée */
     Lerna.onAccessChange(function () { if (CUR && Lerna.param('code')) renderFiche(CUR.code); else if (IX && !Lerna.param('code')) paintTop(); });
+    /* Internet revenu : l'analyse qui avait échoué repart toute seule */
+    Lerna.on('lerna:online', function () { if (IX && TOP.err === 1 && !Lerna.param('code')) { TOP.err = 0; paintTop(); } });
     Lerna.onLang(function () { if (IX) { if (Lerna.param('code')) renderFiche(Lerna.param('code')); else renderList(); } });
   });
 })();

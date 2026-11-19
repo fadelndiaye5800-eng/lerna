@@ -388,6 +388,7 @@
       'common.years': '{n} ans', 'common.year': '1 an',
       'common.error': 'Une erreur est survenue. Réessaie.',
       'common.offline': 'Tu es hors ligne. Certaines fonctions sont indisponibles.',
+      'net.off': 'Pas de connexion internet', 'net.offSub': 'Ce que tu as déjà ouvert reste disponible.', 'net.back': 'Connexion revenue', 'net.need': 'Il faut internet pour ça. Vérifie ta connexion (wifi ou données mobiles) puis réessaie.',
       'common.indicative': 'Frais indicatifs en USD — vérifie toujours sur le site officiel de l’établissement.',
       'common.indicativeFx': 'Frais indicatifs convertis en {cur} (taux du {date}) — vérifie toujours sur le site officiel de l’établissement.',
       'greet.nightSub': 'Ton parcours peut attendre demain matin. Repose-toi bien.',
@@ -422,6 +423,7 @@
       'common.years': '{n} years', 'common.year': '1 year',
       'common.error': 'Something went wrong. Please try again.',
       'common.offline': 'You are offline. Some features are unavailable.',
+      'net.off': 'No internet connection', 'net.offSub': 'What you have already opened is still available.', 'net.back': 'Back online', 'net.need': 'This needs internet. Check your connection (wifi or mobile data), then try again.',
       'common.indicative': 'Indicative fees in USD — always check the institution’s official website.',
       'common.indicativeFx': 'Indicative fees converted to {cur} (rate of {date}) — always check the institution’s official website.',
       'greet.nightSub': 'Your journey can wait until tomorrow morning. Get some rest.',
@@ -830,8 +832,51 @@
     var r = e && e.reason;
     logErr('err:js', { m: String((r && (r.message || r.code)) || r || 'promesse').slice(0, 140), f: 'promise' });
   });
+  /* Connexion internet : un bandeau clair au lieu de chargements qui tournent sans fin.
+     Le téléphone peut se croire connecté (wifi sans crédit, données épuisées) : on vérifie vraiment
+     dès qu'une demande échoue, puis toutes les 8 secondes jusqu'au retour d'internet. */
+  function paintNet(state) {
+    var el = doc.getElementById('lerna-net');
+    if (!state) { if (el) el.remove(); return; }
+    if (!doc.body) return;
+    if (!el) { el = doc.createElement('div'); el.id = 'lerna-net'; el.setAttribute('role', 'status'); el.setAttribute('aria-live', 'polite'); doc.body.appendChild(el); }
+    el.className = 'net-bar ' + state;
+    el.innerHTML = state === 'off' ? '<span class="net-dot" aria-hidden="true"></span><span><b>' + Lerna.esc(Lerna.t('net.off')) + '</b> · ' + Lerna.esc(Lerna.t('net.offSub')) + '</span>'
+      : '<span aria-hidden="true">✓</span><b>' + Lerna.esc(Lerna.t('net.back')) + '</b>';
+    if (state === 'back') setTimeout(function () { var e = doc.getElementById('lerna-net'); if (e && e.classList.contains('back')) e.remove(); }, 2600);
+  }
+  var Net = Lerna.net = {
+    offline: false, timer: null, checking: null, told: 0,
+    set: function (off) {
+      if (Net.offline === off) return;
+      Net.offline = off;
+      paintNet(off ? 'off' : 'back');
+      if (off) { if (!Net.timer) Net.timer = setInterval(function () { if (doc.visibilityState === 'visible') Net.check(); }, 8000); }
+      else { clearInterval(Net.timer); Net.timer = null; Lerna.emit('lerna:online'); }
+    },
+    check: function () {
+      if (Net.checking) return Net.checking;
+      if (navigator.onLine === false) { Net.set(true); return Promise.resolve(false); }
+      var ctrl = window.AbortController ? new AbortController() : null, tm = setTimeout(function () { if (ctrl) ctrl.abort(); }, 6000);
+      /* HEAD : le service worker laisse passer, la réponse vient forcément du réseau */
+      Net.checking = fetch('/manifest.json?ping=' + Date.now(), { method: 'HEAD', cache: 'no-store', signal: ctrl ? ctrl.signal : undefined })
+        .then(function () { return true; }, function () { return false; })
+        .then(function (ok) { clearTimeout(tm); Net.checking = null; Net.set(!ok); return ok; });
+      return Net.checking;
+    },
+    /* Avant une action qui a besoin d'internet : false et un message clair s'il n'y en a pas */
+    need: function () {
+      if (!Net.offline) return true;
+      if (Date.now() - Net.told > 2500) { Net.told = Date.now(); Lerna.toast(Lerna.t('net.need'), 3800); }
+      return false;
+    }
+  };
+  window.addEventListener('offline', function () { Net.set(true); });
+  window.addEventListener('online', function () { Net.check(); });
+
   Lerna.api = function (path, body, opts) {
     opts = opts || {};
+    if (Net.offline) { Net.need(); return Promise.resolve({ ok: false, status: 0, offline: true, data: { error: 'offline' } }); }
     return Auth.token().then(function (tok) {
       var ctrl = window.AbortController ? new AbortController() : null;
       var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, opts.timeout || 45000);
@@ -846,7 +891,15 @@
             return { ok: r.ok && data !== null, status: r.status, data: data };
           });
         })
-        .catch(function () { clearTimeout(timer); logErr('err:api', { p: String(path).slice(0, 40), s: 0, a: String((body && body.action) || '').slice(0, 20) }); return { ok: false, status: 0, data: null }; });
+        .catch(function () {
+          clearTimeout(timer);
+          /* Échec réseau : vraie absence d'internet, ou serveur lent ? */
+          return Net.check().then(function (online) {
+            if (!online) { Net.need(); return { ok: false, status: 0, offline: true, data: { error: 'offline' } }; }
+            logErr('err:api', { p: String(path).slice(0, 40), s: 0, a: String((body && body.action) || '').slice(0, 20) });
+            return { ok: false, status: 0, data: null };
+          });
+        });
     });
   };
 
@@ -931,6 +984,7 @@
     var body = Object.assign({ mode: mode, lang: Lerna.lang }, payload || {});
     return Lerna.api('/api/chat', body, { timeout: 45000 }).then(function (r) {
       if (r.ok && r.data && (r.data.reply || r.data.draft)) return { state: 'ok', reply: r.data.reply, draft: r.data.draft };
+      if (r.offline) return { state: 'nonet' };
       if (r.status === 429) return { state: 'limit' };
       if (r.status === 503 || (r.data && r.data.error === 'ai_unavailable')) return { state: 'offline' };
       return { state: 'error', error: r.data && r.data.error };
@@ -1048,6 +1102,7 @@
       });
     },
     signUp: function (f) {
+      if (Auth.mode === 'supabase' && !Net.need()) return Promise.reject({ code: 'offline' });
       if (Auth.mode === 'supabase') {
         return Auth.sb.auth.signUp({
           email: f.email, password: f.password,
@@ -1075,6 +1130,7 @@
       });
     },
     signIn: function (email, password) {
+      if (Auth.mode === 'supabase' && !Net.need()) return Promise.reject({ code: 'offline' });
       if (Auth.mode === 'supabase') {
         return Auth.sb.auth.signInWithPassword({ email: email, password: password }).then(function (r) {
           if (r.error) {
@@ -2347,7 +2403,7 @@
     var ref = Lerna.param('ref');
     if (ref && /^[A-Za-z0-9]{4,12}$/.test(ref) && !Auth.user) store.set('lerna_ref', ref.toUpperCase());
     readyFns.forEach(function (fn) { try { fn(); } catch (err) { console.error(err); } });
-    window.addEventListener('offline', function () { Lerna.toast(Lerna.t('common.offline'), 4000); });
+    if (navigator.onLine === false) Net.set(true);
   }
   if (doc.readyState === 'loading') doc.addEventListener('DOMContentLoaded', boot); else setTimeout(boot, 0);
 

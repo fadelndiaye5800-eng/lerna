@@ -350,7 +350,7 @@ Lerna.addStrings({
     var o = ops().filter(function (x) { return x.id === id; })[0]; if (!o) return;
     FIT[id] = 'wait'; paintFit(id);
     Lerna.ai('offre', { offer: offerText(o), profile: Lerna.profileText() }).then(function (r) {
-      FIT[id] = r.state === 'ok' ? r.reply : r.state === 'limit' ? t('op.fitLimit') : r.state === 'offline' ? t('op.fitOffline') : t('op.fitError');
+      FIT[id] = r.state === 'ok' ? r.reply : r.state === 'limit' ? t('op.fitLimit') : r.state === 'offline' ? t('op.fitOffline') : r.state === 'nonet' ? t('net.need') : t('op.fitError');
       if (r.state === 'ok') { Lerna.sound.play('success'); Lerna.track('opp_fit', id); }
       paintFit(id);
     });

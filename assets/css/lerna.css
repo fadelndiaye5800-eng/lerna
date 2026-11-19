@@ -964,3 +964,15 @@ html.mn-lock, html.mn-lock body { overflow: hidden; }
 /* Lien direct vers une partie de l'appli, dans un texte (Premium, Pack Candidature, Mon dossier…) */
 .app-link { color: var(--orange-deep); font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
 .msg.bot .app-link { color: var(--orange-deep); }
+
+/* Bandeau « Pas de connexion internet » (Lerna.net) : sous la barre du haut, toujours lisible */
+.net-bar { position: fixed; left: 0; right: 0; top: calc(var(--nav-h) + var(--safe-t, 0px)); z-index: 98; display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 8px 14px; font-size: .84rem; line-height: 1.35; text-align: center; color: #FBF1E2; background: #3D1F00; box-shadow: 0 6px 18px rgba(0, 0, 0, .18);
+  animation: net-in .25s var(--ease) both; transition: top .28s var(--ease); }
+.net-bar.back { background: #1F7A3D; color: #fff; }
+.net-bar b { font-weight: 800; }
+.net-dot { width: 9px; height: 9px; border-radius: 50%; background: #F2994A; flex-shrink: 0; box-shadow: 0 0 0 0 rgba(242, 153, 74, .6); animation: net-pulse 1.6s infinite; }
+body.bars-hidden .net-bar { top: var(--safe-t, 0px); }
+@keyframes net-in { from { transform: translateY(-8px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes net-pulse { 0% { box-shadow: 0 0 0 0 rgba(242, 153, 74, .6); } 70% { box-shadow: 0 0 0 8px rgba(242, 153, 74, 0); } 100% { box-shadow: 0 0 0 0 rgba(242, 153, 74, 0); } }
+@media (prefers-reduced-motion: reduce) { .net-bar, .net-dot { animation: none; } }

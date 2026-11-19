@@ -230,6 +230,7 @@ Lerna.addStrings({
     if (m.indexOf('not confirmed') !== -1) return t('au.eNotConfirmed');
     if (m.indexOf('rate') !== -1 || m.indexOf('too many') !== -1) return t('au.eRate');
     if (m === 'demo') return t('au.eDemo');
+    if (m === 'offline' || m.indexOf('failed to fetch') !== -1 || m.indexOf('network') !== -1) return t('net.need');
     if (m === 'demo_account') return t('au.eDemoAcc');
     if (m.indexOf('provider is not enabled') !== -1 || m.indexOf('unsupported provider') !== -1) return t('au.eProvider');
     if (m.indexOf('password') !== -1 && m.indexOf('least') !== -1) return t('au.eShort');
