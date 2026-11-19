@@ -1720,7 +1720,7 @@
   Lerna.addStrings({
     fr: {
       'rt.great': 'Génial !', 'rt.levelUp': 'Nouveau niveau : {level}', 'rt.levelUpText': 'Tu avances vraiment dans ton orientation. Continue comme ça.',
-      'fl.unlocked': '{name} débloquée !', 'fl.unlockedM': '{name} débloqué !', 'fl.days': '{n} jours d’affilée', 'fl.share': 'Partager ma flamme', 'fl.badges': 'Mes badges de flamme', 'fl.next': 'Encore {n} jour(s) pour : {name}', 'fl.max': 'Tu as atteint le palier ultime.', 'fl.lost': 'Ta série a recommencé : tes badges restent à toi pour toujours.', 'fl.shareText': '{n} jours d’affilée sur LERNA ({name}). Trouve ton orientation toi aussi :', 'fl.shareImg': 'jours d’affilée sur LERNA', 'fl.shareCta': 'Trouve ton orientation sur', 'fl.saved': 'Image enregistrée : publie-la en statut ou sur TikTok.',
+      'fl.unlocked': '{name} débloquée !', 'fl.unlockedM': '{name} débloqué !', 'fl.days': '{n} jours d’affilée', 'fl.share': 'Partager ma flamme', 'fl.badges': 'Mes badges de flamme', 'fl.next': 'Encore {n} jour(s) pour : {name}', 'fl.max': 'Jour {n} de ta flamme éternelle : elle continue tant que tu reviens.', 'fl.secret': 'Continue : un palier secret t’attend plus loin.', 'fl.secretB': 'Palier secret', 'fl.lost': 'Ta série a recommencé : tes badges restent à toi pour toujours.', 'fl.shareText': '{n} jours d’affilée sur LERNA ({name}). Trouve ton orientation toi aussi :', 'fl.shareImg': 'jours d’affilée sur LERNA', 'fl.shareCta': 'Trouve ton orientation sur', 'fl.saved': 'Image enregistrée : publie-la en statut ou sur TikTok.',
       'rt.streakStart': 'Ton parcours commence', 'rt.streakStartText': 'Trois visites : ton parcours LERNA est lancé. Reviens chaque jour pour le faire grandir.',
       'rt.streakBadge': 'Parcours de {n} jours', 'rt.streakBadgeText': '{n} jours à avancer sur ton avenir. Le léopard LERNA est fier de toi.',
       'ref.message': "J'ai trouvé mon orientation avec LERNA : 25 questions et l'IA te propose les écoles faites pour toi, avec les vrais coûts et les bourses. Essaie gratuitement : {link}",
@@ -1741,7 +1741,7 @@
     },
     en: {
       'rt.great': 'Great!', 'rt.levelUp': 'New level: {level}', 'rt.levelUpText': 'You are really moving forward with your orientation. Keep it up.',
-      'fl.unlocked': '{name} unlocked!', 'fl.unlockedM': '{name} unlocked!', 'fl.days': '{n} days in a row', 'fl.share': 'Share my flame', 'fl.badges': 'My flame badges', 'fl.next': '{n} more day(s) for: {name}', 'fl.max': 'You reached the ultimate level.', 'fl.lost': 'Your streak started over: your badges stay yours forever.', 'fl.shareText': '{n} days in a row on LERNA ({name}). Find your path too:', 'fl.shareImg': 'days in a row on LERNA', 'fl.shareCta': 'Find your path on', 'fl.saved': 'Image saved: post it as a status or on TikTok.',
+      'fl.unlocked': '{name} unlocked!', 'fl.unlockedM': '{name} unlocked!', 'fl.days': '{n} days in a row', 'fl.share': 'Share my flame', 'fl.badges': 'My flame badges', 'fl.next': '{n} more day(s) for: {name}', 'fl.max': 'Day {n} of your eternal flame: it keeps going as long as you come back.', 'fl.secret': 'Keep going: a secret level awaits further on.', 'fl.secretB': 'Secret level', 'fl.lost': 'Your streak started over: your badges stay yours forever.', 'fl.shareText': '{n} days in a row on LERNA ({name}). Find your path too:', 'fl.shareImg': 'days in a row on LERNA', 'fl.shareCta': 'Find your path on', 'fl.saved': 'Image saved: post it as a status or on TikTok.',
       'rt.streakStart': 'Your journey has started', 'rt.streakStartText': 'Three visits: your LERNA journey is on. Come back every day to make it grow.',
       'rt.streakBadge': '{n}-day journey', 'rt.streakBadgeText': '{n} days working on your future. The LERNA leopard is proud of you.',
       'ref.message': 'I found my path with LERNA: 25 questions and the AI suggests the schools that fit you, with real costs and scholarships. Try it for free: {link}',
@@ -1874,7 +1874,7 @@
     { d: 30, k: 'or', n: { fr: 'Profil Or', en: 'Gold profile' }, a: '#E9B8FF', b: '#8E3BFF', m: { fr: '30 jours ! Ton profil passe en Or : nouvelles couleurs et contour doré autour de ta photo. Tu es en avance.', en: '30 days! Your profile turns Gold: new colours and a golden ring around your photo. You are ahead.' } },
     { d: 60, k: 'aurora', n: { fr: 'Aurore', en: 'Aurora' }, a: '#7CFFCB', b: '#7B5CFF', m: { fr: '60 jours : un contour Aurore multicolore entoure ta photo et ton profil change encore de couleurs.', en: '60 days: a multicoloured Aurora ring around your photo, and new profile colours.' } },
     { d: 100, k: 'legend', n: { fr: 'Légende', en: 'Legend' }, a: '#FFD36E', b: '#D7263D', m: { fr: '100 jours. Tu entres chez les Légendes LERNA : contour léopard et badge rare.', en: '100 days. You join the LERNA Legends: leopard ring and a rare badge.' } },
-    { d: 365, k: 'eternal', n: { fr: 'Flamme éternelle', en: 'Eternal flame' }, a: '#FFFFFF', b: '#7FB2FF', m: { fr: '365 jours : la flamme éternelle. Le palier ultime de LERNA.', en: '365 days: the eternal flame. The ultimate LERNA level.' } }
+    { d: 365, k: 'eternal', n: { fr: 'Flamme éternelle', en: 'Eternal flame' }, a: '#FFFFFF', b: '#7FB2FF', m: { fr: '365 jours : ta flamme devient éternelle. Elle continue de brûler tant que tu reviens.', en: '365 days: your flame becomes eternal. It keeps burning as long as you come back.' } }
   ];
   var FLAME_D = 'M12 22c4.4 0 7-2.9 7-6.6 0-3.5-2.4-5.6-4-8.4-.6 2-1.6 3-3 3.4.4-3.1-.8-5.9-3.4-8.4-.3 3.6-1.6 5.5-3.2 7.6C4.3 11.2 5 13 5 15.4 5 19.1 7.6 22 12 22z';
   var flameN = 0;
@@ -1890,11 +1890,21 @@
     var t = Daily.tier().cur;
     return '<span class="tier-ring t-' + t.k + (cls ? ' ' + cls : '') + '"><span class="avatar">' + inner + '</span></span>';
   };
+  /* Le dernier palier reste secret tant qu'il n'est pas gagné : la flamme ne doit jamais avoir l'air de s'arrêter quelque part */
+  function secretTier(x) { return x === TIERS[TIERS.length - 1] && !Daily.earned(x); }
   Lerna.flameBadges = function () {
     return '<div class="fl-badges">' + TIERS.slice(1).map(function (x) {
       var ok = Daily.earned(x);
-      return '<span class="fl-badge' + (ok ? ' on' : '') + '" title="' + Lerna.esc(Lerna.L(x.n)) + ' · ' + x.d + ' j">' + (ok ? Lerna.flame(x) : Lerna.icon('lock', 'ic-sm')) + '<small>' + x.d + '</small></span>';
+      if (secretTier(x)) return '<span class="fl-badge secret" title="' + Lerna.esc(Lerna.t('fl.secretB')) + '"><b aria-hidden="true">?</b><span class="sr-only">' + Lerna.esc(Lerna.t('fl.secretB')) + '</span></span>';
+      var last = x === TIERS[TIERS.length - 1];   // gagné : « ∞ » plutôt qu'un nombre de jours qui ressemblerait à une fin
+      return '<span class="fl-badge' + (ok ? ' on' : '') + '" title="' + Lerna.esc(Lerna.L(x.n)) + (last ? '' : ' · ' + x.d + ' j') + '">' + (ok ? Lerna.flame(x) : Lerna.icon('lock', 'ic-sm')) + '<small>' + (last ? '∞' : x.d) + '</small></span>';
     }).join('') + '</div>';
+  };
+  /* Phrase « prochain palier » : nombre de jours si c'est un palier connu ; sinon un palier secret ; après, la flamme continue */
+  Lerna.flameNext = function (tr) {
+    if (!tr.next) return { txt: Lerna.t('fl.max', { n: tr.days }), bar: false };
+    if (secretTier(tr.next)) return { txt: Lerna.t('fl.secret'), bar: false };
+    return { txt: Lerna.t('fl.next', { n: tr.toNext, name: Lerna.L(tr.next.n) }), bar: true };
   };
   /* Écran spécial de palier, avec une image à partager (statut WhatsApp, TikTok) */
   Lerna.celebrateTier = function (tier, days) {

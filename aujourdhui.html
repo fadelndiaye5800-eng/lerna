@@ -264,9 +264,10 @@ Lerna.addStrings({
     if (s.started) {
       h += '<h2 class="big">' + s.days + '<small>' + t('td.days') + '</small></h2><p><b class="fl-name">' + esc(L(tr.cur.n)) + '</b> · ' + t('td.journeySub') + '</p></div></div>';
       /* Prochain palier : ce qui va changer, et combien de jours il reste */
-      h += tr.next ? '<div class="fl-prog"><div class="level-top"><span>' + esc(t('fl.next', { n: tr.toNext, name: L(tr.next.n) })) + '</span><span>' + s.days + ' / ' + tr.next.d + '</span></div>' +
+      var fn = Lerna.flameNext(tr);
+      h += fn.bar ? '<div class="fl-prog"><div class="level-top"><span>' + esc(fn.txt) + '</span><span>' + s.days + ' / ' + tr.next.d + '</span></div>' +
         '<div class="bar"><span style="width:' + Math.round(100 * (s.days - tr.cur.d) / Math.max(1, tr.next.d - tr.cur.d)) + '%;background:linear-gradient(90deg,' + tr.next.a + ',' + tr.next.b + ')"></span></div></div>'
-        : '<p class="small muted" style="margin-top:10px">' + esc(t('fl.max')) + '</p>';
+        : '<p class="small muted" style="margin-top:10px">' + esc(fn.txt) + '</p>';
       h += Lerna.flameBadges();
       if (s.days >= 7) h += '<button type="button" class="btn btn-ghost btn-sm" data-fl-share style="margin-top:12px">' + Lerna.icon('share', 'ic-sm') + t('fl.share') + '</button>';
       var days = {}; v.days.forEach(function (d) { days[d] = 1; });

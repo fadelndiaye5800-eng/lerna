@@ -1021,6 +1021,7 @@ html[data-tier="eternal"] .prof-card { background: linear-gradient(135deg, #FFFF
 .fl-badge.on { border-style: solid; border-color: transparent; background: var(--surface); box-shadow: 0 4px 12px rgba(61, 31, 0, .10); color: var(--brown); }
 .fl-badge .flame-svg { width: 22px; height: 22px; }
 .fl-badge small { font-size: .66rem; font-weight: 800; }
+.fl-badge.secret b { font-size: 1.15rem; font-weight: 800; line-height: 1; background: linear-gradient(135deg, #FFD36E, #8E3BFF 55%, #7FB2FF); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .fl-cele .fl-big { position: relative; width: 150px; height: 150px; margin: 0 auto 6px; display: flex; align-items: center; justify-content: center; }
 .fl-cele .fl-big .flame-svg { width: 150px; height: 150px; animation: fl-flicker 2.2s ease-in-out infinite, fl-pop .6s var(--ease) both; }
 .fl-cele .fl-big b { position: absolute; bottom: 20px; font-size: 2.1rem; font-weight: 800; color: #fff; text-shadow: 0 2px 8px rgba(0, 0, 0, .35); }

@@ -569,7 +569,7 @@ Lerna.addStrings({
   function flameLine() {
     var D = Lerna.daily, s = D.streak(), tr = D.tier(s.days);
     return '<div class="fl-line">' + Lerna.flame(tr.cur) + '<b>' + esc(Lerna.L(tr.cur.n)) + '</b><span>' + esc(t('fl.days', { n: s.days })) + '</span>' +
-      (tr.next ? '<span class="fl-next">' + esc(t('fl.next', { n: tr.toNext, name: Lerna.L(tr.next.n) })) + '</span>' : '') + '</div>' + Lerna.flameBadges();
+      '<span class="fl-next">' + esc(Lerna.flameNext(tr).txt) + '</span></div>' + Lerna.flameBadges();
   }
   function render() {
     var c = completion();
