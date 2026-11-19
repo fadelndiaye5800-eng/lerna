@@ -18,7 +18,7 @@
 (function () {
   'use strict';
   function T(fr, en) { return { fr: fr, en: en || fr }; }
-  var V = '2026-10-16'; // dernière vérification complète
+  var V = '2026-11-19'; // dernière vérification complète (chaque offre relue sur sa page officielle)
 
   window.LERNA_OPPS = [
     /* ------------------------------ BOURSES ------------------------------ */
@@ -48,7 +48,7 @@
       eligibles: T('Citoyens de pays du Commonwealth à revenu faible ou intermédiaire (Ghana, Kenya, Nigeria, Cameroun, Afrique du Sud…). Candidature via un organisme national qui te présente.', 'Citizens of low- and middle-income Commonwealth countries (Ghana, Kenya, Nigeria, Cameroon, South Africa…). You apply through a national nominating body.'),
       deadline: '2026-10-20',
       deadlineNote: T('Clôture le 20 octobre 2026 à 16 h (heure de Londres). L’organisme de ton pays peut fixer une date plus tôt.', 'Closes 20 October 2026 at 16:00 UK time. Your national nominating body may set an earlier date.'),
-      lien: 'https://cscuk.fcdo.gov.uk/scholarships/commonwealth-masters-scholarships/', source: 'cscuk.fcdo.gov.uk', verifie: V, premium: false
+      lien: 'https://cscuk.fcdo.gov.uk/scholarships/commonwealth-masters-scholarships/', source: 'cscuk.fcdo.gov.uk', verifie: '2026-10-16', premium: false
     },
     {
       id: 'b-yenching-2027', type: 'bourse', titre: 'Yenching Academy — master en études chinoises 2027', organisation: 'Université de Pékin (Peking University)',
@@ -92,7 +92,7 @@
       montant: T('Frais de scolarité complets + allocation de vie (au moins le minimum doctoral britannique)', 'Full course fees + living grant (at least the UK minimum doctoral stipend)'),
       eligibles: T('Toutes nationalités. Tu es examiné automatiquement si tu postules à ton master ou doctorat avant la date limite du cours.', 'Any nationality. You are considered automatically if you apply to your course by its deadline.'),
       deadline: '2027-01-26',
-      deadlineNote: T('La date dépend du cours : certains ferment début décembre, d’autres en janvier (ex. : 26 janvier 2027). Vérifie la page de ton cours.', 'The date depends on the course: some close in early December, others in January (e.g. 26 January 2027). Check your course page.'),
+      deadlineNote: T('La date dépend du cours : beaucoup ferment début décembre ou le 6 janvier 2027, quelques-uns plus tard (ex. : 26 janvier 2027). Postule avant la date de TON cours pour être examiné pour la bourse.', 'The date depends on the course: many close in early December or on 6 January 2027, a few later (e.g. 26 January 2027). Apply by YOUR course deadline to be considered for the scholarship.'),
       lien: 'https://www.ox.ac.uk/admissions/graduate/fees-and-funding/funding/clarendon/applicants', source: 'ox.ac.uk', verifie: V, premium: false
     },
     {
@@ -121,7 +121,7 @@
       eligibles: T('Élèves qui entrent à l’université directement après le lycée (première licence), avec un fort besoin financier, de bonnes notes et un engagement. Une recommandation de ton lycée est demandée.', 'Students entering university straight from secondary school (first bachelor’s), with strong financial need, good grades and leadership. A school nomination is required.'),
       ouverture: '2026-10-05', deadline: '2026-11-15',
       deadlineNote: T('Dossier de bourse avant le 15 novembre 2026 ; les formulaires de ton lycée sont dus quelques jours avant.', 'Scholarship application by 15 November 2026; your school’s forms are due a few days earlier.'),
-      lien: 'https://you.ubc.ca/financial-planning/scholarships-awards-international-students/international-scholars/', source: 'you.ubc.ca', verifie: V, premium: false
+      lien: 'https://you.ubc.ca/financial-planning/scholarships-awards-international-students/international-scholars/', source: 'you.ubc.ca', verifie: '2026-10-16', premium: false
     },
     {
       id: 'b-constructor-2027', type: 'bourse', titre: 'Bourses Talent — Constructor University (rentrée 2027)', organisation: 'Constructor University, Brême (Allemagne)',
@@ -130,7 +130,7 @@
       eligibles: T('Avoir une offre d’admission et réussir l’examen de bourse.', 'Hold an admission offer and pass the scholarship exam.'),
       deadline: '2026-10-29',
       deadlineNote: T('Examen de bourse au plus tard le 29 octobre 2026 à 14 h (UTC).', 'Scholarship exam by 29 October 2026, 14:00 UTC.'),
-      lien: 'https://constructor.university/scholarships', source: 'constructor.university', verifie: V, premium: false
+      lien: 'https://constructor.university/scholarships', source: 'constructor.university', verifie: '2026-10-16', premium: false
     },
     {
       id: 'b-leiden-lexs-2027', type: 'bourse', titre: 'Bourse d’excellence de l’Université de Leyde (LExS)', organisation: 'Universiteit Leiden (Pays-Bas)',
@@ -228,7 +228,7 @@
       montant: T('Allocation de vie pour les stagiaires qui en ont besoin (montant dans chaque annonce)', 'Living allowance for interns who need it (amount in each posting)'),
       eligibles: T('20 ans minimum, inscrit à l’université ou diplômé depuis moins de 18 mois.', '20 or older, enrolled at university or graduated in the last 18 months.'),
       rolling: true, rollingNote: T('Annonces publiées en continu ; candidature uniquement sur la plateforme de recrutement de l’OMS.', 'Postings published continuously; apply only on WHO’s recruitment platform.'),
-      lien: 'https://careers.who.int/careersection/intern/jobsearch.ftl?lang=en', source: 'who.int', verifie: V, premium: false
+      lien: 'https://www.who.int/careers/internship-programme', source: 'who.int', verifie: V, premium: false
     },
     {
       id: 's-onudi', type: 'stage', titre: 'Programme de stages de l’ONUDI', organisation: 'Organisation des Nations unies pour le développement industriel (ONUDI)',
@@ -237,7 +237,7 @@
       montant: T('Conditions précisées par l’ONUDI', 'Conditions set by UNIDO'),
       eligibles: T('Étudiants et jeunes diplômés. Postule au plus tôt 6 mois avant la date de début souhaitée.', 'Students and recent graduates. Apply no earlier than 6 months before your preferred start date.'),
       rolling: true, rollingNote: T('L’ONUDI indique qu’on peut postuler à tout moment.', 'UNIDO says you can apply at any time.'),
-      lien: 'https://www.unido.org/resources-employment/internship', source: 'unido.org', verifie: V, premium: false
+      lien: 'https://careers.unido.org/content/Internship/?locale=en_US', source: 'unido.org', verifie: V, premium: false
     },
     {
       id: 's-ua-2026', type: 'stage', titre: 'Programme de stages de la Commission de l’Union africaine', organisation: 'Commission de l’Union africaine',
@@ -248,15 +248,7 @@
       deadline: '2026-12-31',
       lien: 'https://jobs.au.int/job/Internship-Program/1506-en_US/', source: 'jobs.au.int', verifie: V, premium: false
     },
-    {
-      id: 's-afreximbank', type: 'stage', ageMin: 20, ageMax: 32, titre: 'Programme de stages d’Afreximbank', organisation: 'Banque africaine d’import-export (Afreximbank)',
-      pays: 'EG', ville: T('Le Caire (siège), sur place', 'Cairo (headquarters), on site'), domaine: 'business', domaines: ['business', 'droit', 'tech', 'comm'], niveau: 'licence', niveaux: ['licence', 'master'],
-      duree: T('3 à 6 mois, 2 sessions par an', '3 to 6 months, 2 intakes a year'),
-      montant: T('800 $ par mois + 400 $ de logement si tu déménages', '$800 a month + $400 housing if you relocate'),
-      eligibles: T('20 à 32 ans, étudiant à temps plein en licence ou master, ressortissant d’un pays membre (la diaspora est acceptée).', '20 to 32, full-time bachelor’s or master’s student, national of a member state (diaspora accepted).'),
-      rolling: true, rollingNote: T('Candidatures reçues toute l’année.', 'Applications received throughout the year.'),
-      lien: 'https://www.afreximbank.com/careers/vacancies/internship/internship-opportunities/', source: 'afreximbank.com', verifie: '2026-10-15', premium: false
-    },
+    
     {
       id: 's-unfpa-2026', type: 'stage', titre: 'Vivier mondial de stagiaires de l’UNFPA', organisation: 'Fonds des Nations unies pour la population (UNFPA)',
       pays: 'INT', ville: T('Bureaux dans le monde (parfois à distance)', 'Offices worldwide (sometimes remote)'), domaine: 'sante', domaines: ['sante', 'education', 'comm', 'droit', 'business'], niveau: 'licence', niveaux: ['licence', 'master'],
@@ -336,7 +328,7 @@
       eligibles: T('Toutes nationalités. Il faut au moins un prototype ou un pilote qui fonctionne.', 'Any nationality. You need at least a working prototype or pilot.'),
       deadline: '2026-11-02',
       deadlineNote: T('Clôture le 2 novembre 2026 à midi (heure de New York).', 'Closes 2 November 2026 at noon New York time.'),
-      lien: 'https://solve.mit.edu/challenges/2027-global-economic-prosperity-challenge', source: 'solve.mit.edu', verifie: V, premium: false
+      lien: 'https://solve.mit.edu/challenges/2027-global-economic-prosperity-challenge', source: 'solve.mit.edu', verifie: '2026-10-16', premium: false
     },
     {
       id: 'i-fi-abuja-2027', type: 'investisseur', genre: 'accelerateur', equity: true, titre: 'Founder Institute — programme pré-amorçage (en ligne)', organisation: 'Founder Institute (chapitre d’Abuja)',
@@ -394,10 +386,36 @@
       montant: T('10 000 $ par entreprise, sans prise de parts sur cette somme, plus l’accompagnement', '$10,000 per venture, equity-free on that amount, plus support'),
       eligibles: T('Entreprises d’agriculture ou de sécurité alimentaire en Afrique subsaharienne, avec un premier produit et des clients payants. Le dirigeant doit avoir 21 ans ou plus et parler anglais.', 'Agriculture or food-security ventures in Sub-Saharan Africa with a first product and paying customers. The CEO must be 21+ and fluent in English.'),
       deadline: '2026-10-23',
-      lien: 'https://halcyonaccelerator.org/africa-innovation-in-ag-2027/', source: 'halcyonaccelerator.org', verifie: V, premium: false
+      lien: 'https://halcyonaccelerator.org/africa-innovation-in-ag-2027/', source: 'halcyonaccelerator.org', verifie: '2026-10-16', premium: false
     },
     {"id":"i-yc-w27","type":"investisseur","genre":"accelerateur","equity":true,"stade":"produit","titre":"Y Combinator — promotion Winter 2027","organisation":"Y Combinator (San Francisco)","pays":"US","domaine":"tech","domaines":["tech","business","sante","agri","education"],"montant":{"fr":"500 000 $ (accord standard : 125 000 $ pour 7 % + 375 000 $ en SAFE)","en":"$500,000 (standard deal: $125,000 for 7% + $375,000 on a SAFE)"},"eligibles":{"fr":"Fondateurs de startups, quel que soit le pays. Programme de janvier à mars 2027 à San Francisco.","en":"Startup founders from any country. Programme from January to March 2027 in San Francisco."},"deadline":"2026-11-02","deadlineNote":{"fr":"2 novembre 2026, 20 h heure du Pacifique. Les candidatures envoyées après sont encore étudiées, sans garantie.","en":"2 November 2026, 8pm Pacific Time. Later applications are still reviewed, with no guarantee."},"lien":"https://www.ycombinator.com/apply","source":"ycombinator.com","verifie":"2026-10-10","premium":false},
-    {"id":"i-anzisha-2027","type":"investisseur","genre":"prix","equity":false,"stade":"clients","titre":"Anzisha Fellowship 2027 (jeunes entrepreneurs de 15 à 22 ans)","organisation":"Anzisha Prize","pays":"AFR","domaine":"business","domaines":["business","tech","agri","education","sante","art"],"montant":{"fr":"40 000 $ de prix + allocations versées par étapes pendant 2 ans","en":"$40,000 in prizes + milestone stipends over 2 years"},"eligibles":{"fr":"15 à 22 ans, citoyen d’un pays africain, avoir déjà lancé son entreprise ou son projet et y consacrer au moins 20 h par semaine.","en":"15 to 22, citizen of an African country, already running your business or project and spending at least 20 hours a week on it."},"ouverture":"2026-09-29","deadline":"2026-11-10","lien":"https://anzisha.org/apply/","source":"anzisha.org","verifie":"2026-10-10","premium":false}
+    {"id":"i-anzisha-2027","type":"investisseur","genre":"prix","equity":false,"stade":"clients","titre":"Anzisha Fellowship 2027 (jeunes entrepreneurs de 15 à 22 ans)","organisation":"Anzisha Prize","pays":"AFR","domaine":"business","domaines":["business","tech","agri","education","sante","art"],"montant":{"fr":"40 000 $ de prix + allocations versées par étapes pendant 2 ans","en":"$40,000 in prizes + milestone stipends over 2 years"},"eligibles":{"fr":"15 à 22 ans, citoyen d’un pays africain, avoir déjà lancé son entreprise ou son projet et y consacrer au moins 20 h par semaine.","en":"15 to 22, citizen of an African country, already running your business or project and spending at least 20 hours a week on it."},"ouverture":"2026-09-29","deadline":"2026-11-10","lien":"https://anzisha.org/apply/","source":"anzisha.org","verifie":"2026-10-10","premium":false},
+    {
+      id: 'b-sciencespo-boutmy-2027', type: 'bourse', titre: 'Bourse Émile Boutmy — Sciences Po Paris (entrée 2027)', organisation: 'Sciences Po (Paris)',
+      pays: 'FR', domaine: 'droit', domaines: ['droit', 'business', 'comm', 'education'], niveau: 'licence', niveaux: ['licence', 'master'],
+      montant: T('Bachelor : frais de scolarité offerts en totalité ou 9 500 € de moins par an. Master : 18 500 € de moins par an, pendant 2 ans', 'Bachelor: full tuition waiver or €9,500 off per year. Master: €18,500 off per year for 2 years'),
+      eligibles: T('Hors Union européenne, première candidature à Sciences Po, foyer qui ne paie pas d’impôts dans l’Union européenne. Il faut être admis.', 'Non-EU, first application to Sciences Po, household not paying taxes in the EU. You must be admitted.'),
+      deadline: '2027-01-13',
+      deadlineNote: T('13 janvier 2027 : date pour les élèves d’un lycée étranger qui visent le bachelor (résultats en avril). La bourse se demande dans le dossier de candidature (partie « informations financières »). En master, elle se demande aussi dans le dossier, selon le calendrier du master.', '13 January 2027: deadline for students from a foreign high school applying to the bachelor (results in April). Ask for it in your application (financial information section). For master’s, ask in your application too, following the master’s calendar.'),
+      lien: 'https://www.sciencespo.fr/students/en/fees-funding/bursaries-financial-aid/emile-boutmy-scholarship/', source: 'sciencespo.fr', verifie: V, premium: false
+    },
+    {
+      id: 'b-nl-scholarship-2027', type: 'bourse', titre: 'NL Scholarship 2027-2028 — études aux Pays-Bas', organisation: 'Gouvernement néerlandais et établissements néerlandais',
+      pays: 'NL', domaine: 'business', domaines: ['business', 'tech', 'ingenierie', 'sciences', 'art', 'sante', 'droit'], niveau: 'licence', niveaux: ['licence', 'master'],
+      montant: T('5 000 € pour la première année d’études (ce n’est pas une bourse complète)', '€5,000 for the first year of studies (not a full scholarship)'),
+      eligibles: T('Nationalité hors Espace économique européen, candidature à une licence ou un master à temps plein dans un établissement participant, sans diplôme néerlandais.', 'Non-EEA nationality, applying to a full-time bachelor’s or master’s at a participating institution, no Dutch degree.'),
+      rolling: true, rollingNote: T('Candidatures 2027-2028 ouvertes. Chaque établissement fixe sa date limite : regarde le site de l’école que tu vises.', '2027-2028 applications are open. Each institution sets its own deadline: check the website of the school you want.'),
+      lien: 'https://www.studyinnl.org/finances/nl-scholarship', source: 'studyinnl.org', verifie: V, premium: false
+    },
+    {
+      id: 's-worldbank-internship-2027', type: 'stage', titre: 'Stage au Groupe de la Banque mondiale (printemps-été 2027)', organisation: 'Groupe de la Banque mondiale',
+      pays: 'US', ville: T('Washington et bureaux de la Banque mondiale dans le monde', 'Washington and World Bank offices worldwide'), domaine: 'business', domaines: ['business', 'sciences', 'tech', 'droit', 'comm', 'agri'], niveau: 'master', niveaux: ['licence', 'master', 'doctorat'],
+      montant: T('Stage rémunéré (salaire à l’heure), sauf stages « sans frais » demandés avec une lettre de l’université', 'Paid internship (hourly salary), except no-fee internships requested with a university letter'),
+      eligibles: T('Dernière année de licence, ou master ou doctorat en cours ; anglais courant ; être ressortissant d’un pays membre (le Sénégal en fait partie).', 'Final-year undergraduate, or current master’s or PhD student; fluent English; citizen of a member country.'),
+      ouverture: '2027-01-01', deadline: '2027-02-28',
+      deadlineNote: T('La Banque mondiale ouvre les candidatures de janvier à février (entretiens en mars, sélection en avril). Les dates exactes sont publiées à l’ouverture.', 'The World Bank takes applications from January to February (interviews in March, selection in April). Exact dates are published when it opens.'),
+      lien: 'https://www.worldbank.org/en/about/careers/programs-and-internships/internship', source: 'worldbank.org', verifie: V, premium: false
+    }
   ];
 
   window.LERNA_OPPS_VERIFIED = V;
